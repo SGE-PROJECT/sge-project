@@ -250,6 +250,8 @@ Todo debe ser escrito en Inglés, por recomendación de Laravel.
 Usaremos una forma de trabajar con GIT organizada y 
 fácil si leen con mucha atención lo siguiente:
 
+<img src="https://buddy.works/blog/images/gitflow.png" width="400">
+
 Existen dos ramas iniciales, **main** y **develop**, ustedes cuando clonen el proyecto, sus ramas deberán
 ser creadas a partir de **develop**. Esto se debe a que es la rama que recibirá todos los "merge" de sus ramas. Se vería algo como esto:
 
@@ -261,7 +263,7 @@ $ git checkout develop
 $ git fetch
 
 #Una vez en develop, es en este punto donde crearán sus ramas en las que trabajarán
-$ git checkout -b nombre_de_mi_rama
+$ git checkout -b nombre_de_mi_rama # Lo que sería tu feature/característica
 
 # Trabajarán su parte y una vez finalizado, harán el mismo procedimiento de siempre.
 $ git add .
@@ -281,6 +283,8 @@ $ git pull origin develop
 ```
 
 Y entonces ya tendrás los últimos cambios. Puedes volver a crearte otra rama para trabajar otra característica o actualizar la que ya tenías con los últimos cambios de develop.
+
+**Nota:** Los mensajes de los commits deben ser descriptivos, explicando el "por qué" y no el "cómo"
 
 ## Preguntas sobre el flujo de trabajo en GIT
 
@@ -320,3 +324,4 @@ Sí, no hay ningún problema.
 **¿Dónde llega la notificación de que ya aceptaron mis cambios?** 
 
 En la bandeja de Github, recomienda descargar la aplicación de celular para enterarse por la notificación.
+
