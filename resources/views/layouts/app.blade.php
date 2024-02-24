@@ -13,7 +13,6 @@
     <header>
     </header>
     <main>
-        @yield('sidebar')
         @yield('content')
     </main>
 
