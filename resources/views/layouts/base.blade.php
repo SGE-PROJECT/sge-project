@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +7,18 @@
     @vite('resources/js/app.js')
     @vite('resources/css/app.css')
     <title>SGE</title>
+    <title>@yield('title', 'SGE')</title>
 </head>
-
 <body>
     <header>
-
     </header>
     <main>
-        <h1 class="text-7xl text-red-500">Hola SGE</h1>
+        @yield('sidebar')
+        @yield('content')
     </main>
-    <footer>
 
+    <footer>
+        @yield('footer')
     </footer>
 </body>
-
 </html>
