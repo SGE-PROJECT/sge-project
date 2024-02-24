@@ -1,1 +1,1 @@
-@extends('layouts.dash')
+@extends('layouts.app')
