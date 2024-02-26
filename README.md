@@ -328,3 +328,4 @@ Sí, no hay ningún problema.
 
 En la bandeja de Github, recomienda descargar la aplicación de celular para enterarse por la notificación.
 
+juan puto
