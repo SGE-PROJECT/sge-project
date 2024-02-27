@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <link rel="preconnect" href="https://fonts.bunny.net">
+
+  <link rel="icon" href="{{ asset('images/logo_sge.svg') }}">
   <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -36,7 +37,7 @@
             <span class="nav-text text-sm">Dashboard</span>
           </a>
         </li>
-  
+
         <li class="mb-1 group relative z-2">
           <a href=""
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
@@ -60,7 +61,7 @@
             </li>
           </ul>
         </li>
-  
+
         <li class="mb-1 group relative z-2">
           <a href=""
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
@@ -71,23 +72,23 @@
           </a>
           <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li>
-  
+
               <a href="" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Proyectos</span></a>
             </li>
             <li class="">
-  
+
               <a href="" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-buildings mr-3 text-lg'></i><span class=" text-sm">Divisiones</span></a>
             </li>
             <li class="">
-  
+
               <a href="" class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class=' bx bx-book-open mr-3 text-lg'></i><span class="text-sm">Programas</span></a>
             </li>
           </ul>
         </li>
-  
+
         <!-- EMPRESAS Section -->
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
         <li class="mb-1 group">
@@ -97,7 +98,7 @@
             <span class="nav-text text-sm">Empresas Afiliadas</span>
           </a>
         </li>
-  
+
         <!-- RECURSOS Section -->
         <span class="text-gray-400 nav-text font-bold">RECURSOS</span>
         <li class="mb-1 group">
@@ -107,7 +108,7 @@
             <span class="nav-text text-sm">Libros</span>
           </a>
         </li>
-  
+
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
         <li class="mb-1 group">
@@ -117,7 +118,7 @@
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
           </a>
         </li>
-  
+
         <!-- PERSONAL Section -->
         <span class="text-gray-400 font-bold nav-text">PERSONAL</span>
         <li class="mb-1 group">
@@ -128,26 +129,26 @@
           </a>
         </li>
       </ul>
-  
+
       <button href="#"
         class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
         <i class='bx bx-log-out mr-3 text-xl'></i>
         <span class="nav-text text-sm">Cerrar sesion</span>
       </button>
-  
+
     </div>
     <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay" id="overlay"></div>
     <!-- end sidenav -->
-  
-  
+
+
     <main class="main-content w-full bg-gray-200 min-h-screen transition-all" id="main">
       <!-- navbar -->
       <div class="py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
-  
+
         <button type="button" class="text-lg text-white font-semibold sidebar-toggle">
           <i class=" bg-[#03A696] rounded-md p-2 ri-menu-line"></i>
         </button>
-  
+
         <ul class="ml-auto flex items-center ">
           <li class="mr-1 dropdown">
             <button type="button"
@@ -355,7 +356,7 @@
       </div>
       @yield('contenido')
     </main>
-  
+
   </section>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
