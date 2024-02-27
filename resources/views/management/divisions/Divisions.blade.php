@@ -1,8 +1,6 @@
-@extends('dashboard.panel')
+@extends('layouts.app')
 
-@section('titulo')
-Divisiones
-@endsection
+@section('titulo', 'Divisiones')
 
 @section('contenido')
 <div class="contenedor" style="padding: 20px; text-transform: uppercase;">
