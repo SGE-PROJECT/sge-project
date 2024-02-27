@@ -279,6 +279,9 @@ ya se fusionó con develop, recuerda actualizar
 la rama de forma local, de la siguiente forma:
 
 ```bash
+# Primero hay que moverse a develop
+$ git checkout develop
+
 $ git pull origin develop
 ```
 

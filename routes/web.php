@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\divisions\DivisionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('layouts.app');
 });
+
+Route::get('/divisiones', [DivisionController::class, 'index']);
