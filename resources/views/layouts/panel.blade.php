@@ -20,8 +20,8 @@
 
 <body class="text-gray-800 font-inter">
   <!--sidenav-->
-  <section class="flex">
-    <div class="relative sidebar sidebar-expanded fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
+  <section class="flex ">
+    <div class="relative sidebar sidebar-expanded fixed left-0 top-0 h-[100%] min-h-[500px] bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
         <a href="#" class="flex justify-center items-center border-b border-b-gray-800">
           <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
@@ -141,7 +141,7 @@
     <!-- end sidenav -->
 
 
-    <main class="main-content w-full bg-gray-200 min-h-screen transition-all" id="main">
+    <main class="main-content w-full bg-gray-200 h-screen min-h-[500px] overflow-y-scroll transition-all" id="main">
       <!-- navbar -->
       <div class="py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
 
@@ -354,7 +354,9 @@
           </li>
         </ul>
       </div>
-      @yield('contenido')
+      <main class="">
+        @yield('contenido')
+      </main>
     </main>
 
   </section>
