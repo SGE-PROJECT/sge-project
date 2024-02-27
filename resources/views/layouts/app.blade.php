@@ -23,8 +23,8 @@
     <div class="relative sidebar sidebar-expanded fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
         <a href="#" class="flex justify-center items-center border-b border-b-gray-800">
-          <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
-          <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
+          <img class="w-[60%] relative z-20" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
+          <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2 relative z-20">UT</h2>
         </a>
       </div>
       <ul class="mt-4">
