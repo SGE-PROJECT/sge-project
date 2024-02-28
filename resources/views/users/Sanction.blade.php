@@ -14,7 +14,7 @@
         <div class="relative overflow-x-auto shadow-md sm:rounded-s-3xl pt-4">
             <table class="w-fit h-fit text-sm text-left rtl:text-right text-gray-900 dark:text-gray-900">
                 <thead class="text-xs text-white uppercase bg-[#03A696] dark:bg-[#03A696] dark:text-white w-fit h-fit">
-                    <tr>
+                    <tr class="w-fit h-fit">
                         <th scope="col" class="px-6 py-3">
                             Grupo
                         </th>
@@ -47,7 +47,7 @@
                             Garcia
                         </td>
                         <td class="px-6 py-4 text-right">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Sancionar</a>
                         </td>
                     </tr>
                     <!-- Repetir para cada fila de datos -->
@@ -56,4 +56,6 @@
         </div>
     </div>
 </div>
+
+@extends('users.Plantilla')
 @endsection
