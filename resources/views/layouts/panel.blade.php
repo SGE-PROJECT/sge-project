@@ -12,10 +12,10 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   @vite('resources/css/app.css')
+  @vite('resources/js/sidebar.js')
   @vite('resources/css/management/divisions/divisions.css')
 
-  <title>@yield('titulo')</title>
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  <title>@yield('titulo') </title>
 </head>
 
 <body class="text-gray-800 font-inter">
@@ -361,7 +361,6 @@
 
   </section>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
-  <script src="{{ asset('scripts/sidebar.js') }}"></script>
 
 </body>
 

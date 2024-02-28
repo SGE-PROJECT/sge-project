@@ -68,26 +68,9 @@ function handleResize() {
     }
 }
 
-if (window.innerWidth <= 767) {
-    window.addEventListener('resize', handleResize);
-}
-
 handleResize();
 
-function saveSidebarState() {
-    localStorage.setItem('sidebarState', sidebar.classList.contains('sidebar-expanded'));
-}
-
-function restoreSidebarState() {
-    const isExpanded = localStorage.getItem('sidebarState') === 'true';
-    if (isExpanded) {
-        openSidebar();
-    } else {
-        closeSidebar();
-    }
-}
-
-restoreSidebarState();
+window.addEventListener('resize', handleResize);
 
 document.querySelectorAll('.sidebar-dropdown-toggle').forEach(function (item) {
     item.addEventListener('click', function (e) {
@@ -205,51 +188,6 @@ document.querySelectorAll('[data-tab]').forEach(function (item) {
     })
 })
 
-new Chart(document.getElementById('order-chart'), {
-    type: 'line',
-    data: {
-        labels: generateNDays(7),
-        datasets: [
-            {
-                label: 'Active',
-                data: generateRandomData(7),
-                borderWidth: 1,
-                fill: true,
-                pointBackgroundColor: 'rgb(59, 130, 246)',
-                borderColor: 'rgb(59, 130, 246)',
-                backgroundColor: 'rgb(59 130 246 / .05)',
-                tension: .2
-            },
-            {
-                label: 'Completed',
-                data: generateRandomData(7),
-                borderWidth: 1,
-                fill: true,
-                pointBackgroundColor: 'rgb(16, 185, 129)',
-                borderColor: 'rgb(16, 185, 129)',
-                backgroundColor: 'rgb(16 185 129 / .05)',
-                tension: .2
-            },
-            {
-                label: 'Canceled',
-                data: generateRandomData(7),
-                borderWidth: 1,
-                fill: true,
-                pointBackgroundColor: 'rgb(244, 63, 94)',
-                borderColor: 'rgb(244, 63, 94)',
-                backgroundColor: 'rgb(244 63 94 / .05)',
-                tension: .2
-            },
-        ]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
 
 function generateNDays(n) {
     const data = []
@@ -274,10 +212,12 @@ function generateRandomData(n) {
 
 const fullscreenButton = document.getElementById('fullscreen-button');
 fullscreenButton.addEventListener('click', toggleFullscreen);
+
 function toggleFullscreen() {
+    console.log("se hizo clic");
     if (document.fullscreenElement) {
-        document.exitFullscreen();
+        document.exitFullscreen().catch(err => console.error(err));
     } else {
-        document.documentElement.requestFullscreen();
+        document.documentElement.requestFullscreen().catch(err => console.error(err));
     }
 }
