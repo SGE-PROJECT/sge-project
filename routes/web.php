@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
-Route::get('/divisiones', [DivisionController::class, 'index']);
+Route::resource('divisiones', DivisionController::class);
