@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
-Route::get('/divisiones', [DivisionController::class, 'index']);
+Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
 
 

@@ -15,13 +15,15 @@
   @vite('resources/js/sidebar.js')
   @vite('resources/css/management/divisions/divisions.css')
 
-  <title>@yield('titulo') </title>
+
+  <title>@yield('titulo')</title>
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body class="text-gray-800 font-inter">
   <!--sidenav-->
-  <section class="flex ">
-    <div class="relative sidebar sidebar-expanded fixed left-0 top-0 h-[100%] min-h-[500px] bg-[#293846] p-4 z-50 transition-transform">
+  <section class="flex">
+    <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
         <a href="#" class="flex justify-center items-center border-b border-b-gray-800">
           <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
@@ -78,7 +80,7 @@
             </li>
             <li class="">
 
-              <a href="" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="/divisiones" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-buildings mr-3 text-lg'></i><span class=" text-sm">Divisiones</span></a>
             </li>
             <li class="">
@@ -361,6 +363,8 @@
 
   </section>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="{{ asset('scripts/sidebar.js') }}"></script>
+  @yield('scripts')
 
 </body>
 
