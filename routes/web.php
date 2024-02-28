@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\divisions\DivisionController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\users\ManagementUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,3 +19,6 @@ Route::get('/', function () {
 });
 
 Route::get('/divisiones', [DivisionController::class, 'index']);
+Route::get('/sanciones', [ManagementUserController::class, 'index']);
+
+
