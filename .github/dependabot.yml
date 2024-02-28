@@ -1,0 +1,7 @@
+version: 2
+updates:
+  - package-ecosystem: "npm" # Ver aquí para otros ecosistemas soportados: https://docs.github.com/en/code-security/supply-chain-security/about-the-dependabot-yml-file#about-the-dependabotyml-file
+    directory: "/" # Ubicación del archivo de manifiesto del paquete, "/" para la raíz del repositorio
+    schedule:
+      interval: "daily" # "daily", "weekly", "monthly"
+    open-pull-requests-limit: 10
