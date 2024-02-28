@@ -1,8 +1,6 @@
 @extends('layouts.panel')
 
-@section('titulo')
-Divisiones
-@endsection
+@section('titulo', 'Divisiones')
 
 @section('contenido')
 <div class="contenedor">

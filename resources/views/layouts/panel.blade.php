@@ -142,7 +142,7 @@
     <!-- end sidenav -->
 
 
-    <main class="main-content w-full bg-gray-200 min-h-screen transition-all" id="main">
+    <main class="main-content w-full bg-gray-200 h-screen min-h-[500px] overflow-y-scroll transition-all" id="main">
       <!-- navbar -->
       <div class="py-2 px-6 bg-[#f8f4f3] flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
 
@@ -355,7 +355,9 @@
           </li>
         </ul>
       </div>
-      @yield('contenido')
+      <main class="">
+        @yield('contenido')
+      </main>
     </main>
 
   </section>

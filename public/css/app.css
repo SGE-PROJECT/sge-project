@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+body{
+  &&::-webkit-scrollbar{
+    display: none;
+  }
+}
+
 
 /* Estilo para el elemento de lista cuando está seleccionado */
 .group.selected > a {
@@ -87,7 +93,6 @@
 /* Estilo base para el contenido principal */
 .main-content {
     width: 100%; /* Calcula el ancho dinámicamente */
-
 }
 @media (max-width: 767px) {
   .sidebar-expanded {
