@@ -214,7 +214,6 @@ const fullscreenButton = document.getElementById('fullscreen-button');
 fullscreenButton.addEventListener('click', toggleFullscreen);
 
 function toggleFullscreen() {
-    console.log("se hizo clic");
     if (document.fullscreenElement) {
         document.exitFullscreen().catch(err => console.error(err));
     } else {
