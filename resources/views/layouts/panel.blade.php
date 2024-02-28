@@ -12,6 +12,7 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   @vite('resources/css/app.css')
+  @vite('resources/js/sidebar.js')
   @vite('resources/css/management/divisions/divisions.css')
 
 
