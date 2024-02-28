@@ -13,6 +13,8 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   @vite('resources/css/app.css')
   @vite('resources/css/management/divisions/divisions.css')
+  @vite('resources/css/books-notifications/books/books.css')
+
 
   <title>@yield('titulo')</title>
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">

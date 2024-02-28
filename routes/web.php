@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\divisions\DivisionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\books\BooksController;
+use App\Http\Controllers\divisions\DivisionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,13 @@ Route::get('/', function () {
 });
 
 Route::get('/divisiones', [DivisionController::class, 'index']);
+
+Route::resource('books', BooksController::class)->names([
+    'index' => 'books.index',
+    'create' => 'books.create',
+    'store' => 'books.store',
+    'show' => 'books.show',
+    'edit' => 'books.edit',
+    'update' => 'books.update',
+    'destroy' => 'books.destroy',
+]);

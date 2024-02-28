@@ -1,0 +1,110 @@
+.container-books {
+  padding: 40px;
+  border: black dotted;
+  height: 490px;
+  width: 1228px;
+  padding: 100px
+}
+
+.container-card-book {
+  transform: scale(0.8);
+}
+
+.card-book {
+  width: 190px;
+  height: 254px;
+  background: lightgrey;
+  position: relative;
+  transform: skewY(-10deg);
+  border: 5px solid #293846;
+  box-sizing: border-box;
+  transition: all 0.3s;
+}
+
+.card-book img {
+  width: 180px;
+  height: 224px;
+}
+
+.card-book::before {
+  content: '';
+  width: 10px;
+  height: 254px;
+  background: #293846;
+  position: absolute;
+  top: -5px;
+  left: -14.7px;
+  transform-origin: right;
+  transform: skewY(45deg);
+  border: none;
+  transition: all 0.5s;
+}
+
+.card-book::after {
+  content: '';
+  height: 10px;
+  width: 190px;
+  background: #293846;
+  position: absolute;
+  top: -14.7px;
+  left: -5px;
+  transform-origin: bottom;
+  transform: skewX(45deg);
+  border: none;
+  transition: all 0.5s;
+}
+
+.card-book:hover {
+  transform: skewY(0deg);
+}
+
+.card-book:hover::before {
+  width: 0px;
+  height: 249px;
+  left: 0;
+  top: 0.1px;
+}
+
+.card-book:hover::after {
+  width: 184px;
+  height: 0px;
+  left: 0.1px;
+  top: 0;
+}
+
+.card__content-book {
+  padding: 10px;
+}
+
+.button-books {
+  margin-top: 30px;
+  height: 40px;
+  width: 190px;
+  font-weight: bold;
+  color: white;
+  background-color: #323232;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.button-books:hover {
+  background-color: #212020;
+}
+
+.button-books:active {
+  transform: scale(0.9);
+}
+
+.ctn-bk {
+  border: black dotted;
+  padding-left: 30px;
+  max-width: 95%;
+  max-height: 80vh;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.ctn-bk::-webkit-scrollbar {
+  width: 0;
+}
