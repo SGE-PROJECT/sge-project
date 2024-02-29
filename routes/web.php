@@ -24,6 +24,8 @@ Route::get('/', function () {
 Route::resource('/companies', CompaniesController::class);
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
-Route::resource('form', ProjectFormController::class);
 
-
+Route::controller(ProjectFormController::class)->group(function (){
+    Route::get('/dashboardProjects','index');
+    Route::get('form', 'create');
+});
