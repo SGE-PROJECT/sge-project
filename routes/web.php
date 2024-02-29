@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Companies\CompaniesController;
 use App\Http\Controllers\divisions\DivisionController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,6 @@ Route::get('/', function () {
 });
 
 Route::get('/divisiones', [DivisionController::class, 'index']);
+Route::get('/companies', [CompaniesController::class, 'index']);
+
+
