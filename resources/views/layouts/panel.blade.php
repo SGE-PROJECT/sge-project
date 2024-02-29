@@ -14,6 +14,8 @@
   @vite('resources/css/app.css')
   @vite('resources/js/sidebar.js')
   @vite('resources/css/management/divisions/divisions.css')
+  @vite('resources/css/books-notifications/books/books.css')
+
 
 
   <title>@yield('titulo')</title>
