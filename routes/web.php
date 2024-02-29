@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\books\BooksController;
 use App\Http\Controllers\divisions\DivisionController;
-
+use App\Http\Controllers\users\ManagementUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,17 +16,11 @@ use App\Http\Controllers\divisions\DivisionController;
 */
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('layouts.panel');
 });
 
-Route::get('/divisiones', [DivisionController::class, 'index']);
+Route::resource('divisiones', DivisionController::class);
+Route::get('/sanciones', [ManagementUserController::class, 'index']);
 
-Route::resource('books', BooksController::class)->names([
-    'index' => 'books.index',
-    'create' => 'books.create',
-    'store' => 'books.store',
-    'show' => 'books.show',
-    'edit' => 'books.edit',
-    'update' => 'books.update',
-    'destroy' => 'books.destroy',
-]);
+Route::resource('books', BooksController::class);
+

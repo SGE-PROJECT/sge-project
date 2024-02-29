@@ -1,57 +1,90 @@
-// start: Sidebar
 const sidebarToggle = document.querySelector('.sidebar-toggle')
 const sidebarOverlay = document.getElementById('overlay')
 const sidebar = document.querySelector('.sidebar');
 const mainContent = document.getElementById('main');
 const groups = document.querySelectorAll('.group');
+const texts = document.querySelectorAll('.nav-text');
+const image = document.getElementById('imagen');
+const ut = document.getElementById('ut');
+var cont = true;
+
+function closeSidebar() {
+    sidebarOverlay.classList.add('hidden');
+    sidebar.classList.add('sidebar-contracted');
+    sidebar.classList.remove('sidebar-expanded');
+    setTimeout(function () {
+        mainContent.classList.remove('main-content-expanded');
+        mainContent.classList.add('main-content-contracted');
+        if (sidebar.classList.contains('sidebar-contracted')) {
+            groups.forEach(group => {
+                group.classList.remove('selected');
+                let submenu = group.querySelector('.submenu');
+                let submenu2 = group.querySelector('.ri-arrow-right-s-line');
+                if (submenu) {
+                    submenu2.classList.add('hidden');
+                    submenu.classList.add('hidden');
+                }
+            });
+        }
+        image.classList.add('hidden');
+        ut.classList.remove('hidden');
+    }, 100);
+
+}
+
+function openSidebar() {
+    sidebar.classList.add('sidebar-expanded');
+    sidebar.classList.remove('sidebar-contracted');
+    mainContent.classList.add('main-content-expanded');
+    mainContent.classList.remove('main-content-contracted');
+    sidebarOverlay.classList.remove('hidden');
+    image.classList.remove('hidden');
+    ut.classList.add('hidden');
+
+}
+
+function toggleSidebar() {
+    if (sidebar.classList.contains('sidebar-expanded')) {
+        closeSidebar();
+    } else {
+        openSidebar();
+    }
+}
 
 sidebarToggle.addEventListener('click', function () {
-    // Alterna las clases que controlan el estado expandido y contraído del sidebar y del contenido principal.
-    sidebar.classList.toggle('sidebar-expanded');
-    sidebar.classList.toggle('sidebar-contracted');
-
-    mainContent.classList.toggle('main-content-expanded');
-    mainContent.classList.toggle('main-content-contracted');
-
-    // Cierra los submenús y quita la selección si el sidebar se está contrayendo
-    if (sidebar.classList.contains('sidebar-contracted')) {
-        groups.forEach(group => {
-            group.classList.remove('selected'); // Remueve la clase 'selected'
-            let submenu = group.querySelector('.submenu');
-            let submenu2 = group.querySelector('.ri-arrow-right-s-line');
-
-            if (submenu) {
-                submenu2.classList.add('ocultar');
-                submenu.classList.add('ocultar'); // Asegúrate de que los submenús estén ocultos
-            }
-        });
-    }
+    toggleSidebar();
 });
+
 sidebarOverlay.addEventListener('click', function (e) {
-    e.preventDefault()
-    mainContent.classList.toggle('active')
-    sidebarOverlay.classList.add('hidden')
-})
+    e.preventDefault();
+    closeSidebar();
+});
 
+function handleResize() {
+    if (window.innerWidth >= 768) {
+        openSidebar();
+    } else {
+        closeSidebar();
+    }
+}
 
-// Toggle submenu visibility based on sidebar state
+handleResize();
+
+window.addEventListener('resize', handleResize);
+
 document.querySelectorAll('.sidebar-dropdown-toggle').forEach(function (item) {
     item.addEventListener('click', function (e) {
         e.preventDefault();
         const parent = item.closest('.group');
-
         if (sidebar.classList.contains('sidebar-expanded')) {
-            // When sidebar is expanded, toggle 'selected' class to show dropdown
             parent.classList.toggle('selected');
         } else {
-            // When sidebar is contracted, ensure that 'selected' class is removed to not interfere with hover behavior
             parent.classList.remove('selected');
         }
 
     });
 });
 
-// Disable hover effect for submenu when sidebar is expanded
 sidebarToggle.addEventListener('click', function () {
     if (sidebar.classList.contains('sidebar-expanded')) {
         document.querySelectorAll('.group').forEach(function (group) {
@@ -64,11 +97,6 @@ sidebarToggle.addEventListener('click', function () {
     }
 });
 
-// end: Sidebar
-
-
-
-// start: Popper
 const popperInstance = {}
 document.querySelectorAll('.dropdown').forEach(function (item, index) {
     const popperId = 'popper-' + index
@@ -92,7 +120,8 @@ document.querySelectorAll('.dropdown').forEach(function (item, index) {
         ],
         placement: 'bottom-end'
     });
-})
+});
+
 document.addEventListener('click', function (e) {
     const toggle = e.target.closest('.dropdown-toggle')
     const menu = e.target.closest('.dropdown-menu')
@@ -117,6 +146,7 @@ function hideDropdown() {
         item.classList.add('hidden')
     })
 }
+
 function showPopper(popperId) {
     popperInstance[popperId].setOptions(function (options) {
         return {
@@ -140,11 +170,7 @@ function hidePopper(popperId) {
         }
     });
 }
-// end: Popper
 
-
-
-// start: Tab
 document.querySelectorAll('[data-tab]').forEach(function (item) {
     item.addEventListener('click', function (e) {
         e.preventDefault()
@@ -161,56 +187,7 @@ document.querySelectorAll('[data-tab]').forEach(function (item) {
         target.classList.remove('hidden')
     })
 })
-// end: Tab
 
-
-
-// start: Chart
-new Chart(document.getElementById('order-chart'), {
-    type: 'line',
-    data: {
-        labels: generateNDays(7),
-        datasets: [
-            {
-                label: 'Active',
-                data: generateRandomData(7),
-                borderWidth: 1,
-                fill: true,
-                pointBackgroundColor: 'rgb(59, 130, 246)',
-                borderColor: 'rgb(59, 130, 246)',
-                backgroundColor: 'rgb(59 130 246 / .05)',
-                tension: .2
-            },
-            {
-                label: 'Completed',
-                data: generateRandomData(7),
-                borderWidth: 1,
-                fill: true,
-                pointBackgroundColor: 'rgb(16, 185, 129)',
-                borderColor: 'rgb(16, 185, 129)',
-                backgroundColor: 'rgb(16 185 129 / .05)',
-                tension: .2
-            },
-            {
-                label: 'Canceled',
-                data: generateRandomData(7),
-                borderWidth: 1,
-                fill: true,
-                pointBackgroundColor: 'rgb(244, 63, 94)',
-                borderColor: 'rgb(244, 63, 94)',
-                backgroundColor: 'rgb(244 63 94 / .05)',
-                tension: .2
-            },
-        ]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
 
 function generateNDays(n) {
     const data = []
@@ -224,6 +201,7 @@ function generateNDays(n) {
     }
     return data
 }
+
 function generateRandomData(n) {
     const data = []
     for (let i = 0; i < n; i++) {
@@ -231,4 +209,14 @@ function generateRandomData(n) {
     }
     return data
 }
-// end: Chart
+
+const fullscreenButton = document.getElementById('fullscreen-button');
+fullscreenButton.addEventListener('click', toggleFullscreen);
+
+function toggleFullscreen() {
+    if (document.fullscreenElement) {
+        document.exitFullscreen().catch(err => console.error(err));
+    } else {
+        document.documentElement.requestFullscreen().catch(err => console.error(err));
+    }
+}
