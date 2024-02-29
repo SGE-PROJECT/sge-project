@@ -4,14 +4,15 @@ namespace App\Http\Controllers\users;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class ManagementUserController extends Controller
+
+class ManagementConfiguration extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('users.Sanction');
+        return view('users.Configuration');
     }
 
     /**
