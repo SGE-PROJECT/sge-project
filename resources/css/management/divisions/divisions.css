@@ -1,4 +1,34 @@
-.card:hover {
-    transform: scale(1.05);
+.card_divisions{
     transition: transform 0.3s ease;
+    border-radius: 10px;
+}
+
+.card_divisions:hover {
+    transform: scale(1.05);
+}
+
+.text-font_divisions {
+    font-family: url('/public/fonts/Poppins-Bold.ttf');
+    font-size: 25px;
+}
+
+.contenedor_divisions{
+    padding: 30px;
+    text-transform: uppercase;
+    border: dotted black
+}
+
+.header_divisions{
+    border: dotted black;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 65px 5px 10px;
+}
+
+.search_divisions {
+    border-radius: 10px;
+}
+
+.search_divisions input {
+    height: 100px;
 }

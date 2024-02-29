@@ -1,8 +1,13 @@
 <?php
 
-use App\Http\Controllers\divisions\DivisionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Companies\CompaniesController;
+use App\Http\Controllers\divisions\DivisionController;
 use App\Http\Controllers\users\ManagementUserController;
+use App\Http\Controllers\projects\ProjectFormController;
+use App\Http\Controllers\books\BooksController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,10 +20,14 @@ use App\Http\Controllers\users\ManagementUserController;
 */
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('layouts.panel');
 });
 
-Route::get('/divisiones', [DivisionController::class, 'index']);
+Route::resource('/companies', CompaniesController::class);
+Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
+Route::resource('form', ProjectFormController::class);
+Route::resource('books', BooksController::class);
+
 
 
