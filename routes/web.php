@@ -19,3 +19,11 @@ Route::get('/', function () {
 });
 
 Route::get('/divisiones', [DivisionController::class, 'index']);
+
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
+Route::get('/RecoverPassword', function () {
+    return view('auth.recoverPassword');
+});
