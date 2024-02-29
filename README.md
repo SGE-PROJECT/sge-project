@@ -170,7 +170,7 @@ También, si crearán vistas que extienden de algún layout, usar carpetas para 
 
 [Si quieres saber más acerca de los layouts, clic aquí](https://laravel.com/docs/10.x/blade#layouts-using-components)
 
-## Uso de controladores, modelos, requests, etc
+## Uso de controladores, modelos, requests, etc.
 
 Absolutamente todo debe estar estructurado en subcarpetas, dependiendo de la sección en la que estés trabajando, ejemplo:
 
