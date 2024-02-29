@@ -1,13 +1,22 @@
+.title-books {
+  width: 100%;
+  /* border: black dotted; */
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+}
+
 .container-books {
   padding: 40px;
-  border: black dotted;
-  height: 490px;
-  width: 1228px;
+  height: 100%;
+  width: 100%;
   padding: 100px
 }
 
 .container-card-book {
   transform: scale(0.8);
+  /* border: #212020 dotted; */
+  padding-left: 1rem;
 }
 
 .card-book {
@@ -96,7 +105,7 @@
 }
 
 .ctn-bk {
-  border: black dotted;
+  /* border: black dotted; */
   padding-left: 30px;
   max-width: 95%;
   max-height: 80vh;
@@ -107,4 +116,34 @@
 
 .ctn-bk::-webkit-scrollbar {
   width: 0;
+}
+
+.slide-out-fwd-center {
+	-webkit-animation: slide-out-fwd-center 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	        animation: slide-out-fwd-center 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+
+@-webkit-keyframes slide-out-fwd-center {
+  0% {
+    -webkit-transform: translateZ(1);
+            transform: translateZ(1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(600px);
+            transform: translateZ(600px);
+    opacity: 0;
+  }
+}
+@keyframes slide-out-fwd-center {
+  0% {
+    -webkit-transform: translateZ(1);
+            transform: translateZ(1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateZ(600px);
+            transform: translateZ(600px);
+    opacity: 0;
+  }
 }
