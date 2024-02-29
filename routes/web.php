@@ -18,4 +18,7 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
+Route::get('/proyectos', function () {
+    return view('management.project');
+});
 Route::get('/divisiones', [DivisionController::class, 'index']);
