@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\divisions\DivisionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\users\ManagementUserController;
+use App\Http\Controllers\projects\ProjectFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,8 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
-Route::get('/proyectos', function () {
-    return view('management.project');
-});
-Route::get('/divisiones', [DivisionController::class, 'index']);
+Route::resource('divisiones', DivisionController::class);
+Route::get('/sanciones', [ManagementUserController::class, 'index']);
+Route::resource('form', ProjectFormController::class);
+
+

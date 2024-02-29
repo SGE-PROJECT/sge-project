@@ -1,4 +1,22 @@
+.card {
+    transition: transform 0.3s ease;
+    border-radius: 10px;
+}
+
 .card:hover {
     transform: scale(1.05);
-    transition: transform 0.3s ease;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.text-font {
+    font-family: url('/public/fonts/Poppins-Bold.ttf');
+    font-size: 25px;
+}
+
+.contenedor{
+    padding: 30px;
+    text-transform: uppercase;
 }
