@@ -23,6 +23,20 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
+
+
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
+Route::get('/RecoverPassword', function () {
+    return view('auth.recoverPassword');
+});
+Route::get('/asesorias', function () {
+    return view('consultancy.Dates');
+});
+
+Route::get('/divisiones', [DivisionController::class, 'index']);
 Route::resource('/companies', CompaniesController::class);
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);

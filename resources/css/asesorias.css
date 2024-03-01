@@ -1,0 +1,453 @@
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+@font-face {
+    font-family: 'helvetica';
+    src: url('../fonts/Helvetica.ttf') format('ttf');
+}
+@font-face {
+    font-family: 'roboto';
+    src: url('../fonts/Roboto.ttf') format('ttf');
+}
+@font-face {
+    font-family: 'lato';
+    src: url('../fonts/Lato.ttf') format('ttf');
+}
+.vista_asesorias{
+    display: flex;
+    flex-wrap: wrap;
+    min-height: calc(100vh - 68px);
+    justify-content: center;
+}
+.vista_asesorias > * {
+    align-self: flex-end;
+}
+
+/* Anula align-items: flex-end para el último elemento hijo */
+.vista_asesorias > *:last-child {
+    align-self: auto;
+}
+#calendar, #dia2{
+    width: 100%;
+    overflow-x: scroll;
+    padding: 10px 20px 10px 20px;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
+}
+#calendar table, #dia2 table {
+    width: 100%;
+    border-collapse: collapse;
+    animation: aparecer2 .3s ease;
+}
+
+#calendar th,
+#calendar td{
+    border: 1px solid #888;
+    padding: 5px;
+    width: 14.2%;
+    text-align: center;
+}
+#calendar thead td, #dia2 thead td{
+    background-color: #293846;
+    color: #fff;
+    font-weight: bold;
+}
+#calendar table{
+    border-radius: 10px;
+}
+#calendar table thead tr:first-child th:first-child,
+#calendar table thead tr:first-child td:first-child,
+#dia2 table thead tr:first-child th:first-child,
+#dia2 table thead tr:first-child td:first-child {
+    border-top-left-radius: 10px;
+}
+
+/* Esquina superior derecha */
+#calendar table thead tr:first-child th:last-child, 
+#calendar table thead tr:first-child td:last-child,
+#dia table thead tr:first-child th:last-child, 
+#dia table thead tr:first-child td:last-child {
+    border-top-right-radius: 10px;
+}
+#calendar table tbody tr:last-child th:first-child,
+#calendar table tbody tr:last-child td:first-child,
+#dia table tbody tr:last-child th:first-child,
+#dia table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+/* Esquina superior derecha */
+#calendar table tbody tr:last-child th:last-child, 
+#calendar table tbody tr:last-child td:last-child,
+#dia table tbody tr:last-child th:last-child, 
+#dia table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+#dia2 th, #dia2 td{
+    width: fit-content;
+    border: 1px solid #888;
+    padding: 5px 10px;
+    height: fit-content;
+    text-align: center;
+}
+#calendar tbody td{
+    height: 70px;
+    text-align: left;
+    vertical-align: top;
+    background-color: #fff;
+    transform: all 1s;
+}
+
+#calendar tbody td:hover, #dia2 tbody td:hover {
+    cursor: cell;
+    background-color: #f5f5f5;
+}
+.verde{
+    background-color: #efe !important;
+}
+.calendar-container {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+.select-mes{
+    outline: none;
+    width: fit-content;
+    text-align: center;
+    font-weight: 600;
+    background-color: #fff0;
+}
+.select-mes option{
+    font-size: 16px;
+}
+
+#dia{
+    min-width: 400px;
+}
+.info{
+    width: 100%;
+    text-align: left;
+}
+
+#calendar table{
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+    animation: aparecer2 .3s ease;
+}
+.ocultar {
+    display: none;
+}
+
+.modal-background {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Estilo para el contenido del modal */
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 300px;
+    border-radius: 10px;
+    width: 80%;
+    position: relative;
+}
+.modal-content p{
+    width: 100%;
+    font-size: 21px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.modal-content select{
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid #888;
+    border-radius: 5px;
+    padding: 5px 0;
+}
+
+/* Botón para cerrar el modal */
+.close {
+    color: #aaa;
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+tbody th{
+    font-weight: normal;
+}
+.etiquetas{
+    display: flex;
+    width: 100%;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+.etiqueta{
+    width: 100%;
+    padding: 5px 10px;
+    position: relative;
+    display: flex;
+    align-items:start;
+    gap: 10px;
+    height: fit-content;
+}
+.etiquetas2{
+    display: flex;
+    padding: 5px 10px;
+    justify-content: left;
+    gap: 5px;
+    flex-wrap: wrap;
+    max-width: 150px;
+}
+.etiqueta2{
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items:start;
+    gap: 10px;
+    width: fit-content;
+    height: fit-content;
+}
+.img_estudiante{
+    min-width: 30px;
+    max-width: 30px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+.nombre{
+    position: absolute;
+    z-index: 10;
+    left: 20px;
+    top: -5px;
+    background-color: #293846;
+    border-radius: 5px;
+    padding: 0px 5px;
+    display: none;
+    color: #fff;
+    animation: aparecer .3s;
+}
+.img_estudiante:hover + .nombre{
+    display: block;
+}
+.nombre:hover{display: block;}
+@keyframes aparecer{
+    from{
+        transform: scale(.8);
+        opacity: 0.5;
+    }
+    to{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes aparecer2{
+    0%{
+        transform: scale(.85);
+    }
+}
+#calendar table, #dia table {
+    border-collapse: collapse; /* Combina los bordes de las celdas adyacentes */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+}
+
+#calendar th,
+#calendar td,
+#dia2 th,
+#dia2 td { /* Borde transparente para todas las celdas */
+    border: none;
+    border-right: 1px solid #888;
+    padding: 5px;
+    width: 14.2%;
+    text-align: center;
+}
+#dia2 th{
+    max-width:100px !important;
+}
+#calendar tr td:last-child, #dia tr th:last-child, #dia tr td:last-child{
+    border-right: none;
+}
+#calendar tr,#dia2 tr{
+    border-bottom: 1px solid #888;
+}
+#calendar tr:last-child, #dia2 tr:last-child{
+    border-bottom: none;
+}
+
+#calendar thead td, #dia2 thead th{
+    background-color: #293846;
+    color: #fff;
+    font-weight: bold;
+}
+
+#calendar table, #dia2 table {
+    border-radius: 10px;
+}
+.desactivado{
+    background-color: #eee !important;
+}
+.desactivado:hover{
+    background-color: #eee !important;
+    cursor:not-allowed !important;
+}
+
+.horas{
+    width: auto !important; /* Eliminar el ancho fijo */
+    background-color: #fff;
+}
+.horas:hover{
+    cursor: auto !important;
+}
+#dia td{
+    background-color: #fff;
+    width: 75%;
+}
+.amarillo{
+    background-color: rgb(246, 246, 182);
+}
+.morado{
+    background-color: rgb(221, 176, 221);
+}
+.azul{
+    background-color: #bfdbf6;
+}
+.rosa{
+    background-color: rgb(248, 214, 219);
+}
+#dia2 td{
+    padding: 0;
+}
+.asesorias-formulario{
+    flex-grow: 1;
+    margin: 20px 20px 30px 20px; 
+    min-width: 200px;
+    padding: 1.5rem 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    height: fit-content;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+.asesorias-formulario *{
+    width: 100%;
+    margin-bottom: 5px;
+}
+.asesorias-formulario h4{
+    color: #293846;
+    font-weight: 500;
+    font-size: 25px;
+    text-align: center;
+    text-wrap:balance;
+    margin-bottom: 20px;
+}
+.asesorias-formulario p{
+    font-size: 18px;
+    font-weight:normal;
+    color: #293846;
+}
+.asesorias-formulario button{
+    background-color: #293846;
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.asesorias-formulario input{
+    color: #293846;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    padding: 0px 5px;
+    outline: 0.3px solid #888;
+}
+.asesorias-formulario input[type=text]{
+    margin-bottom: 20px;
+}
+#eventosContainer{
+    margin:20px;
+    flex-grow: 1;
+    border-radius: 20px;
+    height: fit-content;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+#eventosContainer span{
+    width: 100%;
+    display: flex;
+    overflow: scroll;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
+}
+#dia{
+    flex-grow: 1;
+}
+#eventosContainer h2{
+    background-color: #293846;
+    border-radius:10px 10px 0 0;
+    width: 100%;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 0px;
+    text-align: center;
+}
+#eventosContainer table{
+    background-color: #EEE8E8;
+    width: 100%;
+}
+#eventosContainer th{
+    padding: 5px 10px;
+    color: #293846;
+    border: 1px solid #EEE8E8;
+}
+#eventosContainer th div{
+    padding: 5px 0;
+    color: #293846;
+    border-bottom: solid 1px #293846;
+}
+#eventosContainer td{
+    padding: 7px 10px;
+    min-width: 100px;
+    color: #000;
+    text-align: center;
+}
+.limitar{
+    text-wrap:balance;
+    max-width: 150px !important;
+}
+#tablaEventos{
+    border-radius: 0px 0px 10px 10px;
+}
+.nf-cod-trash{
+    font-size: 20px;
+}
+#error{
+    display: none;
+    border:2px solid #e00;
+    border-radius: 10px;
+    text-align: center;
+    color: #e00;
+    background-color: rgb(255, 161, 161);
+    margin-bottom: 20px;
+    animation: aparecer2 .3s ease;
+}
