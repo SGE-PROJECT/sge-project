@@ -62,9 +62,9 @@
 }
 
 /* Esquina superior derecha */
-#calendar table thead tr:first-child th:last-child, 
+#calendar table thead tr:first-child th:last-child,
 #calendar table thead tr:first-child td:last-child,
-#dia table thead tr:first-child th:last-child, 
+#dia table thead tr:first-child th:last-child,
 #dia table thead tr:first-child td:last-child {
     border-top-right-radius: 10px;
 }
@@ -76,9 +76,9 @@
 }
 
 /* Esquina superior derecha */
-#calendar table tbody tr:last-child th:last-child, 
+#calendar table tbody tr:last-child th:last-child,
 #calendar table tbody tr:last-child td:last-child,
-#dia table tbody tr:last-child th:last-child, 
+#dia table tbody tr:last-child th:last-child,
 #dia table tbody tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
 }
@@ -206,7 +206,7 @@ tbody th{
     padding: 5px 10px;
     position: relative;
     display: flex;
-    align-items:start;
+    align-items: flex-start;
     gap: 10px;
     height: fit-content;
 }
@@ -222,7 +222,7 @@ tbody th{
     width: 100%;
     position: relative;
     display: flex;
-    align-items:start;
+    align-items: flex-start;
     gap: 10px;
     width: fit-content;
     height: fit-content;
@@ -337,7 +337,7 @@ tbody th{
 }
 .asesorias-formulario{
     flex-grow: 1;
-    margin: 20px 20px 30px 20px; 
+    margin: 20px 20px 30px 20px;
     min-width: 200px;
     padding: 1.5rem 20px;
     background-color: #fff;
