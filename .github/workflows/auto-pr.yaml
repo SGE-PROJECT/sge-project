@@ -31,7 +31,7 @@ jobs:
       - name: Create Pull Request
         uses: repo-sync/pull-request@v2
         with:
-          destination_branch: "main"  # or master
+          destination_branch: "develop"  # or master
           source_branch: "${{ github.ref }}"
           pr_title: "${{ env.commit_author }}: ${{ env.commit_message }}"
           pr_body: "This is an automated pull request to merge changes from the new branch to the develop branch."
