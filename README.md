@@ -310,7 +310,7 @@ Directamente no podré aceptar el pull request.
 **¿Entonces solo el dueño del repositorio podrá aceptar los cambios?**
 
 Sí, 
-pero tendré a unas personas encargadas para que me ayuden a revisar los pull request.
+pero tendré a personas encargadas para que me ayuden a revisar los pull request.
 
 **¿Puedo seguir trabajando en otra rama o en 
 la misma
