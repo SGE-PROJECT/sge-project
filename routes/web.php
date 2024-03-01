@@ -18,4 +18,8 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
+Route::get('/asesorias', function () {
+    return view('consultancy.Dates');
+});
+
 Route::get('/divisiones', [DivisionController::class, 'index']);

@@ -12,7 +12,9 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   @vite('resources/css/app.css')
+  @vite('resources/css/asesorias.css')
   @vite('resources/js/sidebar.js')
+  @vite('resources/js/asesorias.js')
   @vite('resources/css/management/divisions/divisions.css')
 
   <title>@yield('titulo') </title>
@@ -23,12 +25,12 @@
   <section class="flex ">
     <div class="relative sidebar sidebar-expanded fixed left-0 top-0 h-[100%] min-h-[500px] bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
-        <a href="#" class="flex justify-center items-center border-b border-b-gray-800">
+        <a href="#" class="flex justify-center items-center border-b border-b-white">
           <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
           <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
         </a>
       </div>
-      <ul class="mt-4">
+      <ul class="mt-4 scroll2 overflow-y-scroll">
         <!-- ADMIN Section -->
         <li class="mb-1 group">
           <a href="#"
@@ -128,13 +130,14 @@
             <span class="nav-text text-sm">Notificaciones</span>
           </a>
         </li>
-      </ul>
-
-      <button href="#"
+        <button href="#"
         class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
         <i class='bx bx-log-out mr-3 text-xl'></i>
         <span class="nav-text text-sm">Cerrar sesion</span>
       </button>
+      </ul>
+
+      
 
     </div>
     <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay" id="overlay"></div>
@@ -354,7 +357,7 @@
           </li>
         </ul>
       </div>
-      <main class="">
+      <main class="contenido relative">
         @yield('contenido')
       </main>
     </main>

@@ -33,9 +33,8 @@ body{
     padding: 3px;
     background-color: #394C5F;
     list-style: none;
-    border-left: 0.25rem solid #03A696; /* Borde izquierdo para los elementos desplegables */
-    margin-left: -0.25rem; /* Ajuste para el margen izquierdo */
-    height: 100%;
+    border-left: 0.25rem solid #03A696 !important; /* Borde izquierdo para los elementos desplegables */
+
 }
 
 .group.selected ul li  {
@@ -86,11 +85,14 @@ body{
     position: absolute;
     z-index: 500;
     transition: width .4s ease;
-    overflow-y: scroll;
     height: 100vh;
-    &&::-webkit-scrollbar{
-      display: none;
-    }
+}
+
+.scroll2{
+  height: calc(100% - 108px);
+  &&::-webkit-scrollbar{
+    display: none;
+  }
 }
 
 /* Estilo base para el contenido principal */
@@ -212,4 +214,8 @@ body{
 
 .esconder{
   display: none !important;
+}
+.contenido{
+    width: 100%;
+    min-height: 500px;
 }
