@@ -22,7 +22,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/badge/PHP-8.0-purple?logo=php" alt="License"></a>
 </p>
 
-# Acerca del proyecto
+# Acerca del proyecto 
 
 Este proyecto se centra en el desarrollo del Sistema de Gestión de Estadías para la Universidad Tecnológica de Cancún, diseñado para abordar y optimizar la gestión de prácticas profesionales de los estudiantes. Con el avance tecnológico, se ha identificado la necesidad de una solución más eficiente que mejore la coordinación, supervisión y evaluación de las estadías, frente a un sistema preexistente que se ha vuelto obsoleto.
 
@@ -170,7 +170,7 @@ También, si crearán vistas que extienden de algún layout, usar carpetas para 
 
 [Si quieres saber más acerca de los layouts, clic aquí](https://laravel.com/docs/10.x/blade#layouts-using-components)
 
-## Uso de controladores, modelos, requests, etc
+## Uso de controladores, modelos, requests, etc.
 
 Absolutamente todo debe estar estructurado en subcarpetas, dependiendo de la sección en la que estés trabajando, ejemplo:
 
@@ -287,7 +287,7 @@ $ git pull origin develop
 
 Y entonces ya tendrás los últimos cambios. Puedes volver a crearte otra rama para trabajar otra característica o actualizar la que ya tenías con los últimos cambios de develop.
 
-**Nota:** Los mensajes de los commits deben ser descriptivos, explicando el "por qué" y no el "cómo"
+**Nota:** Los mensajes de los commits deben ser descriptivos, explicando el "por qué" y no el "cómo."
 
 ## Preguntas sobre el flujo de trabajo en GIT
 

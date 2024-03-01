@@ -6,7 +6,14 @@ export default {
       "./resources/**/*.vue",
     ],
     theme: {
-      extend: {},
+      extend: {
+        padding: {
+            '50p': '50%',
+            '30p': '30%',
+            '20p': '20%',
+            '15p': '15%',
+          },
+      },
     },
     plugins: [],
   }

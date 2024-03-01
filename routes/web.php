@@ -1,7 +1,12 @@
 <?php
 
-use App\Http\Controllers\divisions\DivisionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Companies\CompaniesController;
+use App\Http\Controllers\divisions\DivisionController;
+use App\Http\Controllers\users\ManagementUserController;
+use App\Http\Controllers\projects\ProjectFormController;
+use App\Http\Controllers\books\BooksController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +23,7 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
-Route::get('/divisiones', [DivisionController::class, 'index']);
+
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -27,3 +32,11 @@ Route::get('/login', function () {
 Route::get('/RecoverPassword', function () {
     return view('auth.recoverPassword');
 });
+Route::resource('/companies', CompaniesController::class);
+Route::resource('divisiones', DivisionController::class);
+Route::get('/sanciones', [ManagementUserController::class, 'index']);
+Route::resource('form', ProjectFormController::class);
+Route::resource('books', BooksController::class);
+
+
+

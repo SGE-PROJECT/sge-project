@@ -25,7 +25,6 @@
 
   </section>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
-  <script src="{{ asset('scripts/sidebar.js') }}"></script>
 
 </body>
 

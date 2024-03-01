@@ -12,7 +12,11 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   @vite('resources/css/app.css')
+  @vite('resources/js/sidebar.js')
   @vite('resources/css/management/divisions/divisions.css')
+  @vite('resources/css/books-notifications/books/books.css')
+
+
 
   <title>@yield('titulo')</title>
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -20,8 +24,8 @@
 
 <body class="text-gray-800 font-inter">
   <!--sidenav-->
-  <section class="flex ">
-    <div class="relative sidebar sidebar-expanded fixed left-0 top-0 h-[100%] min-h-[500px] bg-[#293846] p-4 z-50 transition-transform">
+  <section class="flex">
+    <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
         <a href="#" class="flex justify-center items-center border-b border-b-gray-800">
           <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
@@ -31,7 +35,7 @@
       <ul class="mt-4">
         <!-- ADMIN Section -->
         <li class="mb-1 group">
-          <a href="#"
+          <a href="/"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bxs-dashboard mr-3 text-lg'></i>
             <span class="nav-text text-sm">Dashboard</span>
@@ -78,7 +82,7 @@
             </li>
             <li class="">
 
-              <a href="" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="divisiones" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-buildings mr-3 text-lg'></i><span class=" text-sm">Divisiones</span></a>
             </li>
             <li class="">
@@ -92,7 +96,7 @@
         <!-- EMPRESAS Section -->
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
         <li class="mb-1 group">
-          <a href="#"
+          <a href="/companies"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='  bx bx-buildings mr-3 text-lg'></i>
             <span class="nav-text text-sm">Empresas Afiliadas</span>
@@ -362,6 +366,7 @@
   </section>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="{{ asset('scripts/sidebar.js') }}"></script>
+  @yield('scripts')
 
 </body>
 
