@@ -327,4 +327,3 @@ Sí, no hay ningún problema.
 **¿Dónde llega la notificación de que ya aceptaron mis cambios?** 
 
 En la bandeja de Github, recomienda descargar la aplicación de celular para enterarse por la notificación.
-
