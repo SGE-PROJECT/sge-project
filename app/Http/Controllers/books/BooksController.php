@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\users;
+namespace App\Http\Controllers\books;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-class ManagementUserController extends Controller
+use Illuminate\Http\Request;
+
+class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('users.Sanction');
+        return view('books-notifications.books.Books');
     }
 
     /**

@@ -1,20 +1,32 @@
-name: Auto Pull Request
+name: Auto Create Pull Request
 
 on:
   push:
-    branches:
-      - '*'
+    branches-ignore:
+      - main
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  create_pull_request:
+  create-pull-request:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      
+      - name: Set up Git
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+      
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6.0.1
+        uses: repo-sync/pull-request@v2
         with:
-          title: "Auto-generated Pull Request"
-          branch: ${{ github.ref }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          destination_branch: "main"  # or master
+          source_branch: "${{ github.ref }}"
+          pr_title: "Automated Pull Request for New Branch ${{ github.ref }}"
+          pr_body: "This is an automated pull request to merge changes from the new branch to the main branch."
+          github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,4 +1,4 @@
-@extends('dashboard.panel')
+@extends('layouts.panel')
 
 @section('titulo')
     Gestión De Sanciones (GS)
