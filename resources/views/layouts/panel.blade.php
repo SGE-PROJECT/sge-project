@@ -16,12 +16,8 @@
   @vite('resources/js/sidebar.js')
   @vite('resources/js/asesorias.js')
   @vite('resources/css/management/divisions/divisions.css')
-<<<<<<< HEAD
   @vite('resources/css/projects/projectDashboardStyle.css')
-=======
   @vite('resources/css/books-notifications/books/books.css')
-
->>>>>>> develop
 
 
   <title>@yield('titulo')</title>
