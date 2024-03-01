@@ -23,6 +23,15 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
+
+
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
+Route::get('/RecoverPassword', function () {
+    return view('auth.recoverPassword');
+});
 Route::get('/asesorias', function () {
     return view('consultancy.Dates');
 });
