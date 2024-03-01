@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
             <div class="sm:w-1/2 xl:w-2/5 h-full hidden md:flex flex-auto items-center justify-start p-8 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative" style="background-image: url(http://www.utcancun.edu.mx/wp-content/uploads/2016/07/e75f02ac-c4da-4162-a1a7-5e8ef604e830.jpg)">
                 <div class="absolute bg-gradient-to-b from-sky-800 to-green-900 opacity-80 inset-0 z-0"></div>
                 <div class="absolute triangle  min-h-screen right-0 w-16"></div>
-                <img src="{{ asset('images/empresarios.png') }}" class="h-90 absolute right-0 ml-32 mt-60" style="z-index: 1" />
+                <img src="{{ asset('images/empresarios.png') }}" class="h-90 absolute right-0 ml-32 bottom-0" style="z-index: 1" />
                 <div class="w-full  max-w-md z-10">
                     <div class="sm:text-5xl xl:text-4xl font-bold leading-tight mb-48 custom-font text-center">BIENVENIDO AL SISTEMA DE GESTIÓN DE ESTADÍAS</div>
                 </div>
@@ -33,7 +34,6 @@
             <div class="md:flex md:items-center w-full md:justify-center sm:w-auto mt-2 md:mt-14 xl:w-2/5 p-8 md:p-10 sm:rounded-lg md:rounded-none bg-white">
                 <div class="max-w-md w-full mr-14">
                   <img src="{{ asset('images/logo_sge_login.svg') }}" class="w-60 h-24 ml-24 " style="width: 60%; height: 60%;">
-
 
                     <div class="text-center">
                         <h2 class="text-3xl font-bold text-blue-950 font-serif ml-5">Iniciar Sesión</h2>
