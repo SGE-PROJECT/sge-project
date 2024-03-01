@@ -287,7 +287,7 @@ $ git pull origin develop
 
 Y entonces ya tendrás los últimos cambios. Puedes volver a crearte otra rama para trabajar otra característica o actualizar la que ya tenías con los últimos cambios de develop.
 
-**Nota:** Los mensajes de los commits deben ser descriptivos, explicando el "por qué" y no el "cómo."
+**Nota:** Los mensajes de los commits deben ser descriptivos, explicando el "por qué" y no el "cómo".
 
 ## Preguntas sobre el flujo de trabajo en GIT
 
