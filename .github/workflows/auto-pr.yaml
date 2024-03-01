@@ -1,19 +1,32 @@
-# File: .github/workflows/pull-request.yml
+name: Auto Create Pull Request
 
 on:
   push:
-    branches:
-      - develop
+    branches-ignore:
+      - main
+      - master
 
 permissions:
+  contents: write
   pull-requests: write
 
 jobs:
-  pull-request:
+  create-pull-request:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: pull-request
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Git
         run: |
-          gh_pr_up() { gh pr create $* || gh pr edit $* }
-          gh_pr_up --title "My pull request" --body "Description"
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+      
+      - name: Create Pull Request
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "main"  # or master
+          source_branch: "${{ github.ref }}"
+          pr_title: "Automated Pull Request for New Branch ${{ github.ref }}"
+          pr_body: "This is an automated pull request to merge changes from the new branch to the main branch."
+          github_token: ${{ secrets.GITHUB_TOKEN }}
