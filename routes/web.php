@@ -20,8 +20,10 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
+Route::get('/projects', function(){
+    return view('management.project');
+});
+
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
 Route::resource('form', ProjectFormController::class);
-
-
