@@ -3,7 +3,7 @@
 on:
   push:
     branches:
-      - feature-1
+      - develop
 
 permissions:
   pull-requests: write
