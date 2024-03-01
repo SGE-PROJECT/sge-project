@@ -40,8 +40,15 @@ Route::get('/divisiones', [DivisionController::class, 'index']);
 Route::resource('/companies', CompaniesController::class);
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
+<<<<<<< HEAD
+=======
 Route::resource('form', ProjectFormController::class);
 Route::resource('books', BooksController::class);
 
 
+>>>>>>> develop
 
+Route::controller(ProjectFormController::class)->group(function (){
+    Route::get('/dashboardProjects','index');
+    Route::get('form', 'create');
+});

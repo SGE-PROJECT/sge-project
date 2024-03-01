@@ -12,7 +12,7 @@ class ProjectFormController extends Controller
      */
     public function index()
     {
-        return view("projects.Forms.FormStudent");
+        return view("projects.ProjectsDash.projectDashboard");
     }
 
     /**
@@ -20,7 +20,7 @@ class ProjectFormController extends Controller
      */
     public function create()
     {
-        //
+        return view("projects.Forms.FormStudent");
     }
 
     /**
