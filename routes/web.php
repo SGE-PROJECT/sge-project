@@ -4,6 +4,9 @@ use App\Http\Controllers\divisions\DivisionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\users\ManagementUserController;
 use App\Http\Controllers\projects\ProjectFormController;
+use App\Http\Controllers\projects\ViewProjectController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +26,7 @@ Route::get('/', function () {
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
 Route::resource('form', ProjectFormController::class);
+Route::resource('vistaproyectos', ViewProjectController::class);
+
 
 

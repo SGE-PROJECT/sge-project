@@ -365,6 +365,8 @@
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="{{ asset('scripts/sidebar.js') }}"></script>
   @yield('scripts')
+  <link href="{{ asset('css/projectstyle.css') }}" rel="stylesheet">
+
 
 </body>
 

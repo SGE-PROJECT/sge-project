@@ -1,0 +1,80 @@
+/* Contenedor principal del proyecto */
+.project-container {
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra suave */
+    width: 90%; /* Ancho fijo, ajustar según necesidad */
+    margin: 2em auto 2em 2em; /* Centrar el contenedor */
+    overflow: hidden; /* Asegura que nada se desborde */
+    font-family: 'Arial', sans-serif; /* Fuente Arial o sans-serif por defecto */
+    background-color: #F6F5F2; /* Fondo gris para el contenedor */
+    max-width: 300px; /* Ancho máximo para contener el tamaño */
+    position: relative; /* Posicionamiento relativo para ajustar dentro de su contenedor padre */
+}
+
+/* Cabecera del proyecto */
+.project-header {
+    background-color: #F6F5F2; /* Fondo gris claro para la cabecera */
+    padding: 15px; /* Espaciado interno */
+    text-align: center; /* Centrar texto */
+}
+
+
+/* Imagen del Proyecto */
+.project-image img {
+    width: 100%; /* Ajusta la imagen al ancho del contenedor */
+    display: block; /* Evita cualquier espacio extra debajo de la imagen */
+}
+
+
+.project-header p {
+    color: #28a745; /* Estado del proyecto en verde */
+    font-size: 0.9em; /* Tamaño de fuente más pequeño */
+    text-align: left;
+}
+
+.project-header h2 {
+    color: black;
+    font-weight: bold; /* Esto hará que el texto esté en negritas */
+    text-align: left; /* Esto alineará el texto a la izquierda del contenedor */
+}
+
+
+/* Cuerpo del proyecto */
+.project-body {
+    padding: 15px; /* Espaciado interno */
+}
+
+.project-description {
+    width: 100%; /* Ajusta al ancho disponible */
+    height: 100px; /* Altura fija para el área de texto */
+    border: 1px solid #F6F5F2; /* Borde gris */
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+    padding: 10px; /* Espaciado interno */
+    box-sizing: border-box; /* El ancho y altura incluyen el padding */
+    margin-bottom: 10px; /* Espacio debajo del área de texto */
+    resize: none; /* Evitar que se pueda redimensionar */
+    background-color: #DEDEDE; /* Color de fondo gris para el área de texto */
+}
+
+/* Botones de reacción */
+.project-reactions {
+    text-align: left; /* Alinea los botones a la izquierda */
+}
+
+.project-reactions button {
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cursor en forma de mano al pasar sobre el botón */
+    font-size: 1.5em; /* Tamaño de los emojis */
+}
+
+/* Ajustes específicos para el botón del corazón */
+#like-btn {
+    color: red; /* Color rojo para el corazón */
+}
+
+/* Añadir emoji de comentario */
+#comment-btn:before {
+    font-size: 1.5em; /* Tamaño del emoji */
+    margin-right: 10px; /* Espaciado a la derecha del emoji */
+}
