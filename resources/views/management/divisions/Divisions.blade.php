@@ -3,6 +3,10 @@
 @section('titulo', 'Divisiones')
 
 @section('contenido')
+
+@include('administrator.card', ['number' => 12, 'name' => 'Proyectos'])
+@include('administrator.card', ['number' => 79, 'name' => 'Empresas'])
+
 <div class="contenedor">
     <h1 class="text-font">Divisiones:</h1>
     <div class="flex flex-wrap -mx-4">
