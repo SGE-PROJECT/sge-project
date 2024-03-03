@@ -1,6 +1,6 @@
  * {
   font-family: 'Poppins';
- }
+  }
  
  /* Estilos para la tarjeta individual */
  .carta-payment {
@@ -20,14 +20,7 @@
   .carta-payment:hover {
     transform: translateY(-5px);  
   }
-  
-  /* Estilos para el encabezado de la tarjeta */
-  .carta-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+ 
   
   /* Estilos para los textos dentro de la tarjeta */
   .ctitulo {

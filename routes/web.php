@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
+Route::get('/dashboard', function () {
+    return view('administrator.dashboard.dashboard-general');
+});
+
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
 Route::resource('form', ProjectFormController::class);
