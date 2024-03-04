@@ -25,6 +25,10 @@ Route::get('/', function () {
     return view('layouts.panel');
 });
 
+Route::get('/dashboard', function () {
+    return view('administrator.dashboard.dashboard-general');
+});
+
 
 
 Route::get('/login', function () {
