@@ -5,6 +5,7 @@ use App\Http\Controllers\Companies\CompaniesController;
 use App\Http\Controllers\divisions\DivisionController;
 use App\Http\Controllers\users\ManagementUserController;
 use App\Http\Controllers\projects\ProjectFormController;
+use App\Http\Controllers\projects\ProjectController;
 use App\Http\Controllers\books\BooksController;
 use App\Http\Controllers\users\ManagementConfiguration;
 
@@ -49,4 +50,8 @@ Route::resource('books', BooksController::class);
 Route::controller(ProjectFormController::class)->group(function (){
     Route::get('/dashboardProjects','index');
     Route::get('form', 'create');
+});
+
+Route::controller(ProjectController::class)->group(function (){
+    Route::get('/Project','index');
 });
