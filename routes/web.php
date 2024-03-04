@@ -6,6 +6,7 @@ use App\Http\Controllers\divisions\DivisionController;
 use App\Http\Controllers\users\ManagementUserController;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\books\BooksController;
+use App\Http\Controllers\users\ManagementConfiguration;
 
 
 /*
@@ -40,6 +41,8 @@ Route::get('/divisiones', [DivisionController::class, 'index']);
 Route::resource('/companies', CompaniesController::class);
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
+Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
+
 
 Route::resource('books', BooksController::class);
 
