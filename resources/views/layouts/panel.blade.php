@@ -19,6 +19,9 @@
   @vite('resources/css/management/divisions/divisions.css')
   @vite('resources/css/projects/projectDashboardStyle.css')
   @vite('resources/css/books-notifications/books/books.css')
+  @vite('resources/css/buttonappoint.css')
+  @vite('resources/css/input.css')
+
 
 
   <title>@yield('titulo')</title>
@@ -66,6 +69,12 @@
                 <span>Roles y Permisos</span>
               </a>
             </li>
+            <li class="">
+                <a href="sanciones" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+                  <i class='bx bx-no-entry mr-3 text-lg'></i>
+                  <span>Sanciones</span>
+                </a>
+              </li>
           </ul>
         </li>
 
@@ -345,7 +354,7 @@
                   class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Profile</a>
               </li>
               <li>
-                <a href="#"
+                <a href="Configurar_Cuenta"
                   class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Settings</a>
               </li>
               <li>
