@@ -11,7 +11,7 @@ class ManagementUserController extends Controller
      */
     public function index()
     {
-        return view('management.users.Sanction');
+        return view('users.Sanction');
     }
 
     /**

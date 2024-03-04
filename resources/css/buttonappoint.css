@@ -1,0 +1,72 @@
+/* credits to uiverse.io/profile/eirikvold */
+button.Guille {
+    font-family: inherit;
+    font-size: 18px;
+    background: rgb(20 184 166);
+    color: white;
+    padding: 0.8em 1.2em;
+    display: grid;
+    grid-template-columns: auto 0fr;
+    align-items: center;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+  }
+
+  button.Guille:hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    grid-template-columns: auto 1fr;
+  }
+
+  button.Guille:active {
+    transform: scale(0.95);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  button.Guille span {
+    display: block;
+    margin-left: 0.4em;
+    transition: all 0.3s;
+  }
+
+  button.Guille svg {
+    transition: all 0.3s;
+  }
+
+  button.Guille .svg-wrapper-si {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all 0.3s;
+  }
+
+  button.Guille:hover .svg-wrapper-si {
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-right: 0.5em;
+    animation: bounce 1.2s ease-in-out;
+  }
+
+  .text {
+    overflow: hidden;
+  }
+
+  @keyframes bounce {
+    0% {
+      translate: 0;
+    }
+
+    50% {
+      translate: 0 -8px;
+    }
+
+    100% {
+      translate: 0;
+    }
+  }
+
