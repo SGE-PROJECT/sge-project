@@ -1,7 +1,7 @@
 
     @vite('resources/css/administrator/card.css')
 
-    <div class="carta-payment">
+    <div class="carta-datos">
         <div class="carta-header">
             <div class="amount">
                 <div class="gauge">

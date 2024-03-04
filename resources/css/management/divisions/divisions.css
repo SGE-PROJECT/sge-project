@@ -1,22 +1,89 @@
-.card {
+.card_divisions{
     transition: transform 0.3s ease;
     border-radius: 10px;
+    margin-left: -13px;
 }
 
-.card:hover {
+.card_divisions:hover {
     transform: scale(1.05);
 }
 
-.card.flipped {
-    transform: rotateY(180deg);
-}
-
-.text-font {
+.text-font_divisions {
     font-family: url('/public/fonts/Poppins-Bold.ttf');
     font-size: 25px;
-}
-
-.contenedor{
-    padding: 30px;
     text-transform: uppercase;
 }
+
+.contenedor_divisions{
+    display: flex;
+    padding: 20px 18px 30px 30px;
+    text-transform: uppercase;
+    align-items: center;
+}
+
+.header_divisions{
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 18px 10px 16px;
+}
+
+.search-btn {
+    background-color: #03a696c0;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-btn:hover {
+    background-color: #03A696;
+}
+
+.BtnCrearDivisions {
+    padding: 5px 40px 5px 18px;
+    margin-top: 2px;
+}
+
+.Btn_divisions{
+    width: 100px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: none;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+  }
+
+  .Btntext_divisions {
+    width: 65%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: rgb(2, 153, 153);
+    text-transform: uppercase;
+  }
+
+  .svgIcon_divisions {
+    width: 35%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: teal;
+  }
+
+  .Btn_divisions:hover .Btntext_divisions {
+    background-color: rgb(0, 133, 133);
+  }
+
+  .Btn_divisions:hover .svgIcon_divisions {
+    background-color: rgb(0, 105, 105);
+  }

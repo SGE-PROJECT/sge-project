@@ -3,7 +3,7 @@
   }
  
  /* Estilos para la tarjeta individual */
- .carta-payment {
+ .carta-datos {
     background: #F6F5F2;
     border-radius: 10px;
     padding: 1.2rem;
@@ -17,7 +17,7 @@
   }
   
   /* Cambio de color y elevación al hacer hover sobre la tarjeta */
-  .carta-payment:hover {
+  .carta-datos:hover {
     transform: translateY(-5px);  
   }
  
