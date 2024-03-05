@@ -15,7 +15,6 @@
   @vite('resources/js/sidebar.js')
   @vite('resources/css/management/divisions/divisions.css')
   @vite('resources/css/books-notifications/books/books.css')
-
   @vite('resources/css/management/projects.css')
 
 
