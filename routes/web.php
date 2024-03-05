@@ -8,6 +8,8 @@ use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ProjectController;
 use App\Http\Controllers\books\BooksController;
 use App\Http\Controllers\users\ManagementConfiguration;
+use App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\profile\ProfileController;
 
 
 /*
@@ -47,6 +49,8 @@ Route::resource('/companies', CompaniesController::class);
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
 Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
+Route::get('/profile', [ProfileController::class,'index']);
+Route::get('/roles', [RolesController::class,'index']);
 
 
 Route::resource('books', BooksController::class);
