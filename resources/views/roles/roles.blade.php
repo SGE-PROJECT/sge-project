@@ -28,9 +28,7 @@ Roles
                         <td class=" p-4">
                             <button class="text-black relative" onclick="mostrarEditarPermisos('editarPermisosAdministrador')">
                                 <div class="relative">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.198-1.197l1-3a1 1 0 01.242-.39l9-9zM14 6l-8 8v2h2l8-8-2-2z" clip-rule="evenodd" />
-                                    </svg>
+                                    <img src="ruta/a/tu/imagen.png" class="h-10 w-10" alt="Editar Icono">
                                     <span class="absolute inset-0 shadow-md rounded-full opacity-0 transition-opacity duration-300"></span>
                                 </div>
                                 Editar
