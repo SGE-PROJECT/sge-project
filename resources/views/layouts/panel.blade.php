@@ -380,6 +380,7 @@
   </section>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="{{ asset('scripts/sidebar.js') }}"></script>
+  <script src="{{ asset('resources/js/divisions.js') }}"></script>
   @yield('scripts')
 
 </body>
