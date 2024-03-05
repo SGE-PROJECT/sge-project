@@ -5,14 +5,14 @@ namespace App\Http\Controllers\projects;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProjectFormController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("projects.ProjectsDash.projectDashboard");
+        return view("projects.ProjectUser.ProjectUser");
     }
 
     /**
@@ -20,7 +20,7 @@ class ProjectFormController extends Controller
      */
     public function create()
     {
-        return view("projects.Forms.FormStudent");
+        //
     }
 
     /**

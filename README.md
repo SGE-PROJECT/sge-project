@@ -9,7 +9,7 @@
   <a href="#principios-para-escribir-código-limpio-que-seguirá-el-proyecto">Código Limpio</a> |
   <a href="#flujo-de-trabajo-para-git">GIT Workflow</a>
 </p>
-</p>
+</p> 
 
 <p align="center">
 <a><img src="https://img.shields.io/badge/MySQL-8.0.36-blue?logo=mysql" alt="Build Status"></a>
