@@ -45,6 +45,13 @@
                         </div>
                     </div>
 
+                    <div class="container-ticket-add-books">
+                        <div class="ticket-add-books">
+                            <label class="labels-add-books" for="file-book">Ticket:</label>
+                            <input class="inputs-add-books" type="file" id="file-book" name="file-book">
+                        </div>
+                    </div>
+
                     <div class="button-add-books">
                         <button
                             class="bg-black hover:bg-teal-800 text-white font-bold py-3 px-6 rounded-md shadow-lg hover:text-white hover:shadow-green-900 transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 active:animate-bounce">
