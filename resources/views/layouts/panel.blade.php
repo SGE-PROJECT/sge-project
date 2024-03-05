@@ -19,6 +19,7 @@
   @vite('resources/css/management/divisions/divisions.css')
   @vite('resources/css/projects/projectDashboardStyle.css')
   @vite('resources/css/books-notifications/books/books.css')
+  @vite('resources/css/books-notifications/books/add-books.css')
   @vite('resources/css/buttonappoint.css')
   @vite('resources/css/input.css')
 

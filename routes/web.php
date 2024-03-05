@@ -51,6 +51,11 @@ Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
 
 Route::resource('books', BooksController::class);
 
+Route::get('/add-books', function () {
+    return view('books-notifications.books.add-books');
+});
+
+
 Route::controller(ProjectFormController::class)->group(function (){
     Route::get('/dashboardProjects','index');
     Route::get('form', 'create');
