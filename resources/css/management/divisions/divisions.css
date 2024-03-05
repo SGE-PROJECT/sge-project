@@ -2,6 +2,7 @@
     transition: transform 0.3s ease;
     border-radius: 10px;
     margin-left: -13px;
+
 }
 
 .card_divisions:hover {
@@ -87,3 +88,20 @@
   .Btn_divisions:hover .svgIcon_divisions {
     background-color: rgb(0, 105, 105);
   }
+
+.card_tap_divisions:focus > .boton_hidden {
+    display: block;
+}
+
+.botoncito {
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px 20px 20px -20px;
+    display:flex;
+    justify-content: center;
+}
+
+.text_economico {
+    margin-top: 44px;
+    font-size: 13px;
+}
