@@ -11,6 +11,9 @@
     font-family: 'lato';
     src: url('../fonts/Lato.ttf') format('ttf');
 }
+#nombre{
+    outline: none;
+}
 .vista_asesorias{
     display: flex;
     flex-wrap: wrap;
@@ -18,7 +21,7 @@
     justify-content: center;
 }
 .vista_asesorias > * {
-    align-self: flex-end;
+    align-self: flex-start;
 }
 
 /* Anula align-items: flex-end para el último elemento hijo */
@@ -52,13 +55,13 @@
     font-weight: bold;
 }
 #calendar table{
-    border-radius: 10px;
+    border-radius: 5px;
 }
 #calendar table thead tr:first-child th:first-child,
 #calendar table thead tr:first-child td:first-child,
 #dia2 table thead tr:first-child th:first-child,
 #dia2 table thead tr:first-child td:first-child {
-    border-top-left-radius: 10px;
+    border-top-left-radius: 5px;
 }
 
 /* Esquina superior derecha */
@@ -66,13 +69,13 @@
 #calendar table thead tr:first-child td:last-child,
 #dia table thead tr:first-child th:last-child, 
 #dia table thead tr:first-child td:last-child {
-    border-top-right-radius: 10px;
+    border-top-right-radius: 5px;
 }
 #calendar table tbody tr:last-child th:first-child,
 #calendar table tbody tr:last-child td:first-child,
 #dia table tbody tr:last-child th:first-child,
 #dia table tbody tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 5px;
 }
 
 /* Esquina superior derecha */
@@ -80,7 +83,7 @@
 #calendar table tbody tr:last-child td:last-child,
 #dia table tbody tr:last-child th:last-child, 
 #dia table tbody tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 5px;
 }
 #dia2 th, #dia2 td{
     width: fit-content;
@@ -107,7 +110,6 @@
 .calendar-container {
     margin-top: 20px;
     text-align: center;
-    width: 100%;
 }
 .select-mes{
     outline: none;
@@ -125,11 +127,11 @@
 }
 .info{
     width: 100%;
+    flex-grow: 1;
     text-align: left;
 }
 
 #calendar table{
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
     animation: aparecer2 .3s ease;
 }
 .ocultar {
@@ -156,7 +158,7 @@
     padding: 20px;
     border: 1px solid #888;
     max-width: 300px;
-    border-radius: 10px;
+    border-radius: 5px;
     width: 80%;
     position: relative;
 }
@@ -206,7 +208,7 @@ tbody th{
     padding: 5px 10px;
     position: relative;
     display: flex;
-    align-items:start;
+    align-items:center;
     gap: 10px;
     height: fit-content;
 }
@@ -238,6 +240,7 @@ tbody th{
     z-index: 10;
     left: 20px;
     top: -5px;
+    width: fit-content;
     background-color: #293846;
     border-radius: 5px;
     padding: 0px 5px;
@@ -266,7 +269,7 @@ tbody th{
 }
 #calendar table, #dia table {
     border-collapse: collapse; /* Combina los bordes de las celdas adyacentes */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.7);
 }
 
 #calendar th,
@@ -299,7 +302,7 @@ tbody th{
 }
 
 #calendar table, #dia2 table {
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .desactivado{
     background-color: #eee !important;
@@ -307,8 +310,7 @@ tbody th{
 .desactivado:hover{
     background-color: #eee !important;
     cursor:not-allowed !important;
-}
-
+}  
 .horas{
     width: auto !important; /* Eliminar el ancho fijo */
     background-color: #fff;
@@ -337,13 +339,12 @@ tbody th{
 }
 .asesorias-formulario{
     flex-grow: 1;
-    margin: 20px 20px 30px 20px; 
     min-width: 200px;
     padding: 1.5rem 20px;
     background-color: #fff;
     border-radius: 5px;
     height: fit-content;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    animation: aparecer2 .3s ease;
 }
 .asesorias-formulario *{
     width: 100%;
@@ -365,6 +366,7 @@ tbody th{
 .asesorias-formulario button{
     background-color: #293846;
     color: #fff;
+    margin-top: 20px;
     padding: 5px 20px;
     border-radius: 5px;
     font-size: 18px;
@@ -379,17 +381,32 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 2px;
     padding: 0px 5px;
     outline: 0.3px solid #888;
+    transition: all .3s;
 }
-.asesorias-formulario input[type=text]{
-    margin-bottom: 20px;
+.motivo{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+#motivo{
+    margin: 0;
+}
+.motivo p{
+    right: 5px;
+    text-align: right;
+    font-size: 12px;
+}
+.asesorias-formulario input:focus{
+    outline-color: #293846;
 }
 #eventosContainer{
-    margin:20px;
     flex-grow: 1;
-    border-radius: 20px;
+    border-radius: 5px;
     height: fit-content;
     overflow: hidden;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+    animation: aparecer2 .3s ease;
 }
 #eventosContainer span{
     width: 100%;
@@ -399,12 +416,9 @@ input[type=number]::-webkit-outer-spin-button {
         display: none;
     }
 }
-#dia{
-    flex-grow: 1;
-}
 #eventosContainer h2{
     background-color: #293846;
-    border-radius:10px 10px 0 0;
+    border-radius:5px 5px 0 0;
     width: 100%;
     color: #fff;
     font-weight: bold;
@@ -417,6 +431,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 #eventosContainer th{
     padding: 5px 10px;
+    min-width: 150px;
     color: #293846;
     border: 1px solid #EEE8E8;
 }
@@ -427,16 +442,65 @@ input[type=number]::-webkit-outer-spin-button {
 }
 #eventosContainer td{
     padding: 7px 10px;
+    min-width: 200px;
+    color: #000;
+    text-align: center;
+}
+
+#eventosContainer2{
+    margin: 20px;
+    flex-grow: 1;
+    border-radius: 5px;
+    height: fit-content;
+    overflow: hidden;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+}
+#eventosContainer2 span{
+    width: 100%;
+    display: flex;
+    overflow: scroll;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
+}
+#eventosContainer2 h2{
+    background-color: #293846;
+    border-radius:5px 5px 0 0;
+    width: 100%;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 0px;
+    text-align: center;
+}
+#eventosContainer2 table{
+    background-color: #EEE8E8;
+    width: 100%;
+}
+#eventosContainer2 th{
+    padding: 5px 10px;
+    color: #293846;
+    border: 1px solid #EEE8E8;
+}
+#eventosContainer2 th div{
+    padding: 5px 0;
+    color: #293846;
+    border-bottom: solid 1px #293846;
+}
+#eventosContainer2 td{
+    padding: 7px 10px;
     min-width: 100px;
     color: #000;
     text-align: center;
+}
+#dia{
+    flex-grow: 1;
 }
 .limitar{
     text-wrap:balance;
     max-width: 150px !important;
 }
 #tablaEventos{
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 5px 5px;
 }
 .nf-cod-trash{
     font-size: 20px;
@@ -444,10 +508,18 @@ input[type=number]::-webkit-outer-spin-button {
 #error{
     display: none;
     border:2px solid #e00;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     color: #e00;
-    background-color: rgb(255, 161, 161);
+    background-color: rgb(253, 195, 195);
     margin-bottom: 20px;
+    padding: 3px;
     animation: aparecer2 .3s ease;
+}
+#matricula{
+    outline: 1px solid #888;
+    border-radius: 5px;
+}
+#matricula:focus{
+    outline-color: #293846;
 }

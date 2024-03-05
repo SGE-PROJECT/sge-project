@@ -7,7 +7,7 @@
     <div id="myModal" class="modal-background">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Seleccione un alumno:</p>
+            <p>Seleccione un proyecto:</p>
             <select id="nombre">
                 <option value="22393172">Alonso</option>
                 <option value="22393173">Juan</option>
@@ -17,7 +17,7 @@
             </select>
         </div>
     </div>
-    <div class="calendar-container" id="calendario">
+    <div class="calendar-container w-full lg:w-[60%]" id="calendario">
         <select id="month" class="select-mes text-[30px] md:text-[40px]">
             <option value="0">Enero</option>
             <option value="1">Febrero</option>
@@ -108,36 +108,71 @@
         </div>
     </div>
 
-    <div class="asesorias-formulario w-[90%] sm:w-[20%]">
+    <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] ocultar" id="asesorias-formulario">
         <h4>Agregar una sesion de asesoria</h4>
         <p>Fecha</p>
         <input type="date" id="fecha">
         <p>Hora</p>
         <input type="time" id="horas">
-        <p>Matricula</p>
-        <input type="number" id="matricula" maxlength="10">
+        <p>Proyecto:</p>
+            <select id="matricula">
+                <option value="22393172">Alonso</option>
+                <option value="22393173">Juan</option>
+                <option value="22393174">Emma</option>
+                <option value="22393175">Cochi</option>
+                <option value="22393176">Leyva</option>
+            </select>
+
+        </datalist>
         <p>Motivo de asesoria</p>
-        <input type="text" id="motivo" maxlength="250">
+        <span class="motivo">
+            <input type="text" id="motivo" maxlength="250">
+            <p id="contador"></p>
+        </span>
+        
         <p id="error">Error</p>
         <button id="agregarEventoButton">Crear sesion</button>
     </div>
-    <div id="eventosContainer">
-        <h2>Eventos Programados</h2>
+    <div id="eventosContainer" class="ml-[20px] mr-[20px] mt-[20px] mb-[20px] lg:ml-[0px] lg:mr-[20px] lg:mt-[85px] lg:mb-[0px]">
+        <h2>Eventos proximos</h2>
         <span>
             <table id="tablaEventos">
             <thead>
                 <tr>
-                    <th><div>Matrícula</div></th>
-                    <th><div>Nombre</div></th>
-                    <th><div>Motivo</div></th>
-                    <th><div>Hora</div></th>
+                    <th><div>Proyecto</div></th>
                     <th><div>Fecha</div></th>
-                    <th><div>Acción</div></th> <!-- Nuevo encabezado para el botón de eliminar -->
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        
+    </span>
+    <div id="eventosContainer2">
+        <h2>Todos los eventos</h2>
+        <span>
+            <table id="tablaEventos2">
+            <thead>
+                <tr>
+                    <th><div>Proyecto</div></th>
+                    <th><div>Alumnos</div></th>
+                    <th><div>Asunto</div></th>
+                    <th><div>Hora</div></th>
+                    <th><div>Fecha</div></th>
+                    <th><div>Accion</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
                     <td></td>
                     <td></td>
                     <td></td>
