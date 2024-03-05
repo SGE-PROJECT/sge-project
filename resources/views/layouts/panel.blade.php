@@ -21,6 +21,7 @@
   @vite('resources/css/books-notifications/books/books.css')
   @vite('resources/css/buttonappoint.css')
   @vite('resources/css/input.css')
+  @vite('resources/js/projectview.js')
 
 
 
@@ -381,7 +382,6 @@
   <script src="{{ asset('scripts/sidebar.js') }}"></script>
   @yield('scripts')
   <link href="{{ asset('css/projectstyle.css') }}" rel="stylesheet">
-
 
 </body>
 
