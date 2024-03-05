@@ -1,0 +1,109 @@
+.card {
+    transition: transform 0.3s ease;
+    border-radius: 10px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.porfile{
+    width: 50px !important;
+    border-radius: 9999px;
+}
+
+.card_invitation{
+    background-color: #97F5F5;
+    border-radius: 20px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 450px;
+    height: 175px;
+    padding-top: 20px;
+}
+.invitacion *{
+    width: 100%;
+}
+
+.content_invitation{
+    display: flex;
+    padding-right: 55px;
+    
+}
+
+.user_invitation{
+    display:flex;
+    width: fit-content;
+    flex-direction: column;
+    align-items: center
+
+}
+.user_invitation p{
+    width: fit-content;
+    padding-left: 10px;
+}
+
+.info{
+    padding-left: 200px;
+}
+
+.users{
+    display: flex;
+    align-items: center;
+    width: 525px;
+    height: 65px;
+    padding-left: 10px;
+    background-color: #D9D9D9;
+}
+
+.users:nth-child(odd) {
+    background-color: #ffffff;
+  }
+
+.text_user{
+    padding-left: 40px;
+}
+
+.text{
+    text-align: center;
+}
+
+.text_state{
+    padding-left: 70px;
+}
+
+.invitation{
+    display: flex;
+    padding: 30px;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.buttons{
+    background-color: #394C5F;
+    border-radius: 15px;
+    width: 125px;
+    height: 45px;
+    color: white;
+}
+
+.buttons:hover{
+    background-color: white;
+    color: #394C5F;
+}
+
+.text_invitation{
+    text-decoration-line: underline;
+    text-align: center;
+    font-size: 22px;
+}

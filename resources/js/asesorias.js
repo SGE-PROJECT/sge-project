@@ -1,4 +1,5 @@
 var estudiantes = {
+    '22393204': { nombre: 'Guillermo', imagen: 'avatar.jpg' },
     '22393172': { nombre: 'Alonso', imagen: 'avatar.jpg' },
     '22393173': { nombre: 'Juan', imagen: 'avatar.jpg' },
     '22393174': { nombre: 'Emmanuel Rojas Ceron', imagen: 'avatar.jpg' },

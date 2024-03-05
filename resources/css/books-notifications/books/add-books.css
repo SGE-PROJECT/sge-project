@@ -1,0 +1,95 @@
+.container-add-books {
+    background-color: #F6F5F2;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #E9E5DF;
+    border-radius: 20px;
+
+    /*margin: 5% 5%;*/
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+}
+
+.container-title-books {
+    background-color: #2F4050;
+    color: rgb(229 231 235 / var(--tw-bg-opacity));
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.container-title-books h1 {
+    text-align: start;
+    font-size: xx-large;
+    padding: 3%;
+}
+
+.container-form-books {
+    /*background-color: #F6F6F6;*/
+
+}
+
+.subtitle-books {
+    font-weight: bold;
+    text-align: center;
+    font-size: x-large;
+    /*padding: 2% 0;*/
+    margin: 2% 0;
+}
+
+.labels-add-books {
+    display: block;
+    font-size: larger;
+}
+
+.inputs-add-books{
+    border-style: solid;
+    border-width: 2px;
+    border-color: #03A6A6;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 400px;
+    width: 100%;
+
+    transition: transform 0.3s ease;
+}
+
+.inputs-add-books:hover{
+    transform: scale(1.1);
+}
+
+input[type="date"]{
+    color: lightslategrey
+}
+
+.inputs-add-books::placeholder{
+    color: ;
+}
+
+.container-inputs{
+    display: flex;
+    justify-content: space-around;
+}
+
+.inputs-group-1{
+    max-width: 450px;
+    width: 400px;
+
+}
+
+.inputs-group-2{
+    max-width: 450px;
+    width: 400px;
+}
+
+.button-add-books{
+    /*position: relative;
+    top: 50%;
+    left: 85%;
+    transform: translate(-50%, -10%);*/
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}

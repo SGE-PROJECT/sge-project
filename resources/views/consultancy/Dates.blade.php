@@ -14,6 +14,7 @@
                 <option value="22393174">Emma</option>
                 <option value="22393175">Cochi</option>
                 <option value="22393176">Leyva</option>
+                <option value="22393204">Guillermo</option>
             </select>
         </div>
     </div>
@@ -155,7 +156,7 @@
             </tbody>
         </table>
         </div>
-        
+
     </span>
     <div id="eventosContainer2">
         <h2>Todos los eventos</h2>
