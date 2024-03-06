@@ -14,7 +14,7 @@
     <div class="flex items-baseline align-middle">
         <button class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mt-10 mr-5 w-32" onclick="window.location.href = '{{ route('dashboardProjects') }}'">
             Ir a Agregar
-        </button>               
+        </button>
         @include('administrator.filter')
         <div class="relative ml-2 w-55">
             <label for="Search" class="sr-only">Search</label>
@@ -50,7 +50,7 @@
     <div class="tabla-project">
         <div class="tabla-cont-project ">
             <table class="rounded-lg">
-                <thead class="text-white font-bold bg-blue-003E61">
+                <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
                     <tr>
                         <th>Proyecto</th>
                         <th>Equipo</th>
