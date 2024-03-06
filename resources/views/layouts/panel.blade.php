@@ -24,7 +24,8 @@
   @vite('resources/css/input.css')
   @vite('resources/js/projectview.js')
   @vite('resources/css/loader/loader.css')
-
+  @vite('resources/css/projects/projectview.css')
+  @vite('resources/css/management/projects.css')
 
 
   <title>@yield('titulo')</title>
@@ -36,7 +37,7 @@
   <section class="flex">
     <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
-        <a href="/" class="flex justify-center items-center border-b border-b-gray-800">
+        <a href="/" class="flex justify-center items-center border-b border-b-white">
           <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
           <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
         </a>
@@ -92,7 +93,7 @@
           <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li>
 
-              <a href="" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="projectsdash" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Proyectos</span></a>
             </li>
             <li class="">

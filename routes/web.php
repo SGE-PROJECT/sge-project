@@ -27,14 +27,12 @@ use App\Http\Controllers\Career\CareerController;
 */
 
 Route::get('/', function () {
-    return view('layouts.panel');
-});
-
-Route::get('/dashboard', function () {
     return view('administrator.dashboard.dashboard-general');
 });
 
-
+Route::get('/projectsdash', function(){
+    return view('management.project');
+});
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -69,7 +67,7 @@ Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports
 
 
 Route::controller(ProjectFormController::class)->group(function (){
-    Route::get('/dashboardProjects','index');
+    Route::get('/dashboardProjects','index')->name('dashboardProjects');
     Route::get('form', 'create');
 });
 

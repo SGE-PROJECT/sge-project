@@ -12,7 +12,7 @@ Roles
     <!-- Tabla de Roles -->
     <div class="flex justify-center">
         <div class="overflow-x-auto w-3/5 rounded-3xl shadow-xl ">
-            <table class="table-auto border-collapse w-full text-center" style="background-color: #DCDAD4; border-collapse: collapse;">
+            <table class="table-auto border-collapse w-full text-center" style="background-color: #F6F5F2; border-collapse: collapse;">
                 <thead>
                     <tr class="font-medium" style="background-color: #2F4050; color:white" >
                         <th class=" p-4">Nombre</th>
@@ -96,14 +96,19 @@ Roles
                 </tbody>
             </table>
         </div>
+
+       
     </div>
+
+      
 
 </div>
 
 
-   <!-- Modal -->
-<div id="modalEditarPermisos" class="fixed bottom-0 left-0 right-0 top-0 bg-black bg-opacity-50 hidden ">
-    <div class="relative w-full h-full flex justify-center items-center">
+
+  <!-- Modal -->
+  <div id="modalEditarPermisos" class="absolute bottom-0 left-0 right-0 top-0 bg-black bg-opacity-50 hidden ">
+    <div class="absolute mt-20 w-full h-auto flex justify-center items-center">
         <div class="bg-white p-12 rounded-lg shadow-xl ">
             <h2 class="text-2xl font-medium mb-4 flex justify-center">Editar Permisos</h2>
             <form id="formularioPermisos">
@@ -207,7 +212,6 @@ Roles
         </div>
     </div>
 </div>
-
 <style>
     /* Estilo para el hover */
     .btn:hover {
