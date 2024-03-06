@@ -99,7 +99,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><img src="folder-icon.png" alt="Icono de Carpeta" class="h-6 w-6 inline-block mr-2"> Project System
+                    <td><img  src="{{ asset('images/avatar.jpg') }}" alt="Icono de Carpeta" class="h-6 w-6 inline-block mr-2"> Project System
                     </td>
                     <td>Josue Chan, Guillermo Díaz</td>
                     <td><span class="status approved">Aprobado</span></td>
