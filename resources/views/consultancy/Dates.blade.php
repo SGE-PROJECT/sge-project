@@ -27,7 +27,7 @@
         </button>
     </div>
     <div id="myModal2" class="modal-background">
-        <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal">
+        <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
             <span class="close2">&times;</span>
             <h2>Editar Cita</h2>
             <div class="form-group">
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div id="myModal3" class="modal-background">
-        <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal">
+        <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
             <span class="close3">&times;</span>
             <h2>Solicitar cambio de cita</h2>
             <div class="form-group">
@@ -65,7 +65,7 @@
     </div>
     
     <div id="myModal" class="modal-background">
-        <div class="modal-content">
+        <div class="modal-content-asesorias">
             <span class="close">&times;</span>
             <p>Seleccione un proyecto:</p>
             <select id="nombre">
@@ -96,7 +96,7 @@
         <select id="year" class="select-mes text-[30px] md:text-[40px]">
             <!-- Los años se generarán dinámicamente -->
         </select>
-        <div id="calendar"></div>
+        <div id="calendar" class="overflow-x-scroll md:overflow-visible"></div>
     </div>
 
     <div class="ocultar w-[100%] sm:w-[65%] flex flex-wrap relative py-5 justify-center" id="dia">
