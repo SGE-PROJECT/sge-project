@@ -1,9 +1,10 @@
 .seccion-carreras{
-    width: 680px;
+    width: 100%;
+    flex-grow: 1;
     padding: 18px;
     background: #F6F5F2;
     border-radius: 12px;
-    box-shadow: 2px 2px 5px 5px rgba(0.6, 0.9, 0.5, 0.2);
+    box-shadow: 1px 1px 4px rgba(0.6, 0.9, 0.5, 0.2);
   }
 
   .seccion-titulo span{
@@ -22,10 +23,10 @@
 .resumen{
   background: #F6F5F2;
   padding: 14px;
+  width: 100% !important;
   border-radius: 12px;
-  width: 260px;
-  height: 400px;
-  box-shadow: 2px 2px 5px 5px rgba(0.6, 0.9, 0.5, 0.2); 
+  height: fit-content;
+  box-shadow: 1px 1px 4px rgba(0.6, 0.9, 0.5, 0.2); 
 }
 
 .btn-export{
@@ -50,6 +51,9 @@
 }
 
 .resumen-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   flex-grow: 1;
   margin-left: 8px;
 }
@@ -63,6 +67,7 @@
 .resumen-barra {
   background-color: #ccc; /* Color de fondo para la barra no completada */
   height: 10px;
+  flex-grow: 1;
   border-radius: 5px;
   overflow: hidden; /* Permite que el borde redondeado recorte el contenido */
 }
