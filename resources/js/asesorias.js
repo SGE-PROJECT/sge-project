@@ -30,9 +30,40 @@ var proyectos = {
         descripcion: 'Proyecto dedicado al diseño de interfaces y experiencias de usuario.',
         alumnos: ['22393176', '22393177'],
         imagen: 'avatar.jpg'
+    },
+    4: {
+        nombre: "Desarrollo de Aplicación Móvil",
+        descripcion: "Creación de una aplicación móvil para mejorar la experiencia del usuario.",
+        alumnos: ['22393176', '22393177'],
+        imagen: 'avatar.jpg'
+    },
+    5: {
+        nombre: "Implementación de Sistema de Gestión",
+        descripcion: "Integración de un sistema de gestión para mejorar la eficiencia operativa.",
+        alumnos: ['22393176', '22393177'],
+        imagen: 'avatar.jpg'
+    },
+    6: {
+        nombre: "Diseño de Sitio Web",
+        descripcion: "Rediseño completo del sitio web corporativo para una experiencia más moderna.",
+        alumnos: ['22393176', '22393177'],
+        imagen: 'avatar.jpg'
+    },
+    7: {
+        nombre: "Desarrollo de Plataforma E-commerce",
+        descripcion: "Construcción de una plataforma de comercio electrónico para expandir el alcance de ventas.",
+        alumnos: ['22393176', '22393178'],
+        imagen: 'avatar.jpg'
+    },
+    8: {
+        nombre: "Implementación de Sistema de Automatización",
+        descripcion: "Desarrollo e implementación de un sistema de automatización para optimizar procesos.",
+        alumnos: ['22393172', '22393204'],
+        imagen: 'avatar.jpg'
     }
 };
 var colores = ["verde", "amarillo", "morado", "azul", "rosa"];
+var eventoSeleccionado={};
 function asignarColorAlumnos(estudiantes, colores) {
     var resultado = {};
     var keys = Object.keys(estudiantes);
@@ -46,15 +77,108 @@ function asignarColorAlumnos(estudiantes, colores) {
     return resultado;
 }
 estudiantes = asignarColorAlumnos(estudiantes, colores);
-var eventos = {};
+var eventos = {
+    "2024-03-07 09:00": {
+        fecha: "2024-03-07",
+        hora: "09:00",
+        proyectoId: 1,
+        motivo: "Reunión de inicio para el proyecto de Desarrollo de Software"
+    },
+    "2024-03-07 14:00": {
+        fecha: "2024-03-07",
+        hora: "14:00",
+        proyectoId: 2,
+        motivo: "Sesión de lluvia de ideas para el proyecto de Investigación en IA"
+    },
+    "2024-03-10 10:30": {
+        fecha: "2024-03-10",
+        hora: "10:30",
+        proyectoId: 3,
+        motivo: "Entrevista con usuarios para el proyecto de Diseño UX/UI"
+    },
+    "2024-03-12 16:00": {
+        fecha: "2024-03-12",
+        hora: "16:00",
+        proyectoId: 1,
+        motivo: "Presentación de avances en el proyecto de Desarrollo de Software"
+    },
+    "2024-03-15 08:30": {
+        fecha: "2024-03-15",
+        hora: "08:30",
+        proyectoId: 2,
+        motivo: "Reunión para discutir avances en el proyecto de Investigación en IA"
+    },
+    "2024-03-17 10:00": {
+        fecha: "2024-03-17",
+        hora: "10:00",
+        proyectoId: 3,
+        motivo: "Presentación de avances en el proyecto de Diseño UX/UI"
+    },
+    "2024-03-18 14:00": {
+        fecha: "2024-03-18",
+        hora: "14:00",
+        proyectoId: 1,
+        motivo: "Sesión de trabajo para el proyecto de Desarrollo de Software"
+    },
+    "2024-03-20 09:30": {
+        fecha: "2024-03-20",
+        hora: "09:30",
+        proyectoId: 2,
+        motivo: "Revisión de código en el proyecto de Investigación en IA"
+    },
+    "2024-03-22 16:00": {
+        fecha: "2024-03-22",
+        hora: "16:00",
+        proyectoId: 3,
+        motivo: "Entrega final de prototipo para el proyecto de Diseño UX/UI"
+    },
+    "2024-03-25 11:00": {
+        fecha: "2024-03-25",
+        hora: "11:00",
+        proyectoId: 4,
+        motivo: "Sesión de planificación para el proyecto de Marketing Digital"
+    },
+    "2024-03-27 15:30": {
+        fecha: "2024-03-27",
+        hora: "15:30",
+        proyectoId: 5,
+        motivo: "Entrevista con clientes para el proyecto de Desarrollo de Producto"
+    },
+    "2024-03-30 09:00": {
+        fecha: "2024-03-30",
+        hora: "09:00",
+        proyectoId: 4,
+        motivo: "Revisión de estrategias de contenido para el proyecto de Marketing Digital"
+    },
+    "2024-04-02 13:00": {
+        fecha: "2024-04-02",
+        hora: "13:00",
+        proyectoId: 5,
+        motivo: "Sesión de lluvia de ideas para el proyecto de Desarrollo de Producto"
+    },
+    "2024-04-05 10:30": {
+        fecha: "2024-04-05",
+        hora: "10:30",
+        proyectoId: 4,
+        motivo: "Presentación de informe de resultados para el proyecto de Marketing Digital"
+    }
+};
 
 document.addEventListener('DOMContentLoaded', function () {
-    contador.textContent = 0 + "/250";
+    document.getElementById("contador").textContent = 0 + "/250";
+    document.getElementById("editContador").textContent = 0 + "/250";
     document.querySelector('.close').addEventListener('click', closeModal);
+    document.querySelector('.close2').addEventListener('click', closeModal2);
+    document.querySelector('.close3').addEventListener('click', solicitar);
     document.getElementById('nombre').addEventListener('change', matricula);
     document.getElementById('month').addEventListener('change', updateCalendar);
     document.getElementById('year').addEventListener('change', updateCalendar);
     document.getElementById('volverButton').addEventListener('click', volver);
+    document.getElementById('botonCitas').addEventListener('click', mostrarTodo);
+    document.getElementById('botonCitas2').addEventListener('click', ocultarTodo);
+    document.getElementById('solicitar').addEventListener('click', solicitar);
+    document.getElementById('cambiarCita').addEventListener('click', cambiar);
+    document.getElementById("guardarEventoButton").addEventListener('click', editarGuardar);
     document.querySelectorAll('td[data-hora]').forEach(td => {
         td.addEventListener('click', function () {
             tiempo(this.getAttribute('data-hora'));
@@ -74,13 +198,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         contador.textContent = document.getElementById('motivo').value.length + "/250";
     });
+    document.getElementById('editMotivo').addEventListener('input', function () {
+        this.value = this.value.replace(/^[\W_]+|^ <>/, '');
+        var contador = document.getElementById("editContador");
+        if (this.value.length > 250) {
+            this.value = this.value.slice(0, 250);
+        }
+        contador.textContent = document.getElementById('editMotivo').value.length + "/250";
+    });
     document.getElementById('fecha').addEventListener('click', function () {
         var dateInput = document.getElementById('fecha');
         dateInput.click();
-        console.log("se dio click")
     });
 });
-
+function solicitar() {
+    document.getElementById("solitAsunto").value="";
+    document.getElementById("solitMensaje").value="";
+    document.getElementById("myModal3").style.display="none";
+}
+function cambiar() {
+    document.getElementById("myModal3").style.display="flex";
+}
 function populateStudentSelect() {
     var select = document.getElementById('nombre');
     select.innerHTML = '';
@@ -156,7 +294,7 @@ function agregarEvento() {
     if (eventYear < currentYear || (eventYear === currentYear && eventMonth < currentMonth) ||
         (eventYear === currentYear && eventMonth === currentMonth && eventDay < currentDay)) {
         error.style.display = "block";
-        error.innerHTML = "La fecha del evento no puede ser anterior a la fecha actual.";
+        error.innerHTML = "La fecha de la cita no puede ser anterior a la fecha actual.";
         return;
     }
     if (eventYear === currentYear && eventMonth === currentMonth && eventDay === (currentDay - 1)) {
@@ -164,14 +302,14 @@ function agregarEvento() {
         let eventMinute = parseInt(hora.split(':')[1]);
         if (eventHour < currentHour || (eventHour === currentHour && eventMinute <= currentMinute)) {
             error.style.display = "block";
-            error.innerHTML = "La hora del evento debe ser posterior a la hora actual más una hora.";
+            error.innerHTML = "La hora de la cita debe ser posterior a la hora actual más una hora.";
             return;
         }
     }
     let idEvento = fecha + ' ' + hora;
     if (idEvento in eventos) {
         error.style.display = "block";
-        error.innerHTML = "El evento ya existe.";
+        error.innerHTML = "La cita ya existe.";
         return;
     }
 
@@ -193,6 +331,7 @@ function agregarEvento() {
     llenarHorasConEventos();
     document.getElementById('fecha').value = "";
     document.getElementById('horas').value = "";
+    document.getElementById("contador").textContent = 0 + "/250";
     document.getElementById('motivo').value = "";
     document.getElementById('matricula').value = "0";
     document.getElementById('dia').classList.add('ocultar');
@@ -334,6 +473,9 @@ function closeModal() {
     document.getElementById("myModal").style.display = "none";
     document.getElementById("nombre").value="0";
 }
+function closeModal2() {
+    document.getElementById("myModal2").style.display = "none";
+}
 
 var diaSemana = "", diaMes = "", Mes = "", año = "", numeroMes = "";
 
@@ -356,6 +498,7 @@ function tiempo(tiem) {
 }
 
 function volver() {
+    document.getElementById("contador").textContent = 0 + "/250";
     let error = document.getElementById("error");
     error.style.display = "none";
     document.getElementById("asesorias-formulario").classList.add("ocultar");
@@ -365,6 +508,8 @@ function volver() {
     document.getElementById('fecha').value = "";
     document.getElementById('horas').value = "";
     document.getElementById('matricula').value = "0";
+    document.getElementById("contador").textContent = 0 + "/250";
+    document.getElementById('motivo').value = "";
 }
 
 function onDayClick(year, month, dayOfWeek, dayOfMonth) {
@@ -456,7 +601,6 @@ function createCalendar(year, month) {
 
 function matricula() {
     let selectedProyectoId = document.getElementById('nombre').value; // Obtener el ID del proyecto seleccionado
-    console.log(selectedProyectoId)
     if (selectedProyectoId == "0") {
         return;
     }
@@ -504,54 +648,152 @@ function mostrarTodosLosEventos() {
         celdaMensaje.colSpan = 6;
         celdaMensaje.classList.add('text-center');
     } else {
-    for (let i = 0; i < eventosOrdenados.length; i++) {
-        let evento = eventosOrdenados[i];
-        let fila = tablaEventos.insertRow();
-        
-        // Celda para el nombre del proyecto
-        let celdaProyecto = fila.insertCell();
-        let divNombreProyecto = document.createElement('div');
-        divNombreProyecto.textContent = proyectos[evento.proyectoId].nombre;
-        celdaProyecto.appendChild(divNombreProyecto);
-        
-        // Celda para los alumnos
-        let celdaAlumnos = fila.insertCell();
-        let alumnosProyecto = proyectos[evento.proyectoId].alumnos.map(matricula => estudiantes[matricula].nombre).join(', ');
-        let divAlumnos = document.createElement('div');
-        divAlumnos.textContent = alumnosProyecto;
-        celdaAlumnos.appendChild(divAlumnos);
+        for (let i = 0; i < eventosOrdenados.length; i++) {
+            let evento = eventosOrdenados[i];
+            let fila = tablaEventos.insertRow();
 
-        // Celda para el motivo
-        let celdaMotivo = fila.insertCell();
-        let divMotivo = document.createElement('div');
-        divMotivo.textContent = evento.motivo;
-        celdaMotivo.appendChild(divMotivo);
-        
-        
-        // Celda para la hora
-        let celdaHora = fila.insertCell();
-        let horaEvento = formato12Horas(evento.hora);
-        let divHora = document.createElement('div');
-        divHora.textContent = horaEvento;
-        celdaHora.appendChild(divHora);
-        
-        // Celda para la fecha
-        let celdaFecha = fila.insertCell();
-        let fechaEvento = new Date(evento.fecha + "T00:00:00");
-        fechaEvento = new Date(fechaEvento.getTime() + fechaEvento.getTimezoneOffset() * 60000);
-        let options = { year: 'numeric', month: 'long', day: 'numeric' };
-        let divFecha = document.createElement('div');
-        divFecha.textContent = fechaEvento.toLocaleDateString('es-ES', options);
-        celdaFecha.appendChild(divFecha);
-        
-        // Celda para la acción
-        let celdaAccion = fila.insertCell();
-        let botonEliminar = document.createElement('button');
-        botonEliminar.innerHTML = `<i class="nf nf-cod-trash"></i>`;
-        botonEliminar.addEventListener('click', function () { eliminarEvento(evento); });
-        celdaAccion.appendChild(botonEliminar);
+            // Celda para el nombre del proyecto
+            let celdaProyecto = fila.insertCell();
+            let divNombreProyecto = document.createElement('div');
+            divNombreProyecto.textContent = proyectos[evento.proyectoId].nombre;
+            celdaProyecto.appendChild(divNombreProyecto);
+
+            // Celda para los alumnos
+            let celdaAlumnos = fila.insertCell();
+            let alumnosProyecto = proyectos[evento.proyectoId].alumnos.map(matricula => estudiantes[matricula].nombre).join(', ');
+            let divAlumnos = document.createElement('div');
+            divAlumnos.textContent = alumnosProyecto;
+            celdaAlumnos.appendChild(divAlumnos);
+
+            // Celda para el motivo
+            let celdaMotivo = fila.insertCell();
+            let divMotivo = document.createElement('div');
+            divMotivo.textContent = evento.motivo;
+            celdaMotivo.appendChild(divMotivo);
+
+
+            // Celda para la hora
+            let celdaHora = fila.insertCell();
+            let horaEvento = formato12Horas(evento.hora);
+            let divHora = document.createElement('div');
+            divHora.textContent = horaEvento;
+            celdaHora.appendChild(divHora);
+
+            // Celda para la fecha
+            let celdaFecha = fila.insertCell();
+            let fechaEvento = new Date(evento.fecha + "T00:00:00");
+            fechaEvento = new Date(fechaEvento.getTime() + fechaEvento.getTimezoneOffset() * 60000);
+            let options = { year: 'numeric', month: 'long', day: 'numeric' };
+            let divFecha = document.createElement('div');
+            divFecha.textContent = fechaEvento.toLocaleDateString('es-ES', options);
+            celdaFecha.appendChild(divFecha);
+
+            // Celda para las acciones (editar y borrar)
+            let celdaAccion = fila.insertCell();
+            let divAcciones = document.createElement('div');
+            let botonEditar = document.createElement('button');
+            botonEditar.innerHTML = `<i class="nf nf-md-pencil evento"></i>`;
+            botonEditar.addEventListener('click', function () { editarEvento(evento); });
+            divAcciones.appendChild(botonEditar);
+
+            let botonEliminar = document.createElement('button');
+            botonEliminar.innerHTML = `<i class="nf nf-fa-trash evento"></i>`;
+            botonEliminar.addEventListener('click', function () { eliminarEvento(evento); });
+            divAcciones.appendChild(botonEliminar);
+
+            celdaAccion.appendChild(divAcciones);
+        }
     }
 }
+function mostrarTodo() {
+    document.getElementById("contbtnCitas").classList.add("ocultar");
+    document.getElementById("contbtnCitas2").classList.remove("ocultar");
+    let error = document.getElementById("error");
+    error.style.display = "none";
+    document.getElementById('fecha').value = "";
+    document.getElementById('horas').value = "";
+    document.getElementById("contador").textContent = 0 + "/250";
+    document.getElementById('motivo').value = "";
+    document.getElementById('matricula').value = "0";
+    document.getElementById('dia').classList.add('ocultar');
+    document.getElementById('calendario').classList.remove('ocultar');
+    document.getElementById("asesorias-formulario").classList.add("ocultar");
+    document.getElementById("eventosContainer").classList.add("ocultar");
+    document.getElementById("calendario").classList.add("ocultar");
+    document.getElementById("eventosContainer2").classList.remove("ocultar");
+}
+function ocultarTodo() {
+    document.getElementById("contbtnCitas").classList.remove("ocultar");
+    document.getElementById("contbtnCitas2").classList.add("ocultar");
+    document.getElementById("asesorias-formulario").classList.add("ocultar");
+    document.getElementById("eventosContainer").classList.remove("ocultar");
+    document.getElementById("calendario").classList.remove("ocultar");
+    document.getElementById("eventosContainer2").classList.add("ocultar");
+}
+function editarGuardar() {
+    var fechaInput = document.getElementById("editFecha");
+    var horasInput = document.getElementById("editHora");
+    var motivoInput = document.getElementById("editMotivo");
+    var error = document.getElementById("error2");
+    error.style.display = "none";
+    var nuevaFecha = fechaInput.value.trim();
+    var nuevaHora = horasInput.value.trim();
+    var nuevoMotivo = motivoInput.value.trim();
+    if (!nuevaFecha || !nuevaHora || !nuevoMotivo) {
+        error.style.display = "block";
+        error.innerHTML = "Por favor, complete todos los campos.";
+        return;
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(nuevaFecha)) {
+        error.style.display = "block";
+        error.innerHTML = "Por favor, ingrese una fecha válida en formato AAAA-MM-DD.";
+        return;
+    }
+    if (!/^\d{2}:\d{2}$/.test(nuevaHora)) {
+        error.style.display = "block";
+        error.innerHTML = "Por favor, ingrese una hora válida en formato HH:MM.";
+        return;
+    }
+    let horaPartes = nuevaHora.split(":");
+    let horaNum = parseInt(horaPartes[0]);
+    let minutoNum = parseInt(horaPartes[1]);
+    if (horaNum < 7 || horaNum > 20 || (horaNum === 20 && minutoNum > 0)) {
+        error.style.display = "block";
+        error.innerHTML = "Por favor, seleccione una hora entre las 7:00 a.m. y las 8:00 p.m.";
+        return;
+    }
+    var nuevoIdEvento = nuevaFecha + ' ' + nuevaHora;
+    var idEvento = eventoSeleccionado.fecha + ' ' + eventoSeleccionado.hora;
+    if (eventos[nuevoIdEvento] && nuevoIdEvento !== idEvento) {
+        error.style.display = "block";
+        error.innerHTML = "Una cita ya existe en esa fecha y hora.";
+        return;
+    }
+    delete eventos[idEvento];
+    eventos[nuevoIdEvento] = {
+        fecha: nuevaFecha,
+        hora: nuevaHora,
+        proyectoId: eventoSeleccionado.proyectoId,
+        motivo: nuevoMotivo
+    };
+    document.getElementById("myModal2").style.display="none";
+    mostrarEventosSemanales();
+    mostrarTodosLosEventos();
+    updateCalendar();
+    llenarHorasConEventos();
+}
+
+function editarEvento(evento) {
+    var fechaInput = document.getElementById("editFecha");
+    var horasInput = document.getElementById("editHora");
+    var motivoInput = document.getElementById("editMotivo");
+    fechaInput.value = evento.fecha;
+    horasInput.value = evento.hora;
+    motivoInput.value = evento.motivo;
+    eventoSeleccionado = evento;
+    let cantidad = evento.motivo.length;
+    document.getElementById("editContador").textContent = cantidad + "/250";
+    document.getElementById("myModal2").style.display="flex";
 }
 mostrarTodosLosEventos();
 populateYears();

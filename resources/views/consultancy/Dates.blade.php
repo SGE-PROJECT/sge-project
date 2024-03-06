@@ -4,6 +4,66 @@
 
 @section('contenido')
 <main class="vista_asesorias">
+    <div class="BtnCrearDivisions botonVereventos relative md:absolute" id="contbtnCitas">
+        <button class="Btn_divisions" id="cambiarCita">
+            <span class="Btntext_divisions" >Cambiar<b>-</b>cita</span>
+            <span class="svgIcon_divisions">
+                <i class="nf nf-cod-mention"></i>
+            </span>
+        </button>
+        <button class="Btn_divisions ml-[20px]" id="botonCitas">
+            <span class="Btntext_divisions" >citas</span>
+            <span class="svgIcon_divisions">
+                <i class="nf nf-md-eye"></i>
+            </span>
+        </button>
+    </div>
+    <div class="BtnCrearDivisions botonVereventos relative md:absolute ocultar" id="contbtnCitas2">
+        <button class="Btn_divisions" id="botonCitas2">
+            <span class="Btntext_divisions" >Calendario</span>
+            <span class="svgIcon_divisions">
+                <i class="nf nf-md-eye"></i>
+            </span>
+        </button>
+    </div>
+    <div id="myModal2" class="modal-background">
+        <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal">
+            <span class="close2">&times;</span>
+            <h2>Editar Cita</h2>
+            <div class="form-group">
+                <label for="editFecha">Fecha:</label>
+                <input type="date" id="editFecha" name="fecha">
+            </div>
+            <div class="form-group">
+                <label for="editHora">Hora:</label>
+                <input type="time" id="editHora" name="hora">
+            </div>
+            <div class="form-group">
+                <label for="editMotivo">Motivo:</label>
+                <input id="editMotivo" name="motivo" maxlength="250">
+                <span id="editContador">0/250</span>
+            </div>
+            <p id="error2">Error</p>
+            <button type="submit" id="guardarEventoButton">Guardar Cambios</button>
+        </div>
+    </div>
+    <div id="myModal3" class="modal-background">
+        <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal">
+            <span class="close3">&times;</span>
+            <h2>Solicitar cambio de cita</h2>
+            <div class="form-group">
+                <label for="solitAsunto">Asunto:</label>
+                <input name="motivo" maxlength="250" id="solitAsunto" placeholder="Asunto de la solicitud">
+            </div>
+            <div class="form-group">
+                <label for="solitMensaje">Mensaje:</label>
+                <input  name="motivo" maxlength="250" id="solitMensaje" placeholder="Justificacion de la solicitud">
+            </div>
+            <p id="error2">Error</p>
+            <button type="submit" id="solicitar">Solicitar cambio</button>
+        </div>
+    </div>
+    
     <div id="myModal" class="modal-background">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -72,7 +132,7 @@
                         <td data-hora="11:00"></td>
                     </tr>
                     <tr>
-                        <th class="horas">12:00 P.M</th>
+                        <th class="horas">12:00 A.M</th>
                         <td data-hora="12:00"></td>
                     </tr>
                     <tr>
@@ -132,10 +192,10 @@
         </span>
         
         <p id="error">Error</p>
-        <button id="agregarEventoButton">Crear sesion</button>
+        <button id="agregarEventoButton">Crear cita</button>
     </div>
     <div id="eventosContainer" class="ml-[20px] mr-[20px] mt-[20px] mb-[20px] lg:ml-[0px] lg:mr-[20px] lg:mt-[85px] lg:mb-[0px]">
-        <h2>Eventos proximos</h2>
+        <h2>Citas proximas</h2>
         <span>
             <table id="tablaEventos">
             <thead>
@@ -158,8 +218,8 @@
         </div>
 
     </span>
-    <div id="eventosContainer2">
-        <h2>Todos los eventos</h2>
+    <div id="eventosContainer2" class="ocultar">
+        <h2>Todas las citas</h2>
         <span>
             <table id="tablaEventos2">
             <thead>

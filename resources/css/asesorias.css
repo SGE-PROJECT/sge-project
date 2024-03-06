@@ -16,8 +16,9 @@
 }
 .vista_asesorias{
     display: flex;
+    align-items: start;
     flex-wrap: wrap;
-    min-height: calc(100vh - 68px);
+    position: relative;
     justify-content: center;
 }
 .vista_asesorias > * {
@@ -135,7 +136,7 @@
     animation: aparecer2 .3s ease;
 }
 .ocultar {
-    display: none;
+    display: none !important;
 }
 
 .modal-background {
@@ -161,6 +162,7 @@
     border-radius: 5px;
     width: 80%;
     position: relative;
+    animation: aparecer2 .3s ease;
 }
 .modal-content p{
     width: 100%;
@@ -214,8 +216,7 @@ tbody th{
 }
 .etiquetas2{
     display: flex;
-    padding: 5px 10px;
-    justify-content: left;
+    justify-content: space-evenly;
     gap: 5px;
     flex-wrap: wrap;
     max-width: 150px;
@@ -265,6 +266,14 @@ tbody th{
 @keyframes aparecer2{
     0%{
         transform: scale(.85);
+    }
+}
+@keyframes desaparecer{
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(.8);
     }
 }
 #calendar table, #dia table {
@@ -392,10 +401,18 @@ input[type=number]::-webkit-outer-spin-button {
 #motivo{
     margin: 0;
 }
-.motivo p{
+.motivo p, #editContador{
     right: 5px;
     text-align: right;
     font-size: 12px;
+}
+#editContador{
+    width: 100%;
+    text-align: right;
+    display: block;
+}
+#editMotivo{
+    margin: 0px;
 }
 .asesorias-formulario input:focus{
     outline-color: #293846;
@@ -454,6 +471,7 @@ input[type=number]::-webkit-outer-spin-button {
     height: fit-content;
     overflow: hidden;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+    animation: aparecer2 .3s ease;
 }
 #eventosContainer2 span{
     width: 100%;
@@ -505,7 +523,7 @@ input[type=number]::-webkit-outer-spin-button {
 .nf-cod-trash{
     font-size: 20px;
 }
-#error{
+#error, #error2{
     display: none;
     border:2px solid #e00;
     border-radius: 5px;
@@ -522,4 +540,55 @@ input[type=number]::-webkit-outer-spin-button {
 }
 #matricula:focus{
     outline-color: #293846;
+}
+.Btn_divisions:active{
+    animation: desaparecer .3s ease;
+}
+.botonVereventos{
+    padding: 0 !important;
+    width: 100%;
+   display: flex;
+   margin-top: 20px !important;
+   margin-right: 40px !important;
+   justify-content: right; 
+   transition: all .3s;
+}
+.botonVereventos i{
+    padding: 5px;
+}
+.botonVereventos .Btntext_divisions{
+    width: fit-content;   
+    padding: 5px;
+}
+.Btn_divisions{
+    width: fit-content !important;
+   animation: aparecer2 .3s ease;
+}
+#contbtnCitas2{
+    position: relative;
+}
+.modal{
+    max-width: 300px;
+    position: relative;
+}
+.modal .close2, .close3{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 30px;
+    width: fit-content;
+    cursor: pointer;
+}
+.modal h2{
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.evento{
+    font-size: 20px;
+    color: #293846;
+    margin-inline: 10px;
+}
+.Btntext_divisions b{
+    color: #0000;
 }
