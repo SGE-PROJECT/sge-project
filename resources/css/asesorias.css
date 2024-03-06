@@ -29,6 +29,9 @@
 .vista_asesorias > *:last-child {
     align-self: auto;
 }
+.vista_asesorias .Btntext_divisions {
+    text-transform:none !important;
+}
 #calendar, #dia2{
     width: 100%;
     padding: 10px 20px 10px 20px;
@@ -65,9 +68,9 @@
 }
 
 /* Esquina superior derecha */
-#calendar table thead tr:first-child th:last-child, 
+#calendar table thead tr:first-child th:last-child,
 #calendar table thead tr:first-child td:last-child,
-#dia table thead tr:first-child th:last-child, 
+#dia table thead tr:first-child th:last-child,
 #dia table thead tr:first-child td:last-child {
     border-top-right-radius: 5px;
 }
@@ -79,9 +82,9 @@
 }
 
 /* Esquina superior derecha */
-#calendar table tbody tr:last-child th:last-child, 
+#calendar table tbody tr:last-child th:last-child,
 #calendar table tbody tr:last-child td:last-child,
-#dia table tbody tr:last-child th:last-child, 
+#dia table tbody tr:last-child th:last-child,
 #dia table tbody tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
 }
@@ -319,7 +322,7 @@ tbody th{
 .desactivado:hover{
     background-color: #eee !important;
     cursor:not-allowed !important;
-}  
+}
 .horas{
     width: auto !important; /* Eliminar el ancho fijo */
     background-color: #fff;
@@ -550,14 +553,14 @@ input[type=number]::-webkit-outer-spin-button {
    display: flex;
    margin-top: 20px !important;
    margin-right: 40px !important;
-   justify-content: right; 
+   justify-content: right;
    transition: all .3s;
 }
 .botonVereventos i{
     padding: 5px;
 }
 .botonVereventos .Btntext_divisions{
-    width: fit-content;   
+    width: fit-content;
     padding: 5px;
 }
 .Btn_divisions{

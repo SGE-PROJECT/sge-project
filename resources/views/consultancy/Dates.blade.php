@@ -8,13 +8,13 @@
         <button class="Btn_divisions" id="cambiarCita">
             <span class="Btntext_divisions" >Cambiar<b>-</b>cita</span>
             <span class="svgIcon_divisions">
-                <i class="nf nf-cod-mention"></i>
+                <i class="nf nf-md-update"></i>
             </span>
         </button>
         <button class="Btn_divisions ml-[20px]" id="botonCitas">
-            <span class="Btntext_divisions" >citas</span>
+            <span class="Btntext_divisions" >Citas</span>
             <span class="svgIcon_divisions">
-                <i class="nf nf-md-eye"></i>
+                <i class="nf nf-fa-list_alt"></i>
             </span>
         </button>
     </div>
@@ -22,7 +22,7 @@
         <button class="Btn_divisions" id="botonCitas2">
             <span class="Btntext_divisions" >Calendario</span>
             <span class="svgIcon_divisions">
-                <i class="nf nf-md-eye"></i>
+                <i class="nf nf-fa-calendar"></i>
             </span>
         </button>
     </div>
@@ -63,7 +63,7 @@
             <button type="submit" id="solicitar">Solicitar cambio</button>
         </div>
     </div>
-    
+
     <div id="myModal" class="modal-background">
         <div class="modal-content-asesorias">
             <span class="close">&times;</span>
@@ -190,7 +190,7 @@
             <input type="text" id="motivo" maxlength="250">
             <p id="contador"></p>
         </span>
-        
+
         <p id="error">Error</p>
         <button id="agregarEventoButton">Crear cita</button>
     </div>
@@ -243,7 +243,7 @@
             </tbody>
         </table>
         </div>
-        
+
     </span>
 </main>
 @endsection
