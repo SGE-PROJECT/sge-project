@@ -16,7 +16,7 @@
 }
 .vista_asesorias{
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     flex-wrap: wrap;
     position: relative;
     justify-content: center;
@@ -225,7 +225,7 @@ tbody th{
     width: 100%;
     position: relative;
     display: flex;
-    align-items:start;
+    align-items:flex-start;
     gap: 10px;
     width: fit-content;
     height: fit-content;
