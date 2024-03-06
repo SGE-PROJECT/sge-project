@@ -20,7 +20,9 @@
     <!-- Project Body -->
     <div class="project-body">
         <p>Descripción</p>
-        <textarea class="project-description"></textarea>
+        <div class="project-description">
+            Josue Antonio Chan Gutierrez
+        </div>
 
         <!-- Reaction buttons -->
         <div class="project-reactions">
