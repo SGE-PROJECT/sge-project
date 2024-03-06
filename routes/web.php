@@ -13,6 +13,7 @@ use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\profile\ProfileController;
 
+use App\Http\Controllers\Career\CareerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,9 @@ Route::get('/add-books', function () {
     return view('books-notifications.books.add-books');
 });
 
+Route::get('/report',[BooksController::class,'listBook'])->name('books.list'); 
+Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports'); 
+
 
 Route::controller(ProjectFormController::class)->group(function (){
     Route::get('/dashboardProjects','index');
@@ -72,3 +76,5 @@ Route::controller(ProjectFormController::class)->group(function (){
 Route::controller(ProjectController::class)->group(function (){
     Route::get('/Project','index');
 });
+
+Route::resource('carreras', CareerController::class);
