@@ -24,6 +24,7 @@
   @vite('resources/css/input.css')
   @vite('resources/js/projectview.js')
   @vite('resources/css/loader/loader.css')
+  @vite('resources/css/Dashboard/DashboardUsers.css')
   @vite('resources/css/projects/projectview.css')
   @vite('resources/css/management/projects.css')
 
