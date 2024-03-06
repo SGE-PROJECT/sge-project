@@ -21,8 +21,9 @@ class BooksController extends Controller
         return view('books-notifications.books.BooksList',compact('books'));
     }
     public function report (){
+        $image='images/utcbis-logo.jpg';
         $books =Book::all();
-       $pdf = Pdf::loadView('books-notifications.books.reports', compact( 'books'));
+       $pdf = Pdf::loadView('books-notifications.books.reports', compact( 'books','image'));
        return $pdf->stream('books_reports.pdf');
     }
 
