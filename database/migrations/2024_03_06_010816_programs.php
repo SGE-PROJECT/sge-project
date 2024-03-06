@@ -13,10 +13,10 @@ return new class extends Migration
     {
         //
         Schema::create('programs', function (Blueprint $table) {
-            $table->id('id_program');
+            $table->id();
             $table->string('name');
             $table->text('description');
-            $table->foreignId('id_division_id')->constrained('divisions', 'id_division') // Especificar el nombre de la columna primaria
+            $table->foreignId('division_id')->constrained() // Especificar el nombre de la columna primaria
             ->onUpdate('restrict')
             ->onDelete('restrict');
             $table->date('start_date');

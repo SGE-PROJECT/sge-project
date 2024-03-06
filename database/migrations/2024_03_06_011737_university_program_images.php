@@ -13,8 +13,8 @@ return new class extends Migration
     {
         //
         Schema::create('university_program_images', function (Blueprint $table) {
-            $table->id('id_images');
-            $table->foreignId('id_program_id')->constrained('programs','id_program')
+            $table->id();
+            $table->foreignId('program_id')->constrained()
             ->onUpdate('restrict')
             ->onDelete('restrict');
             $table->string('image_path');

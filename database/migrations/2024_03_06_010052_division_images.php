@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('division_images', function (Blueprint $table) {
-            $table->id('id_image_division');
-            $table->foreignId('id_division_id')->constrained('divisions', 'id_division') // Especificar el nombre de la columna primaria
+            $table->id();
+            $table->foreignId('division_id')->constrained() // Especificar el nombre de la columna primaria
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
             $table->string('image_path');
