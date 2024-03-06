@@ -32,30 +32,35 @@ var proyectos = {
         imagen: 'avatar.jpg'
     },
     4: {
+        id: 4,
         nombre: "Desarrollo de Aplicación Móvil",
         descripcion: "Creación de una aplicación móvil para mejorar la experiencia del usuario.",
         alumnos: ['22393176', '22393177'],
         imagen: 'avatar.jpg'
     },
     5: {
+        id: 5,
         nombre: "Implementación de Sistema de Gestión",
         descripcion: "Integración de un sistema de gestión para mejorar la eficiencia operativa.",
         alumnos: ['22393176', '22393177'],
         imagen: 'avatar.jpg'
     },
     6: {
+        id: 6,
         nombre: "Diseño de Sitio Web",
         descripcion: "Rediseño completo del sitio web corporativo para una experiencia más moderna.",
         alumnos: ['22393176', '22393177'],
         imagen: 'avatar.jpg'
     },
     7: {
+        id: 7,
         nombre: "Desarrollo de Plataforma E-commerce",
         descripcion: "Construcción de una plataforma de comercio electrónico para expandir el alcance de ventas.",
         alumnos: ['22393176', '22393178'],
         imagen: 'avatar.jpg'
     },
     8: {
+        id: 8,
         nombre: "Implementación de Sistema de Automatización",
         descripcion: "Desarrollo e implementación de un sistema de automatización para optimizar procesos.",
         alumnos: ['22393172', '22393204'],

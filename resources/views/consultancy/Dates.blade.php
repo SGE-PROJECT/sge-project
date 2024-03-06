@@ -4,7 +4,7 @@
 
 @section('contenido')
 <main class="vista_asesorias">
-    <div class="BtnCrearDivisions botonVereventos relative md:absolute" id="contbtnCitas">
+    <div class="BtnCrearDivisions botonVereventos relative lg:absolute" id="contbtnCitas">
         <button class="Btn_divisions" id="cambiarCita">
             <span class="Btntext_divisions" >Cambiar<b>-</b>cita</span>
             <span class="svgIcon_divisions">
@@ -18,7 +18,7 @@
             </span>
         </button>
     </div>
-    <div class="BtnCrearDivisions botonVereventos relative md:absolute ocultar" id="contbtnCitas2">
+    <div class="BtnCrearDivisions botonVereventos relative lg:absolute ocultar" id="contbtnCitas2">
         <button class="Btn_divisions" id="botonCitas2">
             <span class="Btntext_divisions" >Calendario</span>
             <span class="svgIcon_divisions">
@@ -194,7 +194,7 @@
         <p id="error">Error</p>
         <button id="agregarEventoButton">Crear cita</button>
     </div>
-    <div id="eventosContainer" class="ml-[20px] mr-[20px] mt-[20px] mb-[20px] lg:ml-[0px] lg:mr-[20px] lg:mt-[85px] lg:mb-[0px]">
+    <div id="eventosContainer" class="w-full md:w-[20%] lg:w-[30%] ml-[20px] mr-[20px] mt-[20px] mb-[20px] lg:ml-[0px] lg:mr-[20px] lg:mt-[85px] lg:mb-[0px]">
         <h2>Citas proximas</h2>
         <span>
             <table id="tablaEventos">
