@@ -6,7 +6,7 @@
 
 @section('contenido')
 
-<div class="flex lg:flex-nowrap flex-wrap justify-center items-center gap-5 p-5">
+<div class="flex flex-wrap place-content-between w-full items-center gap-5 p-5">
 @include('administrator.card', ['number' => 12, 'name' => 'Proyectos'])
 @include('administrator.card', ['number' => 86, 'name' => 'Usuarios'])
 @include('administrator.card', ['number' => 79, 'name' => 'Empresas'])
@@ -40,7 +40,7 @@
     </div>
 
     
-    <div class="flex flex-wrap flex-col gap-5">
+    <div class="flex flex-wrap w-full flex-col gap-5">
     <!--SECCION PROYECTOS-->
         @include('administrator.section-projects')
 

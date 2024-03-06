@@ -37,7 +37,7 @@
   <section class="flex">
     <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
-        <a href="/" class="flex justify-center items-center border-b border-b-gray-800">
+        <a href="/" class="flex justify-center items-center border-b border-b-white">
           <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
           <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
         </a>
