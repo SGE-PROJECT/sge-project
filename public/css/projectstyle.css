@@ -71,6 +71,10 @@
     display: flex;
 }
 
+.container-state h1{
+    font-size: 0.9em;
+}
+
 
 /* Cuerpo del proyecto */
 .project-body {
