@@ -1,0 +1,35 @@
+.carta-carrera{ 
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 200px;
+    height: 120px;
+    background: #F5E9D0;
+    border-radius: 12px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .carta-carrera:hover{
+    transform: translateX(6px);
+  }
+
+  .cartas-carreras{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .carta-carrera span{
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .icono{
+    width: 50px;
+    width: 50px;
+    margin-bottom: 5px;
+  }

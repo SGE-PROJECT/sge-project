@@ -1,4 +1,5 @@
 var estudiantes = {
+    '22393204': { nombre: 'Guillermo', imagen: 'avatar.jpg' },
     '22393172': { nombre: 'Alonso', imagen: 'avatar.jpg' },
     '22393173': { nombre: 'Juan', imagen: 'avatar.jpg' },
     '22393174': { nombre: 'Emma', imagen: 'avatar.jpg' },
@@ -105,7 +106,7 @@ function agregarEvento() {
     let eventYear = eventDate.getFullYear();
     let eventMonth = eventDate.getMonth() + 1;
     let eventDay = eventDate.getDate();
-    if (eventYear < currentYear || (eventYear === currentYear && eventMonth < currentMonth) || 
+    if (eventYear < currentYear || (eventYear === currentYear && eventMonth < currentMonth) ||
         (eventYear === currentYear && eventMonth === currentMonth && eventDay < currentDay)) {
         error.style.display="block";
         error.innerHTML="La fecha del evento no puede ser anterior a la fecha actual.";

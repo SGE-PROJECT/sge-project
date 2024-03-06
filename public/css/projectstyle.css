@@ -1,0 +1,304 @@
+/* Contenedor principal del proyecto */
+.project-container {
+    border-radius: 15px;
+    /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Sombra suave */
+    width: 90%;
+    /* Ancho fijo, ajustar según necesidad */
+    margin: 2em auto 2em 2em;
+    /* Centrar el contenedor */
+    overflow: hidden;
+    /* Asegura que nada se desborde */
+    font-family: 'Arial', sans-serif;
+    /* Fuente Arial o sans-serif por defecto */
+    background-color: #F6F5F2;
+    /* Fondo gris para el contenedor */
+    max-width: 300px;
+    /* Ancho máximo para contener el tamaño */
+    position: relative;
+    /* Posicionamiento relativo para ajustar dentro de su contenedor padre */
+    transition: 0.4s;
+}
+
+.project-container:hover {
+    transform: scale(1.09);
+}
+
+/* Cabecera del proyecto */
+.project-header {
+    background-color: #F6F5F2;
+    /* Fondo gris claro para la cabecera */
+    padding: 15px;
+    /* Espaciado interno */
+    text-align: center;
+    /* Centrar texto */
+}
+
+
+/* Imagen del Proyecto */
+.project-image img {
+    width: 100%;
+    /* Ajusta la imagen al ancho del contenedor */
+    display: block;
+    /* Evita cualquier espacio extra debajo de la imagen */
+}
+
+
+.project-header p {
+    color: #030303;
+    /* Estado del proyecto en verde */
+    font-size: 0.9em;
+    /* Tamaño de fuente más pequeño */
+    text-align: left;
+}
+
+.project-header h2 {
+    color: black;
+    font-weight: bold;
+    /* Esto hará que el texto esté en negritas */
+    text-align: left;
+    /* Esto alineará el texto a la izquierda del contenedor */
+}
+
+.project-header h1 {
+    color: green;
+    text-align: left;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container-state {
+    display: flex;
+}
+
+.container-state h1{
+    font-size: 0.9em;
+}
+
+
+/* Cuerpo del proyecto */
+.project-body {
+    padding: 15px;
+    /* Espaciado interno */
+}
+
+.project-description {
+    width: 100%;
+    /* Ajusta al ancho disponible */
+    height: 100px;
+    /* Altura fija para el área de texto */
+    border: 1px solid #F6F5F2;
+    /* Borde gris */
+    border-radius: 4px;
+    /* Bordes ligeramente redondeados */
+    padding: 10px;
+    /* Espaciado interno */
+    box-sizing: border-box;
+    /* El ancho y altura incluyen el padding */
+    margin-bottom: 10px;
+    /* Espacio debajo del área de texto */
+    resize: none;
+    /* Evitar que se pueda redimensionar */
+    background-color: #DEDEDE;
+    /* Color de fondo gris para el área de texto */
+}
+
+/* Botones de reacción */
+.project-reactions {
+    text-align: left;
+    /* Alinea los botones a la izquierda */
+}
+
+.project-reactions button {
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde, ajustar si quieres un borde específico */
+    cursor: pointer; /* Cursor en forma de mano al pasar sobre el botón */
+    font-size: 1.5em; /* Tamaño de los emojis */
+    margin-right: 10px; /* Espaciado a la derecha, ajustar según sea necesario */
+}
+
+
+/* Ajustes específicos para el botón del corazón */
+#like-btn {
+    color: red;
+    /* Color rojo para el corazón */
+}
+
+/* Añadir emoji de comentario */
+#comment-btn:before {
+    font-size: 1.5em;
+    /* Tamaño del emoji */
+    margin-right: 10px;
+    /* Espaciado a la derecha del emoji */
+}
+
+/* Estilo para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: #E9E9E9;
+    margin: 10% auto;
+    padding: 20px;
+    border: none;
+    width: 80%;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón cerrar */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Encabezado del modal */
+.modal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #2F4050;
+}
+
+.modal-header h2 {
+    margin-left: 10px;
+    font-size: 18px;
+    color: white;
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 40px;
+    /* Tamaño de la imagen */
+    height: 40px;
+    /* Tamaño de la imagen */
+    margin-right: 10px;
+}
+
+/* Área de texto para el comentario */
+textarea {
+    width: 100%;
+    height: 100px;
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    resize: none;
+    margin-bottom: 20px;
+}
+
+/* Pie de página del modal */
+.modal-footer {
+    display: flex; /* Usa flexbox para alinear los elementos horizontalmente */
+    align-items: center; /* Alinea los elementos verticalmente en el centro */
+    justify-content: space-between; /* Separa el contenido para que esté en los extremos */
+    padding: 10px;
+    border-bottom-left-radius: 15px; /* Alineación con el borde redondeado del modal */
+    border-bottom-right-radius: 15px; /* Alineación con el borde redondeado del modal */
+}
+
+.resolve-btn {
+    background-color: #2F4050;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    border-radius:10px;
+    cursor: pointer;
+    display: flex;
+    font-size: 0.9em;
+}
+
+.resolve-btn:hover {
+    background-color: #0056b3;
+}
+
+.modal-footer p {
+    margin: 0 15px; /* Espaciado uniforme a los lados */
+    font-size: 15px;
+}
+
+/* Estilo para el modal de clasificación */
+.star-modal {
+    display: none; /* Ocultar el modal por defecto */
+    position: fixed; /* Posicionar fijamente en la página */
+    z-index: 2; /* Asegurarse de que esté por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    background-color: rgba(0,0,0,0.4); /* Fondo semi-transparente */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .star-modal-content {
+    background-color: #F6F5F2;
+    margin: auto; /* Centrar vertical y horizontalmente */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 230px; /* Ancho del modal */
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .star-modal-content h3{
+    color: #6A6F70;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  .close-star {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close-star:hover,
+  .close-star:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .star-rating .star {
+    font-size: 2em; /* Tamaño de las estrellas */
+    color: gray; /* Color inicial de las estrellas */
+    cursor: pointer;
+  }
+  
+  .star-rating .star:hover,
+  .star-rating .selected {
+    color: orange; /* Color cuando se pasa el ratón por encima o se selecciona */
+  }
+  
+  /* Botón de corazón no rellenado */
+/* Botón de corazón no rellenado */
+#like-btn.unfilled {
+    color: rgb(190, 188, 188); /* Color de las líneas del corazón cuando no está seleccionado */
+    font-size: 1.7em; /* Asegúrate de que el tamaño del corazón sea el mismo que el de los otros emojis */
+}
+
+/* Botón de corazón rellenado */
+#like-btn.filled {
+    color: red; /* Color del corazón cuando está seleccionado */
+    font-size: 1.7em; /* Asegúrate de que el tamaño del corazón sea el mismo que el de los otros emojis */
+}
+
