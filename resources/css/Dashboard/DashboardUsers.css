@@ -1,0 +1,172 @@
+/* Tabla */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Signika:wght@300..700&display=swap');
+
+
+.tabla-project1 {
+    margin-top: 0rem;
+    border-radius: 40px;
+    padding: 2rem;
+    grid-column: auto;
+}
+
+.tabla-titulo-project {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: 'Signika', sans-serif;
+    color: 003E61#;
+    margin-bottom: 20px;
+}
+
+.tabla-cont-project {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #003E61;
+    color: #fff;
+}
+
+th {
+    padding: 15px;
+    text-align: center;
+}
+
+tbody {
+    background: #f2f2f2;
+}
+
+td {
+    padding: 15px;
+    font-size: 16px;
+    color: #0f0e0e;
+    text-align: center;
+    font-weight: 500;
+}
+
+.tdcat {
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background: #dcdbdb;
+}
+
+.prevnext {
+    left: 100%;
+}
+
+.seccion-proyectos1 {
+    background: #F6F5F2;
+    float: none;
+    padding: 14px;
+    border-radius: 12px;
+    margin-top: 2rem;
+    margin-left: 60rem; /* Aumentar el valor para mover más a la derecha */
+    width: 450px;
+    height: 200px;
+    box-shadow: 2px 2px 5px 5px rgba(0.6, 0.9, 0.5, 0.2);
+}
+
+.num-proyectos1 span {
+    color: #6A6F70;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.estatus11,
+.estatus21,
+.estatus31,
+.estatus41 {
+    margin-bottom: 12px;
+}
+
+/* Estilos para el indicador de estado (el punto redondo) */
+.estatus-indicador1 {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    /* El color se especifica en cada clase de estatus individual */
+}
+
+.estatus11 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.estatus1 .estatus-indicador0 {
+    background: #03A6A6;
+}
+
+.estatus21 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.estatus2 .estatus-indicador0 {
+    background: #F1E78E;
+}
+
+.estatus31 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.estatus3 .estatus-indicador0 {
+    background: #F4917B;
+}
+
+.estatus41 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.estatus4 .estatus-indicador1 {
+    background: #00AB84;
+}
+
+/* Estilos para el contenedor de la barra de progreso que siempre tendrá el color de fondo gris */
+.barra-progreso-contenedor1 {
+    width: 50%;
+    height: 10px;
+    background-color: #ccc;
+    /* Color de fondo gris para la parte no completada */
+    border-radius: 5px;
+    margin: 0 12px;
+}
+
+/* Estilos para la parte rellena de la barra de progreso */
+.barra-progreso-relleno1 {
+    width: 40%;
+    height: 100%;
+    background-color: #03A6A6;
+    /* Color inicial, cambiar según el estatus */
+    border-radius: 5px;
+    /* Asegúrate de que los bordes redondeados se apliquen al relleno también */
+}
+
+/* Estilos específicos para el color de fondo de la parte rellena de la barra de progreso */
+.estatus11 .barra-progreso-relleno1 {
+    background-color: #03A6A6;
+}
+
+.estatus21 .barra-progreso-relleno1 {
+    background-color: #F1E78E;
+}
+
+.estatus31 .barra-progreso-relleno1 {
+    background-color: #F4917B;
+}
+
+.estatus41 .barra-progreso-relleno1 {
+    background-color: #00AB84;
+}
