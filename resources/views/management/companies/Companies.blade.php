@@ -33,38 +33,48 @@
                     </tbody>
                 </table>
                 <!-- Información de la Empresa Seleccionada -->
-                <div class="bg-[#F6F5F2] rounded-md shadow p-4">
-                    <h2 class="text-lg font-semibold mb-2">Información de la Empresa</h2>
-                    <div class="flex items-center">
-                        <img src="images/companies/sge.jpg" alt="Imagen de la empresa"
-                            class="w-20 h-20 object-cover mr-4 rounded-full">
-                        <div>
-                            @php
-                                $text = 'afdfgfasfsdf';
-                                $words = explode(' ', $text);
-                                $wordsPerLine = 3;
-                                $wrappedText = '';
-                                foreach ($words as $index => $word) {
-                                    $wrappedText .= $word . ' ';
-                                    if (($index + 1) % $wordsPerLine === 0) {
-                                        $wrappedText .= '\n';
-                                    }
-                                }
-                            @endphp
-                            <h3 class="font-bold text-xl">{{ $wrappedText }}</h3>
-                            <p><b>Dirección:</b> Av. Kabah SM53 L65 Calle la UT</p>
-                            <p><b>Descripción:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt
-                                neque id nisl aliquam pharetra. Maecenas a consectetur nibh. Suspendisse potenti.</p>
-                            <p><b>Teléfono: </b>123456789</p>
-                            <p><b>Correo:</b> empresa@example.com</p>
-                        </div>
-                    </div>
+                <div>
+                    <table class="bg-[#F6F5F2] rounded-md shadow p-4">
+                        <thead>
+                            <tr class="bg-[#293846] text-white">
+                                <th class="text-lg rounded-t-lg font-semibold px-4 py-2" colspan="2">Información de la Empresa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-[#F6F5F2]">
+                                <td class="flex px-4 py-2">
+                                    <div>
+                                        <div class="inline-flex items-center">
+                                            <img src="images/companies/sge.jpg" alt="Imagen de la empresa" class="mt-2 w-20 h-20 object-cover mr-4 rounded-full">
+                                            @php
+                                                $text = "SM53";
+                                                $words = explode(' ', $text);
+                                                $wordsPerLine = 3;
+                                                $wrappedText = '';
+                                                foreach ($words as $index => $word) {
+                                                    $wrappedText .= $word . ' ';
+                                                    if (($index + 1) % $wordsPerLine === 0) {
+                                                        $wrappedText .= '\n';
+                                                    }
+                                                }
+                                            @endphp
+                                            <h2 class="font-bold text-xl text-center whitespace-pre-line">{{ $wrappedText }}</h2>
+                                        </div>
+                                        <p><b>Dirección:</b> Av. Kabah SM53 L65 Calle la UT</p>
+                                        <p><b>Descripción:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt neque id nisl aliquam pharetra. Maecenas a consectetur nibh. Suspendisse potenti.</p>
+                                        <p><b>Teléfono: </b>123456789</p>
+                                        <p><b>Correo:</b> empresa@example.com</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
             <!-- Tarjetas de Empresas (Lado Derecho) -->
             <div class="w-full md:w-2/3 pl-4">
-                <div class="bg-[#293846] rounded-t-lg p-4 text-white">
+                <div class="bg-[#293846] mt-12 rounded-t-lg p-4 text-white">
                     <h1 class="text-2xl font-bold">Empresas</h1>
                 </div>
                 <div class="bg-[#F6F5F2] rounded-b-lg p-4 ">
@@ -77,11 +87,11 @@
                             <div class="flex justify-center mt-4">
                                 <div class="flex flex-wrap">
                                     <button
-                                        class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
                                             src="images/companies/editar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                     <button
-                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
                                             src="images/companies/borrar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                 </div>
@@ -95,11 +105,11 @@
                             <div class="flex justify-center mt-4">
                                 <div class="flex flex-wrap">
                                     <button
-                                        class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
                                             src="images/companies/editar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                     <button
-                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
                                             src="images/companies/borrar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                 </div>
@@ -113,11 +123,11 @@
                             <div class="flex justify-center mt-4">
                                 <div class="flex flex-wrap">
                                     <button
-                                        class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
                                             src="images/companies/editar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                     <button
-                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
                                             src="images/companies/borrar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                 </div>
@@ -131,11 +141,11 @@
                             <div class="flex justify-center mt-4">
                                 <div class="flex flex-wrap">
                                     <button
-                                        class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
                                             src="images/companies/editar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                     <button
-                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
                                             src="images/companies/borrar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                 </div>
@@ -149,11 +159,11 @@
                             <div class="flex justify-center mt-4">
                                 <div class="flex flex-wrap">
                                     <button
-                                        class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
                                             src="images/companies/editar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                     <button
-                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
                                             src="images/companies/borrar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                 </div>
@@ -167,11 +177,11 @@
                             <div class="flex justify-center mt-4">
                                 <div class="flex flex-wrap">
                                     <button
-                                        class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
                                             src="images/companies/editar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                     <button
-                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
+                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
                                             src="images/companies/borrar.png" alt=""
                                             class="w-7 h-7  rounded"></button>
                                 </div>
