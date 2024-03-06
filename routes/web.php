@@ -64,6 +64,9 @@ Route::get('/add-books', function () {
     return view('books-notifications.books.add-books');
 });
 
+Route::get('/report',[BooksController::class,'listBook'])->name('books.list'); 
+Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports'); 
+
 
 Route::controller(ProjectFormController::class)->group(function (){
     Route::get('/dashboardProjects','index');
