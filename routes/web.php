@@ -8,7 +8,7 @@ use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ProjectController;
 use App\Http\Controllers\books\BooksController;
 use App\Http\Controllers\users\ManagementConfiguration;
-
+use App\Http\Controllers\careers\CareerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +45,7 @@ Route::get('/asesorias', function () {
 Route::get('/divisiones', [DivisionController::class, 'index']);
 Route::resource('/companies', CompaniesController::class);
 Route::resource('divisiones', DivisionController::class);
+Route::resource('carreras', CareerController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
 Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
 
