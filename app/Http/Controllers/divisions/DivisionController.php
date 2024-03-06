@@ -15,6 +15,12 @@ class DivisionController extends Controller
         return view('management.divisions.Divisions');
     }
 
+
+    public function getProjectsPerDivision()
+    {
+        return view("management.divisions.projects-per-division");
+    }
+
     /**
      * Show the form for creating a new resource.
      */
