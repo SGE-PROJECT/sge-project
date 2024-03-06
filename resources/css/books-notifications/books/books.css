@@ -16,7 +16,11 @@
 .container-card-book {
   transform: scale(0.8);
   /* border: #212020 dotted; */
-  padding-left: 1rem;
+}
+
+.container-card-book-second {
+  transform: scale(4);
+  /* border: #212020 dotted; */
 }
 
 .card-book {
@@ -114,36 +118,68 @@
   justify-content: space-around;
 }
 
+.container-bk {
+  /* border: black dotted; */
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+}
+
 .ctn-bk::-webkit-scrollbar {
   width: 0;
 }
 
-.slide-out-fwd-center {
-	-webkit-animation: slide-out-fwd-center 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-	        animation: slide-out-fwd-center 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+.slide-in-left {
+	-webkit-animation: slide-in-left 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-left 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
-@-webkit-keyframes slide-out-fwd-center {
+@-webkit-keyframes slide-in-left {
   0% {
-    -webkit-transform: translateZ(1);
-            transform: translateZ(1);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: translateZ(600px);
-            transform: translateZ(600px);
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
     opacity: 0;
   }
-}
-@keyframes slide-out-fwd-center {
-  0% {
-    -webkit-transform: translateZ(1);
-            transform: translateZ(1);
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
     opacity: 1;
   }
-  100% {
-    -webkit-transform: translateZ(600px);
-            transform: translateZ(600px);
+}
+@keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
     opacity: 0;
   }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
 }
+
+.ctn-bor {
+  text-align: center;
+  width: 300px;
+  /* border: dotted black; */
+}
+
+.scale {
+  transform: scale(2.4);
+}
+
+/* CARD RESPONSIVE */
+
+@media only screen and (max-width: 900px) {
+  .scale {
+    transform: scale(1.3);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .scale {
+    transform: scale(1.6);
+  }
+}
+

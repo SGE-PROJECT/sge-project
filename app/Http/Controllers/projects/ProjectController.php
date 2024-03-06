@@ -15,6 +15,7 @@ class ProjectController extends Controller
         return view("projects.ProjectUser.ProjectUser");
     }
 
+
     /**
      * Show the form for creating a new resource.
      */

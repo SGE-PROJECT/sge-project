@@ -22,7 +22,10 @@
   @vite('resources/css/books-notifications/books/add-books.css')
   @vite('resources/css/buttonappoint.css')
   @vite('resources/css/input.css')
+  @vite('resources/js/projectview.js')
+  @vite('resources/css/loader/loader.css')
 
+  @vite('resources/css/management/projects.css')
 
 
   <title>@yield('titulo')</title>
@@ -90,7 +93,7 @@
           <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li>
 
-              <a href="" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="projectsdash" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Proyectos</span></a>
             </li>
             <li class="">
@@ -380,7 +383,9 @@
   </section>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="{{ asset('scripts/sidebar.js') }}"></script>
+  <script src="{{ asset('resources/js/divisions.js') }}"></script>
   @yield('scripts')
+  <link href="{{ asset('css/projectstyle.css') }}" rel="stylesheet">
 
 </body>
 
