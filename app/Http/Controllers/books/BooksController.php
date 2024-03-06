@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\books;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BooksController extends Controller
 {
@@ -13,6 +15,16 @@ class BooksController extends Controller
     public function index()
     {
         return view('books-notifications.books.Books');
+    }
+    public function listBook(){
+        $books =Book::all();
+        return view('books-notifications.books.BooksList',compact('books'));
+    }
+    public function report (){
+        $image='images/utcbis-logo.jpg';
+        $books =Book::all();
+       $pdf = Pdf::loadView('books-notifications.books.reports', compact( 'books','image'));
+       return $pdf->stream('books_reports.pdf');
     }
 
     /**

@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\projects;
+namespace App\Http\Controllers\Career;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class CareerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("projects.ProjectUser.ProjectUser");
+        return view('management.careers.Careers');
     }
-
 
     /**
      * Show the form for creating a new resource.
