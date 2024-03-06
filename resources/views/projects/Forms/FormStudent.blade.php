@@ -1,3 +1,4 @@
+@vite('resources/css/app.css')
 @extends('layouts.panel')
 
 @section('titulo', 'FormProject')
@@ -111,7 +112,8 @@
                 <textarea class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm" placeholder="Redacta aqui..." rows="8"></textarea>
             </div>
             <div>
-                <label class="text-sm font-semibold text-justify" for="message">Justificacion: Debe manifestarse de manera
+                <label class="text-sm font-semibold text-justify" for="message">Justificacion: Debe manifestarse de
+                    manera
                     clara y
                     precisa del por qué y para qué se va a llevar a cabo el estudio. Causas y propositos que motivan la
                     investigación:</label>
@@ -126,27 +128,37 @@
 
             <div class="mt-8 flex justify-center text-center space-x-6">
                 <button
-                    class="bg-black  hover:bg-teal-800 text-white font-bold py-3 px-6 rounded-md shadow-lg hover:text-white hover:shadow-green-900 transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 active:animate-bounce">
+                    class="bg-blue-500 hover:bg-teal-950 text-white font-bold py-3 px-6 rounded-md shadow-lg hover:text-white hover:shadow-green-900 transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 active:animate-bounce">
                     Editar
                 </button>
                 <button
-                    class="bg-black  hover:bg-teal-800 text-white font-bold py-3 px-6 rounded-md shadow-lg hover:text-white hover:shadow-green-900 transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 active:animate-bounce">
+                    class="bg-blue-500 hover:bg-teal-950 text-white font-bold py-3 px-6 rounded-md shadow-lg hover:text-white hover:shadow-green-900 transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 active:animate-bounce">
                     Guardar
                 </button>
-                <button
-                    class="overflow-hidden w-32 p-2  bg-black text-white border-none rounded-md text-medium font-medium cursor-pointer relative z-10 group">
+                <button id="openModalButton"
+                    class="overflow-hidden w-32 p-2  bg-[#03A696] text-white border-none rounded-md text-medium font-medium cursor-pointer relative z-10 group">
                     Publicar
                     <span
                         class="absolute w-36 h-32 -top-8 -left-2 bg-white rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-left"></span>
                     <span
-                        class="absolute w-36 h-32 -top-8 -left-2 bg-teal-400 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-left"></span>
+                        class="absolute w-36 h-32 -top-8 -left-2 bg-teal-500 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-left"></span>
                     <span
-                        class="absolute w-36 h-32 -top-8 -left-2 bg-teal-800 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-left"></span>
+                        class="absolute w-36 h-32 -top-8 -left-2 bg-teal-950 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-left"></span>
                     <span
                         class="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-3 left-9 z-10">Seguro?</span>
                 </button>
             </div>
         </form>
     </div>
+    
+    @include('layouts.modal', [
+    'title' => 'Publicar Proyecto',
+    'message' => '¿Estás seguro de que deseas publicar tu proyecto? Una vez subido ya no se pueden hacer cambios. Esta acción no se puede deshacer.',
+    'cancelButton' => 'Cancelar',
+    'confirmButton' => 'Publicar'
+    
+])
+
 
 @endsection
+

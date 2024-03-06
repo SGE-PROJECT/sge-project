@@ -19,8 +19,10 @@
   @vite('resources/css/management/divisions/divisions.css')
   @vite('resources/css/projects/projectDashboardStyle.css')
   @vite('resources/css/books-notifications/books/books.css')
+  @vite('resources/css/books-notifications/books/add-books.css')
   @vite('resources/css/buttonappoint.css')
   @vite('resources/css/input.css')
+  @vite('resources/js/projectview.js')
 
 
 
@@ -64,7 +66,7 @@
               </a>
             </li>
             <li class="">
-              <a href="#" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              <a href="/roles" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-lock-open mr-3 text-lg'></i>
                 <span>Roles y Permisos</span>
               </a>
@@ -350,7 +352,7 @@
             <ul
               class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
               <li>
-                <a href="#"
+                <a href="/profile"
                   class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Profile</a>
               </li>
               <li>
@@ -379,7 +381,9 @@
   </section>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="{{ asset('scripts/sidebar.js') }}"></script>
+  <script src="{{ asset('resources/js/divisions.js') }}"></script>
   @yield('scripts')
+  <link href="{{ asset('css/projectstyle.css') }}" rel="stylesheet">
 
 </body>
 

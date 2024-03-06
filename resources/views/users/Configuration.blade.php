@@ -26,15 +26,28 @@
                     <p class="text-gray-600 mb-4">Añade o actualiza tus datos de contacto</p>
                     <form class="space-y-4">
                         <div>
-                            <input type="text" autocomplete="off" name="text" class="input" placeholder="Nombre">
+                                <div class="form-control">
+                                    <input type="value" required="">
+                                    <label>
+                                        <span style="transition-delay:0ms">N</span><span style="transition-delay:50ms">o</span><span style="transition-delay:100ms">m</span><span style="transition-delay:150ms">b</span><span style="transition-delay:200ms">r</span><span style="transition-delay:250ms">e</span>
+                                    </label>
+                                </div>
                         </div>
                         <div>
-                            <input type="text" autocomplete="off" name="text" class="input" placeholder="Apellidos">
-
+                            <div class="form-control">
+                                <input type="value" required="">
+                                <label>
+                                    <span style="transition-delay:0ms">A</span><span style="transition-delay:50ms">p</span><span style="transition-delay:100ms">e</span><span style="transition-delay:150ms">l</span><span style="transition-delay:200ms">l</span><span style="transition-delay:250ms">i</span><span style="transition-delay:250ms">d</span><span style="transition-delay:250ms">o</span><span style="transition-delay:250ms">s</span>
+                                </label>
+                            </div>
                         </div>
                         <div>
-                            <input type="text" autocomplete="off" name="text" class="input" placeholder="Correo Electrónico">
-
+                                <div class="form-control">
+                                    <input type="value" required="">
+                                    <label>
+                                        <span style="transition-delay:0ms">C</span><span style="transition-delay:50ms">o</span><span style="transition-delay:100ms">r</span><span style="transition-delay:150ms">r</span><span style="transition-delay:200ms">e</span><span style="transition-delay:250ms">o</span><span style="transition-delay:250ms"></span><span style="transition-delay:250ms">E</span><span style="transition-delay:250ms">l</span><span style="transition-delay:250ms">e</span><span style="transition-delay:250ms">c</span><span style="transition-delay:250ms">t</span><span style="transition-delay:250ms">r</span><span style="transition-delay:250ms">o</span><span style="transition-delay:250ms">n</span><span style="transition-delay:250ms">i</span><span style="transition-delay:250ms">c</span><span style="transition-delay:250ms">o</span>
+                                    </label>
+                                </div>
                         </div>
                         <button type="submit"
                             class="w-full bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">
