@@ -38,7 +38,7 @@
             <div class="w-full md:w-1/4 px-4">
 
                 <!-- Card Number 1. Technologies and Enginner -->
-                <div class="bg-white max-w-sm rounded overflow-hidden shadow-lg h-full relative card_divisions">
+                <div class="bg-white max-w-sm rounded overflow-hidden shadow-lg h-full relative card_divisions gap-4">
                     <div class="relative">
                         <img class="w-full h-40 object-cover" src="images/divisions/ing.png" alt="Imagen de la tarjeta">
                         <div class="absolute inset-0 bg-black opacity-50"></div>
@@ -67,12 +67,15 @@
                     </div>
 
                     <div class="px-6 py-4">
-                        <div class="font-bold text-xl mt-7 mb-1 text-center">Ingeniería y Tecnología</div>
+                        <div class="font-bold text-sm mt-10 mb-1 text-center">Ingeniería y Tecnología</div>
+
+                    </div>
+                    <div class="botoncito">
+                        <button class="bg-green-800 hover:bg-green-600 text-white font-bold py-1 px-2 border-b-4 border-green-900 hover:border-green-500 rounded">
+                            Ver mas
+                        </button>
                     </div>
                 </div>
-
-
-
             </div>
 
             <!-- Card Number 2. Gastronomy -->
@@ -103,7 +106,12 @@
                         </svg>
                     </div>
                     <div class="px-6 py-4">
-                        <div class="font-bold text-xl mt-10 mb-1  text-center">Gastronomía</div>
+                        <div class="font-bold text-sm mt-10 mb-1  text-center">Gastronomía</div>
+                    </div>
+                    <div class="botoncito">
+                        <button class="bg-green-800 hover:bg-green-600 text-white font-bold py-1 px-2 border-b-4 border-green-900 hover:border-green-500 rounded">
+                            Ver mas
+                        </button>
                     </div>
                 </div>
             </div>
@@ -136,7 +144,12 @@
                         </svg>
                     </div>
                     <div class="px-6 py-4">
-                        <div class="font-bold text-xl mt-10 mb-1  text-center">Turismo</div>
+                        <div class="font-bold text-sm mt-10 mb-1  text-center">Turismo</div>
+                    </div>
+                    <div class="botoncito">
+                        <button class="bg-green-800 hover:bg-green-600 text-white font-bold py-1 px-2 border-b-4 border-green-900 hover:border-green-500 rounded">
+                            Ver mas
+                        </button>
                     </div>
                 </div>
             </div>
@@ -168,14 +181,15 @@
                         </svg>
                     </div>
                     <div class="px-6 py-4">
-                        <div class="font-bold text-xl mt-6 mb-1 text-center">Economico administrativo</div>
+                        <div class="font-bold text-xs mt-6 mb-1 text-center text_economico">Economico administrativo</div>
+                    </div>
+                    <div class="botoncito">
+                        <button class="bg-green-800 hover:bg-green-600 text-white font-bold py-1 px-2 border-b-4 border-green-900 hover:border-green-500 rounded">
+                            Ver mas
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
-    <script src="{{ asset('scripts/divisions.js') }}"></script>
 @endsection
