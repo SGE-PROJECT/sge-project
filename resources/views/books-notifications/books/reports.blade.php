@@ -23,6 +23,7 @@
     </style>
 </head>
 <body>
+    <img src="{{ public_path('images/utcbis-logo.jpg')}}" alt="Logo" height="75px">
     <h1>Listado de Libros</h1>
     <table>
         <thead>
