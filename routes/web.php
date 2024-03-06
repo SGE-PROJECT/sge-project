@@ -13,6 +13,7 @@ use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\profile\ProfileController;
 
+use App\Http\Controllers\Career\CareerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,3 +73,5 @@ Route::controller(ProjectFormController::class)->group(function (){
 Route::controller(ProjectController::class)->group(function (){
     Route::get('/Project','index');
 });
+
+Route::resource('carreras', CareerController::class);
