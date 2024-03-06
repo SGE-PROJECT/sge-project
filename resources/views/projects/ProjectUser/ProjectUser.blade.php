@@ -1,9 +1,9 @@
 @extends('layouts.panel')
 
-@section('titulo', 'UserProject')
-
+@section('titulo')
+    Gestión De Sanciones (GS)
+@endsection
 @vite('resources/css/projects/projectuser.css')
-
 @section('contenido')
     <div class="contenedor">
         <div class="flex flex-wrap justify-center">
@@ -43,38 +43,79 @@
             <div class="text">
 
                 <h2><b>Selecciona un compañero de equipo:</b></h2>
-                <ul >
-                    <li class="users">
-                        <img class="porfile"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt="text">
-                        <p class="text_user">Juan Diego Villegas Gutierrez</p>
-                        <p class="text_state text-green-600">Disponible</p>
-                    </li>
-                    <li class="users">
-                        <img class="porfile"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt="">
-                        <p class="text_user">Juan Diego Villegas Gutierrez</p>
-                        <p class="text_state text-green-600">Disponible</p>
-                    </li>
-                    <li class="users">
-                        <img class="porfile"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt="">
-                        <p class="text_user">Juan Diego Villegas Gutierrez</p>
-                        <p class="text_state text-green-600">Disponible</p>
-                    </li>
-                    <li class="users">
-                        <img class="porfile"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt="">
-                        <p class="text_user">Juan Diego Villegas Gutierrez</p>
-                        <p class="text_state text-red-500">En equipo</p>
-                    </li>
-                </ul>
+                <br>
+                <button class="button" id="mostrar-button" onclick="toggleCajas()">Mostrar más</button>
+                <button id="ocultar-button" onclick="toggleCajas()"
+                    style="display: none;
+                    background-color: #394C5F;
+                    border-radius: 10px;
+                    width: 120px;
+                    height: 40px;
+                    color: white;">Ocultar</button>
+                <br><br>
+                <div class="cajas">
+                    <ul>
+                        <li class="users">
+                            <img class="porfile"
+                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                alt="text">
+                            <p class="text_user">Juan Diego Villegas Gutierrez</p>
+                            <p class="text_state text-green-600">Disponible</p>
+                            <button class="button-invitation" id="mostrar-invitacion"
+                                onclick="invitation()">Seleccionar</button>
+                        </li>
+                        <li class="users">
+                            <img class="porfile"
+                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                alt="">
+                            <p class="text_user">Juan Diego Villegas Gutierrez</p>
+                            <p class="text_state text-red-500">En equipo</p>
+                            <button class="button-invitation" id="mostrar-invitacion"
+                                onclick="invitation()">Seleccionar</button>
+                        </li>
+                        <li class="users">
+                            <img class="porfile"
+                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                alt="">
+                            <p class="text_user">Juan Diego Villegas Gutierrez</p>
+                            <p class="text_state text-green-600">Disponible</p>
+                            <button class="button-invitation" id="mostrar-invitacion"
+                                onclick="invitation()">Seleccionar</button>
+                        </li>
+                        <div class="caja oculto">
+                            <li class="user">
+                                <img class="porfile"
+                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    alt="">
+                                <p class="text_user">Juan Diego Villegas Gutierrez</p>
+                                <p class="text_state text-red-500">En equipo</p>
+                                <button class="button-invitation" id="mostrar-invitacion"
+                                    onclick="invitation()">Seleccionar</button>
+                            </li>
+                            <li class="user">
+                                <img class="porfile"
+                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    alt="">
+                                <p class="text_user">Juan Diego Villegas Gutierrez</p>
+                                <p class="text_state text-green-600">Disponible</p>
+                                <button class="button-invitation" id="mostrar-invitacion"
+                                    onclick="invitation()">Seleccionar</button>
+                            </li>
+                            <li class="user">
+                                <img class="porfile"
+                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    alt="">
+                                <p class="text_user">Juan Diego Villegas Gutierrez</p>
+                                <p class="text_state text-green-600">Disponible</p>
+                                <button class="button-invitation" id="mostrar-invitacion"
+                                    onclick="invitation()">Seleccionar</button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
             </div>
-            <div class="card_invitation">
+            <div class="card_invitation invitacion">
+
                 <h2 class="text_invitation"><b>Alumno seleccionado</b></h2>
                 <div class="content_invitation">
                     <img class="porfile"
@@ -86,9 +127,48 @@
                     </div>
                 </div>
                 <div>
-                <button class="buttons"><b>Invitar</b></button>
-                <button class="buttons"><b>Cancelar</b></button>
+                    <button class="buttons" id="ocultar-invitacion" onclick="invitation()"><b>Invitar</b></button>
+                    <button class="buttons" id="ocultar-invitacion" onclick="invitation()"><b>Cancelar</b></button>
                 </div>
+
+
             </div>
         </div>
+        <script>
+            function toggleCajas() {
+                var cajas = document.querySelectorAll('.caja');
+                var mostrarButton = document.getElementById('mostrar-button');
+                var ocultarButton = document.getElementById('ocultar-button');
+
+                cajas.forEach(function(caja) {
+                    if (caja.style.display === 'none' || caja.style.display === '') {
+                        caja.style.display = 'block';
+                        mostrarButton.style.display = 'none';
+                        ocultarButton.style.display = 'inline-block';
+                    } else {
+                        caja.style.display = 'none';
+                        mostrarButton.style.display = 'inline-block';
+                        ocultarButton.style.display = 'none';
+                    }
+                });
+            }
+
+            function invitation() {
+                var cajas = document.querySelectorAll('.invitacion');
+                var mostrarButton = document.getElementById('mostrar-invitacion');
+                var ocultarButton = document.getElementById('ocultar-invitacion');
+
+                cajas.forEach(function(caja) {
+                    if (caja.style.display === 'none' || caja.style.display === '') {
+                        caja.style.display = 'block';
+                        mostrarButton.style.display = 'inline-block';
+                        ocultarButton.style.display = 'inline-block';
+                    } else {
+                        caja.style.display = 'none';
+                        mostrarButton.style.display = 'inline-block';
+                        ocultarButton.style.display = 'none';
+                    }
+                });
+            }
+        </script>
     @endsection
