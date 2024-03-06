@@ -16,7 +16,6 @@
 .container-card-book {
   transform: scale(0.8);
   /* border: #212020 dotted; */
-  padding-left: 1rem;
 }
 
 .container-card-book-second {
@@ -119,6 +118,13 @@
   justify-content: space-around;
 }
 
+.container-bk {
+  /* border: black dotted; */
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+}
+
 .ctn-bk::-webkit-scrollbar {
   width: 0;
 }
@@ -159,8 +165,21 @@
   /* border: dotted black; */
 }
 
-/* CARD RESPONSIVE */
-
 .scale {
   transform: scale(2.4);
 }
+
+/* CARD RESPONSIVE */
+
+@media only screen and (max-width: 900px) {
+  .scale {
+    transform: scale(1.3);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .scale {
+    transform: scale(1.6);
+  }
+}
+

@@ -23,6 +23,7 @@
   @vite('resources/css/buttonappoint.css')
   @vite('resources/css/input.css')
   @vite('resources/js/projectview.js')
+  @vite('resources/css/loader/loader.css')
 
 
 
