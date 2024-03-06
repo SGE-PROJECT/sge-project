@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //
         Schema::create('affiliated_companies', function (Blueprint $table) {
-            $table->id('id_company');
+            $table->id();
             $table->string('company_name');
             $table->string('address');
             $table->string('contact_name');
@@ -31,5 +31,6 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::dropIfExists('affiliated_companies');
     }
 };
