@@ -61,6 +61,9 @@ Route::resource('books', BooksController::class);
 Route::get('/add-books', function () {
     return view('books-notifications.books.add-books');
 });
+Route::get('/notifications', function () {
+    return view('books-notifications.books.notifications');
+});
 Route::get('/Users', function () {
     return view('administrator.dashboard.DashboardUsers');
 });
