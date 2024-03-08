@@ -38,7 +38,7 @@
                     <div class="text-center">
                         <h2 class="text-3xl font-bold text-blue-950 font-serif ml-5">Iniciar Sesión</h2>
                     </div>
-                    <form class="space-y-9" action="#" method="POST">
+                    <form class="space-y-9">
                         @csrf
                         <input type="hidden" name="remember" value="true" />
                         <div class="relative">
