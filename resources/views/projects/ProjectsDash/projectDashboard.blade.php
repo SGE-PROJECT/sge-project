@@ -8,20 +8,22 @@
         <link rel="stylesheet" href="{{ asset('css/projects/projectDashboardStyle.css') }}">
 
         <div class="performance-meter">
-            <div class="carta-payment">
-                <div class="carta-header">
-                    <div class="amount">
+            <a href="/vistaproyectos">
+                <div class="carta-payment">
+                    <div class="carta-header">
+                        <div class="amount">
 
-                        <div class="gauge">
-                            <div class="gauge__body">
-                                <div class="gauge__fill"></div>
-                                <div class="gauge__cover"></div>
+                            <div class="gauge">
+                                <div class="gauge__body">
+                                    <div class="gauge__fill"></div>
+                                    <div class="gauge__cover"></div>
+                                </div>
                             </div>
+                            <h2 class="ctitulo">Proyectos</h2>
                         </div>
-                        <h2 class="ctitulo">Proyectos</h2>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <div class="project-status">
@@ -38,7 +40,7 @@
                         <div class="estatus-indicador"></div>
                         <span>Activos</span>
                         <div class="barra-progreso-contenedor">
-                            <div class="barra-progreso-relleno" ></div>
+                            <div class="barra-progreso-relleno"></div>
                             <!-- Este es el que lleva el color y representa el progreso -->
                         </div>
 
@@ -49,7 +51,7 @@
                         <div class="estatus-indicador"></div>
                         <span>En proceso</span>
                         <div class="barra-progreso-contenedor">
-                            <div class="barra-progreso-relleno" ></div>
+                            <div class="barra-progreso-relleno"></div>
                             <!-- Este es el que lleva el color y representa el progreso -->
                         </div>
 
@@ -60,7 +62,7 @@
                         <div class="estatus-indicador"></div>
                         <span>Rechazados</span>
                         <div class="barra-progreso-contenedor">
-                            <div class="barra-progreso-relleno" ></div>
+                            <div class="barra-progreso-relleno"></div>
                             <!-- Este es el que lleva el color y representa el progreso -->
                         </div>
 
@@ -99,7 +101,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><img  src="{{ asset('images/avatar.jpg') }}" alt="Icono de Carpeta" class="h-6 w-6 inline-block mr-2"> Project System
+                    <td><img src="{{ asset('images/avatar.jpg') }}" alt="Icono de Carpeta"
+                            class="h-6 w-6 inline-block mr-2"> Project System
                     </td>
                     <td>Josue Chan, Guillermo Díaz</td>
                     <td><span class="status approved">Aprobado</span></td>
