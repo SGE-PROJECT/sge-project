@@ -3,6 +3,7 @@
 @section('titulo', 'Empresas')
 
 @section('contenido')
+{{-- tabla de empresas --}}
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4 ml-5 uppercase">Empresas</h1>
         <div class="inline-flex ml-5 pr-40 mt-7">
