@@ -409,7 +409,7 @@
     }
   }
 
-  .flex {
+  .flex-proyectos {
     display: flex;
-    align-items: center; /* Alinea verticalmente los elementos */
+    align-items: center;
 }

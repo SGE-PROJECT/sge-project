@@ -35,7 +35,7 @@
                 </div>
 
                 <div>
-                    <div class="flex -space-x-2 ">
+                    <div class="flex-proyectos -space-x-2 ">
                         <div class="group hs-tooltip inline-block">
                             <img class="hs-tooltip-toggle relative inline-block size-[46px] rounded-full ring-2 ring-white hover:z-10"
                                 src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
