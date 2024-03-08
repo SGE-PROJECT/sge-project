@@ -4,190 +4,123 @@
 
 @section('contenido')
     <div class="container mx-auto p-4">
-        <div class="flex flex-col md:flex-row">
-            <!-- Tabla de Tipos de Empresas (Lado Izquierdo) -->
-            <div class="w-full md:w-1/3 pr-4 mb-4 md:mb-0">
-                <h1 class="text-2xl font-bold mb-4 uppercase">Empresas</h1>
-                <table class="w-full bg-[#F6F5F2] rounded-xl shadow mb-4">
-                    <thead>
-                        <tr class="bg-[#293846] text-white">
-                            <th class="py-2 px-4 rounded-t-lg uppercase">Tipos:</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        <tr>
-                            <td class="py-2 px-4">Empresas de Tecnología.</td>
-                        </tr>
-                        <tr>
-                            <td class="py-2 px-4">Empresas Turísticas.</td>
-                        </tr>
-                        <tr>
-                            <td class="py-2 px-4">Empresas Financieras.</td>
-                        </tr>
-                        <tr>
-                            <td class="py-2 px-4">Empresas Gastronómicas.</td>
-                        </tr>
-                        <tr>
-                            <td class="py-2 px-4">Empresas Comerciales.</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- Información de la Empresa Seleccionada -->
-                <div>
-                    <table class="bg-[#F6F5F2] rounded-md shadow p-4">
-                        <thead>
-                            <tr class="bg-[#293846] text-white">
-                                <th class="text-lg rounded-t-lg font-semibold px-4 py-2" colspan="2">Información de la Empresa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="bg-[#F6F5F2]">
-                                <td class="flex px-4 py-2">
-                                    <div>
-                                        <div class="inline-flex items-center">
-                                            <img src="images/companies/sge.jpg" alt="Imagen de la empresa" class="mt-2 w-20 h-20 object-cover mr-4 rounded-full">
-                                            @php
-                                                $text = "SM53";
-                                                $words = explode(' ', $text);
-                                                $wordsPerLine = 3;
-                                                $wrappedText = '';
-                                                foreach ($words as $index => $word) {
-                                                    $wrappedText .= $word . ' ';
-                                                    if (($index + 1) % $wordsPerLine === 0) {
-                                                        $wrappedText .= '\n';
-                                                    }
-                                                }
-                                            @endphp
-                                            <h2 class="font-bold text-xl text-center whitespace-pre-line">{{ $wrappedText }}</h2>
-                                        </div>
-                                        <p><b>Dirección:</b> Av. Kabah SM53 L65 Calle la UT</p>
-                                        <p><b>Descripción:</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt neque id nisl aliquam pharetra. Maecenas a consectetur nibh. Suspendisse potenti.</p>
-                                        <p><b>Teléfono: </b>123456789</p>
-                                        <p><b>Correo:</b> empresa@example.com</p>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <h1 class="text-2xl font-bold mb-4 ml-5 uppercase">Empresas</h1>
+        <div class="inline-flex ml-5 pr-40 mt-7">
+            <div class=" mr-20 mb-4 ">
+                <input type="text" placeholder="Buscar empresa..." class="border p-2 rounded mr-2">
+                <button class="bg-[#03A696] text-white py-2 px-4 rounded">Buscar</button>
+            </div>
+            <div class="space-y-2 mr-3 mb-5">
+                <details
+                    class="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden w-full max-w-md">
+                    <summary
+                        class="flex cursor-pointer items-center justify-between gap-2 bg-white py-2.5 px-4 text-gray-900 transition">
+                        <span class="text-sm font-medium">Filtrar</span>
+                        <span class="transition group-open:-rotate-180">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="h-4 w-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </span>
+                    </summary>
+
+                    <div class="border-t border-gray-200 bg-white">
+                        <header class="flex items-center justify-between p-2">
+                            <span class="text-sm text-gray-700">Ordenar por</span>
+                            <button type="button"
+                                class="text-sm text-gray-900 underline underline-offset-2">Borrar</button>
+                        </header>
+
+                        <ul class="space-y-1 border-t border-gray-200 p-2">
+                            <li>
+                                <label for="OrderByAlphabet" class="inline-flex items-center gap-2">
+                                    <input type="radio" id="OrderByAlphabet" name="orderBy"
+                                        class="size-5 rounded border-gray-300" />
+                                    <span class="text-sm font-medium text-gray-700">Orden alfabético</span>
+                                </label>
+                            </li>
+                            <li>
+                                <label for="OrderByDate" class="inline-flex items-center gap-2">
+                                    <input type="radio" id="OrderByDate" name="orderBy"
+                                        class="size-5 rounded border-gray-300" />
+                                    <span class="text-sm font-medium text-gray-700">Ordenar por fecha</span>
+                                </label>
+                                <select class="text-sm border rounded p-1 ml-6">
+                                    <option value="recent">Recientes</option>
+                                    <option value="old">Más antiguos</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                </details>
             </div>
 
-            <!-- Tarjetas de Empresas (Lado Derecho) -->
-            <div class="w-full md:w-2/3 pl-4">
-                <div class="bg-[#293846] mt-12 rounded-t-lg p-4 text-white">
-                    <h1 class="text-2xl font-bold">Empresas</h1>
-                </div>
-                <div class="bg-[#F6F5F2] rounded-b-lg p-4 ">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
-                        <div class="bg-white p-4 rounded shadow">
-                            <img src="images/companies/sge.jpg" alt="Imagen de la empresa"
-                                class="w-full h-40 object-cover mb-4 rounded">
-                            <h2 class="text-lg font-semibold mb-2 text-center">SM53</h2>
-                            <p>Empresa de desarrollo de software.</p>
-                            <div class="flex justify-center mt-4">
-                                <div class="flex flex-wrap">
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
-                                            src="images/companies/editar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
-                                            src="images/companies/borrar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                </div>
+
+
+        </div>
+
+        <table class="project-table">
+            <thead>
+                <tr>
+                    <th>Logotipo</th>
+                    <th>Empresa</th>
+                    <th>Descripción</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Correo Electrónico</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
+                    $empresas = [
+                        [
+                            'nombre' =>
+                                'INSTALACIÓN Y MANTENIMIENTO, PLOMERÍA, ELECTRICIDAD, SISTEMAS DE RIEGO Y ALBERCAS (GRUPO IMPERA)',
+                            'imagen' => asset('images/companies/sge.jpg'),
+                            'descripcion' =>
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt neque id nisl aliquam pharetra. Maecenas a consectetur nibh. Suspendisse potenti.',
+                            'direccion' => 'Av. Kabah SM53 L65 Calle la UT',
+                            'telefono' => '123456789',
+                            'correo' => 'empresa@example.com',
+                        ],
+                        [
+                            'nombre' => 'Otra Empresa',
+                            'imagen' => asset('images/companies/sge.jpg'),
+                            'descripcion' =>
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt neque id nisl aliquam pharetra. Maecenas a consectetur nibh. Suspendisse potenti.',
+                            'direccion' => 'Calle Principal, Ciudad',
+                            'telefono' => '987654321',
+                            'correo' => 'otraempresa@example.com',
+                        ],
+                    ];
+                @endphp
+
+                @foreach ($empresas as $empresa)
+                    <tr>
+                        <td>
+                            <img src="{{ $empresa['imagen'] }}" alt="Icono de Carpeta"
+                                class="h-16 w-auto inline-block mr-2 rounded-full">
+                        </td>
+                        <td>
+                            {{ $empresa['nombre'] }}
+                        </td>
+                        <td>{{ $empresa['descripcion'] }}</td>
+                        <td>{{ $empresa['direccion'] }}</td>
+                        <td>{{ $empresa['telefono'] }}</td>
+                        <td>{{ $empresa['correo'] }}</td>
+                        <td>
+                            <div class="flex">
+                                <i><img class="iconImage h-7 w-7" src="images/projects/edit.png"></i>
+                                <i><img class="iconImage h-7 w-7" src="images/projects/view.png"></i>
+                                <i><img class="iconImage h-7 w-7" src="images/projects/delete.png"></i>
+                                <i class="icon download"></i>
+                                <i class="icon more-options"></i>
                             </div>
-                        </div>
-                        <div class="bg-white p-4 rounded shadow">
-                            <img src="images/companies/sge.jpg" alt="Imagen de la empresa"
-                                class="w-full h-40 object-cover mb-4 rounded">
-                            <h2 class="text-lg font-semibold mb-2 text-center">SM53</h2>
-                            <p>Empresa de desarrollo de software.</p>
-                            <div class="flex justify-center mt-4">
-                                <div class="flex flex-wrap">
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
-                                            src="images/companies/editar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
-                                            src="images/companies/borrar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded shadow">
-                            <img src="images/companies/sge.jpg" alt="Imagen de la empresa"
-                                class="w-full h-40 object-cover mb-4 rounded">
-                            <h2 class="text-lg font-semibold mb-2 text-center">SM53</h2>
-                            <p>Empresa de desarrollo de software.</p>
-                            <div class="flex justify-center mt-4">
-                                <div class="flex flex-wrap">
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
-                                            src="images/companies/editar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
-                                            src="images/companies/borrar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded shadow">
-                            <img src="images/companies/sge.jpg" alt="Imagen de la empresa"
-                                class="w-full h-40 object-cover mb-4 rounded">
-                            <h2 class="text-lg font-semibold mb-2 text-center">SM53</h2>
-                            <p>Empresa de desarrollo de software.</p>
-                            <div class="flex justify-center mt-4">
-                                <div class="flex flex-wrap">
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
-                                            src="images/companies/editar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
-                                            src="images/companies/borrar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded shadow">
-                            <img src="images/companies/sge.jpg" alt="Imagen de la empresa"
-                                class="w-full h-40 object-cover mb-4 rounded">
-                            <h2 class="text-lg font-semibold mb-2 text-center">SM53</h2>
-                            <p>Empresa de desarrollo de software.</p>
-                            <div class="flex justify-center mt-4">
-                                <div class="flex flex-wrap">
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
-                                            src="images/companies/editar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
-                                            src="images/companies/borrar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-4 rounded shadow">
-                            <img src="images/companies/sge.jpg" alt="Imagen de la empresa"
-                                class="w-full h-40 object-cover mb-4 rounded">
-                            <h2 class="text-lg font-semibold mb-2 text-center">SM53</h2>
-                            <p>Empresa de desarrollo de software.</p>
-                            <div class="flex justify-center mt-4">
-                                <div class="flex flex-wrap">
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"><img
-                                            src="images/companies/editar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                    <button
-                                        class="border-2 border-indigo-950 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mb-2 md:mb-0"><img
-                                            src="images/companies/borrar.png" alt=""
-                                            class="w-7 h-7  rounded"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endsection
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@endsection
