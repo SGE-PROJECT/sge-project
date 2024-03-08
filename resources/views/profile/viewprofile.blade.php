@@ -21,12 +21,22 @@
                     <div class="modal-content">
                         <span class="close p-0" onclick="closeModal()">&times;</span>
                         <img src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg">
+                <div id="myModal" class="modal">
+                    <!-- Contenido del modal -->
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <img src="{{ asset('images/avatar.jpg') }}" />
                     </div>
                 </div>
                 <!-- Información de perfil -->
                 <div>
                     <div class="mb-4">
                         <h2 class="text-3xl font-bold text-teal-600">Rafael Villegas</h2>
+                        <!-- Botones de seguimiento, mensaje, etc. -->
+                        <div class="mt-2 flex">
+                            <button id="boton-seguir"
+                                class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-full mr-4 transition duration-300 ease-in-out">Seguir</button>
+                        </div>
                     </div>
                     <p class="text-lg text-blueGray-700 mb-2">Profesor académico en 2024, programador web</p>
                     <p class="text-lg font-bold text-teal-600 mb-4">Grupo: SM-53</p>
@@ -51,6 +61,7 @@
                     </div>
                 </div>
             </div>
+
 
     {{-- PROYECTOS Y EQUIPOS --}}
 <div class="border-t border-blueGray-200 m-8 pt-8">
@@ -82,8 +93,24 @@
 
         </div>
     </div>
+        // Selecciona el botón de seguir
+        const botonSeguir = document.getElementById('boton-seguir');
 
-    <script>
+        // Agrega un evento de clic al botón de seguir
+        botonSeguir.addEventListener('click', function() {
+            // Verifica si el botón ya tiene la clase 'siguiendo'
+            if (botonSeguir.classList.contains('siguiendo')) {
+                // Si ya tiene la clase, la eliminamos
+                botonSeguir.classList.remove('siguiendo');
+                // Restauramos el texto original del botón
+                botonSeguir.textContent = 'Seguir';
+            } else {
+                // Si no tiene la clase, la agregamos
+                botonSeguir.classList.add('siguiendo');
+                // Cambiamos el texto del botón
+                botonSeguir.textContent = 'Siguiendo';
+            }
+        });
         // Función para abrir el modal
         function openModal() {
             document.getElementById("myModal").style.display = "block";
@@ -103,6 +130,11 @@
         }
     </script>
     <style>
+        .siguiendo {
+            background-color: #4CAF50;
+            /* Color verde */
+        }
+
         .profile-picture-container {
             position: relative;
             display: inline-block;
