@@ -12,7 +12,7 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        return view('management.divisions.Divisions');
+        return view('management.divisions.divisions');
     }
 
 
