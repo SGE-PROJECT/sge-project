@@ -21,26 +21,27 @@
 
     <div class="BtnCrearDivisions">
         <button class="Btn_division">
-
             <div class="sign_division">+</div>
-
             <div class="text_division">Añadir</div>
-          </button>
+        </button>
     </div>
 
     <!-- Container of Rows for Six -->
     <div class="contenedor_divisions">
-        @for ($i=0; $i < 6; $i++)
-    <div class="card">
-        <p class="Titulo">Turismo</p>
-        <img src="/images/divisions/General.jpg" alt="Descripción de la imagen">
-
-        <div class="card__content">
-          <p class="card__title">Turismo</p>
-          <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-          <button class="card__button">Ver mas</button>
-        </div>
-      </div>
-      @endfor
-</div>
+        @foreach($divisions as $division)
+            <div class="card__division">
+                <p class="Titulo">{{ $division->name }}</p>
+                @if($division->divisionImage)
+                    <img src="{{ $division->divisionImage->image_path }}" alt="{{ $division->description }}">
+                @else
+                <img src="images/divisions/SinImagen.jpg" alt="Imagen no disponible">
+                @endif
+                <div class="card__content">
+                    <p class="card__title">{{ $division->name }}</p>
+                    <p class="card__description">{{ $division->description }}</p>
+                    <button class="card__button">Ver más</button>
+                </div>
+            </div>
+        @endforeach
+    </div>
 @endsection
