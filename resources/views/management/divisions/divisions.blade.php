@@ -3,7 +3,6 @@
 @section('titulo', 'Divisiones')
 
 @section('contenido')
-
     <!-- Container First -->
     <div class="header_divisions">
         <h1 class="text-font_divisions font-bold">Divisiones:</h1>
@@ -28,8 +27,10 @@
             <div class="text_division">Añadir</div>
           </button>
     </div>
-    <!-- Container of Rows for four -->
+
+    <!-- Container of Rows for Six -->
     <div class="contenedor_divisions">
+        @for ($i=0; $i < 6; $i++)
     <div class="card">
         <p class="Titulo">Turismo</p>
         <img src="/images/divisions/General.jpg" alt="Descripción de la imagen">
@@ -40,45 +41,6 @@
           <button class="card__button">Ver mas</button>
         </div>
       </div>
-      <div class="card">
-        <p class="Titulo">Turismo</p>
-        <img src="/images/divisions/General.jpg" alt="Descripción de la imagen">
-
-        <div class="card__content">
-          <p class="card__title">Turismo</p>
-          <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-          <button class="card__button">Ver mas</button>
-        </div>
-      </div>
-      <div class="card">
-        <p class="Titulo">Turismo</p>
-        <img src="/images/divisions/General.jpg" alt="Descripción de la imagen">
-
-        <div class="card__content">
-          <p class="card__title">Turismo</p>
-          <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-          <button class="card__button">Ver mas</button>
-        </div>
-      </div>
-      <div class="card">
-        <p class="Titulo">Turismo</p>
-        <img src="/images/divisions/General.jpg" alt="Descripción de la imagen">
-
-        <div class="card__content">
-          <p class="card__title">Turismo</p>
-          <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-          <button class="card__button">Ver mas</button>
-        </div>
-      </div>
-      <div class="card">
-        <p class="Titulo">Turismo</p>
-        <img src="/images/divisions/General.jpg" alt="Descripción de la imagen">
-
-        <div class="card__content">
-          <p class="card__title">Turismo</p>
-          <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-          <button class="card__button">Ver mas</button>
-        </div>
-      </div>
+      @endfor
 </div>
 @endsection
