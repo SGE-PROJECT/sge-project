@@ -24,8 +24,8 @@
   @vite('resources/css/input.css')
   @vite('resources/js/projectview.js')
   @vite('resources/css/loader/loader.css')
-
- 
+  @vite('resources/css/Dashboard/DashboardUsers.css')
+  @vite('resources/css/projects/projectview.css')
   @vite('resources/css/management/projects.css')
 
 
@@ -38,7 +38,7 @@
   <section class="flex">
     <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
-        <a href="/" class="flex justify-center items-center border-b border-b-gray-800">
+        <a href="/" class="flex justify-center items-center border-b border-b-white">
           <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
           <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
         </a>
@@ -113,7 +113,7 @@
         <!-- EMPRESAS Section -->
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
         <li class="mb-1 group">
-          <a href="/companies"
+          <a href="/empresas"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='  bx bx-buildings mr-3 text-lg'></i>
             <span class="nav-text text-sm">Empresas Afiliadas</span>

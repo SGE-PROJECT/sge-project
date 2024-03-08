@@ -10,10 +10,10 @@
         Mis Asesorados
     </h1>
 
-    <div class="flex justify-center">
-        <div class="relative overflow-x-auto shadow-md sm:rounded-s-3xl pt-4">
-            <table class="w-fit h-fit text-sm text-left rtl:text-right text-gray-900 dark:text-gray-900">
-                <thead class="text-xs text-white uppercase bg-[#03A696] dark:bg-[#293846] dark:text-white w-fit h-fit">
+    <div class="tabla-project">
+        <div class="tabla-cont-project ">
+            <table class="rounded-lg">
+                <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Grupo
@@ -33,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-200">
+                    <tr class="bg-white  dark:bg-gray-100 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                             SM-53
                         </th>
@@ -47,15 +47,31 @@
                             Garcia
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <button id="abrir-modal" class="cursor-pointer transition-all bg-teal-500 text-white px-6 py-2 rounded-lg
-                            border-[#293846]
-                            border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-                            active:border-b-[2px] active:brightness-90 active:translate-y-[2px] font-bold">
-                              Sancionar
+                            <button id="abrir-modal" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8  mr-5 w-32">
+                                Sancionar
                             </button>
-                                                    </td>
+                        </td>
                     </tr>
                     <!-- Repetir para cada fila de datos -->
+                    <tr class="bg-white dark:bg-gray-100 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
+                            SM-53
+                        </th>
+                        <td class="px-6 py-4">
+                            22393205
+                        </td>
+                        <td class="px-6 py-4">
+                            Anthony
+                        </td>
+                        <td class="px-6 py-4">
+                            Williams
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <button id="abrir-modal" class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mr-5 w-32">
+                                Sancionar
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
