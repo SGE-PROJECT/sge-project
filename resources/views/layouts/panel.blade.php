@@ -25,6 +25,7 @@
   @vite('resources/js/projectview.js')
   @vite('resources/css/loader/loader.css')
 
+ 
   @vite('resources/css/management/projects.css')
 
 
