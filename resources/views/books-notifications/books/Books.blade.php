@@ -21,7 +21,8 @@
     @endphp
 
     <div class="container-bk">
-        <h1 class="title-books"> - Libros -</h1>
+        <h1 class="title-books"> - Libros -</h1> 
+        <a href="{{ route('añadir.libros') }}"><button class="button-books position-books">Registrar Libro</button></a>
         
         <div class="flex flex-wrap mx-10 gap-10 ctn-bk">
             <div class=" w-full">

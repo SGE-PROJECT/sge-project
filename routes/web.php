@@ -60,7 +60,8 @@ Route::resource('books', BooksController::class);
 
 Route::get('/add-books', function () {
     return view('books-notifications.books.add-books');
-});
+})->name('añadir.libros');
+
 Route::get('/notifications', function () {
     return view('books-notifications.books.notifications');
 });
