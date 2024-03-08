@@ -1,13 +1,13 @@
-.card {
+.card-invitation {
     transition: transform 0.3s ease;
     border-radius: 10px;
 }
 
-.card:hover {
+.card-invitation:hover {
     transform: scale(1.05);
 }
 
-.card.flipped {
+.card-invitation.flipped {
     transform: rotateY(180deg);
 }
 
@@ -38,7 +38,7 @@
 
 .content_invitation{
     display: flex;
-    padding-left: 45px;    
+    padding-left: 63px;    
 }
 
 .user_invitation{
