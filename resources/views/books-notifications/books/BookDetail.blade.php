@@ -26,17 +26,45 @@
                         </div>
                         <div class="container-card max-w-full md:max-w-3xl mx-auto">
                             <div class="ctn-bor p-4">
-                                <br>
-                                <br>
-                                <h1 class="text-xl font-bold text-gray-800">{{ $libro['titulo'] }}</h1>
+
+                                <div class="card-detail-book">
+                                    <a class="card1-detail-book">
+                                     <p class="p-book"> 
+                                     
+                                        <h1 class="text-xl font-bold text-gray-800 h1-book">{{ $libro['titulo'] }}</h1>
+                                        <br>
+                                        <br>
+
+                                     </p>
+                                     <p class="small">
+                                     
+                                        <p class="p-book">{{ $libro['descripcion'] }}</p>
+                                        <br>
+                                        <p class="p-book">{{ $libro['editorial'] }}</p>
+                                        <br>
+                                        <p class="p-book">{{ $libro['Alumno'] }}</p>
+                                        <br>
+                                        <p class="p-book">{{ $libro['Precio'] }}</p>
+                                        <br>
+                                    
+                                     </p class="p-book">
+                                     <div class="go-corner">
+                                       <div class="go-arrow">
+                                         ?
+                                       </div>
+                                     </div>
+                                   </a>
+                                 </div>
+
+                                {{-- <h1 class="text-xl font-bold text-gray-800">{{ $libro['titulo'] }}</h1>
                                 <br>
                                 <br>
                                 <p class="text-gray-700">{{ $libro['descripcion'] }}</p>
                                 <br>
                                 <p class="text-gray-700">{{ $libro['editorial'] }}</p>
-                                <br>
-                                <a href="{{ route('books.index') }}"><button class="button-books">Volver a la lista de
-                                        libros</button></a>
+                                <br> --}}
+                                <a href="{{ route('books.index') }}"><button class="button-books">Volver a la lista de libros</button></a>
+
                             </div>
                         </div>
                     </div>
