@@ -46,7 +46,7 @@ Route::get('/asesorias', function () {
 });
 
 Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']); //Ruta de prueba para mostrar los proyectos por division
-Route::resource('/companies', CompaniesController::class);
+Route::resource('/empresas', CompaniesController::class);
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
 Route::resource('vistaproyectos', ViewProjectController::class);
@@ -61,9 +61,19 @@ Route::resource('books', BooksController::class);
 Route::get('/add-books', function () {
     return view('books-notifications.books.add-books');
 });
+Route::get('/notifications', function () {
+    return view('books-notifications.books.notifications');
+});
+Route::get('/Users', function () {
+    return view('administrator.dashboard.DashboardUsers');
+});
 
-Route::get('/report',[BooksController::class,'listBook'])->name('books.list'); 
-Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports'); 
+Route::get('/teams', function () {
+    return view('administrator.dashboard.dashboardTeam');
+});
+
+Route::get('/report',[BooksController::class,'listBook'])->name('books.list');
+Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports');
 
 
 Route::controller(ProjectFormController::class)->group(function (){
