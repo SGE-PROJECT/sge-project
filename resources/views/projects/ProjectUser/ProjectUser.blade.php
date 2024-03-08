@@ -8,7 +8,7 @@
     <div class="contenedor">
         <div class="flex flex-wrap justify-center">
             <div class="w-full md:w-1/2 flex justify-center">
-                <div class="bg-white w-11/12 rounded overflow-hidden shadow-lg mt-6 h-full relative card"
+                <div class="bg-white w-11/12 rounded overflow-hidden shadow-lg mt-6 h-full relative card-invitation"
                     onclick="toggleCard(this)">
                     <img class="w-full h-40 object-cover" src="images/projects/projectuser/proyecto.jpg" alt="Imagen de la tarjeta">
                     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -23,7 +23,7 @@
 
 
             <div class="w-full md:w-1/2 flex justify-center">
-                <div class="bg-white w-11/12 rounded overflow-hidden shadow-lg mt-6 h-full relative card"
+                <div class="bg-white w-11/12 rounded overflow-hidden shadow-lg mt-6 h-full relative card-invitation"
                     onclick="toggleCard(this)">
                     <img class="w-full h-40 object-cover" src="images/projects/projectuser/equipo.jpg" alt="Imagen de la tarjeta">
                     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

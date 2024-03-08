@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\users\RegisterUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Companies\CompaniesController;
 use App\Http\Controllers\divisions\DivisionController;
@@ -45,6 +46,7 @@ Route::get('/asesorias', function () {
     return view('consultancy.Dates');
 });
 
+
 Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']); //Ruta de prueba para mostrar los proyectos por division
 Route::resource('/empresas', CompaniesController::class);
 Route::resource('divisiones', DivisionController::class);
@@ -54,6 +56,8 @@ Route::resource('vistaproyectos', ViewProjectController::class);
 Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
 Route::get('/profile', [ProfileController::class,'index']);
 Route::get('/roles', [RolesController::class,'index']);
+Route::get('/registeruser', [RegisterUserController::class,'index']);
+
 
 
 Route::resource('books', BooksController::class);

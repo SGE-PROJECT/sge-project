@@ -223,6 +223,13 @@ Roles
     box-shadow: 0 0 10px 5px rgba(46, 213, 115, 0.5); /* Cambia el color de la sombra según prefieras */
 }
 
+.checked {
+        font-weight: 600;
+        color: #3B82F6; /* Cambiar el color de texto cuando está seleccionado */
+    }
+
+   
+
 
 </style>
 
@@ -242,6 +249,28 @@ Roles
         // Una vez que los permisos se guarden, puedes cerrar el modal
         cerrarModal();
     }
+
+  // Función para agregar efecto dinámico a los checkboxes
+  function toggleCheckboxEffect() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                var label = document.querySelector('label[for="' + checkbox.id + '"]');
+                label.classList.toggle('checked', checkbox.checked);
+
+                // Agregar clase específica para el checkbox de eliminar
+                if (checkbox.id.includes('delete')) {
+                    label.classList.toggle('checked-delete', checkbox.checked);
+                }
+            });
+        });
+    }
+
+    // Llamar a la función cuando el documento esté cargado
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleCheckboxEffect();
+    });
+
 </script>
 
 @endsection
