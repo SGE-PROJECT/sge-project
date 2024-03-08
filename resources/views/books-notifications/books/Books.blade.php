@@ -23,7 +23,8 @@
     <div class="container-bk">
         <h1 class="title-books"> - Libros -</h1> 
         <a href="{{ route('añadir.libros') }}"><button class="button-books position-books">Registrar Libro</button></a>
-        
+        <a href="{{ route('books.reports') }}"><button class="button-books position-books-2">Exportar Lista a PDF</button></a>
+
         <div class="flex flex-wrap mx-10 gap-10 ctn-bk">
             <div class=" w-full">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
