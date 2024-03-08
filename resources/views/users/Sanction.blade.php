@@ -47,7 +47,7 @@
                             Garcia
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <button class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8  mr-5 w-32" onclick="window.location.href = '{{ route('dashboardProjects') }}'">
+                            <button id="abrir-modal" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8  mr-5 w-32">
                                 Sancionar
                             </button>
                         </td>
@@ -67,7 +67,7 @@
                             Williams
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <button class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mr-5 w-32" onclick="window.location.href = '{{ route('dashboardProjects') }}'">
+                            <button id="abrir-modal" class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mr-5 w-32">
                                 Sancionar
                             </button>
                         </td>
