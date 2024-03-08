@@ -185,7 +185,7 @@
 
 /* BOOK DETAIL DESING */
 
-.card .p-book {
+.card-detail-book .p-book {
   font-size: 17px;
   font-weight: 400;
   line-height: 20px;
@@ -193,7 +193,7 @@
   box-shadow: #1f2937;
 }
 
-.card .p-book .small {
+.card-detail-book .p-book .small {
   font-size: 14px;
 }
 
@@ -218,7 +218,7 @@
   font-family: courier, sans;
 }
 
-.card1 {
+.card1-detail-book {
   display: block;
   position: relative;
   max-width: 262px;
@@ -231,7 +231,7 @@
   overflow: hidden;
 }
 
-.card1:before {
+.card1-detail-book:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -246,21 +246,21 @@
   transition: transform 0.25s ease-out;
 }
 
-.card1:hover:before {
+.card1-detail-book:hover:before {
   transform: scale(21);
 }
 
-.card1:hover .p-book {
+.card1-detail-book:hover .p-book {
   transition: all 0.3s ease-out;
   color: white;
 }
 
-.card1:hover .h1-book {
+.card1-detail-book:hover .h1-book {
   transition: all 0.3s ease-out;
   color: #fff;
 }
 
-.card2 {
+.card2-detail-book {
   display: block;
   top: 0px;
   position: relative;
@@ -275,7 +275,7 @@
   border: 1px solid #f2f8f9;
 }
 
-.card2:hover {
+.card2-detail-book:hover {
   transition: all 0.2s ease-out;
   box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
   top: -4px;
@@ -283,7 +283,7 @@
   background-color: white;
 }
 
-.card2:before {
+.card2-detail-book:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -298,11 +298,11 @@
   transition: transform 0.15s ease-out;
 }
 
-.card2:hover:before {
+.card2-detail-book:hover:before {
   transform: scale(2.15);
 }
 
-.card3 {
+.card3-detail-book {
   display: block;
   top: 0px;
   position: relative;
@@ -316,26 +316,26 @@
   border: 1px solid #f2f8f9;
 }
 
-.card3 .go-corner {
+.card3-detail-book .go-corner {
   opacity: 0.7;
 }
 
-.card3:hover {
+.card3-detail-book:hover {
   border: 1px solid #00838d;
   box-shadow: 0px 0px 999px 999px rgba(255, 255, 255, 0.5);
   z-index: 500;
 }
 
-.card3:hover p {
+.card3-detail-book:hover p {
   color: #00838d;
 }
 
-.card3:hover .go-corner {
+.card3-detail-book:hover .go-corner {
   transition: opactiy 0.3s linear;
   opacity: 1;
 }
 
-.card4 {
+.card4-detail-book {
   display: block;
   top: 0px;
   position: relative;
@@ -349,7 +349,7 @@
   border: 1px solid #ccc;
 }
 
-.card4 .go-corner {
+.card4-detail-book .go-corner {
   background-color: #00838d;
   height: 100%;
   width: 16px;
@@ -361,25 +361,32 @@
   background-image: linear-gradient(-45deg, #8f479a 1%, #dc2a74 100%);
 }
 
-.card4 .go-arrow {
+.card4-detail-book .go-arrow {
   transform: skew(-6deg);
   margin-left: -2px;
   margin-top: 9px;
   opacity: 0;
 }
 
-.card4:hover {
+.card4-detail-book:hover {
   border: 1px solid #cd3d73;
 }
 
-.card4 .h1-book {
+.card4-detail-book .h1-book {
   margin-top: 8px;
 }
 
-.card4:hover .go-corner {
+.card4-detail-book:hover .go-corner {
   margin-right: -12px;
 }
 
-.card4:hover .go-arrow {
+.card4-detail-book:hover .go-arrow {
   opacity: 1;
+}
+
+.position-books {
+  position: absolute;
+  top: -40px;
+  right: 10px;
+  transform: scale(0.85);
 }

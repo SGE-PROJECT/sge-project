@@ -27,8 +27,8 @@
                         <div class="container-card max-w-full md:max-w-3xl mx-auto">
                             <div class="ctn-bor p-4">
 
-                                <div class="card">
-                                    <a class="card1">
+                                <div class="card-detail-book">
+                                    <a class="card1-detail-book">
                                      <p class="p-book"> 
                                      
                                         <h1 class="text-xl font-bold text-gray-800 h1-book">{{ $libro['titulo'] }}</h1>
