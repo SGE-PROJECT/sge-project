@@ -72,8 +72,8 @@ Route::get('/teams', function () {
     return view('administrator.dashboard.dashboardTeam');
 });
 
-Route::get('/report',[BooksController::class,'listBook'])->name('books.list'); 
-Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports'); 
+Route::get('/report',[BooksController::class,'listBook'])->name('books.list');
+Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports');
 
 
 Route::controller(ProjectFormController::class)->group(function (){
