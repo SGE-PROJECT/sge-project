@@ -61,6 +61,9 @@ Route::resource('books', BooksController::class);
 Route::get('/add-books', function () {
     return view('books-notifications.books.add-books');
 });
+Route::get('/notifications', function () {
+    return view('books-notifications.books.notifications');
+});
 Route::get('/Users', function () {
     return view('administrator.dashboard.DashboardUsers');
 });
@@ -69,8 +72,8 @@ Route::get('/teams', function () {
     return view('administrator.dashboard.dashboardTeam');
 });
 
-Route::get('/report',[BooksController::class,'listBook'])->name('books.list'); 
-Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports'); 
+Route::get('/report',[BooksController::class,'listBook'])->name('books.list');
+Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports');
 
 
 Route::controller(ProjectFormController::class)->group(function (){
