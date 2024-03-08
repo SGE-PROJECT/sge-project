@@ -46,7 +46,7 @@ Route::get('/asesorias', function () {
 });
 
 Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']); //Ruta de prueba para mostrar los proyectos por division
-Route::resource('/companies', CompaniesController::class);
+Route::resource('/empresas', CompaniesController::class);
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
 Route::resource('vistaproyectos', ViewProjectController::class);
