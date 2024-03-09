@@ -26,7 +26,15 @@ class RoleSeeder extends Seeder
         $AcademicPresident = Role::create(['name'=>'AcademicPresident']);
 
         //Se declaran los permisos de los roles
-
+        //En esta parte declaramos las rutas de administrador
         Permission::create(['name' => 'administrator.dashboard.dashboard-general']);
+        //En esta parte declaramos permisos para crear botones 
+        Permission::create(['name' => 'administrator.dashboard.index']);
+        Permission::create(['name' => 'administrator.dashboard.create']);
+        Permission::create(['name' => 'administrator.dashboard.edit']);
+        Permission::create(['name' => 'administrator.dashboard.destroy']);
+
+
+
     }
 }
