@@ -83,7 +83,8 @@ Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports
 
 Route::controller(ProjectFormController::class)->group(function (){
     Route::get('/dashboardProjects','index')->name('dashboardProjects');
-    Route::get('form', 'create');
+    Route::post('projectform', 'store');
+    Route::get('projectform', 'create');
 });
 
 Route::controller(ProjectController::class)->group(function (){
