@@ -15,21 +15,8 @@
                         <p>Ver foto de perfil</p>
                     </div>
                 </div>
-                <!-- Modal -->
-                <div id="myModal" class="modal absolute bottom-0 left-0 right-0 top-0 bg-black bg-opacity-50 hidden ">
-                  <!-- Contenido del modal -->
-                    <div class="modal-content">
-                        <span class="close p-0" onclick="closeModal()">&times;</span>
-                        <img src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg">
-                <div id="myModal" class="modal">
-                    <!-- Contenido del modal -->
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal()">&times;</span>
-                        <img src="{{ asset('images/avatar.jpg') }}" />
-                    </div>
-                </div>
-                <!-- Información de perfil -->
-                <div>
+                 <!-- Información de perfil -->
+                 <div>
                     <div class="mb-4">
                         <h2 class="text-3xl font-bold text-teal-600">Rafael Villegas</h2>
                         <!-- Botones de seguimiento, mensaje, etc. -->
@@ -60,40 +47,51 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
+
+
+
+
 
 
     {{-- PROYECTOS Y EQUIPOS --}}
-<div class="border-t border-blueGray-200 m-8 pt-8">
-    <div class="grid md:grid-cols-2 gap-10 ml-4">
-        <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Proyecto</h1>
-        <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Equipo</h1>
-    </div>
-   
-    <div class="grid md:grid-cols-2 gap-10 ml-4">
-        <!-- Proyecto -->
-        <div class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
-            <h3 class="text-lg font-semibold text-gray-800">Nombre del Proyecto</h3>
-            <p class="text-sm text-gray-600 mt-2">Descripción del proyecto.</p>
+    <div class="border-t border-blueGray-200 m-8 pt-8">
+        <div class="grid md:grid-cols-2 gap-10 ml-4">
+            <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Proyecto</h1>
+            <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Equipo</h1>
         </div>
-        <!-- Equipos -->
-        <div>
-            
-            <!-- Tarjeta de Equipo -->
+       
+        <div class="grid md:grid-cols-2 gap-10 ml-4">
+            <!-- Proyecto -->
             <div class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
-                <h3 class="text-lg font-semibold text-gray-800">Nombre del Equipo</h3>
-                <p class="text-sm text-gray-600 mt-2">Descripción del equipo.</p>
+                <h3 class="text-lg font-semibold text-gray-800">Nombre del Proyecto</h3>
+                <p class="text-sm text-gray-600 mt-2">Descripción del proyecto.</p>
+            </div>
+            <!-- Equipos -->
+            <div>
+                
+                <!-- Tarjeta de Equipo -->
+                <div class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
+                    <h3 class="text-lg font-semibold text-gray-800">Nombre del Equipo</h3>
+                    <p class="text-sm text-gray-600 mt-2">Descripción del equipo.</p>
+                </div>
             </div>
         </div>
+
     </div>
-</div>
-
-
-
-
+    <!-- Modal -->
+    <div id="myModal" class="modal absolute bottom-0 left-0 right-0 top-0 bg-black bg-opacity-50 hidden ">
+        <!-- Contenido del modal -->
+          <div class="modal-content">
+              <span class="close p-0" onclick="closeModal()">&times;</span>
+              <img src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg">
+     
+          </div>
+      </div>
         </div>
     </div>
-        // Selecciona el botón de seguir
+    <script>
         const botonSeguir = document.getElementById('boton-seguir');
 
         // Agrega un evento de clic al botón de seguir
