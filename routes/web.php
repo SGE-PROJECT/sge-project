@@ -75,14 +75,11 @@ Route::get('/teams', function () {
 Route::get('/report',[BooksController::class,'listBook'])->name('books.list');
 Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports');
 
+/*Modulo de proyectos*/
+Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
+Route::get('projectinvitation', [ProjectController::class, 'invitation']);
+Route::get('projectform', [ProjectController::class, 'create'])->name('createForm');
+Route::post('projectform', [ProjectController::class, 'store'])->name('storeForm');
 
-Route::controller(ProjectFormController::class)->group(function (){
-    Route::get('/dashboardProjects','index')->name('dashboardProjects');
-    Route::get('form', 'create');
-});
-
-Route::controller(ProjectController::class)->group(function (){
-    Route::get('/Project','index');
-});
 
 Route::resource('carreras', CareerController::class);

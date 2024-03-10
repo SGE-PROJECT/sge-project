@@ -7,83 +7,16 @@
         <!-- Moví el enlace a la hoja de estilo dentro de la sección head -->
         <link rel="stylesheet" href="{{ asset('css/projects/projectDashboardStyle.css') }}">
 
-        <div class="performance-meter">
-            <div class="carta-payment">
-                <div class="carta-header">
-                    <div class="amount">
-
-                        <div class="gauge">
-                            <div class="gauge__body">
-                                <div class="gauge__fill"></div>
-                                <div class="gauge__cover"></div>
-                            </div>
-                        </div>
-                        <h2 class="ctitulo">Proyectos</h2>
-                    </div>
-                </div>
-            </div>
+        <div class="project-administrator-card">
+            @include('administrator.card', ['number' => 12, 'name' => 'Proyectos'])
         </div>
 
-        <div class="project-status">
-            <!-- Título -->
-            <div class="seccion-proyectos">
-                <div class="seccion-titulo">
-                    <span>Proyectos</span>
-                    <hr>
-                </div>
-
-                <div class="num-proyectos">
-
-                    <div class="estatus1">
-                        <div class="estatus-indicador"></div>
-                        <span>Activos</span>
-                        <div class="barra-progreso-contenedor">
-                            <div class="barra-progreso-relleno" ></div>
-                            <!-- Este es el que lleva el color y representa el progreso -->
-                        </div>
-
-                        <span class="estatus-numero">49</span>
-                    </div>
-
-                    <div class="estatus2">
-                        <div class="estatus-indicador"></div>
-                        <span>En proceso</span>
-                        <div class="barra-progreso-contenedor">
-                            <div class="barra-progreso-relleno" ></div>
-                            <!-- Este es el que lleva el color y representa el progreso -->
-                        </div>
-
-                        <span class="estatus-numero">49</span>
-                    </div>
-
-                    <div class="estatus3">
-                        <div class="estatus-indicador"></div>
-                        <span>Rechazados</span>
-                        <div class="barra-progreso-contenedor">
-                            <div class="barra-progreso-relleno" ></div>
-                            <!-- Este es el que lleva el color y representa el progreso -->
-                        </div>
-
-                        <span class="estatus-numero">49</span>
-                    </div>
-
-                    <div class="estatus4">
-                        <div class="estatus-indicador"></div>
-                        <span>Aceptados</span>
-                        <div class="barra-progreso-contenedor">
-                            <div class="barra-progreso-relleno"></div>
-                            <!-- Este es el que lleva el color y representa el progreso -->
-                        </div>
-
-                        <span class="estatus-numero">49</span>
-                    </div>
-
-                </div>
-            </div>
+        <div class="project-section-projects">
+            @include('administrator.section-projects', ['number' => 12, 'name' => 'Proyectos'])
         </div>
 
         <h1 class="proyect-table-title">Proyectos</h1>
-        <button class="Add-Proyect">Agregar</button>
+        <button class="project-add-Proyect"><a href="{{route('createForm')}}">Agregar</a></button>
 
         <table class="project-table">
             <thead>
@@ -98,26 +31,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><img  src="{{ asset('images/avatar.jpg') }}" alt="Icono de Carpeta" class="h-6 w-6 inline-block mr-2"> Project System
-                    </td>
-                    <td>Josue Chan, Guillermo Díaz</td>
-                    <td><span class="status approved">Aprobado</span></td>
-                    <td>Rafael Villegas</td>
-                    <td>Software</td>
-                    <td>SAT</td>
-                    <td>
-                        <!-- Íconos de acción -->
-                        <div class="flex">
-                            <i><img class="iconImage h-7 w-7" src="images/projects/edit.png"></i>
-                            <i><img class="iconImage h-7 w-7" src="images/projects/view.png"></i>
-                            <i><img class="iconImage h-7 w-7" src="images/projects/delete.png"></i>
-                            <i class="icon download"></i>
-                            <i class="icon more-options"></i>
-                        </div>
-                    </td>
-                </tr>
+                @foreach ($Projects as $project)
+                    <tr>
+                        <td><img src="{{ asset('images/avatar.jpg') }}" alt="Icono de Carpeta"
+                                class="h-6 w-6 inline-block mr-2">
+                            {{ $project->name }}
+                        </td>
+                        <td>Josue Chan, Guillermo Díaz</td>
+                        <td><span class="project-status">{{ $project->status }}</span></td>
+                        <td>Rafael Villegas</td>
+                        <td>Software</td>
+                        <td>SAT</td>
+                        <td>
+                            <!-- Íconos de acción -->
+                            <div class="flex">
+                                <i><a href="#RUTA_EDITAR"><img class="project-iconImage h-7 w-7" src="images/projects/edit.png"></a></i>
+                                <i><a href="#RUTA_VISTA_PROYECTOS"><img class="project-iconImage h-7 w-7" src="images/projects/view.png"></a></i>
+                                <i><img class="project-iconImage h-7 w-7" src="images/projects/delete.png"></i>
+                                <i class="icon download"></i>
+                                <i class="icon more-options"></i>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
+    </div>
+    <div class="proyects-dash-links m-6">
+        {{$Projects->links()}}
     </div>
 @endsection
