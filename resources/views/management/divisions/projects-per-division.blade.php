@@ -8,7 +8,7 @@
     <div class="flex flex-col md:flex-row ml-16 mr-16 mb-10 bg-white mt-10 p-8 rounded-xl">
         <div class="flex-none mb-4 md:mb-0 md:order-2 md:ml-10 md:mr-10">
             <img class="mt-7 cursor-pointer w-96 md:w-96 md:h-72 h-auto p-1 rounded-2xl"
-                src={{ asset('images/divisions/ing.png') }} alt="Project Image">
+                src="{{ asset('images/divisions/ing.png') }}" alt="Project Image">
         </div>
 
 
