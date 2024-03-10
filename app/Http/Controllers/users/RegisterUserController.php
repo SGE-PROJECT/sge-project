@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\projects;
+namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Projects\ProjectFormRequest;
 
-class ProjectFormController extends Controller
+class RegisterUserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("projects.ProjectsDash.projectDashboard");
+        return view('users.registeruser');
+
     }
 
     /**
@@ -21,15 +21,15 @@ class ProjectFormController extends Controller
      */
     public function create()
     {
-        return view("projects.Forms.FormStudent");
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProjectFormRequest $request)
+    public function store(Request $request)
     {
-        return view('auth.login');
+        //
     }
 
     /**
