@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string("name");
             $table->string("status");
             $table->text("general_information");
+            $table->text("general_objective");
+            $table->text("problem_statement");
+            $table->text("justification");
+            $table->text("activities");
             $table->foreignId("program_id")->constrained()
             ->onUpdate('restric')
             ->onDelete('restrict');

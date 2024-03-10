@@ -6,7 +6,9 @@
 @section('contenido')
     <div class="rounded-lg bg-white  p-8 shadow-lg lg:col-span-3 lg:p-12">
         <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
-        <form action="#" class="space-y-4">
+        <form action="{{route('storeForm')}}" method="POST" class="space-y-4">
+            @csrf
+
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label class="text-sm font-semibold" for="email">Nombre Completo:</label>
@@ -150,13 +152,13 @@
             </div>
         </form>
     </div>
-    
+
     @include('layouts.modal', [
     'title' => 'Publicar Proyecto',
     'message' => '¿Estás seguro de que deseas publicar tu proyecto? Una vez subido ya no se pueden hacer cambios. Esta acción no se puede deshacer.',
     'cancelButton' => 'Cancelar',
     'confirmButton' => 'Publicar'
-    
+
 ])
 
 
