@@ -91,8 +91,9 @@ Route::middleware(['auth'])->group(function () {
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('projectinvitation', [ProjectController::class, 'invitation']);
-    Route::get('projectform', [ProjectController::class, 'create'])->name('createForm');
-    Route::post('projectform', [ProjectController::class, 'store'])->name('storeForm');
+    Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
+    Route::post('projectform', [ProjectController::class, 'store']);
+    Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
     
     
     Route::resource('carreras', CareerController::class);
