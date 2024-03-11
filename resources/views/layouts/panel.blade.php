@@ -149,11 +149,13 @@
             <span class="nav-text text-sm">Notificaciones</span>
           </a>
         </li>
-        <button href="#"
-        class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
+        <form action="{{ route('logout') }}" method="post">
+            @csrf
+        <button href="{{ route('logout') }}" class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
         <i class='bx bx-log-out mr-3 text-xl'></i>
         <span class="nav-text text-sm">Cerrar sesion</span>
       </button>
+    </form>
       </ul>
 
 
