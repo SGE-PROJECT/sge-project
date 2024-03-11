@@ -60,7 +60,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/empresas', CompaniesController::class);
     Route::resource('divisiones', DivisionController::class);
     Route::get('/sanciones', [ManagementUserController::class, 'index']);
-    Route::resource('vistaproyectos', ViewProjectController::class);
     
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
     Route::get('/profile', [ProfileController::class,'index']);
