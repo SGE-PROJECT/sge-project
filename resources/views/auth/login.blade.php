@@ -19,16 +19,9 @@
                     <div class="sm:text-5xl xl:text-4xl font-bold leading-tight mb-48 custom-font text-center">BIENVENIDO AL SISTEMA DE GESTIÓN DE ESTADÍAS</div>
                 </div>
                 <ul class="circles">
+                    @for($i = 0; $i < 10; $i++)
                     <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    @endfor
                 </ul>
             </div>
             <div class="md:flex md:items-center w-full md:justify-center sm:w-auto mt-2 md:mt-14 xl:w-2/5 p-8 md:p-10 sm:rounded-lg md:rounded-none bg-white">
@@ -38,7 +31,7 @@
                     <div class="text-center">
                         <h2 class="text-3xl font-bold text-blue-950 font-serif ml-5">Iniciar Sesión</h2>
                     </div>
-                    <form class="space-y-9">
+                    <form method="POST" action="{{ route('login') }}" class="space-y-9">
                         @csrf
                         <input type="hidden" name="remember" value="true" />
                         <div class="relative">
