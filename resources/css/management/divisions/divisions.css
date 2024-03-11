@@ -6,7 +6,7 @@
 
 .contenedor_divisions {
     display: flex;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en filas */
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     padding: 50px 0px 10px 0px;
@@ -129,8 +129,9 @@
     transform: translate(-50%, -50%);
     z-index: 1;
     text-transform: uppercase;
-    font-size: 25px;
+    font-size: 23px;
     opacity: 1;
+    text-align: center;
     transition: opacity 0.3s ease;
     color: #fff;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
@@ -194,7 +195,7 @@
 
 .card__title {
     margin: 0;
-    font-size: 20px;
+    font-size: 15px;
     color: #333;
     font-weight: 700;
     text-transform: uppercase;
