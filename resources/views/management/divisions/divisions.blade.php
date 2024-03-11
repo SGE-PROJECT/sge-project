@@ -39,6 +39,8 @@
                 <div class="card__content">
                     <p class="card__title">{{ $division->name }}</p>
                     <p class="card__description">{{ $division->description }}</p>
+                    <p class="card__description">Director[a]: </p>
+                    <p class="card__description">Subdirector[a]:</p>
                     <button class="card__button">Ver más</button>
                 </div>
             </div>
