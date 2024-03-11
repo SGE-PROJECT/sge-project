@@ -6,7 +6,7 @@
 @section('contenido')
     <div class="rounded-lg bg-white  p-8 shadow-lg lg:col-span-3 lg:p-12">
         <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
-        <form action="{{route('storeForm')}}" method="POST" class="space-y-4">
+        <form action="{{ route('projectform') }}" method="POST" class="space-y-4">
             @csrf
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -230,38 +230,19 @@
                     class=" font-bold bg-teal-500 text-white  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
                 <button type="submit"
                     class=" font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Guardar</button>
-                <button id="openModalButton"
-                    class="overflow-hidden w-32 p-2  bg-teal-500 text-white border-none rounded text-medium font-medium cursor-pointer relative z-10 group">
-                    Publicar
-                    <span
-                        class="absolute w-36 h-32 -top-8 -left-2 bg-white rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-500 duration-1000 origin-left"></span>
-                    <span
-                        class="absolute w-36 h-32 -top-8 -left-2 bg-teal-500 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-700 duration-700 origin-left"></span>
-                    <span
-                        class="absolute w-36 h-32 -top-8 -left-2 bg-teal-950 rotate-12 transform scale-x-0 group-hover:scale-x-100 transition-transform group-hover:duration-1000 duration-500 origin-left"></span>
-                    <span
-                        class="group-hover:opacity-100 group-hover:duration-1000 duration-100 opacity-0 absolute top-2 left-9 z-10">Seguro?</span>
-                </button>
+                <button type="submit" id="openModalButton"
+                    class=" font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Publicar</button>
             </div>
         </form>
     </div>
 
     @include('layouts.modal', [
-<<<<<<< HEAD
-    'title' => 'Publicar Proyecto',
-    'message' => '¿Estás seguro de que deseas publicar tu proyecto? Una vez subido ya no se pueden hacer cambios. Esta acción no se puede deshacer.',
-    'cancelButton' => 'Cancelar',
-    'confirmButton' => 'Publicar'
-
-])
-=======
         'title' => 'Publicar Proyecto',
         'message' =>
             '¿Estás seguro de que deseas publicar tu proyecto? Una vez subido ya no se pueden hacer cambios. Esta acción no se puede deshacer.',
         'cancelButton' => 'Cancelar',
         'confirmButton' => 'Publicar',
     ])
->>>>>>> develop
 
 
 @endsection
