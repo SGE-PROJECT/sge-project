@@ -4,6 +4,7 @@ namespace App\Http\Controllers\divisions;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\management\Division;
 
 class DivisionController extends Controller
 {
@@ -12,7 +13,8 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        return view('management.divisions.divisions');
+        $divisions = Division::with('divisionImage')->get();
+        return view('management.divisions.divisions', compact('divisions'));
     }
 
 

@@ -70,7 +70,7 @@ Route::get('/registeruser', [RegisterUserController::class,'index']);
 Route::resource('books', BooksController::class);
 
 Route::get('/add-books', function () {
-    return view('books-notifications.books.add-books');
+    return view('books-notifications.books.Add-books');
 })->name('añadir.libros');
 
 Route::get('/notifications', function () {
