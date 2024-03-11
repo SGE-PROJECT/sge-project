@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('division_images', function (Blueprint $table) {
             $table->id();
             $table->foreignId('division_id')->constrained() // Especificar el nombre de la columna primaria
