@@ -59,7 +59,6 @@ Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivi
 Route::resource('/empresas', CompaniesController::class);
 Route::resource('divisiones', DivisionController::class);
 Route::get('/sanciones', [ManagementUserController::class, 'index']);
-Route::resource('vistaproyectos', ViewProjectController::class);
 
 Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
 Route::get('/profile', [ProfileController::class,'index']);
@@ -91,8 +90,9 @@ Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports
 /*Modulo de proyectos*/
 Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
 Route::get('projectinvitation', [ProjectController::class, 'invitation']);
-Route::get('projectform', [ProjectController::class, 'create'])->name('createForm');
-Route::post('projectform', [ProjectController::class, 'store'])->name('storeForm');
+Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
+Route::post('projectform', [ProjectController::class, 'store']);
+Route::get('vistaproyectos', [ProjectController::class, 'viewproject'])->name('viewproject');
 
 
 Route::resource('carreras', CareerController::class);
