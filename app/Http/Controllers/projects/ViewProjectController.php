@@ -12,7 +12,7 @@ class ViewProjectController extends Controller
      */
     public function index()
     {
-        return view ('projects.Forms.viewsproject.ProjectsView');
+        return view ('projects.viewsproject.ProjectsView');
     }
 
     /**

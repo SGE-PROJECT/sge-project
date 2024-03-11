@@ -4,6 +4,7 @@ namespace App\Http\Controllers\projects;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Projects\ProjectFormRequest;
 
 class ProjectFormController extends Controller
 {
@@ -26,9 +27,9 @@ class ProjectFormController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProjectFormRequest $request)
     {
-        //
+        return view('auth.login');
     }
 
     /**

@@ -1,20 +1,23 @@
 <?php
 
-use App\Http\Controllers\users\RegisterUserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Companies\CompaniesController;
-use App\Http\Controllers\divisions\DivisionController;
-use App\Http\Controllers\users\ManagementUserController;
-use App\Http\Controllers\projects\ProjectFormController;
-use App\Http\Controllers\projects\ViewProjectController;
 
-use App\Http\Controllers\projects\ProjectController;
-use App\Http\Controllers\books\BooksController;
-use App\Http\Controllers\users\ManagementConfiguration;
+
+use App\Http\Controllers\auth\LoginControlller;
 use App\Http\Controllers\admin\RolesController;
-use App\Http\Controllers\profile\ProfileController;
+use App\Http\Controllers\books\BooksController;
 
 use App\Http\Controllers\Career\CareerController;
+use App\Http\Controllers\profile\ProfileController;
+use App\Http\Controllers\projects\ProjectController;
+use App\Http\Controllers\divisions\DivisionController;
+use App\Http\Controllers\users\RegisterUserController;
+
+use App\Http\Controllers\Companies\CompaniesController;
+use App\Http\Controllers\users\ManagementConfiguration;
+use App\Http\Controllers\projects\ProjectFormController;
+use App\Http\Controllers\projects\ViewProjectController;
+use App\Http\Controllers\users\ManagementUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,14 +38,19 @@ Route::get('/projectsdash', function(){
     return view('management.project');
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
+// Route::get('/login', function () {
+//     return view('auth.login');
+// });
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [LoginControlller::class, 'index'])->name('login');
+    Route::post('/login', [LoginControlller::class, 'store']);
+
 });
 
 Route::get('/RecoverPassword', function () {
     return view('auth.recoverPassword');
 });
-Route::get('/asesorias', function () {
+Route::get('/Asesorias', function () {
     return view('consultancy.Dates');
 });
 
@@ -80,14 +88,11 @@ Route::get('/teams', function () {
 Route::get('/report',[BooksController::class,'listBook'])->name('books.list');
 Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports');
 
+/*Modulo de proyectos*/
+Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
+Route::get('projectinvitation', [ProjectController::class, 'invitation']);
+Route::get('projectform', [ProjectController::class, 'create'])->name('createForm');
+Route::post('projectform', [ProjectController::class, 'store'])->name('storeForm');
 
-Route::controller(ProjectFormController::class)->group(function (){
-    Route::get('/dashboardProjects','index')->name('dashboardProjects');
-    Route::get('form', 'create');
-});
-
-Route::controller(ProjectController::class)->group(function (){
-    Route::get('/Project','index');
-});
 
 Route::resource('carreras', CareerController::class);
