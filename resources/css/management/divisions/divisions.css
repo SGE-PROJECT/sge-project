@@ -13,7 +13,7 @@
     margin-right: 30px;
 }
 
-.header_divisions{
+.header_divisions {
     display: flex;
     justify-content: space-between;
     padding: 12px 18px 10px 16px;
@@ -33,7 +33,7 @@
     background-color: #03A696;
 }
 
-.BtnCrearDivisions{
+.BtnCrearDivisions {
     margin-left: 30px;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .Btn_division:active {
-    transform: translate(2px ,2px);
+    transform: translate(2px, 2px);
 }
 
 .card__division {
@@ -147,6 +147,7 @@
     height: 100%;
     fill: #333;
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: none; /* Elimina el desenfoque inicialmente */
 }
 
 .card__image {
@@ -167,7 +168,6 @@
     height: 100%;
     padding: 20px;
     box-sizing: border-box;
-    background-color: #f2f2f2;
     transform: rotateX(-90deg);
     transform-origin: bottom;
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -178,9 +178,9 @@
 }
 
 .card__button {
-    padding: 15px;
+    padding: 10px;
     border-radius: 8px;
-    background: #777;
+    background: green;
     border: none;
     color: white;
 }
@@ -196,7 +196,7 @@
 .card__title {
     margin: 0;
     font-size: 15px;
-    color: #333;
+    color: white;
     font-weight: 700;
     text-transform: uppercase;
 }
@@ -208,6 +208,10 @@
 .card__description {
     margin: 10px 0 10px;
     font-size: 10px;
-    color: #777;
+    color: white;
     line-height: 1.4;
+}
+
+.card__division:hover img {
+    filter: blur(4px); /* Agrega el desenfoque al hacer hover */
 }
