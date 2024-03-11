@@ -133,7 +133,7 @@
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
         <li class="mb-1 group">
-          <a href="/asesorias"
+          <a href="/Asesorias"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-calendar-event mr-3 text-lg'></i>
             <span class="nav-text text-sm">Sesiones de Asesoría</span>

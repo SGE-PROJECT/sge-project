@@ -5,12 +5,11 @@
 
 @section('contenido')
     <section class="section">
-        <form class="m-10  mx-auto p-8 bg-white rounded-lg shadow-lg">
+        <form class="mx-auto p-8">
             <div class="bg-teal-500 w-full p-4 rounded-t-lg">
-                <h1 class="text-3xl mb-0" style="color: white">Datos del usuario</h1>
+                <h1 class="text-3xl mb-0" style="color: white">Registrar usuario</h1>
             </div>
-            <br>
-         <div class="contenido m-10">
+         <div class="contenido bg-white p-4 rounded-b-lg  shadow-lg">
             <h2 class=" font-medium text-teal-500 mb-6">Todos los campos son obligatorios</h2>
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

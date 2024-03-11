@@ -42,7 +42,7 @@ Route::get('/login', function () {
 Route::get('/RecoverPassword', function () {
     return view('auth.recoverPassword');
 });
-Route::get('/asesorias', function () {
+Route::get('/Asesorias', function () {
     return view('consultancy.Dates');
 });
 
