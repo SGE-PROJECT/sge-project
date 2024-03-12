@@ -17,72 +17,72 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $adminUser = User::create([
-            'first_name' => 'Guillermo',
-            'last_name' => 'Garcia',
+            'name' => 'Guillermo Garcia',
+            // 'last_name' => 'Garcia',
             'email' => 'guillermo.jesus.garcia.canul@gmail.com',
-            'phone_number' => '9983187269',
+            // 'phone_number' => '9983187269',
             'password' => Hash::make('guillermo'), // Usar un hash seguro para la contraseña
-            'avatar' => 'default.jpg',
-            'is_active' => 1,
+            // 'avatar' => 'default.jpg',
+            // 'is_active' => 1,
             'created_at' => now()
         ]);
 
         $teacherUser = User::create([
-            'first_name' => 'Rafael',
-            'last_name' => 'Villegas',
+            'name' => 'Rafael Villegas',
+            // 'last_name' => 'Villegas',
             'email' => 'rvillegas@gmail.com',
-            'phone_number' => '9984127760',
+            // 'phone_number' => '9984127760',
             'password' => Hash::make('rafael'), // Usar un hash seguro para la contraseña
-            'avatar' => 'default.jpg',
-            'is_active' => 1,
+            // 'avatar' => 'default.jpg',
+            // 'is_active' => 1,
             'created_at' => now()
         ]);
 
         $adviserUser = User::create([
-            'first_name' => 'Alonso',
-            'last_name' => 'Roano',
+            'name' => 'Alonso Roano',
+            // 'last_name' => 'Roano',
             'email' => 'alonroano@gmail.com',
-            'phone_number' => '9981137469',
+            // 'phone_number' => '9981137469',
             'password' => Hash::make('alonso'), // Usar un hash seguro para la contraseña
-            'avatar' => 'default.jpg',
-            'is_active' => 1,
+            // 'avatar' => 'default.jpg',
+            // 'is_active' => 1,
             'created_at' => now()
         ]);
 
         $studentUser = User::create([
-            'first_name' => 'Leyva',
-            'last_name' => 'Garcia',
+            'name' => 'Andres Leyva',
+            // 'last_name' => 'Garcia',
             'email' => 'leyvagarcia@gmail.com',
-            'phone_number' => '9985177869',
+            // 'phone_number' => '9985177869',
             'password' => Hash::make('leyva'), // Usar un hash seguro para la contraseña
-            'avatar' => 'default.jpg',
-            'is_active' => 1,
+            // 'avatar' => 'default.jpg',
+            // 'is_active' => 1,
             'created_at' => now()
         ]);
 
         $directorUser = User::create([
-            'first_name' => 'Rocío',
-            'last_name' => 'Diaz',
+            'name' => 'Rocío Diaz',
+            // 'last_name' => 'Diaz',
             'email' => 'drocio@gmail.com',
-            'phone_number' => '9987837169',
+            // 'phone_number' => '9987837169',
             'password' => Hash::make('rocio'), // Usar un hash seguro para la contraseña
-            'avatar' => 'default.jpg',
-            'is_active' => 1,
+            // 'avatar' => 'default.jpg',
+            // 'is_active' => 1,
             'created_at' => now()
         ]);
 
         $licenciadeUser = User::create([
-            'first_name' => 'Norma',
-            'last_name' => 'Villegas',
+            'name' => 'Norma Villegas',
+            // 'last_name' => 'Villegas',
             'email' => 'normavillegas@gmail.com',
-            'phone_number' => '9981336169',
+            // 'phone_number' => '9981336169',
             'password' => Hash::make('norma'), // Usar un hash seguro para la contraseña
-            'avatar' => 'default.jpg',
-            'is_active' => 1,
+            // 'avatar' => 'default.jpg',
+            // 'is_active' => 1,
             'created_at' => now()
         ]);
 
-        $adminRole = Role::findByName('Admin');
+        $AdministratorRole = Role::findByName('Administrator');
         $teacherRole = Role::findByName('Teacher');
         $adviserRole = Role::findByName('Adviser');
         $studentRole = Role::findByName('Student');
@@ -90,7 +90,7 @@ class UserSeeder extends Seeder
         $licenciadeRole = Role::findByName('Licenciade');
 
 
-        $adminUser->assignRole($adminRole);
+        $AdministratorUser->assignRole($AdministratorRole);
         $teacherUser->assignRole($teacherRole);
         $adviserUser->assignRole($adviserRole);
         $studentUser->assignRole($studentRole);
