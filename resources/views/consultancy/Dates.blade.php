@@ -4,22 +4,23 @@
 
 @section('contenido')
 <main class="vista_asesorias">
-    <div class="BtnCrearDivisions botonVereventos relative lg:absolute" id="contbtnCitas">
-        <button class="Btn_divisions" id="cambiarCita">
+    <div class="BtnCrearDivisions botonVereventos relative lg:absolute mr-[20px] lg:mr-[75px]" id="contbtnCitas">
+        <button class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" id="cambiarCita">
             <span class="Btntext_divisions" >Cambiar<b>-</b>cita</span>
             <span class="svgIcon_divisions">
                 <i class="nf nf-md-update"></i>
             </span>
         </button>
-        <button class="Btn_divisions ml-[20px]" id="botonCitas">
+        <button class="Btn_divisions ml-[20px] bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" id="botonCitas">
             <span class="Btntext_divisions" >Citas</span>
             <span class="svgIcon_divisions">
                 <i class="nf nf-fa-list_alt"></i>
             </span>
         </button>
     </div>
-    <div class="BtnCrearDivisions botonVereventos relative lg:absolute ocultar" id="contbtnCitas2">
-        <button class="Btn_divisions" id="botonCitas2">
+    <div class="BtnCrearDivisions botonVereventos todas relative lg:absolute ocultar mr-[20px] lg:mr-[20px]" id="contbtnCitas2">
+        <h3>Todas las citas</h3>
+        <button class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" id="botonCitas2">
             <span class="Btntext_divisions" >Calendario</span>
             <span class="svgIcon_divisions">
                 <i class="nf nf-fa-calendar"></i>
@@ -40,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label for="editMotivo">Motivo:</label>
-                <input id="editMotivo" name="motivo" maxlength="250">
+                <textarea id="editMotivo" name="motivo" maxlength="250"></textarea>
                 <span id="editContador">0/250</span>
             </div>
             <p id="error2">Error</p>
@@ -57,7 +58,7 @@
             </div>
             <div class="form-group">
                 <label for="solitMensaje">Mensaje:</label>
-                <input  name="motivo" maxlength="250" id="solitMensaje" placeholder="Justificacion de la solicitud">
+                <textarea  name="motivo" maxlength="250" id="solitMensaje" placeholder="Justificacion de la solicitud"></textarea>
             </div>
             <p id="error2">Error</p>
             <button type="submit" id="solicitar">Solicitar cambio</button>
@@ -69,16 +70,10 @@
             <span class="close">&times;</span>
             <p>Seleccione un proyecto:</p>
             <select id="nombre">
-                <option value="22393172">Alonso</option>
-                <option value="22393173">Juan</option>
-                <option value="22393174">Emma</option>
-                <option value="22393175">Cochi</option>
-                <option value="22393176">Leyva</option>
-                <option value="22393204">Guillermo</option>
             </select>
         </div>
     </div>
-    <div class="calendar-container w-full lg:w-[60%]" id="calendario">
+    <div class="calendar-container w-full lg:w-[60%] overflow-hidden" id="calendario">
         <select id="month" class="select-mes text-[30px] md:text-[40px]">
             <option value="0">Enero</option>
             <option value="1">Febrero</option>
@@ -100,7 +95,7 @@
     </div>
 
     <div class="ocultar w-[100%] sm:w-[65%] flex flex-wrap relative py-5 justify-center" id="dia">
-        <button class="absolute top-0 md:top-[0px] lg:top-[10px] left-[20px] font-bold text-[20px] md:text-[25px]" id="volverButton"><i class="nf nf-cod-arrow_left"></i></button>
+        <button class="absolute top-0 md:top-[0px] lg:top-[10px] left-[20px] font-bold text-[20px] md:text-[25px]" id="volverButton"><i class="nf nf-cod-arrow_left text-[20px]"></i></button>
         <h3 class="w-full select-mes text-center text-[30px] md:text-[40px]" id="hora"></h3>
         <div id="dia2">
             <table>
@@ -177,24 +172,18 @@
         <input type="time" id="horas">
         <p>Proyecto:</p>
             <select id="matricula">
-                <option value="22393172">Alonso</option>
-                <option value="22393173">Juan</option>
-                <option value="22393174">Emma</option>
-                <option value="22393175">Cochi</option>
-                <option value="22393176">Leyva</option>
             </select>
-
         </datalist>
         <p>Motivo de asesoria</p>
         <span class="motivo">
-            <input type="text" id="motivo" maxlength="250">
+            <textarea type="text" id="motivo" maxlength="250"></textarea>
             <p id="contador"></p>
         </span>
 
         <p id="error">Error</p>
         <button id="agregarEventoButton">Crear cita</button>
     </div>
-    <div id="eventosContainer" class="w-full md:w-[20%] lg:w-[30%] ml-[20px] mr-[20px] mt-[20px] mb-[20px] lg:ml-[0px] lg:mr-[20px] lg:mt-[85px] lg:mb-[0px]">
+    <div id="eventosContainer" class="w-full md:w-[20%] lg:w-[30%] ml-[20px] mr-[20px] mt-[20px] mb-[20px] lg:ml-[0px] lg:mr-[20px] lg:mt-[85px]">
         <h2>Citas proximas</h2>
         <span>
             <table id="tablaEventos">
@@ -219,7 +208,6 @@
 
     </span>
     <div id="eventosContainer2" class="ocultar">
-        <h2>Todas las citas</h2>
         <span>
             <table id="tablaEventos2">
             <thead>

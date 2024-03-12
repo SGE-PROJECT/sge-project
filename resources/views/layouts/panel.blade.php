@@ -133,7 +133,7 @@
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
         <li class="mb-1 group">
-          <a href="/asesorias"
+          <a href="/Asesorias"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-calendar-event mr-3 text-lg'></i>
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
@@ -149,11 +149,13 @@
             <span class="nav-text text-sm">Notificaciones</span>
           </a>
         </li>
-        <button href="#"
-        class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
+        <form action="{{ route('logout') }}" method="post">
+            @csrf
+        <button href="{{ route('logout') }}" class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
         <i class='bx bx-log-out mr-3 text-xl'></i>
         <span class="nav-text text-sm">Cerrar sesion</span>
       </button>
+    </form>
       </ul>
 
 
@@ -348,7 +350,7 @@
                 </div>
               </div>
               <div class="p-2 hidden md:block text-left ">
-                <h2 class="text-sm font-semibold text-gray-800">Andres Garcia</h2>
+                <h2 class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</h2>
                 <p class="text-xs text-gray-500">Administrator</p>
               </div>
             </button>
@@ -363,8 +365,9 @@
                   class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Settings</a>
               </li>
               <li>
-                <form method="POST" action="" class="">
-                  <a role="menuitem"
+                <form method="POST" action="{{ route('logout') }}" class="">
+                  @csrf
+                  <a href="{{ route('logout') }}"role="menuitem"
                     class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50 cursor-pointer"
                     onclick="event.preventDefault();
                                   this.closest('form').submit();">

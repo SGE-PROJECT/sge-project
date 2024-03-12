@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Companies;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\management\Affiliated_companie;
 
 class CompaniesController extends Controller
 {
@@ -12,15 +13,13 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        return view("management.companies.companies");
+        $companies = Affiliated_companie::with('companiesImage')->get();
+        return view("management.companies.companies", compact('companies'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('management.companies.create');
     }
 
     /**
@@ -28,23 +27,27 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'company_name' => 'required',
+            'address' => 'required',
+            'contact_name' => 'required',
+            'contact_email' => 'required|email',
+            'contact_phone' => 'required',
+            'description' => 'required',
+            'affiliation_date' => 'required|date',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image file
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $company = Affiliated_companie::create($validatedData);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->storeAs('images', $imageName, 'public');
+            $company->companiesImage()->create(['image_path' => $imageName]);
+        }
+
+        return redirect()->route('companies.index')->with('success', 'Company created successfully!');
     }
 
     /**
@@ -52,14 +55,31 @@ class CompaniesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'company_name' => 'required',
+            'address' => 'required',
+            'contact_name' => 'required',
+            'contact_email' => 'required|email',
+            'contact_phone' => 'required',
+            'description' => 'required',
+            'affiliation_date' => 'required|date',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image file
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $company = Affiliated_companie::findOrFail($id);
+        $company->update($validatedData);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->storeAs('images', $imageName, 'public');
+            if ($company->companiesImage) {
+                $company->companiesImage->update(['image_path' => $imageName]);
+            } else {
+                $company->companiesImage()->create(['image_path' => $imageName]);
+            }
+        }
+
+        return redirect()->route('companies.index')->with('success', 'Company updated successfully!');
     }
 }

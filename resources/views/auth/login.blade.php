@@ -19,16 +19,9 @@
                     <div class="sm:text-5xl xl:text-4xl font-bold leading-tight mb-48 custom-font text-center">BIENVENIDO AL SISTEMA DE GESTIÓN DE ESTADÍAS</div>
                 </div>
                 <ul class="circles">
+                    @for($i = 0; $i < 10; $i++)
                     <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    @endfor
                 </ul>
             </div>
             <div class="md:flex md:items-center w-full md:justify-center sm:w-auto mt-2 md:mt-14 xl:w-2/5 p-8 md:p-10 sm:rounded-lg md:rounded-none bg-white">
@@ -38,26 +31,34 @@
                     <div class="text-center">
                         <h2 class="text-3xl font-bold text-blue-950 font-serif ml-5">Iniciar Sesión</h2>
                     </div>
-                    <form class="space-y-9">
+                    @error('email')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2
+                        text-center">{{ $message }}</p>
+                    @enderror
+                    @error('password')
+                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2
+                        text-center">{{ $message }}</p>
+                    @enderror
+                    <form id="loginForm" method="POST" action="{{ route('login') }}" class="space-y-9">
                         @csrf
                         <input type="hidden" name="remember" value="true" />
                         <div class="relative">
                             <label class="ml-3 text-normal font-bold text-gray-800 tracking-wide">Correo Electrónico:</label>
                             <div class="relative">
-                                <input class="w-full text-base px-4 py-2 border-b border-gray-600 focus:outline-none rounded-2xl focus:border-indigo-500 pl-11" type="email" placeholder="Ingresa tu correo" required>
+                                <input name="email" id="email" class="w-full text-base px-4 py-2 border-b border-gray-600 focus:outline-none rounded-2xl focus:border-indigo-500 pl-11" type="email" placeholder="Ingresa tu correo" required>
                             </div>
                         </div>
                         <div class="mt-8 ">
                             <label class="text-normal font-bold text-gray-800 tracking-wide">Contraseña:</label>
                             <div class="relative">
-                                <input class="w-full text-base px-4 py-2 pr-10 border-b rounded-2xl border-gray-600 focus:outline-none focus:border-indigo-500 pl-11" type="password" placeholder="Ingresa tu contraseña" required>
+                                <input name="password" id="password" class="w-full text-base px-4 py-2 pr-10 border-b rounded-2xl border-gray-600 focus:outline-none focus:border-indigo-500 pl-11" type="password" placeholder="Ingresa tu contraseña" required>
                                 <button class="absolute inset-y-0 right-0 pr-3 flex items-center" onclick="togglePasswordVisibility()">
                                 </button>
                             </div>
                             <p id="password-error" class="text-red-500 mt-2"></p>
                         </div>
                         <div>
-                            <button type="submit" class="w-full  flex justify-center bg-blue-950 hover:bg-teal-800 text-gray-100 p-2 md:p-3 rounded-full tracking-wide font-black shadow-lg cursor-pointer transition ease-in duration-600 font-sans">Iniciar Sesión</button>
+                            <button type="button" onclick="submitForm()" class="w-full  flex justify-center bg-blue-950 hover:bg-teal-800 text-gray-100 p-2 md:p-3 rounded-full tracking-wide font-black shadow-lg cursor-pointer transition ease-in duration-600 font-sans">Iniciar Sesión</button>
                         </div>
                     </form>
                 </div>
@@ -76,6 +77,18 @@
                 passwordInput.type = 'password';
                 passwordToggle.className = 'fas fa-eye';
             }
+        }
+
+        function submitForm() {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            
+            // Assign values to hidden inputs if necessary
+            document.getElementById('email').value = email;
+            document.getElementById('password').value = password;
+
+            // Submit the form
+            document.getElementById('loginForm').submit();
         }
     </script>
 </body>
