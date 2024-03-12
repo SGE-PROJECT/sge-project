@@ -3,7 +3,7 @@
 @section('titulo', 'Empresas')
 
 @section('contenido')
-{{-- tabla de empresas --}}
+    {{-- tabla de empresas --}}
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4 ml-5 uppercase">Empresas</h1>
 
@@ -17,8 +17,10 @@
 
             <!-- Detalles del filtro -->
             <div class="absolute mb-4 right-9">
-                <details class="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden w-full max-w-md">
-                    <summary class="flex cursor-pointer items-center justify-between gap-2 bg-white py-2.5 px-4 text-gray-900 transition">
+                <details
+                    class="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden w-full max-w-md">
+                    <summary
+                        class="flex cursor-pointer items-center justify-between gap-2 bg-white py-2.5 px-4 text-gray-900 transition">
                         <span class="text-sm font-medium">Filtrar</span>
                         <span class="transition group-open:-rotate-180">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -31,7 +33,8 @@
                     <div class="border-t border-gray-200 bg-white">
                         <header class="flex items-center justify-between p-2">
                             <span class="text-sm text-gray-700">Ordenar por</span>
-                            <button type="button" class="text-sm text-gray-900 underline underline-offset-2">Borrar</button>
+                            <button type="button"
+                                class="text-sm text-gray-900 underline underline-offset-2">Borrar</button>
                         </header>
 
                         <ul class="space-y-1 border-t border-gray-200 p-2">
@@ -59,12 +62,10 @@
             </div>
 
             <!-- Botón para agregar usuario -->
-            <a href="{{route('empresas.create')}}">            <div class="mr-28 mb-4">
-                <button type="submit"
-                    class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar
-                    Empresa</button>
-            </div></a>
-
+            <div class="mr-28 mb-4">
+                <a href="{{ route('empresas.create') }}"
+                    class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar Empresa</a>
+            </div>
         </div>
 
 
@@ -86,7 +87,8 @@
                     <tr>
                         <td>
                             @if ($company->companiesImage)
-                                <img src="{{ $company->companiesImage->image_path }}" alt="Logotipo" class="h-16 w-auto inline-block mr-2 rounded-full">
+                                <img src="{{ $company->companiesImage->image_path }}" alt="Logotipo"
+                                    class="h-16 w-auto inline-block mr-2 rounded-full">
                             @else
                             @endif
                         </td>
