@@ -64,7 +64,7 @@
             <!-- Botón para agregar usuario -->
             <div class="mr-28 mb-4">
                 <a href="{{ route('empresas.create') }}"
-                    class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar Usuario</a>
+                    class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar Empresa</a>
             </div>
         </div>
 
