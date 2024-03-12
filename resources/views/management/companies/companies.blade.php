@@ -7,10 +7,12 @@
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4 ml-5 uppercase">Empresas</h1>
         <div class="inline-flex ml-5 pr-40 mt-7">
+            <!-- Formulario de búsqueda -->
             <div class=" mr-20 mb-4 ">
                 <input type="text" placeholder="Buscar empresa..." class="border p-2 rounded mr-2">
                 <button class="bg-[#03A696] text-white py-2 px-4 rounded">Buscar</button>
             </div>
+            <!-- Detalles del filtro -->
             <div class="space-y-2 mr-3 mb-5">
                 <details
                     class="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden w-full max-w-md">
@@ -55,11 +57,9 @@
                     </div>
                 </details>
             </div>
-
-
-
         </div>
 
+        <!-- Tabla de empresas -->
         <table class="project-table">
             <thead>
                 <tr>
@@ -73,51 +73,21 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $empresas = [
-                        [
-                            'nombre' =>
-                                'INSTALACIÓN Y MANTENIMIENTO, PLOMERÍA, ELECTRICIDAD, SISTEMAS DE RIEGO Y ALBERCAS (GRUPO IMPERA)',
-                            'imagen' => asset('images/companies/sge.jpg'),
-                            'descripcion' =>
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt neque id nisl aliquam pharetra. Maecenas a consectetur nibh. Suspendisse potenti.',
-                            'direccion' => 'Av. Kabah SM53 L65 Calle la UT',
-                            'telefono' => '123456789',
-                            'correo' => 'empresa@example.com',
-                        ],
-                        [
-                            'nombre' => 'Otra Empresa',
-                            'imagen' => asset('images/companies/sge.jpg'),
-                            'descripcion' =>
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt neque id nisl aliquam pharetra. Maecenas a consectetur nibh. Suspendisse potenti.',
-                            'direccion' => 'Calle Principal, Ciudad',
-                            'telefono' => '987654321',
-                            'correo' => 'otraempresa@example.com',
-                        ],
-                    ];
-                @endphp
-
-                @foreach ($empresas as $empresa)
+                @foreach ($companies as $company)
                     <tr>
                         <td>
-                            <img src="{{ $empresa['imagen'] }}" alt="Icono de Carpeta"
-                                class="h-16 w-auto inline-block mr-2 rounded-full">
+                            @if ($company->companiesImage)
+                                <img src="{{ $company->companiesImage->image_path }}" alt="Logotipo" class="h-16 w-auto inline-block mr-2 rounded-full">
+                            @else
+                            @endif
                         </td>
+                        <td>{{ $company->company_name }}</td>
+                        <td>{{ $company->description }}</td>
+                        <td>{{ $company->address }}</td>
+                        <td>{{ $company->contact_phone }}</td>
+                        <td>{{ $company->contact_email }}</td>
                         <td>
-                            {{ $empresa['nombre'] }}
-                        </td>
-                        <td>{{ $empresa['descripcion'] }}</td>
-                        <td>{{ $empresa['direccion'] }}</td>
-                        <td>{{ $empresa['telefono'] }}</td>
-                        <td>{{ $empresa['correo'] }}</td>
-                        <td>
-                            <div class="flex">
-                                <i><img class="iconImage h-7 w-7" src="images/projects/edit.png"></i>
-                                <i><img class="iconImage h-7 w-7" src="images/projects/view.png"></i>
-                                <i><img class="iconImage h-7 w-7" src="images/projects/delete.png"></i>
-                                <i class="icon download"></i>
-                                <i class="icon more-options"></i>
-                            </div>
+                            <!-- Agrega aquí tus enlaces o botones para editar, ver y eliminar -->
                         </td>
                     </tr>
                 @endforeach
