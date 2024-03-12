@@ -10,8 +10,7 @@
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <div class="">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div
-                            class="container-card-book max-w-full md:max-w-3xl mx-auto flex items-center justify-center h-screen">
+                        <div class="container-card-book max-w-full md:max-w-3xl mx-auto flex items-center justify-center h-screen">
 
                             <div class="slide-in-left">
                                 <div class="scale">
