@@ -87,7 +87,6 @@
                             @if ($company->companiesImage)
                                 <img src="{{ $company->companiesImage->image_path }}" alt="Logotipo" class="h-16 w-auto inline-block mr-2 rounded-full">
                             @else
-                                <!-- Aquí puedes mostrar un placeholder o dejarlo vacío si no hay imagen -->
                             @endif
                         </td>
                         <td>{{ $company->company_name }}</td>
