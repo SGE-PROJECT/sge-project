@@ -40,7 +40,7 @@ class CompaniesController extends Controller
             'contact_phone' => 'required',
             'description' => 'required',
             'affiliation_date' => 'required|date_format:Y-m-d',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $company = new Affiliated_companie();
@@ -62,7 +62,12 @@ class CompaniesController extends Controller
             $company->companiesImage()->create(['image_path' => 'images/companies' . $imageName]);
         }
 
-        return redirect()->route('companies.index')->with('success', 'Company created successfully!');
+        $companyImage = new Company_Image();
+        $companyImage->company_id = $company->id;
+        $companyImage->image_path = 'images/companies/' . $imageName;
+        $companyImage->save();
+
+        return redirect()->route('empresas.index')->with('success', 'Company created successfully!');
     }
 
 
@@ -90,5 +95,5 @@ class CompaniesController extends Controller
         return redirect()->route('companies.index')->with('success', 'Company updated successfully!');
     }
 
-  
+
 }
