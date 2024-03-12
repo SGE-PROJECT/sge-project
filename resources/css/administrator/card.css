@@ -1,19 +1,16 @@
- * {
-  font-family: 'Poppins';
-  }
- 
  /* Estilos para la tarjeta individual */
  .carta-datos {
     background: #F6F5F2;
     border-radius: 10px;
     padding: 1.2rem;
-    width: 300px;
+    flex-grow: 1;
+    min-width: 225px;
     height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease, background-color 0.2s ease;
-    box-shadow: 2px 2px 5px 5px rgba(0.6, 0.9, 0.5, 0.2);
+    box-shadow: 1px 1px 4px rgba(0.6, 0.9, 0.5, 0.2);
   }
   
   /* Cambio de color y elevación al hacer hover sobre la tarjeta */

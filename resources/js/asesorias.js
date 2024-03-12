@@ -185,9 +185,11 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('cambiarCita').addEventListener('click', cambiar);
     document.getElementById("guardarEventoButton").addEventListener('click', editarGuardar);
     document.querySelectorAll('td[data-hora]').forEach(td => {
-        td.addEventListener('click', function () {
-            tiempo(this.getAttribute('data-hora'));
-        });
+        if (!td.textContent.trim()) {
+            td.addEventListener('click', function () {
+                tiempo(this, this.getAttribute('data-hora'));
+            });
+        }
     });
     document.getElementById('agregarEventoButton').addEventListener('click', agregarEvento);
     document.getElementById('matricula').addEventListener('input', function () {
@@ -410,15 +412,21 @@ function mostrarEventos(cell, date) {
     eventoDiv2.classList.add("etiquetas2");
     cell.appendChild(eventoDiv2);
 
+    let nombresEventosAgregados = {};
     eventosDelDia.forEach(idEvento => {
-        cell.classList.add("verde");
-        let proyecto = proyectos[eventos[idEvento].proyectoId]; // Cambio de matricula a proyectoId
-        let eventoDiv = document.createElement('div');
-        eventoDiv.classList.add("etiqueta2");
-        eventoDiv.innerHTML = `
+        let evento = eventos[idEvento];
+        let nombreEvento = proyectos[evento.proyectoId].nombre;
+        if (!nombresEventosAgregados[nombreEvento]) {
+            nombresEventosAgregados[nombreEvento] = true;
+            cell.classList.add("verde");
+            let proyecto = proyectos[evento.proyectoId];
+            let eventoDiv = document.createElement('div');
+            eventoDiv.classList.add("etiqueta2");
+            eventoDiv.innerHTML = `
                 <img src="images/${proyecto.imagen}" alt="${proyecto.nombre}" class="img_estudiante img_proyecto">
                 <p class="nombre">${proyecto.nombre}</p>`; 
-        eventoDiv2.appendChild(eventoDiv);
+            eventoDiv2.appendChild(eventoDiv);
+        }
     });
 }
 
@@ -444,7 +452,7 @@ function llenarHorasConEventos() {
             let horaCelda = td.getAttribute("data-hora");
             let horaSinMinutos = fechaISO + ' ' + horaCelda.split(':').slice(0, 1).join(':') + ':00';
             td.textContent = "";
-            td.onclick = eventosSinMinutos[horaSinMinutos] ? null : function () { tiempo(horaCelda); };
+            td.onclick = eventosSinMinutos[horaSinMinutos] ? null : function () { tiempo(this, horaCelda); };
             let eventoDiv2 = document.createElement('div');
             eventoDiv2.classList.add("etiquetas");
             td.appendChild(eventoDiv2);
@@ -452,7 +460,7 @@ function llenarHorasConEventos() {
             // Verificar si el td tiene contenido
             if (!eventosSinMinutos[horaSinMinutos] || eventosSinMinutos[horaSinMinutos].length === 0) {
                 td.classList.remove("verde"); // Quitar la clase verde si no hay eventos
-                td.onclick = function () { tiempo(horaCelda); }; // Volver a asignar el evento onclick
+                td.onclick = function () {tiempo(this, horaCelda); }; // Volver a asignar el evento onclick
             } else {
                 eventosSinMinutos[horaSinMinutos].forEach(evento => {
                     let proyecto = proyectos[evento.proyectoId]; // Cambio de matricula a proyectoId
@@ -463,9 +471,23 @@ function llenarHorasConEventos() {
                         eventoDiv.innerHTML = `
                             <img src="images/${estudiante.imagen}" alt="${estudiante.nombre}" class="img_estudiante">
                             <p class="info">${estudiante.nombre} - ${proyecto.nombre}</p>
-                            <p class="hora"> ${evento.hora}</p>`;
+                            <p class="hora"> ${evento.hora}</p>
+                            <i class="nf nf-md-pencil evento"></i>
+                            <i class="nf nf-fa-trash evento"></i>`;
                         eventoDiv2.appendChild(eventoDiv);
                         eventoDiv.classList.add(estudiante.color);
+                        let iconos = eventoDiv.querySelectorAll('i');
+                        iconos.forEach((icono, index) => {
+                            if (index === 0) { // Primer icono (editar)
+                                icono.addEventListener('click', function() {
+                                    editarEvento(evento);
+                                });
+                            } else if (index === 1) { // Segundo icono (eliminar)
+                                icono.addEventListener('click', function() {
+                                    eliminarEvento(evento); 
+                                });
+                            }
+                        });
                     });
                 }); // Agregar la clase verde si hay eventos
                 td.onclick = null; // Quitar el evento onclick si hay eventos
@@ -484,7 +506,11 @@ function closeModal2() {
 
 var diaSemana = "", diaMes = "", Mes = "", año = "", numeroMes = "";
 
-function tiempo(tiem) {
+function tiempo(td, tiem) {
+    let div = td.querySelector('div');
+    if (div && div.innerHTML.trim() !== '') {
+        return; // Salir de la función si el div no está vacío
+    }
     let selectedDate = new Date(año, numeroMes, diaMes);
     let currentDate = new Date();
     selectedDate.setHours(0, 0, 0, 0);
@@ -553,7 +579,8 @@ function createCalendar(year, month) {
     let days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     days.forEach(day => {
         let cell = headerRow.insertCell();
-        cell.textContent = day;
+        cell.innerHTML = `<p class="hidden sm:block">${day}</p>
+        <p class="block sm:hidden">${day[0]}</p>`;
     });
     let tbody = calendar.createTBody();
     let firstDay = new Date(year, month, 1).getDay();
@@ -667,12 +694,14 @@ function mostrarTodosLosEventos() {
             let celdaAlumnos = fila.insertCell();
             let alumnosProyecto = proyectos[evento.proyectoId].alumnos.map(matricula => estudiantes[matricula].nombre).join(', ');
             let divAlumnos = document.createElement('div');
+            divAlumnos.classList.add("limitar2")
             divAlumnos.textContent = alumnosProyecto;
             celdaAlumnos.appendChild(divAlumnos);
 
             // Celda para el motivo
             let celdaMotivo = fila.insertCell();
             let divMotivo = document.createElement('div');
+            divMotivo.classList.add("limitar2");
             divMotivo.textContent = evento.motivo;
             celdaMotivo.appendChild(divMotivo);
 

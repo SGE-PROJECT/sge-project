@@ -25,7 +25,7 @@
   @vite('resources/js/projectview.js')
   @vite('resources/css/loader/loader.css')
   @vite('resources/css/Dashboard/DashboardUsers.css')
-
+  @vite('resources/css/projects/projectview.css')
   @vite('resources/css/management/projects.css')
 
 
@@ -38,7 +38,7 @@
   <section class="flex">
     <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
-        <a href="/" class="flex justify-center items-center border-b border-b-gray-800">
+        <a href="/" class="flex justify-center items-center border-b border-b-white">
           <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
           <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
         </a>
@@ -63,7 +63,7 @@
           </a>
           <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li class=" ">
-              <a href="#" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              <a href="/registeruser" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-user mr-3 text-lg'></i>
                 <span>Usuarios</span>
               </a>
@@ -113,7 +113,7 @@
         <!-- EMPRESAS Section -->
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
         <li class="mb-1 group">
-          <a href="/companies"
+          <a href="/empresas"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='  bx bx-buildings mr-3 text-lg'></i>
             <span class="nav-text text-sm">Empresas Afiliadas</span>
@@ -133,7 +133,7 @@
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
         <li class="mb-1 group">
-          <a href="/asesorias"
+          <a href="/Asesorias"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-calendar-event mr-3 text-lg'></i>
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
@@ -149,11 +149,13 @@
             <span class="nav-text text-sm">Notificaciones</span>
           </a>
         </li>
-        <button href="#"
-        class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
+        <form action="{{ route('logout') }}" method="post">
+            @csrf
+        <button href="{{ route('logout') }}" class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
         <i class='bx bx-log-out mr-3 text-xl'></i>
         <span class="nav-text text-sm">Cerrar sesion</span>
       </button>
+    </form>
       </ul>
 
 
@@ -348,7 +350,7 @@
                 </div>
               </div>
               <div class="p-2 hidden md:block text-left ">
-                <h2 class="text-sm font-semibold text-gray-800">Andres Garcia</h2>
+                <h2 class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</h2>
                 <p class="text-xs text-gray-500">Administrator</p>
               </div>
             </button>
@@ -363,8 +365,9 @@
                   class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Settings</a>
               </li>
               <li>
-                <form method="POST" action="" class="">
-                  <a role="menuitem"
+                <form method="POST" action="{{ route('logout') }}" class="">
+                  @csrf
+                  <a href="{{ route('logout') }}"role="menuitem"
                     class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50 cursor-pointer"
                     onclick="event.preventDefault();
                                   this.closest('form').submit();">

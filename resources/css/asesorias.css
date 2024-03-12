@@ -11,8 +11,20 @@
     font-family: 'lato';
     src: url('../fonts/Lato.ttf') format('ttf');
 }
+@media (min-width: 768px){
+    .tamaño-dia{
+        width: 20px !important;
+    }
+  }
 #nombre{
     outline: none;
+}
+.limitar2{
+    max-height: 70px;
+    overflow-y: scroll;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
 }
 .vista_asesorias{
     display: flex;
@@ -20,6 +32,7 @@
     flex-wrap: wrap;
     position: relative;
     justify-content: center;
+    gap: 10px;
 }
 .vista_asesorias > * {
     align-self: flex-start;
@@ -109,6 +122,9 @@
 }
 .verde{
     background-color: #efe !important;
+}
+.nf-md-pencil, .nf-fa-trash{
+    cursor: pointer;
 }
 .calendar-container {
     margin-top: 20px;
@@ -214,7 +230,6 @@ tbody th{
     position: relative;
     display: flex;
     align-items:center;
-    gap: 10px;
     height: fit-content;
 }
 .etiquetas2{
@@ -238,6 +253,9 @@ tbody th{
     max-width: 30px;
     aspect-ratio: 1;
     border-radius: 50%;
+}
+.etiqueta .img_estudiante{
+    margin-right: 10px;
 }
 .nombre{
     position: absolute;
@@ -281,7 +299,6 @@ tbody th{
 }
 #calendar table, #dia table {
     border-collapse: collapse; /* Combina los bordes de las celdas adyacentes */
-    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.7);
 }
 
 #calendar th,
@@ -378,7 +395,6 @@ tbody th{
 .asesorias-formulario button{
     background-color: #293846;
     color: #fff;
-    margin-top: 20px;
     padding: 5px 20px;
     border-radius: 5px;
     font-size: 18px;
@@ -394,6 +410,16 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 0px 5px;
     outline: 0.3px solid #888;
     transition: all .3s;
+}
+.asesorias-formulario textarea{
+    color: #293846;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 0px 5px;
+    height: 60px;
+    outline: 0.3px solid #888;
+    transition: all .3s;
+    resize: none;
 }
 .motivo{
     position: relative;
@@ -420,13 +446,18 @@ input[type=number]::-webkit-outer-spin-button {
 .asesorias-formulario input:focus{
     outline-color: #293846;
 }
+.asesorias-formulario textarea:focus{
+    outline-color: #293846;
+}
 #eventosContainer{
     flex-grow: 1;
     border-radius: 5px;
     height: fit-content;
     overflow: hidden;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
     animation: aparecer2 .3s ease;
+}
+#eventosContainer tbody tr:nth-child(even) {
+    background: #dcdbdb;
 }
 #eventosContainer span{
     width: 100%;
@@ -446,14 +477,13 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: center;
 }
 #eventosContainer table{
-    background-color: #EEE8E8;
+    background-color: #f2f2f2;
     width: 100%;
 }
 #eventosContainer th{
     padding: 5px 10px;
     min-width: 150px;
     color: #293846;
-    border: 1px solid #EEE8E8;
 }
 #eventosContainer th div{
     padding: 5px 0;
@@ -473,7 +503,6 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 5px;
     height: fit-content;
     overflow: hidden;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
     animation: aparecer2 .3s ease;
 }
 #eventosContainer2 span{
@@ -494,13 +523,15 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: center;
 }
 #eventosContainer2 table{
-    background-color: #EEE8E8;
+    background-color: #f2f2f2;
     width: 100%;
 }
 #eventosContainer2 th{
     padding: 5px 10px;
     color: #293846;
-    border: 1px solid #EEE8E8;
+}
+#eventosContainer2 tbody tr:nth-child(even) {
+    background: #dcdbdb;
 }
 #eventosContainer2 th div{
     padding: 5px 0;
@@ -552,9 +583,16 @@ input[type=number]::-webkit-outer-spin-button {
     width: 100%;
    display: flex;
    margin-top: 20px !important;
-   margin-right: 40px !important;
    justify-content: right;
+   margin-left: 20px !important;
    transition: all .3s;
+}
+.todas{
+   justify-content: space-between !important;
+}
+.botonVereventos h3{
+    font-size: 30px;
+    font-weight: bold;
 }
 .botonVereventos i{
     padding: 5px;
@@ -574,6 +612,13 @@ input[type=number]::-webkit-outer-spin-button {
     max-width: 300px;
     position: relative;
 }
+#eventosContainer2 thead{
+    background-color: #293846;
+}
+#eventosContainer2 thead div{
+    background-color: #293846;
+    color: #fff !important;
+}
 .modal-asesorias .close2, .close3{
     position: absolute;
     right: 20px;
@@ -592,6 +637,14 @@ input[type=number]::-webkit-outer-spin-button {
     color: #293846;
     margin-inline: 10px;
 }
+.etiqueta .evento{margin-inline: 5px;}
 .Btntext_divisions b{
     color: #0000;
+}
+.tamaño-dia{
+    width: fit-content;
+}
+#eventosContainer2 tbody{
+    height: 100px !important;
+    overflow-y: hidden;
 }
