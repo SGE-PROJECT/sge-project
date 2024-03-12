@@ -28,8 +28,6 @@ Route::get('/dashboard', function () {
     return view('administrator.dashboard.dashboard-general');
 });
 
-
-
 Route::get('/login', function () {
     return view('auth.login');
 });

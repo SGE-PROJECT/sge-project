@@ -1,8 +1,8 @@
 .seccion-carreras{
-    width: 680px;
-    padding: 18px;
-    background: #F6F5F2;
-    border-radius: 12px;
+    box-shadow: 2px 2px 5px 5px rgba(0.6, 0.9, 0.5, 0.2);
+  }
+
+  .seccion-projects{
     box-shadow: 2px 2px 5px 5px rgba(0.6, 0.9, 0.5, 0.2);
   }
 
@@ -12,7 +12,7 @@
     font-weight: bolder;
   }
 
-  .seccion-titulo hr{
+  .line {
     margin: 10px 5px;
     background: #6A6F70 ;
   }
@@ -25,7 +25,7 @@
   border-radius: 12px;
   width: 260px;
   height: 400px;
-  box-shadow: 2px 2px 5px 5px rgba(0.6, 0.9, 0.5, 0.2); 
+  box-shadow: 2px 2px 5px 5px rgba(0.6, 0.9, 0.5, 0.2);
 }
 
 .btn-export{

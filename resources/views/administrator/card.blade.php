@@ -8,11 +8,11 @@
                     <div class="gauge__body">
                         <div class="gauge__fill"></div>
                         <div class="gauge__cover">
-                            <span>{{ $number }}</span>
+                            <span class="font-sans">{{ $number }}</span>
                         </div>
                     </div>
                 </div>
-                <h2 class="ctitulo">{{ $name }}</h2>
+                <h2 class="ctitulo font-sans">{{ $name }}</h2>
             </div>
         </div>
     </div>

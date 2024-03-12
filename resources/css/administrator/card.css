@@ -1,8 +1,4 @@
- * {
-  font-family: 'Poppins';
-  }
- 
- /* Estilos para la tarjeta individual */
+  /* Estilos para la tarjeta individual */
  .carta-datos {
     background: #F6F5F2;
     border-radius: 10px;
@@ -15,13 +11,13 @@
     transition: transform 0.2s ease, background-color 0.2s ease;
     box-shadow: 2px 2px 5px 5px rgba(0.6, 0.9, 0.5, 0.2);
   }
-  
+
   /* Cambio de color y elevación al hacer hover sobre la tarjeta */
   .carta-datos:hover {
-    transform: translateY(-5px);  
+    transform: translateY(-5px);
   }
- 
-  
+
+
   /* Estilos para los textos dentro de la tarjeta */
   .ctitulo {
     color: #000;
@@ -31,7 +27,7 @@
     margin-top: 6px;
     transition: color 0.3s ease;
   }
-  
+
   /* Estilos para el medidor */
   .gauge {
     position: relative;
@@ -39,7 +35,7 @@
     height: 100px; /* La mitad del ancho para una semi-circunferencia */
     overflow: hidden;
   }
-  
+
   .gauge__body {
     width: 100%;
     height: 0;
@@ -50,7 +46,7 @@
     border-top-right-radius: 200px; /* El doble del ancho de .gauge */
     overflow: hidden;
   }
-  
+
   .gauge__fill {
     position: absolute;
     top: 100%;
@@ -62,7 +58,7 @@
     transform: rotate(0.25turn); /* Ajusta este valor para cambiar el llenado */
     transition: transform 0.2s ease-out;
   }
-  
+
   .gauge__cover {
     width: 75%; /* Tamaño del círculo central */
     height: 150%; /* Debe ser suficiente para cubrir completamente la parte inferior */
@@ -72,7 +68,7 @@
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
-    
+
     /* Estilos para centrar el texto */
     display: flex;
     align-items: center;
@@ -80,7 +76,7 @@
     padding-bottom: 25%; /* Ajuste para centrar el texto */
     box-sizing: border-box;
   }
-  
+
   /* Estilos para el texto */
   .gauge__cover span {
       font-weight: 400;
