@@ -5,7 +5,7 @@
 
 @section('contenido')
     <section class="section">
-        <form class="m-10  mx-auto p-8 bg-white rounded-lg shadow-lg">
+        <form class="m-10  bg-white rounded-lg shadow-lg" style="overflow-x: hidden;">
             <div class="bg-teal-500 w-full p-4 rounded-t-lg">
                 <h1 class="text-3xl mb-0" style="color: white">Datos del usuario</h1>
             </div>

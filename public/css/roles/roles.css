@@ -1,0 +1,155 @@
+.container {
+    padding: 0 20px;
+}
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+    text-align: center;
+    color: #333; /* Color del texto */
+}
+
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cards-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Reduciendo el espacio entre las tarjetas */
+    justify-content: center; /* Centrando las tarjetas horizontalmente */
+    margin-bottom: 2rem; /* Reduciendo el espacio inferior */
+}
+.cards-container .card {
+    width: calc(50.33% - 10px); /* Reducimos el ancho de las tarjetas */
+    max-width: 300px; /* Limitamos el ancho máximo de las tarjetas */
+}
+
+.card {
+    background-color: #f1f1f1;
+    border: 4px solid #ffffff;
+    border-radius: 0.675rem;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 calc(25% - 20px); /* ajuste automático */
+    /* Calculamos el ancho de la tarjeta, descontando el espacio entre tarjetas */
+    height: 55vh;
+
+}
+.card:hover{
+    background-color: white;
+}
+
+.card-title {
+    margin-top: 3rem;
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: #000000;
+    margin-top: 3;
+    border-bottom: 2px solid #929292; /* Línea horizontal gris */
+    width: 100%; /* Ancho del 100% */
+
+}
+.card img {
+width: 150px;
+height: 150px;
+}
+
+.edit-permissions-btn {
+    margin-top: 1.5rem;
+    background-color: #009678;
+    color: #ffffff;
+    border: none;
+    padding: .7rem 1.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: medium;
+
+}
+
+.edit-permissions-btn:hover {
+    background-color: #33cdc0;
+}
+
+.permissions-container {
+    background-color: #f1f1f1;
+    border: 4px solid #ffffff;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    flex-basis: calc(70% - 20px);
+    /* Calculamos el ancho de la lista de permisos, descontando el espacio entre elementos */
+    height: 55vh;
+    overflow-y: auto; /* Agrega un scroll vertical si el contenido excede la altura */
+
+}
+.permissions-container:hover{
+    background-color: white;
+}
+
+.permissions-list {
+    text-align: center;
+}
+.permissions-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333; /* Cambia el color según tu paleta de colores */
+    margin-bottom: 1rem; /* Ajusta el espacio entre el título y los permisos */
+}
+
+.cancel-btn {
+    background-color: #ff4040;
+    color: #ffffff;
+    border: none;
+    padding: .7rem 1.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: medium;
+
+}
+
+.cancel-btn:hover {
+    background-color: #ff0000;
+}
+
+.update-btn {
+    margin-top: 1.5rem;
+    background-color: #009678;
+    color: #ffffff;
+    border: none;
+    padding: .7rem 1.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: medium;
+}
+
+.update-btn:hover {
+    background-color: #33cdc0;
+}
+
+/* Estilos adicionales para dispositivos móviles */
+@media (max-width: 768px) {
+    .grid {
+        flex-direction: column;
+    }
+
+    .cards-container, .permissions-container {
+        flex-basis: auto;
+    }
+
+    .card, .permissions-container {
+        flex-basis: auto;
+        width: 100%;
+    }
+    h1 {
+        font-size: 3rem; /* Tamaño del texto en dispositivos grandes */
+    }
+}
