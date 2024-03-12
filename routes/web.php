@@ -65,11 +65,11 @@ Route::resource('books', BooksController::class);
 Route::get('/add-books', function () {
     return view('books-notifications.books.add-books');
 });
-Route::get('/Users', function () {
+Route::get('/usuarios', function () {
     return view('administrator.dashboard.DashboardUsers');
 });
 
-Route::get('/teams', function () {
+Route::get('/equipos', function () {
     return view('administrator.dashboard.dashboardTeam');
 });
 

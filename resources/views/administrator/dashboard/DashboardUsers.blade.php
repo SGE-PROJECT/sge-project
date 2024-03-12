@@ -3,7 +3,7 @@
     <h1 class="text-3xl font-bold text-center mt-5 mb-8">Usuarios</h1>
     <div class="flex flex-wrap justify-center gap-5 p-5">
         <div class="flex lg:flex-nowrap justify-center items-center gap-5 mr-10">
-            @include('administrator.card', ['number' => 01, 'name' => 'Usuarios'])
+            @include('administrator.card', ['number' => 13, 'name' => 'Usuarios'])
         </div>
         <div class="flex flex-wrap flex-col gap-5 mr-10">
             <!--SECCION PROYECTOS-->
@@ -56,19 +56,18 @@
                         <th>Apellido</th>
                         <th>Estado</th>
                         <th>Correo Electronico</th>
-                        <th>No.Telefono</th>
+                        <th>No. Telefono</th>
                         <th>Rol</th>
                     </tr>
                 </thead>
                 <tr>
-                    <td>Monse</td>
+                    <td>Noely</td>
                     <td>Aguilar</td>
-                    <td>Disponible</td>
-                    <td>monse@gmail.com</td>
-                    <td>1564896185</td>
-                    <td>DotNet</td>
+                    <td>Activos</td>
+                    <td>Noely@gmail.com</td>
+                    <td>36263262</td>
+                    <td>Administrador</td>
                 </tr>
-                
                 </tbody>
             </table>
         </div>
