@@ -32,7 +32,7 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'company_name' => 'required',
             'address' => 'required',
             'contact_name' => 'required',
@@ -42,12 +42,29 @@ class CompaniesController extends Controller
             'affiliation_date' => 'required|date_format:Y-m-d',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        $company = Affiliated_companie::create($validatedData);
 
-        $this->processImage($request, $company);
+        $company = new Affiliated_companie();
+        $company->company_name = $request->company_name;
+        $company->address = $request->address;
+        $company->contact_name = $request->contact_name;
+        $company->contact_email = $request->contact_email;
+        $company->contact_phone = $request->contact_phone;
+        $company->description = $request->description;
+        $company->affiliation_date = $request->affiliation_date;
+        $company->save();
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+
+            $image->move(public_path('images/companies'), $imageName);
+
+            $company->companiesImage()->create(['image_path' => 'images/companies' . $imageName]);
+        }
 
         return redirect()->route('companies.index')->with('success', 'Company created successfully!');
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -62,7 +79,7 @@ class CompaniesController extends Controller
             'contact_phone' => 'required',
             'description' => 'required',
             'affiliation_date' => 'required|date',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $company = Affiliated_companie::findOrFail($id);
@@ -73,20 +90,5 @@ class CompaniesController extends Controller
         return redirect()->route('companies.index')->with('success', 'Company updated successfully!');
     }
 
-    /**
-     * Process the uploaded image.
-     */
-    private function processImage(Request $request, Affiliated_companie $company)
-    {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = $image->getClientOriginalName();
-            $image->storeAs('images/companies', $imageName, 'public');
-
-            $companyImage = $company->companiesImage ?: new Company_image();
-            $companyImage->affiliated_companie_id = $company->id;
-            $companyImage->image_path = 'images/companies/' . $imageName;
-            $companyImage->save();
-        }
-    }
+  
 }

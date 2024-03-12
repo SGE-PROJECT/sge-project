@@ -56,15 +56,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
-    Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']); //Ruta de prueba para mostrar los proyectos por division
-    Route::resource('empresas', CompaniesController::class);
-    Route::get('/empresas', [CompaniesController::class, 'index'])->name('companies.index');
-    Route::get('/agregarempresa', [CompaniesController::class, 'create'])->name('companies.create');
-    Route::post('/agregarempresas', [CompaniesController::class, 'store'])->name('companies.store');
-    Route::resource('divisiones', DivisionController::class);
-    Route::get('/divisiones', [DivisionController::class, 'index'])->name('divisions.index');
-    Route::get('/agregardivision', [DivisionController::class, 'create'])->name('division.create');
-    Route::post('/formulariodivision', [DivisionController::class, 'store'])->name('division.store');
+
+    //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
+
+    Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']); //Ruta de prueba para mostrar los proyectos por division.
+    Route::resource('/empresas', CompaniesController::class);
+    Route::resource('/divisiones', DivisionController::class);
+    Route::resource('/carreras', CareerController::class);
+
+    // Se acaba Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
+
+
     Route::get('/sanciones', [ManagementUserController::class, 'index']);
 
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
@@ -100,9 +102,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
-
-
-    Route::resource('carreras', CareerController::class);
 
     Route::get('/RecoverPassword', function () {
         return view('auth.recoverPassword');
