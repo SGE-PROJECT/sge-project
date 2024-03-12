@@ -16,7 +16,7 @@ class CompaniesController extends Controller
     public function index()
     {
         $companies = Affiliated_companie::with('companiesImage')->get();
-        return view("management.companies.companies", compact('companies'));
+        return view("management.companies.companies", compact('empresas'));
     }
 
     /**
@@ -59,10 +59,10 @@ class CompaniesController extends Controller
 
             $image->move(public_path('images/companies'), $imageName);
 
-            $company->companiesImage()->create(['image_path' => 'images/companies' . $imageName]);
+            $company->companiesImage()->create(['image_path' => 'images/companies/' . $imageName]);
         }
 
-        return redirect()->route('companies.index')->with('success', 'Company created successfully!');
+        return redirect()->route('empresas.index')->with('success', 'Company created successfully!');
     }
 
 
@@ -87,8 +87,8 @@ class CompaniesController extends Controller
 
         $this->processImage($request, $company);
 
-        return redirect()->route('companies.index')->with('success', 'Company updated successfully!');
+        return redirect()->route('empresas.index')->with('success', 'Company updated successfully!');
     }
 
-  
+
 }

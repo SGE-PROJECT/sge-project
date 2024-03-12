@@ -59,11 +59,12 @@
             </div>
 
             <!-- Botón para agregar usuario -->
-            <div class="mr-28 mb-4">
+            <a href="{{route('empresas.create')}}">            <div class="mr-28 mb-4">
                 <button type="submit"
                     class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar
-                    Usuario</button>
-            </div>
+                    Empresa</button>
+            </div></a>
+
         </div>
 
 

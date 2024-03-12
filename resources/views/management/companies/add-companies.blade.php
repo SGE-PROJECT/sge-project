@@ -6,7 +6,7 @@
         <div class="border-b py-2 rounded mb-4">
             <h2 class="text-2xl text-center font-bold text-aqua-600">Agregar Nueva Empresa</h2>
         </div>
-        <form method="POST" action="{{ route('companies.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('empresas.store') }}" enctype="multipart/form-data">
 
             @csrf
 
