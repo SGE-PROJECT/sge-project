@@ -1,152 +1,262 @@
 @extends('layouts.panel')
 @section('contenido')
 
-<style>
-    .container{
-        margin-left: 2%;
-        margin-right: 2%;
-        /* border: 2px solid black; */
-        border-top-left-radius:  15px;
-        border-top-right-radius:  15px;
-        width: 97%;
-        background: #182749;
+<!-- tabla de datos -->
+{{-- <div class="w-[96%] ml-3 pl-1.5 mr-3 rounded-tl-md rounded-tr-md bg-slate-600 flex">
+    <select class="py-3 px-4 bg-white rounded-lg my-5 mr-3 flex cursor-pointer">
+        <option value="carreras">Carreras</option>
+        <option value="carreras">Gastronomia</option>
+        <option value="carreras">Redes</option>
+        <option value="carreras">Contaduria</option>
+    </select>
+    <select class="py-3 px-4 bg-white rounded-lg my-5 mr-3 flex cursor-pointer">
+        <option value="empresas">Empresas</option>
+        <option value="empresas">Mc</option>
+        <option value="empresas">Cinepolis</option>
+        <option value="empresas">Ut</option>
+    </select>
+    <select class="py-3 px-4 bg-white rounded-lg my-5 mr-3 flex cursor-pointer">
+        <option value="integrantes">Integrantes</option>
+        <option value="integrantes">Irving</option>
+        <option value="integrantes">Anhony</option>
+        <option value="integrantes">leyva</option>
+    </select>
+</div>
 
-    }
-    .grafica{
-        width: 100%; 
-        height: 100%;
-    }
-    .container__thead{
+    
+    <!-- Estudiantes -->
+    <div class="flex w-[100%]  max-md:block overflow-x-hidden">
+        <div class="">
+            <div class="w-[90%] ml-6  px-0 mt-5 rounded  bg-white flex">
+                <div class="flex items-center">
+                    <div class="w-[50%] pt-2 ">
+                        <div class="flex justify-evenly rounded pl-2 w-80 pt-0  text-white bg-slate-600
+                        ">
+                            <p>Equipo: <b class="">SM-53</b></p>
+                            <p>Proyecto: <b class="">Proyecto Sync</b></p>
+                        </div>
+                        <div class="bg-white  flex justify-evenly">
+                            <div class="w-[100%] py-3  mx-4">
+                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
+                                class="h-[4.2rem] rounded-md" alt="imagen1">
+                                <p>Anthony W.</p>
+                            </div>
+                            <div class="w-[100%] py-3  mx-4">
+                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
+                                class="h-[4.2rem] rounded-md" alt="imagen1">
+                                <p>Pepito Q.</p>
+                            </div>
+                            <div class="w-[100%] py-3  mx-4">
+                                <img src="https://www.publicdomainpictures.net/pictures/280000/velka/dusky-grey-sky-background.jpg"
+                                    class="h-[4.2rem] rounded-md" alt="imagen1">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-arrow-narrow-left" width="72" height="72"
+                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 12l14 0" />
+                            <path d="M5 12l4 4" />
+                            <path d="M5 12l4 -4" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-arrow-narrow-right" width="72" height="72"
+                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 12l14 0" />
+                            <path d="M15 16l4 -4" />
+                            <path d="M15 8l4 4" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex justify-evenly  rounded text-white bg-slate-600">
+                            <p><b>Asesores A/C</b></p>
+                        </div>
+                        <div class="bg-white px-3">
+                            <div class="py-1 flex w-1/1 justify-evenly items-center ml-2 ">
+                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
+                                    class="rounded-full w-[3.1rem]" alt="imagen1">
+                                <p>Anthony W.</p>
+                            </div>
+                            <hr class="bg-black border-black ml-5 mr-5">
+                            <div class=" py-3 flex justify-evenly items-center mx-4">
+                                <p>Pepito Q.</p>
+                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
+                                    class="rounded-full w-[3.1rem]" alt="imagen1">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-[90%] ml-6  px-0 mt-5 rounded bg-white flex">
+                <div class="flex items-center">
+                    <div class="w-[50%] pt-2">
+                        <div class="flex justify-evenly rounded pl-2 w-80 text-white bg-slate-600">
+                            <p>Equipo: <b class="">SM-53</b></p>
+                            <p>Proyecto: <b class="">Proyecto Sync</b></p>
+                        </div>
+                        <div class="bg-white  flex justify-evenly">
+                            <div class="w-[100%] py-3  mx-4">
+                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
+                                class="h-[4.2rem] rounded-md" alt="imagen1">
+                                <p>Anthony W.</p>
+                            </div>
+                            <div class="w-[100%] py-3  mx-4">
+                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
+                                class="h-[4.2rem] rounded-md" alt="imagen1">
+                                <p>Pepito Q.</p>
+                            </div>
+                            <div class="w-[100%] py-3  mx-4">
+                                <img src="https://www.publicdomainpictures.net/pictures/280000/velka/dusky-grey-sky-background.jpg"
+                                    class="h-[4.2rem] rounded-md" alt="imagen1">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-arrow-narrow-left" width="72" height="72"
+                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 12l14 0" />
+                            <path d="M5 12l4 4" />
+                            <path d="M5 12l4 -4" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-arrow-narrow-right" width="72" height="72"
+                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 12l14 0" />
+                            <path d="M15 16l4 -4" />
+                            <path d="M15 8l4 4" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex justify-evenly rounded  text-white bg-slate-600">
+                            <p><b>Asesores A/C</b></p>
+                        </div>
+                        <div class="bg-white px-3">
+                            <div class="py-1 flex w-1/1 justify-evenly items-center ml-2 ">
+                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
+                                    class="rounded-full w-[3.1rem]" alt="imagen1">
+                                <p>Anthony W.</p>
+                            </div>
+                            <hr class="bg-black border-black ml-5 mr-5">
+                            <div class=" py-3 flex justify-evenly items-center mx-4">
+                                <p>Pepito Q.</p>
+                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
+                                    class="rounded-full w-[3.1rem]" alt="imagen1">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-[90%] ml-6  px-0 mt-5 rounded  bg-white flex">
+                <div class="flex items-center">
+                    <div class="w-[50%] pt-2">
+                        <div class="flex justify-evenly rounded pl-2 w-80  text-white bg-slate-600
+                        ">
+                            <p>Equipo: <b class="">SM-53</b></p>
+                            <p>Proyecto: <b class="">Proyecto Sync</b></p>
+                        </div>
+                        <div class="bg-white  flex justify-evenly">
+                            <div class="w-[100%] py-3  mx-4">
+                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
+                                class="h-[4.2rem] rounded-md" alt="imagen1">
+                                <p>Anthony W.</p>
+                            </div>
+                            <div class="w-[100%] py-3  mx-4">
+                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
+                                class="h-[4.2rem] rounded-md" alt="imagen1">
+                                <p>Pepito Q.</p>
+                            </div>
+                            <div class="w-[100%] py-3  mx-4">
+                                <img src="https://www.publicdomainpictures.net/pictures/280000/velka/dusky-grey-sky-background.jpg"
+                                    class="h-[4.2rem] rounded-md" alt="imagen1">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-arrow-narrow-left" width="72" height="72"
+                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 12l14 0" />
+                            <path d="M5 12l4 4" />
+                            <path d="M5 12l4 -4" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-arrow-narrow-right" width="72" height="72"
+                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 12l14 0" />
+                            <path d="M15 16l4 -4" />
+                            <path d="M15 8l4 4" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex justify-evenly  rounded text-white bg-slate-600">
+                            <p><b>Asesores A/C</b></p>
+                        </div>
+                        <div class="bg-white px-3">
+                            <div class="py-1 flex w-1/1 justify-evenly items-center ml-2 ">
+                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
+                                    class="rounded-full w-[3.1rem]" alt="imagen1">
+                                <p>Anthony W.</p>
+                            </div>
+                            <hr class="bg-black border-black ml-5 mr-5">
+                            <div class=" py-3 flex justify-evenly items-center mx-4">
+                                <p>Pepito Q.</p>
+                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
+                                    class="rounded-full w-[3.1rem]" alt="imagen1">
+                            </div>
+
+                        </div>
+                    </div>
+                </
+        </div>
+        <!-- Siguiente seccion -->
+      
         
-        padding-left: 10%;
-        color: #000;
-        display: flex;
-        gap: 5%; 
-    }
-    .thead__p{
-        padding:6px 0 6px ;
-        padding:6px 4px 6px 4px;
-        margin: 10px 0 10px; 
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-        background: #eae7e7;
-    }
-
-    .container__datos{
-        background: #fff;
-        width: 100%;
-        height: 50%;
-        display: flex;
-        justify-content: space-between
-    }
-    .datos__student{
-        width: 60%;
-    }
-    .datos_asesor{
-        width: 70%;
-    }
-    .datos-encabezado{
-        margin: 2%;
-        color: #fff;
-        display: flex;
-        justify-content: space-evenly;
-        background: #182749;
-        /* padding-left: %; */
-        gap: 10%;
-    }
-    .datos_flechas{
-        display: block;
-    }
-</style>
-
-{{-- <style>
-    .table {
-        display: table;
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    .row {
-        display: table-row;
-    }
-
-    .cell {
-        display: table-cell;
-        border: 1px solid black;
-        padding: 5px;
-    }
-
-    select {
-        width: 100%;
-        padding: 5px;
-    }
-</style>
-
-<div class="table">
-    <div class="row">
-        <div class="cell"> <select>
-            <option value="1">España</option>
-            <option value="2">México</option>
-            <option value="3">Argentina</option>
-        </select></div>
-        <div class="cell"> <select>
-            <option value="1">España</option>
-            <option value="2">México</option>
-            <option value="3">Argentina</option>
-        </select></div>
-        <div class="cell"> <select>
-            <option value="1">España</option>
-            <option value="2">México</option>
-            <option value="3">Argentina</option>
-        </select></div>
-    </div>
-    <div class="row">
-        <div class="cell">Juan</div>
-        <div class="cell">25</div>
-        <div class="cell">
-            
+    </div> --}}
+    {{-- <div class="tabla-project">
+        <div class="tabla-cont-project ">
+            <table class="rounded-lg">
+                <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Estado</th>
+                        <th>Correo Electronico</th>
+                        <th>No. Telefono</th>
+                        <th>Rol</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>Noely</td>
+                    <td>Aguilar</td>
+                    <td>Activos</td>
+                    <td>Noely@gmail.com</td>
+                    <td>36263262</td>
+                    <td>Administrador</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div class="row">
-        <div class="cell">María</div>
-        <div class="cell">30</div>
-        <div class="cell">
-            
-        </div>
-    </div>
-</div> --}}
-
-{{-- Grafica --}}
-<div class="ml-5 my-5">
-@include('administrator.card',["number"=>12,"name"=>"equipos"])
-</div>
-
-{{-- container --}}
-<div class="container">
-    <div class="container__thead">
-        <p class="thead__p">Carreras ^</p>
-        <p class="thead__p">Empresas ^</p>
-        <p class="thead__p">Integrantes ^</p>
-    </div>
-    {{-- datos tabla --}}
-    <div class="container__datos">
-        <div class="datos__student">
-            <div class="datos-encabezado">
-                <p>Equipo: <b>SM-53</b></p>
-                <p>Proyecto: <b>Proyect Sync</b></p>
-            </div>
-        </div>
-            <div class="datos_flechas">
-               <p><--</p> 
-                <p>--></p>
-            </div>
-        <div class="datos_asesor">
-            
-        </div>
-    </div>
-</div>
+    </div> --}}
 
 
-@endsection
+
+@endsection 

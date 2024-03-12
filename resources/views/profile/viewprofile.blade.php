@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
 
@@ -61,7 +61,7 @@
             <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Proyecto</h1>
             <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Equipo</h1>
         </div>
-       
+
         <div class="grid md:grid-cols-2 gap-10 ml-4">
             <!-- Proyecto -->
             <div class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
@@ -70,7 +70,7 @@
             </div>
             <!-- Equipos -->
             <div>
-                
+
                 <!-- Tarjeta de Equipo -->
                 <div class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
                     <h3 class="text-lg font-semibold text-gray-800">Nombre del Equipo</h3>
@@ -86,7 +86,7 @@
           <div class="modal-content">
               <span class="close p-0" onclick="closeModal()">&times;</span>
               <img src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg">
-     
+
           </div>
       </div>
         </div>

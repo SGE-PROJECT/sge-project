@@ -11,9 +11,11 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * 
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create("projects", function (Blueprint $table) {
             $table->id();
             $table->string("name");
@@ -24,19 +26,19 @@ return new class extends Migration
             $table->text("justification");
             $table->text("activities");
             $table->foreignId("program_id")->constrained()
-            ->onUpdate('restric')
+            ->onUpdate('restrict')
             ->onDelete('restrict');
             $table->foreignId("company_id")->constrained()
-            ->onUpdate('restric')
+            ->onUpdate('restrict')
             ->onDelete('restrict');
             $table->date('start_date');
             $table->date('end_date');
             $table->tinyInteger('approved');
             $table->foreignId("academic_advisor_id")->constrained()
-            ->onUpdate('restric')
+            ->onUpdate('restrict')
             ->onDelete('restrict');
             $table->foreignId("business_advisor_id")->constrained()
-            ->onUpdate('restric')
+            ->onUpdate('restrict')
             ->onDelete('restrict');
             $table->timestamps();
         });
