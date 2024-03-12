@@ -31,7 +31,7 @@ class DivisionSeeder extends Seeder
 
             $imageData = [
                 'division_id' => $division->id,
-                'image_path' => 'images/' . /*$division->name*/'General' . '.jpg',
+                'image_path' => 'images/divisions/'. 'General' . '.jpg',
             ];
             Division_image::create($imageData);
         }

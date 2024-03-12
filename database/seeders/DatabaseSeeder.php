@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,15 +22,15 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Storage::deleteDirectory('post');
-        Storage::makeDirectory('posts');
+        // Storage::deleteDirectory('post');
+        // Storage::makeDirectory('posts');
 
-        $this->call(RoleSeeder::class);
+        //$this->call(RoleSeeder::class);
 
-        $this->call(UserSeeder::class);
-        Category::factory(4)->create();
-        Tag::factory(8)->create();
-        $this->call(PostSeeder::class);
+        //$this->call(UserSeeder::class);
+        // Category::factory(4)->create();
+        // Tag::factory(8)->create();
+        //$this->call(PostSeeder::class);
 
     }
 }
