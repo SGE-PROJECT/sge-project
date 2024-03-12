@@ -57,10 +57,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']); //Ruta de prueba para mostrar los proyectos por division
-    Route::resource('/empresas', CompaniesController::class);
-    Route::get('/empresa', [CompaniesController::class, 'index'])->name('companies.index');
+    Route::resource('empresas', CompaniesController::class);
+    Route::get('/empresas', [CompaniesController::class, 'index'])->name('companies.index');
     Route::get('/agregarempresa', [CompaniesController::class, 'create'])->name('companies.create');
-    Route::post('/agregarempresa', [CompaniesController::class, 'store'])->name('companies.store');
+    Route::post('/agregarempresas', [CompaniesController::class, 'store'])->name('companies.store');
     Route::resource('divisiones', DivisionController::class);
     Route::get('/divisiones', [DivisionController::class, 'index'])->name('divisions.index');
     Route::get('/agregardivision', [DivisionController::class, 'create'])->name('division.create');

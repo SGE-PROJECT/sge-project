@@ -1,5 +1,5 @@
 @extends('layouts.panel')
-
+@section('titulo', 'Empresas')
 @section('contenido')
 <div class="container">
     <div class="max-w-lg mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -7,6 +7,7 @@
             <h2 class="text-2xl text-center font-bold text-aqua-600">Agregar Nueva Empresa</h2>
         </div>
         <form method="POST" action="{{ route('companies.store') }}" enctype="multipart/form-data">
+
             @csrf
 
             <div class="mb-4">

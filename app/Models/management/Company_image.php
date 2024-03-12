@@ -16,6 +16,6 @@ class Company_image extends Model
 
     public function affiliatedCompany()
     {
-        return $this->belongsTo(Affiliated_companie::class, 'affiliated_companie_id');
+        return $this->belongsTo(Affiliated_companie::class);
     }
 }
