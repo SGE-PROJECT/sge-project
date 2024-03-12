@@ -9,7 +9,7 @@
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <div class="px-6 py-4">
                 <h2 class="text-2xl font-bold text-center text-aqua-600 mb-4">Agregar División</h2>
-                <form action="{{ route('division.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('divisiones.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
