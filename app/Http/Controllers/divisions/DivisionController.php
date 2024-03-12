@@ -30,11 +30,13 @@ class DivisionController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'description' => 'nullable|string',
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $division = new Division();
         $division->name = $request->name;
+        $division->description = $request->description;
         $division->save();
 
         if ($request->hasFile('image')) {
