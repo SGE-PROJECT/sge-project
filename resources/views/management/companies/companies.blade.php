@@ -88,7 +88,7 @@
                         <td>
                             @if ($company->companiesImage)
                                 <img src="{{ $company->companiesImage->image_path }}" alt="Logotipo"
-                                    class="h-16 w-auto inline-block mr-2 rounded-full">
+                                    class="h-16 w-16 inline-block mr-2 rounded-full">
                             @else
                             @endif
                         </td>
@@ -98,7 +98,14 @@
                         <td>{{ $company->contact_phone }}</td>
                         <td>{{ $company->contact_email }}</td>
                         <td>
-                            <!-- Agrega aquí tus enlaces o botones para editar, ver y eliminar -->
+                            <a href="{{ route('empresas.edit', $company->id) }}"
+                                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2">Editar</a>
+                            <form action="{{ route('empresas.destroy', $company->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta empresa?')"
+                                    class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
