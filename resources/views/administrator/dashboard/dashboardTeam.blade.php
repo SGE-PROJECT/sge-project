@@ -231,7 +231,7 @@
       
         
     </div> --}}
-    <div class="tabla-project">
+    {{-- <div class="tabla-project">
         <div class="tabla-cont-project ">
             <table class="rounded-lg">
                 <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
@@ -255,7 +255,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> --}}
 
 
 

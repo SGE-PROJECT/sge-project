@@ -54,23 +54,26 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
-                        <th>Estado</th>
                         <th>Correo Electronico</th>
                         <th>No. Telefono</th>
                         <th>Rol</th>
+                        <th>Estado</th>
+
                     </tr>
                 </thead>
                 <tr>
                     <td>Noely</td>
                     <td>Aguilar</td>
-                    <td>Activos</td>
+                    
                     <td>Noely@gmail.com</td>
                     <td>36263262</td>
                     <td>Administrador</td>
+                    <td>Activos</td>
                 </tr>
 
                 </tbody>
             </table>
         </div>
+        
     </div>
 @endsection
