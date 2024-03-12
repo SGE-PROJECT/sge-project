@@ -83,11 +83,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notifications', function () {
         return view('books-notifications.books.notifications');
     });
-    Route::get('/Users', function () {
+    Route::get('/usuarios', function () {
         return view('administrator.dashboard.DashboardUsers');
     });
 
-    Route::get('/teams', function () {
+    Route::get('/equipos', function () {
         return view('administrator.dashboard.dashboardTeam');
     });
 
