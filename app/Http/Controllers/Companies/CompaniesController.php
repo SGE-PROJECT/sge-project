@@ -19,7 +19,7 @@ class CompaniesController extends Controller
 
     public function create()
     {
-        return view('management.companies.create');
+        return view('management.companies.add-companies');
     }
 
     /**

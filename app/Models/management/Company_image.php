@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Company_image extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'affiliated_companie_id',
         'image_path',
@@ -15,6 +16,6 @@ class Company_image extends Model
 
     public function affiliatedCompany()
     {
-        return $this->belongsTo(Affiliated_companie::class);
+        return $this->belongsTo(Affiliated_companie::class, 'affiliated_companie_id');
     }
 }
