@@ -35,18 +35,16 @@ class CompaniesController extends Controller
         $request->validate([
             'company_name' => 'required',
             'address' => 'required',
-            'contact_name' => 'required',
             'contact_email' => 'required|email',
             'contact_phone' => 'required',
             'description' => 'required',
             'affiliation_date' => 'required|date_format:Y-m-d',
-            'image' => 'image|mimes:jpeg,png,jpg,gif',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $company = new Affiliated_companie();
         $company->company_name = $request->company_name;
         $company->address = $request->address;
-        $company->contact_name = $request->contact_name;
         $company->contact_email = $request->contact_email;
         $company->contact_phone = $request->contact_phone;
         $company->description = $request->description;
@@ -59,18 +57,14 @@ class CompaniesController extends Controller
 
             $image->move(public_path('images/companies'), $imageName);
 
-            $company->companiesImage()->create(['image_path' => 'images/companies' . $imageName]);
+            $companyImage = new Company_Image();
+            $companyImage->company_id = $company->id;
+            $companyImage->image_path = 'images/companies/' . $imageName;
+            $companyImage->save();
         }
 
-        $companyImage = new Company_Image();
-        $companyImage->company_id = $company->id;
-        $companyImage->image_path = 'images/companies/' . $imageName;
-        $companyImage->save();
-
-        return redirect()->route('empresas.index')->with('success', 'Company created successfully!');
+        return redirect()->route('empresas.index')->with('success', 'Empresa creada exitosamente!');
     }
-
-
     /**
      * Update the specified resource in storage.
      */
