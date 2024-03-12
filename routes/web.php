@@ -55,47 +55,50 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
-    
+
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']); //Ruta de prueba para mostrar los proyectos por division
     Route::resource('/empresas', CompaniesController::class);
     Route::resource('divisiones', DivisionController::class);
+    Route::get('/divisiones', [DivisionController::class, 'index'])->name('divisions.index');
+    Route::get('/agregardivision', [DivisionController::class, 'create'])->name('division.create');
+    Route::post('/formulariodivision', [DivisionController::class, 'store'])->name('division.store');
     Route::get('/sanciones', [ManagementUserController::class, 'index']);
-    
+
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
     Route::get('/profile', [ProfileController::class,'index']);
     Route::get('/roles', [RolesController::class,'index']);
     Route::get('/registeruser', [RegisterUserController::class,'index']);
-    
-    
-    
+
+
+
     Route::resource('books', BooksController::class);
-    
+
     Route::get('/add-books', function () {
         return view('books-notifications.books.add-books');
     })->name('añadir.libros');
-    
+
     Route::get('/notifications', function () {
         return view('books-notifications.books.notifications');
     });
     Route::get('/Users', function () {
         return view('administrator.dashboard.DashboardUsers');
     });
-    
+
     Route::get('/teams', function () {
         return view('administrator.dashboard.dashboardTeam');
     });
-    
+
     Route::get('/report',[BooksController::class,'listBook'])->name('books.list');
     Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports');
-    
+
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('projectinvitation', [ProjectController::class, 'invitation']);
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
-    
-    
+
+
     Route::resource('carreras', CareerController::class);
 
     Route::get('/RecoverPassword', function () {

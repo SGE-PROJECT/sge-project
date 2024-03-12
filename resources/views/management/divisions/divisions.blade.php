@@ -18,13 +18,14 @@
             </button>
         </span>
     </div>
-
+<a href="/agregardivision ">
     <div class="BtnCrearDivisions">
-        <button class="Btn_division">
+        <button class="Btn_division" >
             <div class="sign_division">+</div>
             <div class="text_division">Añadir</div>
         </button>
     </div>
+</a>
 
     <!-- Container of Rows for Six -->
     <div class="contenedor_divisions">
@@ -32,10 +33,10 @@
             <div class="card__division">
                 <p class="Titulo">{{ $division->name }}</p>
                 @if($division->divisionImage)
-                    <img src="{{ $division->divisionImage->image_path }}" alt="{{ $division->description }}">
-                @else
-                <img src="images/divisions/SinImagen.jpg" alt="Imagen no disponible">
-                @endif
+                <img src="{{ asset($division->divisionImage->image_path) }}" alt="{{ $division->description }}">
+            @else
+                <img src="{{ asset('images/divisions/SinImagen.jpg') }}" alt="Imagen no disponible">
+            @endif
                 <div class="card__content">
                     <p class="card__title">{{ $division->name }}</p>
                     <p class="card__description">{{ $division->description }}</p>

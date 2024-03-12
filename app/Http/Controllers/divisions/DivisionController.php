@@ -23,7 +23,7 @@ class DivisionController extends Controller
 
     public function create()
     {
-        return view('management.divisions.create');
+        return view('management.divisions.add-division');
     }
 
     public function store(Request $request)
@@ -40,16 +40,21 @@ class DivisionController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = $image->getClientOriginalName();
-            $imagePath = $image->storeAs('division_images', $imageName, 'public');
+
+            // Guardar la imagen en la carpeta deseada
+            $image->move(public_path('images/divisions'), $imageName);
 
             $divisionImage = new Division_image();
             $divisionImage->division_id = $division->id;
-            $divisionImage->image_path = $imagePath;
+            $divisionImage->image_path = 'images/divisions/' . $imageName;
             $divisionImage->save();
         }
 
         return redirect()->route('divisions.index')->with('success', 'Division created successfully');
     }
+
+
+
 
     public function show(string $id)
     {
