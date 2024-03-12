@@ -8,8 +8,9 @@
         <h1 class="text-font_divisions font-bold">Divisiones:</h1>
 
         <span class="flex">
-            <input class="search_divisions px-3 outline-none border-l-5" type="text" placeholder="Buscar...">
-            <button class="search-btn">
+            <input id="searchInput" class="search_divisions px-3 outline-none border-l-5" type="text"
+                placeholder="Buscar...">
+            <button id="searchButton" class="search-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round"
@@ -18,25 +19,21 @@
             </button>
         </span>
     </div>
-<a href="/agregardivision ">
     <div class="BtnCrearDivisions">
-        <button class="Btn_division" >
-            <div class="sign_division">+</div>
-            <div class="text_division">Añadir</div>
-        </button>
+        <a href="/agregardivision"
+            class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar División</a>
     </div>
-</a>
 
     <!-- Container of Rows for Six -->
     <div class="contenedor_divisions">
-        @foreach($divisions as $division)
-            <div class="card__division">
+        @foreach ($divisions as $division)
+            <div class="card__division" data-name="{{ $division->name }}" data-description="{{ $division->description }}">
                 <p class="Titulo">{{ $division->name }}</p>
-                @if($division->divisionImage)
-                <img src="{{ asset($division->divisionImage->image_path) }}" alt="{{ $division->description }}">
-            @else
-                <img src="{{ asset('images/divisions/SinImagen.jpg') }}" alt="Imagen no disponible">
-            @endif
+                @if ($division->divisionImage)
+                    <img src="{{ asset($division->divisionImage->image_path) }}" alt="{{ $division->description }}">
+                @else
+                    <img src="{{ asset('images/divisions/SinImagen.jpg') }}" alt="Imagen no disponible">
+                @endif
                 <div class="card__content">
                     <p class="card__title">{{ $division->name }}</p>
                     <p class="card__description">{{ $division->description }}</p>
@@ -47,4 +44,23 @@
             </div>
         @endforeach
     </div>
+
+    <script>
+        document.getElementById("searchButton").addEventListener("click", function() {
+            var searchText = document.getElementById("searchInput").value.toLowerCase();
+            var divisions = document.querySelectorAll(".card__division");
+
+            divisions.forEach(function(division) {
+                var name = division.getAttribute("data-name").toLowerCase();
+                var description = division.getAttribute("data-description").toLowerCase();
+
+                if (name.includes(searchText) || description.includes(searchText)) {
+                    division.style.display = "block";
+                } else {
+                    division.style.display = "none";
+                }
+            });
+        });
+    </script>
 @endsection
+    
