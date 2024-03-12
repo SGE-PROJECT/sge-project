@@ -1,4 +1,4 @@
-<article class="rounded-lg border-t-8 border-2 bg-white border-t-green-400/75 p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
+<article class="font-sans rounded-lg border-t-8 border-2 bg-white border-t-green-400/75 p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300">
     <a href="#">
       <div class="relative flex items-end overflow-hidden rounded-xl max-h-32">
         <img src="{{asset($image)}}" alt="Foto carrera" />

@@ -130,7 +130,6 @@
 
   /* Estilos para el texto */
   .gauge__cover::after {
-    content: "79";
     display: block;
     font-size: 25px; /* Ajusta el tamaño de fuente según sea necesario */
   }
