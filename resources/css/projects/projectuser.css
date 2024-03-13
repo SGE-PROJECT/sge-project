@@ -29,7 +29,7 @@
     flex-wrap: wrap;
     justify-content: center;
     width: 450px;
-    height: 175px;
+    height: 200px;
     padding-top: 20px;
 }
 .invitacion *{
@@ -38,7 +38,7 @@
 
 .content_invitation{
     display: flex;
-    padding-left: 63px;    
+    padding-left: 110px;    
 }
 
 .user_invitation{

@@ -12,7 +12,6 @@
     font-size: 20px;
     margin-bottom: 10px; 
     font-family: 'Signika', sans-serif;
-    color: #003E61;
     margin-bottom: 20px;
 }
 
@@ -28,6 +27,7 @@
 .tabla-project th {
     padding: 15px;
     text-align: center;
+    background-color: #293846;
 }
 
 .tabla-project td {
