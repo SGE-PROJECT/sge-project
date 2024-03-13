@@ -37,13 +37,15 @@
                 <div class="card__content">
                     <p class="card__title">{{ $division->name }}</p>
                     <p class="card__description">{{ $division->description }}</p>
-                    <button class="bg-gray-200 p-1 mb-1 rounded-sm" >Ver más</button>
+                    <div class="inline-flex ">
+                    <button class="bg-[#03A696] hover:bg-gray-200   rounded text-white mr-2 h-7 w-20" >Ver más</button>
                     <form action="{{ route('divisiones.destroy', $division->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="bg-red-500 text-white p-1 rounded-sm mb-2 ">Eliminar</button>
+                        <button type="submit" class="bg-[#03A696]  hover:bg-red-500 text-white  rounded-sm  mr-2 h-7 w-20">Eliminar</button>
                     </form>
-                    <a href="{{ route('divisiones.edit', $division->id) }}" class="bg-blue-500 text-white p-1 rounded-sm px-3" >Editar</a>
+                    <a href="{{ route('divisiones.edit', $division->id) }}"  ><button class="bg-[#03A696] hover:bg-blue-500 text-white rounded-sm h-7 w-20 justify-content-center ">Editar</button></a>
+                </div>
                 </div>
             </div>
         @endforeach
