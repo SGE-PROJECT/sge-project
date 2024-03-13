@@ -105,10 +105,12 @@ Route::middleware(['auth'])->group(function () {
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
-    Route::get('projectinvitation', [ProjectController::class, 'invitation']);
+    Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
+    Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
+    
 
     Route::get('/RecoverPassword', function () {
         return view('auth.recoverPassword');
