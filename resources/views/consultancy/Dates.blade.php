@@ -68,7 +68,7 @@
         <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
             <span class="close4">&times;</span>
             <h2 class="pb-[20px]">¿Esta seguro?</h2>
-            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit" id="borrarEventoBoton">Borrar cita</button>
+            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit" id="borrarEventoBoton" >Borrar cita</button>
         </div>
     </div>
 

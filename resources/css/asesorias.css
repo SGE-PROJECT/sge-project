@@ -647,3 +647,14 @@ input[type=number]::-webkit-outer-spin-button {
     height: 100px !important;
     overflow-y: hidden;
 }
+#borrarEventoBoton{
+    background-color: #e00;
+    transition: all .3s;
+}
+#borrarEventoBoton:hover{
+    background-color: rgb(216, 4, 4);
+}
+#borrarEventoBoton:active{
+    transform: scale(.9);
+    
+}
