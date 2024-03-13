@@ -14,7 +14,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        return view('books-notifications.books.books');
+        return view('books-notifications.books.Books');
     }
     public function listBook(){
         $books =Book::all();
