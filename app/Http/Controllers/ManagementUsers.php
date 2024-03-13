@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\projects;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProjectFormController extends Controller
+class ManagementUsers extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("projects.ProjectsDash.projectDashboard");
+        //
     }
 
     /**
@@ -20,7 +19,7 @@ class ProjectFormController extends Controller
      */
     public function create()
     {
-        return view("projects.Forms.FormStudent");
+        //
     }
 
     /**

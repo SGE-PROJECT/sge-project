@@ -7,7 +7,7 @@ h1 {
     margin-bottom: 1.5rem;
     margin-top: 3rem;
     text-align: center;
-    color: #333; /* Color del texto */
+    color: #333; 
 }
 
 
@@ -21,13 +21,13 @@ h1 {
     flex: 1;
     display: flex;
     flex-wrap: wrap;
-    gap: 15px; /* Reduciendo el espacio entre las tarjetas */
-    justify-content: center; /* Centrando las tarjetas horizontalmente */
-    margin-bottom: 2rem; /* Reduciendo el espacio inferior */
+    gap: 15px; 
+    justify-content: center; 
+    margin-bottom: 2rem; 
 }
 .cards-container .card {
-    width: calc(50.33% - 10px); /* Reducimos el ancho de las tarjetas */
-    max-width: 300px; /* Limitamos el ancho máximo de las tarjetas */
+    width: calc(50.33% - 10px); 
+    max-width: 300px;
 }
 
 .card {
@@ -40,8 +40,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex: 1 1 calc(25% - 20px); /* ajuste automático */
-    /* Calculamos el ancho de la tarjeta, descontando el espacio entre tarjetas */
+    flex: 1 1 calc(25% - 20px); 
     height: 55vh;
 
 }
@@ -55,8 +54,8 @@ h1 {
     font-weight: 600;
     color: #000000;
     margin-top: 3;
-    border-bottom: 2px solid #929292; /* Línea horizontal gris */
-    width: 100%; /* Ancho del 100% */
+    border-bottom: 2px solid #929292; 
+    width: 100%; 
 
 }
 .card img {
@@ -86,9 +85,8 @@ height: 150px;
     border-radius: 0.375rem;
     padding: 1rem;
     flex-basis: calc(70% - 20px);
-    /* Calculamos el ancho de la lista de permisos, descontando el espacio entre elementos */
     height: 55vh;
-    overflow-y: auto; /* Agrega un scroll vertical si el contenido excede la altura */
+    overflow-y: auto; 
 
 }
 .permissions-container:hover{
@@ -101,8 +99,8 @@ height: 150px;
 .permissions-title {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #333; /* Cambia el color según tu paleta de colores */
-    margin-bottom: 1rem; /* Ajusta el espacio entre el título y los permisos */
+    color: #333; 
+    margin-bottom: 1rem; 
 }
 
 .cancel-btn {
@@ -150,6 +148,6 @@ height: 150px;
         width: 100%;
     }
     h1 {
-        font-size: 3rem; /* Tamaño del texto en dispositivos grandes */
+        font-size: 3rem; 
     }
 }
