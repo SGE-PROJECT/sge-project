@@ -22,6 +22,13 @@ use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\users\ManagementUserController;
 
+//import test
+use App\Http\Controllers\AdvisorySessionController;
+use App\Http\Controllers\ProjectsTestController;
+use App\Http\Controllers\ProjectStudentsTestController;
+use App\Http\Controllers\UsersTestController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +44,7 @@ Route::get('/', function () {
     return view('administrator.dashboard.dashboard-general');
 });
 
-Route::get('/projectsdash', function(){
+Route::get('/projectsdash', function () {
     return view('management.project');
 });
 
@@ -118,4 +125,16 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+Route::resource('carreras', CareerController::class);
+ 
+//Test
+Route::get('/datos-citas', [AdvisorySessionController::class, 'index']);
+Route::get('/all-projects', [ProjectsTestController::class, 'index']);
+
+Route::get('/proyecto/{projectId}/estudiante', [ProjectStudentsTestController::class, 'index']);
+
+Route::get('/users', [UsersTestController::class, 'index']);
+Route::post('/advisory-sessions', [AdvisorySessionController::class, 'store']);
+Route::put('/advisory-sessions/{id}', [AdvisorySessionController::class, 'update']);
+Route::delete('/advisory-sessions/{id}', [AdvisorySessionController::class, 'destroy']);
 

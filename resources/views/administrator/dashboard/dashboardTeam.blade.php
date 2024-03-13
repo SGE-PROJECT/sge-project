@@ -232,13 +232,14 @@
         
     </div>  --}}
     <h1 class="text-3xl font-bold text-center mt-5 mb-8">Equipos</h1>
-    <div class="flex flex-wrap justify-center gap-5 p-5">
-        <div class="flex lg:flex-nowrap justify-center items-center gap-5 mr-10">
-            @include('administrator.card', ['number' => 40, 'name' => 'Equipos'])
-        </div>
+    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        @include('administrator.graph-projects')
+        @include('administrator.graph-users')
+        @include('administrator.graph-teams')
+        @include('administrator.graph-books')
     </div>
     <div class="flex items-baseline align-middle">
-        <button class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mt-10 mr-5 w-32" onclick="window.location.href = '{{ route('dashboardProjects') }}'">
+        <button class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mt-10 mr-5 w-32" onclick=" = '{{ route('dashboardProjects') }}'">
             Ir a Agregar
         </button>
         @include('administrator.filter')
