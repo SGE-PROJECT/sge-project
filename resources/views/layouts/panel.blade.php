@@ -35,6 +35,38 @@
 
 <body class="text-gray-800 font-inter">
   <!--sidenav-->
+  <div class="container-loader" id="loader">
+    <div class="loader">
+        
+        <div class="box box0">
+            <div></div>
+        </div>
+        <div class="box box1">
+            <div></div>
+        </div>
+        <div class="box box2">
+            <div></div>
+        </div>
+        <div class="box box3">
+            <div></div>
+        </div>
+        <div class="box box4">
+            <div></div>
+        </div>
+        <div class="box box5">
+            <div></div>
+        </div>
+        <div class="box box6">
+            <div></div>
+        </div>
+        <div class="box box7">
+            <div></div>
+        </div>
+        <div class="ground">
+            <div></div>
+        </div>
+    </div>
+</div>
   <section class="flex">
     <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">

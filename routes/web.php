@@ -138,3 +138,6 @@ Route::post('/advisory-sessions', [AdvisorySessionController::class, 'store']);
 Route::put('/advisory-sessions/{id}', [AdvisorySessionController::class, 'update']);
 Route::delete('/advisory-sessions/{id}', [AdvisorySessionController::class, 'destroy']);
 
+Route::get('/loader', function () {
+    return view('layouts.loader');
+});
