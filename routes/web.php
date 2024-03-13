@@ -37,9 +37,7 @@ Route::get('/', function () {
     return view('administrator.dashboard.dashboard-general');
 });
 
-Route::get('/projectsdash', function(){
-    return view('management.project');
-});
+
 
 
 
@@ -55,6 +53,13 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
+
+    Route::middleware(['role:Administrator'])->group(function () {
+        // Rutas para administradores
+        Route::get('/projectsdash', function () {
+            return view('management.project');
+        });
+    });
 
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
@@ -111,7 +116,6 @@ Route::middleware(['auth'])->group(function () {
     });
 
 });
-
 
 
 

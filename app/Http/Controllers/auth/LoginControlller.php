@@ -13,18 +13,30 @@ class LoginControlller extends Controller
     }
 
     public function store(Request $request)
-    {
-        // dd('Autenticando...');
-        $this->validate($request, [
-            'email'=> 'required|email',
-            'password'=> 'required'
-        ]);
+{
+    $this->validate($request, [
+        'email'=> 'required|email',
+        'password'=> 'required'
+    ]);
 
-        if(!auth()->attempt($request->only('email', 'password'))) {
-            return back()->with('mensaje', 'Credenciales incorrectas');
+    if (auth()->attempt($request->only('email', 'password'))) {
+        // Obtener el usuario autenticado
+        $user = auth()->user();
+
+        // Redireccionar según el rol del usuario
+        if ($user->hasRole('Administrator')) {
+            return redirect()->route('/projectsdash');
+        } elseif ($user->hasRole('teacher')) {
+            return redirect()->route('teacher.dashboard');
+        } elseif ($user->hasRole('student')) {
+            return redirect()->route('student.dashboard');
+        } else {
+            // Por defecto, redirecciona a una ruta común
+            return redirect()->route('/empresas');
         }
+    }
 
-        return redirect()->route('posts.index');
+    return back()->with('mensaje', 'Credenciales incorrectas');
+}
 
-    }   
 }
