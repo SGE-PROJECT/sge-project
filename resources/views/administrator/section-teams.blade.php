@@ -5,7 +5,7 @@
 
         <div class="flex flex-wrap items-center">
             <div class="relative w-full max-w-full flex-grow flex-1 mb-4">
-                <h3 class="font-bold text-2xl">Usuarios</h3>
+                <h3 class="font-bold text-2xl">Equipos</h3>
             </div>
         </div>
 

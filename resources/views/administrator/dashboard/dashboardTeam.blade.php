@@ -1,302 +1,144 @@
+<!-- SECCION PROYECTOS -->
 @extends('layouts.panel')
 @section('contenido')
-
-<!-- tabla de datos -->
- {{-- <div class="w-[96%] ml-3 pl-1.5 mr-3 rounded-tl-md rounded-tr-md bg-slate-600 flex">
-    <select class="py-3 px-4 bg-white rounded-lg my-5 mr-3 flex cursor-pointer">
-        <option value="carreras">Carreras</option>
-        <option value="carreras">Gastronomia</option>
-        <option value="carreras">Redes</option>
-        <option value="carreras">Contaduria</option>
-    </select>
-    <select class="py-3 px-4 bg-white rounded-lg my-5 mr-3 flex cursor-pointer">
-        <option value="empresas">Empresas</option>
-        <option value="empresas">Mc</option>
-        <option value="empresas">Cinepolis</option>
-        <option value="empresas">Ut</option>
-    </select>
-    <select class="py-3 px-4 bg-white rounded-lg my-5 mr-3 flex cursor-pointer">
-        <option value="integrantes">Integrantes</option>
-        <option value="integrantes">Irving</option>
-        <option value="integrantes">Anhony</option>
-        <option value="integrantes">leyva</option>
-    </select>
-</div>
-
-    
-    <!-- Estudiantes -->
-    <div class="flex w-[100%]  max-md:block overflow-x-hidden">
-        <div class="">
-            <div class="w-[90%] ml-6  px-0 mt-5 rounded  bg-white flex">
-                <div class="flex items-center">
-                    <div class="w-[50%] pt-2 ">
-                        <div class="flex justify-evenly rounded pl-2 w-80 pt-0  text-white bg-slate-600
-                        ">
-                            <p>Equipo: <b class="">SM-53</b></p>
-                            <p>Proyecto: <b class="">Proyecto Sync</b></p>
-                        </div>
-                        <div class="bg-white  flex justify-evenly">
-                            <div class="w-[100%] py-3  mx-4">
-                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
-                                class="h-[4.2rem] rounded-md" alt="imagen1">
-                                <p>Anthony W.</p>
-                            </div>
-                            <div class="w-[100%] py-3  mx-4">
-                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
-                                class="h-[4.2rem] rounded-md" alt="imagen1">
-                                <p>Pepito Q.</p>
-                            </div>
-                            <div class="w-[100%] py-3  mx-4">
-                                <img src="https://www.publicdomainpictures.net/pictures/280000/velka/dusky-grey-sky-background.jpg"
-                                    class="h-[4.2rem] rounded-md" alt="imagen1">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-arrow-narrow-left" width="72" height="72"
-                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l14 0" />
-                            <path d="M5 12l4 4" />
-                            <path d="M5 12l4 -4" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-arrow-narrow-right" width="72" height="72"
-                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l14 0" />
-                            <path d="M15 16l4 -4" />
-                            <path d="M15 8l4 4" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="flex justify-evenly  rounded text-white bg-slate-600">
-                            <p><b>Asesores A/C</b></p>
-                        </div>
-                        <div class="bg-white px-3">
-                            <div class="py-1 flex w-1/1 justify-evenly items-center ml-2 ">
-                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
-                                    class="rounded-full w-[3.1rem]" alt="imagen1">
-                                <p>Anthony W.</p>
-                            </div>
-                            <hr class="bg-black border-black ml-5 mr-5">
-                            <div class=" py-3 flex justify-evenly items-center mx-4">
-                                <p>Pepito Q.</p>
-                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
-                                    class="rounded-full w-[3.1rem]" alt="imagen1">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-[90%] ml-6  px-0 mt-5 rounded bg-white flex">
-                <div class="flex items-center">
-                    <div class="w-[50%] pt-2">
-                        <div class="flex justify-evenly rounded pl-2 w-80 text-white bg-slate-600">
-                            <p>Equipo: <b class="">SM-53</b></p>
-                            <p>Proyecto: <b class="">Proyecto Sync</b></p>
-                        </div>
-                        <div class="bg-white  flex justify-evenly">
-                            <div class="w-[100%] py-3  mx-4">
-                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
-                                class="h-[4.2rem] rounded-md" alt="imagen1">
-                                <p>Anthony W.</p>
-                            </div>
-                            <div class="w-[100%] py-3  mx-4">
-                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
-                                class="h-[4.2rem] rounded-md" alt="imagen1">
-                                <p>Pepito Q.</p>
-                            </div>
-                            <div class="w-[100%] py-3  mx-4">
-                                <img src="https://www.publicdomainpictures.net/pictures/280000/velka/dusky-grey-sky-background.jpg"
-                                    class="h-[4.2rem] rounded-md" alt="imagen1">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-arrow-narrow-left" width="72" height="72"
-                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l14 0" />
-                            <path d="M5 12l4 4" />
-                            <path d="M5 12l4 -4" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-arrow-narrow-right" width="72" height="72"
-                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l14 0" />
-                            <path d="M15 16l4 -4" />
-                            <path d="M15 8l4 4" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="flex justify-evenly rounded  text-white bg-slate-600">
-                            <p><b>Asesores A/C</b></p>
-                        </div>
-                        <div class="bg-white px-3">
-                            <div class="py-1 flex w-1/1 justify-evenly items-center ml-2 ">
-                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
-                                    class="rounded-full w-[3.1rem]" alt="imagen1">
-                                <p>Anthony W.</p>
-                            </div>
-                            <hr class="bg-black border-black ml-5 mr-5">
-                            <div class=" py-3 flex justify-evenly items-center mx-4">
-                                <p>Pepito Q.</p>
-                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
-                                    class="rounded-full w-[3.1rem]" alt="imagen1">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-[90%] ml-6  px-0 mt-5 rounded  bg-white flex">
-                <div class="flex items-center">
-                    <div class="w-[50%] pt-2">
-                        <div class="flex justify-evenly rounded pl-2 w-80  text-white bg-slate-600
-                        ">
-                            <p>Equipo: <b class="">SM-53</b></p>
-                            <p>Proyecto: <b class="">Proyecto Sync</b></p>
-                        </div>
-                        <div class="bg-white  flex justify-evenly">
-                            <div class="w-[100%] py-3  mx-4">
-                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
-                                class="h-[4.2rem] rounded-md" alt="imagen1">
-                                <p>Anthony W.</p>
-                            </div>
-                            <div class="w-[100%] py-3  mx-4">
-                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
-                                class="h-[4.2rem] rounded-md" alt="imagen1">
-                                <p>Pepito Q.</p>
-                            </div>
-                            <div class="w-[100%] py-3  mx-4">
-                                <img src="https://www.publicdomainpictures.net/pictures/280000/velka/dusky-grey-sky-background.jpg"
-                                    class="h-[4.2rem] rounded-md" alt="imagen1">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-arrow-narrow-left" width="72" height="72"
-                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l14 0" />
-                            <path d="M5 12l4 4" />
-                            <path d="M5 12l4 -4" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-arrow-narrow-right" width="72" height="72"
-                            viewBox="0 0 24 24" stroke-width="1" stroke="#000000" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l14 0" />
-                            <path d="M15 16l4 -4" />
-                            <path d="M15 8l4 4" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="flex justify-evenly  rounded text-white bg-slate-600">
-                            <p><b>Asesores A/C</b></p>
-                        </div>
-                        <div class="bg-white px-3">
-                            <div class="py-1 flex w-1/1 justify-evenly items-center ml-2 ">
-                                <img src="https://i.pinimg.com/564x/3a/be/84/3abe8400da18914a7ce19c22744537e0.jpg"
-                                    class="rounded-full w-[3.1rem]" alt="imagen1">
-                                <p>Anthony W.</p>
-                            </div>
-                            <hr class="bg-black border-black ml-5 mr-5">
-                            <div class=" py-3 flex justify-evenly items-center mx-4">
-                                <p>Pepito Q.</p>
-                                <img src="https://i.pinimg.com/564x/a3/5a/be/a35abe1aa2d2f0357dcb2fac8db7cb01.jpg"
-                                    class="rounded-full w-[3.1rem]" alt="imagen1">
-                            </div>
-
-                        </div>
-                    </div>
-                </
+    <h1 class="text-3xl font-bold text-center mt-10 mb-8">Equipos</h1>
+    <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
+    <div class="flex flex-wrap justify-center gap-5 p-5">
+        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            @include('administrator.graph-projects')
+            @include('administrator.graph-users')
+            @include('administrator.graph-teams')
+            @include('administrator.graph-books')
         </div>
-        <!-- Siguiente seccion -->
-      
-        
-    </div>  --}}
-    <h1 class="text-3xl font-bold text-center mt-5 mb-8">Equipos</h1>
-    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        @include('administrator.graph-projects')
-        @include('administrator.graph-users')
-        @include('administrator.graph-teams')
-        @include('administrator.graph-books')
-    </div>
-    <div class="flex items-baseline align-middle">
-        <button class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mt-10 mr-5 w-32" onclick=" = '{{ route('dashboardProjects') }}'">
-            Ir a Agregar
-        </button>
-        @include('administrator.filter')
-        <div class="relative ml-2 w-55">
+        <div class="grid grid-cols-1 lg:grid-cols-1 gap-5 mb-6 ml-auto mr-3"> <!-- Cambiado a lg:grid-cols-2 para tener dos columnas en pantallas grandes -->
+            @include('administrator.section-teams')
+        </div>
+    </div>    
+    <!-- SECCIÓN QUE CONTIENE LOS BOTONES -->
+    <div class="flex items-end align-middle">
+        <!-- BOTÓN QUE DIRIGE AL CRUD -->
+        <button type="submit"
+            class="relative bg-teal-500 text-white px-4 py-2 ml-8 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
+            onclick="window.location.href = '{{ route('dashboardProjects') }}'">Ir a Agregar</button>
+        <!-- SE IMPORTA EL FILTRO -->
+        @include('administrator.filtre-teams')
+        <!-- SE AÑADE EL BÚSCADOR -->
+        <div class="relative ml-5 w-55 z-10 flex items-center">
             <label for="Search" class="sr-only">Search</label>
             <input type="text" id="Search" placeholder="Buscar"
-                class="w-full rounded border-gray-200 py-2.5 pe-10 shadow-sm sm:text-sm" />
-            <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
-                <button type="button" class="text-gray-600 hover:text-gray-700">
-                    <span class="sr-only">Search</span>
+                class="w-full rounded border-gray-200 py-2.5 px-4 sm:text-sm h-full outline-none" />
+            <span class="absolute rounded inset-y-0 end-0 grid w-10 place-content-center bg-teal-500 text-white h-full">
+                <button type="button" class="text-gray-500 hover:text-gray-700 h-full">
+                    <span class="sr-only bg-white text-white">Search</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="h-4 w-4">
+                        stroke="currentColor" class="h-6 w-6 text-white">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
             </span>
         </div>
-        <a
-            class="group flex items-center justify-between gap-4 rounded border border-[#03A696] bg-[#03A696] px-5 py-1 transition-colors hover:bg-[#025b52] focus:outline-none focus:ring ml-auto mr-8 w-38">
-            <span class="font-medium text-white transition-colors group-hover:text-white group-active:text-white">
-                Exportar
-            </span>
+        <!-- BOTÓN QUE NOS SIRVE PARA EXPORTAR LOS ARCHIVOS -->
+        <div x-data="{ isActive: false }" class="relative ml-auto mr-8">
+            <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
+                <a href="#"
+                    class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
+                    Exportar
+                </a>
+                <button x-on:click="isActive = !isActive"
+                    class="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700">
+                    <span class="sr-only">Menu</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
 
-            <span
-                class="shrink-0 rounded-full border border-current bg-white p-2 text-[#03A696] group-active:text-indigo-500">
-                <svg class="size-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-            </span>
-        </a>
-    </div>
-    <div class="tabla-project ">
-        <div class="tabla-cont-project ">
-            <table class="rounded-lg">
-                <thead class="bg-[#003E61]  text-white font-bold bg-blue-003E61">
-                    <tr>
-                        <th>Integrantes</th>
-                        <th>Proyecto</th>
-                        <th>Asesor academico</th>
-                        <th>Asesor empresarial</th>
-                        <th>División</th>
-                    </tr>
-                </thead>
-                <tr>
-                    <td>Josue</td>
-                    <td>Sistema de gestion de proyectos</td>
-                    <td>Rafael </td>
-                    <td>Pedrito</td>
-                    <td>Gastronomia</td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="absolute right-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg" role="menu"
+                x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
+                x-on:keydown.escape.window="isActive = false">
+                <div class="p-2">
+                    <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Opciones </strong>
+                    <label for="Option1" class="flex cursor-pointer items-start gap-4 mb-1">
+                        <div class="flex items-center">
+                            &#8203;
+                        </div>
+                        <div>
+                            <strong class="font-medium text-gray-900"> PDF </strong>
+                        </div>
+                    </label>
+                    <label for="Option2" class="flex cursor-pointer items-start gap-4 mb-1">
+                        <div class="flex items-center">
+                            &#8203;
+                        </div>
+
+                        <div>
+                            <strong class="font-medium text-gray-900"> CSV </strong>
+                        </div>
+                    </label>
+
+                </div>
+            </div>
         </div>
-    </div> 
+    </div>
+    <!-- TABLA DEL CONTENIDO -->
+    <div class="tabla-project rounded-t-lg">
+        <div class="tabla-cont-project rounded-t-lg">
+            <table id="tabla-equipos" class="rounded-lg"></table>
+        </div>
+        <!-- PAGINACIÓN -->
+        <ol class="flex justify-center gap-1 text-xs font-medium mt-10">
+            <li>
+                <a href="#"
+                    class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180">
+                    <span class="sr-only">Prev Page</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </li>
 
+            <li>
+                <a href="#"
+                    class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900">
+                    1
+                </a>
+            </li>
 
+            <li class="block size-8 rounded border-blue-600 bg-teal-500 text-center leading-8 text-white">
+                2
+            </li>
 
-@endsection 
+            <li>
+                <a href="#"
+                    class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900">
+                    3
+                </a>
+            </li>
+
+            <li>
+                <a href="#"
+                    class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900">
+                    4
+                </a>
+            </li>
+
+            <li>
+                <a href="#"
+                    class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180">
+                    <span class="sr-only">Next Page</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </li>
+        </ol>
+    </div>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+@endsection

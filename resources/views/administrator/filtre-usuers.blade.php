@@ -19,7 +19,7 @@
                     <input type="checkbox" class="size-4 rounded border-gray-300" id="Option1" value="activo" />
                 </div>
                 <div>
-                    <strong class="font-medium text-gray-900">Activos</strong>
+                    <strong class="font-medium text-gray-900">Activojkno</strong>
                 </div>
             </label>
             <label for="Option2" class="flex cursor-pointer items-start gap-4 mb-1">
