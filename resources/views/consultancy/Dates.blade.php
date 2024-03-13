@@ -80,7 +80,7 @@
             </select>
         </div>
     </div>
-    <div class="calendar-container w-full lg:w-[60%] overflow-hidden relative z-20" id="calendario">
+    <div class="calendar-container w-full lg:w-[60%] relative z-20" id="calendario">
         <select id="month" class="select-mes text-[30px] md:text-[40px]">
             <option value="0">Enero</option>
             <option value="1">Febrero</option>
@@ -98,7 +98,7 @@
         <select id="year" class="select-mes text-[30px] md:text-[40px]">
             <!-- Los años se generarán dinámicamente -->
         </select>
-        <div id="calendar" class="overflow-x-scroll md:overflow-visible"></div>
+        <div id="calendar" class=""></div>
     </div>
 
     <div class="ocultar w-[100%] sm:w-[65%] flex flex-wrap relative py-5 justify-center" id="dia">
