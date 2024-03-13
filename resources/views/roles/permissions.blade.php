@@ -33,9 +33,9 @@
                 <div class="card" id="administrador-card">
 
                     <img src="images/roles/admin.png" alt="Administrador" class="card-image">
-                    @if ($role)
-                        <h5 class="card-title">{{ $role->name }}</h5>
-                    @endif
+                   
+                        <h5 class="card-title">Administrador</h5>
+                   
 
 
                     <button
@@ -88,9 +88,9 @@
                 <div class="card" id="presidente-card">
 
                     <img src="images/roles/presidente.png" alt="Presidente" class="card-image">
-                    @if ($role7)
-                        <h5 class="card-title">{{ $role7->name }}</h5>
-                    @endif
+                    
+                        <h5 class="card-title">Presidente académico</h5>
+                   
                     <button
                         class="edit-permissions-btn  text-lg font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                         data-card="administrador-card">Editar permisos</button>
@@ -127,9 +127,9 @@
 
                 <div class="card" id="coordinadora-card">
                     <img src="images/roles/coordinadora.png" alt="Coordinadora" class="card-image">
-                    @if ($role2)
-                        <h5 class="card-title">{{ $role2->name }}</h5>
-                    @endif
+                    
+                        <h5 class="card-title">Profesor</h5>
+                    
                     <button
                         class="edit-permissions-btn  text-lg font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                         data-card="coordinadora-card">Editar permisos</button>
@@ -166,9 +166,9 @@
                 </div>
                 <div class="card" id="directora-card">
                     <img src="images/roles/director.png" alt="Directora" class="card-image">
-                    @if ($role3)
-                        <h5 class="card-title">{{ $role3->name }}</h5>
-                    @endif
+                    
+                        <h5 class="card-title">Asesor académico</h5>
+                    
                     <button
                         class="edit-permissions-btn  text-lg font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                         data-card="directora-card">Editar permisos</button>
@@ -206,9 +206,9 @@
 
                 <div class="card" id="asesorempresa-card">
                     <img src="images/roles/asesoremp.png" alt="Asesor empresa" class="card-image">
-                    @if ($role4)
-                        <h5 class="card-title">{{ $role4->name }}</h5>
-                    @endif
+                    
+                        <h5 class="card-title">Estudiante</h5>
+                    
                     <button
                         class="edit-permissions-btn  text-lg font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                         data-card="asesorempresa-card">Editar permisos</button>
@@ -247,9 +247,9 @@
 
                 <div class="card" id="asesoracademico-card">
                     <img src="images/roles/asesor.png" alt="Asesor academico" class="card-image">
-                    @if ($role5)
-                        <h5 class="card-title">{{ $role5->name }}</h5>
-                    @endif
+                    
+                        <h5 class="card-title">Director</h5>
+                   
                     <button
                         class="edit-permissions-btn  text-lg font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                         data-card="asesoracademico-card">Editar permisos</button>
@@ -289,9 +289,9 @@
 
                 <div class="card" id="estudiante-card">
                     <img src="images/roles/estudiante.png" alt="estudiante" class="card-image">
-                    @if ($role6)
-                        <h5 class="card-title">{{ $role6->name }}</h5>
-                    @endif <button
+                    
+                        <h5 class="card-title">Licenciado</h5>
+                  <button
                         class="edit-permissions-btn  text-lg font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                         data-card="estudiante-card">Editar permisos</button>
                 </div>
