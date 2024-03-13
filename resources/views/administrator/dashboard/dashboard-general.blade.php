@@ -1,16 +1,16 @@
 @extends('layouts.panel')
 
-@vite('resources/css/administrator/dashboard.css')
-
 @section('titulo', 'Dashboard')
 
 @section('contenido')
+@vite('resources/css/administrator/dashboard.css')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <div class="flex lg:flex-nowrap flex-wrap justify-center items-center gap-5 p-5">
-        @include('administrator.card', ['number' => 12, 'name' => 'Proyectos'])
-        @include('administrator.card', ['number' => 86, 'name' => 'Usuarios'])
-        @include('administrator.card', ['number' => 79, 'name' => 'Empresas'])
-        @include('administrator.card', ['number' => 34, 'name' => 'Libros'])
+    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        @include('administrator.graph-projects')
+        @include('administrator.graph-users')
+        @include('administrator.graph-teams')
+        @include('administrator.graph-books')
     </div>
 
     <div class="p-6 font-sans">
@@ -76,7 +76,7 @@
 
         </div>
 
-            <!--SECCION DE ESTADISTICAS-->
+        <!--SECCION DE ESTADISTICAS-->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
             <div class="bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md lg:col-span-2">
                 <div class="flex justify-between mb-4 items-start">
@@ -139,10 +139,68 @@
                         <span class="text-gray-400 text-sm">Rechazados</span>
                     </div>
                 </div>
-                <div>
+
+                <!--GRAFICA-->
+                <div class="flex justify-center items-center grafica">
                     <canvas id="order-chart"></canvas>
                 </div>
             </div>
+
+            <script>
+                const ctx = document.getElementById('order-chart');
+
+                new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        label: 'Datos',
+                        data: [137, 135, 73, 82, 532, 654, 124], // Los valores para cada segmento
+                        backgroundColor: [ // Colores para cada segmento
+                            '#3b82f6',
+                            '#f43f5e',
+                            '#f97316',
+                            '#a855f7',
+                            '#22c55e',
+                            '#06b6d4',
+                            '#ec4899'
+                        ],
+                        borderColor: [ // Colores de borde para cada segmento
+                            '#3b82f6',
+                            '#f43f5e',
+                            '#f97316',
+                            '#a855f7',
+                            '#22c55e',
+                            '#06b6d4',
+                            '#ec4899'
+                        ],
+                        borderWidth: 1
+                    }],
+                    labels: [ // Etiquetas de texto para cada segmento
+                        'Proyectos',
+                        'Equipos',
+                        'Asesores academicos',
+                        'Asesores empresariales',
+                        'Estudiantes',
+                        'Libros',
+                        'Empresas'
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top', // Posiciona la leyenda en la parte superior
+                    },
+                    title: {
+                        display: true,
+                        text: 'Custom Chart Title' // Título personalizado para el gráfico
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+            </script>
 
             <!--SECCION DE RESUMEN-->
             <div class="bg-white border border-gray-100 shadow-md shadow-black/5 p-5 rounded-md">
