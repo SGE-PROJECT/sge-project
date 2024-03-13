@@ -116,21 +116,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/RecoverPassword', function () {
         return view('auth.recoverPassword');
     });
-    Route::get('/Asesorias', function () {
+    Route::get('/asesorias', function () {
         return view('consultancy.Dates');
-    });
+    })->name('asesorias');
 
 });
 
 
-
-
-
-
-
 Route::resource('carreras', CareerController::class);
 
-//Test
+//Test no tocar son de Alfonso
 Route::get('/datos-citas', [AdvisorySessionController::class, 'index']);
 Route::get('/all-projects', [ProjectsTestController::class, 'index']);
 
