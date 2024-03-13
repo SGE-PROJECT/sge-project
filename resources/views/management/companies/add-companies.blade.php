@@ -6,24 +6,24 @@
         <div class="border-b py-2 rounded mb-4">
             <h2 class="text-2xl text-center font-bold text-aqua-600">Agregar Nueva Empresa</h2>
         </div>
-        <form method="POST" action="{{ route('companies.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('empresas.store') }}" enctype="multipart/form-data">
 
             @csrf
 
             <div class="mb-4">
                 <label for="company_name" class="block text-gray-700 text-sm font-bold mb-2">Nombre de la Empresa</label>
                 <input id="company_name" type="text" placeholder="Nombre de la Empresa" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('company_name') border-red-500 @enderror" name="company_name" value="{{ old('company_name') }}" required autocomplete="company_name" autofocus>
-                @error('company_name')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
+
+            </div>
+            <div class="mb-4">
+                <label for="contact_name" class="block text-gray-700 text-sm font-bold mb-2">Nombre de Contacto</label>
+                <input id="contact_name" type="text" placeholder="Nombre de Contacto" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('contact_name') border-red-500 @enderror" name="contact_name" value="{{ old('contact_name') }}" required autocomplete="contact_name">
             </div>
 
             <div class="mb-4">
                 <label for="address" class="block text-gray-700 text-sm font-bold mb-2">Dirección</label>
                 <input id="address" type="text" placeholder="Dirección" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('address') border-red-500 @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
-                @error('address')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
+
             </div>
 
             <!-- Agregar campos restantes -->
@@ -31,41 +31,31 @@
             <div class="mb-4">
                 <label for="affiliation_date" class="block text-gray-700 text-sm font-bold mb-2">Fecha de Afiliación</label>
                 <input id="affiliation_date" type="date" placeholder="Fecha de Afiliación" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('affiliation_date') border-red-500 @enderror" name="affiliation_date" value="{{ old('affiliation_date') }}" required autocomplete="affiliation_date">
-                @error('affiliation_date')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
+
             </div>
 
             <div class="mb-4">
                 <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Descripción</label>
                 <textarea id="description" placeholder="Descripción" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('description') border-red-500 @enderror" name="description" required autocomplete="description" rows="3">{{ old('description') }}</textarea>
-                @error('description')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
+
             </div>
 
             <div class="mb-4">
                 <label for="contact_phone" class="block text-gray-700 text-sm font-bold mb-2">Teléfono</label>
                 <input id="contact_phone" type="text" placeholder="Teléfono" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('contact_phone') border-red-500 @enderror" name="contact_phone" value="{{ old('contact_phone') }}" required autocomplete="contact_phone">
-                @error('contact_phone')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
+
             </div>
 
             <div class="mb-4">
                 <label for="contact_email" class="block text-gray-700 text-sm font-bold mb-2">Correo Electrónico</label>
                 <input id="contact_email" type="email" placeholder="Correo Electrónico" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('contact_email') border-red-500 @enderror" name="contact_email" value="{{ old('contact_email') }}" required autocomplete="contact_email">
-                @error('contact_email')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
+
             </div>
 
             <div class="mb-4">
                 <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Imagen</label>
                 <input id="image" type="file" placeholder="Imagen" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('image') border-red-500 @enderror" name="image" required>
-                @error('image')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
+
             </div>
 
             <div class="flex items-center justify-center">

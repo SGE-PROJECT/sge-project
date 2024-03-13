@@ -20,7 +20,7 @@
         </span>
     </div>
     <div class="BtnCrearDivisions">
-        <a href="/agregardivision"
+        <a href="{{ route('divisiones.create') }}"
             class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar División</a>
     </div>
 
@@ -40,6 +40,12 @@
                     <p class="card__description">Director[a]: </p>
                     <p class="card__description">Subdirector[a]:</p>
                     <button class="card__button">Ver más</button>
+                    <form action="{{ route('divisiones.destroy', $division->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-delete">Eliminar</button>
+                    </form>
+                    <a href="{{ route('divisiones.edit', $division->id) }}" class="btn-edit">Editar</a>
                 </div>
             </div>
         @endforeach
@@ -63,4 +69,3 @@
         });
     </script>
 @endsection
-    
