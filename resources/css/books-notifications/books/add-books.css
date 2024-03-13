@@ -1,23 +1,33 @@
 .container-add-books {
-    background-color: #F6F5F2;
-    border-style: solid;
+    /*background-color: #F6F5F2;*/
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+    /*border-style: solid;
     border-width: 5px;
     border-color: #E9E5DF;
-    border-radius: 20px;
+    border-radius: 20px;*/
 
-    /*margin: 5% 5%;*/
     position: absolute;
     top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
+    width: 95%;
+
+    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+
+    border-radius: 0.75rem;
 }
 
 .container-title-books {
+    display: flex;
+    justify-content: space-between;
     background-color: #2F4050;
     color: rgb(229 231 235 / var(--tw-bg-opacity));
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    /*border-top-left-radius: 20px;
+    border-top-right-radius: 20px;*/
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
 }
 
 .container-title-books h1 {
@@ -55,7 +65,8 @@
 .inputs-add-books:hover,
 .inputs-add-books:focus {
     outline: none;
-    transform: scale(1.05);
+    /*transform: scale(1.05);*/
+    transform: translateX(5px);
 }
 
 input[type='date'] {
@@ -80,6 +91,10 @@ input[type='date'] {
 .inputs-group-2 {
     max-width: 450px;
     width: 400px;
+}
+
+.container-label-input{
+    margin: 3% 0;
 }
 
 .button-add-books {
@@ -109,4 +124,32 @@ input[type='date'] {
 
 input[type='file']{
     color: lightslategrey
+}
+
+#button-send-books{
+    transition: transform 0.3s ease;
+}
+
+#button-send-books:hover,
+#button-send-books:focus
+{
+    transform: scale(1.2)
+}
+
+.a-container-return{
+    width: auto;
+}
+
+#button-return-books{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-top-right-radius: 0.75rem;
+}
+
+#svg-add-books{
+    min-width: 20px;
 }
