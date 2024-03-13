@@ -23,7 +23,9 @@
   /* border: #212020 dotted; */
 }
 
-.card-book {
+/* sytle con -d*/
+
+.card-book-d {
   width: 190px;
   height: 254px;
   background: lightgrey;
@@ -32,6 +34,71 @@
   border: 5px solid #293846;
   box-sizing: border-box;
   transition: all 0.3s;
+}
+
+.card-book-d img {
+  width: 180px;
+  height: 224px;
+}
+
+.card-book-d::before {
+  content: '';
+  width: 10px;
+  height: 254px;
+  background: #293846;
+  position: absolute;
+  top: -5px;
+  left: -14.7px;
+  transform-origin: right;
+  transform: skewY(45deg);
+  border: none;
+  transition: all 0.5s;
+}
+
+.card-book-d::after {
+  content: '';
+  height: 10px;
+  width: 190px;
+  background: #293846;
+  position: absolute;
+  top: -14.7px;
+  left: -5px;
+  transform-origin: bottom;
+  transform: skewX(45deg);
+  border: none;
+  transition: all 0.5s;
+}
+
+.card-book-d:hover {
+  transform: skewY(0deg);
+}
+
+.card-book-d:hover::before {
+  width: 0px;
+  height: 249px;
+  left: 0;
+  top: 0.1px;
+}
+
+.card-book-d:hover::after {
+  width: 184px;
+  height: 0px;
+  left: 0.1px;
+  top: 0;
+}
+
+/* new style */
+
+.card-book {
+  width: 190px;
+  height: 254px;
+  background: lightgrey;
+  position: relative;
+  transform: skewY(0deg); /* Cambiado */
+  border: 5px solid #293846;
+  box-sizing: border-box;
+  transition: all 0.3s;
+  z-index: 2;
 }
 
 .card-book img {
@@ -68,22 +135,55 @@
 }
 
 .card-book:hover {
-  transform: skewY(0deg);
+  transform: translateY(-10px) rotate(-10deg); /* Mueve hacia arriba, rota y escala */
+  z-index: 3;
+}
+
+.card-book:active {
+  transform: scale(0.9); /* Cambiado */
+  z-index: 3;
 }
 
 .card-book:hover::before {
-  width: 0px;
-  height: 249px;
-  left: 0;
-  top: 0.1px;
+  width: 10px; /* Cambiado */
+  height: 254px; /* Cambiado */
+  left: -14.7px; /* Cambiado */
+  top: -5px; /* Cambiado */
 }
 
 .card-book:hover::after {
-  width: 184px;
-  height: 0px;
-  left: 0.1px;
-  top: 0;
+  width: 190px; /* Cambiado */
+  height: 10px; /* Cambiado */
+  left: -5px; /* Cambiado */
+  top: -14.7px; /* Cambiado */
 }
+
+/* Style selft */
+
+.shelf {
+  width: 365px;
+  height: 20px;
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: 0 10px 10px rgba(122, 78, 78, 0.2); /* sombra debajo */
+  position: absolute;
+  right: 5px;
+  top: 255px;
+  z-index: 1;
+}
+
+.info-alumno {
+  position: absolute;
+  width: 180px;
+  height: 50px;
+  color: white;
+  background-color: #293846;
+  bottom: 0px;
+  left: 0px;
+  text-align: center;
+}
+
+/* finish new style */
 
 .card__content-book {
   padding: 10px;
@@ -95,13 +195,12 @@
   width: 190px;
   font-weight: bold;
   color: white;
-  background-color: #323232;
   border-radius: 5px;
   transition: 0.3s;
 }
 
 .button-books:hover {
-  background-color: #212020;
+  background-color: #6f6f6f;
 }
 
 .button-books:active {
@@ -299,7 +398,7 @@
 }
 
 .card2-detail-book:hover:before {
-  transform: scale(2.15);
+  transform: scale(2);
 }
 
 .card3-detail-book {
@@ -396,4 +495,8 @@
   top: -40px;
   right: 200px;
   transform: scale(0.85);
+}
+
+.scale-d {
+  transform: scale(2.5);
 }

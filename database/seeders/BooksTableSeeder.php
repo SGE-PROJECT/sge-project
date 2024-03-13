@@ -13,7 +13,7 @@ class BooksTableSeeder extends Seeder
      */
     public function run(): void
     {
-        // Crear 50 registros de libros usando el Factory
-        Book::factory()->count(50)->create();
+        // Crear 10 registros de libros usando el Factory
+        Book::factory()->count(10)->create();
     }
 }
