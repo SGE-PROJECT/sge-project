@@ -44,7 +44,7 @@ Route::get('/', function () {
     return view('administrator.dashboard.dashboard-general');
 });
 
-Route::get('/projectsdash', function () {
+Route::get('/proyectos', function(){
     return view('management.project');
 });
 
@@ -85,8 +85,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('libros', BooksController::class);
 
-    Route::get('/add-books', function () {
-        return view('books-notifications.books.add-books');
+    Route::get('/añadir-libro', function () {
+        return view('books-notifications.books.Add-books');
     })->name('añadir.libros');
 
     Route::get('/notificaciones', function () {
@@ -110,7 +110,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('projectform', [ProjectController::class, 'store']);
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
-    
+
 
     Route::get('/RecoverPassword', function () {
         return view('auth.recoverPassword');
@@ -128,7 +128,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::resource('carreras', CareerController::class);
- 
+
 //Test
 Route::get('/datos-citas', [AdvisorySessionController::class, 'index']);
 Route::get('/all-projects', [ProjectsTestController::class, 'index']);
