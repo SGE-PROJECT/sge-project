@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\management\Division;
 use App\Models\management\Division_image;
-use Illuminate\Support\Facades\Storage;
 
 class DivisionController extends Controller
 {
@@ -31,7 +30,7 @@ class DivisionController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'nullable|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $division = new Division();
@@ -52,7 +51,7 @@ class DivisionController extends Controller
             $divisionImage->save();
         }
 
-        return redirect()->route('divisions.index')->with('success', 'Division created successfully');
+        return redirect()->route('divisiones.index')->with('success', 'Division created successfully');
     }
 
 
@@ -67,27 +66,51 @@ class DivisionController extends Controller
     public function edit(string $id)
     {
         $division = Division::findOrFail($id);
-        return view('management.divisions.edit', compact('division'));
+        return view('management.divisions.edit-division', compact('division'));
     }
 
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
+    $request->validate([
+        'name' => 'required',
+        'description' => 'nullable|string',
+        'image' => 'image|mimes:jpeg,png,jpg,gif',
+    ]);
 
-        $division = Division::findOrFail($id);
-        $division->name = $request->name;
-        $division->save();
+    $division = Division::findOrFail($id);
+    $division->name = $request->name;
+    $division->description = $request->description;
 
-        return redirect()->route('divisions.index')->with('success', 'Division updated successfully');
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = $image->getClientOriginalName();
+
+        $image->move(public_path('images/divisions'), $imageName);
+
+        if ($division->divisionImage) {
+            $division->divisionImage->delete();
+        }
+
+        $divisionImage = new Division_image();
+        $divisionImage->division_id = $division->id;
+        $divisionImage->image_path = 'images/divisions/' . $imageName;
+        $divisionImage->save();
     }
+
+    $division->save();
+
+    return redirect()->route('divisiones.index')->with('success', 'División actualizada correctamente.');
+    }
+
 
     public function destroy(string $id)
     {
         $division = Division::findOrFail($id);
+
+        $division->divisionImage()->delete();
+
         $division->delete();
 
-        return redirect()->route('divisions.index')->with('success', 'Division deleted successfully');
+        return redirect()->route('divisiones.index')->with('success', 'División eliminada correctamente.');
     }
 }

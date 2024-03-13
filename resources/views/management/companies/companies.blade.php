@@ -3,17 +3,20 @@
 @section('titulo', 'Empresas')
 
 @section('contenido')
-{{-- tabla de empresas --}}
+    {{-- tabla de empresas --}}
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4 ml-5 uppercase">Empresas</h1>
-        <div class="inline-flex ml-5 pr-40 mt-7">
+
+        <div class="flex flex-col md:flex-row md:justify-between items-start md:items-center ml-5 pr-5">
+
             <!-- Formulario de búsqueda -->
-            <div class=" mr-20 mb-4 ">
+            <div class="mb-4 flex flex-col md:flex-row items-start md:items-center mr-5">
                 <input type="text" placeholder="Buscar empresa..." class="border p-2 rounded mr-2">
                 <button class="bg-[#03A696] text-white py-2 px-4 rounded">Buscar</button>
             </div>
+
             <!-- Detalles del filtro -->
-            <div class="space-y-2 mr-3 mb-5">
+            <div class="absolute mb-4 right-9">
                 <details
                     class="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden w-full max-w-md">
                     <summary
@@ -57,7 +60,14 @@
                     </div>
                 </details>
             </div>
+
+            <!-- Botón para agregar usuario -->
+            <div class="mr-28 mb-4">
+                <a href="{{ route('empresas.create') }}"
+                    class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar Empresa</a>
+            </div>
         </div>
+
 
         <!-- Tabla de empresas -->
         <table class="project-table">
@@ -77,7 +87,8 @@
                     <tr>
                         <td>
                             @if ($company->companiesImage)
-                                <img src="{{ $company->companiesImage->image_path }}" alt="Logotipo" class="h-16 w-auto inline-block mr-2 rounded-full">
+                                <img src="{{ $company->companiesImage->image_path }}" alt="Logotipo"
+                                    class="h-16 w-auto inline-block mr-2 rounded-full">
                             @else
                             @endif
                         </td>
