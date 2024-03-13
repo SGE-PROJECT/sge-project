@@ -9,7 +9,7 @@
 <div class="flex flex-wrap place-content-between w-full items-center gap-5 p-5">
 @include('administrator.card', ['number' => 12, 'name' => 'Proyectos'])
 @include('administrator.card', ['number' => 86, 'name' => 'Usuarios'])
-@include('administrator.card', ['number' => 79, 'name' => 'Empresas'])
+@include('administrator.card', ['number' => 79, 'name' => 'Equipos'])
 @include('administrator.card', ['number' => 34, 'name' => 'Libros'])
 </div>
 

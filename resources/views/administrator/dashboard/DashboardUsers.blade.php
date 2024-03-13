@@ -5,7 +5,7 @@
         <div class="flex lg:flex-nowrap justify-center items-center gap-5 mr-10">
             @include('administrator.card', ['number' => 13, 'name' => 'Usuarios'])
         </div>
-        <div class="flex flex-wrap flex-col gap-5 mr-10">
+        <div class="flex flex-row basis-2/4 w-full  gap-5">
             <!--SECCION PROYECTOS-->
             @include('administrator.section-usuers')
         </div>
