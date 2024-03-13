@@ -86,7 +86,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('libros', BooksController::class);
 
-    Route::get('/añadir-libro', function () {
+    Route::get('/agregar-libro', function () {
         return view('books-notifications.books.Add-books');
     })->name('añadir.libros');
 
