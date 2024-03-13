@@ -17,6 +17,7 @@ class DivisionController extends Controller
 
     public function getProjectsPerDivision()
     {
+
         return view("management.divisions.projects-per-division");
     }
 

@@ -22,6 +22,13 @@ use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\users\ManagementUserController;
 
+//import test
+use App\Http\Controllers\AdvisorySessionController;
+use App\Http\Controllers\ProjectsTestController;
+use App\Http\Controllers\ProjectStudentsTestController;
+use App\Http\Controllers\UsersTestController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +44,9 @@ Route::get('/', function () {
     return view('administrator.dashboard.dashboard-general');
 });
 
-
+Route::get('/proyectos', function(){
+    return view('management.project');
+});
 
 
 
@@ -75,20 +84,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sanciones', [ManagementUserController::class, 'index']);
 
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
-    Route::get('/profile', [ProfileController::class,'index']);
-    Route::get('/roles', [RolesController::class,'index']);
-    Route::get('/registeruser', [RegisterUserController::class,'index']);
+    Route::get('/perfil', [ProfileController::class,'index']);
+    Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
+
+    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
 
 
-    Route::resource('books', BooksController::class);
+    Route::resource('libros', BooksController::class);
 
-    Route::get('/add-books', function () {
-        return view('books-notifications.books.add-books');
+    Route::get('/agregar-libro', function () {
+        return view('books-notifications.books.Add-books');
     })->name('añadir.libros');
 
-    Route::get('/notifications', function () {
-        return view('books-notifications.books.notifications');
+    Route::get('/notificaciones', function () {
+        return view('books-notifications.notifications');
     });
     Route::get('/usuarios', function () {
         return view('administrator.dashboard.DashboardUsers');
@@ -103,23 +113,36 @@ Route::middleware(['auth'])->group(function () {
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
-    Route::get('projectinvitation', [ProjectController::class, 'invitation']);
+    Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
+    Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
+
 
     Route::get('/RecoverPassword', function () {
         return view('auth.recoverPassword');
     });
-    Route::get('/Asesorias', function () {
+    Route::get('/asesorias', function () {
         return view('consultancy.Dates');
-    });
+    })->name('asesorias');
 
 });
 
 
+Route::resource('carreras', CareerController::class);
 
+//Test no tocar son de Alfonso
+Route::get('/datos-citas', [AdvisorySessionController::class, 'index']);
+Route::get('/all-projects', [ProjectsTestController::class, 'index']);
 
+Route::get('/proyecto/{projectId}/estudiante', [ProjectStudentsTestController::class, 'index']);
 
+Route::get('/users', [UsersTestController::class, 'index']);
+Route::post('/advisory-sessions', [AdvisorySessionController::class, 'store']);
+Route::put('/advisory-sessions/{id}', [AdvisorySessionController::class, 'update']);
+Route::delete('/advisory-sessions/{id}', [AdvisorySessionController::class, 'destroy']);
 
-
+Route::get('/loader', function () {
+    return view('layouts.loader');
+});

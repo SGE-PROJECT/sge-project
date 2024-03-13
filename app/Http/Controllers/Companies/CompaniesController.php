@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Companies;
 
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Models\management\Company_image;
 use App\Models\management\Affiliated_companie;
 
@@ -31,69 +32,105 @@ class CompaniesController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'company_name' => 'required',
-            'address' => 'required',
-            'contact_name' => 'required',
-            'contact_email' => 'required|email',
-            'contact_phone' => 'required',
-            'description' => 'required',
-            'affiliation_date' => 'required|date_format:Y-m-d',
-            'image' => 'image|mimes:jpeg,png,jpg,gif',
-        ]);
+{
+    $request->validate([
+        'company_name' => 'required',
+        'address' => 'required',
+        'contact_name' => 'required',
+        'contact_email' => 'required|email',
+        'contact_phone' => 'required',
+        'description' => 'required',
+        'affiliation_date' => 'required|date_format:Y-m-d',
+        'image' => 'image|mimes:jpeg,png,jpg,gif',
+    ]);
 
-        $company = new Affiliated_companie();
-        $company->company_name = $request->company_name;
-        $company->address = $request->address;
-        $company->contact_name = $request->contact_name;
-        $company->contact_email = $request->contact_email;
-        $company->contact_phone = $request->contact_phone;
-        $company->description = $request->description;
-        $company->affiliation_date = $request->affiliation_date;
-        $company->save();
+    // Verificar si el nombre de la empresa es igual a "ErrorCompany"
+    if ($request->company_name == 'ErrorCompany') {
+        throw new \Exception('Error al agregar la empresa');
+    }
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = $image->getClientOriginalName();
+    $company = new Affiliated_companie();
+    $company->company_name = $request->company_name;
+    $company->address = $request->address;
+    $company->contact_name = $request->contact_name;
+    $company->contact_email = $request->contact_email;
+    $company->contact_phone = $request->contact_phone;
+    $company->description = $request->description;
+    $company->affiliation_date = $request->affiliation_date;
+    $company->save();
 
-            $image->move(public_path('images/companies'), $imageName);
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = $image->getClientOriginalName();
 
-            $company->companiesImage()->create(['image_path' => 'images/companies' . $imageName]);
-        }
-
+        $image->move(public_path('images/companies'), $imageName);
         $companyImage = new Company_Image();
-        $companyImage->company_id = $company->id;
+        $companyImage->affiliated_companie_id = $company->id;
         $companyImage->image_path = 'images/companies/' . $imageName;
         $companyImage->save();
-
-        return redirect()->route('empresas.index')->with('success', 'Company created successfully!');
     }
+
+    return redirect()->route('empresas.index')->with('success', 'Company created successfully!');
+}
 
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        $validatedData = $request->validate([
-            'company_name' => 'required',
-            'address' => 'required',
-            'contact_name' => 'required',
-            'contact_email' => 'required|email',
-            'contact_phone' => 'required',
-            'description' => 'required',
-            'affiliation_date' => 'required|date',
-            'image' => 'image|mimes:jpeg,png,jpg,gif',
-        ]);
+{
+    $request->validate([
+        'company_name' => 'required',
+        'address' => 'required',
+        'contact_name' => 'required',
+        'contact_email' => 'required|email',
+        'contact_phone' => 'required',
+        'description' => 'required',
+        // 'affiliation_date' => 'required|date_format:Y-m-d',
+        'image' => 'image|mimes:jpeg,png,jpg,gif',
+    ]);
 
-        $company = Affiliated_companie::findOrFail($id);
-        $company->update($validatedData);
+    $company = Affiliated_companie::findOrFail($id);
+    $company->company_name = $request->company_name;
+    $company->address = $request->address;
+    $company->contact_name = $request->contact_name;
+    $company->contact_email = $request->contact_email;
+    $company->contact_phone = $request->contact_phone;
+    $company->description = $request->description;
+    // $company->affiliation_date = $request->affiliation_date;
 
-        $this->processImage($request, $company);
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = $image->getClientOriginalName();
 
-        return redirect()->route('companies.index')->with('success', 'Company updated successfully!');
+        $image->move(public_path('images/companies'), $imageName);
+        $companyImage = new Company_Image();
+        $companyImage->affiliated_companie_id = $company->id;
+        $companyImage->image_path = 'images/companies/' . $imageName;
+        $companyImage->save();
     }
 
+    $company->save();
+
+    return redirect()->route('empresas.index')->with('success', 'Company updated successfully!');
+}
+    public function edit(string $id)
+{
+    $company = Affiliated_companie::findOrFail($id);
+    return view('management.companies.edit-companies', compact('company'));
+}
+    public function destroy(string $id): RedirectResponse
+    {
+
+        $company = Affiliated_companie::findOrFail($id);
+
+
+        if ($company->companiesImage) {
+            $company->companiesImage->delete();
+        }
+
+        $company->delete();
+        return redirect()->route('empresas.index')->with('success', 'Company deleted successfully!');
+    }
 
 }

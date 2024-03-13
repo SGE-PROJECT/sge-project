@@ -64,7 +64,7 @@
             <!-- Botón para agregar usuario -->
             <div class="mr-28 mb-4">
                 <a href="{{ route('empresas.create') }}"
-                    class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar Usuario</a>
+                    class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar Empresa</a>
             </div>
         </div>
 
@@ -88,7 +88,7 @@
                         <td>
                             @if ($company->companiesImage)
                                 <img src="{{ $company->companiesImage->image_path }}" alt="Logotipo"
-                                    class="h-16 w-auto inline-block mr-2 rounded-full">
+                                    class="h-16 w-16 inline-block mr-2 rounded-full">
                             @else
                             @endif
                         </td>
@@ -97,8 +97,15 @@
                         <td>{{ $company->address }}</td>
                         <td>{{ $company->contact_phone }}</td>
                         <td>{{ $company->contact_email }}</td>
-                        <td>
-                            <!-- Agrega aquí tus enlaces o botones para editar, ver y eliminar -->
+                        <td class="">
+                            <a href="{{ route('empresas.edit', $company->id) }}"
+                                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2 mb-2 ">Editar</a>
+                            <form action="{{ route('empresas.destroy', $company->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta empresa?')"
+                                    class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
