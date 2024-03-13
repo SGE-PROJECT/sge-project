@@ -48,27 +48,26 @@ class RolesController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Role $role)
-    {
-       /*  dd($request->all()); */
-        // Valida los datos recibidos del formulario
-        $request->validate([
-            'permisos' => 'required|array',
-        ]);
+{
+    // Valida los datos recibidos del formulario
+    $request->validate([
+        'permisos' => 'required|array',
+    ]);
 
-        try {
-            // Obtén los permisos seleccionados en el formulario
-            $permisos = $request->input('permisos', []);
+    try {
+        // Obtiene los permisos del formulario
+        $permisos = $request->input('permisos', []);
 
-            // Sincroniza los permisos del rol con los permisos seleccionados
-            $role->syncPermissions($permisos);
+        // Actualiza los permisos del rol
+        $role->syncPermissions($permisos);
 
-            // Redirecciona de vuelta a la página de permisos con un mensaje de éxito
-            return redirect()->route('roles.permissions.index')->with('success', 'Permisos actualizados correctamente');
-        } catch (\Exception $e) {
-            // Si ocurre un error, redirecciona de vuelta con un mensaje de error
-            return back()->withErrors('Error al actualizar permisos: ' . $e->getMessage())->withInput();
-        }
+        // Redirige de vuelta a la página de índice de permisos con un mensaje de éxito
+        return redirect()->route('roles.permissions.index')->with('success', 'Permisos actualizados correctamente');
+    } catch (\Exception $e) {
+        // Maneja cualquier excepción que ocurra durante el proceso de actualización
+        return back()->withErrors('Error al actualizar permisos: ' . $e->getMessage())->withInput();
     }
+}
     
 
     /**
