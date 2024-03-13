@@ -8,8 +8,9 @@
         <h1 class="text-font_divisions font-bold">Divisiones:</h1>
 
         <span class="flex">
-            <input class="search_divisions px-3 outline-none border-l-5" type="text" placeholder="Buscar...">
-            <button class="search-btn">
+            <input id="searchInput" class="search_divisions px-3 outline-none border-l-5" type="text"
+                placeholder="Buscar...">
+            <button id="searchButton" class="search-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round"
@@ -18,29 +19,53 @@
             </button>
         </span>
     </div>
-
     <div class="BtnCrearDivisions">
-        <button class="Btn_division">
-
-            <div class="sign_division">+</div>
-
-            <div class="text_division">Añadir</div>
-          </button>
+        <a href="{{ route('divisiones.create') }}"
+            class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar División</a>
     </div>
 
     <!-- Container of Rows for Six -->
     <div class="contenedor_divisions">
-        @for ($i=0; $i < 6; $i++)
-    <div class="card">
-        <p class="Titulo">Turismo</p>
-        <img src="/images/divisions/General.jpg" alt="Descripción de la imagen">
+        @foreach ($divisions as $division)
+            <div class="card__division" data-name="{{ $division->name }}" data-description="{{ $division->description }}">
+                <p class="Titulo">{{ $division->name }}</p>
+                @if ($division->divisionImage)
+                    <img src="{{ asset($division->divisionImage->image_path) }}" alt="{{ $division->description }}">
+                @else
+                    <img src="{{ asset('images/divisions/SinImagen.jpg') }}" alt="Imagen no disponible">
+                @endif
+                <div class="card__content">
+                    <p class="card__title">{{ $division->name }}</p>
+                    <p class="card__description">{{ $division->description }}</p>
+                    <p class="card__description">Director[a]: </p>
+                    <p class="card__description">Subdirector[a]:</p>
+                    <button class="card__button">Ver más</button>
+                    <form action="{{ route('divisiones.destroy', $division->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-delete">Eliminar</button>
+                    </form>
+                    <a href="{{ route('divisiones.edit', $division->id) }}" class="btn-edit">Editar</a>
+                </div>
+            </div>
+        @endforeach
+    </div>
 
-        <div class="card__content">
-          <p class="card__title">Turismo</p>
-          <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-          <button class="card__button">Ver mas</button>
-        </div>
-      </div>
-      @endfor
-</div>
+    <script>
+        document.getElementById("searchButton").addEventListener("click", function() {
+            var searchText = document.getElementById("searchInput").value.toLowerCase();
+            var divisions = document.querySelectorAll(".card__division");
+
+            divisions.forEach(function(division) {
+                var name = division.getAttribute("data-name").toLowerCase();
+                var description = division.getAttribute("data-description").toLowerCase();
+
+                if (name.includes(searchText) || description.includes(searchText)) {
+                    division.style.display = "block";
+                } else {
+                    division.style.display = "none";
+                }
+            });
+        });
+    </script>
 @endsection

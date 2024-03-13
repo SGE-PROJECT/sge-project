@@ -4,9 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Tag;
 use App\Models\Category;
-use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(DivisionSeeder::class);
+        $this->call(BooksTableSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Storage::deleteDirectory('post');
-        Storage::makeDirectory('posts');
+        // Storage::deleteDirectory('post');
+        // Storage::makeDirectory('posts');
 
-        $this->call(RoleSeeder::class);
+        // $this->call(RoleSeeder::class);
 
         $this->call(UserSeeder::class);
         Category::factory(4)->create();

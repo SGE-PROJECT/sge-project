@@ -21,4 +21,8 @@ class Affiliated_companie extends Model
     protected $casts = [
         'affiliation_date' => 'date',
     ];
+
+    public function CompaniesImage(){
+        return $this->hasOne(Company_image::class, 'affiliated_companie_id');
+    }
 }

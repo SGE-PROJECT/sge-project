@@ -26,10 +26,6 @@
     padding: 3%;
 }
 
-.container-form-books {
-    /*background-color: #F6F6F6;*/
-
-}
 
 .subtitle-books {
     font-weight: bold;
@@ -56,8 +52,10 @@
     transition: transform 0.3s ease;
 }
 
-.inputs-add-books:hover {
-    transform: scale(1.1);
+.inputs-add-books:hover,
+.inputs-add-books:focus {
+    outline: none;
+    transform: scale(1.05);
 }
 
 input[type='date'] {
