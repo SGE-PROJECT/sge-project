@@ -110,6 +110,11 @@ Route::middleware(['auth'])->group(function () {
         return view('consultancy.Dates');
     });
 
+    /* Error 404 */
+    Route::get('/error404', function() {
+        return view('errors.404');
+    });
+
 });
 
 
