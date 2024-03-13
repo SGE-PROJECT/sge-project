@@ -77,15 +77,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sanciones', [ManagementUserController::class, 'index']);
 
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
-    Route::get('/profile', [ProfileController::class,'index']);
-    Route::get('/roles', [RolesController::class,'index']);
-    Route::get('/registeruser', [RegisterUserController::class,'index']);
+    Route::get('/perfil', [ProfileController::class,'index']);
+    Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
+
+    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
 
 
     Route::resource('libros', BooksController::class);
 
-    Route::get('/añadir-libro', function () {
+    Route::get('/agregar-libro', function () {
         return view('books-notifications.books.Add-books');
     })->name('añadir.libros');
 
@@ -115,21 +116,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/RecoverPassword', function () {
         return view('auth.recoverPassword');
     });
-    Route::get('/Asesorias', function () {
+    Route::get('/asesorias', function () {
         return view('consultancy.Dates');
-    });
+    })->name('asesorias');
 
 });
 
 
-
-
-
-
-
 Route::resource('carreras', CareerController::class);
 
-//Test
+//Test no tocar son de Alfonso
 Route::get('/datos-citas', [AdvisorySessionController::class, 'index']);
 Route::get('/all-projects', [ProjectsTestController::class, 'index']);
 
