@@ -1,4 +1,4 @@
-.carta-carrera{ 
+.carta-carrera{
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@
     border-radius: 12px;
     transition: transform 0.2s ease, background-color 0.2s ease;
   }
-  
+
   .carta-carrera:hover{
     transform: translateX(6px);
   }

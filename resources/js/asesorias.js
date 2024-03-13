@@ -1,74 +1,7 @@
-var estudiantes = {
-    '22393204': { nombre: 'Guillermo', imagen: 'avatar.jpg' },
-    '22393172': { nombre: 'Alonso', imagen: 'avatar.jpg' },
-    '22393173': { nombre: 'Juan', imagen: 'avatar.jpg' },
-    '22393174': { nombre: 'Emmanuel Rojas Ceron', imagen: 'avatar.jpg' },
-    '22393175': { nombre: 'Cochi', imagen: 'avatar.jpg' },
-    '22393176': { nombre: 'Leyva', imagen: 'avatar.jpg' },
-    '22393177': { nombre: 'Emma2', imagen: 'avatar.jpg' },
-    '22393178': { nombre: 'Cochi2', imagen: 'avatar.jpg' },
-    '22393179': { nombre: 'Leyva2', imagen: 'avatar.jpg' }
-};
-var proyectos = {
-    1: {
-        id: 1,
-        nombre: 'Desarrollo de Software',
-        descripcion: 'Proyecto enfocado en el desarrollo de una aplicación web.',
-        alumnos: ['22393172', '22393173'],
-        imagen: 'avatar.jpg'
-    },
-    2: {
-        id: 2,
-        nombre: 'Investigación en IA',
-        descripcion: 'Proyecto de investigación sobre algoritmos de inteligencia artificial.',
-        alumnos: ['22393174', '22393175'],
-        imagen: 'avatar.jpg'
-    },
-    3: {
-        id: 3,
-        nombre: 'Diseño UX/UI',
-        descripcion: 'Proyecto dedicado al diseño de interfaces y experiencias de usuario.',
-        alumnos: ['22393176', '22393177'],
-        imagen: 'avatar.jpg'
-    },
-    4: {
-        id: 4,
-        nombre: "Desarrollo de Aplicación Móvil",
-        descripcion: "Creación de una aplicación móvil para mejorar la experiencia del usuario.",
-        alumnos: ['22393176', '22393177'],
-        imagen: 'avatar.jpg'
-    },
-    5: {
-        id: 5,
-        nombre: "Implementación de Sistema de Gestión",
-        descripcion: "Integración de un sistema de gestión para mejorar la eficiencia operativa.",
-        alumnos: ['22393176', '22393177'],
-        imagen: 'avatar.jpg'
-    },
-    6: {
-        id: 6,
-        nombre: "Diseño de Sitio Web",
-        descripcion: "Rediseño completo del sitio web corporativo para una experiencia más moderna.",
-        alumnos: ['22393176', '22393177'],
-        imagen: 'avatar.jpg'
-    },
-    7: {
-        id: 7,
-        nombre: "Desarrollo de Plataforma E-commerce",
-        descripcion: "Construcción de una plataforma de comercio electrónico para expandir el alcance de ventas.",
-        alumnos: ['22393176', '22393178'],
-        imagen: 'avatar.jpg'
-    },
-    8: {
-        id: 8,
-        nombre: "Implementación de Sistema de Automatización",
-        descripcion: "Desarrollo e implementación de un sistema de automatización para optimizar procesos.",
-        alumnos: ['22393172', '22393204'],
-        imagen: 'avatar.jpg'
-    }
-};
-var colores = ["verde", "amarillo", "morado", "azul", "rosa"];
-var eventoSeleccionado={};
+const url = window.location.pathname;
+const segments = url.split('/');
+const id = segments.pop() || segments.pop();
+
 function asignarColorAlumnos(estudiantes, colores) {
     var resultado = {};
     var keys = Object.keys(estudiantes);
@@ -81,93 +14,73 @@ function asignarColorAlumnos(estudiantes, colores) {
     }
     return resultado;
 }
-estudiantes = asignarColorAlumnos(estudiantes, colores);
+
+const proyectos = {};
+
+fetch('http://127.0.0.1:8000/all-projects')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(proyecto => {
+            proyectos[proyecto.id] = {
+                id: proyecto.id,
+                nombre: proyecto.name,
+                descripcion: proyecto.general_information.detail || 'Descripción no disponible',
+                alumnos: proyecto.student_ids,
+                imagen: proyecto.image
+            };
+        });
+        populateStudentSelect();
+    })
+    .catch(error => {
+        console.error('Error fetching the projects:', error);
+    });
+
+var estudiantes = {};
+fetch('http://127.0.0.1:8000/users')
+    .then(response => response.json())
+    .then(data => {
+
+        data.forEach(usuario => {
+            estudiantes[usuario.id] = {
+                nombre: `${usuario.first_name} ${usuario.last_name}`,
+                imagen: usuario.avatar
+            };
+        });
+
+        estudiantes = asignarColorAlumnos(estudiantes, colores);
+    })
+    .catch(error => {
+        console.error('Error fetching the users:', error);
+    });
+
+
+var colores = ["verde", "amarillo", "morado", "azul", "rosa"];
+var eventoSeleccionado = {};
+
 var eventos = {
-    "2024-03-07 09:00": {
-        fecha: "2024-03-07",
-        hora: "09:00",
-        proyectoId: 1,
-        motivo: "Reunión de inicio para el proyecto de Desarrollo de Software"
-    },
-    "2024-03-07 14:00": {
-        fecha: "2024-03-07",
-        hora: "14:00",
-        proyectoId: 2,
-        motivo: "Sesión de lluvia de ideas para el proyecto de Investigación en IA"
-    },
-    "2024-03-10 10:30": {
-        fecha: "2024-03-10",
-        hora: "10:30",
-        proyectoId: 3,
-        motivo: "Entrevista con usuarios para el proyecto de Diseño UX/UI"
-    },
-    "2024-03-12 16:00": {
-        fecha: "2024-03-12",
-        hora: "16:00",
-        proyectoId: 1,
-        motivo: "Presentación de avances en el proyecto de Desarrollo de Software"
-    },
-    "2024-03-15 08:30": {
-        fecha: "2024-03-15",
-        hora: "08:30",
-        proyectoId: 2,
-        motivo: "Reunión para discutir avances en el proyecto de Investigación en IA"
-    },
-    "2024-03-17 10:00": {
-        fecha: "2024-03-17",
-        hora: "10:00",
-        proyectoId: 3,
-        motivo: "Presentación de avances en el proyecto de Diseño UX/UI"
-    },
-    "2024-03-18 14:00": {
-        fecha: "2024-03-18",
-        hora: "14:00",
-        proyectoId: 1,
-        motivo: "Sesión de trabajo para el proyecto de Desarrollo de Software"
-    },
-    "2024-03-20 09:30": {
-        fecha: "2024-03-20",
-        hora: "09:30",
-        proyectoId: 2,
-        motivo: "Revisión de código en el proyecto de Investigación en IA"
-    },
-    "2024-03-22 16:00": {
-        fecha: "2024-03-22",
-        hora: "16:00",
-        proyectoId: 3,
-        motivo: "Entrega final de prototipo para el proyecto de Diseño UX/UI"
-    },
-    "2024-03-25 11:00": {
-        fecha: "2024-03-25",
-        hora: "11:00",
-        proyectoId: 4,
-        motivo: "Sesión de planificación para el proyecto de Marketing Digital"
-    },
-    "2024-03-27 15:30": {
-        fecha: "2024-03-27",
-        hora: "15:30",
-        proyectoId: 5,
-        motivo: "Entrevista con clientes para el proyecto de Desarrollo de Producto"
-    },
-    "2024-03-30 09:00": {
-        fecha: "2024-03-30",
-        hora: "09:00",
-        proyectoId: 4,
-        motivo: "Revisión de estrategias de contenido para el proyecto de Marketing Digital"
-    },
-    "2024-04-02 13:00": {
-        fecha: "2024-04-02",
-        hora: "13:00",
-        proyectoId: 5,
-        motivo: "Sesión de lluvia de ideas para el proyecto de Desarrollo de Producto"
-    },
-    "2024-04-05 10:30": {
-        fecha: "2024-04-05",
-        hora: "10:30",
-        proyectoId: 4,
-        motivo: "Presentación de informe de resultados para el proyecto de Marketing Digital"
-    }
+
 };
+fetch('http://127.0.0.1:8000/datos-citas')
+    .then(response => response.json())
+    .then(data => {
+
+        data.forEach(cita => {
+            let [fecha, hora] = cita.session_date.split(' ');
+            hora = hora.substring(0, 5);
+            let idEvento = `${fecha} ${hora}`;
+            eventos[idEvento] = {
+                id:cita.id,
+                fecha: fecha,
+                hora: hora,
+                proyectoId: cita.id_project_id,
+                motivo: cita.description
+            };
+        });
+        mostrarTodosLosEventos();
+        populateYears();
+        updateCalendar();
+    })
+    .catch(error => console.error('Error fetching data:', error));
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("contador").textContent = 0 + "/250";
@@ -175,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.close').addEventListener('click', closeModal);
     document.querySelector('.close2').addEventListener('click', closeModal2);
     document.querySelector('.close3').addEventListener('click', solicitar);
+    document.querySelector('.close4').addEventListener('click', closeModal4);
     document.getElementById('nombre').addEventListener('change', matricula);
     document.getElementById('month').addEventListener('change', updateCalendar);
     document.getElementById('year').addEventListener('change', updateCalendar);
@@ -184,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('solicitar').addEventListener('click', solicitar);
     document.getElementById('cambiarCita').addEventListener('click', cambiar);
     document.getElementById("guardarEventoButton").addEventListener('click', editarGuardar);
+    document.getElementById("borrarEventoBoton").addEventListener('click', eliminarEvento2);
     document.querySelectorAll('td[data-hora]').forEach(td => {
         if (!td.textContent.trim()) {
             td.addEventListener('click', function () {
@@ -219,12 +134,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 function solicitar() {
-    document.getElementById("solitAsunto").value="";
-    document.getElementById("solitMensaje").value="";
-    document.getElementById("myModal3").style.display="none";
+    document.getElementById("solitAsunto").value = "";
+    document.getElementById("solitMensaje").value = "";
+    document.getElementById("myModal3").style.display = "none";
 }
 function cambiar() {
-    document.getElementById("myModal3").style.display="flex";
+    document.getElementById("myModal3").style.display = "flex";
 }
 function populateStudentSelect() {
     var select = document.getElementById('nombre');
@@ -326,12 +241,49 @@ function agregarEvento() {
         return;
     }
 
+    // Formato de fecha y hora para cumplir con el estándar ISO 8601
+    let sessionDateTime = `${fecha}T${hora}:00`;
+
+    // Creación del objeto de datos para enviar
+    let advisorySessionData = {
+        session_date: sessionDateTime,
+        description: motivo,
+        id_project_id: proyectoId,
+        id_advisor_id: 1 // Asumiendo un advisor_id por defecto como 1, ajusta según tu necesidad
+    };
+
+    // Envío de la solicitud fetch al servidor
+    fetch('http://127.0.0.1:8000/advisory-sessions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(advisorySessionData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        window.location.href = 'http://127.0.0.1:8000/Asesorias';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        error.style.display = "block";
+        error.innerHTML = "Ha ocurrido un error al intentar crear la cita.";
+    });
+
     eventos[idEvento] = {
         fecha: fecha,
         hora: hora,
         proyectoId: proyectoId, // Cambio de matricula a proyectoId
         motivo: motivo
     };
+
+
     mostrarEventosSemanales();
     mostrarTodosLosEventos();
     updateCalendar();
@@ -385,14 +337,38 @@ function filtrarEventosSemanales() {
 
     return eventosSemanales;
 }
-
-function eliminarEvento(evento) {
-    let idEvento = evento.fecha + ' ' + evento.hora;
+function eliminarEvento2() {
+    fetch(`http://127.0.0.1:8000/advisory-sessions/${eventoSeleccionado.id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        // Maneja cualquier error aquí
+    });
+    let idEvento = eventoSeleccionado.fecha + ' ' + eventoSeleccionado.hora;
     delete eventos[idEvento];
+    document.getElementById("myModal4").style.display = "none";
     mostrarEventosSemanales();
     mostrarTodosLosEventos();
     updateCalendar();
     llenarHorasConEventos();
+}
+function eliminarEvento(evento) {
+    document.getElementById("myModal4").style.display = "flex";
+    eventoSeleccionado = evento
 }
 
 function formato12Horas(hora) {
@@ -424,7 +400,7 @@ function mostrarEventos(cell, date) {
             eventoDiv.classList.add("etiqueta2");
             eventoDiv.innerHTML = `
                 <img src="images/${proyecto.imagen}" alt="${proyecto.nombre}" class="img_estudiante img_proyecto">
-                <p class="nombre">${proyecto.nombre}</p>`; 
+                <p class="nombre">${proyecto.nombre}</p>`;
             eventoDiv2.appendChild(eventoDiv);
         }
     });
@@ -460,7 +436,7 @@ function llenarHorasConEventos() {
             // Verificar si el td tiene contenido
             if (!eventosSinMinutos[horaSinMinutos] || eventosSinMinutos[horaSinMinutos].length === 0) {
                 td.classList.remove("verde"); // Quitar la clase verde si no hay eventos
-                td.onclick = function () {tiempo(this, horaCelda); }; // Volver a asignar el evento onclick
+                td.onclick = function () { tiempo(this, horaCelda); }; // Volver a asignar el evento onclick
             } else {
                 eventosSinMinutos[horaSinMinutos].forEach(evento => {
                     let proyecto = proyectos[evento.proyectoId]; // Cambio de matricula a proyectoId
@@ -479,12 +455,12 @@ function llenarHorasConEventos() {
                         let iconos = eventoDiv.querySelectorAll('i');
                         iconos.forEach((icono, index) => {
                             if (index === 0) { // Primer icono (editar)
-                                icono.addEventListener('click', function() {
+                                icono.addEventListener('click', function () {
                                     editarEvento(evento);
                                 });
                             } else if (index === 1) { // Segundo icono (eliminar)
-                                icono.addEventListener('click', function() {
-                                    eliminarEvento(evento); 
+                                icono.addEventListener('click', function () {
+                                    eliminarEvento(evento);
                                 });
                             }
                         });
@@ -498,10 +474,13 @@ function llenarHorasConEventos() {
 
 function closeModal() {
     document.getElementById("myModal").style.display = "none";
-    document.getElementById("nombre").value="0";
+    document.getElementById("nombre").value = "0";
 }
 function closeModal2() {
     document.getElementById("myModal2").style.display = "none";
+}
+function closeModal4() {
+    document.getElementById("myModal4").style.display = "none";
 }
 
 var diaSemana = "", diaMes = "", Mes = "", año = "", numeroMes = "";
@@ -803,14 +782,48 @@ function editarGuardar() {
         error.innerHTML = "Una cita ya existe en esa fecha y hora.";
         return;
     }
+    var sessionDateTime = `${nuevaFecha}T${nuevaHora}:00`;
+
+    var advisorySessionData = {
+        session_date: sessionDateTime,
+        description: nuevoMotivo,
+        // Asumiendo que id_project_id e id_advisor_id no cambian, podrías agregarlos aquí si es necesario
+    };
+
+    // Asumiendo que eventoSeleccionado.id contiene el ID de la cita que estás editando
+    fetch(`http://127.0.0.1:8000/advisory-sessions/${eventoSeleccionado.id}`, {
+        method: 'PUT', // o 'PATCH' dependiendo de lo que tu API espere
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(advisorySessionData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        // Maneja el éxito aquí, por ejemplo, cerrando el modal y refrescando la lista de eventos
+        window.location.reload(); // O alguna función que actualice la lista de eventos sin recargar la página
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        errorElement.style.display = "block";
+        errorElement.innerHTML = "Ha ocurrido un error al intentar actualizar la cita.";
+    });
     delete eventos[idEvento];
     eventos[nuevoIdEvento] = {
+        id:eventoSeleccionado.id,
         fecha: nuevaFecha,
         hora: nuevaHora,
         proyectoId: eventoSeleccionado.proyectoId,
         motivo: nuevoMotivo
     };
-    document.getElementById("myModal2").style.display="none";
+    document.getElementById("myModal2").style.display = "none";
     mostrarEventosSemanales();
     mostrarTodosLosEventos();
     updateCalendar();
@@ -827,7 +840,7 @@ function editarEvento(evento) {
     eventoSeleccionado = evento;
     let cantidad = evento.motivo.length;
     document.getElementById("editContador").textContent = cantidad + "/250";
-    document.getElementById("myModal2").style.display="flex";
+    document.getElementById("myModal2").style.display = "flex";
 }
 mostrarTodosLosEventos();
 populateYears();

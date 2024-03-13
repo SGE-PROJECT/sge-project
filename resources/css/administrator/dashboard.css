@@ -1,83 +1,9 @@
-.seccion-carreras{
-    width: 100%;
-    flex-grow: 1;
-    padding: 18px;
-    background: #F6F5F2;
-    border-radius: 12px;
-    box-shadow: 1px 1px 4px rgba(0.6, 0.9, 0.5, 0.2);
+.highcharts-background {
+    fill: transparent !important; /* Establece el relleno como transparente */
   }
 
-  .seccion-titulo span{
-    font-size: 22px;
-    color: #6A6F70;
-    font-weight: bolder;
+  .grafica{
+    width: 550px;
+    height: 550px;
+    margin: 35px auto;
   }
-
-  .seccion-titulo hr{
-    margin: 10px 5px;
-    background: #6A6F70 ;
-  }
-
-
-/*ESTILOS PARA EL APARTADO DE RESUMEN*/
-.resumen{
-  background: #F6F5F2;
-  padding: 14px;
-  width: 100% !important;
-  border-radius: 12px;
-  height: fit-content;
-  box-shadow: 1px 1px 4px rgba(0.6, 0.9, 0.5, 0.2); 
-}
-
-.btn-export{
-  border-radius: 12px;
-  background: #00AB84;
-  color: #fff;
-  width: 100px;
-  height: 35px;
-  border: none;
-  margin-left: 12px;
-  cursor: pointer;
-}
-
-.resumen-item {
-  display: flex;
-  align-items: center;
-  margin-top: 14px;
-}
-
-.resumen-icono {
-  /* Estilos para el icono, si es necesario */
-}
-
-.resumen-info {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-grow: 1;
-  margin-left: 8px;
-}
-
-.resumen-nombre {
-  color: #394C5F;
-  font-weight: bolder;
-  font-size: 18px;
-}
-
-.resumen-barra {
-  background-color: #ccc; /* Color de fondo para la barra no completada */
-  height: 10px;
-  flex-grow: 1;
-  border-radius: 5px;
-  overflow: hidden; /* Permite que el borde redondeado recorte el contenido */
-}
-
-.resumen-barra-relleno {
-  height: 100%;
-  background-color: #03A6A6; /* Color de fondo para la barra completada */
-  border-radius: 5px; /* Asegúrate de que los bordes redondeados se apliquen al relleno también */
-}
-
-.resumen-numero {
-  margin-left: 8px; /* Espacio entre la barra de progreso y el número */
-}
