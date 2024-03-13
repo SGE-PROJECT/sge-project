@@ -15,6 +15,7 @@
   @vite('resources/css/asesorias.css')
   @vite('resources/js/sidebar.js')
   @vite('resources/js/asesorias.js')
+  @vite('resources/js/tableproject.js')
   @vite('resources/css/sidebar.css')
   @vite('resources/css/management/divisions/divisions.css')
   @vite('resources/css/projects/projectDashboardStyle.css')
