@@ -1,7 +1,7 @@
 <!-- SECCION PROYECTOS -->
 @extends('layouts.panel')
 @section('contenido')
-    <h1 class="text-3xl font-bold text-center mt-5 mb-8">Proyectos</h1>
+    <h1 class="text-3xl font-bold text-center mt-5">Proyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
     <div class="flex flex-wrap justify-center gap-5 p-5">
         <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -61,7 +61,7 @@
                     <span class="sr-only">Menu</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 01-1.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                             clip-rule="evenodd" />
                     </svg>
                 </button>
@@ -94,63 +94,14 @@
             </div>
         </div>
     </div>
-    <!-- TABLA DEL CONTENIDO -->
-    <div class="tabla-project rounded-t-lg">
+    <!-- CONTENEDOR DE LA TABLA -->
+    <div id="tabla-container" class="tabla-project rounded-t-lg">
         <div class="tabla-cont-project rounded-t-lg">
             <table id="tabla-proyectos" class="rounded-lg"></table>
         </div>
-        <!-- PAGINACIÓN -->
-        <ol class="flex justify-center gap-1 text-xs font-medium mt-10">
-            <li>
-                <a href="#"
-                    class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180">
-                    <span class="sr-only">Prev Page</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </a>
-            </li>
-
-            <li>
-                <a href="#"
-                    class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900">
-                    1
-                </a>
-            </li>
-
-            <li class="block size-8 rounded border-blue-600 bg-teal-500 text-center leading-8 text-white">
-                2
-            </li>
-
-            <li>
-                <a href="#"
-                    class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900">
-                    3
-                </a>
-            </li>
-
-            <li>
-                <a href="#"
-                    class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900">
-                    4
-                </a>
-            </li>
-
-            <li>
-                <a href="#"
-                    class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180">
-                    <span class="sr-only">Next Page</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </a>
-            </li>
-        </ol>
+        <!-- CONTENEDOR DE LA PAGINACIÓN -->
     </div>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ asset('js/tableproject.js') }}"></script>
 @endsection

@@ -12,10 +12,15 @@ document.addEventListener("DOMContentLoaded", function () {
         { nombre: "Bright Ideas", equipo: "Sigma", estado: "En proceso", asesor: "Maria Hernandez", carrera: "Terapia Física", empresa: "InnovateCorp" }
     ];
 
+    var elementosPorPagina = 5;
+    var paginaActual = 1;
+
     function generarTabla() {
+        var inicio = (paginaActual - 1) * elementosPorPagina;
+        var fin = inicio + elementosPorPagina;
         var tablaHTML = '<thead><tr><th>Proyecto</th><th>Equipo</th><th>Estado</th><th>Asesor A/E</th><th>Carrera</th><th>Empresa</th></tr></thead><tbody>';
 
-        proyectos.forEach(function (proyecto) {
+        proyectos.slice(inicio, fin).forEach(function (proyecto) {
             tablaHTML += '<tr>';
             tablaHTML += '<td>' + proyecto.nombre + '</td>';
             tablaHTML += '<td>' + proyecto.equipo + '</td>';
@@ -29,12 +34,28 @@ document.addEventListener("DOMContentLoaded", function () {
         tablaHTML += '</tbody>';
 
         document.getElementById('tabla-proyectos').innerHTML = tablaHTML;
+        actualizarPaginacion(); // Agregar esta línea para actualizar la paginación cada vez que se genera la tabla
+    }
+
+    function actualizarPaginacion() {
+        var paginas = Math.ceil(proyectos.length / elementosPorPagina);
+        var paginacionHTML = '';
+
+        for (var i = 1; i <= paginas; i++) {
+            paginacionHTML += '<li class="page-item"><a class="page-link" href="#" onclick="cambiarPagina(' + i + ')">' + i + '</a></li>';
+        }
+
+        document.getElementById('paginacion').innerHTML = paginacionHTML;
+    }
+
+    function cambiarPagina(pagina) {
+        paginaActual = pagina;
+        generarTabla();
     }
 
     window.onload = function () {
         generarTabla();
     };
-
     document.getElementById('Search').addEventListener('input', function () {
         var filtro = this.value.toLowerCase(); // Obtener el texto de búsqueda en minúsculas
         filtrarTabla(filtro); // Llamar a la función para filtrar la tabla
@@ -108,9 +129,9 @@ var ctx = document.getElementById('barChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+        labels: ['Nuevos', 'En desarrollo', 'Finalizados', 'Rechazados'],
         datasets: [{
-            label: 'Progreso de Proyectos',
+            label: 'Estado del proyecto',
             data: [12, 19, 3, 5, 2], // Aquí irían los datos de tu gráfica
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
