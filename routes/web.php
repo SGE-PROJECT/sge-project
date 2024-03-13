@@ -113,7 +113,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
 
 
-    Route::get('/RecoverPassword', function () {
+    Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
     });
     Route::get('/asesorias', function () {
@@ -123,7 +123,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::resource('carreras', CareerController::class);
+
 
 //Test no tocar son de Alfonso
 Route::get('/datos-citas', [AdvisorySessionController::class, 'index']);
