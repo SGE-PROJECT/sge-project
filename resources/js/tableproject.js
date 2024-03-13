@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             tablaHTML += '<tr>';
             tablaHTML += '<td>' + proyecto.nombre + '</td>';
             tablaHTML += '<td>' + proyecto.equipo + '</td>';
-            tablaHTML += '<td class="estado">' + proyecto.estado + '</td>'; 
+            tablaHTML += '<td class="estado">' + proyecto.estado + '</td>';
             tablaHTML += '<td>' + proyecto.asesor + '</td>';
             tablaHTML += '<td>' + proyecto.carrera + '</td>';
             tablaHTML += '<td>' + proyecto.empresa + '</td>';
@@ -80,19 +80,19 @@ document.addEventListener("DOMContentLoaded", function () {
     // Función para filtrar la tabla según el valor de los checkboxes
     function filtrarTablaCheck() {
         var filas = document.querySelectorAll('#tabla-proyectos tr');
-    
-        filas.forEach(function(fila) {
+
+        filas.forEach(function (fila) {
             // Verifica si la fila tiene una celda con la clase "estado"
             var celdaEstado = fila.querySelector('.estado');
             if (celdaEstado) { // Verifica si la celda de estado existe
                 var estado = celdaEstado.textContent.toLowerCase();
-                
+
                 // Verifica si la fila coincide con el estado seleccionado en los checkboxes
                 var activos = checkboxActivos.checked && estado.includes('activo');
                 var enProceso = checkboxEnProceso.checked && estado.includes('proceso');
                 var rechazados = checkboxRechazados.checked && estado.includes('rechazado');
                 var aceptados = checkboxAceptados.checked && estado.includes('aceptado');
-    
+
                 // Muestra la fila si coincide con algún estado seleccionado, o si no hay estados seleccionados
                 if (activos || enProceso || rechazados || aceptados || (!activos && !enProceso && !rechazados && !aceptados)) {
                     fila.style.display = '';
@@ -101,5 +101,39 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
-    }    
+    }
+});
+
+var ctx = document.getElementById('barChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+        datasets: [{
+            label: 'Progreso de Proyectos',
+            data: [12, 19, 3, 5, 2], // Aquí irían los datos de tu gráfica
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
 });

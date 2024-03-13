@@ -1,7 +1,7 @@
 <!-- SECCION PROYECTOS -->
 @extends('layouts.panel')
 @section('contenido')
-    <h1 class="text-3xl font-bold text-center mt-10 mb-8">Proyectos</h1>
+    <h1 class="text-3xl font-bold text-center mt-5 mb-8">Proyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
     <div class="flex flex-wrap justify-center gap-5 p-5">
         <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -10,10 +10,21 @@
             @include('administrator.graph-teams')
             @include('administrator.graph-books')
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-1 gap-5 mb-6 ml-auto mr-3"> <!-- Cambiado a lg:grid-cols-2 para tener dos columnas en pantallas grandes -->
-            @include('administrator.section-projects')
+        <div class="grid grid-cols-2 lg:grid-cols-2 gap-5 mb-6">
+            <!-- Gráfica de barras a la izquierda -->
+            <div class="flex flex-col lg:flex-row items-stretch w-full lg:w-auto">
+                <div id="barChartContainer"
+                    class="seccion-projects p-12 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 w-full shadow-lg rounded-xl font-sans">
+                    <canvas id="barChart" class="mt-5"
+                        style="display: block; box-sizing: border-box; height: 300px; width: 400px;"></canvas>
+                </div>
+            </div>
+            <!-- Componente administrator.section-projects a la derecha -->
+            <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
+                @include('administrator.section-projects')
+            </div>
         </div>
-    </div>    
+    </div>
     <!-- SECCIÓN QUE CONTIENE LOS BOTONES -->
     <div class="flex items-end align-middle">
         <!-- BOTÓN QUE DIRIGE AL CRUD -->
@@ -141,4 +152,5 @@
         </ol>
     </div>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endsection
