@@ -5,6 +5,13 @@
 @section('contenido')
 
 <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <a href="{{ route('divisiones.index') }}">
+        <div class="flex items-center ml-11 mt-11 mb-5">
+            <button type="submit" class="bg-[#03A696] hover:bg-[#03A699] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Regresar
+            </button>
+        </div>
+    </a>
     <div class="max-w-md mx-auto mt-8">
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <div class="px-6 py-4">
