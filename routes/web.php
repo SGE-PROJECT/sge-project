@@ -71,8 +71,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
     Route::get('/profile', [ProfileController::class,'index']);
-    Route::get('/roles', [RolesController::class,'index']);
     Route::get('/registeruser', [RegisterUserController::class,'index']);
+
+    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
 
 

@@ -1,5 +1,5 @@
 .container {
-    padding: 0 20px;
+    padding: 80px;
 }
 h1 {
     font-size: 2.5rem;
@@ -26,7 +26,7 @@ h1 {
     margin-bottom: 2rem; 
 }
 .cards-container .card {
-    width: calc(50.33% - 10px); 
+    width: calc(30.33% - 20px); 
     max-width: 300px;
 }
 
@@ -59,12 +59,13 @@ h1 {
 
 }
 .card img {
-width: 150px;
-height: 150px;
+width: 130px;
+height: 130px;
 }
 
 .edit-permissions-btn {
     margin-top: 1.5rem;
+    
     background-color: #009678;
     color: #ffffff;
     border: none;
@@ -120,6 +121,7 @@ height: 150px;
 
 .update-btn {
     margin-top: 1.5rem;
+    margin-right: 2rem;
     background-color: #009678;
     color: #ffffff;
     border: none;
