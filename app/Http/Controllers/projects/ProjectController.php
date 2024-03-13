@@ -4,6 +4,8 @@ namespace App\Http\Controllers\projects;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Projects; // Asegúrate de importar el modelo correcto
+use App\Http\Requests\Projects\ProjectFormRequest;
 
 class ProjectController extends Controller
 {
@@ -12,7 +14,30 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        /*¿Cómo recuperar todos los registros? Se usa el Modelo*/
+        $Projects = projects::paginate();
+
+        return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
+    }
+
+    public function invitation()
+    {
         return view("projects.ProjectUser.ProjectUser");
+    }
+
+    public function dashboardproject()
+    {
+        return view("projects.ProjectsDash.projectDashboard");
+    }
+
+    public function viewproject()
+    {
+        return view ('projects.viewsproject.ProjectsView');
+    }
+
+    public function projectform()
+    {
+        return view("projects.Forms.FormStudent");
     }
 
     /**
@@ -26,9 +51,9 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProjectFormRequest $request)
     {
-        //
+        return view('auth.login');
     }
 
     /**

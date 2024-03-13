@@ -10,10 +10,10 @@
         Mis Asesorados
     </h1>
 
-    <div class="flex justify-center">
-        <div class="relative overflow-x-auto shadow-md sm:rounded-s-3xl pt-4">
-            <table class="w-fit h-fit text-sm text-left rtl:text-right text-gray-900 dark:text-gray-900">
-                <thead class="text-xs text-white uppercase bg-[#03A696] dark:bg-[#03A696] dark:text-white w-fit h-fit">
+    <div class="tabla-project">
+        <div class="tabla-cont-project ">
+            <table class="rounded-lg">
+                <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Grupo
@@ -33,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-200">
+                    <tr class="bg-white  dark:bg-gray-100 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                             SM-53
                         </th>
@@ -47,12 +47,31 @@
                             Garcia
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <button id="abrir-modal" class="bg-teal-500 px-4 py-2 text-white uppercase tracking-wider cursor-pointer rounded-lg border-2 border-transparent hover:border-teal-500 hover:bg-white hover:text-teal-500 active:bg-teal-200 transition duration-400 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50">
+                            <button id="abrir-modal" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8  mr-5 w-32">
                                 Sancionar
                             </button>
-                                                    </td>
+                        </td>
                     </tr>
                     <!-- Repetir para cada fila de datos -->
+                    <tr class="bg-white dark:bg-gray-100 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
+                            SM-53
+                        </th>
+                        <td class="px-6 py-4">
+                            22393205
+                        </td>
+                        <td class="px-6 py-4">
+                            Anthony
+                        </td>
+                        <td class="px-6 py-4">
+                            Williams
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <button id="abrir-modal" class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mr-5 w-32">
+                                Sancionar
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -104,18 +123,16 @@
 </div>
 
 <section class="fixed inset-x-0 bottom-0 flex justify-end items-end p-5">
-    <button
-      class="relative group flex justify-center p-5 rounded-md drop-shadow-xl bg-teal-500 text-white font-semibold hover:translate-y-1 hover:rounded-full transition-all duration-500 mr-5"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" class="w-5 h-5">
-        <path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H64C28.7 64 0 92.7 0 128v16 48V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V192 144 128c0-35.3-28.7-64-64-64H344V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V64H152V24zM48 192H400V448c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192z"/>
-      </svg>
-      <span class="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">
-        Agendar cita
-      </span>
-    </button>
+    <button class="Guille">
+        <div class="svg-wrapper-memo">
+          <div class="svg-wrapper-si">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19 4h-3V2h-2v2h-4V2H8v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zM5 20V7h14V6l.002 14H5z"></path><path d="m15.628 12.183-1.8-1.799 1.37-1.371 1.8 1.799zm-7.623 4.018V18h1.799l4.976-4.97-1.799-1.799z"></path></svg>
+          </div>
+        </div>
+        <div class="text">Agendar</div>
+      </button>
 </section>
-  
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var modal = document.getElementById('model-component-container');
@@ -147,5 +164,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
     </script>
-    
+
 @endsection

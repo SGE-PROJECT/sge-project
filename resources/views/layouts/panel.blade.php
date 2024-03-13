@@ -19,6 +19,14 @@
   @vite('resources/css/management/divisions/divisions.css')
   @vite('resources/css/projects/projectDashboardStyle.css')
   @vite('resources/css/books-notifications/books/books.css')
+  @vite('resources/css/books-notifications/books/add-books.css')
+  @vite('resources/css/buttonappoint.css')
+  @vite('resources/css/input.css')
+  @vite('resources/js/projectview.js')
+  @vite('resources/css/loader/loader.css')
+  @vite('resources/css/Dashboard/DashboardUsers.css')
+  @vite('resources/css/projects/projectview.css')
+  @vite('resources/css/management/projects.css')
 
 
   <title>@yield('titulo')</title>
@@ -30,7 +38,7 @@
   <section class="flex">
     <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
-        <a href="/" class="flex justify-center items-center border-b border-b-gray-800">
+        <a href="/" class="flex justify-center items-center border-b border-b-white">
           <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
           <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
         </a>
@@ -55,17 +63,23 @@
           </a>
           <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li class=" ">
-              <a href="#" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              <a href="/registeruser" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-user mr-3 text-lg'></i>
                 <span>Usuarios</span>
               </a>
             </li>
             <li class="">
-              <a href="#" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              <a href="/roles" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-lock-open mr-3 text-lg'></i>
                 <span>Roles y Permisos</span>
               </a>
             </li>
+            <li class="">
+                <a href="sanciones" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+                  <i class='bx bx-no-entry mr-3 text-lg'></i>
+                  <span>Sanciones</span>
+                </a>
+              </li>
           </ul>
         </li>
 
@@ -80,7 +94,7 @@
           <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li>
 
-              <a href="" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="projectsdash" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Proyectos</span></a>
             </li>
             <li class="">
@@ -99,7 +113,7 @@
         <!-- EMPRESAS Section -->
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
         <li class="mb-1 group">
-          <a href="/companies"
+          <a href="/empresas"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='  bx bx-buildings mr-3 text-lg'></i>
             <span class="nav-text text-sm">Empresas Afiliadas</span>
@@ -119,7 +133,7 @@
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
         <li class="mb-1 group">
-          <a href="/asesorias"
+          <a href="/Asesorias"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-calendar-event mr-3 text-lg'></i>
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
@@ -135,11 +149,13 @@
             <span class="nav-text text-sm">Notificaciones</span>
           </a>
         </li>
-        <button href="#"
-        class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
+        <form action="{{ route('logout') }}" method="post">
+            @csrf
+        <button href="{{ route('logout') }}" class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
         <i class='bx bx-log-out mr-3 text-xl'></i>
         <span class="nav-text text-sm">Cerrar sesion</span>
       </button>
+    </form>
       </ul>
 
 
@@ -334,23 +350,24 @@
                 </div>
               </div>
               <div class="p-2 hidden md:block text-left ">
-                <h2 class="text-sm font-semibold text-gray-800">Andres Garcia</h2>
+                <h2 class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</h2>
                 <p class="text-xs text-gray-500">Administrator</p>
               </div>
             </button>
             <ul
               class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
               <li>
-                <a href="#"
+                <a href="/profile"
                   class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Profile</a>
               </li>
               <li>
-                <a href="#"
+                <a href="Configurar_Cuenta"
                   class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Settings</a>
               </li>
               <li>
-                <form method="POST" action="" class="">
-                  <a role="menuitem"
+                <form method="POST" action="{{ route('logout') }}" class="">
+                  @csrf
+                  <a href="{{ route('logout') }}"role="menuitem"
                     class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50 cursor-pointer"
                     onclick="event.preventDefault();
                                   this.closest('form').submit();">
@@ -370,7 +387,9 @@
   </section>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="{{ asset('scripts/sidebar.js') }}"></script>
+  <script src="{{ asset('resources/js/divisions.js') }}"></script>
   @yield('scripts')
+  <link href="{{ asset('css/projectstyle.css') }}" rel="stylesheet">
 
 </body>
 

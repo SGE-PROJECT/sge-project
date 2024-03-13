@@ -11,23 +11,42 @@
     font-family: 'lato';
     src: url('../fonts/Lato.ttf') format('ttf');
 }
+@media (min-width: 768px){
+    .tamaño-dia{
+        width: 20px !important;
+    }
+  }
+#nombre{
+    outline: none;
+}
+.limitar2{
+    max-height: 70px;
+    overflow-y: scroll;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
+}
 .vista_asesorias{
     display: flex;
+    align-items: flex-start;
     flex-wrap: wrap;
-    min-height: calc(100vh - 68px);
+    position: relative;
     justify-content: center;
+    gap: 10px;
 }
 .vista_asesorias > * {
-    align-self: flex-end;
+    align-self: flex-start;
 }
 
 /* Anula align-items: flex-end para el último elemento hijo */
 .vista_asesorias > *:last-child {
     align-self: auto;
 }
+.vista_asesorias .Btntext_divisions {
+    text-transform:none !important;
+}
 #calendar, #dia2{
     width: 100%;
-    overflow-x: scroll;
     padding: 10px 20px 10px 20px;
     &&::-webkit-scrollbar{
         display: none;
@@ -52,13 +71,13 @@
     font-weight: bold;
 }
 #calendar table{
-    border-radius: 10px;
+    border-radius: 5px;
 }
 #calendar table thead tr:first-child th:first-child,
 #calendar table thead tr:first-child td:first-child,
 #dia2 table thead tr:first-child th:first-child,
 #dia2 table thead tr:first-child td:first-child {
-    border-top-left-radius: 10px;
+    border-top-left-radius: 5px;
 }
 
 /* Esquina superior derecha */
@@ -66,13 +85,13 @@
 #calendar table thead tr:first-child td:last-child,
 #dia table thead tr:first-child th:last-child,
 #dia table thead tr:first-child td:last-child {
-    border-top-right-radius: 10px;
+    border-top-right-radius: 5px;
 }
 #calendar table tbody tr:last-child th:first-child,
 #calendar table tbody tr:last-child td:first-child,
 #dia table tbody tr:last-child th:first-child,
 #dia table tbody tr:last-child td:first-child {
-    border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 5px;
 }
 
 /* Esquina superior derecha */
@@ -80,7 +99,7 @@
 #calendar table tbody tr:last-child td:last-child,
 #dia table tbody tr:last-child th:last-child,
 #dia table tbody tr:last-child td:last-child {
-    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 5px;
 }
 #dia2 th, #dia2 td{
     width: fit-content;
@@ -104,10 +123,12 @@
 .verde{
     background-color: #efe !important;
 }
+.nf-md-pencil, .nf-fa-trash{
+    cursor: pointer;
+}
 .calendar-container {
     margin-top: 20px;
     text-align: center;
-    width: 100%;
 }
 .select-mes{
     outline: none;
@@ -125,15 +146,15 @@
 }
 .info{
     width: 100%;
+    flex-grow: 1;
     text-align: left;
 }
 
 #calendar table{
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
     animation: aparecer2 .3s ease;
 }
 .ocultar {
-    display: none;
+    display: none !important;
 }
 
 .modal-background {
@@ -151,23 +172,25 @@
 }
 
 /* Estilo para el contenido del modal */
-.modal-content {
+.modal-content-asesorias {
     background-color: #fefefe;
     padding: 20px;
     border: 1px solid #888;
     max-width: 300px;
-    border-radius: 10px;
+    border-radius: 5px;
     width: 80%;
     position: relative;
+    animation: aparecer2 .3s ease;
 }
-.modal-content p{
+.modal-content-asesorias p{
     width: 100%;
     font-size: 21px;
     text-align: center;
     font-weight: bold;
     margin-bottom: 20px;
 }
-.modal-content select{
+#fecha, #editFecha{color: #293846 !important;}
+.modal-content-asesorias select{
     width: 100%;
     font-size: 18px;
     text-align: center;
@@ -206,14 +229,12 @@ tbody th{
     padding: 5px 10px;
     position: relative;
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    align-items:center;
     height: fit-content;
 }
 .etiquetas2{
     display: flex;
-    padding: 5px 10px;
-    justify-content: left;
+    justify-content: space-evenly;
     gap: 5px;
     flex-wrap: wrap;
     max-width: 150px;
@@ -222,7 +243,7 @@ tbody th{
     width: 100%;
     position: relative;
     display: flex;
-    align-items: flex-start;
+    align-items:flex-start;
     gap: 10px;
     width: fit-content;
     height: fit-content;
@@ -233,11 +254,15 @@ tbody th{
     aspect-ratio: 1;
     border-radius: 50%;
 }
+.etiqueta .img_estudiante{
+    margin-right: 10px;
+}
 .nombre{
     position: absolute;
     z-index: 10;
     left: 20px;
     top: -5px;
+    width: fit-content;
     background-color: #293846;
     border-radius: 5px;
     padding: 0px 5px;
@@ -264,9 +289,16 @@ tbody th{
         transform: scale(.85);
     }
 }
+@keyframes desaparecer{
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(.8);
+    }
+}
 #calendar table, #dia table {
     border-collapse: collapse; /* Combina los bordes de las celdas adyacentes */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
 }
 
 #calendar th,
@@ -299,7 +331,7 @@ tbody th{
 }
 
 #calendar table, #dia2 table {
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .desactivado{
     background-color: #eee !important;
@@ -308,7 +340,6 @@ tbody th{
     background-color: #eee !important;
     cursor:not-allowed !important;
 }
-
 .horas{
     width: auto !important; /* Eliminar el ancho fijo */
     background-color: #fff;
@@ -337,13 +368,12 @@ tbody th{
 }
 .asesorias-formulario{
     flex-grow: 1;
-    margin: 20px 20px 30px 20px;
     min-width: 200px;
     padding: 1.5rem 20px;
     background-color: #fff;
     border-radius: 5px;
     height: fit-content;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    animation: aparecer2 .3s ease;
 }
 .asesorias-formulario *{
     width: 100%;
@@ -379,17 +409,55 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 2px;
     padding: 0px 5px;
     outline: 0.3px solid #888;
+    transition: all .3s;
 }
-.asesorias-formulario input[type=text]{
-    margin-bottom: 20px;
+.asesorias-formulario textarea{
+    color: #293846;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 0px 5px;
+    height: 60px;
+    outline: 0.3px solid #888;
+    transition: all .3s;
+    resize: none;
+}
+.motivo{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+#motivo{
+    margin: 0;
+}
+.motivo p, #editContador{
+    right: 5px;
+    text-align: right;
+    font-size: 12px;
+}
+#editContador{
+    width: 100%;
+    text-align: right;
+    display: block;
+}
+#editMotivo{
+    margin: 0px;
+}
+.asesorias-formulario input:focus{
+    outline-color: #293846;
+}
+.asesorias-formulario textarea:focus{
+    outline-color: #293846;
 }
 #eventosContainer{
-    margin:20px;
     flex-grow: 1;
-    border-radius: 20px;
+    border-radius: 5px;
     height: fit-content;
     overflow: hidden;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    animation: aparecer2 .3s ease;
+}
+#eventosContainer tbody tr:nth-child(even) {
+    background: #dcdbdb;
 }
 #eventosContainer span{
     width: 100%;
@@ -399,12 +467,9 @@ input[type=number]::-webkit-outer-spin-button {
         display: none;
     }
 }
-#dia{
-    flex-grow: 1;
-}
 #eventosContainer h2{
     background-color: #293846;
-    border-radius:10px 10px 0 0;
+    border-radius:5px 5px 0 0;
     width: 100%;
     color: #fff;
     font-weight: bold;
@@ -412,13 +477,13 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: center;
 }
 #eventosContainer table{
-    background-color: #EEE8E8;
+    background-color: #f2f2f2;
     width: 100%;
 }
 #eventosContainer th{
     padding: 5px 10px;
+    min-width: 150px;
     color: #293846;
-    border: 1px solid #EEE8E8;
 }
 #eventosContainer th div{
     padding: 5px 0;
@@ -427,27 +492,159 @@ input[type=number]::-webkit-outer-spin-button {
 }
 #eventosContainer td{
     padding: 7px 10px;
+    min-width: 200px;
+    color: #000;
+    text-align: center;
+}
+
+#eventosContainer2{
+    margin: 20px;
+    flex-grow: 1;
+    border-radius: 5px;
+    height: fit-content;
+    overflow: hidden;
+    animation: aparecer2 .3s ease;
+}
+#eventosContainer2 span{
+    width: 100%;
+    display: flex;
+    overflow: scroll;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
+}
+#eventosContainer2 h2{
+    background-color: #293846;
+    border-radius:5px 5px 0 0;
+    width: 100%;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 0px;
+    text-align: center;
+}
+#eventosContainer2 table{
+    background-color: #f2f2f2;
+    width: 100%;
+}
+#eventosContainer2 th{
+    padding: 5px 10px;
+    color: #293846;
+}
+#eventosContainer2 tbody tr:nth-child(even) {
+    background: #dcdbdb;
+}
+#eventosContainer2 th div{
+    padding: 5px 0;
+    color: #293846;
+    border-bottom: solid 1px #293846;
+}
+#eventosContainer2 td{
+    padding: 7px 10px;
     min-width: 100px;
     color: #000;
     text-align: center;
+}
+#dia{
+    flex-grow: 1;
 }
 .limitar{
     text-wrap:balance;
     max-width: 150px !important;
 }
 #tablaEventos{
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 5px 5px;
 }
 .nf-cod-trash{
     font-size: 20px;
 }
-#error{
+#error, #error2{
     display: none;
     border:2px solid #e00;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     color: #e00;
-    background-color: rgb(255, 161, 161);
+    background-color: rgb(253, 195, 195);
     margin-bottom: 20px;
+    padding: 3px;
     animation: aparecer2 .3s ease;
+}
+#matricula{
+    outline: 1px solid #888;
+    border-radius: 5px;
+}
+#matricula:focus{
+    outline-color: #293846;
+}
+.Btn_divisions:active{
+    animation: desaparecer .3s ease;
+}
+.botonVereventos{
+    padding: 0 !important;
+    width: 100%;
+   display: flex;
+   margin-top: 20px !important;
+   justify-content: right;
+   margin-left: 20px !important;
+   transition: all .3s;
+}
+.todas{
+   justify-content: space-between !important;
+}
+.botonVereventos h3{
+    font-size: 30px;
+    font-weight: bold;
+}
+.botonVereventos i{
+    padding: 5px;
+}
+.botonVereventos .Btntext_divisions{
+    width: fit-content;
+    padding: 5px;
+}
+.Btn_divisions{
+    width: fit-content !important;
+   animation: aparecer2 .3s ease;
+}
+#contbtnCitas2{
+    position: relative;
+}
+.modal-asesorias{
+    max-width: 300px;
+    position: relative;
+}
+#eventosContainer2 thead{
+    background-color: #293846;
+}
+#eventosContainer2 thead div{
+    background-color: #293846;
+    color: #fff !important;
+}
+.modal-asesorias .close2, .close3{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 30px;
+    width: fit-content;
+    cursor: pointer;
+}
+.modal-asesorias h2{
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.evento{
+    font-size: 20px;
+    color: #293846;
+    margin-inline: 10px;
+}
+.etiqueta .evento{margin-inline: 5px;}
+.Btntext_divisions b{
+    color: #0000;
+}
+.tamaño-dia{
+    width: fit-content;
+}
+#eventosContainer2 tbody{
+    height: 100px !important;
+    overflow-y: hidden;
 }
