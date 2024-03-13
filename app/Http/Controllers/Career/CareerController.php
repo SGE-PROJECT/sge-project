@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Career;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\management\Division;
+use App\Models\management\Careers;
+
+
 
 class CareerController extends Controller
 {
@@ -20,7 +23,8 @@ class CareerController extends Controller
      */
     public function create()
     {
-        //
+        $divisions = \App\Models\management\Division::all();
+        return view('management.careers.create', compact('divisions'));
     }
 
     /**
