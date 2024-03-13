@@ -8,6 +8,17 @@ const image = document.getElementById('imagen');
 const ut = document.getElementById('ut');
 var cont = true;
 
+function ocultarDiv() {
+    var div = document.getElementById("loader");
+    setTimeout(function() {
+      div.classList.add("terminar-loader");
+      setTimeout(function() {
+        div.style.display="none";
+        
+      }, 300);
+    }, 2000);
+  }
+ocultarDiv();
 function closeSidebar() {
     sidebarOverlay.classList.add('hidden');
     sidebar.classList.add('sidebar-contracted');
