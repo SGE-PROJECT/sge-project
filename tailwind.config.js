@@ -13,6 +13,10 @@ export default {
             '20p': '20%',
             '15p': '15%',
           },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+           
+          },
       },
     },
     plugins: [
