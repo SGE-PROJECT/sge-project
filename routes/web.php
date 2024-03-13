@@ -80,8 +80,8 @@ Route::middleware(['auth'])->group(function () {
         return view('books-notifications.books.add-books');
     })->name('añadir.libros');
 
-    Route::get('/notifications', function () {
-        return view('books-notifications.books.notifications');
+    Route::get('/notificaciones', function () {
+        return view('books-notifications.notifications');
     });
     Route::get('/usuarios', function () {
         return view('administrator.dashboard.DashboardUsers');
