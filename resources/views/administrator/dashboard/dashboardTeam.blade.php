@@ -2,7 +2,7 @@
 @section('contenido')
 
 <!-- tabla de datos -->
-{{-- <div class="w-[96%] ml-3 pl-1.5 mr-3 rounded-tl-md rounded-tr-md bg-slate-600 flex">
+ {{-- <div class="w-[96%] ml-3 pl-1.5 mr-3 rounded-tl-md rounded-tr-md bg-slate-600 flex">
     <select class="py-3 px-4 bg-white rounded-lg my-5 mr-3 flex cursor-pointer">
         <option value="carreras">Carreras</option>
         <option value="carreras">Gastronomia</option>
@@ -230,32 +230,30 @@
         <!-- Siguiente seccion -->
       
         
-    </div> --}}
-    {{-- <div class="tabla-project">
+    </div>  --}}
+    <div class="tabla-project ">
         <div class="tabla-cont-project ">
             <table class="rounded-lg">
-                <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
+                <thead class="bg-[#003E61]  text-white font-bold bg-blue-003E61">
                     <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Estado</th>
-                        <th>Correo Electronico</th>
-                        <th>No. Telefono</th>
-                        <th>Rol</th>
+                        <th>Integrantes</th>
+                        <th>Proyecto</th>
+                        <th>Asesor academico</th>
+                        <th>Asesor empresarial</th>
+                        <th>División</th>
                     </tr>
                 </thead>
                 <tr>
-                    <td>Noely</td>
-                    <td>Aguilar</td>
-                    <td>Activos</td>
-                    <td>Noely@gmail.com</td>
-                    <td>36263262</td>
-                    <td>Administrador</td>
+                    <td>Josue</td>
+                    <td>Sistema de gestion de proyectos</td>
+                    <td>Rafael </td>
+                    <td>Pedrito</td>
+                    <td>Gastronomia</td>
                 </tr>
                 </tbody>
             </table>
         </div>
-    </div> --}}
+    </div> 
 
 
 
