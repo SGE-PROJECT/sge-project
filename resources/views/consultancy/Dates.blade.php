@@ -45,7 +45,7 @@
                 <span id="editContador">0/250</span>
             </div>
             <p id="error2">Error</p>
-            <button type="submit" id="guardarEventoButton">Guardar Cambios</button>
+            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit" id="guardarEventoButton">Guardar Cambios</button>
         </div>
     </div>
     <div id="myModal3" class="modal-background">
@@ -61,7 +61,14 @@
                 <textarea  name="motivo" maxlength="250" id="solitMensaje" placeholder="Justificacion de la solicitud"></textarea>
             </div>
             <p id="error2">Error</p>
-            <button type="submit" id="solicitar">Solicitar cambio</button>
+            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit" id="solicitar">Solicitar cambio</button>
+        </div>
+    </div>
+    <div id="myModal4" class="modal-background">
+        <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
+            <span class="close4">&times;</span>
+            <h2 class="pb-[20px]">¿Esta seguro?</h2>
+            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit" id="borrarEventoBoton">Borrar cita</button>
         </div>
     </div>
 
@@ -73,7 +80,7 @@
             </select>
         </div>
     </div>
-    <div class="calendar-container w-full lg:w-[60%] overflow-hidden" id="calendario">
+    <div class="calendar-container w-full lg:w-[60%] relative z-20" id="calendario">
         <select id="month" class="select-mes text-[30px] md:text-[40px]">
             <option value="0">Enero</option>
             <option value="1">Febrero</option>
@@ -91,7 +98,7 @@
         <select id="year" class="select-mes text-[30px] md:text-[40px]">
             <!-- Los años se generarán dinámicamente -->
         </select>
-        <div id="calendar" class="overflow-x-scroll md:overflow-visible"></div>
+        <div id="calendar" class=""></div>
     </div>
 
     <div class="ocultar w-[100%] sm:w-[65%] flex flex-wrap relative py-5 justify-center" id="dia">
@@ -163,7 +170,7 @@
 
         </div>
     </div>
-
+    
     <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] ocultar" id="asesorias-formulario">
         <h4>Agregar una sesion de asesoria</h4>
         <p>Fecha</p>
@@ -181,8 +188,9 @@
         </span>
 
         <p id="error">Error</p>
-        <button id="agregarEventoButton">Crear cita</button>
+        <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" id="agregarEventoButton">Crear cita</button>
     </div>
+    
     <div id="eventosContainer" class="w-full md:w-[20%] lg:w-[30%] ml-[20px] mr-[20px] mt-[20px] mb-[20px] lg:ml-[0px] lg:mr-[20px] lg:mt-[85px]">
         <h2>Citas proximas</h2>
         <span>

@@ -40,6 +40,11 @@ class ProjectController extends Controller
         return view("projects.Forms.FormStudent");
     }
 
+    public function projectteams()
+    {
+        return view ('projects.ProjectUser.projectteams');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

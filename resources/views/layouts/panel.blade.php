@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" href="{{ asset('images/logo_sge.svg') }}">
   <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -35,6 +35,38 @@
 
 <body class="text-gray-800 font-inter">
   <!--sidenav-->
+  <div class="container-loader" id="loader">
+    <div class="loader">
+        
+        <div class="box box0">
+            <div></div>
+        </div>
+        <div class="box box1">
+            <div></div>
+        </div>
+        <div class="box box2">
+            <div></div>
+        </div>
+        <div class="box box3">
+            <div></div>
+        </div>
+        <div class="box box4">
+            <div></div>
+        </div>
+        <div class="box box5">
+            <div></div>
+        </div>
+        <div class="box box6">
+            <div></div>
+        </div>
+        <div class="box box7">
+            <div></div>
+        </div>
+        <div class="ground">
+            <div></div>
+        </div>
+    </div>
+</div>
   <section class="flex">
     <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
