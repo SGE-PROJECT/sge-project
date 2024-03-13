@@ -1,0 +1,155 @@
+.container {
+    padding: 80px;
+}
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+    text-align: center;
+    color: #333; 
+}
+
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cards-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; 
+    justify-content: center; 
+    margin-bottom: 2rem; 
+}
+.cards-container .card {
+    width: calc(30.33% - 20px); 
+    max-width: 300px;
+}
+
+.card {
+    background-color: #f1f1f1;
+    border: 4px solid #ffffff;
+    border-radius: 0.675rem;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 calc(25% - 20px); 
+    height: 55vh;
+
+}
+.card:hover{
+    background-color: white;
+}
+
+.card-title {
+    margin-top: 3rem;
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: #000000;
+    margin-top: 3;
+    border-bottom: 2px solid #929292; 
+    width: 100%; 
+
+}
+.card img {
+width: 130px;
+height: 130px;
+}
+
+.edit-permissions-btn {
+    margin-top: 1.5rem;
+    
+    background-color: #009678;
+    color: #ffffff;
+    border: none;
+    padding: .7rem 1.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: medium;
+
+}
+
+.edit-permissions-btn:hover {
+    background-color: #33cdc0;
+}
+
+.permissions-container {
+    background-color: #f1f1f1;
+    border: 4px solid #ffffff;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    flex-basis: calc(70% - 20px);
+    height: 55vh;
+    overflow-y: auto; 
+
+}
+.permissions-container:hover{
+    background-color: white;
+}
+
+.permissions-list {
+    text-align: center;
+}
+.permissions-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333; 
+    margin-bottom: 1rem; 
+}
+
+.cancel-btn {
+    background-color: #ff4040;
+    color: #ffffff;
+    border: none;
+    padding: .7rem 1.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: medium;
+
+}
+
+.cancel-btn:hover {
+    background-color: #ff0000;
+}
+
+.update-btn {
+    margin-top: 1.5rem;
+    margin-right: 2rem;
+    background-color: #009678;
+    color: #ffffff;
+    border: none;
+    padding: .7rem 1.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: medium;
+}
+
+.update-btn:hover {
+    background-color: #33cdc0;
+}
+
+/* Estilos adicionales para dispositivos móviles */
+@media (max-width: 768px) {
+    .grid {
+        flex-direction: column;
+    }
+
+    .cards-container, .permissions-container {
+        flex-basis: auto;
+    }
+
+    .card, .permissions-container {
+        flex-basis: auto;
+        width: 100%;
+    }
+    h1 {
+        font-size: 3rem; 
+    }
+}
