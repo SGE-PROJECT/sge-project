@@ -102,6 +102,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
+    Route::get('projecteams', [ProjectController:: class, 'projectteams'])->name('projectteams');
+    
 
     Route::get('/RecoverPassword', function () {
         return view('auth.recoverPassword');
