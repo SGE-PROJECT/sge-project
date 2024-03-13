@@ -16,8 +16,10 @@ return new class extends Migration
             $table->dateTime('session_date');
             $table->text('description');
             $table->boolean('is_confirmed')->default(false);
-            $table->foreignId('id_proyect_id')->constrained('projects_tests')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreignId('id_advisor_id')->constrained('users_test')->onUpdate('cascade')->onDelete('restrict');
+            $table->unsignedBigInteger('id_project_id');
+            $table->foreign('id_project_id')->references('id')->on('projects_tests')->onUpdate('cascade')->onDelete('restrict');
+            $table->unsignedBigInteger('id_advisor_id');
+            $table->foreign('id_advisor_id')->references('id')->on('users_tests')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });
     }

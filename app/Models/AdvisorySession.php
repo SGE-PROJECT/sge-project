@@ -16,17 +16,17 @@ class AdvisorySession extends Model
         'session_date',
         'description',
         'is_confirmed',
-        'id_user_id',
         'id_project_id',
+        'id_advisor_id',
     ];
+
+    public function proyect()
+    {
+        return $this->belongsTo(ProjectsTest::class, 'id_project_id');
+    }
 
     public function user()
     {
-        return $this->belongsTo(UsersTest::class, 'id_user_id');
-    }
-
-    public function advisor()
-    {
-        return $this->belongsTo(ProjectsTest::class, 'id_project_id');
+        return $this->belongsTo(UsersTest::class, 'id_advisor_id');
     }
 }

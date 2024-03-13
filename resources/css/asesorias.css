@@ -393,7 +393,6 @@ tbody th{
     color: #293846;
 }
 .asesorias-formulario button{
-    background-color: #293846;
     color: #fff;
     padding: 5px 20px;
     border-radius: 5px;
@@ -619,7 +618,7 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #293846;
     color: #fff !important;
 }
-.modal-asesorias .close2, .close3{
+.modal-asesorias .close2, .close3, .close4{
     position: absolute;
     right: 20px;
     top: 10px;
