@@ -13,7 +13,7 @@
     <div class="tabla-project">
         <div class="tabla-cont-project ">
             <table class="rounded-lg">
-                <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
+                <thead class="bg-[#293846] text-white font-bold bg-[#293846]">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Grupo
@@ -34,9 +34,9 @@
                 </thead>
                 <tbody>
                     <tr class="bg-white  dark:bg-gray-100 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                             SM-53
-                        </th>
+                        </td>
                         <td class="px-6 py-4">
                             22393204
                         </td>
@@ -54,9 +54,9 @@
                     </tr>
                     <!-- Repetir para cada fila de datos -->
                     <tr class="bg-white dark:bg-gray-100 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                             SM-53
-                        </th>
+                        </td>
                         <td class="px-6 py-4">
                             22393205
                         </td>
