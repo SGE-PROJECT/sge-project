@@ -100,8 +100,8 @@ Route::middleware(['auth'])->group(function () {
         return view('administrator.dashboard.dashboardTeam');
     });
 
-    Route::get('/report',[BooksController::class,'listBook'])->name('books.list');
-    Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports');
+    Route::get('/reporte',[BooksController::class,'listBook'])->name('books.list');
+    Route::get('/reporte/pdf',[BooksController::class,'report'])->name('books.reports');
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
