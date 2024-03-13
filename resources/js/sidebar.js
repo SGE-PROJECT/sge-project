@@ -20,6 +20,7 @@ function ocultarDiv() {
   }
 ocultarDiv();
 function closeSidebar() {
+    document.getElementById('lista-side').classList.remove("overflow-y-scroll")
     sidebarOverlay.classList.add('hidden');
     sidebar.classList.add('sidebar-contracted');
     sidebar.classList.remove('sidebar-expanded');
@@ -44,6 +45,7 @@ function closeSidebar() {
 }
 
 function openSidebar() {
+    document.getElementById('lista-side').classList.add("overflow-y-scroll")
     sidebar.classList.add('sidebar-expanded');
     sidebar.classList.remove('sidebar-contracted');
     mainContent.classList.add('main-content-expanded');
@@ -59,6 +61,7 @@ function toggleSidebar() {
         closeSidebar();
     } else {
         openSidebar();
+        document.getElementById('lista-side').classList.add("overflow-y-scroll")
     }
 }
 
