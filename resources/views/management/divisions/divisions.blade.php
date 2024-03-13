@@ -37,15 +37,15 @@
                 <div class="card__content">
                     <p class="card__title">{{ $division->name }}</p>
                     <p class="card__description">{{ $division->description }}</p>
-                    <p class="card__description">Director[a]: </p>
-                    <p class="card__description">Subdirector[a]:</p>
-                    <button class="card__button">Ver más</button>
+                    <div class="inline-flex ">
+                    <button class="bg-[#03A696] hover:bg-gray-200   rounded text-white mr-2 h-7 w-20" >Ver más</button>
                     <form action="{{ route('divisiones.destroy', $division->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-delete">Eliminar</button>
+                        <button type="submit" class="bg-[#03A696]  hover:bg-red-500 text-white  rounded-sm  mr-2 h-7 w-20">Eliminar</button>
                     </form>
-                    <a href="{{ route('divisiones.edit', $division->id) }}" class="btn-edit">Editar</a>
+                    <a href="{{ route('divisiones.edit', $division->id) }}"  ><button class="bg-[#03A696] hover:bg-blue-500 text-white rounded-sm h-7 w-20 justify-content-center ">Editar</button></a>
+                </div>
                 </div>
             </div>
         @endforeach

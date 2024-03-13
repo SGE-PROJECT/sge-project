@@ -8,7 +8,19 @@ const image = document.getElementById('imagen');
 const ut = document.getElementById('ut');
 var cont = true;
 
+function ocultarDiv() {
+    var div = document.getElementById("loader");
+    setTimeout(function() {
+      div.classList.add("terminar-loader");
+      setTimeout(function() {
+        div.style.display="none";
+        
+      }, 300);
+    }, 2000);
+  }
+ocultarDiv();
 function closeSidebar() {
+    document.getElementById('lista-side').classList.remove("overflow-y-scroll")
     sidebarOverlay.classList.add('hidden');
     sidebar.classList.add('sidebar-contracted');
     sidebar.classList.remove('sidebar-expanded');
@@ -33,6 +45,7 @@ function closeSidebar() {
 }
 
 function openSidebar() {
+    document.getElementById('lista-side').classList.add("overflow-y-scroll")
     sidebar.classList.add('sidebar-expanded');
     sidebar.classList.remove('sidebar-contracted');
     mainContent.classList.add('main-content-expanded');
@@ -48,6 +61,7 @@ function toggleSidebar() {
         closeSidebar();
     } else {
         openSidebar();
+        document.getElementById('lista-side').classList.add("overflow-y-scroll")
     }
 }
 

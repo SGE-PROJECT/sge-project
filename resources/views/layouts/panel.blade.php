@@ -15,6 +15,7 @@
   @vite('resources/css/asesorias.css')
   @vite('resources/js/sidebar.js')
   @vite('resources/js/asesorias.js')
+  @vite('resources/js/tableproject.js')
   @vite('resources/css/sidebar.css')
   @vite('resources/css/management/divisions/divisions.css')
   @vite('resources/css/projects/projectDashboardStyle.css')
@@ -35,6 +36,38 @@
 
 <body class="text-gray-800 font-inter">
   <!--sidenav-->
+  <div class="container-loader" id="loader">
+    <div class="loader">
+
+        <div class="box box0">
+            <div></div>
+        </div>
+        <div class="box box1">
+            <div></div>
+        </div>
+        <div class="box box2">
+            <div></div>
+        </div>
+        <div class="box box3">
+            <div></div>
+        </div>
+        <div class="box box4">
+            <div></div>
+        </div>
+        <div class="box box5">
+            <div></div>
+        </div>
+        <div class="box box6">
+            <div></div>
+        </div>
+        <div class="box box7">
+            <div></div>
+        </div>
+        <div class="ground">
+            <div></div>
+        </div>
+    </div>
+</div>
   <section class="flex">
     <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
@@ -43,7 +76,7 @@
           <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
         </a>
       </div>
-      <ul class="mt-4 scroll2 overflow-y-scroll">
+      <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
         <!-- ADMIN Section -->
         <li class="mb-1 group">
           <a href="/"
@@ -63,13 +96,13 @@
           </a>
           <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li class=" ">
-              <a href="/registeruser" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-user mr-3 text-lg'></i>
                 <span>Usuarios</span>
               </a>
             </li>
             <li class="">
-              <a href="/roles" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              <a href="/roles-permisos" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-lock-open mr-3 text-lg'></i>
                 <span>Roles y Permisos</span>
               </a>
@@ -94,12 +127,12 @@
           <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li>
 
-              <a href="projectsdash" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="proyectos" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Proyectos</span></a>
             </li>
             <li class="">
 
-              <a href="divisiones" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="{{ route('divisiones.index')}}" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-buildings mr-3 text-lg'></i><span class=" text-sm">Divisiones</span></a>
             </li>
             <li class="">
@@ -113,7 +146,7 @@
         <!-- EMPRESAS Section -->
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
         <li class="mb-1 group">
-          <a href="/empresas"
+          <a href={{ route ('empresas.index')}}
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='  bx bx-buildings mr-3 text-lg'></i>
             <span class="nav-text text-sm">Empresas Afiliadas</span>
@@ -133,7 +166,7 @@
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
         <li class="mb-1 group">
-          <a href="/Asesorias"
+          <a href="{{ route('asesorias') }}"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-calendar-event mr-3 text-lg'></i>
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
@@ -362,7 +395,7 @@
             <ul
               class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
               <li>
-                <a href="/profile"
+                <a href="/perfil"
                   class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Profile</a>
               </li>
               <li>

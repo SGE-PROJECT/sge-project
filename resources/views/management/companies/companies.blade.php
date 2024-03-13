@@ -70,7 +70,7 @@
 
 
         <!-- Tabla de empresas -->
-        <table class="project-table">
+        <table class="project-table ">
             <thead>
                 <tr>
                     <th>Logotipo</th>
@@ -79,6 +79,7 @@
                     <th>Dirección</th>
                     <th>Teléfono</th>
                     <th>Correo Electrónico</th>
+                    <th>Fecha de Afiliación</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -97,15 +98,18 @@
                         <td>{{ $company->address }}</td>
                         <td>{{ $company->contact_phone }}</td>
                         <td>{{ $company->contact_email }}</td>
-                        <td>
+                        <td>{{ $company->affiliation_date }}</td>
+                        <td >
+                            <div class="inline-flex">
                             <a href="{{ route('empresas.edit', $company->id) }}"
-                                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2">Editar</a>
+                                class="bg-[#03A696] hover:bg-blue-600 text-white py-2 px-4 rounded mr-2 mb-2 ">Editar</a>
                             <form action="{{ route('empresas.destroy', $company->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta empresa?')"
-                                    class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
+                                    class="bg-[#03A696] hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
                             </form>
+                        </div>
                         </td>
                     </tr>
                 @endforeach
