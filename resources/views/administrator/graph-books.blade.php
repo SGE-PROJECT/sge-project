@@ -2,10 +2,9 @@
 
 @vite('resources/css/administrator/dashboard.css')
 
-<div class="w-auto h-56 shadow-lg hover:shadow-2xl transition duration-200 ease-in-out bg-white rounded-sm relative">
+<div class="border-t-16 border-green-ut w-auto h-56 shadow-lg hover:shadow-2xl transition duration-200 ease-in-out bg-white rounded-sm relative">
     <a class="group w-full p-5 flex flex-col" href="">
     <div id="container-books" class="w-full h-full min-h-[224px]"></div>
-      <div class="bg-blue-400 group-hover:bg-blue-600 h-full w-4 absolute top-0 left-0"></div>
     </a>
   </div>
 
@@ -29,6 +28,8 @@
                 fontSize: '16px',
                 fontWeight: 'bold',
                 textAlign: 'center',
+                fontFamily: 'Poppins, sans-serif',
+
             }
         },
         tooltip: {
@@ -43,10 +44,12 @@
             pie: {
                 dataLabels: {
                     enabled: true,
-                    distance: -35,
+                    distance: -28,
                     style: {
                         fontWeight: 'bold',
-                        color: 'white',
+                        color: '#f0f0f0',
+                        fontFamily: 'Poppins, sans-serif',
+                        fontSize: '9.5px',
                     }
                 },
                 startAngle: -90,
