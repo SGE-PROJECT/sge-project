@@ -347,7 +347,7 @@ function eliminarEvento2() {
         return response.json();
     })
     .then(data => {
-        
+
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -842,6 +842,7 @@ function editarEvento(evento) {
     document.getElementById("editContador").textContent = cantidad + "/250";
     document.getElementById("myModal2").style.display = "flex";
 }
+
 mostrarTodosLosEventos();
 populateYears();
 updateCalendar();
