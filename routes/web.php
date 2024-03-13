@@ -44,7 +44,7 @@ Route::get('/', function () {
     return view('administrator.dashboard.dashboard-general');
 });
 
-Route::get('/projectsdash', function () {
+Route::get('/proyectos', function(){
     return view('management.project');
 });
 
