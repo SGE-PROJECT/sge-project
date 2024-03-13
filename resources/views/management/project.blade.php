@@ -1,16 +1,19 @@
 <!-- SECCION PROYECTOS -->
 @extends('layouts.panel')
 @section('contenido')
-    <h1 class="text-3xl font-bold text-center mt-5 mb-8">Proyectos</h1>
+    <h1 class="text-3xl font-bold text-center mt-10 mb-8">Proyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
     <div class="flex flex-wrap justify-center gap-5 p-5">
-        <div class="flex lg:flex-nowrap justify-center items-center gap-5 mr-10">
-            @include('administrator.card', ['number' => 12, 'name' => 'Proyectos'])
+        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            @include('administrator.graph-projects')
+            @include('administrator.graph-users')
+            @include('administrator.graph-teams')
+            @include('administrator.graph-books')
         </div>
-        <div class="flex flex-wrap flex-col gap-5 mr-10">
+        <div class="grid grid-cols-1 lg:grid-cols-1 gap-5 mb-6 ml-auto mr-3"> <!-- Cambiado a lg:grid-cols-2 para tener dos columnas en pantallas grandes -->
             @include('administrator.section-projects')
         </div>
-    </div>
+    </div>    
     <!-- SECCIÓN QUE CONTIENE LOS BOTONES -->
     <div class="flex items-end align-middle">
         <!-- BOTÓN QUE DIRIGE AL CRUD -->
