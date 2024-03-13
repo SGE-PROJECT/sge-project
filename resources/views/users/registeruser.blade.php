@@ -5,6 +5,7 @@
 
 @section('contenido')
     <section class="section">
+        <form class="m-10  bg-white rounded-lg shadow-lg" style="overflow-x: hidden;">
         <form class="mx-auto p-8">
             <div class="bg-teal-500 w-full p-4 rounded-t-lg">
                 <h1 class="text-3xl mb-0" style="color: white">Registrar usuario</h1>

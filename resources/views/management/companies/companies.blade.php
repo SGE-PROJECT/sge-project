@@ -97,9 +97,9 @@
                         <td>{{ $company->address }}</td>
                         <td>{{ $company->contact_phone }}</td>
                         <td>{{ $company->contact_email }}</td>
-                        <td>
+                        <td class="">
                             <a href="{{ route('empresas.edit', $company->id) }}"
-                                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2">Editar</a>
+                                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2 mb-2 ">Editar</a>
                             <form action="{{ route('empresas.destroy', $company->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
