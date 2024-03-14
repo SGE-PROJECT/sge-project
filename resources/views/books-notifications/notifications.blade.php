@@ -15,9 +15,9 @@
                   
                 Marcar todos como leídos</button>
         </section> --}}
-        <section class=" ">
-            <h1 class=" uppercase font-semibold text-2xl text-[#293846] mb-2">Notificaciones</h1>
-            <h1 class=" text-lg">{{ now()->format('d-m-y') }}</h1>
+        <section class="  ">
+            <h1 class=" uppercase font-semibold text-2xl text-[#293846] ">Notificaciones</h1>
+          
             <button class=" rounded p-1 text-neutral-50 bg-teal-500 hover:border-gray-300 hover:bg-teal-600 border-[1px] border-gray-100 shadow-sm flex gap-1 float-right">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
@@ -25,13 +25,23 @@
                   
                 Marcar todos como leídos</button>
         </section>
+
         <section>
 
        
-        <header class=" uppercase font-semibold text-slate-600  my-4 text-xl border-slate-400 pb-2  border-b-2">
-            Hoy
+        <header class=" uppercase font-semibold text-slate-600  mt-4 text-xl border-slate-400  border-b-2">
+            Hoy <span class=" ml-4 text-lg">{{ now()->format('d-m-y') }}</span>
         </header>
-        <ul class=" flex flex-col gap-4">
+        <div class=" flex justify-end py-2 text-sm">
+
+            <button onclick="HiddenNotifications()" id="btn-notification" class=" flex items-center border-[2px] border-gray-300 rounded bg-slate-100 text-slate-600 p-1 gap-[3px] hover:bg-slate-100/50 group/item hover:border-gray-400/60"> 
+            
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                  </svg>         
+            Ocultar</button>
+        </div>
+        <ul class="flex flex-col gap-4" id="notifications">
             <li class=" flex  items-center  rounded bg-white p-4 shadow-sm  hover:scale-[1.003] duration-[330ms] ">
                 <div class=" flex justify-center ml-2 border-teal-300 border-[1px] rounded-full p-1 bg-teal-100/40">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
@@ -215,7 +225,16 @@
         <header class=" uppercase font-semibold text-slate-600  my-4 text-xl border-slate-400 pb-2  border-b-2">
             ayer
         </header>
-        <ul class=" flex flex-col gap-4">
+        <div class=" flex justify-end py-2 text-sm">
+
+            <button onclick="HiddenNotificationsYesterday()" id="btn-notification-yesterday" class=" flex items-center border-[2px] border-gray-300 rounded bg-slate-100 text-slate-600 p-1 gap-[3px] hover:bg-slate-100/50 group/item hover:border-gray-400/60"> 
+            
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                  </svg>         
+            Ocultar</button>
+        </div>
+        <ul class=" flex flex-col gap-4" id="notifications-yesterday">
             <li class=" flex  items-center  rounded bg-white p-4 shadow-sm  hover:scale-[1.003] duration-[330ms] ">
                 <div class=" flex justify-center ml-2 border-teal-300 border-[1px] rounded-full p-1 bg-teal-100/40">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
@@ -395,7 +414,29 @@
 
     </section>
     <!-- Asegúrate de utilizar la versión más reciente de Alpine.js -->
-<script src="//unpkg.com/alpinejs" defer></script>
+<script src="//unpkg.com/alpinejs" defer>
+
+</script>
+<script>
+     const button = document.getElementById('btn-notification');
+        button.addEventListener('click',()=>{
+            const notifications=document.getElementById('notifications');
+         notifications.classList.toggle("hidden");
+         button.innerHTML = notifications.classList.contains('hidden') ?
+            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>   Mostrar' :
+            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" /></svg>Ocultar';
+        })
+
+        const buttonYesterday = document.getElementById('btn-notification-yesterday');
+        buttonYesterday.addEventListener('click',()=>{
+            const notificationsYesterday=document.getElementById('notifications-yesterday');
+         notificationsYesterday.classList.toggle("hidden");
+         buttonYesterday.innerHTML = notificationsYesterday.classList.contains('hidden') ?
+            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>   Mostrar' :
+            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" /></svg>Ocultar';
+        })
+   
+</script>
 
         
 @endsection

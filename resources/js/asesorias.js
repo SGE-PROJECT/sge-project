@@ -175,9 +175,9 @@ function agregarEvento() {
     error.style.display = "none";
     let fecha = document.getElementById('fecha').value.trim();
     let hora = document.getElementById('horas').value.trim();
-    let proyectoId = document.getElementById('matricula').value.trim(); // Cambio de matricula a proyectoId
+    let proyectoId = document.getElementById('matricula').value.trim();
     let motivo = document.getElementById('motivo').value.trim();
-    if (!fecha || !hora || proyectoId == 0 || !motivo) { // Cambio de matricula a proyectoId
+    if (!fecha || !hora || proyectoId == 0 || !motivo) {
         error.style.display = "block";
         error.innerHTML = "Por favor, complete todos los campos.";
         return;
@@ -192,12 +192,10 @@ function agregarEvento() {
         error.innerHTML = "Por favor, ingrese una hora válida en formato HH:MM.";
         return;
     }
-    // Agrega esta parte para validar la hora
     let horaPartes = hora.split(":");
     let horaNum = parseInt(horaPartes[0]);
     let minutoNum = parseInt(horaPartes[1]);
 
-    // 7:00 a.m. es igual a 07:00 en formato 24 horas, y 8:00 p.m. es igual a 20:00
     if (horaNum < 7 || horaNum > 20 || (horaNum === 20 && minutoNum > 0)) {
         error.style.display = "block";
         error.innerHTML = "Por favor, seleccione una hora entre las 7:00 a.m. y las 8:00 p.m.";
@@ -235,24 +233,21 @@ function agregarEvento() {
         return;
     }
 
-    if (!(proyectoId in proyectos)) { // Cambio de matricula a proyectoId
+    if (!(proyectoId in proyectos)) { 
         error.style.display = "block";
-        error.innerHTML = "El proyecto seleccionado no es válido."; // Cambio de mensaje
+        error.innerHTML = "El proyecto seleccionado no es válido."; 
         return;
     }
 
-    // Formato de fecha y hora para cumplir con el estándar ISO 8601
     let sessionDateTime = `${fecha}T${hora}:00`;
 
-    // Creación del objeto de datos para enviar
     let advisorySessionData = {
         session_date: sessionDateTime,
         description: motivo,
         id_project_id: proyectoId,
-        id_advisor_id: 1 // Asumiendo un advisor_id por defecto como 1, ajusta según tu necesidad
+        id_advisor_id: 1 
     };
 
-    // Envío de la solicitud fetch al servidor
     fetch('http://127.0.0.1:8000/advisory-sessions', {
         method: 'POST',
         headers: {
@@ -279,7 +274,7 @@ function agregarEvento() {
     eventos[idEvento] = {
         fecha: fecha,
         hora: hora,
-        proyectoId: proyectoId, // Cambio de matricula a proyectoId
+        proyectoId: proyectoId,
         motivo: motivo
     };
 
@@ -356,7 +351,6 @@ function eliminarEvento2() {
     })
     .catch((error) => {
         console.error('Error:', error);
-        // Maneja cualquier error aquí
     });
     let idEvento = eventoSeleccionado.fecha + ' ' + eventoSeleccionado.hora;
     delete eventos[idEvento];
@@ -433,13 +427,12 @@ function llenarHorasConEventos() {
             eventoDiv2.classList.add("etiquetas");
             td.appendChild(eventoDiv2);
 
-            // Verificar si el td tiene contenido
             if (!eventosSinMinutos[horaSinMinutos] || eventosSinMinutos[horaSinMinutos].length === 0) {
-                td.classList.remove("verde"); // Quitar la clase verde si no hay eventos
-                td.onclick = function () { tiempo(this, horaCelda); }; // Volver a asignar el evento onclick
+                td.classList.remove("verde"); 
+                td.onclick = function () { tiempo(this, horaCelda); }; 
             } else {
                 eventosSinMinutos[horaSinMinutos].forEach(evento => {
-                    let proyecto = proyectos[evento.proyectoId]; // Cambio de matricula a proyectoId
+                    let proyecto = proyectos[evento.proyectoId];
                     proyecto.alumnos.forEach(matricula => {
                         let estudiante = estudiantes[matricula];
                         let eventoDiv = document.createElement('div');
@@ -454,19 +447,19 @@ function llenarHorasConEventos() {
                         eventoDiv.classList.add(estudiante.color);
                         let iconos = eventoDiv.querySelectorAll('i');
                         iconos.forEach((icono, index) => {
-                            if (index === 0) { // Primer icono (editar)
+                            if (index === 0) {
                                 icono.addEventListener('click', function () {
                                     editarEvento(evento);
                                 });
-                            } else if (index === 1) { // Segundo icono (eliminar)
+                            } else if (index === 1) {
                                 icono.addEventListener('click', function () {
                                     eliminarEvento(evento);
                                 });
                             }
                         });
                     });
-                }); // Agregar la clase verde si hay eventos
-                td.onclick = null; // Quitar el evento onclick si hay eventos
+                });
+                td.onclick = null;
             }
         });
     });
@@ -475,12 +468,19 @@ function llenarHorasConEventos() {
 function closeModal() {
     document.getElementById("myModal").style.display = "none";
     document.getElementById("nombre").value = "0";
+    let error = document.getElementById("error2");
+    error.style.display = "none";
 }
 function closeModal2() {
     document.getElementById("myModal2").style.display = "none";
+    let error = document.getElementById("error2");
+    error.style.display = "none";
+    
 }
 function closeModal4() {
     document.getElementById("myModal4").style.display = "none";
+    let error = document.getElementById("error2");
+    error.style.display = "none";
 }
 
 var diaSemana = "", diaMes = "", Mes = "", año = "", numeroMes = "";
@@ -488,7 +488,7 @@ var diaSemana = "", diaMes = "", Mes = "", año = "", numeroMes = "";
 function tiempo(td, tiem) {
     let div = td.querySelector('div');
     if (div && div.innerHTML.trim() !== '') {
-        return; // Salir de la función si el div no está vacío
+        return;
     }
     let selectedDate = new Date(año, numeroMes, diaMes);
     let currentDate = new Date();
@@ -582,10 +582,10 @@ function createCalendar(year, month) {
                 let cellDate = new Date(year, month, date);
                 cell.innerHTML = `<p class="numero">${date}</p>`;
                 if (cellDate <= currentDate) {
-                    cell.classList.add('desactivado'); // Reemplaza 'tuClase' con el nombre de la clase que quieres agregar
+                    cell.classList.add('desactivado');
                 } else {
                     let date2 = date;
-                    cell.onclick = function () { onDayClick(year, month, dayOfWeek, date2); }; // Agregar el evento onclick
+                    cell.onclick = function () { onDayClick(year, month, dayOfWeek, date2); };
                     let date3 = new Date(year, month, date2);
                     mostrarEventos(cell, date3);;
                 }
@@ -594,7 +594,6 @@ function createCalendar(year, month) {
         }
     }
 
-    // Eliminar la última fila si está vacía
     let lastRow = tbody.rows[tbody.rows.length - 1];
     let empty = true;
     for (let i = 0; i < lastRow.cells.length; i++) {
@@ -611,12 +610,12 @@ function createCalendar(year, month) {
 }
 
 function matricula() {
-    let selectedProyectoId = document.getElementById('nombre').value; // Obtener el ID del proyecto seleccionado
+    let selectedProyectoId = document.getElementById('nombre').value; 
     if (selectedProyectoId == "0") {
         return;
     }
-    let proyectoIdNumero = parseInt(selectedProyectoId); // Parsear el ID del proyecto como número
-    document.getElementById('matricula').value = proyectoIdNumero; // Llenar el input con el ID del proyecto como número
+    let proyectoIdNumero = parseInt(selectedProyectoId);
+    document.getElementById('matricula').value = proyectoIdNumero;
     closeModal();
 }
 
@@ -663,13 +662,11 @@ function mostrarTodosLosEventos() {
             let evento = eventosOrdenados[i];
             let fila = tablaEventos.insertRow();
 
-            // Celda para el nombre del proyecto
             let celdaProyecto = fila.insertCell();
             let divNombreProyecto = document.createElement('div');
             divNombreProyecto.textContent = proyectos[evento.proyectoId].nombre;
             celdaProyecto.appendChild(divNombreProyecto);
 
-            // Celda para los alumnos
             let celdaAlumnos = fila.insertCell();
             let alumnosProyecto = proyectos[evento.proyectoId].alumnos.map(matricula => estudiantes[matricula].nombre).join(', ');
             let divAlumnos = document.createElement('div');
@@ -677,22 +674,18 @@ function mostrarTodosLosEventos() {
             divAlumnos.textContent = alumnosProyecto;
             celdaAlumnos.appendChild(divAlumnos);
 
-            // Celda para el motivo
             let celdaMotivo = fila.insertCell();
             let divMotivo = document.createElement('div');
             divMotivo.classList.add("limitar2");
             divMotivo.textContent = evento.motivo;
             celdaMotivo.appendChild(divMotivo);
 
-
-            // Celda para la hora
             let celdaHora = fila.insertCell();
             let horaEvento = formato12Horas(evento.hora);
             let divHora = document.createElement('div');
             divHora.textContent = horaEvento;
             celdaHora.appendChild(divHora);
 
-            // Celda para la fecha
             let celdaFecha = fila.insertCell();
             let fechaEvento = new Date(evento.fecha + "T00:00:00");
             fechaEvento = new Date(fechaEvento.getTime() + fechaEvento.getTimezoneOffset() * 60000);
@@ -701,7 +694,6 @@ function mostrarTodosLosEventos() {
             divFecha.textContent = fechaEvento.toLocaleDateString('es-ES', options);
             celdaFecha.appendChild(divFecha);
 
-            // Celda para las acciones (editar y borrar)
             let celdaAccion = fila.insertCell();
             let divAcciones = document.createElement('div');
             let botonEditar = document.createElement('button');
@@ -752,6 +744,9 @@ function editarGuardar() {
     var nuevaFecha = fechaInput.value.trim();
     var nuevaHora = horasInput.value.trim();
     var nuevoMotivo = motivoInput.value.trim();
+    var fechaActual = new Date(); 
+    var fechaActualFormateada = fechaActual.toISOString().split('T')[0];
+
     if (!nuevaFecha || !nuevaHora || !nuevoMotivo) {
         error.style.display = "block";
         error.innerHTML = "Por favor, complete todos los campos.";
@@ -760,6 +755,11 @@ function editarGuardar() {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(nuevaFecha)) {
         error.style.display = "block";
         error.innerHTML = "Por favor, ingrese una fecha válida en formato AAAA-MM-DD.";
+        return;
+    }
+    if (nuevaFecha < fechaActualFormateada) {
+        error.style.display = "block";
+        error.innerHTML = "No se pueden agregar eventos antes de la fecha actual.";
         return;
     }
     if (!/^\d{2}:\d{2}$/.test(nuevaHora)) {
@@ -782,17 +782,16 @@ function editarGuardar() {
         error.innerHTML = "Una cita ya existe en esa fecha y hora.";
         return;
     }
+    
     var sessionDateTime = `${nuevaFecha}T${nuevaHora}:00`;
 
     var advisorySessionData = {
         session_date: sessionDateTime,
         description: nuevoMotivo,
-        // Asumiendo que id_project_id e id_advisor_id no cambian, podrías agregarlos aquí si es necesario
     };
 
-    // Asumiendo que eventoSeleccionado.id contiene el ID de la cita que estás editando
     fetch(`http://127.0.0.1:8000/advisory-sessions/${eventoSeleccionado.id}`, {
-        method: 'PUT', // o 'PATCH' dependiendo de lo que tu API espere
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -807,13 +806,12 @@ function editarGuardar() {
     })
     .then(data => {
         console.log('Success:', data);
-        // Maneja el éxito aquí, por ejemplo, cerrando el modal y refrescando la lista de eventos
-        window.location.reload(); // O alguna función que actualice la lista de eventos sin recargar la página
+        window.location.reload(); 
     })
     .catch((error) => {
         console.error('Error:', error);
-        errorElement.style.display = "block";
-        errorElement.innerHTML = "Ha ocurrido un error al intentar actualizar la cita.";
+        error.style.display = "block";
+        error.innerHTML = "Ha ocurrido un error al intentar actualizar la cita.";
     });
     delete eventos[idEvento];
     eventos[nuevoIdEvento] = {
@@ -829,6 +827,8 @@ function editarGuardar() {
     updateCalendar();
     llenarHorasConEventos();
 }
+
+
 
 function editarEvento(evento) {
     var fechaInput = document.getElementById("editFecha");

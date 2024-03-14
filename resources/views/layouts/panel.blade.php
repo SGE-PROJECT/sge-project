@@ -38,7 +38,7 @@
   <!--sidenav-->
   <div class="container-loader" id="loader">
     <div class="loader">
-        
+
         <div class="box box0">
             <div></div>
         </div>
@@ -76,7 +76,7 @@
           <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
         </a>
       </div>
-      <ul class="mt-4 scroll2 overflow-y-scroll">
+      <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
         <!-- ADMIN Section -->
         <li class="mb-1 group">
           <a href="/"
@@ -166,7 +166,7 @@
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
         <li class="mb-1 group">
-          <a href="/Asesorias"
+          <a href="{{ route('asesorias') }}"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-calendar-event mr-3 text-lg'></i>
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
