@@ -52,8 +52,8 @@ Route::get('/proyectos', function(){
 
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
-    Route::get('/login', [LoginControlller::class, 'index'])->name('login');
-    Route::post('/login', [LoginControlller::class, 'store']);
+    Route::get('/Iniciar-sesión', [LoginControlller::class, 'index'])->name('login');
+    Route::post('/Iniciar-sesión', [LoginControlller::class, 'store']);
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'store']);
 
@@ -120,7 +120,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
 
 
-    Route::get('/RecoverPassword', function () {
+    Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
     });
     Route::get('/asesorias', function () {
