@@ -38,12 +38,7 @@ class RoleSeeder extends Seeder
                 $role->givePermissionTo($permission);
             }
         }
-        //En esta parte declaramos las rutas de administrador, En el caso de Dashboard users vamos a manejar el crud para estos
-
-        Permission::create(['name' => 'administrator.dashboard.DashboardUsers'])->syncRoles([$Administrator, $Director, $Licenciade]);
-        Permission::create(['name' => 'administrator.dashboard.dashboardTeam'])->syncRoles([$Administrator, $Director, $Licenciade]);
-        Permission::create(['name' => 'books-notifications.books.list'])->syncRoles([$Administrator, $Director, $Licenciade, $Student, $AcademicPresident, $Teacher, $Adviser]);
-
+        
 
 
         /*  //En esta parte declaramos permisos para usar botones del crud
