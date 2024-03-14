@@ -76,7 +76,7 @@
           <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
         </a>
       </div>
-      <ul class="mt-4 scroll2 overflow-y-scroll">
+      <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
         <!-- ADMIN Section -->
         <li class="mb-1 group">
           <a href="/"

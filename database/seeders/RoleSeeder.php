@@ -15,59 +15,29 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
 
-        //Se declaran los roles del sistema
-
-        $Administrator = Role::create(['name' => 'Administrator']);
-        $Teacher = Role::create(['name' => 'Teacher']);
-        $Adviser = Role::create(['name' => 'Adviser']);
-        $Student = Role::create(['name' => 'Student']);
-        $Director = Role::create(['name' => 'Director']);
-        $Licenciade = Role::create(['name' => 'Licenciade']);
-        $AcademicPresident = Role::create(['name' => 'AcademicPresident']);
+        //Se declaran y crean los roles del sistema de forma segura
+        $rolesNames = ['Administrator', 'Teacher', 'Adviser', 'Student', 'Director', 'Licenciade', 'AcademicPresident'];
+        foreach ($rolesNames as $roleName) {
+            Role::findOrCreate($roleName, 'web');
+        }
 
         //Se declaran los permisos de los roles
 
-        //En esta parte declaramos las rutas de administrador, En el caso de Dashboard users vamos a manejar el crud para estos
-
-        Permission::create(['name' => 'administrator.dashboard.DashboardUsers'])->syncRoles([$Administrator, $Director, $Licenciade]);
-        Permission::create(['name' => 'administrator.dashboard.dashboardTeam'])->syncRoles([$Administrator, $Director, $Licenciade]);
-        Permission::create(['name' => 'books-notifications.books.list'])->syncRoles([$Administrator, $Director, $Licenciade, $Student, $AcademicPresident, $Teacher, $Adviser]);
-
-
-        // Asignar los permisos a los roles
+        // Ahora, creamos los permisos y los asignamos a los roles correspondientes de forma segura
         $permissions = [
-            
-            
-            'login',
-            'register',
-            'division.proyecto',
-            'empresas.index',
-            'divisiones.index',
-            'carreras.index',
-            'management.user.index',
-            'management.configuration.index',
-            'profile.index',
-            'registeruser.index',
-            'roles-permisos.index',
-            'books.index',
-            'añadir.libros',
-            'books-notifications.books.notifications',
-            'administrator.dashboard.DashboardUsers',
-            'administrator.dashboard.dashboardTeam',
-            'books.list',
-            'books.reports',
-            'dashboardProjects',
-            'projectinvitation',
-            'projectform.index',
-            'projectform.store',
-            'viewproject',
-            'auth.recoverPassword',
-            'consultancy.Dates',
+            'administrator.dashboard.DashboardUsers' => ['Administrator', 'Director', 'Licenciade'],
+            'administrator.dashboard.dashboardTeam' => ['Administrator', 'Director', 'Licenciade'],
+            'books-notifications.books.list' => ['Administrator', 'Director', 'Licenciade', 'Student', 'AcademicPresident', 'Teacher', 'Adviser'],
+            // Agrega aquí otros permisos según sea necesario
         ];
 
-        $Administrator->syncPermissions($permissions);
-        $Director->syncPermissions($permissions);
-        $Licenciade->syncPermissions($permissions);
+        foreach ($permissions as $permissionName => $roles) {
+            $permission = Permission::findOrCreate($permissionName, 'web');
+            foreach ($roles as $roleName) {
+                $role = Role::findByName($roleName, 'web');
+                $role->givePermissionTo($permission);
+            }
+        }
 
 
         /*  //En esta parte declaramos permisos para usar botones del crud

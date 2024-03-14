@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{{ asset('css/projects/projectDashboardStyle.css') }}">
 
         <div class="project-administrator-card">
-            @include('administrator.card', ['number' => 12, 'name' => 'Proyectos'])
+            @include('administrator.graph-projects', ['number' => 12, 'name' => 'Proyectos'])
         </div>
 
         <div class="project-section-projects">
@@ -16,7 +16,7 @@
         </div>
 
         <h1 class="proyect-table-title">Proyectos</h1>
-        <button class="project-add-Proyect"><a href="{{route('createForm')}}">Agregar</a></button>
+        <button class="project-add-Proyect"><a href="{{route('projectform')}}">Agregar</a></button>
 
         <table class="project-table">
             <thead>
