@@ -8,6 +8,8 @@
 @vite('resources/css/careers/career.css');
 
 
+
+
   <div class="card-container">
     <div class="performance-meter-careers">
       <div class="carta-payment-careers">
@@ -27,25 +29,17 @@
 
     <div class="divisions">
       <div class="title-container">
-        <h2>Divisiones</h2>
+          <h2>Divisiones</h2>
       </div>
+      @foreach($divisions as $division)
       <div class="division-item">
-        <span class="dot" style="background-color: #4D96FF;"></span>
-        <span>Ingeniería y tecnología</span>
+          <span class="dot" style="background-color: {{ $division['color'] }}"></span>
+          <span>{{ $division['name'] }}</span>
       </div>
-      <div class="division-item">
-        <span class="dot" style="background-color: #FF6B6B;"></span>
-        <span>Turismo</span>
-      </div>
-      <div class="division-item">
-        <span class="dot" style="background-color: #6BCB77;"></span>
-        <span>Gastronomía</span>
-      </div>
-      <div class="division-item">
-        <span class="dot" style="background-color: #FFD93D;"></span>
-        <span>Económico administrativo</span>
-      </div>
-    </div>
+      @endforeach
+  </div>
+  
+    
   </div>
 
   <div class="table-container">
@@ -60,64 +54,24 @@
           </tr>
       </thead>
       <tbody>
-          <tr>
-              <td>TI Área de Desarrollo Software Multiplataforma</td>
-              <td>Ingeniería y tecnología</td>
-              <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-              <td>
-                  <div class="flex">
-                      <i><img class="iconImage h-7 w-7" src="images/projects/edit.png"></i>
-                      <i><img class="iconImage h-7 w-7" src="images/projects/view.png"></i>
-                      <i><img class="iconImage h-7 w-7" src="images/projects/delete.png"></i>
-                      <i class="icon download"></i>
-                      <i class="icon more-options"></i>
-                  </div>
-              </td>
-          </tr>
-          <tr>
-              <td>Gastronomía</td>
-              <td>Gastronomía</td>
-              <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-              <td>
-                  <div class="flex">
-                      <i><img class="iconImage h-7 w-7" src="images/projects/edit.png"></i>
-                      <i><img class="iconImage h-7 w-7" src="images/projects/view.png"></i>
-                      <i><img class="iconImage h-7 w-7" src="images/projects/delete.png"></i>
-                      <i class="icon download"></i>
-                      <i class="icon more-options"></i>
-                  </div>
-              </td>
-          </tr>
-          <tr>
-              <td>Contabilidad</td>
-              <td>Económico Administrativo</td>
-              <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-              <td>
-                  <div class="flex">
-                      <i><img class="iconImage h-7 w-7" src="images/projects/edit.png"></i>
-                      <i><img class="iconImage h-7 w-7" src="images/projects/view.png"></i>
-                      <i><img class="iconImage h-7 w-7" src="images/projects/delete.png"></i>
-                      <i class="icon download"></i>
-                      <i class="icon more-options"></i>
-                  </div>
-              </td>
-          </tr>
-          <tr>
-              <td>Turismo</td>
-              <td>Turismo</td>
-              <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-              <td>
-                  <div class="flex">
-                      <i><img class="iconImage h-7 w-7" src="images/projects/edit.png"></i>
-                      <i><img class="iconImage h-7 w-7" src="images/projects/view.png"></i>
-                      <i><img class="iconImage h-7 w-7" src="images/projects/delete.png"></i>
-                      <i class="icon download"></i>
-                      <i class="icon more-options"></i>
-                  </div>
-              </td>
-          </tr>
-          <!-- Más filas según sea necesario -->
-      </tbody>
+        @foreach($careers as $career)
+        <tr>
+            <td>{{ $career['name'] }}</td>
+            <td>{{ $career['division'] }}</td>
+            <td>{{ $career['description'] }}</td>
+            <td>
+                <div class="flex">
+                    <i><img class="iconImage h-7 w-7" src="images/projects/edit.png"></i>
+                    <i><img class="iconImage h-7 w-7" src="images/projects/view.png"></i>
+                    <i><img class="iconImage h-7 w-7" src="images/projects/delete.png"></i>
+                    <i class="icon download"></i>
+                    <i class="icon more-options"></i>
+                </div>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+    
   </table>
   
   </div>
