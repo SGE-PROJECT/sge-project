@@ -4,6 +4,8 @@
     Roles
 @endsection
 @php
+use Spatie\Permission\Models\Permission;
+
     $role = \Spatie\Permission\Models\Role::find(1);
     $role2 = \Spatie\Permission\Models\Role::find(2);
     $role3 = \Spatie\Permission\Models\Role::find(3);
@@ -19,6 +21,7 @@
     $role5Permissions = \Spatie\Permission\Models\Role::where('id', 5)->first()->permissions->pluck('name')->toArray();
     $role6Permissions = \Spatie\Permission\Models\Role::where('id', 6)->first()->permissions->pluck('name')->toArray();
     $role7Permissions = \Spatie\Permission\Models\Role::where('id', 7)->first()->permissions->pluck('name')->toArray();
+    $allPermissions = Permission::all();
 @endphp
 @section('contenido')
     <link rel="stylesheet" href="css/roles/roles.css">
@@ -45,8 +48,7 @@
 
                 <div class="permissions-container hidden">
                     <div class="permissions-list">
-                        <form action="{{ route('roles.permissions.update', ['roles_permiso' => $role->id]) }}"
-                            method="POST">
+                        <form action="{{ route('roles.permissions.update', ['roles_permiso' => $role->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="permissions-administrador">
@@ -60,29 +62,38 @@
                                     'books-notifications.books.list' => 'Ver lista de libros',
                                 ];
                                 ?>
-
-                                @foreach ($role1Permissions as $permission)
+                
+                                @foreach ($allPermissions as $permission)
                                     <div class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-                                        <input id="{{ $permission }}" type="checkbox" value="{{ $permission }}"
-                                            name="permisos[]"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="{{ $permission }}"
+                                        <input id="{{ $permission->id }}" type="checkbox" value="{{ $permission->id }}"
+                                            name="permisos[]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded
+                                            focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2
+                                            dark:bg-gray-700 dark:border-gray-600"
+                                            {{ $role->permissions->contains($permission->id) ? 'checked' : '' }}>
+                                        <label for="{{ $permission->id }}"
                                             class="w-full py-4 ms-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-                                            {{ isset($permissionNames[$permission]) ? $permissionNames[$permission] : $permission }}
+                                            {{ isset($permissionNames[$permission->name]) ? $permissionNames[$permission->name] : $permission->name }}
                                         </label>
                                     </div>
                                 @endforeach
                             </div>
-
+                
                             <button type="submit"
-                                class="update-btn text-lg font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Actualizar
-                                permisos</button>
-
+                                class="update-btn text-lg font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800
+                                focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-blue-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                Actualizar permisos
+                            </button>
+                
                             <button type="button"
-                                class="cancel-btn text-lg font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Cancelar</button>
+                                class="cancel-btn text-lg font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800
+                                focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700
+                                dark:focus:ring-red-800">
+                                Cancelar
+                            </button>
                         </form>
                     </div>
                 </div>
+                
 
 
                 <div class="card" id="presidente-card">

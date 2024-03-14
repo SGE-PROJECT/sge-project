@@ -34,41 +34,6 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'books-notifications.books.list'])->syncRoles([$Administrator, $Director, $Licenciade, $Student, $AcademicPresident, $Teacher, $Adviser]);
 
 
-        // Asignar los permisos a los roles
-        $permissions = [
-            
-            
-            'login',
-            'register',
-            'division.proyecto',
-            'empresas.index',
-            'divisiones.index',
-            'carreras.index',
-            'management.user.index',
-            'management.configuration.index',
-            'profile.index',
-            'registeruser.index',
-            'roles-permisos.index',
-            'books.index',
-            'añadir.libros',
-            'books-notifications.books.notifications',
-            'administrator.dashboard.DashboardUsers',
-            'administrator.dashboard.dashboardTeam',
-            'books.list',
-            'books.reports',
-            'dashboardProjects',
-            'projectinvitation',
-            'projectform.index',
-            'projectform.store',
-            'viewproject',
-            'auth.recoverPassword',
-            'consultancy.Dates',
-        ];
-
-        $Administrator->syncPermissions($permissions);
-        $Director->syncPermissions($permissions);
-        $Licenciade->syncPermissions($permissions);
-
 
         /*  //En esta parte declaramos permisos para usar botones del crud
 

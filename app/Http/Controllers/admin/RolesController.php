@@ -68,6 +68,8 @@ class RolesController extends Controller
         return back()->withErrors('Error al actualizar permisos: ' . $e->getMessage())->withInput();
     }
 }
+
+
     
 
     /**
