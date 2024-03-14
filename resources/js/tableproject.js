@@ -12,14 +12,19 @@ document.addEventListener("DOMContentLoaded", function () {
         { nombre: "Bright Ideas", equipo: "Sigma", estado: "En proceso", asesor: "Maria Hernandez", carrera: "Terapia Física", empresa: "InnovateCorp" }
     ];
 
+    var elementosPorPagina = 5;
+    var paginaActual = 1;
+
     function generarTabla() {
+        var inicio = (paginaActual - 1) * elementosPorPagina;
+        var fin = inicio + elementosPorPagina;
         var tablaHTML = '<thead><tr><th>Proyecto</th><th>Equipo</th><th>Estado</th><th>Asesor A/E</th><th>Carrera</th><th>Empresa</th></tr></thead><tbody>';
 
-        proyectos.forEach(function (proyecto) {
+        proyectos.slice(inicio, fin).forEach(function (proyecto) {
             tablaHTML += '<tr>';
             tablaHTML += '<td>' + proyecto.nombre + '</td>';
             tablaHTML += '<td>' + proyecto.equipo + '</td>';
-            tablaHTML += '<td class="estado">' + proyecto.estado + '</td>'; 
+            tablaHTML += '<td class="estado">' + proyecto.estado + '</td>';
             tablaHTML += '<td>' + proyecto.asesor + '</td>';
             tablaHTML += '<td>' + proyecto.carrera + '</td>';
             tablaHTML += '<td>' + proyecto.empresa + '</td>';
@@ -29,12 +34,28 @@ document.addEventListener("DOMContentLoaded", function () {
         tablaHTML += '</tbody>';
 
         document.getElementById('tabla-proyectos').innerHTML = tablaHTML;
+        actualizarPaginacion(); // Agregar esta línea para actualizar la paginación cada vez que se genera la tabla
+    }
+
+    function actualizarPaginacion() {
+        var paginas = Math.ceil(proyectos.length / elementosPorPagina);
+        var paginacionHTML = '';
+
+        for (var i = 1; i <= paginas; i++) {
+            paginacionHTML += '<li class="page-item"><a class="page-link" href="#" onclick="cambiarPagina(' + i + ')">' + i + '</a></li>';
+        }
+
+        document.getElementById('paginacion').innerHTML = paginacionHTML;
+    }
+
+    function cambiarPagina(pagina) {
+        paginaActual = pagina;
+        generarTabla();
     }
 
     window.onload = function () {
         generarTabla();
     };
-
     document.getElementById('Search').addEventListener('input', function () {
         var filtro = this.value.toLowerCase(); // Obtener el texto de búsqueda en minúsculas
         filtrarTabla(filtro); // Llamar a la función para filtrar la tabla
@@ -80,19 +101,19 @@ document.addEventListener("DOMContentLoaded", function () {
     // Función para filtrar la tabla según el valor de los checkboxes
     function filtrarTablaCheck() {
         var filas = document.querySelectorAll('#tabla-proyectos tr');
-    
-        filas.forEach(function(fila) {
+
+        filas.forEach(function (fila) {
             // Verifica si la fila tiene una celda con la clase "estado"
             var celdaEstado = fila.querySelector('.estado');
             if (celdaEstado) { // Verifica si la celda de estado existe
                 var estado = celdaEstado.textContent.toLowerCase();
-                
+
                 // Verifica si la fila coincide con el estado seleccionado en los checkboxes
                 var activos = checkboxActivos.checked && estado.includes('activo');
                 var enProceso = checkboxEnProceso.checked && estado.includes('proceso');
                 var rechazados = checkboxRechazados.checked && estado.includes('rechazado');
                 var aceptados = checkboxAceptados.checked && estado.includes('aceptado');
-    
+
                 // Muestra la fila si coincide con algún estado seleccionado, o si no hay estados seleccionados
                 if (activos || enProceso || rechazados || aceptados || (!activos && !enProceso && !rechazados && !aceptados)) {
                     fila.style.display = '';
@@ -101,5 +122,39 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
-    }    
+    }
+});
+
+var ctx = document.getElementById('barChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Nuevos', 'En desarrollo', 'Finalizados', 'Rechazados'],
+        datasets: [{
+            label: 'Estado del proyecto',
+            data: [12, 19, 3, 5, 2], // Aquí irían los datos de tu gráfica
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
 });

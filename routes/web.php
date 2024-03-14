@@ -86,8 +86,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('libros', BooksController::class);
 
-    Route::get('/agregar-libro', function () {
-        return view('books-notifications.books.Add-books');
+    Route::get('/añadir.libros', function () {
+        return view('books-notifications.books.add-books');
     })->name('añadir.libros');
 
     Route::get('/notificaciones', function () {
@@ -101,8 +101,8 @@ Route::middleware(['auth'])->group(function () {
         return view('administrator.dashboard.dashboardTeam');
     });
 
-    Route::get('/report',[BooksController::class,'listBook'])->name('books.list');
-    Route::get('/report/pdf',[BooksController::class,'report'])->name('books.reports');
+    Route::get('/reporte',[BooksController::class,'listBook'])->name('books.list');
+    Route::get('/reporte/pdf',[BooksController::class,'report'])->name('books.reports');
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
@@ -113,7 +113,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
 
 
-    Route::get('/RecoverPassword', function () {
+    Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
     });
     Route::get('/asesorias', function () {
@@ -128,7 +128,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::resource('carreras', CareerController::class);
+
 
 //Test no tocar son de Alfonso
 Route::get('/datos-citas', [AdvisorySessionController::class, 'index']);
