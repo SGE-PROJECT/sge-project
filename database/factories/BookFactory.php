@@ -17,10 +17,17 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence,
+            'title' => '',
+            'description' => '',
             'author' => $this->faker->name,
-            'description' => $this->faker->paragraph,
+            'editorial' => $this->faker->company,
             'year_published' => $this->faker->year,
+            'price' => $this->faker->numberBetween(300, 520),
+            'student' => '',
+            'tuition' => '',
+            'image_book' => '',
+            'estate' => true,
         ];
+        
     }
 }
