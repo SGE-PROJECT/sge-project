@@ -80,8 +80,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/perfil', [ProfileController::class,'index']);
     Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
 
-    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
-
+        Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
 
     Route::resource('libros', BooksController::class);

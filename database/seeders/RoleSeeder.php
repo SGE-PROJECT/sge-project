@@ -38,6 +38,7 @@ class RoleSeeder extends Seeder
                 $role->givePermissionTo($permission);
             }
         }
+        
 
 
         /*  //En esta parte declaramos permisos para usar botones del crud
