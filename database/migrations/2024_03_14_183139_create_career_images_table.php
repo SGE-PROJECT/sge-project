@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('career', function (Blueprint $table) {
+        Schema::create('career_images', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->foreignId('division_id')->constrained()->onDelete('cascade');
+            $table->foreignId('career_id')->constrained('career')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+            $table->string('image_path');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('career');
+        Schema::dropIfExists('career_images');
     }
 };

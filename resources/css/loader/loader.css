@@ -1,5 +1,5 @@
 .loader {
-    --duration: 3s;
+    --duration: 1.5s;
     --primary: #00ab84;
     --primary-light: #00ab84;
     --primary-rgba: transparent;
@@ -787,8 +787,8 @@
   /* CONTAINER LOADER */
 
 .container-loader {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
