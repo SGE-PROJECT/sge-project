@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Projects;
+use App\Models\Project;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +13,7 @@ class ProjectsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Projects::factory()->count(20)->create();
+        Project::factory()->count(20)->create();
     }
 }
 
