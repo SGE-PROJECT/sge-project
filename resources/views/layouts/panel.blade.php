@@ -86,35 +86,40 @@
           </a>
         </li>
 
-        <li class="mb-1 group relative z-2">
-          <a href=""
-            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
-            <i class='bx bx-building-house mr-3 text-lg'></i>
-            <span class="nav-text text-sm">Administración</span>
-            <i
-              class="ri-arrow-right-s-line ml-auto  group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
-          </a>
-          <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
-            <li class=" ">
-              <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+@if(Auth::check() && Auth::user()->hasRole('Student'))
+@else
+<li class="mb-1 group relative z-2">
+    <a href=""
+       class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
+        <i class='bx bx-building-house mr-3 text-lg'></i>
+        <span class="nav-text text-sm">Administración</span>
+        <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
+    </a>
+    <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
+        <li class=" ">
+            <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-user mr-3 text-lg'></i>
                 <span>Usuarios</span>
-              </a>
-            </li>
-            <li class="">
-              <a href="/roles-permisos" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+            </a>
+        </li>
+        <li class="">
+            <a href="/roles-permisos"
+               class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-lock-open mr-3 text-lg'></i>
                 <span>Roles y Permisos</span>
-              </a>
-            </li>
-            <li class="">
-                <a href="sanciones" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
-                  <i class='bx bx-no-entry mr-3 text-lg'></i>
-                  <span>Sanciones</span>
-                </a>
-              </li>
-          </ul>
+            </a>
         </li>
+        <li class="">
+            <a href="sanciones"
+               class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+                <i class='bx bx-no-entry mr-3 text-lg'></i>
+                <span>Sanciones</span>
+            </a>
+        </li>
+    </ul>
+</li>
+@endif
+
 
         <li class="mb-1 group relative z-2">
           <a href=""
