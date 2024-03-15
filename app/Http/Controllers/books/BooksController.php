@@ -2,29 +2,44 @@
 
 namespace App\Http\Controllers\books;
 
-use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('books-notifications.books.Books');
+        $estado = $request->estado;
+
+        if ($estado === 'finalizado') {
+            $books = Book::where('estate', 1)->get();
+        } elseif ($estado === 'en-proceso') {
+            $books = Book::where('estate', 0)->get();
+        } else {
+            $books = Book::all();
+        }
+
+        return view('books-notifications.books.Books', compact('books', 'estado'));
     }
-    public function listBook(){
-        $books =Book::all();
-        return view('books-notifications.books.BooksList',compact('books'));
+
+    public function listBook()
+    {
+        $books = Book::all();
+        return view('books-notifications.books.BooksList', compact('books'));
     }
-    public function report (){
-        $image='images/utcbis-logo.jpg';
-        $books =Book::all();
-       $pdf = Pdf::loadView('books-notifications.books.reports', compact( 'books','image'));
-       return $pdf->stream('books_reports.pdf');
+    public function report()
+    {
+        $image = 'images/utcbis-logo.jpg';
+        $books = Book::all();
+        $pdf = Pdf::loadView('books-notifications.books.reports', compact('books', 'image'));
+        return $pdf->stream('books_reports.pdf');
     }
 
     /**
@@ -32,15 +47,68 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+        return view('books-notifications.books.create-book');
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'author' => 'required|string|max:255',
+            'editorial' => 'required|string|max:255',
+            'year_published' => 'required|integer|min:1900|max:' . date('Y'),
+            'price' => 'required|numeric|min:0',
+            'student' => 'required|string|max:255',
+            'tuition' => 'required|string|max:255',
+            'image_book' => [
+                'required',
+                'image',
+                'mimes:jpeg,png,jpg',
+                // Tamaño máximo del archivo en kilobytes
+                /* function ($attribute, $value, $fail) {
+                    // Verificar el tamaño de la imagen en píxeles
+                    list($width, $height) = getimagesize($value);
+                    if ($width > 900 || $height > 1200) {
+                        $fail('La imagen debe tener un ancho máximo de 900px y un alto máximo de 1200px.');
+                    }
+                }, */
+            ],
+            'estate' => 'required|boolean',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // Procesar y guardar la imagen
+        $image = $request->file('image_book');
+        $imageName = $image->getClientOriginalName(); // Obtener el nombre original del archivo
+        $imagePath = $image->storeAs('images/books', $imageName, 'public'); // Guardar el archivo con su nombre original
+
+
+        // Guardar el libro en la base de datos
+        $book = new Book();
+        $book->title = $request->title;
+        $book->description = $request->description;
+        $book->author = $request->author;
+        $book->editorial = $request->editorial;
+        $book->year_published = $request->year_published;
+        $book->price = $request->price;
+        $book->student = $request->student;
+        $book->tuition = $request->tuition;
+        $book->image_book = $imageName;
+        $book->estate = $request->estate;
+        $book->save();
+
+        return redirect()->route('libros.index')->with('success', 'Libro creado exitosamente.');
     }
 
     /**
@@ -49,23 +117,10 @@ class BooksController extends Controller
     public function show($id)
     {
         // Aquí puedes obtener el libro específico con el ID proporcionado
-        $libros = [
-            ['imagen' => 'images/books/c-book.jpg', 'titulo' => "Programación orientada a objetos con C++ y Java.", "descripcion" => "Sumérgete en el mundo de la programación orientada a objetos con este libro, que cubre tanto C++ como Java, ofreciendo una guía completa desde los fundamentos hasta técnicas avanzadas, ideal para desarrolladores en busca de un dominio sólido en POO.", 'editorial' => "Editorial de prueba $id", 'alumno' => 'Alumno: Francisco', "Precio" => "Precio: \$520" ],
-            ['imagen' => 'images/books/cert-book.jpg', 'titulo' => "Certificado de profesionalidad en programación", "descripcion" => "Este certificado ofrece una sólida formación en programación, abordando desde los conceptos básicos hasta las habilidades avanzadas necesarias en el mundo laboral actual, proporcionando una base sólida para el éxito en el campo de la programación.", 'editorial' => "Editorial de prueba $id", 'alumno' => 'Alumno: Gael', "Precio" => "Precio: \$520" ],
-            ['imagen' => 'images/books/java-book.jpg', 'titulo' => "Programación orientada a objetos con Java", "descripcion" => "Sumérgete en el mundo de la programación orientada a objetos con este libro enfocado en Java, que ofrece una guía completa desde los fundamentos hasta las técnicas avanzadas, ideal para desarrolladores en busca de un dominio sólido en POO con este lenguaje.", 'editorial' => "Editorial de prueba $id", 'alumno' => 'Alumno: Andrea', "Precio" => "Precio: \$520" ],
-            ['imagen' => 'images/books/java-poo-book.jpg', 'titulo' => "Pilares de la programación orientada a objetos con Java", "descripcion" => "Explora los fundamentos esenciales de la programación orientada a objetos con Java, desglosando los pilares clave que sustentan este paradigma de desarrollo. Desde la encapsulación hasta la herencia y la polimorfismo, este libro te guiará a través de los conceptos fundamentales para dominar la programación orientada a objetos en Java.", 'editorial' => "Editorial de prueba $id", 'alumno' => 'Alumno: Ceana', "Precio" => "Precio: \$520" ],
-            ['imagen' => 'images/books/js-book.jpg', 'titulo' => "Introducción moderna a la programación con Javascript", "descripcion" => "Una introducción fresca a la programación con JavaScript, explorando desde los fundamentos hasta las últimas tendencias para crear aplicaciones web dinámicas y escalables. Este libro te sumerge en el mundo de JavaScript de manera accesible y actualizada.", 'editorial' => "Editorial de prueba $id", 'alumno' => 'Alumno: Guillermo', "Precio" => "Precio: \$520" ],
-            ['imagen' => 'images/books/logica-book.jpg', 'titulo' => "Lógica de programación orientada a objetos", "descripcion" => "Domina la lógica de la programación orientada a objetos con este libro conciso. Desde la conceptualización hasta la implementación, explora cómo estructurar y diseñar sistemas robustos utilizando principios fundamentales de la POO.", 'editorial' => "Editorial de prueba $id", 'alumno' => 'Alumno: Joshua', "Precio" => "Precio: \$520" ],
-            ['imagen' => 'images/books/logica-java-book.jpg', 'titulo' => "Algoritmos y programación en Java", "descripcion" => "Descubre la magia de los algoritmos y la programación en Java con este libro. Desde la teoría hasta la práctica, adéntrate en la resolución de problemas y la optimización de código en uno de los lenguajes más versátiles", 'editorial' => "Editorial de prueba $id", 'alumno' => 'Alumno: Adiel', "Precio" => "Precio: \$520" ],
-            ['imagen' => 'images/books/metodologia-book.jpg', 'titulo' => "Metodología de la pragramación orientada a objetos", "descripcion" => "Explora la metodología de la programación orientada a objetos en este libro conciso. Desde la planificación hasta la implementación, aprende a diseñar sistemas flexibles y mantenibles utilizando principios sólidos de la POO.", 'editorial' => "Editorial de prueba $id", 'alumno' => 'Alumno: David', "Precio" => "Precio: \$520" ],
-            ['imagen' => 'images/books/model-book.jpg', 'titulo' => "Modelo y diseño orientado a objetos", "descripcion" => "Sumérgete en el mundo del modelo y diseño orientado a objetos con este libro esencial. Desde la conceptualización hasta la implementación, aprende a crear sistemas eficientes y escalables utilizando las mejores prácticas de diseño.", 'editorial' => "Editorial de prueba $id", 'alumno' => 'Alumno: Angel', "Precio" => "Precio: \$520" ],
-            ['imagen' => 'images/books/poo-book.jpg', 'titulo' => "Buenas prácticas de programación orientada a objetos en Java", "descripcion" => "Descubre las mejores prácticas de programación orientada a objetos en Java con este libro. Desde la estructuración del código hasta la optimización, aprende a desarrollar aplicaciones robustas y mantenibles siguiendo estándares de calidad.", 'editorial' => "Editorial de prueba $id", 'alumno' => 'Alumno: Paloma', "Precio" => "Precio: \$520" ]
-        ];
-
-        $libro = $libros[$id];
+        $book = Book::findOrFail($id);
 
         // Luego, pasamos el libro a la vista de detalle del libro junto con el índice
-        return view('books-notifications.books.book-detail', compact('libro', 'id'));
+        return view('books-notifications.books.book-detail', compact('book', 'id'));
     }
 
 
@@ -73,24 +128,90 @@ class BooksController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        // Obtener el libro por su ID
+        $book = Book::findOrFail($id);
+
+        // Retornar la vista de edición con el libro
+        return view('books-notifications.books.edit-book', compact('book'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, $id)
+{
+    // Validar los datos del formulario
+    $validator = Validator::make($request->all(), [
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'author' => 'required|string|max:255',
+        'editorial' => 'required|string|max:255',
+        'year_published' => 'required|integer|min:1900|max:' . date('Y'),
+        'price' => 'required|numeric|min:0',
+        'student' => 'required|string|max:255',
+        'tuition' => 'required|string|max:255',
+        'image_book' => 'nullable|image|mimes:jpeg,png,jpg',
+        'estate' => 'required|boolean',
+    ]);
+
+    // Si la validación falla, redireccionar de nuevo al formulario de edición con los errores
+    if ($validator->fails()) {
+        return redirect()
+            ->back()
+            ->withErrors($validator)
+            ->withInput();
     }
+
+    // Obtener el libro por su ID
+    $book = Book::findOrFail($id);
+
+    // Actualizar los campos del libro con los datos del formulario
+    $book->update([
+        'title' => $request->title,
+        'description' => $request->description,
+        'author' => $request->author,
+        'editorial' => $request->editorial,
+        'year_published' => $request->year_published,
+        'price' => $request->price,
+        'student' => $request->student,
+        'tuition' => $request->tuition,
+        'estate' => $request->estate,
+    ]);
+
+    // Si se proporcionó una nueva imagen, actualizarla
+    if ($request->hasFile('image_book')) {
+        $image = $request->file('image_book');
+        $imageName = $image->getClientOriginalName();
+        $imagePath = $image->storeAs('images/books', $imageName, 'public'); // Guardar el archivo con su nombre original
+
+        // Actualizar el campo de imagen en la base de datos
+        $book->update(['image_book' => $imageName]);
+    }
+
+    // Redireccionar al usuario de nuevo a la lista de libros con un mensaje de éxito
+    return redirect()->route('libros.index')->with('success', 'Libro actualizado exitosamente.');
+}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy($id)
+{
+    // Obtener el libro por su ID
+    $book = Book::findOrFail($id);
+
+    // Obtener el nombre de la imagen del libro
+    $imageName = $book->image_book;
+
+    // Eliminar el libro de la base de datos
+    $book->delete();
+
+    // Borrar la imagen del libro de la carpeta "public"
+    Storage::delete("public/images/books/$imageName");
+
+    // Redireccionar al usuario de nuevo a la lista de libros con un mensaje de éxito
+    return redirect()->route('libros.index')->with('success', 'Libro eliminado exitosamente.');
+}
 }

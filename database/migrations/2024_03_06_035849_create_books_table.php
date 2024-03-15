@@ -15,9 +15,15 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('author');
             $table->text('description')->nullable();
+            $table->string('editorial');
+            $table->string('author');
             $table->integer('year_published');
+            $table->integer('price');
+            $table->string('student');
+            $table->string('tuition');
+            $table->string('image_book');
+            $table->boolean('estate')->default(false);
             $table->timestamps();
         });
     }
