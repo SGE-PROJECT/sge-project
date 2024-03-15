@@ -43,10 +43,11 @@
   </div>
 
   <div class="table-container">
-    <button class="add-button">Agregar</button>
+    <a href="{{ route('carreras.create') }}" class="add-button">Agregar</a>
     <table>
       <thead>
           <tr>
+              <th>Logotipo</th>
               <th>Nombre carrera</th>
               <th>División</th>
               <th>Descripción</th>
@@ -56,17 +57,27 @@
       <tbody>
         @foreach($careers as $career)
         <tr>
-            <td>{{ $career['name'] }}</td>
-            <td>{{ $career['division'] }}</td>
-            <td>{{ $career['description'] }}</td>
             <td>
-                <div class="flex">
-                    <i><img class="iconImage h-7 w-7" src="images/projects/edit.png"></i>
-                    <i><img class="iconImage h-7 w-7" src="images/projects/view.png"></i>
-                    <i><img class="iconImage h-7 w-7" src="images/projects/delete.png"></i>
-                    <i class="icon download"></i>
-                    <i class="icon more-options"></i>
-                </div>
+              @if ($career->careerImage)
+                  <img src="{{ asset($career->careerImage->image_path) }}" alt="Logotipo de la carrera" class="h-16 w-16 object-cover">
+              @else
+                  <span>Sin Imagen</span>
+              @endif
+            </td>
+            <td>{{ $career->name }}</td>
+            <td>{{ $career->division->name }}</td>
+            <td>{{ $career->description }}</td>
+            <td>
+              <div class="flex">
+                <a href="{{ route('carreras.edit', $career->id) }}"
+                    class="bg-[#03A696] hover:bg-blue-600 text-white py-2 px-4 rounded mr-2 mb-2 ">Editar</a>
+                    <form action="{{ route('carreras.destroy', $career->id) }}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta carrera?')" class="bg-[#03A696] hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
+                  </form>
+                  
+            </div>
             </td>
         </tr>
         @endforeach

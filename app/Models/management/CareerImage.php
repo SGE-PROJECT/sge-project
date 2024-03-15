@@ -9,10 +9,11 @@ class CareerImage extends Model
 {
     use HasFactory;
 
+
     protected $fillable = ['career_id', 'image_path'];
 
     public function career()
     {
-        return $this->belongsTo(Careers::class);
+        return $this->belongsTo(Career::class);
     }
 }
