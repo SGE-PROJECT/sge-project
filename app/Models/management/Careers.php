@@ -11,8 +11,14 @@ class Careers extends Model
     protected $guarded = [];
     protected $fillable = ['name', 'description', 'division_id'];
 
-    public function division()
+    public function divisionConnect()
     {
-        return $this->belongsTo(Division::class); // Relación con Division
+        return $this->belongsTo(Division::class);
     }
+
+    public function careerImage()
+    {
+        return $this->hasOne(CareerImage::class);
+    }
+
 }

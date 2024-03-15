@@ -15,7 +15,8 @@ class CareerController extends Controller
      */
     public function index()
     {
-        return view('management.careers.Careers');
+        
+        return view('management.careers.Careers', compact('careers', 'divisions'));
     }
 
     /**
@@ -32,7 +33,15 @@ class CareerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'division_id' => 'required|exists:divisions,id',
+        ]);
+    
+        \App\Models\management\Careers::create($request->all());
+    
+        return redirect()->route('careers.index')->with('success', 'Carrera creada exitosamente.');
     }
 
     /**
@@ -40,7 +49,8 @@ class CareerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $career = Careers::findOrFail($id);
+    return view('management.careers.show', compact('career'));
     }
 
     /**
@@ -48,7 +58,9 @@ class CareerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $career = Careers::findOrFail($id);
+    $divisions = Division::all(); // Para seleccionar otra división si es necesario
+    return view('management.careers.edit', compact('career', 'divisions'));
     }
 
     /**
@@ -56,7 +68,16 @@ class CareerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'division_id' => 'required|exists:divisions,id',
+        ]);
+    
+        $career = Careers::findOrFail($id);
+        $career->update($request->all());
+    
+        return redirect()->route('careers.index')->with('success', 'Carrera actualizada con éxito.');
     }
 
     /**
@@ -64,6 +85,9 @@ class CareerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $career = Careers::findOrFail($id);
+    $career->delete();
+
+    return redirect()->route('careers.index')->with('success', 'Carrera eliminada con éxito.');
     }
 }
