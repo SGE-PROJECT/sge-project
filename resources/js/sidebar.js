@@ -16,7 +16,7 @@ function ocultarDiv() {
         div.style.display="none";
         
       }, 300);
-    }, 2000);
+    }, 10);
   }
 ocultarDiv();
 function closeSidebar() {
