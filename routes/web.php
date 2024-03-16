@@ -87,8 +87,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/perfil', [ProfileController::class,'index']);
     Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
 
-    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
-
+        Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
 
     Route::resource('libros', BooksController::class);
@@ -123,9 +122,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
     });
+
     Route::get('/asesorias', function () {
         return view('consultancy.Dates');
     })->name('asesorias');
+
+    Route::get('/asesorias/dashboard', function(){
+        return view('consultancy.Dashboard');
+    });
 
 });
 
@@ -142,7 +146,3 @@ Route::get('/users', [UsersTestController::class, 'index']);
 Route::post('/advisory-sessions', [AdvisorySessionController::class, 'store']);
 Route::put('/advisory-sessions/{id}', [AdvisorySessionController::class, 'update']);
 Route::delete('/advisory-sessions/{id}', [AdvisorySessionController::class, 'destroy']);
-
-Route::get('/loader', function () {
-    return view('layouts.loader');
-});

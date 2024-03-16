@@ -183,6 +183,34 @@
   text-align: center;
 }
 
+.tag-state-finish {
+  position: absolute;
+  width: 180;
+  height: 30px;
+  color: white;
+  top: 0;
+  text-align: center;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 6px;
+  left: 110px;
+}
+
+.tag-state-process {
+  position: absolute;
+  width: 110px;
+  height: 30px;
+  color: white;
+  top: 0;
+  text-align: center;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 6px;
+  left: 100px;
+}
+
 /* finish new style */
 
 .card__content-book {
@@ -190,7 +218,7 @@
 }
 
 .button-books {
-  margin-top: 30px;
+  margin-top: 45px;
   height: 40px;
   width: 190px;
   font-weight: bold;
@@ -204,6 +232,89 @@
 }
 
 .button-books:active {
+  transform: scale(0.9);
+}
+
+.select-books{
+  margin-top: 30px;
+  height: 35px;
+  width: 190px;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  position: absolute;
+  left: 20px;
+  top: -20px;
+  border: none;
+}
+
+.add-button-book {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  left: 230px;
+  top: 10px;
+  padding-left: 4.5px;
+  padding-bottom: 0.5px;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.create-book-position {
+  position: absolute;
+  left: 868px;
+  bottom: 40px;
+}
+
+.add-button-book:hover {
+  background-color: #6f6f6f;
+}
+
+.add-button-book:active {
+  transform: scale(0.9);
+}
+
+.edit-button-book {
+  background-color: #293846;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  left: -60px;
+  top: 150px;
+  padding-left: 4.5px;
+  padding-bottom: 0.5px;
+  border-radius: 4px;
+  transition: 0.3s;
+  transform: scale(1.3);
+}
+
+.edit-button-book:hover {
+  background-color: #6f6f6f;
+}
+
+.edit-button-book:active {
+  transform: scale(0.9);
+}
+
+.delete-button-book {
+  background-color: #293846;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  left: -60px;
+  top: 200px;
+  padding-left: 4.5px;
+  padding-bottom: 0.5px;
+  border-radius: 4px;
+  transition: 0.3s;
+  transform: scale(1.3);
+}
+
+.delete-button-book:hover {
+  background-color: #6f6f6f;
+}
+
+.delete-button-book:active {
   transform: scale(0.9);
 }
 
@@ -221,7 +332,6 @@
   /* border: black dotted; */
   width: 100%;
   height: 100%;
-  margin-top: 20px;
 }
 
 .ctn-bk::-webkit-scrollbar {

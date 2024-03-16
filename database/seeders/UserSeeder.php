@@ -21,6 +21,18 @@ class UserSeeder extends Seeder
             'created_at' => now()
         ]);
 
+        $AdministratorUser = User::create([
+            'name' => 'José Martínez',
+            // 'last_name' => 'Garcia',
+            'email' => 'jose@gmail.com',
+            // 'phone_number' => '9983187269',
+            'password' => Hash::make('jose'), // Usar un hash seguro para la contraseña
+            // 'avatar' => 'default.jpg',
+            // 'is_active' => 1,
+            'created_at' => now()
+        ]);
+        
+
         $teacherUser = User::create([
             'name' => 'Rafael Villegas',
             'email' => 'rvillegas@gmail.com',

@@ -16,34 +16,43 @@ return new class extends Migration
     public function up(): void
     {
         Schema::disableForeignKeyConstraints();
-        Schema::create("projects", function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->string("status");
-            $table->text("general_information");
-            $table->text("general_objective");
-            $table->text("problem_statement");
-            $table->text("justification");
-            $table->text("activities");
-            $table->foreignId("program_id")->constrained()
-            ->onUpdate('restrict')
-            ->onDelete('restrict');
-            $table->foreignId("company_id")->constrained()
-            ->onUpdate('restrict')
-            ->onDelete('restrict');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->tinyInteger('approved');
-            $table->foreignId("academic_advisor_id")->constrained()
-            ->onUpdate('restrict')
-            ->onDelete('restrict');
-            $table->foreignId("business_advisor_id")->constrained()
-            ->onUpdate('restrict')
-            ->onDelete('restrict');
+            $table->string('fullname_student');
+            $table->bigInteger('id_student');
+            $table->string('group_student');
+            $table->bigInteger('phone_student');
+            $table->string('email_student');
+            $table->date('startproject_date');
+            $table->date('endproject_date');
+            $table->string('name_project');
+            $table->string('company_name');
+            $table->string('company_address');
+            $table->string('advisor_business_name');
+            $table->string('advisor_business_position');
+            $table->bigInteger('advisor_business_phone');
+            $table->string('advisor_business_email');
+            $table->string('project_area');
+            $table->text('general_objective');
+            $table->text('problem_statement');
+            $table->text('justification');
+            $table->text('activities');
+            $table->foreignId("id_academic_advisor_id")->nullable()->constrained("academic_advisors")
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+            $table->foreignId("id_business_advisor_id")->nullable()->constrained("business_advisors")
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+            $table->foreignId("id_program_id")->nullable()->constrained("programs")
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+            $table->foreignId("id_company_id")->nullable()->constrained("affiliated_companies")
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+            $table->string('status')->default('Nuevo');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

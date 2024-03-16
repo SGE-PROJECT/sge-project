@@ -18,7 +18,7 @@
                  <!-- Información de perfil -->
                  <div>
                     <div class="mb-4">
-                        <h2 class="text-3xl font-bold text-teal-600">Rafael Villegas</h2>
+                        <h2 class="text-3xl font-bold text-teal-600">Paola Villegas</h2>
                         <!-- Botones de seguimiento, mensaje, etc. -->
                         <div class="mt-2 flex">
                             <button id="boton-seguir"
