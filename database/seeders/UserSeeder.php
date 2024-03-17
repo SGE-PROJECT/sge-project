@@ -4,10 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-
 
 class UserSeeder extends Seeder
 {
@@ -18,12 +16,8 @@ class UserSeeder extends Seeder
     {
         $StudentUser = User::create([
             'name' => 'Guillermo Garcia',
-            // 'last_name' => 'Garcia',
             'email' => 'guillermo.jesus.garcia.canul@gmail.com',
-            // 'phone_number' => '9983187269',
-            'password' => Hash::make('guillermo'), // Usar un hash seguro para la contraseña
-            // 'avatar' => 'default.jpg',
-            // 'is_active' => 1,
+            'password' => Hash::make('guillermo'),
             'created_at' => now()
         ]);
 
@@ -40,57 +34,38 @@ class UserSeeder extends Seeder
         
 
         $ManagmentAdminUser = User::create([
+        
             'name' => 'Rafael Villegas',
-            // 'last_name' => 'Villegas',
             'email' => 'rvillegas@gmail.com',
-            // 'phone_number' => '9984127760',
-            'password' => Hash::make('rafael'), // Usar un hash seguro para la contraseña
-            // 'avatar' => 'default.jpg',
-            // 'is_active' => 1,
+            'password' => Hash::make('rafael'),
             'created_at' => now()
         ]);
 
         $AdviserUser = User::create([
             'name' => 'Alonso Roano',
-            // 'last_name' => 'Roano',
             'email' => 'alonroano@gmail.com',
-            // 'phone_number' => '9981137469',
-            'password' => Hash::make('alonso'), // Usar un hash seguro para la contraseña
-            // 'avatar' => 'default.jpg',
-            // 'is_active' => 1,
+            'password' => Hash::make('alonso'),
             'created_at' => now()
         ]);
 
         $SecretaryUser = User::create([
             'name' => 'Andres Leyva',
-            // 'last_name' => 'Garcia',
             'email' => 'leyvagarcia@gmail.com',
-            // 'phone_number' => '9985177869',
-            'password' => Hash::make('leyva'), // Usar un hash seguro para la contraseña
-            // 'avatar' => 'default.jpg',
-            // 'is_active' => 1,
+            'password' => Hash::make('leyva'),
             'created_at' => now()
         ]);
 
         $SuperAdminUser = User::create([
             'name' => 'Rocío Diaz',
-            // 'last_name' => 'Diaz',
             'email' => 'drocio@gmail.com',
-            // 'phone_number' => '9987837169',
-            'password' => Hash::make('rocio'), // Usar un hash seguro para la contraseña
-            // 'avatar' => 'default.jpg',
-            // 'is_active' => 1,
+            'password' => Hash::make('rocio'),
             'created_at' => now()
         ]);
 
         $PresidentUser = User::create([
             'name' => 'Norma Villegas',
-            // 'last_name' => 'Villegas',
             'email' => 'normavillegas@gmail.com',
-            // 'phone_number' => '9981336169',
-            'password' => Hash::make('norma'), // Usar un hash seguro para la contraseña
-            // 'avatar' => 'default.jpg',
-            // 'is_active' => 1,
+            'password' => Hash::make('norma'),
             'created_at' => now()
         ]);
 
@@ -100,7 +75,6 @@ class UserSeeder extends Seeder
         $studentRole = Role::findByName('Student');
         $directorRole = Role::findByName('Director');
         $licenciadeRole = Role::findByName('Licenciade');
-
 
         $AdministratorUser->assignRole($AdministratorRole);
         $teacherUser->assignRole($teacherRole);
