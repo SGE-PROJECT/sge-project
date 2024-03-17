@@ -3,13 +3,18 @@
 }
 
 .heading {
-    font-size: 32px;
-    margin-bottom: 30px;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 .edit-form {
     max-width: 500px;
     margin: auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
@@ -18,36 +23,39 @@
 
 .label {
     font-weight: bold;
+    color: #333;
 }
 
 .input {
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ced4da;
+    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .checkbox-group {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
 }
 
 .checkbox {
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .checkbox-label {
     font-size: 16px;
+    color: #333;
 }
 
 .btn {
     padding: 10px 20px;
     font-size: 16px;
-    margin-right: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .btn-primary {
@@ -66,4 +74,9 @@
 
 .btn-secondary:hover {
     background-color: #5a6268;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
 }
