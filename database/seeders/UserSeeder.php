@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $AdministratorUser = User::create([
+        $StudentUser = User::create([
             'name' => 'Guillermo Garcia',
             // 'last_name' => 'Garcia',
             'email' => 'guillermo.jesus.garcia.canul@gmail.com',
@@ -27,8 +27,8 @@ class UserSeeder extends Seeder
             'created_at' => now()
         ]);
 
-        $AdministratorUser = User::create([
-            'name' => 'José Martínez',
+        $StudentUser = User::create([
+            'name' => 'Jose Martinez',
             // 'last_name' => 'Garcia',
             'email' => 'jose@gmail.com',
             // 'phone_number' => '9983187269',
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
         ]);
         
 
-        $teacherUser = User::create([
+        $ManagmentAdminUser = User::create([
             'name' => 'Rafael Villegas',
             // 'last_name' => 'Villegas',
             'email' => 'rvillegas@gmail.com',
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
             'created_at' => now()
         ]);
 
-        $adviserUser = User::create([
+        $AdviserUser = User::create([
             'name' => 'Alonso Roano',
             // 'last_name' => 'Roano',
             'email' => 'alonroano@gmail.com',
@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
             'created_at' => now()
         ]);
 
-        $studentUser = User::create([
+        $SecretaryUser = User::create([
             'name' => 'Andres Leyva',
             // 'last_name' => 'Garcia',
             'email' => 'leyvagarcia@gmail.com',
@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
             'created_at' => now()
         ]);
 
-        $directorUser = User::create([
+        $SuperAdminUser = User::create([
             'name' => 'Rocío Diaz',
             // 'last_name' => 'Diaz',
             'email' => 'drocio@gmail.com',
@@ -83,7 +83,7 @@ class UserSeeder extends Seeder
             'created_at' => now()
         ]);
 
-        $licenciadeUser = User::create([
+        $PresidentUser = User::create([
             'name' => 'Norma Villegas',
             // 'last_name' => 'Villegas',
             'email' => 'normavillegas@gmail.com',
@@ -94,7 +94,7 @@ class UserSeeder extends Seeder
             'created_at' => now()
         ]);
 
-        $AdministratorRole = Role::findByName('Administrator');
+        /* $AdministratorRole = Role::findByName('Administrator');
         $teacherRole = Role::findByName('Teacher');
         $adviserRole = Role::findByName('Adviser');
         $studentRole = Role::findByName('Student');
@@ -107,7 +107,25 @@ class UserSeeder extends Seeder
         $adviserUser->assignRole($adviserRole);
         $studentUser->assignRole($studentRole);
         $directorUser->assignRole($directorRole);
-        $licenciadeUser->assignRole($licenciadeRole);
+        $licenciadeUser->assignRole($licenciadeRole); */
+
+        $SuperAdminRole  = Role::findByName('SuperAdmin');
+        $ManagmentAdminRole  = Role::findByName('ManagmentAdmin');
+        $AdviserRole  = Role::findByName('Adviser');
+        $StudentRole  = Role::findByName('Student');
+        $PresidentRole  = Role::findByName('President');
+        $SecretaryRole  = Role::findByName('Secretary');
+
+        $SuperAdminUser->assignRole($SuperAdminRole);
+        $ManagmentAdminUser->assignRole($ManagmentAdminRole);
+        $AdviserUser->assignRole($AdviserRole);
+        $StudentUser->assignRole($StudentRole);
+        $PresidentUser->assignRole($PresidentRole);
+        $SecretaryUser->assignRole($SecretaryRole);
+
+
+            
+
 
 
     }

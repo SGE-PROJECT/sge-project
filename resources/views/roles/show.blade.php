@@ -13,7 +13,7 @@
             <h3>Permisos:</h3>
             <ul>
                 @foreach($role->permissions as $permission)
-                    <li>{{ $permission->name }}</li>
+                    <li>{{ $permission->description }}</li>
                 @endforeach
             </ul>
         </div>

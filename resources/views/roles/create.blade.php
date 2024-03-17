@@ -38,7 +38,7 @@
                         <div class="checkbox">
                             <input type="checkbox" value="{{ $permission->name }}" name="permissions[]" id="permission{{ $permission->id }}" class="input-checkbox">
                             <label for="permission{{ $permission->id }}" class="checkbox-label">
-                                {{ $permission->name }}
+                                {{ $permission->description }}
                             </label>
                         </div>
                     @endforeach

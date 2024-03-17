@@ -1,3 +1,5 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
 .container {
     padding: 0 20px;
     max-width: 1200px; /* Define el ancho máximo del contenedor */
@@ -26,7 +28,10 @@ h1 {
     display: inline-block;
     vertical-align: middle;
 }
-
+ .botonagregar{
+    display: flex;
+    justify-content: flex-end;
+ }
 .cards-container {
     display: flex;
     flex-wrap: wrap;
@@ -52,7 +57,7 @@ h1 {
 }
 
 .card-body {
-    padding: 0;
+    padding: 1rem;
 }
 
 .card-title {
@@ -68,14 +73,17 @@ h1 {
     height: 150px;
 }
 
-.list-group-item {
-    padding: 8px 0;
+.card-iconos{
+    font-size: 50px;
+
 }
+
 
 .card-footer {
     padding-top: 10px;
     border-top: 1px solid #ccc;
-    text-align: right;
+    text-align: center;
+    padding: 10px 1rem;
 }
 
 .card-footer .button-container {

@@ -61,11 +61,15 @@
                 </details>
             </div>
 
-            <!-- Botón para agregar usuario -->
-            <div class="mr-28 mb-4">
-                <a href="{{ route('empresas.create') }}"
-                    class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar Empresa</a>
-            </div>
+            @if (Auth::check() && Auth::user()->hasAnyRole(['Student']))
+            @else
+                <!-- Botón para agregar usuario -->
+                <div class="mr-28 mb-4">
+                    <a href="{{ route('empresas.create') }}"
+                        class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar
+                        Empresa</a>
+                </div>
+            @endif
         </div>
 
 
@@ -99,18 +103,22 @@
                         <td>{{ $company->contact_phone }}</td>
                         <td>{{ $company->contact_email }}</td>
                         <td>{{ $company->affiliation_date }}</td>
-                        <td >
-                            <div class="inline-flex">
-                            <a href="{{ route('empresas.edit', $company->id) }}"
-                                class="bg-[#03A696] hover:bg-blue-600 text-white py-2 px-4 rounded mr-2 mb-2 ">Editar</a>
-                            <form action="{{ route('empresas.destroy', $company->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta empresa?')"
-                                    class="bg-[#03A696] hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
-                            </form>
-                        </div>
-                        </td>
+                        @if (Auth::check() && Auth::user()->hasAnyRole(['Student']))
+                        @else
+                            <td>
+                                <div class="inline-flex">
+                                    <a href="{{ route('empresas.edit', $company->id) }}"
+                                        class="bg-[#03A696] hover:bg-blue-600 text-white py-2 px-4 rounded mr-2 mb-2 ">Editar</a>
+                                    <form action="{{ route('empresas.destroy', $company->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            onclick="return confirm('¿Estás seguro de que deseas eliminar esta empresa?')"
+                                            class="bg-[#03A696] hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
+                                    </form>
+                                </div>
+                            </td>
+                            @endif
                     </tr>
                 @endforeach
             </tbody>

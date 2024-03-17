@@ -63,6 +63,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
+    //modulo administrativo
+    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
+
+
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
@@ -79,8 +83,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
     Route::get('/perfil', [ProfileController::class,'index']);
     Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
-
-        Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
 
     Route::resource('libros', BooksController::class);
