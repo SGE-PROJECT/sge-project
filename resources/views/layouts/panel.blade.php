@@ -142,8 +142,8 @@
             </li>
             <li class="">
 
-              <a href="" class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                  class=' bx bx-book-open mr-3 text-lg'></i><span class="text-sm">Programas</span></a>
+              <a href="{{ route('carreras.index')}}" class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                  class=' bx bx-book-open mr-3 text-lg'></i><span class="text-sm">Carreras</span></a>
             </li>
           </ul>
         </li>

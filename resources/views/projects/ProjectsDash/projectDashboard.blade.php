@@ -33,15 +33,12 @@
             <tbody>
                 @foreach ($Projects as $project)
                     <tr>
-                        <td><img src="{{ asset('images/avatar.jpg') }}" alt="Icono de Carpeta"
-                                class="h-6 w-6 inline-block mr-2">
-                            {{ $project->name }}
-                        </td>
-                        <td>Josue Chan, Guillermo Díaz</td>
+                        <td>{{ $project->name_project }}</td>
+                        <td>{{ $project->fullname_student }}</td>
                         <td><span class="project-status">{{ $project->status }}</span></td>
                         <td>Rafael Villegas</td>
                         <td>Software</td>
-                        <td>SAT</td>
+                        <td>{{ $project->company_name }}</td>
                         <td>
                             <!-- Íconos de acción -->
                             <div class="flex">
