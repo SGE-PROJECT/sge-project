@@ -52,8 +52,8 @@ Route::get('/proyectos', function(){
 
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
-    Route::get('/login', [LoginControlller::class, 'index'])->name('login');
-    Route::post('/login', [LoginControlller::class, 'store']);
+    Route::get('/Iniciar-sesión', [LoginControlller::class, 'index'])->name('login');
+    Route::post('/Iniciar-sesión', [LoginControlller::class, 'store']);
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'store']);
 
@@ -62,6 +62,13 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
+
+    Route::middleware(['role:Administrator'])->group(function () {
+        // Rutas para administradores
+        Route::get('/projectsdash', function () {
+            return view('management.project');
+        });
+    });
 
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
