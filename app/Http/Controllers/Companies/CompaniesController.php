@@ -11,9 +11,12 @@ use App\Models\management\Affiliated_companie;
 
 class CompaniesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(){
+        $this->middleware("can:empresas.index")->only('index');
+        $this->middleware("can:empresas.edit")->only('edit', 'update');
+        $this->middleware("can:empresas.create")->only('create', 'store');
+        $this->middleware("can:empresas.destroy")->only('destroy');
+    }
     public function index()
     {
         $companies = Affiliated_companie::with('companiesImage')->get();
