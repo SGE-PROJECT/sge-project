@@ -11,9 +11,13 @@ use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(){
+        $this->middleware("can:roles.permissions.index")->only('index');
+        $this->middleware("can:roles.permissions.show")->only('show');
+        $this->middleware("can:roles.permissions.edit")->only('edit', 'update');
+        $this->middleware("can:roles.permissions.create")->only('create', 'store');
+        $this->middleware("can:roles.permissions.destroy")->only('destroy');
+    }
     public function index()
     {
         $roles = Role::all();

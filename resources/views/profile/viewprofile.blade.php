@@ -4,7 +4,7 @@
 
 @section('contenido')
     <div class="container mx-auto ">
-        <div class="bg-white p-8  rounded-lg shadow-xl">
+        <div class="bg-white p-8 m-5  rounded-lg shadow-xl">
             <!-- Perfil de Usuario -->
             <div class="flex flex-col md:flex-row justify-center md:items-start m-8">
                 <!-- Imagen de perfil -->
@@ -19,13 +19,9 @@
                  <div>
                     <div class="mb-4">
                         <h2 class="text-3xl font-bold text-teal-600">Paola Villegas</h2>
-                        <!-- Botones de seguimiento, mensaje, etc. -->
-                        <div class="mt-2 flex">
-                            <button id="boton-seguir"
-                                class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-full mr-4 transition duration-300 ease-in-out">Seguir</button>
-                        </div>
+                       
                     </div>
-                    <p class="text-lg text-blueGray-700 mb-2">Profesor académico en 2024, programador web</p>
+                    <p class="text-lg text-blueGray-700 mb-2">Profesora académica en 2024, programador web</p>
                     <p class="text-lg font-bold text-teal-600 mb-4">Grupo: SM-53</p>
                     <!-- Detalles adicionales -->
                     <div class="flex flex-col">
