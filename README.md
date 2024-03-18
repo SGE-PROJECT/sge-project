@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://cdn.discordapp.com/attachments/701571845526126602/1210766300868247604/logo_sge.png?ex=65ebc0fd&is=65d94bfd&hm=cbd8b419ad64b395cdb729fb3e14f290b58889aafc6b1febb897125d556495d9&" target="_blank" style="margin-top: -20px;">
-    <img src="https://cdn.discordapp.com/attachments/701571845526126602/1210779355551375480/1708742682327.png?ex=65ebcd25&is=65d95825&hm=bcab5ab0675a63158f068569fa52a206310ad351cc7ffca88d31ad308b1e6bad&" width="400" style="margin-top: -10px;" alt="SGE Logo">
+    <img src="https://cdn.discordapp.com/attachments/701571845526126602/1210779355551375480/1708742682327.png?ex=66077ca5&is=65f507a5&hm=962035f6225d917c00f32a28fef81a8dd8029a21f55e132de39979a420a65ef5&" width="400" style="margin-top: -10px;" alt="SGE Logo">
   </a>
 <p align="center">
   <a href="#acerca-del-proyecto">Inicio</a> |
