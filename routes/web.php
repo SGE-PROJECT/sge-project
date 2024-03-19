@@ -89,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
 
 
+        Route::get('libros/{slug}', [BooksController::class, 'show'])->name('libros.show');
     Route::resource('libros', BooksController::class);
 
     Route::get('/añadir.libros', function () {
