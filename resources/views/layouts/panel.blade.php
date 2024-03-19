@@ -398,14 +398,14 @@
                     $user = auth()->user();
                     $roles = $user->getRoleNames();
                 @endphp
-            
+
                 @if ($roles->isNotEmpty())
                     <p class="text-xs text-gray-500">{{ $roles->first() }}</p>
                 @else
-                    <p class="text-xs text-gray-500">No se ha asignado ningún rol al usuario</p>
+                    <p class="text-xs text-gray-500">Invitado</p>
                 @endif
             </div>
-            
+
             </button>
             <ul
               class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
