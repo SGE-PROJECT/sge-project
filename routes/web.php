@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Spatie\Permission\Middlewares;
 
 use App\Http\Controllers\auth\PostController;
 use App\Http\Controllers\admin\RolesController;
@@ -52,8 +52,8 @@ Route::get('/proyectos', function(){
 
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
-    Route::get('/login', [LoginControlller::class, 'index'])->name('login');
-    Route::post('/login', [LoginControlller::class, 'store']);
+    Route::get('/Iniciar-sesión', [LoginControlller::class, 'index'])->name('login');
+    Route::post('/Iniciar-sesión', [LoginControlller::class, 'store']);
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'store']);
 
@@ -63,13 +63,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
+    Route::middleware(['role:Administrator'])->group(function () {
+        // Rutas para administradores
+        Route::get('/projectsdash', function () {
+            return view('management.project');
+        });
+    });
+
+    //modulo administrativo
+    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
+
+
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
-    Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']); //Ruta de prueba para mostrar los proyectos por division.
-    Route::resource('/empresas', CompaniesController::class);
-    Route::resource('/divisiones', DivisionController::class);
-    Route::resource('/carreras', CareerController::class);
+    //-----
 
     // Se acaba Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
@@ -80,9 +88,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/perfil', [ProfileController::class,'index']);
     Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
 
-        Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
-
+        Route::get('libros/{slug}', [BooksController::class, 'show'])->name('libros.show');
     Route::resource('libros', BooksController::class);
 
     Route::get('/añadir.libros', function () {
@@ -123,9 +130,54 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/asesorias/dashboard', function(){
         return view('consultancy.Dashboard');
     });
-
+|1
 });
 
+
+
+
+//PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
+// Rutas protegidas por el rol Adviser
+Route::middleware(['auth', 'role:Adviser'])->group(function () {
+    // Ruta de prueba para mostrar los proyectos por división
+    Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
+
+    // Rutas protegidas por el rol Teacher usando resource()
+    Route::resource('/empresas', CompaniesController::class);
+    Route::resource('/divisiones', DivisionController::class);
+    Route::resource('/carreras', CareerController::class);
+});
+
+
+// //Base para proteger sus rutas, solo pongan el rol lógico  y cambien sus slash (Como se ve arriba)
+// Route::middleware(['auth', 'role:Teacher'])->group(function () {
+//     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
+
+//     // Rutas protegidas por el rol Teacher usando resource()
+//     Route::resource('/empresas', CompaniesController::class);
+//     Route::resource('/divisiones', DivisionController::class);
+//     Route::resource('/carreras', CareerController::class);
+// });
+
+// Route::middleware(['auth', 'role:'])->group(function () {
+//     // Ruta de prueba para mostrar los proyectos por división
+//     Route::get('/division/proyecto', [DivisionController::class, '']);
+
+//     // Rutas protegidas por el rol Teacher usando resource()
+//     Route::resource('/', CompaniesController::class);
+//     Route::resource('/', DivisionController::class);
+//     Route::resource('/', CareerController::class);
+// });
+
+// Route::middleware(['auth', 'role:'])->group(function () {
+//     // Ruta de prueba para mostrar los proyectos por división
+//     Route::get('/division/proyecto', [DivisionController::class, '']);
+
+//     // Rutas protegidas por el rol Teacher usando resource()
+//     Route::resource('/', CompaniesController::class);
+//     Route::resource('/', DivisionController::class);
+//     Route::resource('/', CareerController::class);
+// });
 
 
 

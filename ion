@@ -1,0 +1,8 @@
+[90m= [39m[34;4mApp\Models\management\Division[39;24m {#6093
+    [34mid[39m: [35m1[39m,
+    [34mname[39m: "[32mTurismo[39m",
+    [34mdescription[39m: "[32mDescripcion de Super Turismo[39m",
+    [34mcreated_at[39m: "[32m2024-03-15 02:47:30[39m",
+    [34mupdated_at[39m: "[32m2024-03-15 02:47:30[39m",
+  }
+

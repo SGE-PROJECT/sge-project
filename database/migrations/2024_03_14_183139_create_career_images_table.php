@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('career_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('career_id')->constrained('careers')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->foreignId('career_id')->constrained('career')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
             $table->string('image_path');
             $table->timestamps();
         });

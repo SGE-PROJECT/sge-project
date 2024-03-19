@@ -233,9 +233,9 @@ function agregarEvento() {
         return;
     }
 
-    if (!(proyectoId in proyectos)) { 
+    if (!(proyectoId in proyectos)) {
         error.style.display = "block";
-        error.innerHTML = "El proyecto seleccionado no es válido."; 
+        error.innerHTML = "El proyecto seleccionado no es válido.";
         return;
     }
 
@@ -245,7 +245,7 @@ function agregarEvento() {
         session_date: sessionDateTime,
         description: motivo,
         id_project_id: proyectoId,
-        id_advisor_id: 1 
+        id_advisor_id: 1
     };
 
     fetch('http://127.0.0.1:8000/advisory-sessions', {
@@ -347,7 +347,7 @@ function eliminarEvento2() {
         return response.json();
     })
     .then(data => {
-        
+
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -428,8 +428,8 @@ function llenarHorasConEventos() {
             td.appendChild(eventoDiv2);
 
             if (!eventosSinMinutos[horaSinMinutos] || eventosSinMinutos[horaSinMinutos].length === 0) {
-                td.classList.remove("verde"); 
-                td.onclick = function () { tiempo(this, horaCelda); }; 
+                td.classList.remove("verde");
+                td.onclick = function () { tiempo(this, horaCelda); };
             } else {
                 eventosSinMinutos[horaSinMinutos].forEach(evento => {
                     let proyecto = proyectos[evento.proyectoId];
@@ -475,7 +475,7 @@ function closeModal2() {
     document.getElementById("myModal2").style.display = "none";
     let error = document.getElementById("error2");
     error.style.display = "none";
-    
+
 }
 function closeModal4() {
     document.getElementById("myModal4").style.display = "none";
@@ -610,7 +610,7 @@ function createCalendar(year, month) {
 }
 
 function matricula() {
-    let selectedProyectoId = document.getElementById('nombre').value; 
+    let selectedProyectoId = document.getElementById('nombre').value;
     if (selectedProyectoId == "0") {
         return;
     }
@@ -744,7 +744,7 @@ function editarGuardar() {
     var nuevaFecha = fechaInput.value.trim();
     var nuevaHora = horasInput.value.trim();
     var nuevoMotivo = motivoInput.value.trim();
-    var fechaActual = new Date(); 
+    var fechaActual = new Date();
     var fechaActualFormateada = fechaActual.toISOString().split('T')[0];
 
     if (!nuevaFecha || !nuevaHora || !nuevoMotivo) {
@@ -782,7 +782,7 @@ function editarGuardar() {
         error.innerHTML = "Una cita ya existe en esa fecha y hora.";
         return;
     }
-    
+
     var sessionDateTime = `${nuevaFecha}T${nuevaHora}:00`;
 
     var advisorySessionData = {
@@ -806,7 +806,7 @@ function editarGuardar() {
     })
     .then(data => {
         console.log('Success:', data);
-        window.location.reload(); 
+        window.location.reload();
     })
     .catch((error) => {
         console.error('Error:', error);

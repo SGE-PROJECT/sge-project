@@ -16,29 +16,104 @@ class RoleSeeder extends Seeder
     {
 
         //Se declaran y crean los roles del sistema de forma segura
-        $rolesNames = ['Administrator', 'Teacher', 'Adviser', 'Student', 'Director', 'Licenciade', 'AcademicPresident'];
+        $rolesNames = ['SuperAdmin', 'ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary'];
         foreach ($rolesNames as $roleName) {
             Role::findOrCreate($roleName, 'web');
         }
 
-        //Se declaran los permisos de los roles
 
         // Ahora, creamos los permisos y los asignamos a los roles correspondientes de forma segura
         $permissions = [
-            'administrator.dashboard.DashboardUsers' => ['Administrator', 'Director', 'Licenciade'],
-            'administrator.dashboard.dashboardTeam' => ['Administrator', 'Director', 'Licenciade'],
-            'books-notifications.books.list' => ['Administrator', 'Director', 'Licenciade', 'Student', 'AcademicPresident', 'Teacher', 'Adviser'],
-            // Agrega aquí otros permisos según sea necesario
+            //roles y permisos
+            'roles.permissions.index' => [
+                'roles' => ['SuperAdmin', 'ManagmentAdmin'],
+                'description' => 'Ver el listado de roles'
+            ],
+            'roles.permissions.create' => [
+                'roles' => ['SuperAdmin'],
+                'description' => 'Crear roles'
+            ],
+            'roles.permissions.edit' => [
+                'roles' => ['SuperAdmin'],
+                'description' => 'Editar roles'
+            ],
+
+            'roles.permissions.destroy' => [
+                'roles' => ['SuperAdmin'],
+                'description' => 'Eliminar roles'
+            ],
+            'roles.permissions.show' => [
+                'roles' => ['SuperAdmin'],
+                'description' => 'Mostrar detalle de roles'
+            ],
+            //empresas
+            'empresas.index' => [
+                'roles' => ['ManagmentAdmin', 'Student', 'Secretary', 'President','Adviser'],
+                'description' => 'Mostrar vista de empresas'
+            ],
+            'empresas.create' => [
+                'roles' => ['ManagmentAdmin'],
+                'description' => 'Crear empresas'
+            ],
+            'empresas.edit' => [
+                'roles' => ['ManagmentAdmin'],
+                'description' => 'Editar empresas'
+            ],
+            'empresas.destroy' => [
+                'roles' => ['ManagmentAdmin'],
+                'description' => 'Eliminar empresas'
+            ],
+            //divisiones
+            'divisiones.index' => [
+                'roles' => ['ManagmentAdmin', 'SuperAdmin','Student', 'Secretary', 'President','Adviser'],
+                'description' => 'Ver divisiones'
+            ],
+            'divisiones.create' => [
+                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'description' => 'Crear divisiones'
+            ],
+            'divisiones.edit' => [
+                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'description' => 'Editar divisiones'
+            ],
+            'divisiones.destroy' => [
+                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'description' => 'Eliminar divisiones'
+            ],
+            //carreras
+            'carreras.index' => [
+                'roles' => ['ManagmentAdmin', 'SuperAdmin','Student', 'Secretary', 'President','Adviser'],
+                'description' => 'Ver carreras'
+            ],
+            'carreras.create' => [
+                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'description' => 'Crear carreras'
+            ],
+            'carreras.edit' => [
+                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'description' => 'Editar carreras'
+            ],
+            'carreras.destroy' => [
+                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'description' => 'Eliminar carreras'
+            ],
+            
         ];
 
-        foreach ($permissions as $permissionName => $roles) {
-            $permission = Permission::findOrCreate($permissionName, 'web');
-            foreach ($roles as $roleName) {
+
+        foreach ($permissions as $permissionName => $permissionData) {
+            $permission = Permission::updateOrCreate(
+                ['name' => $permissionName],
+                ['description' => $permissionData['description'], 'guard_name' => 'web'] // Actualiza o crea el permiso con la descripción y el guard_name
+            );
+
+            foreach ($permissionData['roles'] as $roleName) {
                 $role = Role::findByName($roleName, 'web');
                 $role->givePermissionTo($permission);
             }
         }
-        
+
+
 
 
         /*  //En esta parte declaramos permisos para usar botones del crud
