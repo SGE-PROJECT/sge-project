@@ -136,8 +136,8 @@ Route::middleware(['auth'])->group(function () {
 
 
 //PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
-// Rutas protegidas por el rol Teacher
-Route::middleware(['auth', 'role:Teacher'])->group(function () {
+// Rutas protegidas por el rol Adviser
+Route::middleware(['auth', 'role:Adviser'])->group(function () {
     // Ruta de prueba para mostrar los proyectos por división
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
 
