@@ -3,23 +3,37 @@
 @section('titulo', 'Detalles del Rol')
 
 @section('contenido')
-<link rel="stylesheet" href="/css/roles/details.css">
+    <link rel="stylesheet" href="/css/roles/details.css">
 
-<div class="container">
-    <h1>Detalles del Rol</h1>
-    <div class="card">
-        <div class="card-body">
-            <h3>Nombre del Rol: {{ $role->name }}</h3>
-            <h3>Permisos:</h3>
-            <ul>
-                @foreach($role->permissions as $permission)
-                    <li>{{ $permission->description }}</li>
-                @endforeach
-            </ul>
+    <div class="container">
+        <div class="heading">
+            {{ __('DETALLES DEL ROL') }}
         </div>
-        <div class="card-footer">
-            <a href="{{ route('roles.permissions.index') }}">Volver a la lista de roles</a>
+        <div class="edit-form">
+            <div class="form-group-name">
+                <div class="input-box">
+                    <input id="name" type="text" name="name" value="{{ $role->name }}" required autofocus />
+                    <label for="name">Nombre del rol</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="permission-label">{{ __('Permisos') }}</label>
+
+                <div class="checkbox-group">
+                    @foreach ($role->permissions as $permission)
+                    <div class="checkbox">
+                        <label for="permission-{{ $permission->id }}"
+                            class="checkbox-label">{{ $permission->description }}</label>
+                    </div>
+                    @endforeach
+                </ul>
+            </div>
+
+
+            <div class="card-footer">
+                <a href="{{ route('roles.permissions.index') }}" class="btn btn-secondary">Volver a la lista de roles</a>
+            </div>
         </div>
     </div>
-</div>
 @endsection

@@ -21,7 +21,6 @@ class RoleSeeder extends Seeder
             Role::findOrCreate($roleName, 'web');
         }
 
-        //Se declaran los permisos de los roles
 
         // Ahora, creamos los permisos y los asignamos a los roles correspondientes de forma segura
         $permissions = [
