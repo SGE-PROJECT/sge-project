@@ -86,7 +86,7 @@
           </a>
         </li>
 
-@if(Auth::check() && Auth::user()->hasRole('Student'))
+@if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary']))
 @else
 <li class="mb-1 group relative z-2">
     <a href=""
@@ -392,10 +392,20 @@
                   <div class="top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full"></div>
                 </div>
               </div>
-              <div class="p-2 hidden md:block text-left ">
+              <div class="p-2 hidden md:block text-left">
                 <h2 class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</h2>
-                <p class="text-xs text-gray-500">Administrator</p>
-              </div>
+                @php
+                    $user = auth()->user();
+                    $roles = $user->getRoleNames();
+                @endphp
+            
+                @if ($roles->isNotEmpty())
+                    <p class="text-xs text-gray-500">{{ $roles->first() }}</p>
+                @else
+                    <p class="text-xs text-gray-500">No se ha asignado ningún rol al usuario</p>
+                @endif
+            </div>
+            
             </button>
             <ul
               class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
