@@ -114,13 +114,14 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($slug)
     {
         // Aquí puedes obtener el libro específico con el ID proporcionado
-        $book = Book::findOrFail($id);
+     /*    $book = Book::findOrFail($id); */
+        $book = Book::where('slug', $slug)->firstOrFail();
 
         // Luego, pasamos el libro a la vista de detalle del libro junto con el índice
-        return view('books-notifications.books.book-detail', compact('book', 'id'));
+        return view('books-notifications.books.book-detail', compact('book'));
     }
 
 

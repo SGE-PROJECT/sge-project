@@ -87,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
 
+        Route::get('libros/{slug}', [BooksController::class, 'show'])->name('libros.show');
     Route::resource('libros', BooksController::class);
 
     Route::get('/añadir.libros', function () {
