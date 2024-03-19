@@ -9,6 +9,12 @@ use App\Models\management\Division_image;
 
 class DivisionController extends Controller
 {
+    public function __construct(){
+        $this->middleware("can:divisiones.index")->only('index');
+        $this->middleware("can:divisiones.edit")->only('edit', 'update');
+        $this->middleware("can:divisiones.create")->only('create', 'store');
+        $this->middleware("can:divisiones.destroy")->only('destroy');
+    }
     public function index()
     {
         $divisions = Division::with('divisionImage')->get();

@@ -10,9 +10,12 @@ use App\Models\management\CareerImage;
 
 class CareerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(){
+        $this->middleware("can:carreras.index")->only('index');
+        $this->middleware("can:carreras.edit")->only('edit', 'update');
+        $this->middleware("can:carreras.create")->only('create', 'store');
+        $this->middleware("can:carreras.destroy")->only('destroy');
+    }
     public function index()
     {
         $careers = Career::with('careerImage', 'division')->get();
