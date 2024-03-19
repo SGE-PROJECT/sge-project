@@ -5,16 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AdvisorySession;
+use App\Models\ProjectsTest;
 use Illuminate\Support\Facades\Validator;
 
 class AdvisorySessionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index($id)
     {
-        $sessions = AdvisorySession::with(['user', 'proyect'])->get();
+        $sessions = AdvisorySession::with(['user', 'proyect'])->where('id_advisor_id', $id)->get();
+
         return response()->json($sessions);
     }
 

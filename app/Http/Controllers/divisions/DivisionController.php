@@ -12,6 +12,7 @@ class DivisionController extends Controller
     public function index()
     {
         $divisions = Division::with('divisionImage')->get();
+
         return view('management.divisions.divisions', compact('divisions'));
     }
 

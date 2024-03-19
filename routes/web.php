@@ -130,8 +130,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 //Test no tocar son de Alfonso
-Route::get('/datos-citas', [AdvisorySessionController::class, 'index']);
+Route::get('/datos-citas/{id}', [AdvisorySessionController::class, 'index']);
 Route::get('/all-projects', [ProjectsTestController::class, 'index']);
+
 
 Route::get('/proyecto/{projectId}/estudiante', [ProjectStudentsTestController::class, 'index']);
 
