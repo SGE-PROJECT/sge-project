@@ -53,10 +53,10 @@ Route::get('/proyectos', function(){
 
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
-    Route::get('/Iniciar-sesión', [LoginControlller::class, 'index'])->name('login');
-    Route::post('/Iniciar-sesión', [LoginControlller::class, 'store']);
-    Route::get('/register', [RegisterController::class, 'index'])->name('register');
-    Route::post('/register', [RegisterController::class, 'store']);
+    Route::get('/Iniciar-sesion', [LoginControlller::class, 'index'])->name('login');
+    Route::post('/Iniciar-sesion', [LoginControlller::class, 'store']);
+    Route::get('/registro', [RegisterController::class, 'index'])->name('register');
+    Route::post('/registro', [RegisterController::class, 'store']);
 
 });
 
@@ -141,7 +141,7 @@ Route::middleware(['auth'])->group(function () {
 
 //PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
 // Rutas protegidas por el rol Adviser
-Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])->group(function () {
+Route::middleware(['auth', 'role:Adviser|Mgit anagmentAdmin|SuperAdmin|Secretary'])->group(function () {
     // Ruta de prueba para mostrar los proyectos por división
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
 
