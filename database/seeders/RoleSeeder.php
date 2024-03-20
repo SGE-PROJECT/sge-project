@@ -21,6 +21,8 @@ class RoleSeeder extends Seeder
             Role::findOrCreate($roleName, 'web');
         }
 
+        // Primero, se crea el rol SuperAdmin si no existe
+        $superAdminRole = Role::findOrCreate('SuperAdmin', 'web');
 
         // Ahora, creamos los permisos y los asignamos a los roles correspondientes de forma segura
         $permissions = [
@@ -48,56 +50,56 @@ class RoleSeeder extends Seeder
             ],
             //empresas
             'empresas.index' => [
-                'roles' => ['ManagmentAdmin', 'Student', 'Secretary', 'President','Adviser'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'Student', 'Secretary', 'President', 'Adviser'],
                 'description' => 'Mostrar vista de empresas'
             ],
             'empresas.create' => [
-                'roles' => ['ManagmentAdmin'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
                 'description' => 'Crear empresas'
             ],
             'empresas.edit' => [
-                'roles' => ['ManagmentAdmin'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
                 'description' => 'Editar empresas'
             ],
             'empresas.destroy' => [
-                'roles' => ['ManagmentAdmin'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
                 'description' => 'Eliminar empresas'
             ],
             //divisiones
             'divisiones.index' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin','Student', 'Secretary', 'President','Adviser'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'Student', 'Secretary', 'President', 'Adviser'],
                 'description' => 'Ver divisiones'
             ],
             'divisiones.create' => [
-                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
                 'description' => 'Crear divisiones'
             ],
             'divisiones.edit' => [
-                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
                 'description' => 'Editar divisiones'
             ],
             'divisiones.destroy' => [
-                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
                 'description' => 'Eliminar divisiones'
             ],
             //carreras
             'carreras.index' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin','Student', 'Secretary', 'President','Adviser'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'Student', 'Secretary', 'President', 'Adviser'],
                 'description' => 'Ver carreras'
             ],
             'carreras.create' => [
-                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
                 'description' => 'Crear carreras'
             ],
             'carreras.edit' => [
-                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
                 'description' => 'Editar carreras'
             ],
             'carreras.destroy' => [
-                'roles' => ['ManagmentAdmin','SuperAdmin'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
                 'description' => 'Eliminar carreras'
             ],
-            
+
         ];
 
 
@@ -113,31 +115,18 @@ class RoleSeeder extends Seeder
             }
         }
 
+        // Se crea un permiso especial que actúa como wildcard para todos los permisos posibles.
+        // Se crea un permiso especial que actúa como wildcard para todos los permisos posibles.
+        // Esto es correcto para updateOrCreate
+        $superAdminPermission = Permission::updateOrCreate(
+            ['name' => 'superadmin.*', 'guard_name' => 'web'],
+            ['description' => 'Acceso sin restricciones a todas las áreas']
+        );
+
+        $superAdminRole->givePermissionTo($superAdminPermission);
 
 
-
-        /*  //En esta parte declaramos permisos para usar botones del crud
-
-         Permission::create(['name' => 'administrator.categories.index'])   ->syncRoles([$Administrator, $Director, $Licenciade]);
-         Permission::create(['name' => 'administrator.categories.create'])  ->syncRoles([$Administrator, $Director, $Licenciade]);
-         Permission::create(['name' => 'administrator.categories.edit'])    ->syncRoles([$Administrator, $Director, $Licenciade]);
-         Permission::create(['name' => 'administrator.categories.destroy']) ->syncRoles([$Administrator, $Director, $Licenciade]);
-
-         //En este apartado los permisos para visualizar funciones o etiqeuetas en base al rol
-
-         Permission::create(['name' => 'administrator.tags.index'])    ->syncRoles([$Administrator, $Director, $Licenciade]);
-         Permission::create(['name' => 'administrator.tags.create'])   ->syncRoles([$Administrator, $Director, $Licenciade]);
-         Permission::create(['name' => 'administrator.tags.edit'])     ->syncRoles([$Administrator, $Director, $Licenciade]);
-         Permission::create(['name' => 'administrator.tags.destroy'])  ->syncRoles([$Administrator, $Director, $Licenciade]);
-
-         //En este apartado los permisos para hacer uso de los métodos post
-
-         Permission::create(['name' => 'administrator.post.index'])   ->syncRoles([$Administrator, $Director, $Licenciade]);
-         Permission::create(['name' => 'administrator.post.create'])  ->syncRoles([$Administrator, $Director, $Licenciade]);
-         Permission::create(['name' => 'administrator.post.edit'])    ->syncRoles([$Administrator, $Director, $Licenciade]);
-         Permission::create(['name' => 'administrator.post.destroy']) ->syncRoles([$Administrator, $Director, $Licenciade]);
-  */
-
-
+        // Opcionalmente, se puede asignar directamente este permiso especial al SuperAdmin
+        $superAdminRole->givePermissionTo(Permission::all());
     }
 }
