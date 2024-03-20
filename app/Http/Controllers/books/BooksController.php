@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\books;
 
 use App\Models\Book;
+use App\Exports\BooksExport;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -224,7 +226,13 @@ class BooksController extends Controller
         // Borrar la imagen del libro de la carpeta "public"
         Storage::delete("public/images/books/$imageName");
 
-        // Redireccionar al usuario de nuevo a la lista de libros con un mensaje de éxito
-        return redirect()->route('libros.index')->with('success', 'Libro eliminado exitosamente.');
-    }
+    // Redireccionar al usuario de nuevo a la lista de libros con un mensaje de éxito
+    return redirect()->route('libros.index')->with('success', 'Libro eliminado exitosamente.');
+}
+
+public function export() 
+{
+    return Excel::download(new BooksExport, 'libros.xlsx');
+}
+
 }
