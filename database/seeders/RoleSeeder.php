@@ -16,7 +16,7 @@ class RoleSeeder extends Seeder
     {
 
         //Se declaran y crean los roles del sistema de forma segura
-        $rolesNames = ['SuperAdmin', 'ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary'];
+        $rolesNames = ['SuperAdmin', 'ManagmentAdmin', 'Adviser', 'Student', 'President'];
         foreach ($rolesNames as $roleName) {
             Role::findOrCreate($roleName, 'web');
         }
@@ -48,7 +48,7 @@ class RoleSeeder extends Seeder
             ],
             //empresas
             'empresas.index' => [
-                'roles' => ['ManagmentAdmin', 'Student', 'Secretary', 'President','Adviser'],
+                'roles' => ['ManagmentAdmin', 'Student', 'President','Adviser'],
                 'description' => 'Mostrar vista de empresas'
             ],
             'empresas.create' => [
@@ -65,7 +65,7 @@ class RoleSeeder extends Seeder
             ],
             //divisiones
             'divisiones.index' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin','Student', 'Secretary', 'President','Adviser'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin','Student', 'President','Adviser'],
                 'description' => 'Ver divisiones'
             ],
             'divisiones.create' => [
@@ -82,7 +82,7 @@ class RoleSeeder extends Seeder
             ],
             //carreras
             'carreras.index' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin','Student', 'Secretary', 'President','Adviser'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin','Student', 'President','Adviser'],
                 'description' => 'Ver carreras'
             ],
             'carreras.create' => [

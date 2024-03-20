@@ -63,15 +63,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
-    Route::middleware(['role:Administrator'])->group(function () {
+    Route::middleware(['role:SuperAdmin'])->group(function () {
         // Rutas para administradores
         Route::get('/projectsdash', function () {
             return view('management.project');
         });
-    });
+        Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
-    //modulo administrativo
-    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
+    });
 
 
 
@@ -136,12 +135,11 @@ Route::middleware(['auth'])->group(function () {
 
 
 //PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
-// Rutas protegidas por el rol Teacher
-Route::middleware(['auth', 'role:Teacher'])->group(function () {
+// Rutas protegidas por el rol AdministradorDivision
+
+Route::middleware(['auth', 'role:ManagmentAdmin'])->group(function () {
     // Ruta de prueba para mostrar los proyectos por división
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
-
-    // Rutas protegidas por el rol Teacher usando resource()
     Route::resource('/empresas', CompaniesController::class);
     Route::resource('/divisiones', DivisionController::class);
     Route::resource('/carreras', CareerController::class);
