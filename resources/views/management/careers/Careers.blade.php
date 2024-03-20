@@ -74,7 +74,7 @@
                     <form action="{{ route('carreras.destroy', $program->id) }}" method="POST">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta carrera?')" class="bg-[#03A696] hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
+                      <button type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar esta carrera?')" class="bg-[#03A696] hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
                   </form>
                   
             </div>
