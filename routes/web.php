@@ -77,7 +77,7 @@ Route::middleware(['auth'])->group(function () {
         'update' => 'users.cruduser.update',
         'destroy' => 'users.cruduser.destroy',
     ]);
-    
+
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
     //-----
@@ -118,7 +118,7 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
-    Route::get('proyectos', [ProjectController::class, 'list'])->name('Proyectos');
+    Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
