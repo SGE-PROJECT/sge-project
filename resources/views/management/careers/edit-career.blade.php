@@ -15,12 +15,12 @@
         <div class="border-b py-2 rounded mb-4">
             <h2 class="text-2xl text-center font-bold text-aqua-600">Editar Carrera</h2>
         </div>
-        <form method="POST" action="{{ route('carreras.update', $career->id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('carreras.update', $program->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT') <!-- Importante para indicar que se trata de una actualización -->
             <div class="mb-4">
                 <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre de la Carrera</label>
-                <input id="name" type="text" value="{{ $career->name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="name" required>
+                <input id="name" type="text" value="{{ $program->name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="name" required>
             </div>
 
             <div class="mb-4">
@@ -28,14 +28,24 @@
                 <select id="division_id" name="division_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                     <option value="">Seleccione una División</option>
                     @foreach ($divisions as $division)
-                        <option value="{{ $division->id }}" @if($division->id == $career->division_id) selected @endif>{{ $division->name }}</option>
+                        <option value="{{ $division->id }}" @if($division->id == $program->division_id) selected @endif>{{ $division->name }}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="mb-4">
                 <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Descripción</label>
-                <textarea id="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="description" rows="3" required>{{ $career->description }}</textarea>
+                <textarea id="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="description" rows="3" required>{{ $program->description }}</textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="start_date" class="block text-gray-700 text-sm font-bold mb-2">Fecha de inicio</label>
+                <input id="start_date" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="start_date" value="{{ old('start_date', $program->start_date ?? '') }}" required>
+            </div>
+            
+            <div class="mb-4">
+                <label for="end_date" class="block text-gray-700 text-sm font-bold mb-2">Fecha de fin</label>
+                <input id="end_date" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="end_date" value="{{ old('end_date', $program->end_date ?? '') }}" required>
             </div>
 
             <div class="mb-4">
