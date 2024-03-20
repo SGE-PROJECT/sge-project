@@ -118,7 +118,7 @@
         var actionUrlTemplate = '{{ route("asesorias.update", ":id") }}';
     </script>
     <div id="myModal3" class="modal-background">
-        <form method="POST" action="{{ route('enviarCorreo') }}" class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
+        <form class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
             <span class="close3">&times;</span>
             @csrf
             <h2>Solicitar cambio de cita</h2>
