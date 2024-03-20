@@ -37,19 +37,20 @@ return new class extends Migration
             $table->text('problem_statement');
             $table->text('justification');
             $table->text('activities');
-            $table->foreignId("id_academic_advisor_id")->nullable()->constrained("academic_advisors")
+            $table->foreignId("academic_advisor_id")->nullable()->constrained("academic_advisors")
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
-            $table->foreignId("id_business_advisor_id")->nullable()->constrained("business_advisors")
+            $table->foreignId("business_advisor_id")->nullable()->constrained("business_advisors")
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
-            $table->foreignId("id_program_id")->nullable()->constrained("programs")
+            $table->foreignId("program_id")->nullable()->constrained("programs")
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
-            $table->foreignId("id_company_id")->nullable()->constrained("affiliated_companies")
+            $table->foreignId("company_id")->nullable()->constrained("affiliated_companies")
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
-            $table->string('status')->default('Nuevo');
+            $table->string('status')->default('Registrado');
+            $table->boolean('is_project')->default(false);
             $table->timestamps();
         });
     }

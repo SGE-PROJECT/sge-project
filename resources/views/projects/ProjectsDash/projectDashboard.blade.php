@@ -15,9 +15,10 @@
             @include('administrator.section-projects', ['number' => 12, 'name' => 'Proyectos'])
         </div>
 
-        <h1 class="proyect-table-title">Proyectos</h1>
-        <button class="project-add-Proyect"><a href="{{route('projectform')}}">Agregar</a></button>
-
+        <h1 class="proyect-table-title">Anteproyectos</h1>
+        <a href="{{ route('projectform') }}">
+            <button class="project-add-Proyect">Agregar Anteproyecto</button>
+        </a>
         <table class="project-table">
             <thead>
                 <tr>
@@ -27,6 +28,7 @@
                     <th>Asesor</th>
                     <th>Carrera</th>
                     <th>Empresa</th>
+                    <th>Es Proyecto</th>
                     <th>Acción</th>
                 </tr>
             </thead>
@@ -39,22 +41,34 @@
                         <td>Rafael Villegas</td>
                         <td>Software</td>
                         <td>{{ $project->company_name }}</td>
+                        <td>{{ $project->is_project ? 'Sí' : 'No' }}</td> 
                         <td>
                             <!-- Íconos de acción -->
-                            <div class="flex">
-                                <i><a href="#RUTA_EDITAR"><img class="project-iconImage h-7 w-7" src="images/projects/edit.png"></a></i>
-                                <i><a href="#RUTA_VISTA_PROYECTOS"><img class="project-iconImage h-7 w-7" src="images/projects/view.png"></a></i>
-                                <i><img class="project-iconImage h-7 w-7" src="images/projects/delete.png"></i>
-                                <i class="icon download"></i>
-                                <i class="icon more-options"></i>
+                            <div class="flex-dash-project">
+                                <a href="{{route('projects.edit', $project-> id)}}" class="bg-[#03A696] hover:bg-blue-600 cursor-pointer text-white py-2 px-4 rounded mr-2 mb-1 ">Editar</a>
+                                <form method="POST" action="{{ route('projects.destroy', $project-> id) }}" >
+                                    @method('DELETE')
+                                    @csrf
+                                    <button id="openModalButton" type="submit" class="bg-[#03A696] hover:bg-red-600 cursor-pointer text-white py-2 px-4 rounded mr-2 mb-1">Eliminar</button>
+                                </form>
+                                                            
                             </div>
                         </td>
                     </tr>
+                    
                 @endforeach
             </tbody>
         </table>
     </div>
     <div class="proyects-dash-links m-6">
-        {{$Projects->links()}}
+        {{ $Projects->links() }}
     </div>
+
+    @include('layouts.modal', [
+        'title' => 'Eliminar Proyecto',
+        'message' =>
+            '¿Estás seguro de que deseas borrar el proyecto? Esta acción no se puede deshacer.',
+        'cancelButton' => 'Cancelar',
+        'confirmButton' => 'Eliminar',
+    ])
 @endsection
