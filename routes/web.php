@@ -14,7 +14,7 @@ use App\Http\Controllers\books\BooksController;
 
 use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
-use App\Http\Controllers\Career\CareerController;
+use App\Http\Controllers\Career\ProgramController;
 use App\Http\Controllers\AdvisorySessionController;
 use App\Http\Controllers\profile\ProfileController;
 use App\Http\Controllers\projects\ProjectController;
@@ -44,11 +44,6 @@ use App\Http\Controllers\users\ManagementUserController;
 Route::get('/', function () {
     return view('administrator.dashboard.dashboard-general');
 });
-
-Route::get('/proyectos', function(){
-    return view('management.project');
-});
-
 
 
 //Cosas necesarias para el login
@@ -123,6 +118,7 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
+    Route::get('proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
@@ -151,7 +147,7 @@ Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])-
     // Rutas protegidas por el rol Teacher usando resource()
     Route::resource('/empresas', CompaniesController::class);
     Route::resource('/divisiones', DivisionController::class);
-    Route::resource('/carreras', CareerController::class);
+    Route::resource('/carreras', ProgramController::class);
 });
 
 
