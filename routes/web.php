@@ -142,7 +142,7 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
 
 //PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
 // Rutas protegidas por el rol Adviser
-Route::middleware(['auth', 'role:Adviser|Mgit anagmentAdmin|SuperAdmin|Secretary'])->group(function () {
+Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])->group(function () {
     // Ruta de prueba para mostrar los proyectos por división
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
 
@@ -153,32 +153,33 @@ Route::middleware(['auth', 'role:Adviser|Mgit anagmentAdmin|SuperAdmin|Secretary
 });
 
 
-// //Base para proteger sus rutas, solo pongan el rol lógico  y cambien sus slash (Como se ve arriba)
-// Route::middleware(['auth', 'role:Teacher'])->group(function () {
-//     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
+//Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 
-//     // Rutas protegidas por el rol Teacher usando resource()
-//     Route::resource('/empresas', CompaniesController::class);
-//     Route::resource('/divisiones', DivisionController::class);
-//     Route::resource('/carreras', CareerController::class);
+// Route::middleware(['auth', 'role:Student|ManagmentAdmin|SuperAdmin'])->group(function () {
+//     Route::get('/', [Controller::class, 'get']);
+
+//     Route::resource('/', Controller::class);
+//     Route::resource('/', Controller::class);
+//     Route::resource('/', Controller::class);
 // });
 
-// Route::middleware(['auth', 'role:'])->group(function () {
-//     // Ruta de prueba para mostrar los proyectos por división
-//     Route::get('/division/proyecto', [DivisionController::class, '']);
+// Route::middleware(['auth', 'role:President|ManagmentAdmin|SuperAdmin'])->group(function () {
+//     Route::get('/', [Controller::class, 'get']);
 
-//     // Rutas protegidas por el rol Teacher usando resource()
-//     Route::resource('/', CompaniesController::class);
-//     Route::resource('/', DivisionController::class);
-//     Route::resource('/', CareerController::class);
+//     Route::resource('/', Controller::class);
+//     Route::resource('/', Controller::class);
+//     Route::resource('/', Controller::class);
 // });
 
-// Route::middleware(['auth', 'role:'])->group(function () {
-//     // Ruta de prueba para mostrar los proyectos por división
-//     Route::get('/division/proyecto', [DivisionController::class, '']);
+// Route::middleware(['auth', 'role:Secretary|ManagmentAdmin|SuperAdmin'])->group(function () {
+//     Route::get('/', [Controller::class, 'get']);
 
-//     // Rutas protegidas por el rol Teacher usando resource()
-//     Route::resource('/', CompaniesController::class);
-//     Route::resource('/', DivisionController::class);
-//     Route::resource('/', CareerController::class);
+//     Route::resource('/', Controller::class);
+//     Route::resource('/', Controller::class);
+//     Route::resource('/', Controller::class);
 // });
+
+
+
+
+
