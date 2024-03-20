@@ -4,36 +4,101 @@
 
 @section('contenido')
 <main class="vista_asesorias">
+
+    @php
+    $projectsData = $Projects->mapWithKeys(function ($project) {
+    return [$project->id => [
+    'id' => $project->id,
+    'nombre' => $project->name,
+    'descripcion' => json_decode($project->general_information)->detail ?? 'Descripción no disponible',
+    'alumnos' => $project->students->pluck('id')->all(),
+    'imagen' => $project->image,
+    ]];
+    });
+    $studentsData = [];
+    foreach ($allStudents as $student) {
+    $studentsData[$student->id] = [
+    'nombre' => $student->first_name . ' ' . $student->last_name,
+    'imagen' => $student->avatar,
+    'color' => $student->color, 
+    ];
+    }
+    @endphp
+    <script>
+        var proyectos = @json($projectsData);
+    var estudiantes = @json($studentsData);
+    </script>
+    @php
+    use Carbon\Carbon;
+    $sessionsData = collect($sessions)->map(function ($session) {
+    $sessionDate = Carbon::parse($session->session_date);
+    $fecha = $sessionDate->format('Y-m-d');
+    $hora = $sessionDate->format('H:i');
+
+    return [
+    'id' => $session->id,
+    'fecha' => $fecha,
+    'hora' => $hora,
+    'proyectoId' => $session->id_project_id,
+    'motivo' => $session->description,
+    ];
+    })->toJson();
+    @endphp
+
+    <script>
+        var sessions = @json($sessionsData);
+        var sessions = JSON.parse(sessions);
+        var eventos = {};
+        sessions.forEach(cita => {
+    let idEvento = `${cita.fecha} ${cita.hora}`;
+    eventos[idEvento] = {
+        id: cita.id,
+        fecha: cita.fecha,
+        hora: cita.hora,
+        proyectoId: cita.proyectoId,
+        motivo: cita.motivo
+    };
+});
+    </script>
+
     <div class="BtnCrearDivisions botonVereventos relative lg:absolute mr-[20px] lg:mr-[75px]" id="contbtnCitas">
-        <button class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" id="cambiarCita">
-            <span class="Btntext_divisions" >Cambiar<b>-</b>cita</span>
+        <button class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
+            id="cambiarCita">
+            <span class="Btntext_divisions">Cambiar<b>-</b>cita</span>
             <span class="svgIcon_divisions">
                 <i class="nf nf-md-update"></i>
             </span>
         </button>
-        <button class="Btn_divisions ml-[20px] bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" id="botonCitas">
-            <span class="Btntext_divisions" >Citas</span>
+        <button
+            class="Btn_divisions ml-[20px] bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
+            id="botonCitas">
+            <span class="Btntext_divisions">Citas</span>
             <span class="svgIcon_divisions">
                 <i class="nf nf-fa-list_alt"></i>
             </span>
         </button>
     </div>
-    <div class="BtnCrearDivisions botonVereventos todas relative lg:absolute ocultar mr-[20px] lg:mr-[20px]" id="contbtnCitas2">
+    <div class="BtnCrearDivisions botonVereventos todas relative lg:absolute ocultar mr-[20px] lg:mr-[20px]"
+        id="contbtnCitas2">
         <h3>Todas las citas</h3>
-        <button class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" id="botonCitas2">
-            <span class="Btntext_divisions" >Calendario</span>
+        <button class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
+            id="botonCitas2">
+            <span class="Btntext_divisions">Calendario</span>
             <span class="svgIcon_divisions">
                 <i class="nf nf-fa-calendar"></i>
             </span>
         </button>
     </div>
     <div id="myModal2" class="modal-background">
-        <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
+        <form action="#" method="POST"
+            class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias" id="editarCita">
             <span class="close2">&times;</span>
+            @csrf
+            @method('put')
             <h2>Editar Cita</h2>
             <div class="form-group">
                 <label for="editFecha">Fecha:</label>
-                <input type="date" id="editFecha" name="fecha">
+                <input type="date" id="editFecha" name="session_date">
             </div>
             <div class="form-group">
                 <label for="editHora">Hora:</label>
@@ -41,42 +106,59 @@
             </div>
             <div class="form-group">
                 <label for="editMotivo">Motivo:</label>
-                <textarea id="editMotivo" name="motivo" maxlength="250"></textarea>
+                <textarea id="editMotivo" name="description" maxlength="250"></textarea>
                 <span id="editContador">0/250</span>
             </div>
             <p id="error2">Error</p>
-            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit" id="guardarEventoButton">Guardar Cambios</button>
-        </div>
+            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="button"
+                id="guardarEventoButton">Guardar Cambios</button>
+        </form>
     </div>
+    <script>
+        var actionUrlTemplate = '{{ route("asesorias.update", ":id") }}';
+    </script>
     <div id="myModal3" class="modal-background">
-        <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
+        <form class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
             <span class="close3">&times;</span>
+            @csrf
             <h2>Solicitar cambio de cita</h2>
             <div class="form-group">
                 <label for="solitAsunto">Asunto:</label>
-                <input name="motivo" maxlength="250" id="solitAsunto" placeholder="Asunto de la solicitud">
+                <input name="asunto" maxlength="250" id="solitAsunto" placeholder="Asunto de la solicitud">
             </div>
             <div class="form-group">
                 <label for="solitMensaje">Mensaje:</label>
-                <textarea  name="motivo" maxlength="250" id="solitMensaje" placeholder="Justificacion de la solicitud"></textarea>
+                <textarea name="mensaje" maxlength="250" id="solitMensaje"
+                    placeholder="Justificacion de la solicitud"></textarea>
             </div>
             <p id="error2">Error</p>
-            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit" id="solicitar">Solicitar cambio</button>
-        </div>
+            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit"
+                id="solicitar">Solicitar cambio</button>
+        </form>
     </div>
     <div id="myModal4" class="modal-background">
-        <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
+        <form action="#" method="POST"
+            class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias" id="borrarCita">
             <span class="close4">&times;</span>
+            @csrf
+            @method('DELETE')
             <h2 class="pb-[20px]">¿Esta seguro?</h2>
-            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit" id="borrarEventoBoton" >Borrar cita</button>
-        </div>
+            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="button"
+                id="borrarEventoBoton">Borrar cita</button>
+        </form>
     </div>
-
+    <script>
+        var actionDeleteUrlTemplate = '{{ route("asesorias.destroy", ":id") }}';
+    </script>
     <div id="myModal" class="modal-background">
         <div class="modal-content-asesorias">
             <span class="close">&times;</span>
             <p>Seleccione un proyecto:</p>
             <select id="nombre">
+                <option value="0">-- Escoge un proyecto --</option>
+                @foreach($Projects as $proyect)
+                <option value="{{ $proyect->id }}">{{ $proyect->name }}</option>
+                @endforeach
             </select>
         </div>
     </div>
@@ -102,7 +184,8 @@
     </div>
 
     <div class="ocultar w-[100%] sm:w-[65%] flex flex-wrap relative py-5 justify-center" id="dia">
-        <button class="absolute top-0 md:top-[0px] lg:top-[10px] left-[20px] font-bold text-[20px] md:text-[25px]" id="volverButton"><i class="nf nf-cod-arrow_left text-[20px]"></i></button>
+        <button class="absolute top-0 md:top-[0px] lg:top-[10px] left-[20px] font-bold text-[20px] md:text-[25px]"
+            id="volverButton"><i class="nf nf-cod-arrow_left text-[20px]"></i></button>
         <h3 class="w-full select-mes text-center text-[30px] md:text-[40px]" id="hora"></h3>
         <div id="dia2">
             <table>
@@ -170,76 +253,117 @@
 
         </div>
     </div>
-    
-    <div class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] ocultar" id="asesorias-formulario">
+
+    <form class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] ocultar" id="asesorias-formulario"
+        action="{{route('asesorias.store')}}" method="POST">
+        @csrf
         <h4>Agregar una sesion de asesoria</h4>
         <p>Fecha</p>
-        <input type="date" id="fecha">
+        <input type="date" id="fecha" name="session_date">
         <p>Hora</p>
-        <input type="time" id="horas">
+        <input type="time" id="horas" name="hora">
         <p>Proyecto:</p>
-            <select id="matricula">
-            </select>
-        </datalist>
+        <select id="matricula" name="id_project_id">
+            <option value="0">-- Escoge un proyecto --</option>
+            @foreach($Projects as $proyect)
+            <option value="{{ $proyect->id }}">{{ $proyect->name }}</option>
+            @endforeach
+        </select>
         <p>Motivo de asesoria</p>
         <span class="motivo">
-            <textarea type="text" id="motivo" maxlength="250"></textarea>
+            <textarea id="motivo" name="description" maxlength="250"></textarea>
             <p id="contador"></p>
         </span>
-
         <p id="error">Error</p>
-        <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" id="agregarEventoButton">Crear cita</button>
-    </div>
-    
-    <div id="eventosContainer" class="w-full md:w-[20%] lg:w-[30%] ml-[20px] mr-[20px] mt-[20px] mb-[20px] lg:ml-[0px] lg:mr-[20px] lg:mt-[85px]">
-        <h2>Citas proximas</h2>
-        <span>
-            <table id="tablaEventos">
+        <button type="button" id="agregarEventoButton"
+            class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors">Crear cita</button>
+    </form>
+    <div id="eventosContainer"
+        class="w-full md:w-[20%] lg:w-[30%] ml-[20px] mr-[20px] mt-[20px] mb-[20px] lg:ml-[0px] lg:mr-[20px] lg:mt-[85px]">
+        <h2>Citas próximas</h2>
+        <table>
             <thead>
                 <tr>
-                    <th><div>Proyecto</div></th>
-                    <th><div>Fecha</div></th>
+                    <th>
+                        <div>Proyecto</div>
+                    </th>
+                    <th>
+                        <div>Fecha</div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
+                @forelse($sessionsThisWeek as $session)
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ $session->proyect->name ?? 'Proyecto no especificado' }}</td>
+                    <td>{{ \Carbon\Carbon::parse($session->session_date)->format('d/m/Y') }}</td>
                 </tr>
+                @empty
+                <tr>
+                    <td colspan="2" class="text-center">No hay eventos esta semana.</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
-        </div>
-
+    </div>
     </span>
     <div id="eventosContainer2" class="ocultar">
         <span>
             <table id="tablaEventos2">
-            <thead>
-                <tr>
-                    <th><div>Proyecto</div></th>
-                    <th><div>Alumnos</div></th>
-                    <th><div>Asunto</div></th>
-                    <th><div>Hora</div></th>
-                    <th><div>Fecha</div></th>
-                    <th><div>Accion</div></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-
+                <thead>
+                    <tr>
+                        <th>
+                            <div>Proyecto</div>
+                        </th>
+                        <th>
+                            <div>Alumnos</div>
+                        </th>
+                        <th>
+                            <div>Asunto</div>
+                        </th>
+                        <th>
+                            <div>Hora</div>
+                        </th>
+                        <th>
+                            <div>Fecha</div>
+                        </th>
+                        <th>
+                            <div>Accion</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
     </span>
+
+    @php
+
+    $sessionsData = $sessions->map(function ($session) {
+    $sessionDate = Carbon::parse($session->session_date);
+
+    return [
+    'proyectoId' => $session->proyect->id ?? null,
+    'nombreProyecto' => $session->proyect->name ?? 'Proyecto no especificado',
+    'alumnos' => optional($session->proyect->students)->pluck('name')->all() ?? [],
+    'motivo' => $session->description ?? '',
+    'fecha' => $sessionDate->format('Y-m-d'),
+    'hora' => $sessionDate->format('H:i'),
+    'id' => $session->id,
+    ];
+    })->toArray();
+    @endphp
+
+    <script>
+        var sessions = @json($sessionsData, JSON_PRETTY_PRINT);
+    </script>
 </main>
 @endsection

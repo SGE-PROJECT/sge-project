@@ -14,46 +14,73 @@
             <div class="mb-4">
                 <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
                 <input type="text" name="title" id="title" class="mt-1 p-2 border border-gray-300 rounded-md w-full" value="{{ old('title', $book->title) }}" required>
+                @error('title')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="description" class="block text-sm font-medium text-gray-700">Descripción</label>
                 <textarea name="description" id="description" class="mt-1 p-2 border border-gray-300 rounded-md w-full" rows="4" required>{{ old('description', $book->description) }}</textarea>
+                @error('description')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="author" class="block text-sm font-medium text-gray-700">Autor</label>
                 <input type="text" name="author" id="author" class="mt-1 p-2 border border-gray-300 rounded-md w-full" value="{{ old('author', $book->author) }}" required>
+                @error('author')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="editorial" class="block text-sm font-medium text-gray-700">Editorial</label>
                 <input type="text" name="editorial" id="editorial" class="mt-1 p-2 border border-gray-300 rounded-md w-full" value="{{ old('editorial', $book->editorial) }}" required>
+                @error('editorial')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="year_published" class="block text-sm font-medium text-gray-700">Año de Publicación</label>
                 <input type="number" name="year_published" id="year_published" class="mt-1 p-2 border border-gray-300 rounded-md w-full" value="{{ old('year_published', $book->year_published) }}" required>
+                @error('year_published')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="price" class="block text-sm font-medium text-gray-700">Precio</label>
                 <input type="number" name="price" id="price" class="mt-1 p-2 border border-gray-300 rounded-md w-full" value="{{ old('price', $book->price) }}" required>
+                @error('price')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="student" class="block text-sm font-medium text-gray-700">Estudiante</label>
                 <input type="text" name="student" id="student" class="mt-1 p-2 border border-gray-300 rounded-md w-full" value="{{ old('student', $book->student) }}" required>
+                @error('student')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="tuition" class="block text-sm font-medium text-gray-700">Matrícula</label>
                 <input type="text" name="tuition" id="tuition" class="mt-1 p-2 border border-gray-300 rounded-md w-full" value="{{ old('tuition', $book->tuition) }}" required>
+                @error('tuition')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="image_book" class="block text-sm font-medium text-gray-700">Imagen del Libro</label>
                 <input type="file" name="image_book" id="image_book" class="mt-1 p-2 border border-gray-300 rounded-md w-full">
+                @error('image_book')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="mb-4">
@@ -62,10 +89,12 @@
                     <option value="1" {{ old('estate', $book->estate) == 1 ? 'selected' : '' }}>Finalizado</option>
                     <option value="0" {{ old('estate', $book->estate) == 0 ? 'selected' : '' }}>En Proceso</option>
                 </select>
+                @error('estate')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
             </div>
-
             
-            <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md button-books">Guardar Cambios</button>
+            <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md button-books">Actualizar Libro</button>
             
 
         </form>
