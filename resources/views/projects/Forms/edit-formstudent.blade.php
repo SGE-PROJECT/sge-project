@@ -80,8 +80,22 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <br>
+            <div>
+                <label class="text-sm font-semibold">Estado del Proyecto:</label>
+                <select name="status" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm">
+                    <option value="Registrado" {{ $proyecto->status === 'Registrado' ? 'selected' : '' }}>Registrado</option>
+                    <option value="En desarrollo" {{ $proyecto->status === 'En desarrollo' ? 'selected' : '' }}>En Desarrollo</option>
+                    <option value="Rechazado" {{ $proyecto->status === 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
+                    <option value="Aprobado" {{ $proyecto->status === 'Aprobado' ? 'selected' : '' }}>Aprobado</option>
+                </select>
+                <div class="text-red-400 font-bold text-lg">
+                    @error('status')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>
+            
+            
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label class="text-sm font-semibold">Empresa:</label>
