@@ -44,11 +44,6 @@ Route::get('/', function () {
     return view('administrator.dashboard.dashboard-general');
 });
 
-Route::get('/proyectos', function(){
-    return view('management.project');
-});
-
-
 
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
@@ -112,6 +107,7 @@ Route::middleware(['auth'])->group(function () {
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
+    Route::get('proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);

@@ -1,61 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var proyectos = [
-        { nombre: "ProjectSync", equipo: "SM53", estado: "Activo", asesor: "Rafael Villegas", carrera: "TI Área Desarrollo de Software Multiplataforma", empresa: "DotNet" },
-        { nombre: "Green Garden", equipo: "Dinamita", estado: "En proceso", asesor: "Mayra Fuentes", carrera: "TI Área Desarrollo de Software Multiplataforma", empresa: "Turicun" },
-        { nombre: "Blue Sky", equipo: "Alpha", estado: "Activo", asesor: "Juan Perez", carrera: "Mantenimiento Área Instalaciones", empresa: "SkyHigh" },
-        { nombre: "Tech Innovations", equipo: "Beta", estado: "En proceso", asesor: "Laura Martinez", carrera: "Mantenimiento Área Naval", empresa: "InnoTech" },
-        { nombre: "Data Analytica", equipo: "Gamma", estado: "En espera", asesor: "Pedro Gonzalez", carrera: "Contaduría", empresa: "Data Solutions" },
-        { nombre: "Smart Solutions", equipo: "Delta", estado: "Activo", asesor: "Ana Rodriguez", carrera: "Gastronomía", empresa: "TechSolutions" },
-        { nombre: "GreenTech", equipo: "Epsilon", estado: "Activo", asesor: "David Sanchez", carrera: "Turismo Área Desarrollo de Productos Alternativos", empresa: "EcoTech" },
-        { nombre: "Future Vision", equipo: "Zeta", estado: "En proceso", asesor: "Sofia Ramirez", carrera: "TI Área Infraestructura de Redes Digitales", empresa: "Visionary" },
-        { nombre: "CodeCrafters", equipo: "Omega", estado: "Activo", asesor: "Carlos Lopez", carrera: "Turismo Área en Hotelería", empresa: "CodeMasters" },
-        { nombre: "Bright Ideas", equipo: "Sigma", estado: "En proceso", asesor: "Maria Hernandez", carrera: "Terapia Física", empresa: "InnovateCorp" }
-    ];
 
-    var elementosPorPagina = 5;
-    var paginaActual = 1;
-
-    function generarTabla() {
-        var inicio = (paginaActual - 1) * elementosPorPagina;
-        var fin = inicio + elementosPorPagina;
-        var tablaHTML = '<thead><tr><th>Proyecto</th><th>Equipo</th><th>Estado</th><th>Asesor A/E</th><th>Carrera</th><th>Empresa</th></tr></thead><tbody>';
-
-        proyectos.slice(inicio, fin).forEach(function (proyecto) {
-            tablaHTML += '<tr>';
-            tablaHTML += '<td>' + proyecto.nombre + '</td>';
-            tablaHTML += '<td>' + proyecto.equipo + '</td>';
-            tablaHTML += '<td class="estado">' + proyecto.estado + '</td>';
-            tablaHTML += '<td>' + proyecto.asesor + '</td>';
-            tablaHTML += '<td>' + proyecto.carrera + '</td>';
-            tablaHTML += '<td>' + proyecto.empresa + '</td>';
-            tablaHTML += '</tr>';
-        });
-
-        tablaHTML += '</tbody>';
-
-        document.getElementById('tabla-proyectos').innerHTML = tablaHTML;
-        actualizarPaginacion(); // Agregar esta línea para actualizar la paginación cada vez que se genera la tabla
-    }
-
-    function actualizarPaginacion() {
-        var paginas = Math.ceil(proyectos.length / elementosPorPagina);
-        var paginacionHTML = '';
-
-        for (var i = 1; i <= paginas; i++) {
-            paginacionHTML += '<li class="page-item"><a class="page-link" href="#" onclick="cambiarPagina(' + i + ')">' + i + '</a></li>';
-        }
-
-        document.getElementById('paginacion').innerHTML = paginacionHTML;
-    }
-
-    function cambiarPagina(pagina) {
-        paginaActual = pagina;
-        generarTabla();
-    }
-
-    window.onload = function () {
-        generarTabla();
-    };
     document.getElementById('Search').addEventListener('input', function () {
         var filtro = this.value.toLowerCase(); // Obtener el texto de búsqueda en minúsculas
         filtrarTabla(filtro); // Llamar a la función para filtrar la tabla
@@ -86,53 +30,39 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Selecciona los checkboxes por su ID
-    var checkboxActivos = document.getElementById('Option1');
-    var checkboxEnProceso = document.getElementById('Option2');
-    var checkboxRechazados = document.getElementById('Option3');
-    var checkboxAceptados = document.getElementById('Option4');
-
-    // Agrega listeners de evento para los clics en los checkboxes
-    checkboxActivos.addEventListener('change', filtrarTablaCheck);
-    checkboxEnProceso.addEventListener('change', filtrarTablaCheck);
-    checkboxRechazados.addEventListener('change', filtrarTablaCheck);
-    checkboxAceptados.addEventListener('change', filtrarTablaCheck);
-
-    // Función para filtrar la tabla según el valor de los checkboxes
-    function filtrarTablaCheck() {
-        var filas = document.querySelectorAll('#tabla-proyectos tr');
-
-        filas.forEach(function (fila) {
-            // Verifica si la fila tiene una celda con la clase "estado"
-            var celdaEstado = fila.querySelector('.estado');
-            if (celdaEstado) { // Verifica si la celda de estado existe
-                var estado = celdaEstado.textContent.toLowerCase();
-
-                // Verifica si la fila coincide con el estado seleccionado en los checkboxes
-                var activos = checkboxActivos.checked && estado.includes('activo');
-                var enProceso = checkboxEnProceso.checked && estado.includes('proceso');
-                var rechazados = checkboxRechazados.checked && estado.includes('rechazado');
-                var aceptados = checkboxAceptados.checked && estado.includes('aceptado');
-
-                // Muestra la fila si coincide con algún estado seleccionado, o si no hay estados seleccionados
-                if (activos || enProceso || rechazados || aceptados || (!activos && !enProceso && !rechazados && !aceptados)) {
-                    fila.style.display = '';
-                } else {
-                    fila.style.display = 'none';
-                }
-            }
-        });
-    }
 });
+
+$(document).ready(function () {
+    $('input[type="checkbox"]').click(function () {
+        var estado = [];
+        $('input[type="checkbox"]:checked').each(function () {
+            estado.push($(this).val());
+        });
+
+        if (estado.length > 0) {
+            $('#tabla-proyectos tbody tr').hide();
+            $.each(estado, function (index, value) {
+                $('#tabla-proyectos tbody tr').each(function () {
+                    if ($(this).find('td:nth-child(3)').text() === value) {
+                        $(this).show();
+                    }
+                });
+            });
+        } else {
+            $('#tabla-proyectos tbody tr').show();
+        }
+    });
+});
+
 
 var ctx = document.getElementById('barChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Nuevos', 'En desarrollo', 'Finalizados', 'Rechazados'],
+        labels: ['En desarrollo', 'Reprobados', 'Completados',],
         datasets: [{
             label: 'Estado del proyecto',
-            data: [12, 19, 3, 5, 2], // Aquí irían los datos de tu gráfica
+            data: [$enDesarrolloCount, 4, 10], 
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
