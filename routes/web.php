@@ -10,7 +10,7 @@ use App\Http\Controllers\auth\LoginControlller;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\books\BooksController;
 use App\Http\Controllers\auth\RegisterController;
-use App\Http\Controllers\Career\CareerController;
+use App\Http\Controllers\Career\ProgramController;
 use App\Http\Controllers\profile\ProfileController;
 
 use App\Http\Controllers\projects\ProjectController;
@@ -145,7 +145,7 @@ Route::middleware(['auth', 'role:Adviser'])->group(function () {
     // Rutas protegidas por el rol Teacher usando resource()
     Route::resource('/empresas', CompaniesController::class);
     Route::resource('/divisiones', DivisionController::class);
-    Route::resource('/carreras', CareerController::class);
+    Route::resource('/carreras', ProgramController::class);
 });
 
 

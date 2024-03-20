@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Career;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\management\Division;
-use App\Models\management\Career;
-use App\Models\management\CareerImage;
+use App\Models\management\Program;
+use App\Models\management\ProgramImage;
 
 
-class CareerController extends Controller
+class ProgramController extends Controller
 {
     public function __construct(){
         $this->middleware("can:carreras.index")->only('index');
@@ -18,9 +18,9 @@ class CareerController extends Controller
     }
     public function index()
     {
-        $careers = Career::with('careerImage', 'division')->get();
+        $programs = Program::with('programImage', 'division')->get();
         $divisions = Division::all();
-        return view('management.careers.Careers', compact('careers', 'divisions'));
+        return view('management.careers.Careers', compact('programs', 'divisions'));
     }
 
     /**
@@ -29,7 +29,7 @@ class CareerController extends Controller
     public function create()
     {
         $divisions = Division::all();
-        return view('management.careers.add-career', compact('divisions')); // Asegúrate de que la vista se llama add-career.blade.php
+        return view('management.careers.add-career', compact('divisions')); // Asegúrate de que la vista se llama add-program.blade.php
     }
 
     /**
@@ -44,18 +44,18 @@ class CareerController extends Controller
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
     
-            $career = Career::create($request->all());
+            $program = Program::create($request->all());
     
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '_' . $image->getClientOriginalName();
-                $image->move(public_path('images/career'), $imageName);
+                $image->move(public_path('images/program'), $imageName);
     
-                $careerImage = new CareerImage([
-                    'career_id' => $career->id,
-                    'image_path' => 'images/career/' . $imageName,
+                $programImage = new ProgramImage([
+                    'program_id' => $program->id,
+                    'image_path' => 'images/program/' . $imageName,
                 ]);
-                $careerImage->save();
+                $programImage->save();
             }
     
             return redirect()->route('carreras.index')->with('success', 'Carrera creada exitosamente.');
@@ -66,8 +66,8 @@ class CareerController extends Controller
      */
     public function show(string $id)
     {
-        $career = Career::with('careerImage', 'division')->findOrFail($id);
-            return view('management.careers.show', compact('career'));
+        $program = Program::with('programImage', 'division')->findOrFail($id);
+            return view('management.careers.show', compact('program'));
     }
 
     /**
@@ -75,9 +75,9 @@ class CareerController extends Controller
      */
     public function edit(string $id)
     {
-        $career = Career::findOrFail($id);
+        $program = Program::findOrFail($id);
         $divisions = Division::all();
-        return view('management.careers.edit-career', compact('career', 'divisions')); // Asegúrate de que la vista se llama edit-career.blade.php
+        return view('management.careers.edit-career', compact('program', 'divisions')); // Asegúrate de que la vista se llama edit-program.blade.php
     }
 
     
@@ -93,18 +93,18 @@ class CareerController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $career = Career::findOrFail($id);
-        $career->update($request->all());
+        $program = Program::findOrFail($id);
+        $program->update($request->all());
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images/career'), $imageName);
+            $image->move(public_path('images/program'), $imageName);
 
             // Actualiza o crea una nueva imagen para la carrera
-            $careerImage = $career->careerImage ?: new CareerImage(['career_id' => $career->id]);
-            $careerImage->image_path = 'images/career/' . $imageName;
-            $careerImage->save();
+            $programImage = $program->programImage ?: new ProgramImage(['program_id' => $program->id]);
+            $programImage->image_path = 'images/program/' . $imageName;
+            $programImage->save();
         }
 
         return redirect()->route('carreras.index')->with('success', 'Carrera actualizada con éxito.');
@@ -115,18 +115,18 @@ class CareerController extends Controller
      */
     public function destroy(string $id)
     {
-        $career = Career::findOrFail($id);
+        $program = Program::findOrFail($id);
 
         // Elimina la imagen asociada si existe
-        if ($career->careerImage) {
-            $path = public_path($career->careerImage->image_path);
+        if ($program->programImage) {
+            $path = public_path($program->programImage->image_path);
             if (file_exists($path)) {
                 @unlink($path);
             }
-            $career->careerImage()->delete();
+            $program->programImage()->delete();
         }
 
-        $career->delete();
+        $program->delete();
         return redirect()->route('carreras.index')->with('success', 'Carrera eliminada con éxito.');
     }
 }
