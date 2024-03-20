@@ -115,6 +115,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
+    Route::resource('projects', ProjectController::class);
+    Route::delete('/projects/{project}', 'ProjectController@destroy')->name('projects.destroy');
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
 
