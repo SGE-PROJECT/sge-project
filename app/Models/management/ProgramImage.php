@@ -5,15 +5,15 @@ namespace App\Models\management;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CareerImage extends Model
+class ProgramImage extends Model
 {
     use HasFactory;
 
 
-    protected $fillable = ['career_id', 'image_path'];
+    protected $fillable = ['program_id', 'image_path'];
 
-    public function career()
+    public function program()
     {
-        return $this->belongsTo(Career::class);
+        return $this->belongsTo(Program::class);
     }
 }

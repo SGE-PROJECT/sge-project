@@ -39,6 +39,16 @@
             </div>
 
             <div class="mb-4">
+                <label for="start_date" class="block text-gray-700 text-sm font-bold mb-2">Fecha de inicio</label>
+                <input id="start_date" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="start_date" value="{{ old('start_date', $program->start_date ?? '') }}" required>
+            </div>
+            
+            <div class="mb-4">
+                <label for="end_date" class="block text-gray-700 text-sm font-bold mb-2">Fecha de fin</label>
+                <input id="end_date" type="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="end_date" value="{{ old('end_date', $program->end_date ?? '') }}" required>
+            </div>
+
+            <div class="mb-4">
                 <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Imagen</label>
                 <input id="image" type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="image">
             </div>
