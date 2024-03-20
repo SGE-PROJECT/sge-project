@@ -7,13 +7,15 @@
 @section('contenido')
 <div class="container mx-auto px-4 py-10">
     <div class="max-w-4xl mx-auto">
-        <div class="bg-white shadow-md rounded-lg overflow-hidden p-10">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden p-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <div class="p-7">
                         <div class="bg-gray-800 rounded-lg p-6 text-white hover:bg-gray-700 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-101">
                             <h1 class="text-2xl font-bold">{{ $book->title }}</h1>
-                            <p class="mt-4">{{ $book->description }}</p>
+                            <div class="mt-4" style="max-height: 200px; overflow-y: auto;">
+                                <p>{{ $book->description }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
