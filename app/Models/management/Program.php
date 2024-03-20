@@ -25,4 +25,9 @@ class Program extends Model
     {
         return $this->belongsTo(Division::class);
     }
+
+    public function programImage()
+    {
+        return $this->hasOne(ProgramImage::class, 'program_id');
+    }
 }

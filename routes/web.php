@@ -14,7 +14,7 @@ use App\Http\Controllers\books\BooksController;
 
 use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
-use App\Http\Controllers\Career\CareerController;
+use App\Http\Controllers\Career\ProgramController;
 use App\Http\Controllers\AdvisorySessionController;
 use App\Http\Controllers\profile\ProfileController;
 use App\Http\Controllers\projects\ProjectController;
@@ -44,11 +44,6 @@ use App\Http\Controllers\users\ManagementUserController;
 Route::get('/', function () {
     return view('administrator.dashboard.dashboard-general');
 });
-
-Route::get('/proyectos', function(){
-    return view('management.project');
-});
-
 
 
 //Cosas necesarias para el login
@@ -124,12 +119,18 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/reporte',[BooksController::class,'listBook'])->name('books.list');
     Route::get('/reporte/pdf',[BooksController::class,'report'])->name('books.reports');
+/*     Route::get('/books/export', 'BooksController@export')->name('books.export');
+ */
+Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
+    Route::get('proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
+    Route::resource('projects', ProjectController::class);
+    Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
 
@@ -159,7 +160,7 @@ Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])-
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
     Route::resource('/empresas', CompaniesController::class);
     Route::resource('/divisiones', DivisionController::class);
-    Route::resource('/carreras', CareerController::class);
+    Route::resource('/carreras', ProgramController::class);
 });
 
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('academic_advisors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
