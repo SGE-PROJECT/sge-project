@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "4e81c31f5ed100ec1a997cb7db168136",
+=======
+    "content-hash": "7133e10d82343f6bcc0f9a465f60dd41",
+>>>>>>> develop
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2176,6 +2180,7 @@
             "time": "2024-01-28T23:22:08+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "maatwebsite/excel",
             "version": "3.1.55",
             "source": {
@@ -2201,21 +2206,69 @@
                 "laravel/scout": "^7.0||^8.0||^9.0||^10.0",
                 "orchestra/testbench": "^6.0||^7.0||^8.0||^9.0",
                 "predis/predis": "^1.1"
+=======
+            "name": "livewire/livewire",
+            "version": "v3.4.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/livewire/livewire.git",
+                "reference": "c65b3f0798ab2c9338213ede3588c3cdf4e6fcc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/c65b3f0798ab2c9338213ede3588c3cdf4e6fcc0",
+                "reference": "c65b3f0798ab2c9338213ede3588c3cdf4e6fcc0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^10.0|^11.0",
+                "illuminate/routing": "^10.0|^11.0",
+                "illuminate/support": "^10.0|^11.0",
+                "illuminate/validation": "^10.0|^11.0",
+                "league/mime-type-detection": "^1.9",
+                "php": "^8.1",
+                "symfony/http-kernel": "^6.2|^7.0"
+            },
+            "require-dev": {
+                "calebporzio/sushi": "^2.1",
+                "laravel/framework": "^10.0|^11.0",
+                "laravel/prompts": "^0.1.6",
+                "mockery/mockery": "^1.3.1",
+                "orchestra/testbench": "8.20.0|^9.0",
+                "orchestra/testbench-dusk": "8.20.0|^9.0",
+                "phpunit/phpunit": "^10.4",
+                "psy/psysh": "^0.11.22|^0.12"
+>>>>>>> develop
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
+<<<<<<< HEAD
                         "Maatwebsite\\Excel\\ExcelServiceProvider"
                     ],
                     "aliases": {
                         "Excel": "Maatwebsite\\Excel\\Facades\\Excel"
+=======
+                        "Livewire\\LivewireServiceProvider"
+                    ],
+                    "aliases": {
+                        "Livewire": "Livewire\\Livewire"
+>>>>>>> develop
                     }
                 }
             },
             "autoload": {
+<<<<<<< HEAD
                 "psr-4": {
                     "Maatwebsite\\Excel\\": "src/"
+=======
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Livewire\\": "src/"
+>>>>>>> develop
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2224,6 +2277,7 @@
             ],
             "authors": [
                 {
+<<<<<<< HEAD
                     "name": "Patrick Brouwers",
                     "email": "patrick@spartner.nl"
                 }
@@ -2443,6 +2497,24 @@
                 "source": "https://github.com/MarkBaker/PHPMatrix/tree/3.0.1"
             },
             "time": "2022-12-02T22:17:43+00:00"
+=======
+                    "name": "Caleb Porzio",
+                    "email": "calebporzio@gmail.com"
+                }
+            ],
+            "description": "A front-end framework for Laravel.",
+            "support": {
+                "issues": "https://github.com/livewire/livewire/issues",
+                "source": "https://github.com/livewire/livewire/tree/v3.4.9"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/livewire",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-14T14:03:32+00:00"
+>>>>>>> develop
         },
         {
             "name": "masterminds/html5",

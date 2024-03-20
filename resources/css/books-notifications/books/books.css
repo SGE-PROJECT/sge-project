@@ -318,6 +318,13 @@
   transform: scale(0.9);
 }
 
+.search-scale {
+  position: absolute;
+  top: 3.2px;
+  right: -20px;
+  transform: scale(0.76);
+}
+
 .ctn-bk {
   /* border: black dotted; */
   padding-left: 30px;
