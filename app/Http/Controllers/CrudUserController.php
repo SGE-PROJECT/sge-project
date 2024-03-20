@@ -38,17 +38,19 @@ class CrudUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required',
+            'division_id' => 'required|exists:divisions,id', // Asegúrate de validar que el ID de la división exista
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password), // Asegúrate de encriptar la contraseña
+            'password' => Hash::make($request->password),
+            'division_id' => $request->division_id, // Agrega la asignación de división
         ]);
 
-        $user->assignRole($request->role); // Asignar rol al usuario
+        $user->assignRole($request->role);
 
-        return redirect()->route('users.index'); // Redireccionar a la lista de usuarios
+        return redirect()->route('users.cruduser.index');
     }
 
     /**

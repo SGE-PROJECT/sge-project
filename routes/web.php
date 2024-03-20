@@ -64,7 +64,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
-    Route::middleware(['role:Administrator'])->group(function () {
+    Route::middleware(['role:SuperAdmin'])->group(function () {
         // Rutas para administradores
         Route::get('/projectsdash', function () {
             return view('management.project');
@@ -73,8 +73,16 @@ Route::middleware(['auth'])->group(function () {
 
     //modulo administrativo
     Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
-    Route::resource('crud-usuarios', CrudUserController::class)->names('users.cruduser');
-
+    Route::resource('crud-usuarios', CrudUserController::class)->names([
+        'index' => 'users.cruduser.index',
+        'create' => 'users.cruduser.create',
+        'store' => 'users.cruduser.store',
+        'show' => 'users.cruduser.show',
+        'edit' => 'users.cruduser.edit',
+        'update' => 'users.cruduser.update',
+        'destroy' => 'users.cruduser.destroy',
+    ]);
+    
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
     //-----
@@ -138,7 +146,7 @@ Route::middleware(['auth'])->group(function () {
 
 //PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
 // Rutas protegidas por el rol Adviser
-Route::middleware(['auth', 'role:Adviser'])->group(function () {
+Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])->group(function () {
     // Ruta de prueba para mostrar los proyectos por división
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
 

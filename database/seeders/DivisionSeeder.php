@@ -19,7 +19,7 @@ class DivisionSeeder extends Seeder
             [
                 'name' => 'Turismo',
                 'description' => 'Descripcion de Super Turismo',
-            ],
+            ],  
             [
                 'name' => 'Ingenieria',
                 'description' => 'Descripcion de Super Ingenieria',
