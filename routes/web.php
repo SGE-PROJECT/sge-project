@@ -1,32 +1,33 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middlewares;
+use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\auth\PostController;
+
+use App\Http\Controllers\UsersTestController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\auth\LoginControlller;
-
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\books\BooksController;
+
+use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\CareerController;
+use App\Http\Controllers\AdvisorySessionController;
 use App\Http\Controllers\profile\ProfileController;
-
 use App\Http\Controllers\projects\ProjectController;
 use App\Http\Controllers\divisions\DivisionController;
 use App\Http\Controllers\users\RegisterUserController;
+
+//import test
 use App\Http\Controllers\Companies\CompaniesController;
+use App\Http\Controllers\ProjectStudentsTestController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\users\ManagementUserController;
-
-//import test
-use App\Http\Controllers\AdvisorySessionController;
-use App\Http\Controllers\ProjectsTestController;
-use App\Http\Controllers\ProjectStudentsTestController;
-use App\Http\Controllers\UsersTestController;
 
 
 /*
@@ -72,8 +73,7 @@ Route::middleware(['auth'])->group(function () {
 
     //modulo administrativo
     Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
-
-
+    Route::resource('crud-usuarios', CrudUserController::class)->names('users.cruduser');
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
