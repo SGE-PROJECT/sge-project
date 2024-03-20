@@ -8,39 +8,66 @@ Crear Usuario
 
 <h1 class="text-2xl font-bold mb-5">Agregar Usuario</h1>
 
+@if ($errors->any())
+    <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Error!</strong>
+        <span class="block sm:inline">Hay problemas con los datos ingresados.</span>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <form action="{{ route('users.cruduser.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="mb-4">
         <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
-        <input type="text" name="name" id="name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+        <input type="text" name="name" id="name" value="{{ old('name') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+        @error('name')
+            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="mb-4">
         <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-        <input type="email" name="email" id="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+        <input type="email" name="email" id="email" value="{{ old('email') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+        @error('email')
+            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="mb-4">
         <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Contraseña:</label>
-        <input type="password" name="password" id="password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" />
+        <input type="password" name="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" />
+        @error('password')
+            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="mb-4">
         <label for="role" class="block text-gray-700 text-sm font-bold mb-2">Rol:</label>
-        <select name="role" id="role" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <select name="role" id="role" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             @foreach (Spatie\Permission\Models\Role::all() as $role)
-            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                <option value="{{ $role->name }}" {{ (old('role') == $role->name) ? 'selected' : '' }}>{{ $role->name }}</option>
             @endforeach
         </select>
+        @error('role')
+            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="mb-4">
         <label for="division" class="block text-gray-700 text-sm font-bold mb-2">División:</label>
-        <select name="division_id" id="division" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <select name="division_id" id="division" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             @foreach (App\Models\management\Division::all() as $division)
-            <option value="{{ $division->id }}">{{ $division->name }}</option>
+                <option value="{{ $division->id }}" {{ (old('division_id') == $division->id) ? 'selected' : '' }}>{{ $division->name }}</option>
             @endforeach
         </select>
+        @error('division_id')
+            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="flex items-center justify-between">

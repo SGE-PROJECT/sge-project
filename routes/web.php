@@ -114,7 +114,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reporte/pdf',[BooksController::class,'report'])->name('books.reports');
 /*     Route::get('/books/export', 'BooksController@export')->name('books.export');
  */
-Route::get('/books/export', [BooksController::class, 'export']);
+Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
@@ -122,6 +122,8 @@ Route::get('/books/export', [BooksController::class, 'export']);
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
+    Route::resource('projects', ProjectController::class);
+    Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
 
