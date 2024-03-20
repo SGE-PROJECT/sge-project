@@ -49,7 +49,7 @@
                                 <form method="POST" action="{{ route('projects.destroy', $project-> id) }}" >
                                     @method('DELETE')
                                     @csrf
-                                    <button id="openModalButton" type="submit" class="bg-[#03A696] hover:bg-red-600 cursor-pointer text-white py-2 px-4 rounded mr-2 mb-1">Eliminar</button>
+                                    <button type="submit" class="bg-[#03A696] hover:bg-red-600 cursor-pointer text-white py-2 px-4 rounded mr-2 mb-1">Eliminar</button>
                                 </form>
                                                             
                             </div>
