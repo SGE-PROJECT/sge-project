@@ -67,33 +67,7 @@
                         @enderror
                     </div>
                 </div>
-            </div>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div>
-                    <label class="text-sm font-semibold">Fecha de inicio del Proyecto:</label>
-                    <input name="startproject_date" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa la fecha de inicio del proyecto" type="date"
-                        value="{{ old('startproject_date', $proyecto->startproject_date ?: date('Y-m-d')) }}"/>
-                    <div class="text-red-400 font-bold text-lg">
-                        @error('startproject_date')
-                            {{ $message }}
-                        @enderror
-                    </div>
-                </div>
-            
-                <div>
-                    <label class="text-sm font-semibold">Fecha de término del Proyecto:</label>
-                    <input name="endproject_date" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa la fecha de finalización del proyecto" type="date"
-                        value="{{ old('endproject_date', $proyecto->endproject_date ?: date('Y-m-d')) }}"/>
-                    <div class="text-red-400 font-bold text-lg">
-                        @error('endproject_date')
-                            {{ $message }}
-                        @enderror
-                    </div>
-                </div>
-            </div>
-            
+            </div>            
             <div class="grid grid-cols-1 gap-4">
                 <div>
                     <label class="text-sm font-semibold">Nombre del Proyecto:</label>

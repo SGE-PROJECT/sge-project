@@ -16,11 +16,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        /*¿Cómo recuperar todos los registros? Se usa el Modelo*/
         $Projects = Project::paginate();
-
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
+
+
 
     public function invitation()
     {
@@ -91,9 +91,9 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
-        $proyecto = Project::find($id);
-        return view('projects.show', compact('project'));
+        //
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -119,9 +119,17 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
-        $project->delete();
-        return redirect()->route('projects.index')->with('success', 'El proyecto ha sido eliminado exitosamente.');
+        $project = Project::find($id);
+        if (!$project) {
+            return back()->with('error', '¡No se pudo encontrar el proyecto para eliminar!');
+        }
+        $deleted = $project->delete();
+        if ($deleted) {
+            return redirect()->route('dashboardProjects')->with('success', '¡El proyecto ha sido eliminado exitosamente!');
+        } else {
+            return back()->with('error', '¡Se produjo un error al eliminar el proyecto!');
+        }
     }
 }
