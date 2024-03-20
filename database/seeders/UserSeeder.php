@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Guillermo Garcia',
             'email' => 'guillermo.jesus.garcia.canul@gmail.com',
             'password' => Hash::make('guillermo'),
+            'division_id' => 2,
             'created_at' => now()
         ]);
 

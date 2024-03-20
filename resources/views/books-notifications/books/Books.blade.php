@@ -9,16 +9,25 @@
         <h1 class="title-books"> - Libros -</h1>
         <div class="flex justify-between py-2">
             <div>
-                <a href="{{ route('añadir.libros') }}">
-                    <button class="button-books bg-teal-500 position-books">Registrar Libro</button>
-                </a>
+                <div class="search-scale">
+                    <form action="{{ route('libros.index') }}" method="GET">
+                        <input type="hidden" name="estado" value="{{ $estado }}">
+                        <span class="flex">
+                            <input id="searchInput" name="query" class="search_divisions px-3 outline-none border-l-5" type="text" placeholder="Buscar...">
+                            <button id="searchButton" type="submit" class="search-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                </svg>
+                            </button>
+                        </span>
+                    </form>
+                </div>
                 <a href="{{ route('books.reports') }}">
                     <button class="button-books bg-teal-500 position-books-2">Exportar Lista a PDF</button>
                 </a>
                 <a href="{{ route('libros.create') }}">
                     <button class="add-button-book bg-teal-500">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAALNJREFUSEvtltERgyAQRHc7SUqxk6QS04mWkk5CJ6c4g4MKCIf8JOGXuX13e8BBNF5srI8DQEReAHol2AB4kny7+A1ARAYAD6W4CzMk7zHAB8CtEgCSa+L7CqRW3MarAS5Q5kalEvkxgF9uyJaQXUUWNQf4Wf+bjLPznXsJi5qcKxrq1XKr/Y2vqqDz33SNTWfPtR0aY41wDFAzzdZ8UqfIDhs70bQjc4FEAVdYstdo/quYAAgFdRmXd0wXAAAAAElFTkSuQmCC" />
-                    </button>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAALZJREFUSEvdlesNwyAMhO82aTZJR+kkHSWjhFGyiSsiJUoQGOy8pPIX7M8+zEFcvHhxfhQBItIDGAC8jEVMAD4kQ4zTACOACPGsiWRXA8h8gDTJKCK7OK2D5wBplVsNT+nABUiDLEmaOqgBlv3SSC3DUJTocYAmwykS/RdA8w73JbcakgVwxOwCyffO7DJjGp3063DUvF1rL7dVnty51U3vALg0r/0X2w5cmjcDjuisxZq+Q08RP2kHzhnqPM52AAAAAElFTkSuQmCC"/>                    </button>
                 </a>
             </div>
             <div>
@@ -38,7 +47,8 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
                     @foreach ($books as $book)
                         <div class="container-card-book">
-                            <a href="{{ route('libros.show', ['libro' => $book->id]) }}">
+                          
+                            <a href="{{ route('libros.show', ['libro' => $book->slug]) }}">
                                 <div class="card-book">
                                     <div class="card__content-book">
                                         @if ($book->estate === 0)

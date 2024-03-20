@@ -171,7 +171,7 @@
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
         <li class="mb-1 group">
-          <a href="{{ route('asesorias') }}"
+          <a href="{{ route('asesorias', ['id' => 1]) }}"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-calendar-event mr-3 text-lg'></i>
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
@@ -398,14 +398,14 @@
                     $user = auth()->user();
                     $roles = $user->getRoleNames();
                 @endphp
-            
+
                 @if ($roles->isNotEmpty())
                     <p class="text-xs text-gray-500">{{ $roles->first() }}</p>
                 @else
-                    <p class="text-xs text-gray-500">No se ha asignado ningún rol al usuario</p>
+                    <p class="text-xs text-gray-500">Invitado</p>
                 @endif
             </div>
-            
+
             </button>
             <ul
               class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">

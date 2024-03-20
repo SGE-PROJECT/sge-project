@@ -1,32 +1,33 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middlewares;
+use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\auth\PostController;
+
+use App\Http\Controllers\UsersTestController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\auth\LoginControlller;
-
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\books\BooksController;
+
+use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\CareerController;
+use App\Http\Controllers\AdvisorySessionController;
 use App\Http\Controllers\profile\ProfileController;
-
 use App\Http\Controllers\projects\ProjectController;
 use App\Http\Controllers\divisions\DivisionController;
 use App\Http\Controllers\users\RegisterUserController;
+
+//import test
 use App\Http\Controllers\Companies\CompaniesController;
+use App\Http\Controllers\ProjectStudentsTestController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\users\ManagementUserController;
-
-//import test
-use App\Http\Controllers\AdvisorySessionController;
-use App\Http\Controllers\ProjectsTestController;
-use App\Http\Controllers\ProjectStudentsTestController;
-use App\Http\Controllers\UsersTestController;
 
 
 /*
@@ -70,10 +71,25 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
+<<<<<<< HEAD
     });
 
 
 
+=======
+    //modulo administrativo
+    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
+    Route::resource('crud-usuarios', CrudUserController::class)->names([
+        'index' => 'users.cruduser.index',
+        'create' => 'users.cruduser.create',
+        'store' => 'users.cruduser.store',
+        'show' => 'users.cruduser.show',
+        'edit' => 'users.cruduser.edit',
+        'update' => 'users.cruduser.update',
+        'destroy' => 'users.cruduser.destroy',
+    ]);
+    
+>>>>>>> develop
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
     //-----
@@ -88,6 +104,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
 
 
+    Route::get('libros/slug/{slug}', [BooksController::class, 'show'])->name('libros.show');
     Route::resource('libros', BooksController::class);
 
     Route::get('/añadir.libros', function () {
@@ -120,24 +137,24 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
     });
-
-    Route::get('/asesorias', function () {
-        return view('consultancy.Dates');
-    })->name('asesorias');
-
-    Route::get('/asesorias/dashboard', function(){
-        return view('consultancy.Dashboard');
-    });
-
+    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
+    Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
+    Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
+    Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
 });
 
 
 
 
 //PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
+<<<<<<< HEAD
 // Rutas protegidas por el rol AdministradorDivision
 
 Route::middleware(['auth', 'role:ManagmentAdmin'])->group(function () {
+=======
+// Rutas protegidas por el rol Adviser
+Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])->group(function () {
+>>>>>>> develop
     // Ruta de prueba para mostrar los proyectos por división
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
     Route::resource('/empresas', CompaniesController::class);
@@ -175,420 +192,3 @@ Route::middleware(['auth', 'role:ManagmentAdmin'])->group(function () {
 //     Route::resource('/', DivisionController::class);
 //     Route::resource('/', CareerController::class);
 // });
-
-
-
-//Test no tocar son de Alfonso
-Route::get('/datos-citas', [AdvisorySessionController::class, 'index']);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route::get('/all-projects', [ProjectsTestController::class, 'index']);
-
-Route::get('/proyecto/{projectId}/estudiante', [ProjectStudentsTestController::class, 'index']);
-
-Route::get('/users', [UsersTestController::class, 'index']);
-Route::post('/advisory-sessions', [AdvisorySessionController::class, 'store']);
-Route::put('/advisory-sessions/{id}', [AdvisorySessionController::class, 'update']);
-Route::delete('/advisory-sessions/{id}', [AdvisorySessionController::class, 'destroy']);

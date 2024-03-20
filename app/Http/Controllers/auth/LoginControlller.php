@@ -31,10 +31,10 @@ class LoginControlller extends Controller
 
             // Comenzamos a redireccionar según el rol del usuario, con el switch, una maravilla
             switch ($role) {
-                case 'Administrator':
+                case 'SuperAdmin':
                     return redirect()->route('posts.index'); // Nos redirecciona al dashboard general
                     break;
-                case 'Teacher':
+                case 'ManagmentAdmin':
                     return redirect('/perfil'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
                     break;
                 case 'Adviser':
@@ -43,14 +43,11 @@ class LoginControlller extends Controller
                 case 'Student':
                     return redirect('/asesorias');
                     break;
-                case 'Director':
-                    return redirect('/carreras');
+                case 'President':
+                    return redirect('/notificaciones');
                     break;
-                case 'Licenciade': 
+                case 'Secretary': 
                     return redirect('/proyectos');
-                    break;
-                case 'AcademicPresident':
-                    return redirect('/empresas');
                     break;
                 
                 default:
