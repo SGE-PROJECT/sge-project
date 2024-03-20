@@ -66,25 +66,10 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
 
-<<<<<<< HEAD
     });
 
 
 
-=======
-    //modulo administrativo
-    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
-    Route::resource('crud-usuarios', CrudUserController::class)->names([
-        'index' => 'users.cruduser.index',
-        'create' => 'users.cruduser.create',
-        'store' => 'users.cruduser.store',
-        'show' => 'users.cruduser.show',
-        'edit' => 'users.cruduser.edit',
-        'update' => 'users.cruduser.update',
-        'destroy' => 'users.cruduser.destroy',
-    ]);
-    
->>>>>>> develop
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
     //-----
@@ -148,14 +133,9 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
 
 
 //PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
-<<<<<<< HEAD
 // Rutas protegidas por el rol AdministradorDivision
 
 Route::middleware(['auth', 'role:ManagmentAdmin'])->group(function () {
-=======
-// Rutas protegidas por el rol Adviser
-Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])->group(function () {
->>>>>>> develop
     // Ruta de prueba para mostrar los proyectos por división
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
     Route::resource('/empresas', CompaniesController::class);

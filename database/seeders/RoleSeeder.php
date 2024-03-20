@@ -50,11 +50,7 @@ class RoleSeeder extends Seeder
             ],
             //empresas
             'empresas.index' => [
-<<<<<<< HEAD
                 'roles' => ['ManagmentAdmin', 'Student', 'President','Adviser'],
-=======
-                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'Student', 'Secretary', 'President', 'Adviser'],
->>>>>>> develop
                 'description' => 'Mostrar vista de empresas'
             ],
             'empresas.create' => [
@@ -71,11 +67,7 @@ class RoleSeeder extends Seeder
             ],
             //divisiones
             'divisiones.index' => [
-<<<<<<< HEAD
                 'roles' => ['ManagmentAdmin', 'SuperAdmin','Student', 'President','Adviser'],
-=======
-                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'Student', 'Secretary', 'President', 'Adviser'],
->>>>>>> develop
                 'description' => 'Ver divisiones'
             ],
             'divisiones.create' => [
@@ -92,11 +84,7 @@ class RoleSeeder extends Seeder
             ],
             //carreras
             'carreras.index' => [
-<<<<<<< HEAD
                 'roles' => ['ManagmentAdmin', 'SuperAdmin','Student', 'President','Adviser'],
-=======
-                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'Student', 'Secretary', 'President', 'Adviser'],
->>>>>>> develop
                 'description' => 'Ver carreras'
             ],
             'carreras.create' => [
