@@ -44,6 +44,10 @@ Route::get('/', function () {
     return view('administrator.dashboard.dashboard-general');
 });
 
+Route::get('/rdash', function () {
+    return view('administrator.dashboard.dashboard-role');
+});
+
 Route::get('/proyectos', function(){
     return view('management.project');
 });

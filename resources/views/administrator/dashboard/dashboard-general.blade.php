@@ -3,15 +3,15 @@
 @section('titulo', 'Dashboard')
 
 @section('contenido')
-@vite('resources/css/administrator/dashboard.css')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @vite('resources/css/administrator/dashboard.css')
+    @vite('resources/js/administrator/graph-general.js')
 
-    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         @include('administrator.graph-projects')
         @include('administrator.graph-users')
-        @include('administrator.graph-teams')
         @include('administrator.graph-books')
     </div>
+
 
     <div class="p-6 font-sans">
         <div class="grid grid-cols-1 lg:grid-cols-1 gap-5 mb-6">
@@ -19,53 +19,100 @@
             <!--SECCION DE CARRERAS-->
             <div class="seccion-carreras bg-white p-5 rounded-xl">
                 <div class="flex justify-between mb-4 items-start">
-                    <div class="text-2xl font-bold">Carreras</div>
+                    <div class="text-2xl font-bold">Divisiones</div>
                     <hr class="line">
                 </div>
 
                 <section>
-                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
 
-                        @include('administrator.career', [
-                            'Namecareer' => 'TI Área Desarrollo de Software Multiplataforma',
-                            'image' => 'images/administrator/pexels-lukas-574071.jpg',
-                        ])
-                        @include('administrator.career', [
-                            'Namecareer' => 'Desarrollo de Negocios Área Mercadotecnia',
-                            'image' => 'images/administrator/pexels-alena-darmel-7710218.jpg',
-                        ])
-                        @include('administrator.career', [
-                            'Namecareer' => 'Contaduría',
-                            'image' => 'images/administrator/Conta_1.jpg',
-                        ])
-                        @include('administrator.career', [
-                            'Namecareer' => 'Gastronomía',
-                            'image' => 'images/administrator/gastronomia.jpg',
-                        ])
-                        @include('administrator.career', [
-                            'Namecareer' => 'Mantenimiento Área Instalaciones',
-                            'image' => 'images/administrator/pexels-kateryna-babaieva-2760241.jpg',
-                        ])
-                        @include('administrator.career', [
-                            'Namecareer' => 'Mantenimiento Área Naval',
-                            'image' => 'images/administrator/pexels-david-mcelwee-16240659.jpg',
-                        ])
-                        @include('administrator.career', [
-                            'Namecareer' => 'TI Área Infraestructura de Redes Digitales',
-                            'image' => 'images/administrator/redes.jpeg',
-                        ])
-                        @include('administrator.career', [
-                            'Namecareer' => 'Turismo Área Desarrollo de Productos Alternativos',
-                            'image' => 'images/administrator/ventas22-696x586.jpg',
-                        ])
-                        @include('administrator.career', [
-                            'Namecareer' => 'Turismo Área en Hotelería',
-                            'image' => 'images/administrator/hoteleria.jpg',
-                        ])
-                        @include('administrator.career', [
-                            'Namecareer' => 'Terapia Física',
-                            'image' => 'images/administrator/bono-fisioterapia-pamplona.jpg',
-                        ])
+                        <!--Division de ingenieria-->
+                        <div class="block rounded-lg bg-white text-surface shadow-secondary-1">
+                            <div class="border-b-2 border-solid-100 px-6 py-3 font-bold">
+                                División Ingeniería y Tecnología
+                            </div>
+                            <div class="grid grid-cols-1 gap-5 p-5 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
+
+                                @include('administrator.career', [
+                                    'Namecareer' => 'TI Área Desarrollo de Software Multiplataforma',
+                                    'image' => 'images/administrator/pexels-lukas-574071.jpg',
+                                ])
+                                @include('administrator.career', [
+                                    'Namecareer' => 'TI Área Infraestructura de Redes Digitales',
+                                    'image' => 'images/administrator/redes.jpeg',
+                                ])
+                                @include('administrator.career', [
+                                    'Namecareer' => 'Mantenimiento Área Instalaciones',
+                                    'image' => 'images/administrator/pexels-kateryna-babaieva-2760241.jpg',
+                                ])
+                                @include('administrator.career', [
+                                    'Namecareer' => 'Mantenimiento Área Naval',
+                                    'image' => 'images/administrator/pexels-david-mcelwee-16240659.jpg',
+                                ])
+
+                            </div>
+                        </div>
+
+                        <!--Division de economia-->
+                        <div class="block rounded-lg bg-white text-surface shadow-secondary-1">
+                            <div class="border-b-2 border-solid-100 px-6 py-3 font-bold">
+                                División Económico Administrativa
+                            </div>
+                            <div class="grid grid-cols-1 gap-5 p-5 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
+
+                                @include('administrator.career', [
+                                    'Namecareer' => 'Desarrollo de Negocios Área Mercadotecnia',
+                                    'image' => 'images/administrator/pexels-alena-darmel-7710218.jpg',
+                                ])
+                                @include('administrator.career', [
+                                    'Namecareer' => 'Contaduría',
+                                    'image' => 'images/administrator/Conta_1.jpg',
+                                ])
+                                @include('administrator.career', [
+                                    'Namecareer' => 'Administración Área Capital Humano',
+                                    'image' => 'images/administrator/b910f4651295.jpg',
+                                ])
+
+                            </div>
+                        </div>
+
+                        <!--Division de turismo-->
+                        <div class="block rounded-lg bg-white text-surface shadow-secondary-1">
+                            <div class="border-b-2 border-solid-100 px-6 py-3 font-bold">
+                                División de Turismo
+                            </div>
+                            <div class="grid grid-cols-1 gap-5 p-5 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
+
+                                @include('administrator.career', [
+                                    'Namecareer' => 'Turismo Área Desarrollo de Productos Alternativos',
+                                    'image' => 'images/administrator/ventas22-696x586.jpg',
+                                ])
+                                @include('administrator.career', [
+                                    'Namecareer' => 'Turismo Área en Hotelería',
+                                    'image' => 'images/administrator/hoteleria.jpg',
+                                ])
+                                @include('administrator.career', [
+                                    'Namecareer' => 'Terapia Física',
+                                    'image' => 'images/administrator/bono-fisioterapia-pamplona.jpg',
+                                ])
+
+                            </div>
+                        </div>
+
+                        <!--Division de gastronomia-->
+                        <div class="block rounded-lg bg-white text-surface shadow-secondary-1">
+                            <div class="border-b-2 border-solid-100 px-6 py-3 font-bold">
+                                División de Gastronomía
+                            </div>
+                            <div class="grid grid-cols-1 gap-5 p-5 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
+
+                                @include('administrator.career', [
+                                    'Namecareer' => 'Gastronomía',
+                                    'image' => 'images/administrator/gastronomia.jpg',
+                                ])
+
+                            </div>
+                        </div>
 
                     </div>
                 </section>
@@ -142,65 +189,9 @@
 
                 <!--GRAFICA-->
                 <div class="flex justify-center items-center grafica">
-                    <canvas id="order-chart"></canvas>
+                    <div id="order-chart"></div>
                 </div>
-            </div>
-
-            <script>
-                const ctx = document.getElementById('order-chart');
-
-                new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    datasets: [{
-                        label: 'Datos',
-                        data: [137, 135, 73, 82, 532, 654, 124], // Los valores para cada segmento
-                        backgroundColor: [ // Colores para cada segmento
-                            '#3b82f6',
-                            '#f43f5e',
-                            '#f97316',
-                            '#a855f7',
-                            '#22c55e',
-                            '#06b6d4',
-                            '#ec4899'
-                        ],
-                        borderColor: [ // Colores de borde para cada segmento
-                            '#3b82f6',
-                            '#f43f5e',
-                            '#f97316',
-                            '#a855f7',
-                            '#22c55e',
-                            '#06b6d4',
-                            '#ec4899'
-                        ],
-                        borderWidth: 1
-                    }],
-                    labels: [ // Etiquetas de texto para cada segmento
-                        'Proyectos',
-                        'Equipos',
-                        'Asesores academicos',
-                        'Asesores empresariales',
-                        'Estudiantes',
-                        'Libros',
-                        'Empresas'
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    legend: {
-                        position: 'top', // Posiciona la leyenda en la parte superior
-                    },
-                    title: {
-                        display: true,
-                        text: 'Custom Chart Title' // Título personalizado para el gráfico
-                    },
-                    animation: {
-                        animateScale: true,
-                        animateRotate: true
-                    }
-                }
-            });
-            </script>
+                </div>
 
             <!--SECCION DE RESUMEN-->
             <div class="bg-white border border-gray-100 shadow-md shadow-black/5 p-5 rounded-md">
@@ -208,143 +199,126 @@
                     <div class="font-bold text-2xl">Resumen</div>
                 </div>
 
-                    <table class="w-full min-w-[230px]">
-                        <thead>
-                            <tr>
-                                <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 pl-2 py-2 bg-gray-100 text-left rounded-tl-md rounded-bl-md">
-                                    Registros
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="py-2 px-4 border-b border-b-gray-50">
-                                    <div class="flex items-center">
-                                        <img src="{{asset('images/administrator/proyecto-de-diagrama.png')}}" alt=""
-                                            class="w-6 h-6 rounded object-cover block">
-                                        <span href="#"
-                                            class="text-gray-600 text-sm font-medium hover:text-blue-500 ml-2 truncate">Proyectos</span>
-                                    </div>
+                <table class="w-full min-w-[230px]">
+                    <thead>
+                        <tr>
+                            <th
+                                class="text-[12px] uppercase tracking-wide font-medium text-gray-400 pl-2 py-2 bg-gray-100 text-left rounded-tl-md rounded-bl-md">
+                                Registros
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-2 px-4 border-b border-b-gray-50">
+                                <div class="flex items-center">
+                                    <img src="{{ asset('images/administrator/proyecto-de-diagrama.png') }}" alt=""
+                                        class="w-6 h-6 rounded object-cover block">
+                                    <span href="#"
+                                        class="text-gray-600 text-sm font-medium hover:text-blue-500 ml-2 truncate">Proyectos</span>
+                                </div>
 
-                                    <div class="overflow-hidden bg-blue-100 h-2 rounded-full w-full my-2.5">
-                                        <span
-                                          class="h-full bg-blue-500 w-full block rounded-full"
-                                          style="width: 62%"
-                                        ></span>
-                                      </div>
-                                </td>
-                            </tr>
+                                <div class="overflow-hidden bg-blue-100 h-2 rounded-full w-full my-2.5">
+                                    <span class="h-full bg-blue-500 w-full block rounded-full" style="width: 62%"></span>
+                                </div>
+                            </td>
+                        </tr>
 
-                            <tr>
-                                <td class="py-2 px-4 border-b border-b-gray-50">
-                                    <div class="flex items-center">
-                                        <img src="{{asset('images/administrator/equipo-icono.png')}}" alt=""
-                                            class="w-6 h-6 rounded object-cover block">
-                                        <span href="#"
-                                            class="text-gray-600 text-sm font-medium hover:text-rose-500 ml-2 truncate">Equipos</span>
-                                    </div>
+                        <tr>
+                            <td class="py-2 px-4 border-b border-b-gray-50">
+                                <div class="flex items-center">
+                                    <img src="{{ asset('images/administrator/equipo-icono.png') }}" alt=""
+                                        class="w-6 h-6 rounded object-cover block">
+                                    <span href="#"
+                                        class="text-gray-600 text-sm font-medium hover:text-rose-500 ml-2 truncate">Equipos</span>
+                                </div>
 
-                                    <div class="overflow-hidden bg-rose-100 h-2 rounded-full w-full my-2.5">
-                                        <span
-                                          class="h-full bg-rose-500 w-full block rounded-full"
-                                          style="width: 40%"
-                                        ></span>
-                                      </div>
-                                </td>
-                            </tr>
+                                <div class="overflow-hidden bg-rose-100 h-2 rounded-full w-full my-2.5">
+                                    <span class="h-full bg-rose-500 w-full block rounded-full" style="width: 40%"></span>
+                                </div>
+                            </td>
+                        </tr>
 
-                            <tr>
-                                <td class="py-2 px-4 border-b border-b-gray-50">
-                                    <div class="flex items-center">
-                                        <img src="{{asset('images/administrator/usuario-de-pizarra.png')}}" alt=""
-                                            class="w-6 h-6 rounded object-cover block">
-                                        <span href="#"
-                                            class="text-gray-600 text-sm font-medium hover:text-orange-500 ml-2 truncate">Asesores académicos</span>
-                                    </div>
+                        <tr>
+                            <td class="py-2 px-4 border-b border-b-gray-50">
+                                <div class="flex items-center">
+                                    <img src="{{ asset('images/administrator/usuario-de-pizarra.png') }}" alt=""
+                                        class="w-6 h-6 rounded object-cover block">
+                                    <span href="#"
+                                        class="text-gray-600 text-sm font-medium hover:text-orange-500 ml-2 truncate">Asesores
+                                        académicos</span>
+                                </div>
 
-                                    <div class="overflow-hidden bg-orange-100 h-2 rounded-full w-full my-2.5">
-                                        <span
-                                          class="h-full bg-orange-500 w-full block rounded-full"
-                                          style="width: 66%"
-                                        ></span>
-                                      </div>
-                                </td>
-                            </tr>
+                                <div class="overflow-hidden bg-orange-100 h-2 rounded-full w-full my-2.5">
+                                    <span class="h-full bg-orange-500 w-full block rounded-full" style="width: 66%"></span>
+                                </div>
+                            </td>
+                        </tr>
 
-                            <tr>
-                                <td class="py-2 px-4 border-b border-b-gray-50">
-                                    <div class="flex items-center">
-                                        <img src="{{asset('images/administrator/hombre-empleado-alt.png')}}" alt=""
-                                            class="w-6 h-6 rounded object-cover block">
-                                        <span href="#"
-                                            class="text-gray-600 text-sm font-medium hover:text-purple-500 ml-2 truncate">Asesores empresariales</span>
-                                    </div>
+                        <tr>
+                            <td class="py-2 px-4 border-b border-b-gray-50">
+                                <div class="flex items-center">
+                                    <img src="{{ asset('images/administrator/hombre-empleado-alt.png') }}" alt=""
+                                        class="w-6 h-6 rounded object-cover block">
+                                    <span href="#"
+                                        class="text-gray-600 text-sm font-medium hover:text-purple-500 ml-2 truncate">Asesores
+                                        empresariales</span>
+                                </div>
 
-                                    <div class="overflow-hidden bg-purple-100 h-2 rounded-full w-full my-2.5">
-                                        <span
-                                          class="h-full bg-purple-500 w-full block rounded-full"
-                                          style="width: 70%"
-                                        ></span>
-                                      </div>
-                                </td>
-                            </tr>
+                                <div class="overflow-hidden bg-purple-100 h-2 rounded-full w-full my-2.5">
+                                    <span class="h-full bg-purple-500 w-full block rounded-full"
+                                        style="width: 70%"></span>
+                                </div>
+                            </td>
+                        </tr>
 
-                            <tr>
-                                <td class="py-2 px-4 border-b border-b-gray-50">
-                                    <div class="flex items-center">
-                                        <img src="{{asset('images/administrator/usuario-graduado.png')}}" alt=""
-                                            class="w-6 h-6 rounded object-cover block">
-                                        <span href="#"
-                                            class="text-gray-600 text-sm font-medium hover:text-green-500 ml-2 truncate">Estudiantes</span>
-                                    </div>
+                        <tr>
+                            <td class="py-2 px-4 border-b border-b-gray-50">
+                                <div class="flex items-center">
+                                    <img src="{{ asset('images/administrator/usuario-graduado.png') }}" alt=""
+                                        class="w-6 h-6 rounded object-cover block">
+                                    <span href="#"
+                                        class="text-gray-600 text-sm font-medium hover:text-green-500 ml-2 truncate">Estudiantes</span>
+                                </div>
 
-                                    <div class="overflow-hidden bg-green-100 h-2 rounded-full w-full my-2.5">
-                                        <span
-                                          class="h-full bg-green-500 w-full block rounded-full"
-                                          style="width: 85%"
-                                        ></span>
-                                      </div>
-                                </td>
-                            </tr>
+                                <div class="overflow-hidden bg-green-100 h-2 rounded-full w-full my-2.5">
+                                    <span class="h-full bg-green-500 w-full block rounded-full" style="width: 85%"></span>
+                                </div>
+                            </td>
+                        </tr>
 
-                            <tr>
-                                <td class="py-2 px-4 border-b border-b-gray-50">
-                                    <div class="flex items-center">
-                                        <img src="{{asset('images/administrator/libro-cubierta-abierta.png')}}" alt=""
-                                            class="w-6 h-6 rounded object-cover block">
-                                        <span href="#"
-                                            class="text-gray-600 text-sm font-medium hover:text-cyan-500 ml-2 truncate">Libros</span>
-                                    </div>
+                        <tr>
+                            <td class="py-2 px-4 border-b border-b-gray-50">
+                                <div class="flex items-center">
+                                    <img src="{{ asset('images/administrator/libro-cubierta-abierta.png') }}"
+                                        alt="" class="w-6 h-6 rounded object-cover block">
+                                    <span href="#"
+                                        class="text-gray-600 text-sm font-medium hover:text-cyan-500 ml-2 truncate">Libros</span>
+                                </div>
 
-                                    <div class="overflow-hidden bg-cyan-100 h-2 rounded-full w-full my-2.5">
-                                        <span
-                                          class="h-full bg-cyan-500 w-full block rounded-full"
-                                          style="width: 78%"
-                                        ></span>
-                                      </div>
-                                </td>
-                            </tr>
+                                <div class="overflow-hidden bg-cyan-100 h-2 rounded-full w-full my-2.5">
+                                    <span class="h-full bg-cyan-500 w-full block rounded-full" style="width: 78%"></span>
+                                </div>
+                            </td>
+                        </tr>
 
-                            <tr>
-                                <td class="py-2 px-4 border-b border-b-gray-50">
-                                    <div class="flex items-center">
-                                        <img src="{{asset('images/administrator/alternativa-corporativa.png')}}" alt=""
-                                            class="w-6 h-6 rounded object-cover block">
-                                        <span href="#"
-                                            class="text-gray-600 text-sm font-medium hover:text-pink-500 ml-2 truncate">Empresas</span>
-                                    </div>
+                        <tr>
+                            <td class="py-2 px-4 border-b border-b-gray-50">
+                                <div class="flex items-center">
+                                    <img src="{{ asset('images/administrator/alternativa-corporativa.png') }}"
+                                        alt="" class="w-6 h-6 rounded object-cover block">
+                                    <span href="#"
+                                        class="text-gray-600 text-sm font-medium hover:text-pink-500 ml-2 truncate">Empresas</span>
+                                </div>
 
-                                    <div class="overflow-hidden bg-pink-100 h-2 rounded-full w-full my-2.5">
-                                        <span
-                                          class="h-full bg-pink-500 w-full block rounded-full"
-                                          style="width: 42%"
-                                        ></span>
-                                      </div>
-                                </td>
-                            </tr>
+                                <div class="overflow-hidden bg-pink-100 h-2 rounded-full w-full my-2.5">
+                                    <span class="h-full bg-pink-500 w-full block rounded-full" style="width: 42%"></span>
+                                </div>
+                            </td>
+                        </tr>
 
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
 
             </div>
         </div>
