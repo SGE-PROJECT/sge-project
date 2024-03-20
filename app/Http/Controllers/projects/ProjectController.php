@@ -20,6 +20,34 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
+    public function list()
+    {
+        $Projects = Project::paginate();
+        $Projects = Project::all();
+
+        $enDesarrolloCount = 0;
+        $reprobadosCount = 0;
+        $completadosCount = 0;
+
+        // Contar los proyectos según su estado
+        foreach ($Projects as $project) {
+            switch ($project->status) {
+                case 'En desarrollo':
+                    $enDesarrolloCount++;
+                    break;
+                case 'Reprobado':
+                    $reprobadosCount++;
+                    break;
+                case 'Completado':
+                    $completadosCount++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return view("administrator.project", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+    }
+
     public function invitation()
     {
         return view("projects.ProjectUser.ProjectUser");
@@ -32,7 +60,7 @@ class ProjectController extends Controller
 
     public function viewproject()
     {
-        return view ('projects.viewsproject.ProjectsView');
+        return view('projects.viewsproject.ProjectsView');
     }
 
     public function projectform()
@@ -42,7 +70,7 @@ class ProjectController extends Controller
 
     public function projectteams()
     {
-        return view ('projects.ProjectUser.projectteams');
+        return view('projects.ProjectUser.projectteams');
     }
 
     /**
@@ -80,9 +108,8 @@ class ProjectController extends Controller
         $proyecto->activities = $request->activities;
 
         $proyecto->save();
-        
-        return redirect()->to('/projectdashboard')->with('success', 'Proyecto guardado correctamente.');
 
+        return redirect()->to('/projectdashboard')->with('success', 'Proyecto guardado correctamente.');
     }
 
     /**
