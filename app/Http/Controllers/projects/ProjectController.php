@@ -20,7 +20,33 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
+    public function list()
+    {
+        $Projects = Project::paginate();
+        $Projects = Project::all();
 
+        $enDesarrolloCount = 0;
+        $reprobadosCount = 0;
+        $completadosCount = 0;
+
+        // Contar los proyectos según su estado
+        foreach ($Projects as $project) {
+            switch ($project->status) {
+                case 'En desarrollo':
+                    $enDesarrolloCount++;
+                    break;
+                case 'Reprobado':
+                    $reprobadosCount++;
+                    break;
+                case 'Completado':
+                    $completadosCount++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return view("administrator.project", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+    }
 
     public function invitation()
     {
