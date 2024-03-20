@@ -122,15 +122,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
     });
-
-    Route::get('/asesorias', function () {
-        return view('consultancy.Dates');
-    })->name('asesorias');
-
-    Route::get('/asesorias/dashboard', function(){
-        return view('consultancy.Dashboard');
-    });
-|1
+    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
+    Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
+    Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
+    Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
+    Route::post('/enviar-correo', [AdvisorySessionController::class,'enviar'])->name('enviarCorreo');
 });
 
 
@@ -189,6 +185,6 @@ Route::get('/all-projects', [ProjectsTestController::class, 'index']);
 Route::get('/proyecto/{projectId}/estudiante', [ProjectStudentsTestController::class, 'index']);
 
 Route::get('/users', [UsersTestController::class, 'index']);
-Route::post('/advisory-sessions', [AdvisorySessionController::class, 'store']);
-Route::put('/advisory-sessions/{id}', [AdvisorySessionController::class, 'update']);
-Route::delete('/advisory-sessions/{id}', [AdvisorySessionController::class, 'destroy']);
+//Route::post('/advisory-sessions', [AdvisorySessionController::class, 'store']);
+//Route::put('/advisory-sessions/{id}', [AdvisorySessionController::class, 'update']);
+//Route::delete('/advisory-sessions/{id}', [AdvisorySessionController::class, 'destroy']);
