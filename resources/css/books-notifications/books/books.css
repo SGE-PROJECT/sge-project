@@ -248,6 +248,19 @@
   border: none;
 }
 
+.select-books-sd{
+  margin-top: 30px;
+  height: 35px;
+  width: 190px;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  position: absolute;
+  right: 220px;
+  top: -22px;
+  border: none;
+}
+
 .add-button-book {
   position: absolute;
   width: 35px;
@@ -322,7 +335,7 @@
   position: absolute;
   top: 3.2px;
   right: -20px;
-  transform: scale(0.76);
+  transform: scale(0.77);
 }
 
 .ctn-bk {
