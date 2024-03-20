@@ -156,7 +156,7 @@ Route::middleware(['auth', 'role:Adviser'])->group(function () {
 //     // Rutas protegidas por el rol Teacher usando resource()
 //     Route::resource('/empresas', CompaniesController::class);
 //     Route::resource('/divisiones', DivisionController::class);
-//     Route::resource('/carreras', CareerController::class);
+//     Route::resource('/carreras', ProgramController::class);
 // });
 
 // Route::middleware(['auth', 'role:'])->group(function () {
@@ -166,7 +166,7 @@ Route::middleware(['auth', 'role:Adviser'])->group(function () {
 //     // Rutas protegidas por el rol Teacher usando resource()
 //     Route::resource('/', CompaniesController::class);
 //     Route::resource('/', DivisionController::class);
-//     Route::resource('/', CareerController::class);
+//     Route::resource('/', ProgramController::class);
 // });
 
 // Route::middleware(['auth', 'role:'])->group(function () {
@@ -176,7 +176,7 @@ Route::middleware(['auth', 'role:Adviser'])->group(function () {
 //     // Rutas protegidas por el rol Teacher usando resource()
 //     Route::resource('/', CompaniesController::class);
 //     Route::resource('/', DivisionController::class);
-//     Route::resource('/', CareerController::class);
+//     Route::resource('/', ProgramController::class);
 // });
 
 
