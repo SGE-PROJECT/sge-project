@@ -22,30 +22,12 @@ class ProjectController extends Controller
 
     public function list()
     {
-        $Projects = Project::paginate();
         $Projects = Project::all();
-
-        $enDesarrolloCount = 0;
-        $reprobadosCount = 0;
-        $completadosCount = 0;
-
-        // Contar los proyectos según su estado
-        foreach ($Projects as $project) {
-            switch ($project->status) {
-                case 'En desarrollo':
-                    $enDesarrolloCount++;
-                    break;
-                case 'Reprobado':
-                    $reprobadosCount++;
-                    break;
-                case 'Completado':
-                    $completadosCount++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        return view("administrator.project", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
+        $completadosCount = $Projects->where('status', 'Completado')->count();
+        return view("administrator.project", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'))
+            ->with('administrator.graphProjects', compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
 
     public function invitation()

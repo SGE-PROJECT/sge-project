@@ -8,8 +8,9 @@
         <link rel="stylesheet" href="{{ asset('css/projects/projectDashboardStyle.css') }}">
 
         <div class="project-administrator-card">
-            @include('administrator.graph-projects', ['number' => 12, 'name' => 'Proyectos'])
+            @include('administrator.graph-projects', ['completadosCount' => $completadosCount, 'enDesarrolloCount' => $enDesarrolloCount, 'reprobadosCount' => $reprobadosCount])
         </div>
+        
 
         <div class="project-section-projects">
             @include('administrator.section-projects', ['number' => 12, 'name' => 'Proyectos'])
