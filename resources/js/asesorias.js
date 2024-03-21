@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById("asesorias-formulario");
     form.addEventListener("submit", function(e) {
         e.preventDefault();
-        agregarEvento(); 
+        agregarEvento();
     });
 });
 function matricula() {
@@ -555,6 +555,12 @@ function editarGuardar() {
         error.innerHTML = "Por favor, seleccione una hora entre las 7:00 a.m. y las 8:00 p.m.";
         return;
     }
+    let idEventos = nuevaFecha + ' ' + nuevaHora;
+    if (idEventos in eventos) {
+        error.style.display = "block";
+        error.innerHTML = "La cita ya existe.";
+        return;
+    }
     var formulario = document.getElementById('editarCita');
     var actionUrl = actionUrlTemplate.replace(':id', id);
     formulario.action = actionUrl;
@@ -562,7 +568,7 @@ function editarGuardar() {
     formulario.submit();
 }
 function editarEvento(id, fecha, hora, motivo) {
-    idEvento = id; 
+    idEvento = id;
     var fechaInput = document.getElementById("editFecha");
     var horasInput = document.getElementById("editHora");
     var motivoInput = document.getElementById("editMotivo");

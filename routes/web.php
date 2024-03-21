@@ -64,11 +64,19 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/projectsdash', function () {
             return view('management.project');
         });
-        Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
-
     });
 
-
+    //modulo administrativo
+    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
+    Route::resource('crud-usuarios', CrudUserController::class)->names([
+        'index' => 'users.cruduser.index',
+        'create' => 'users.cruduser.create',
+        'store' => 'users.cruduser.store',
+        'show' => 'users.cruduser.show',
+        'edit' => 'users.cruduser.edit',
+        'update' => 'users.cruduser.update',
+        'destroy' => 'users.cruduser.destroy',
+    ]);
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
@@ -110,7 +118,7 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
-    Route::get('proyectos', [ProjectController::class, 'list'])->name('Proyectos');
+    Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
     Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('projectform', [ProjectController::class, 'store']);
@@ -133,11 +141,12 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
 
 
 //PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
-// Rutas protegidas por el rol AdministradorDivision
-
-Route::middleware(['auth', 'role:ManagmentAdmin'])->group(function () {
+// Rutas protegidas por el rol Adviser
+Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])->group(function () {
     // Ruta de prueba para mostrar los proyectos por división
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
+
+    // Rutas protegidas por el rol Teacher usando resource()
     Route::resource('/empresas', CompaniesController::class);
     Route::resource('/divisiones', DivisionController::class);
     Route::resource('/carreras', ProgramController::class);
