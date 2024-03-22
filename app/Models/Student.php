@@ -12,7 +12,8 @@ class Student extends Model
     protected $fillable =[
         'registration_number',
         'id_user_id',
-        'group_id'
+        'group_id',
+        'academic_advisor_id',
     ];
 
     public function user()
@@ -23,5 +24,10 @@ class Student extends Model
     public function group()
     {
         return $this->belongsTo(Group::class);
+    }
+
+    public function academicAdvisor()
+    {
+        return $this->belongsTo(AcademicAdvisor::class);
     }
 }
