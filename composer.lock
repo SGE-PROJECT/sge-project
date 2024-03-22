@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
     "content-hash": "6fb1ce454097d35e944dd0d7485f7547",
-=======
-    "content-hash": "7133e10d82343f6bcc0f9a465f60dd41",
->>>>>>> develop
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2253,7 +2249,6 @@
                 }
             ],
             "time": "2024-03-14T14:03:32+00:00"
-<<<<<<< HEAD
         },
         {
             "name": "maatwebsite/excel",
@@ -2523,8 +2518,6 @@
                 "source": "https://github.com/MarkBaker/PHPMatrix/tree/3.0.1"
             },
             "time": "2022-12-02T22:17:43+00:00"
-=======
->>>>>>> develop
         },
         {
             "name": "masterminds/html5",
