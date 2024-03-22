@@ -77,6 +77,8 @@ Route::middleware(['auth'])->group(function () {
         'update' => 'users.cruduser.update',
         'destroy' => 'users.cruduser.destroy',
     ]);
+    // Ruta específica para la actualización de usuarios
+    Route::put('crud-usuarios/{user}', [CrudUserController::class, 'update'])->name('users.cruduser.update');
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
