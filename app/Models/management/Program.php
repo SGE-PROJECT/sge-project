@@ -15,7 +15,7 @@ class Program extends Model
         'division_id',
         'start_date',
         'end_date',
-        
+
     ];
 
     protected $dates = [
@@ -31,5 +31,9 @@ class Program extends Model
     public function groups()
     {
         return $this->hasMany(Group::class);
+    }
+    public function programImage()
+    {
+        return $this->hasOne(ProgramImage::class, 'program_id');
     }
 }

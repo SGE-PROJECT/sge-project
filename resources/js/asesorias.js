@@ -1,86 +1,5 @@
-const url = window.location.pathname;
-const segments = url.split('/');
-const id = segments.pop() || segments.pop();
-
-function asignarColorAlumnos(estudiantes, colores) {
-    var resultado = {};
-    var keys = Object.keys(estudiantes);
-    for (var i = 0; i < keys.length; i++) {
-        var key = keys[i];
-        var estudiante = estudiantes[key];
-        var color = colores[i % colores.length];
-        estudiante.color = color;
-        resultado[key] = estudiante;
-    }
-    return resultado;
-}
-
-const proyectos = {};
-
-fetch('http://127.0.0.1:8000/all-projects')
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(proyecto => {
-            proyectos[proyecto.id] = {
-                id: proyecto.id,
-                nombre: proyecto.name,
-                descripcion: proyecto.general_information.detail || 'Descripción no disponible',
-                alumnos: proyecto.student_ids,
-                imagen: proyecto.image
-            };
-        });
-        populateStudentSelect();
-    })
-    .catch(error => {
-        console.error('Error fetching the projects:', error);
-    });
-
-var estudiantes = {};
-fetch('http://127.0.0.1:8000/users')
-    .then(response => response.json())
-    .then(data => {
-
-        data.forEach(usuario => {
-            estudiantes[usuario.id] = {
-                nombre: `${usuario.first_name} ${usuario.last_name}`,
-                imagen: usuario.avatar
-            };
-        });
-
-        estudiantes = asignarColorAlumnos(estudiantes, colores);
-    })
-    .catch(error => {
-        console.error('Error fetching the users:', error);
-    });
-
-
-var colores = ["verde", "amarillo", "morado", "azul", "rosa"];
-var eventoSeleccionado = {};
-
-var eventos = {
-
-};
-fetch('http://127.0.0.1:8000/datos-citas')
-    .then(response => response.json())
-    .then(data => {
-
-        data.forEach(cita => {
-            let [fecha, hora] = cita.session_date.split(' ');
-            hora = hora.substring(0, 5);
-            let idEvento = `${fecha} ${hora}`;
-            eventos[idEvento] = {
-                id:cita.id,
-                fecha: fecha,
-                hora: hora,
-                proyectoId: cita.id_project_id,
-                motivo: cita.description
-            };
-        });
-        mostrarTodosLosEventos();
-        populateYears();
-        updateCalendar();
-    })
-    .catch(error => console.error('Error fetching data:', error));
+var idEvento = 1;
+var eliminarId = 1;
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("contador").textContent = 0 + "/250";
@@ -132,7 +51,21 @@ document.addEventListener('DOMContentLoaded', function () {
         var dateInput = document.getElementById('fecha');
         dateInput.click();
     });
+    const form = document.getElementById("asesorias-formulario");
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        agregarEvento();
+    });
 });
+function matricula() {
+    let selectedProyectoId = document.getElementById('nombre').value;
+    if (selectedProyectoId == "0") {
+        return;
+    }
+    let proyectoIdNumero = parseInt(selectedProyectoId);
+    document.getElementById('matricula').value = proyectoIdNumero;
+    closeModal();
+}
 function solicitar() {
     document.getElementById("solitAsunto").value = "";
     document.getElementById("solitMensaje").value = "";
@@ -141,37 +74,11 @@ function solicitar() {
 function cambiar() {
     document.getElementById("myModal3").style.display = "flex";
 }
-function populateStudentSelect() {
-    var select = document.getElementById('nombre');
-    select.innerHTML = '';
-    var option = document.createElement('option');
-    option.value = 0;
-    option.textContent = "-- Escoge un proyecto --";
-    select.appendChild(option);
-    for (var proyectoId in proyectos) {
-        var option = document.createElement('option');
-        option.value = proyectos[proyectoId].id;
-        option.textContent = proyectos[proyectoId].nombre;
-        select.appendChild(option);
-    }
-    var select = document.getElementById('matricula');
-    select.innerHTML = '';
-    var option = document.createElement('option');
-    option.value = 0;
-    option.textContent = "-- Escoge un proyecto --";
-    select.appendChild(option);
-    for (var proyectoId in proyectos) {
-        var option = document.createElement('option');
-        option.value = proyectos[proyectoId].id;
-        option.textContent = proyectos[proyectoId].nombre;
-        select.appendChild(option);
-    }
-}
-
-populateStudentSelect();
 
 function agregarEvento() {
+    document.getElementById("agregarEventoButton").disabled = true;
     let error = document.getElementById("error");
+    let form = document.getElementById("asesorias-formulario");
     error.style.display = "none";
     let fecha = document.getElementById('fecha').value.trim();
     let hora = document.getElementById('horas').value.trim();
@@ -180,16 +87,19 @@ function agregarEvento() {
     if (!fecha || !hora || proyectoId == 0 || !motivo) {
         error.style.display = "block";
         error.innerHTML = "Por favor, complete todos los campos.";
+        document.getElementById("agregarEventoButton").disabled = false;
         return;
     }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
         error.style.display = "block";
         error.innerHTML = "Por favor, ingrese una fecha válida en formato AAAA-MM-DD.";
+        document.getElementById("agregarEventoButton").disabled = false;
         return;
     }
     if (!/^\d{2}:\d{2}$/.test(hora)) {
         error.style.display = "block";
         error.innerHTML = "Por favor, ingrese una hora válida en formato HH:MM.";
+        document.getElementById("agregarEventoButton").disabled = false;
         return;
     }
     let horaPartes = hora.split(":");
@@ -199,6 +109,7 @@ function agregarEvento() {
     if (horaNum < 7 || horaNum > 20 || (horaNum === 20 && minutoNum > 0)) {
         error.style.display = "block";
         error.innerHTML = "Por favor, seleccione una hora entre las 7:00 a.m. y las 8:00 p.m.";
+        document.getElementById("agregarEventoButton").disabled = false;
         return;
     }
     let now = new Date();
@@ -215,6 +126,7 @@ function agregarEvento() {
         (eventYear === currentYear && eventMonth === currentMonth && eventDay < currentDay)) {
         error.style.display = "block";
         error.innerHTML = "La fecha de la cita no puede ser anterior a la fecha actual.";
+        document.getElementById("agregarEventoButton").disabled = false;
         return;
     }
     if (eventYear === currentYear && eventMonth === currentMonth && eventDay === (currentDay - 1)) {
@@ -223,6 +135,7 @@ function agregarEvento() {
         if (eventHour < currentHour || (eventHour === currentHour && eventMinute <= currentMinute)) {
             error.style.display = "block";
             error.innerHTML = "La hora de la cita debe ser posterior a la hora actual más una hora.";
+            document.getElementById("agregarEventoButton").disabled = false;
             return;
         }
     }
@@ -230,139 +143,23 @@ function agregarEvento() {
     if (idEvento in eventos) {
         error.style.display = "block";
         error.innerHTML = "La cita ya existe.";
+        document.getElementById("agregarEventoButton").disabled = false;
         return;
     }
-
-    if (!(proyectoId in proyectos)) {
-        error.style.display = "block";
-        error.innerHTML = "El proyecto seleccionado no es válido.";
-        return;
-    }
-
-    let sessionDateTime = `${fecha}T${hora}:00`;
-
-    let advisorySessionData = {
-        session_date: sessionDateTime,
-        description: motivo,
-        id_project_id: proyectoId,
-        id_advisor_id: 1
-    };
-
-    fetch('http://127.0.0.1:8000/advisory-sessions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify(advisorySessionData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        window.location.href = 'http://127.0.0.1:8000/Asesorias';
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        error.style.display = "block";
-        error.innerHTML = "Ha ocurrido un error al intentar crear la cita.";
-    });
-
-    eventos[idEvento] = {
-        fecha: fecha,
-        hora: hora,
-        proyectoId: proyectoId,
-        motivo: motivo
-    };
-
-
-    mostrarEventosSemanales();
-    mostrarTodosLosEventos();
-    updateCalendar();
-    llenarHorasConEventos();
-    document.getElementById('fecha').value = "";
-    document.getElementById('horas').value = "";
-    document.getElementById("contador").textContent = 0 + "/250";
-    document.getElementById('motivo').value = "";
-    document.getElementById('matricula').value = "0";
-    document.getElementById('dia').classList.add('ocultar');
-    document.getElementById('calendario').classList.remove('ocultar');
-    document.getElementById("asesorias-formulario").classList.add("ocultar");
-    document.getElementById("eventosContainer").classList.remove("ocultar");
+    form.submit();
 }
 
-function mostrarEventosSemanales() {
-    let tablaEventos = document.getElementById('tablaEventos').getElementsByTagName('tbody')[0];
-    tablaEventos.innerHTML = '';
-
-    let eventosSemanales = filtrarEventosSemanales();
-
-    if (eventosSemanales.length === 0) {
-        let fila = tablaEventos.insertRow();
-        let celdaMensaje = fila.insertCell();
-        celdaMensaje.textContent = 'No hay eventos para la semana.';
-        celdaMensaje.colSpan = 6;
-        celdaMensaje.classList.add('text-center');
-    } else {
-        eventosSemanales.forEach(evento => {
-            let fila = tablaEventos.insertRow();
-            let celdaProyecto = fila.insertCell();
-            celdaProyecto.textContent = proyectos[evento.proyectoId].nombre;
-            let celdaFecha = fila.insertCell();
-            let fechaEvento = new Date(evento.fecha + "T00:00:00");
-            fechaEvento = new Date(fechaEvento.getTime() + fechaEvento.getTimezoneOffset() * 60000);
-            let options = { year: 'numeric', month: 'long', day: 'numeric' };
-            celdaFecha.textContent = fechaEvento.toLocaleDateString('es-ES', options);
-        });
-    }
-}
-
-function filtrarEventosSemanales() {
-    let now = new Date();
-    let startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
-    let endOfWeek = new Date(now.setDate(now.getDate() - now.getDay() + 6));
-
-    let eventosSemanales = Object.values(eventos).filter(evento => {
-        let eventDate = new Date(evento.fecha);
-        return eventDate >= startOfWeek && eventDate <= endOfWeek;
-    });
-
-    return eventosSemanales;
-}
 function eliminarEvento2() {
-    fetch(`http://127.0.0.1:8000/advisory-sessions/${eventoSeleccionado.id}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-    let idEvento = eventoSeleccionado.fecha + ' ' + eventoSeleccionado.hora;
-    delete eventos[idEvento];
+    let id = eliminarId;
+    var formulario = document.getElementById('borrarCita');
+    var actionUrl = actionDeleteUrlTemplate.replace(':id', id);
+    formulario.action = actionUrl;
     document.getElementById("myModal4").style.display = "none";
-    mostrarEventosSemanales();
-    mostrarTodosLosEventos();
-    updateCalendar();
-    llenarHorasConEventos();
+    formulario.submit();
 }
-function eliminarEvento(evento) {
+function eliminarEvento(id) {
+    eliminarId = id;
     document.getElementById("myModal4").style.display = "flex";
-    eventoSeleccionado = evento
 }
 
 function formato12Horas(hora) {
@@ -393,7 +190,7 @@ function mostrarEventos(cell, date) {
             let eventoDiv = document.createElement('div');
             eventoDiv.classList.add("etiqueta2");
             eventoDiv.innerHTML = `
-                <img src="images/${proyecto.imagen}" alt="${proyecto.nombre}" class="img_estudiante img_proyecto">
+                <img src="/images/${proyecto.imagen}" alt="${proyecto.nombre}" class="img_estudiante img_proyecto">
                 <p class="nombre">${proyecto.nombre}</p>`;
             eventoDiv2.appendChild(eventoDiv);
         }
@@ -438,7 +235,7 @@ function llenarHorasConEventos() {
                         let eventoDiv = document.createElement('div');
                         eventoDiv.classList.add("etiqueta");
                         eventoDiv.innerHTML = `
-                            <img src="images/${estudiante.imagen}" alt="${estudiante.nombre}" class="img_estudiante">
+                            <img src="/images/${estudiante.imagen}" alt="${estudiante.nombre}" class="img_estudiante">
                             <p class="info">${estudiante.nombre} - ${proyecto.nombre}</p>
                             <p class="hora"> ${evento.hora}</p>
                             <i class="nf nf-md-pencil evento"></i>
@@ -449,11 +246,11 @@ function llenarHorasConEventos() {
                         iconos.forEach((icono, index) => {
                             if (index === 0) {
                                 icono.addEventListener('click', function () {
-                                    editarEvento(evento);
+                                    editarEvento(evento.id, evento.fecha, evento.hora, evento.motivo);
                                 });
                             } else if (index === 1) {
                                 icono.addEventListener('click', function () {
-                                    eliminarEvento(evento);
+                                    eliminarEvento(evento.id);
                                 });
                             }
                         });
@@ -506,7 +303,6 @@ function tiempo(td, tiem) {
     document.getElementById("horas").value = tiem;
     showModal();
 }
-
 function volver() {
     document.getElementById("contador").textContent = 0 + "/250";
     let error = document.getElementById("error");
@@ -521,7 +317,6 @@ function volver() {
     document.getElementById("contador").textContent = 0 + "/250";
     document.getElementById('motivo').value = "";
 }
-
 function onDayClick(year, month, dayOfWeek, dayOfMonth) {
     document.getElementById("asesorias-formulario").classList.remove("ocultar");
     document.getElementById("eventosContainer").classList.add("ocultar");
@@ -549,7 +344,6 @@ function onDayClick(year, month, dayOfWeek, dayOfMonth) {
     document.getElementById('hora').innerHTML = `${diaSemana}, ${diaMes} de ${Mes}`;
     llenarHorasConEventos();
 }
-
 function createCalendar(year, month) {
     let calendar = document.createElement('table');
     calendar.innerHTML = '';
@@ -608,17 +402,6 @@ function createCalendar(year, month) {
 
     return calendar;
 }
-
-function matricula() {
-    let selectedProyectoId = document.getElementById('nombre').value;
-    if (selectedProyectoId == "0") {
-        return;
-    }
-    let proyectoIdNumero = parseInt(selectedProyectoId);
-    document.getElementById('matricula').value = proyectoIdNumero;
-    closeModal();
-}
-
 function updateCalendar() {
     let selectedYear = document.getElementById('year').value;
     let selectedMonth = document.getElementById('month').value;
@@ -626,10 +409,8 @@ function updateCalendar() {
     let calendarContainer = document.getElementById('calendar');
     calendarContainer.innerHTML = '';
     calendarContainer.appendChild(calendar);
-    mostrarEventosSemanales();
     mostrarTodosLosEventos();
 }
-
 function populateYears() {
     let yearSelect = document.getElementById('year');
     let monthSelect = document.getElementById('month');
@@ -645,8 +426,6 @@ function populateYears() {
     yearSelect.value = currentYear;
     monthSelect.value = currentMonth;
 }
-
-
 function mostrarTodosLosEventos() {
     let tablaEventos = document.getElementById('tablaEventos2').getElementsByTagName('tbody')[0];
     tablaEventos.innerHTML = '';
@@ -698,12 +477,12 @@ function mostrarTodosLosEventos() {
             let divAcciones = document.createElement('div');
             let botonEditar = document.createElement('button');
             botonEditar.innerHTML = `<i class="nf nf-md-pencil evento"></i>`;
-            botonEditar.addEventListener('click', function () { editarEvento(evento); });
+            botonEditar.addEventListener('click', function () { editarEvento(evento.id, evento.fecha, evento.hora, evento.motivo); });
             divAcciones.appendChild(botonEditar);
 
             let botonEliminar = document.createElement('button');
             botonEliminar.innerHTML = `<i class="nf nf-fa-trash evento"></i>`;
-            botonEliminar.addEventListener('click', function () { eliminarEvento(evento); });
+            botonEliminar.addEventListener('click', function () { eliminarEvento(evento.id); });
             divAcciones.appendChild(botonEliminar);
 
             celdaAccion.appendChild(divAcciones);
@@ -736,6 +515,7 @@ function ocultarTodo() {
     document.getElementById("eventosContainer2").classList.add("ocultar");
 }
 function editarGuardar() {
+    let id = idEvento;
     var fechaInput = document.getElementById("editFecha");
     var horasInput = document.getElementById("editHora");
     var motivoInput = document.getElementById("editMotivo");
@@ -775,70 +555,27 @@ function editarGuardar() {
         error.innerHTML = "Por favor, seleccione una hora entre las 7:00 a.m. y las 8:00 p.m.";
         return;
     }
-    var nuevoIdEvento = nuevaFecha + ' ' + nuevaHora;
-    var idEvento = eventoSeleccionado.fecha + ' ' + eventoSeleccionado.hora;
-    if (eventos[nuevoIdEvento] && nuevoIdEvento !== idEvento) {
+    let idEventos = nuevaFecha + ' ' + nuevaHora;
+    if (idEventos in eventos) {
         error.style.display = "block";
-        error.innerHTML = "Una cita ya existe en esa fecha y hora.";
+        error.innerHTML = "La cita ya existe.";
         return;
     }
-
-    var sessionDateTime = `${nuevaFecha}T${nuevaHora}:00`;
-
-    var advisorySessionData = {
-        session_date: sessionDateTime,
-        description: nuevoMotivo,
-    };
-
-    fetch(`http://127.0.0.1:8000/advisory-sessions/${eventoSeleccionado.id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify(advisorySessionData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        window.location.reload();
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        error.style.display = "block";
-        error.innerHTML = "Ha ocurrido un error al intentar actualizar la cita.";
-    });
-    delete eventos[idEvento];
-    eventos[nuevoIdEvento] = {
-        id:eventoSeleccionado.id,
-        fecha: nuevaFecha,
-        hora: nuevaHora,
-        proyectoId: eventoSeleccionado.proyectoId,
-        motivo: nuevoMotivo
-    };
+    var formulario = document.getElementById('editarCita');
+    var actionUrl = actionUrlTemplate.replace(':id', id);
+    formulario.action = actionUrl;
     document.getElementById("myModal2").style.display = "none";
-    mostrarEventosSemanales();
-    mostrarTodosLosEventos();
-    updateCalendar();
-    llenarHorasConEventos();
+    formulario.submit();
 }
-
-
-
-function editarEvento(evento) {
+function editarEvento(id, fecha, hora, motivo) {
+    idEvento = id;
     var fechaInput = document.getElementById("editFecha");
     var horasInput = document.getElementById("editHora");
     var motivoInput = document.getElementById("editMotivo");
-    fechaInput.value = evento.fecha;
-    horasInput.value = evento.hora;
-    motivoInput.value = evento.motivo;
-    eventoSeleccionado = evento;
-    let cantidad = evento.motivo.length;
+    fechaInput.value = fecha;
+    horasInput.value = hora;
+    motivoInput.value = motivo;
+    let cantidad = motivo.length;
     document.getElementById("editContador").textContent = cantidad + "/250";
     document.getElementById("myModal2").style.display = "flex";
 }

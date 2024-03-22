@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Projects\ProjectFormRequest;
 use App\Models\Project;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class ProjectController extends Controller
 {
@@ -14,10 +16,36 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        /*¿Cómo recuperar todos los registros? Se usa el Modelo*/
         $Projects = Project::paginate();
-
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
+    }
+
+    public function list()
+    {
+        $Projects = Project::paginate();
+        $Projects = Project::all();
+
+        $enDesarrolloCount = 0;
+        $reprobadosCount = 0;
+        $completadosCount = 0;
+
+        // Contar los proyectos según su estado
+        foreach ($Projects as $project) {
+            switch ($project->status) {
+                case 'En desarrollo':
+                    $enDesarrolloCount++;
+                    break;
+                case 'Reprobado':
+                    $reprobadosCount++;
+                    break;
+                case 'Completado':
+                    $completadosCount++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return view("administrator.project", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
 
     public function invitation()
@@ -32,7 +60,7 @@ class ProjectController extends Controller
 
     public function viewproject()
     {
-        return view ('projects.viewsproject.ProjectsView');
+        return view('projects.viewsproject.ProjectsView');
     }
 
     public function projectform()
@@ -42,7 +70,7 @@ class ProjectController extends Controller
 
     public function projectteams()
     {
-        return view ('projects.ProjectUser.projectteams');
+        return view('projects.ProjectUser.projectteams');
     }
 
     /**
@@ -80,9 +108,8 @@ class ProjectController extends Controller
         $proyecto->activities = $request->activities;
 
         $proyecto->save();
-        
-        return redirect()->to('/projectdashboard')->with('success', 'Proyecto guardado correctamente.');
 
+        return Redirect::to('/projectdashboard')->withInput()->with('success', 'Proyecto guardado correctamente.');
     }
 
     /**
@@ -93,27 +120,42 @@ class ProjectController extends Controller
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $proyecto = Project::find($id);
+        return view('projects.Forms.edit-formstudent', compact('proyecto'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProjectFormRequest $request, $id): RedirectResponse
     {
-        //
+        $proyecto = Project::find($id);
+        $proyecto->update($request->all());
+
+        return redirect()->route('projects.index')->withInput()->with('success', 'Proyecto actualizado correctamente.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $project = Project::find($id);
+        if (!$project) {
+            return back()->with('error', '¡No se pudo encontrar el proyecto para eliminar!');
+        }
+        $deleted = $project->delete();
+        if ($deleted) {
+            return redirect()->route('dashboardProjects')->with('success', '¡El proyecto ha sido eliminado exitosamente!');
+        } else {
+            return back()->with('error', '¡Se produjo un error al eliminar el proyecto!');
+        }
     }
 }

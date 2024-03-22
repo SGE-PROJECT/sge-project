@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(DivisionSeeder::class);
         $this->call(BooksTableSeeder::class);
+        $this->call(ProgramsSeeder::class);
+        $this->call(CompaniesSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -34,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTestSeeder::class,
             ProjectsTestSeeder::class,
+            ProjectsSeeder::class,
             ProyectStudentTestSeeder::class,
         ]);
 

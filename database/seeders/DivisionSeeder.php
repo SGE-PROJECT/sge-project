@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\management\Division;
 use App\Models\management\Division_image;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DivisionSeeder extends Seeder
 {
@@ -17,13 +16,21 @@ class DivisionSeeder extends Seeder
         // Crear divisiones de ejemplo
         $divisiones = [
             [
-                'name' => 'Turismo',
-                'description' => 'Descripcion de Super Turismo',
+                'name' => 'Ingenieria y Tecnologia',
+                'description' => 'Division de Ingenieria y Tecnologia',
             ],
             [
-                'name' => 'Ingenieria',
-                'description' => 'Descripcion de Super Ingenieria',
+                'name' => 'Económico Administrativo',
+                'description' => 'División Economico Administrativa',
             ],
+            [
+                'name'=> 'Turismo',
+                'description'=> 'División de Turismo. ',
+            ],
+            [
+                'name'=> 'Gastronomia',
+                'description'=> 'División de Gastronomia. ',
+            ]
         ];
 
         foreach ($divisiones as $divisionData) {
