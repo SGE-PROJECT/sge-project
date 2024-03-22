@@ -86,7 +86,7 @@
           </a>
         </li>
 
-@if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary']))
+@if(Auth::check() && Auth::user()->hasAnyRole([ 'Adviser', 'Student', 'President', 'Secretary']))
 @else
 <li class="mb-1 group relative z-2">
     <a href=""
@@ -96,12 +96,15 @@
         <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
     </a>
     <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
-        <li class=" ">
+      @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary']))
+@else 
+      <li class=" ">
             <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-user mr-3 text-lg'></i>
                 <span>Usuarios</span>
             </a>
         </li>
+        @endif
         <li class="">
             <a href="/roles-permisos"
                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
@@ -136,17 +139,23 @@
                   class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Proyectos</span></a>
             </li>
             <li class="">
-
+              @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary']))
+              @else
               <a href="{{ route('divisiones.index')}}" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-buildings mr-3 text-lg'></i><span class=" text-sm">Divisiones</span></a>
             </li>
+            @endif
+            @if(Auth::check() && Auth::user()->hasAnyRole(['President', 'Secretary', 'Student']))
+            @else
             <li class="">
 
               <a href="{{ route('carreras.index')}}" class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class=' bx bx-book-open mr-3 text-lg'></i><span class="text-sm">Carreras</span></a>
             </li>
+            @endif
           </ul>
         </li>
+
 
         <!-- EMPRESAS Section -->
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
@@ -157,7 +166,9 @@
             <span class="nav-text text-sm">Empresas Afiliadas</span>
           </a>
         </li>
-
+        
+        @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'President']))
+        @else
         <!-- RECURSOS Section -->
         <span class="text-gray-400 nav-text font-bold">RECURSOS</span>
         <li class="mb-1 group">
@@ -167,9 +178,13 @@
             <span class="nav-text text-sm">Libros</span>
           </a>
         </li>
+        @endif
 
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Secretary', 'President']))
+        @else
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
+
         <li class="mb-1 group">
           <a href="{{ route('asesorias', ['id' => 1]) }}"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
@@ -177,6 +192,7 @@
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
           </a>
         </li>
+        @endif
 
         <!-- PERSONAL Section -->
         <span class="text-gray-400 font-bold nav-text">PERSONAL</span>
