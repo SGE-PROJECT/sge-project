@@ -95,7 +95,7 @@ class CrudUserController extends Controller
 
         $user->syncRoles($request->role);
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.cruduser.index');
     }
 
     /**
