@@ -133,10 +133,6 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
     Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
     });
-    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
-    Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
-    Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
-    Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
 });
 
 
@@ -152,6 +148,16 @@ Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])-
     Route::resource('/empresas', CompaniesController::class);
     Route::resource('/divisiones', DivisionController::class);
     Route::resource('/carreras', ProgramController::class);
+});
+
+Route::middleware(['auth', 'role:Adviser'])->group(function () {
+    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
+    Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
+    Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
+    Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
+});
+Route::middleware(['auth', 'role:Student'])->group(function () {
+    Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
 });
 
 
