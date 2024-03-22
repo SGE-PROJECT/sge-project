@@ -28,7 +28,7 @@ class RoleSeeder extends Seeder
         $permissions = [
             //roles y permisos
             'roles.permissions.index' => [
-                'roles' => ['SuperAdmin', 'ManagmentAdmin'],
+                'roles' => ['SuperAdmin','ManagmentAdmin'],
                 'description' => 'Ver el listado de roles'
             ],
             'roles.permissions.create' => [
@@ -67,24 +67,24 @@ class RoleSeeder extends Seeder
             ],
             //divisiones
             'divisiones.index' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'Student', 'Secretary', 'President', 'Adviser'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'President', 'Adviser'],
                 'description' => 'Ver divisiones'
             ],
             'divisiones.create' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
+                'roles' => [ 'SuperAdmin'],
                 'description' => 'Crear divisiones'
             ],
             'divisiones.edit' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
+                'roles' => [ 'SuperAdmin'],
                 'description' => 'Editar divisiones'
             ],
             'divisiones.destroy' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
+                'roles' => [ 'SuperAdmin'],
                 'description' => 'Eliminar divisiones'
             ],
             //carreras
             'carreras.index' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'Student', 'Secretary', 'President', 'Adviser'],
+                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'President', 'Adviser'],
                 'description' => 'Ver carreras'
             ],
             'carreras.create' => [

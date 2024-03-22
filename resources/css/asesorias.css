@@ -45,14 +45,14 @@
 .vista_asesorias .Btntext_divisions {
     text-transform:none !important;
 }
-#calendar, #dia2{
+#calendar, #dia2, #student-dia2{
     width: 100%;
     padding: 10px 20px 10px 20px;
     &&::-webkit-scrollbar{
         display: none;
     }
 }
-#calendar table, #dia2 table {
+#calendar table, #dia2 table , #student-dia2 table{
     width: 100%;
     border-collapse: collapse;
     animation: aparecer2 .3s ease;
@@ -65,7 +65,7 @@
     width: 14.2%;
     text-align: center;
 }
-#calendar thead td, #dia2 thead td{
+#calendar thead td, #dia2 thead td, #student-dia2 thead td{
     background-color: #293846;
     color: #fff;
     font-weight: bold;
@@ -75,8 +75,8 @@
 }
 #calendar table thead tr:first-child th:first-child,
 #calendar table thead tr:first-child td:first-child,
-#dia2 table thead tr:first-child th:first-child,
-#dia2 table thead tr:first-child td:first-child {
+#dia2 table thead tr:first-child th:first-child,#student-dia2 table thead tr:first-child th:first-child
+#dia2 table thead tr:first-child td:first-child, #student-dia2 table thead tr:first-child td:first-child {
     border-top-left-radius: 5px;
 }
 
@@ -101,7 +101,7 @@
 #dia table tbody tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
 }
-#dia2 th, #dia2 td{
+#dia2 th, #dia2 td, #student-dia2 th, #student-dia2 td{
     width: fit-content;
     border: 1px solid #888;
     padding: 5px 10px;
@@ -116,7 +116,7 @@
     transform: all 1s;
 }
 
-#calendar tbody td:hover, #dia2 tbody td:hover {
+#calendar tbody td:hover, #dia2 tbody td:hover, #student-dia2 tbody td:hover {
     cursor: cell;
     background-color: #f5f5f5;
 }
@@ -304,33 +304,35 @@ tbody th{
 #calendar th,
 #calendar td,
 #dia2 th,
-#dia2 td { /* Borde transparente para todas las celdas */
+#dia2 td,
+#student-dia2 th,
+#student-dia2 td { /* Borde transparente para todas las celdas */
     border: none;
     border-right: 1px solid #888;
     padding: 5px;
     width: 14.2%;
     text-align: center;
 }
-#dia2 th{
+#dia2 th, #student-dia2 th{
     max-width:100px !important;
 }
 #calendar tr td:last-child, #dia tr th:last-child, #dia tr td:last-child{
     border-right: none;
 }
-#calendar tr,#dia2 tr{
+#calendar tr,#dia2 tr, #student-dia2 tr{
     border-bottom: 1px solid #888;
 }
-#calendar tr:last-child, #dia2 tr:last-child{
+#calendar tr:last-child, #dia2 tr:last-child, #student-dia2 tr:last-child{
     border-bottom: none;
 }
 
-#calendar thead td, #dia2 thead th{
+#calendar thead td, #dia2 thead th, #student-dia2 thead th{
     background-color: #293846;
     color: #fff;
     font-weight: bold;
 }
 
-#calendar table, #dia2 table {
+#calendar table, #dia2 table, #student-dia2 table {
     border-radius: 5px;
 }
 .desactivado{
@@ -363,7 +365,7 @@ tbody th{
 .rosa{
     background-color: rgb(248, 214, 219);
 }
-#dia2 td{
+#dia2 td, #student-dia2 td{
     padding: 0;
 }
 .asesorias-formulario{
