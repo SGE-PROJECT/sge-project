@@ -33,26 +33,26 @@ class LoginControlller extends Controller
             switch ($role) {
                 case 'SuperAdmin':
                     return redirect()->route('posts.index'); // Nos redirecciona al dashboard general
-                    break;
+                    
                 case 'ManagmentAdmin':
-                    return redirect('/perfil'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
-                    break;
+                    return redirect('/carreras'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
+                    
                 case 'Adviser':
-                    return redirect('/notificaciones');
-                    break;
+                    return redirect('/asesorias/{id}');
+                   
                 case 'Student':
-                    return redirect('/asesorias');
-                    break;
+                    return redirect('/asesorias/{id}');
+                    
                 case 'President':
-                    return redirect('/notificaciones');
-                    break;
+                    return redirect('/projects');
+                   
                 case 'Secretary': 
-                    return redirect('/proyectos');
-                    break;
+                    return redirect('/libros');
+                    
                 
                 default:
                     // Si el usuario no tiene un rol, lo redirige a una página predeterminada
-                    return redirect('/proyectos'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
+                    return redirect('/perfil'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
             }  //Lo único que hay que hacer es seguir con el switch para seguir redireccionando 
         } else {
             //Si la autenticación falla
