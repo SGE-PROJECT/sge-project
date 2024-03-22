@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $StudentUser = User::create([
+        $StudentUser1 = User::create([
             'name' => 'Guillermo Garcia',
             'email' => 'guillermo.jesus.garcia.canul@gmail.com',
             'password' => Hash::make('guillermo'),
@@ -94,6 +94,7 @@ class UserSeeder extends Seeder
         $SuperAdminUser->assignRole($SuperAdminRole);
         $ManagmentAdminUser->assignRole($ManagmentAdminRole);
         $AdviserUser->assignRole($AdviserRole);
+        $StudentUser1->assignRole($StudentRole);
         $StudentUser->assignRole($StudentRole);
         $PresidentUser->assignRole($PresidentRole);
         $SecretaryUser->assignRole($SecretaryRole);

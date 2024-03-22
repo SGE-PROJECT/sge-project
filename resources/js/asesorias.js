@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("editContador").textContent = 0 + "/250";
     document.querySelector('.close').addEventListener('click', closeModal);
     document.querySelector('.close2').addEventListener('click', closeModal2);
-    document.querySelector('.close3').addEventListener('click', solicitar);
     document.querySelector('.close4').addEventListener('click', closeModal4);
     document.getElementById('nombre').addEventListener('change', matricula);
     document.getElementById('month').addEventListener('change', updateCalendar);
@@ -14,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('volverButton').addEventListener('click', volver);
     document.getElementById('botonCitas').addEventListener('click', mostrarTodo);
     document.getElementById('botonCitas2').addEventListener('click', ocultarTodo);
-    document.getElementById('solicitar').addEventListener('click', solicitar);
-    document.getElementById('cambiarCita').addEventListener('click', cambiar);
     document.getElementById("guardarEventoButton").addEventListener('click', editarGuardar);
     document.getElementById("borrarEventoBoton").addEventListener('click', eliminarEvento2);
     document.querySelectorAll('td[data-hora]').forEach(td => {
