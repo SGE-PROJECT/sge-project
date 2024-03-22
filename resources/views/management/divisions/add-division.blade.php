@@ -19,7 +19,7 @@
                 <form action="{{ route('divisiones.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
-                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+                        <label for="name" class="block text-gray-700 text-sm font-bold mb-1">Nombre:</label>
                         <input type="text" name="name" id="name"
                             class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Ingrese el nombre de la división" required>
