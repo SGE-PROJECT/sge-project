@@ -79,4 +79,10 @@ class User extends Authenticatable
         return $this->hasOne(AcademicAdvisor::class);
     }
 
+    // Agrega una relación con el modelo ManagmentAdmin, si existe
+    public function managmentAdmin()
+    {
+        return $this->hasOne(ManagmentAdmin::class);
+    }
+
 }

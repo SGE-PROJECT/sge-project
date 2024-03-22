@@ -7,6 +7,7 @@ use App\Models\AcademicDirector;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\management\Division_image;
+use App\Models\ManagmentAdmin;
 use App\Models\Secretary;
 
 class Division extends Model
@@ -36,5 +37,10 @@ class Division extends Model
     public function secretary()
     {
         return $this->hasOne(Secretary::class);
+    }
+
+    public function managmentAdmin()
+    {
+        return $this->hasMany(ManagmentAdmin::class);
     }
 }
