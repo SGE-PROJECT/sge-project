@@ -2,6 +2,7 @@
 
 namespace App\Models\management;
 
+use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,7 @@ class Program extends Model
         'division_id',
         'start_date',
         'end_date',
+        
     ];
 
     protected $dates = [
@@ -24,5 +26,10 @@ class Program extends Model
     public function division()
     {
         return $this->belongsTo(Division::class);
+    }
+
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
     }
 }
