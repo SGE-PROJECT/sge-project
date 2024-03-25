@@ -27,7 +27,8 @@ class ProjectController extends Controller
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $completadosCount = $Projects->where('status', 'Completado')->count();
         return view("administrator.project", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'))
-            ->with('administrator.graphProjects', compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+            ->with('administrator.graphProjects', compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'))
+            ->with('projects.ProjectsDash.projectDashboard', compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
 
     public function invitation()
