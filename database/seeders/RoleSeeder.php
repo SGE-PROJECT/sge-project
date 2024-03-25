@@ -16,9 +16,20 @@ class RoleSeeder extends Seeder
     {
 
         //Se declaran y crean los roles del sistema de forma segura
-        $rolesNames = ['SuperAdmin', 'ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary'];
-        foreach ($rolesNames as $roleName) {
-            Role::findOrCreate($roleName, 'web');
+        $rolesNames = [
+            ['name' => 'SuperAdmin', 'namespanish' => 'Super Administrador'],
+            ['name' => 'ManagmentAdmin', 'namespanish' => 'Administrador de División'],
+            ['name' => 'Adviser', 'namespanish' => 'Asesor'],
+            ['name' => 'Student', 'namespanish' => 'Estudiante'],
+            ['name' => 'President', 'namespanish' => 'Presidente Académico'],
+            ['name' => 'Secretary', 'namespanish' => 'Asistente de dirección'],
+        ];
+        
+        foreach ($rolesNames as $roleData) {
+            Role::updateOrCreate(
+                ['name' => $roleData['name']],
+                ['name' => $roleData['name'], 'namespanish' => $roleData['namespanish'], 'guard_name' => 'web']
+            );
         }
 
         // Primero, se crea el rol SuperAdmin si no existe
@@ -33,71 +44,71 @@ class RoleSeeder extends Seeder
             ],
             'roles.permissions.create' => [
                 'roles' => ['SuperAdmin'],
-                'description' => 'Crear roles'
+                'description' => 'Agregar un nuevo rol'
             ],
             'roles.permissions.edit' => [
                 'roles' => ['SuperAdmin'],
-                'description' => 'Editar roles'
+                'description' => 'Modificación de roles'
             ],
 
             'roles.permissions.destroy' => [
                 'roles' => ['SuperAdmin'],
-                'description' => 'Eliminar roles'
+                'description' => 'Remover roles'
             ],
             'roles.permissions.show' => [
                 'roles' => ['SuperAdmin'],
-                'description' => 'Mostrar detalle de roles'
+                'description' => 'Mostrar los detalles de los roles'
             ],
             //empresas
             'empresas.index' => [
                 'roles' => ['ManagmentAdmin', 'SuperAdmin', 'Student', 'Secretary', 'President', 'Adviser'],
-                'description' => 'Mostrar vista de empresas'
+                'description' => 'Consultar la lista de empresas'
             ],
             'empresas.create' => [
                 'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Crear empresas'
+                'description' => 'Agregar nuevas empresas'
             ],
             'empresas.edit' => [
                 'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Editar empresas'
+                'description' => 'Moficicación de empresas'
             ],
             'empresas.destroy' => [
                 'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Eliminar empresas'
+                'description' => 'Remover empresas'
             ],
             //divisiones
             'divisiones.index' => [
                 'roles' => ['ManagmentAdmin', 'SuperAdmin', 'President', 'Adviser'],
-                'description' => 'Ver divisiones'
+                'description' => 'Consultar las divisiones'
             ],
             'divisiones.create' => [
                 'roles' => [ 'SuperAdmin'],
-                'description' => 'Crear divisiones'
+                'description' => 'Agregar nueva división'
             ],
             'divisiones.edit' => [
                 'roles' => [ 'SuperAdmin'],
-                'description' => 'Editar divisiones'
+                'description' => 'Modificar las divisiones'
             ],
             'divisiones.destroy' => [
                 'roles' => [ 'SuperAdmin'],
-                'description' => 'Eliminar divisiones'
+                'description' => 'Remover divisiones'
             ],
             //carreras
             'carreras.index' => [
                 'roles' => ['ManagmentAdmin', 'SuperAdmin', 'President', 'Adviser'],
-                'description' => 'Ver carreras'
+                'description' => 'Consultar carreras'
             ],
             'carreras.create' => [
                 'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Crear carreras'
+                'description' => 'Agregar nuevas carreras'
             ],
             'carreras.edit' => [
                 'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Editar carreras'
+                'description' => 'Modificación de carreras'
             ],
             'carreras.destroy' => [
                 'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Eliminar carreras'
+                'description' => 'Remover carreras'
             ],
 
         ];
