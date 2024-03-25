@@ -19,33 +19,38 @@
                 <form action="{{ route('divisiones.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-4">
-                        <label for="name" class="block text-gray-700 text-sm font-bold mb-1">Nombre:</label>
+                        <label for="name" class="block text-gray-700 text-sm font-bold">Nombre:</label>
                         <input type="text" name="name" id="name"
                             class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Ingrese el nombre de la división" required>
+
+                        @error('name')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('name')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
                     <div class="mb-4">
                         <label for="description"
-                            class="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
+                            class="block text-gray-700 text-sm font-bold">Descripción:</label>
                         <textarea name="description" id="description"
-                            class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            class="appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Ingrese la descripción de la división" rows="3"></textarea>
+                        @error('description')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('description')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
                     <div class="mb-4">
                         <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Imagen:</label>
                         <input type="file" name="image" id="image"
                             class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             accept="image/*" required>
+                        <div class="mt-2 flex flex-col items-center">
+                            <p class="text-sm text-gray-600 mb-2">Previsualización</p>
+                            <img id="imagePreview" class="w-40 h-auto rounded-lg" />
+                        </div>
                     </div>
                     @error('image')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
+                    @enderror
                     <div class="flex items-center justify-center">
                         <button type="submit"
                             class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Crear
@@ -56,5 +61,17 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('image').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            document.getElementById('imagePreview').src = e.target.result;
+        }
+
+        reader.readAsDataURL(file);
+    });
+</script>
 
 @endsection
