@@ -13,6 +13,7 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   @vite('resources/css/app.css')
   @vite('resources/css/asesorias.css')
+  @vite('resources/css/asesoriasStudents.css')
   @vite('resources/js/sidebar.js')
   @vite('resources/js/asesorias.js')
   @vite('resources/js/tableproject.js')
@@ -160,6 +161,7 @@
 
 
         <!-- EMPRESAS Section -->
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Secretary']))
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
         <li class="mb-1 group">
           <a href={{ route ('empresas.index')}}
@@ -168,6 +170,7 @@
             <span class="nav-text text-sm">Empresas Afiliadas</span>
           </a>
         </li>
+        @endif
         
         @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'President']))
         @else
