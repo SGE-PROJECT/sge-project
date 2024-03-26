@@ -124,8 +124,8 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
-    Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
-    Route::post('projectform', [ProjectController::class, 'store']);
+    Route::get('formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
+    Route::post('formanteproyecto', [ProjectController::class, 'store'])->name('envproyecto');
     Route::resource('projects', ProjectController::class);
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
