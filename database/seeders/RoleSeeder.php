@@ -33,71 +33,71 @@ class RoleSeeder extends Seeder
             ],
             'roles.permissions.create' => [
                 'roles' => ['Super Administrador'],
-                'description' => 'Crear roles'
+                'description' => 'Agregar un nuevo rol'
             ],
             'roles.permissions.edit' => [
                 'roles' => ['Super Administrador'],
-                'description' => 'Editar roles'
+                'description' => 'Modificación de roles'
             ],
 
             'roles.permissions.destroy' => [
                 'roles' => ['Super Administrador'],
-                'description' => 'Eliminar roles'
+                'description' => 'Remover roles'
             ],
             'roles.permissions.show' => [
                 'roles' => ['Super Administrador'],
-                'description' => 'Mostrar detalle de roles'
+                'description' => 'Mostrar los detalles de los roles'
             ],
             //empresas
             'empresas.index' => [
                 'roles' => ['Administrador de División', 'Super Administrador', 'Estudiante', 'Asistente de Dirección', 'Presidente Académico', 'Asesor Académico'],
-                'description' => 'Mostrar vista de empresas'
+                'description' => 'Consultar la lista de empresas'
             ],
             'empresas.create' => [
                 'roles' => ['Administrador de División', 'Super Administrador'],
-                'description' => 'Crear empresas'
+                'description' => 'Agregar nuevas empresas'
             ],
             'empresas.edit' => [
                 'roles' => ['Administrador de División', 'Super Administrador'],
-                'description' => 'Editar empresas'
+                'description' => 'Moficicación de empresas'
             ],
             'empresas.destroy' => [
                 'roles' => ['Administrador de División', 'Super Administrador'],
-                'description' => 'Eliminar empresas'
+                'description' => 'Remover empresas'
             ],
             //divisiones
             'divisiones.index' => [
                 'roles' => ['Administrador de División', 'Super Administrador', 'Presidente Académico', 'Asesor Académico'],
-                'description' => 'Ver divisiones'
+                'description' => 'Consultar las divisiones'
             ],
             'divisiones.create' => [
                 'roles' => [ 'Super Administrador'],
-                'description' => 'Crear divisiones'
+                'description' => 'Agregar nueva división'
             ],
             'divisiones.edit' => [
                 'roles' => [ 'Super Administrador'],
-                'description' => 'Editar divisiones'
+                'description' => 'Modificar las divisiones'
             ],
             'divisiones.destroy' => [
                 'roles' => [ 'Super Administrador'],
-                'description' => 'Eliminar divisiones'
+                'description' => 'Remover divisiones'
             ],
             //carreras
             'carreras.index' => [
                 'roles' => ['Administrador de División', 'Super Administrador', 'Presidente Académico', 'Asesor Académico'],
-                'description' => 'Ver carreras'
+                'description' => 'Consultar las carreras'
             ],
             'carreras.create' => [
                 'roles' => ['Administrador de División', 'Super Administrador'],
-                'description' => 'Crear carreras'
+                'description' => 'Agregar nuevas carreras'
             ],
             'carreras.edit' => [
                 'roles' => ['Administrador de División', 'Super Administrador'],
-                'description' => 'Editar carreras'
+                'description' => 'Modificación de carreras'
             ],
             'carreras.destroy' => [
                 'roles' => ['Administrador de División', 'Super Administrador'],
-                'description' => 'Eliminar carreras'
+                'description' => 'Remover carreras'
             ],
 
         ];
