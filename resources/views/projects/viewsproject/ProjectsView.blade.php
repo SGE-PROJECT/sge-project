@@ -4,7 +4,7 @@
 @section('titulo', 'Proyectos por división')
 
 @section('contenido')
-    <h2 class="text-3xl font-bold sm:text-4xl mt-4 text-center ">LISTA DE PROYECTOS</h2>
+    <h2 class="text-3xl font-bold sm:text-4xl mt-4 text-center ">LISTA DE ANTEPROYECTOS</h2>
     @foreach ($Projects as $project)
         @php
             $commentCount = $project->comments()->count();
@@ -113,7 +113,7 @@
 
                         <button type="button"
                             class="relative text-lg cursor-default text-white rounded-full bg-[#279c90] p-2.5 font-semibold">
-                            <i class='bx bxs-message-rounded-detail p-1'></i>
+                            <i class='bx bxs-message-rounded-detail p-1.5'></i>
                             <span
                                 class="absolute text-white top-0 right-0 bg-gray-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">{{ $commentCount }}</span>
                         </button>

@@ -14,4 +14,9 @@ class Project_likes extends Model
         'user_id',
         'project_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -50,6 +50,12 @@ return new class extends Migration
             $table->foreignId("company_id")->nullable()->constrained("affiliated_companies")
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
+            $table->foreignId('group_id')->nullable()->constrained('groups')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+            $table->foreignId('project_students_id')->nullable()->constrained('project_students')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
             $table->string('status')->default('Registrado');
             $table->boolean('is_project')->default(false);
             $table->timestamps();
