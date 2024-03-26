@@ -43,11 +43,11 @@ class LoginControlller extends Controller
                         
                 case 'Student':
                     $studentId = $user->id; 
-                    return redirect("/asesorias/{$studentId}");
+                    return redirect("proyectoinvitacion");
                     
                 case 'President':
                     return redirect('/projects');
-                   
+                    
                 case 'Secretary': 
                     return redirect('/libros');
                     
