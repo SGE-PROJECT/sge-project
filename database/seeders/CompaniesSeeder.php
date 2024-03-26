@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\management\Affiliated_companie;
 use App\Models\management\Company_image;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -36,7 +37,15 @@ class CompaniesSeeder extends Seeder
             // Puedes agregar más datos de prueba aquí si es necesario
         ];
         foreach ($companies as $companyData) {
-            $company = Affiliated_companie::create($companyData);
+            $company = Affiliated_companie::create([
+                'company_name' => $companyData['company_name'],
+                'address' => $companyData['address'],
+                'contact_name' => $companyData['contact_name'],
+                'contact_email' => $companyData['contact_email'],
+                'contact_phone' => $companyData['contact_phone'],
+                'description' => $companyData['description'],
+                'affiliation_date' => Carbon::parse($companyData['affiliation_date'])->toDateString(),
+            ]);
 
             // Datos de prueba para las imágenes de las empresas
             $imageData = [

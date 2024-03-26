@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("editContador").textContent = 0 + "/250";
     document.querySelector('.close').addEventListener('click', closeModal);
     document.querySelector('.close2').addEventListener('click', closeModal2);
-    document.querySelector('.close3').addEventListener('click', solicitar);
     document.querySelector('.close4').addEventListener('click', closeModal4);
     document.getElementById('nombre').addEventListener('change', matricula);
     document.getElementById('month').addEventListener('change', updateCalendar);
@@ -14,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('volverButton').addEventListener('click', volver);
     document.getElementById('botonCitas').addEventListener('click', mostrarTodo);
     document.getElementById('botonCitas2').addEventListener('click', ocultarTodo);
-    document.getElementById('solicitar').addEventListener('click', solicitar);
-    document.getElementById('cambiarCita').addEventListener('click', cambiar);
     document.getElementById("guardarEventoButton").addEventListener('click', editarGuardar);
     document.getElementById("borrarEventoBoton").addEventListener('click', eliminarEvento2);
     document.querySelectorAll('td[data-hora]').forEach(td => {
@@ -54,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById("asesorias-formulario");
     form.addEventListener("submit", function(e) {
         e.preventDefault();
-        agregarEvento(); 
+        agregarEvento();
     });
 });
 function matricula() {
@@ -555,6 +552,12 @@ function editarGuardar() {
         error.innerHTML = "Por favor, seleccione una hora entre las 7:00 a.m. y las 8:00 p.m.";
         return;
     }
+    let idEventos = nuevaFecha + ' ' + nuevaHora;
+    if (idEventos in eventos) {
+        error.style.display = "block";
+        error.innerHTML = "La cita ya existe.";
+        return;
+    }
     var formulario = document.getElementById('editarCita');
     var actionUrl = actionUrlTemplate.replace(':id', id);
     formulario.action = actionUrl;
@@ -562,7 +565,7 @@ function editarGuardar() {
     formulario.submit();
 }
 function editarEvento(id, fecha, hora, motivo) {
-    idEvento = id; 
+    idEvento = id;
     var fechaInput = document.getElementById("editFecha");
     var horasInput = document.getElementById("editHora");
     var motivoInput = document.getElementById("editMotivo");
