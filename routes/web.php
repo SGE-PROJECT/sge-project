@@ -132,7 +132,7 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
     Route::post('/proyecto/{project}/comentario', [ComentarioController::class, 'store'])->name('comentario.store');
     Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
-
+    Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
 
     Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
@@ -190,7 +190,6 @@ Route::middleware(['auth', 'role:Student'])->group(function () {
 //     Route::resource('/', Controller::class);
 //     Route::resource('/', Controller::class);
 // });
-
 
 
 
