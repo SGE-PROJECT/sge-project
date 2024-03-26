@@ -16,88 +16,88 @@ class RoleSeeder extends Seeder
     {
 
         //Se declaran y crean los roles del sistema de forma segura
-        $rolesNames = ['SuperAdmin', 'ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary'];
+        $rolesNames = ['Super Administrador', 'Administrador de División', 'Asesor Académico', 'Estudiante', 'Presidente Académico', 'Asistente de Dirección'];
         foreach ($rolesNames as $roleName) {
             Role::findOrCreate($roleName, 'web');
         }
 
-        // Primero, se crea el rol SuperAdmin si no existe
-        $superAdminRole = Role::findOrCreate('SuperAdmin', 'web');
+        // Primero, se crea el rol Super Administrador si no existe
+        $SuperAdministradorRole = Role::findOrCreate('Super Administrador', 'web');
 
         // Ahora, creamos los permisos y los asignamos a los roles correspondientes de forma segura
         $permissions = [
             //roles y permisos
             'roles.permissions.index' => [
-                'roles' => ['SuperAdmin','ManagmentAdmin'],
+                'roles' => ['Super Administrador','Administrador de División'],
                 'description' => 'Ver el listado de roles'
             ],
             'roles.permissions.create' => [
-                'roles' => ['SuperAdmin'],
-                'description' => 'Crear roles'
+                'roles' => ['Super Administrador'],
+                'description' => 'Agregar un nuevo rol'
             ],
             'roles.permissions.edit' => [
-                'roles' => ['SuperAdmin'],
-                'description' => 'Editar roles'
+                'roles' => ['Super Administrador'],
+                'description' => 'Modificación de roles'
             ],
 
             'roles.permissions.destroy' => [
-                'roles' => ['SuperAdmin'],
-                'description' => 'Eliminar roles'
+                'roles' => ['Super Administrador'],
+                'description' => 'Remover roles'
             ],
             'roles.permissions.show' => [
-                'roles' => ['SuperAdmin'],
-                'description' => 'Mostrar detalle de roles'
+                'roles' => ['Super Administrador'],
+                'description' => 'Mostrar los detalles de los roles'
             ],
             //empresas
             'empresas.index' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'Student', 'Secretary', 'President', 'Adviser'],
-                'description' => 'Mostrar vista de empresas'
+                'roles' => ['Administrador de División', 'Super Administrador', 'Estudiante', 'Asistente de Dirección', 'Presidente Académico', 'Asesor Académico'],
+                'description' => 'Consultar la lista de empresas'
             ],
             'empresas.create' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Crear empresas'
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Agregar nuevas empresas'
             ],
             'empresas.edit' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Editar empresas'
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Moficicación de empresas'
             ],
             'empresas.destroy' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Eliminar empresas'
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Remover empresas'
             ],
             //divisiones
             'divisiones.index' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'President', 'Adviser'],
-                'description' => 'Ver divisiones'
+                'roles' => ['Administrador de División', 'Super Administrador', 'Presidente Académico', 'Asesor Académico'],
+                'description' => 'Consultar las divisiones'
             ],
             'divisiones.create' => [
-                'roles' => [ 'SuperAdmin'],
-                'description' => 'Crear divisiones'
+                'roles' => [ 'Super Administrador'],
+                'description' => 'Agregar nueva división'
             ],
             'divisiones.edit' => [
-                'roles' => [ 'SuperAdmin'],
-                'description' => 'Editar divisiones'
+                'roles' => [ 'Super Administrador'],
+                'description' => 'Modificar las divisiones'
             ],
             'divisiones.destroy' => [
-                'roles' => [ 'SuperAdmin'],
-                'description' => 'Eliminar divisiones'
+                'roles' => [ 'Super Administrador'],
+                'description' => 'Remover divisiones'
             ],
             //carreras
             'carreras.index' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin', 'President', 'Adviser'],
-                'description' => 'Ver carreras'
+                'roles' => ['Administrador de División', 'Super Administrador', 'Presidente Académico', 'Asesor Académico'],
+                'description' => 'Consultar las carreras'
             ],
             'carreras.create' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Crear carreras'
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Agregar nuevas carreras'
             ],
             'carreras.edit' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Editar carreras'
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Modificación de carreras'
             ],
             'carreras.destroy' => [
-                'roles' => ['ManagmentAdmin', 'SuperAdmin'],
-                'description' => 'Eliminar carreras'
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Remover carreras'
             ],
 
         ];
@@ -118,15 +118,15 @@ class RoleSeeder extends Seeder
         // Se crea un permiso especial que actúa como wildcard para todos los permisos posibles.
         // Se crea un permiso especial que actúa como wildcard para todos los permisos posibles.
         // Esto es correcto para updateOrCreate
-        $superAdminPermission = Permission::updateOrCreate(
-            ['name' => 'superadmin.*', 'guard_name' => 'web'],
+        $SuperAdministradorPermission = Permission::updateOrCreate(
+            ['name' => 'Super Administrador.*', 'guard_name' => 'web'],
             ['description' => 'Acceso sin restricciones a todas las áreas']
         );
 
-        $superAdminRole->givePermissionTo($superAdminPermission);
+        $SuperAdministradorRole->givePermissionTo($SuperAdministradorPermission);
 
 
-        // Opcionalmente, se puede asignar directamente este permiso especial al SuperAdmin
-        $superAdminRole->givePermissionTo(Permission::all());
+        // Opcionalmente, se puede asignar directamente este permiso especial al Super Administrador
+        $SuperAdministradorRole->givePermissionTo(Permission::all());
     }
 }

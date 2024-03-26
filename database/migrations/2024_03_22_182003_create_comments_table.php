@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::create("project_likes", function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained("users");
             $table->foreignId("project_id")->constrained("projects")->onDelete('cascade');
+            $table->string('content_message');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_likes');
+        Schema::dropIfExists('comments');
     }
 };

@@ -37,10 +37,12 @@ class LoginControlller extends Controller
                     return redirect('/carreras'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
                     
                 case 'Adviser':
-                    return redirect('/');
-                   
+                    $adviserId = $user->id; 
+                    return redirect("/asesorias/{$adviserId}");
+                        
                 case 'Student':
-                    return redirect('/');
+                    $studentId = $user->id; 
+                    return redirect("/asesorias/{$studentId}");
                     
                 case 'President':
                     return redirect('/projects');

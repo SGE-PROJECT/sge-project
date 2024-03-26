@@ -4,6 +4,7 @@ namespace App\Http\Controllers\projects;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Projects\ProjectFormRequest;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
@@ -60,7 +61,8 @@ class ProjectController extends Controller
 
     public function viewproject()
     {
-        return view('projects.viewsproject.ProjectsView');
+        $Projects = Project::paginate(3);
+        return view('projects.viewsproject.ProjectsView', compact('Projects'));
     }
 
     public function projectform()
@@ -115,10 +117,18 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
-        //
+        
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Pasar el proyecto y el usuario a la vista
+        return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user]);
     }
+
+
+
 
 
     /**

@@ -11,13 +11,13 @@ class AcademicAdvisor extends Model
     use HasFactory;
 
     protected $fillable = [
-    'id_user_id',
+    'user_id',
     'division_id',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function division()
