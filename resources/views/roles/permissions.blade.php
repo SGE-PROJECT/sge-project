@@ -16,36 +16,30 @@
             @foreach ($roles as $role)
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">
-                            @if($role->namespanish)
-                                {{ $role->namespanish }}
-                            @else
-                                {{ $role->name }}
-                            @endif
-                        </h5>
+                        <h5 class="card-title">{{ $role->name }} </h5>
                         <div class="card-iconos">
                             @switch($role->name)
-                                @case('SuperAdmin')
+                                @case('Super Administrador')
                                     <i class="fas fa-user-shield"></i>
                                 @break
 
-                                @case('ManagmentAdmin')
+                                @case('Administrador de División')
                                     <i class="fas fa-cogs"></i>
                                 @break
 
-                                @case('Adviser')
+                                @case('Asesor Académico')
                                     <i class="fas fa-user-tie"></i>
                                 @break
 
-                                @case('Student')
+                                @case('Estudiante')
                                     <i class="fas fa-user-graduate"></i>
                                 @break
 
-                                @case('President')
+                                @case('Presidente Académico')
                                     <i class="fas fa-user-circle"></i>
                                 @break
 
-                                @case('Secretary')
+                                @case('Asistente de Dirección')
                                     <i class="fas fa-user-secret"></i>
                                 @break
 
