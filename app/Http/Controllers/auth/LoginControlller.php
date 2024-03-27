@@ -28,7 +28,6 @@ class LoginControlller extends Controller
             // En caso de que la autenticación sea exitosa
             $user = Auth::user(); // Obtenemos al usuario autenticado
             $role = optional($user->roles->first())->name; // Obtenemos el nombre del rol del usuario
-
             // Comenzamos a redireccionar según el rol del usuario, con el switch, una maravilla
             switch ($role) {
                 case 'SuperAdmin':

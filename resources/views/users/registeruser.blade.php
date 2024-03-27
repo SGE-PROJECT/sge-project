@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 @section('titulo')
     Registro de usuario
 @endsection

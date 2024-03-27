@@ -13,6 +13,7 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   @vite('resources/css/app.css')
   @vite('resources/css/asesorias.css')
+  @vite('resources/css/asesoriasStudents.css')
   @vite('resources/js/sidebar.js')
   @vite('resources/js/asesorias.js')
   @vite('resources/js/tableproject.js')
@@ -71,7 +72,7 @@
   </div>
   <section class="flex">
     <div
-      class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
+      class="relative sidebar fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
         <a href="/" class="flex justify-center items-center border-b border-b-white">
           <img class="w-[60%]" id="imagen" src="{{ asset('images/logo_sge.svg') }}" alt="">
@@ -88,28 +89,30 @@
           </a>
         </li>
 
-@if(Auth::check() && Auth::user()->hasAnyRole([ 'Adviser', 'Student', 'President', 'Secretary']))
-@else
-<li class="mb-1 group relative z-2">
-    <a href=""
-       class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
-        <i class='bx bx-building-house mr-3 text-lg'></i>
-        <span class="nav-text text-sm">Administración</span>
-        <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
-    </a>
-    <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
-      @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary']))
-@else 
-      <li class=" ">
-            <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+        @if(Auth::check() && Auth::user()->hasAnyRole([ 'Adviser', 'Student', 'President', 'Secretary']))
+        @else
+        <li class="mb-1 group relative z-2">
+          <a href=""
+            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
+            <i class='bx bx-building-house mr-3 text-lg'></i>
+            <span class="nav-text text-sm">Administración</span>
+            <i
+              class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
+          </a>
+          <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
+            @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President',
+            'Secretary']))
+            @else
+            <li class=" ">
+              <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-user mr-3 text-lg'></i>
                 <span>Usuarios</span>
-            </a>
-        </li>
-        @endif
-        <li class="">
-            <a href="/roles-permisos"
-               class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              </a>
+            </li>
+            @endif
+            <li class="">
+              <a href="/roles-permisos"
+                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-lock-open mr-3 text-lg'></i>
                 <span>Roles y Permisos</span>
               </a>
@@ -136,13 +139,16 @@
           <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li>
 
-              <a href="{{ route('dashboardProjects')}}" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="{{ route('dashboardProjects')}}"
+                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Proyectos</span></a>
             </li>
             <li class="">
-              @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary']))
+              @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President',
+              'Secretary']))
               @else
-              <a href="{{ route('divisiones.index')}}" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="{{ route('divisiones.index')}}"
+                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-buildings mr-3 text-lg'></i><span class=" text-sm">Divisiones</span></a>
             </li>
             @endif
@@ -160,6 +166,7 @@
 
 
         <!-- EMPRESAS Section -->
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Secretary']))
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
         <li class="mb-1 group">
           <a href={{ route ('empresas.index')}}
@@ -168,7 +175,8 @@
             <span class="nav-text text-sm">Empresas Afiliadas</span>
           </a>
         </li>
-        
+        @endif
+
         @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'President']))
         @else
         <!-- RECURSOS Section -->
@@ -182,7 +190,7 @@
         </li>
         @endif
 
-        @if(Auth::check() && Auth::user()->hasAnyRole(['Adviser']))
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']))
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
 
