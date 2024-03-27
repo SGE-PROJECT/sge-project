@@ -5,6 +5,9 @@
 
 @section('contenido')
     <div class="rounded-lg bg-white  p-8 shadow-lg lg:col-span-3 lg:p-12">
+        <li class="flex items-center  font-sans hover:text-teal-500 font-semibold  transition-colors duration-300 cursor-pointer">
+            <a class="text-xl" href="/projectdashboard">⭠ Regresar</a>
+        </li>   
         <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
         <form action="{{ route('projects.update', $proyecto->id) }}" method="POST" class="space-y-4">
             @csrf
@@ -84,7 +87,7 @@
                 <label class="text-sm font-semibold">Estado del Proyecto:</label>
                 <select name="status" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm">
                     <option value="Registrado" {{ $proyecto->status === 'Registrado' ? 'selected' : '' }}>Registrado</option>
-                    <option value="En desarrollo" {{ $proyecto->status === 'En desarrollo' ? 'selected' : '' }}>En Desarrollo</option>
+                    <option value="En Revisión" {{ $proyecto->status === 'En Revisión' ? 'selected' : '' }}>En Revisión</option>
                     <option value="Rechazado" {{ $proyecto->status === 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
                     <option value="Aprobado" {{ $proyecto->status === 'Aprobado' ? 'selected' : '' }}>Aprobado</option>
                 </select>

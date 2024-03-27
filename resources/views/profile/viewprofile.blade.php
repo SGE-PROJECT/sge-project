@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Profile')
 
@@ -19,7 +19,7 @@
                  <div>
                     <div class="mb-4">
                         <h2 class="text-3xl font-bold text-teal-600">Paola Villegas</h2>
-                       
+
                     </div>
                     <p class="text-lg text-blueGray-700 mb-2">Profesora académica en 2024, programador web</p>
                     <p class="text-lg font-bold text-teal-600 mb-4">Grupo: SM-53</p>

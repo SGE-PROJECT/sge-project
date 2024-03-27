@@ -28,31 +28,32 @@ class LoginControlller extends Controller
             // En caso de que la autenticación sea exitosa
             $user = Auth::user(); // Obtenemos al usuario autenticado
             $role = optional($user->roles->first())->name; // Obtenemos el nombre del rol del usuario
-
             // Comenzamos a redireccionar según el rol del usuario, con el switch, una maravilla
             switch ($role) {
                 case 'SuperAdmin':
                     return redirect()->route('posts.index'); // Nos redirecciona al dashboard general
-                    break;
+                    
                 case 'ManagmentAdmin':
-                    return redirect('/perfil'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
-                    break;
+                    return redirect('/carreras'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
+                    
                 case 'Adviser':
-                    return redirect('/notificaciones');
-                    break;
+                    $adviserId = $user->id; 
+                    return redirect("/asesorias/{$adviserId}");
+                        
                 case 'Student':
-                    return redirect('/asesorias');
-                    break;
+                    $studentId = $user->id; 
+                    return redirect("proyectoinvitacion");
+                    
                 case 'President':
-                    return redirect('/notificaciones');
-                    break;
+                    return redirect('/projects');
+                    
                 case 'Secretary': 
-                    return redirect('/proyectos');
-                    break;
+                    return redirect('/libros');
+                    
                 
                 default:
                     // Si el usuario no tiene un rol, lo redirige a una página predeterminada
-                    return redirect('/proyectos'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
+                    return redirect('/perfil'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
             }  //Lo único que hay que hacer es seguir con el switch para seguir redireccionando 
         } else {
             //Si la autenticación falla

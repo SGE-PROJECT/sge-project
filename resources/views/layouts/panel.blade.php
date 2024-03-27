@@ -13,6 +13,7 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   @vite('resources/css/app.css')
   @vite('resources/css/asesorias.css')
+  @vite('resources/css/asesoriasStudents.css')
   @vite('resources/js/sidebar.js')
   @vite('resources/js/asesorias.js')
   @vite('resources/js/tableproject.js')
@@ -21,6 +22,7 @@
   @vite('resources/css/projects/projectDashboardStyle.css')
   @vite('resources/css/books-notifications/books/books.css')
   @vite('resources/css/books-notifications/books/add-books.css')
+  @vite('resources/js/asesoriasStudent.js')
   @vite('resources/css/buttonappoint.css')
   @vite('resources/css/input.css')
   @vite('resources/js/projectview.js')
@@ -39,40 +41,41 @@
   <div class="container-loader" id="loader">
     <div class="loader">
 
-        <div class="box box0">
-            <div></div>
-        </div>
-        <div class="box box1">
-            <div></div>
-        </div>
-        <div class="box box2">
-            <div></div>
-        </div>
-        <div class="box box3">
-            <div></div>
-        </div>
-        <div class="box box4">
-            <div></div>
-        </div>
-        <div class="box box5">
-            <div></div>
-        </div>
-        <div class="box box6">
-            <div></div>
-        </div>
-        <div class="box box7">
-            <div></div>
-        </div>
-        <div class="ground">
-            <div></div>
-        </div>
+      <div class="box box0">
+        <div></div>
+      </div>
+      <div class="box box1">
+        <div></div>
+      </div>
+      <div class="box box2">
+        <div></div>
+      </div>
+      <div class="box box3">
+        <div></div>
+      </div>
+      <div class="box box4">
+        <div></div>
+      </div>
+      <div class="box box5">
+        <div></div>
+      </div>
+      <div class="box box6">
+        <div></div>
+      </div>
+      <div class="box box7">
+        <div></div>
+      </div>
+      <div class="ground">
+        <div></div>
+      </div>
     </div>
-</div>
+  </div>
   <section class="flex">
-    <div class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
+    <div
+      class="relative sidebar fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
         <a href="/" class="flex justify-center items-center border-b border-b-white">
-          <img class="w-[60%]" id="imagen"  src="{{ asset('images/logo_sge.svg') }}" alt="">
+          <img class="w-[60%]" id="imagen" src="{{ asset('images/logo_sge.svg') }}" alt="">
           <h2 id="ut" class="text-xl text-[#fff] font-bold mb-2">UT</h2>
         </a>
       </div>
@@ -86,39 +89,43 @@
           </a>
         </li>
 
-@if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary']))
-@else
-<li class="mb-1 group relative z-2">
-    <a href=""
-       class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
-        <i class='bx bx-building-house mr-3 text-lg'></i>
-        <span class="nav-text text-sm">Administración</span>
-        <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
-    </a>
-    <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
-        <li class=" ">
-            <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+        @if(Auth::check() && Auth::user()->hasAnyRole([ 'Adviser', 'Student', 'President', 'Secretary']))
+        @else
+        <li class="mb-1 group relative z-2">
+          <a href=""
+            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
+            <i class='bx bx-building-house mr-3 text-lg'></i>
+            <span class="nav-text text-sm">Administración</span>
+            <i
+              class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
+          </a>
+          <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
+            @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President',
+            'Secretary']))
+            @else
+            <li class=" ">
+              <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-user mr-3 text-lg'></i>
                 <span>Usuarios</span>
-            </a>
-        </li>
-        <li class="">
-            <a href="/roles-permisos"
-               class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              </a>
+            </li>
+            @endif
+            <li class="">
+              <a href="/roles-permisos"
+                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-lock-open mr-3 text-lg'></i>
                 <span>Roles y Permisos</span>
-            </a>
-        </li>
-        <li class="">
-            <a href="sanciones"
-               class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              </a>
+            </li>
+            <li class="">
+              <a href="sanciones" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-no-entry mr-3 text-lg'></i>
                 <span>Sanciones</span>
-            </a>
+              </a>
+            </li>
+          </ul>
         </li>
-    </ul>
-</li>
-@endif
+        @endif
 
 
         <li class="mb-1 group relative z-2">
@@ -132,23 +139,34 @@
           <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li>
 
-              <a href="proyectos" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="{{ route('dashboardProjects')}}"
+                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Proyectos</span></a>
             </li>
             <li class="">
-
-              <a href="{{ route('divisiones.index')}}" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President',
+              'Secretary']))
+              @else
+              <a href="{{ route('divisiones.index')}}"
+                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-buildings mr-3 text-lg'></i><span class=" text-sm">Divisiones</span></a>
             </li>
+            @endif
+            @if(Auth::check() && Auth::user()->hasAnyRole(['President', 'Secretary', 'Student']))
+            @else
             <li class="">
 
-              <a href="{{ route('carreras.index')}}" class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="{{ route('carreras.index')}}"
+                class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class=' bx bx-book-open mr-3 text-lg'></i><span class="text-sm">Carreras</span></a>
             </li>
+            @endif
           </ul>
         </li>
 
+
         <!-- EMPRESAS Section -->
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Secretary']))
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
         <li class="mb-1 group">
           <a href={{ route ('empresas.index')}}
@@ -157,7 +175,10 @@
             <span class="nav-text text-sm">Empresas Afiliadas</span>
           </a>
         </li>
+        @endif
 
+        @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'President']))
+        @else
         <!-- RECURSOS Section -->
         <span class="text-gray-400 nav-text font-bold">RECURSOS</span>
         <li class="mb-1 group">
@@ -167,16 +188,34 @@
             <span class="nav-text text-sm">Libros</span>
           </a>
         </li>
+        @endif
 
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']))
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
+
         <li class="mb-1 group">
-          <a href="{{ route('asesorias', ['id' => 1]) }}"
+          <a href="{{ route('asesorias', ['id' => auth()->user()->id ]) }}"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-calendar-event mr-3 text-lg'></i>
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
           </a>
         </li>
+        @else
+        @endif
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Student']))
+        <!-- ACTIVIDADES Section -->
+        <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
+        <li class="mb-1 group">
+          <a href="{{ route('asesoriasStudent', ['id' => auth()->user()->id ]) }}"
+            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
+            <i class='bx bx-calendar-event mr-3 text-lg'></i>
+            <span class="nav-text text-sm">Sesiones de Asesoría</span>
+          </a>
+        </li>
+        @else
+
+        @endif
 
         <!-- PERSONAL Section -->
         <span class="text-gray-400 font-bold nav-text">PERSONAL</span>
@@ -188,12 +227,13 @@
           </a>
         </li>
         <form action="{{ route('logout') }}" method="post">
-            @csrf
-        <button href="{{ route('logout') }}" class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
-        <i class='bx bx-log-out mr-3 text-xl'></i>
-        <span class="nav-text text-sm">Cerrar sesion</span>
-      </button>
-    </form>
+          @csrf
+          <button href="{{ route('logout') }}"
+            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md w-full">
+            <i class='bx bx-log-out mr-3 text-xl'></i>
+            <span class="nav-text text-sm">Cerrar sesion</span>
+          </button>
+        </form>
       </ul>
 
 
@@ -253,8 +293,9 @@
               <div class="flex items-center px-4 pt-4 border-b border-b-gray-100 notification-tab">
                 <button type="button" data-tab="notification" data-tab-page="notifications"
                   class="text-slate-600 font-medium text-[13px] hover:text-gray-400 border-b-2 border-b-transparent mr-4 pb-1 active">Notificaciones</button>
-             {{--    <button type="button" data-tab="notification" data-tab-page="messages"
-                  class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 pb-1">Messages</button> --}}
+                {{-- <button type="button" data-tab="notification" data-tab-page="messages"
+                  class="text-gray-400 font-medium text-[13px] hover:text-gray-600 border-b-2 border-b-transparent mr-4 pb-1">Messages</button>
+                --}}
               </div>
               <div class="my-2">
                 <ul class="max-h-64 overflow-y-auto" data-tab-for="notification" data-page="notifications">
@@ -369,7 +410,8 @@
                 <div class="p-1 bg-white rounded-full focus:outline-none focus:ring">
                   <img class="w-8 h-8 rounded-full"
                     src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg" alt="" />
-                  <div class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping">
+                  <div
+                    class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping">
                   </div>
                   <div class="top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full"></div>
                 </div>
@@ -377,16 +419,16 @@
               <div class="p-2 hidden md:block text-left">
                 <h2 class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</h2>
                 @php
-                    $user = auth()->user();
-                    $roles = $user->getRoleNames();
+                $user = auth()->user();
+                $roles = $user->getRoleNames();
                 @endphp
 
                 @if ($roles->isNotEmpty())
-                    <p class="text-xs text-gray-500">{{ $roles->first() }}</p>
+                <p class="text-xs text-gray-500">{{ $roles->first() }}</p>
                 @else
-                    <p class="text-xs text-gray-500">Invitado</p>
+                <p class="text-xs text-gray-500">Invitado</p>
                 @endif
-            </div>
+              </div>
 
             </button>
             <ul
@@ -402,7 +444,7 @@
               <li>
                 <form method="POST" action="{{ route('logout') }}" class="">
                   @csrf
-                  <a href="{{ route('logout') }}"role="menuitem"
+                  <a href="{{ route('logout') }}" role="menuitem"
                     class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50 cursor-pointer"
                     onclick="event.preventDefault();
                                   this.closest('form').submit();">

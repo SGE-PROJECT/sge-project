@@ -1,12 +1,19 @@
 @vite('resources/css/app.css')
 @extends('layouts.panel')
 
-@section('titulo', 'FormProject')
+@section('titulo', 'FormularioAnteproyecto')
 
 @section('contenido')
     <div class="rounded-lg bg-white  p-8 shadow-lg lg:col-span-3 lg:p-12">
+        <li class="flex items-center font-sans hover:text-teal-500 text-xl antialiased font-semibold leading-normal transition-colors duration-300 cursor-pointer">
+            @if (Auth::user()->role == 'Student')
+                <a href="proyectoinvitacion">⭠ Regresar</a>
+            @else
+                <a href="/projectdashboard">⭠ Regresar</a>
+            @endif
+        </li>
         <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
-        <form action="{{ route('projectform') }}" method="POST" class="space-y-4">
+        <form action="{{ route('envproyecto') }}" method="POST" class="space-y-4">
             @csrf
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">

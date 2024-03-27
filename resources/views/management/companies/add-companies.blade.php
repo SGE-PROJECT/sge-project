@@ -84,13 +84,29 @@
             @error('image')
             <p class="text-red-500 text-xs italic">{{ $message }}</p>
         @enderror
+        <div class="mt-2 flex flex-col items-center">
+            <p class="text-sm text-gray-600 mb-2">Previsualización</p>
+            <img id="imagePreview" class="w-40 h-auto rounded-lg" />
+        </div>
 
             <div class="flex items-center justify-center">
-                <button type="submit" class="bg-[#03A696] hover:bg-[#03A699] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button type="submit" class="bg-[#03A696] hover:bg-[#03A699] text-white font-bold py-2 px-4 mt-6 rounded focus:outline-none focus:shadow-outline">
                     Agregar Empresa
                 </button>
             </div>
         </form>
     </div>
+    <script>
+        document.getElementById('image').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                document.getElementById('imagePreview').src = e.target.result;
+            }
+
+            reader.readAsDataURL(file);
+        });
+    </script>
 </div>
 @endsection
