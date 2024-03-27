@@ -27,6 +27,7 @@ class User extends Authenticatable
         'password',
     ];
 
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -47,9 +48,41 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-        // Agrega una relación con el modelo Division, si existe
-        public function division()
-        {
-            return $this->belongsTo(Division::class, 'division_id');
-        }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    // Agrega una relación con el modelo Division, si existe
+    public function division()
+    {
+        return $this->belongsTo(Division::class, 'division_id');
+    }
+
+    // Agrega una relación con el modelo Secretary, si existe
+    public function secretary()
+    {
+        return $this->hasOne(Secretary::class);
+    }
+
+    // Agrega una relación con el modelo AcademicDirector, si existe
+    public function academicDirector()
+    {
+        return $this->hasOne(AcademicDirector::class);
+    }
+
+    // Agrega una relación con el modelo AcademicAdvisor, si existe
+
+    public function academicAdvisor()
+    {
+        return $this->hasOne(AcademicAdvisor::class);
+    }
+
+    // Agrega una relación con el modelo ManagmentAdmin, si existe
+    public function managmentAdmin()
+    {
+        return $this->hasOne(ManagmentAdmin::class);
+    }
+
 }

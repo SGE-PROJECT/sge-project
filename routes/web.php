@@ -16,6 +16,7 @@ use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\ProgramController;
 use App\Http\Controllers\AdvisorySessionController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\profile\ProfileController;
 use App\Http\Controllers\projects\ProjectController;
 use App\Http\Controllers\divisions\DivisionController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\users\RegisterUserController;
 
 //import test
 use App\Http\Controllers\Companies\CompaniesController;
+use App\Http\Controllers\ProjectLikeController;
 use App\Http\Controllers\ProjectStudentsTestController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
@@ -77,6 +79,8 @@ Route::middleware(['auth'])->group(function () {
         'update' => 'users.cruduser.update',
         'destroy' => 'users.cruduser.destroy',
     ]);
+    // Ruta específica para la actualización de usuarios
+    Route::put('crud-usuarios/{user}', [CrudUserController::class, 'update'])->name('users.cruduser.update');
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
@@ -120,21 +124,20 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
-    Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
-    Route::post('projectform', [ProjectController::class, 'store']);
+    Route::get('formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
+    Route::post('formanteproyecto', [ProjectController::class, 'store'])->name('envproyecto');
     Route::resource('projects', ProjectController::class);
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+    Route::delete('/comentarios/{comment}', [ComentarioController::class, 'destroy'])->name('comentario.destroy');
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
-
+    Route::post('/proyecto/{project}/comentario', [ComentarioController::class, 'store'])->name('comentario.store');
+    Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
+    Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
 
     Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
     });
-    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
-    Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
-    Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
-    Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
 });
 
 
@@ -150,6 +153,16 @@ Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])-
     Route::resource('/empresas', CompaniesController::class);
     Route::resource('/divisiones', DivisionController::class);
     Route::resource('/carreras', ProgramController::class);
+});
+
+Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
+    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
+    Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
+    Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
+    Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
+});
+Route::middleware(['auth', 'role:Student'])->group(function () {
+    Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
 });
 
 
@@ -178,8 +191,6 @@ Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])-
 //     Route::resource('/', Controller::class);
 //     Route::resource('/', Controller::class);
 // });
-
-
 
 
 

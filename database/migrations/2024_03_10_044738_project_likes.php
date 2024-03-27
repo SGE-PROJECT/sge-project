@@ -14,12 +14,8 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create("project_likes", function (Blueprint $table) {
             $table->id();
-            $table->foreignId("academic_advisor_id")->constrained()
-            ->onUpdate('restrict')
-            ->onDelete('restrict');
-            $table->foreignId('project_id')->constrained()
-            ->onUpdate('restrict')
-            ->onDelete('restrict');
+            $table->foreignId("user_id")->constrained("users");
+            $table->foreignId("project_id")->constrained("projects")->onDelete('cascade');
             $table->timestamps();
         });
 

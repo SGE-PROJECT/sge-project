@@ -36,8 +36,8 @@ class DivisionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'description' => 'nullable|string',
+            'name' => 'required|string|regex:/^[a-zA-Z0-9]+$/',
+            'description' => 'required|string|regex:/^[a-zA-Z0-9]+$/',
             'image' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -79,11 +79,12 @@ class DivisionController extends Controller
 
     public function update(Request $request, string $id)
     {
-    $request->validate([
-        'name' => 'required',
-        'description' => 'nullable|string',
-        'image' => 'image|mimes:jpeg,png,jpg,gif',
-    ]);
+
+        $request->validate([
+            'name' => 'required|string|regex:/^[a-zA-Z0-9]+$/',
+            'description' => 'required|string|regex:/^[a-zA-Z0-9]+$/',
+            'image' => 'image|mimes:jpeg,png,jpg,gif',
+        ]);
 
     $division = Division::findOrFail($id);
     $division->name = $request->name;
