@@ -154,7 +154,7 @@ Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])-
     Route::resource('/carreras', ProgramController::class);
 });
 
-Route::middleware(['auth', 'role:Adviser'])->group(function () {
+Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
     Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
     Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
