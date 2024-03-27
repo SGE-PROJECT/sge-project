@@ -4,10 +4,13 @@ namespace App\Http\Controllers\projects;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Projects\ProjectFormRequest;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Scores;
+
 
 class ProjectController extends Controller
 {
@@ -43,7 +46,8 @@ class ProjectController extends Controller
 
     public function viewproject()
     {
-        return view('projects.viewsproject.ProjectsView');
+        $Projects = Project::paginate(3);
+        return view('projects.viewsproject.ProjectsView', compact('Projects'));
     }
 
     public function projectform()
@@ -98,10 +102,18 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
-        //
+
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Pasar el proyecto y el usuario a la vista
+        return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user]);
     }
+
+
+
 
 
     /**
@@ -141,4 +153,39 @@ class ProjectController extends Controller
             return back()->with('error', '¡Se produjo un error al eliminar el proyecto!');
         }
     }
+
+
+    public function rateProject(Request $request, $projectId)
+    {
+        // Validar la calificación recibida en la solicitud
+        $validatedData = $request->validate([
+            'score' => 'required|integer|between:1,5',
+        ]);
+
+        // Buscar el proyecto correspondiente al ID proporcionado
+        $project = Project::findOrFail($projectId);
+
+        // Verificar si el usuario ya ha calificado este proyecto
+        $existingScore = Scores::where('user_id', Auth::id())
+                              ->where('project_id', $projectId)
+                              ->first();
+
+        if ($existingScore) {
+            // Si ya existe una puntuación del usuario para este proyecto, actualizarla
+            $existingScore->update(['score' => $validatedData['score']]);
+        } else {
+            // Si el usuario aún no ha calificado este proyecto, crear una nueva puntuación
+            Scores::create([
+                'user_id' => Auth::id(),
+                'project_id' => $projectId,
+                'score' => $validatedData['score'],
+            ]);
+        }
+
+        // Redirigir de vuelta a la página del proyecto con un mensaje de éxito
+        return redirect()->route('projects.show', $projectId)->with('success', 'Puntuación asignada correctamente.');
+    }
+
+
+
 }

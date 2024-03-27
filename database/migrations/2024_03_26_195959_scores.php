@@ -11,21 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::create("project_likes", function (Blueprint $table) {
+        Schema::create('scores', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained("users");
             $table->foreignId("project_id")->constrained("projects")->onDelete('cascade');
+            $table->integer('score');
             $table->timestamps();
-        });
-
-    }
+        });    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_likes');
+        Schema::dropIfExists('scores');
     }
 };
