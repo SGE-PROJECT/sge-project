@@ -80,6 +80,8 @@
       </div>
       <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
         <!-- ADMIN Section -->
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
+              @else
         <li class="mb-1 group">
           <a href="/"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
@@ -87,8 +89,9 @@
             <span class="nav-text text-sm">Dashboard</span>
           </a>
         </li>
+        @endif
 
-@if(Auth::check() && Auth::user()->hasAnyRole([ 'Adviser', 'Student', 'President', 'Secretary']))
+@if(Auth::check() && Auth::user()->hasAnyRole([ 'Asesor Académico',  'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
 @else
 <li class="mb-1 group relative z-2">
     <a href=""
@@ -98,7 +101,7 @@
         <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
     </a>
     <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
-      @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary']))
+      @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
 @else 
       <li class=" ">
             <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
@@ -107,6 +110,8 @@
             </a>
         </li>
         @endif
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
+        @else 
         <li class="">
             <a href="/roles-permisos"
                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
@@ -114,6 +119,7 @@
                 <span>Roles y Permisos</span>
               </a>
             </li>
+            @endif
             <li class="">
               <a href="sanciones" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-no-entry mr-3 text-lg'></i>
@@ -124,7 +130,8 @@
         </li>
         @endif
 
-
+        @if(Auth::check() && Auth::user()->hasAnyRole('Asistente de Dirección'))
+        @else
         <li class="mb-1 group relative z-2">
           <a href=""
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
@@ -140,13 +147,13 @@
                   class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Proyectos</span></a>
             </li>
             <li class="">
-              @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President', 'Secretary']))
+              @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
               @else
               <a href="{{ route('divisiones.index')}}" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-buildings mr-3 text-lg'></i><span class=" text-sm">Divisiones</span></a>
             </li>
             @endif
-            @if(Auth::check() && Auth::user()->hasAnyRole(['President', 'Secretary', 'Student']))
+            @if(Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Estudiante', 'Asesor Académico']))
             @else
             <li class="">
 
@@ -157,6 +164,7 @@
             @endif
           </ul>
         </li>
+        @endif
 
 
         <!-- EMPRESAS Section -->
@@ -169,7 +177,7 @@
           </a>
         </li>
         
-        @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'President']))
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Presidente Académico']))
         @else
         <!-- RECURSOS Section -->
         <span class="text-gray-400 nav-text font-bold">RECURSOS</span>
@@ -182,7 +190,7 @@
         </li>
         @endif
 
-        @if(Auth::check() && Auth::user()->hasAnyRole(['Adviser']))
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']))
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
 
@@ -195,7 +203,7 @@
         </li>
         @else
         @endif
-        @if(Auth::check() && Auth::user()->hasAnyRole(['Student']))
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Estudiante']))
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
         <li class="mb-1 group">

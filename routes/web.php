@@ -61,12 +61,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
-    Route::middleware(['role:SuperAdmin'])->group(function () {
-        // Rutas para administradores
+/*     Route::middleware(['role:SuperAdmin'])->group(function () {
+ */        // Rutas para administradores
         Route::get('/projectsdash', function () {
             return view('management.project');
         });
-    });
+    /* }); */
 
     //modulo administrativo
     Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
@@ -124,15 +124,16 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
-    Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
-    Route::post('projectform', [ProjectController::class, 'store']);
+    Route::get('formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
+    Route::post('formanteproyecto', [ProjectController::class, 'store'])->name('envproyecto');
     Route::resource('projects', ProjectController::class);
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+    Route::delete('/comentarios/{comment}', [ComentarioController::class, 'destroy'])->name('comentario.destroy');
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
     Route::post('/proyecto/{project}/comentario', [ComentarioController::class, 'store'])->name('comentario.store');
     Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
-
+    Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
 
     Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
@@ -144,26 +145,26 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
 
 //PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
 // Rutas protegidas por el rol Adviser
-Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])->group(function () {
-    // Ruta de prueba para mostrar los proyectos por división
+/* Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])->group(function () {
+ */    // Ruta de prueba para mostrar los proyectos por división
     Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
 
     // Rutas protegidas por el rol Teacher usando resource()
     Route::resource('/empresas', CompaniesController::class);
     Route::resource('/divisiones', DivisionController::class);
     Route::resource('/carreras', ProgramController::class);
-});
-
-Route::middleware(['auth', 'role:Adviser'])->group(function () {
-    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
+/* });
+ */
+/* Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
+ */    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
     Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
     Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
     Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
-});
-Route::middleware(['auth', 'role:Student'])->group(function () {
-    Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
-});
-
+/* }); */
+/* Route::middleware(['auth', 'role:Estudiante'])->group(function () {
+ */    Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
+/* });
+ */
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 
@@ -190,8 +191,6 @@ Route::middleware(['auth', 'role:Student'])->group(function () {
 //     Route::resource('/', Controller::class);
 //     Route::resource('/', Controller::class);
 // });
-
-
 
 
 
