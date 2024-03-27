@@ -99,7 +99,7 @@
         <div id="student-calendar" class=""></div>
     </div>
 
-    <div class="ocultar w-[100%] sm:w-[65%] flex flex-wrap relative py-5 justify-center" id="student-dia">
+    <div class="ocultar w-[100%] sm:w-[65%] flex flex-wrap relative py-10 justify-center" id="student-dia">
         <button class="absolute top-0 md:top-[0px] lg:top-[10px] left-[20px] font-bold text-[20px] md:text-[25px]"
             id="student-volverButton"><i class="nf nf-cod-arrow_left text-[20px]"></i></button>
         <h3 class="w-full select-mes text-center text-[30px] md:text-[40px]" id="student-hora"></h3>

@@ -1,10 +1,12 @@
 const sidebarToggle = document.querySelector('.sidebar-toggle')
+const sidebarToggle2 = document.querySelector('.sidebar-toggle2')
 const sidebarOverlay = document.getElementById('overlay')
 const sidebar = document.querySelector('.sidebar');
 const mainContent = document.getElementById('main');
 const groups = document.querySelectorAll('.group');
 const texts = document.querySelectorAll('.nav-text');
 const image = document.getElementById('imagen');
+const image2 = document.getElementById('imagen2');
 const ut = document.getElementById('ut');
 var cont = true;
 
@@ -24,6 +26,7 @@ function closeSidebar() {
     sidebarOverlay.classList.add('hidden');
     sidebar.classList.add('sidebar-contracted');
     sidebar.classList.remove('sidebar-expanded');
+
     setTimeout(function () {
         mainContent.classList.remove('main-content-expanded');
         mainContent.classList.add('main-content-contracted');
@@ -39,7 +42,8 @@ function closeSidebar() {
             });
         }
         image.classList.add('hidden');
-        ut.classList.remove('hidden');
+        image2.style.left="50px";
+        document.getElementById("hs").classList.add("header-border");
     }, 100);
 }
 
@@ -51,8 +55,8 @@ function openSidebar() {
     mainContent.classList.remove('main-content-contracted');
     sidebarOverlay.classList.remove('hidden');
     image.classList.remove('hidden');
-    ut.classList.add('hidden');
-
+    document.getElementById("hs").classList.remove("header-border");
+    image2.style.left="-1000px";
 }
 
 function toggleSidebar() {
@@ -64,6 +68,9 @@ function toggleSidebar() {
     }
 }
 
+sidebarToggle2.addEventListener('click', function () {
+    toggleSidebar();
+});
 sidebarToggle.addEventListener('click', function () {
     toggleSidebar();
 });
@@ -99,6 +106,17 @@ document.querySelectorAll('.sidebar-dropdown-toggle').forEach(function (item) {
 });
 
 sidebarToggle.addEventListener('click', function () {
+    if (sidebar.classList.contains('sidebar-expanded')) {
+        document.querySelectorAll('.group').forEach(function (group) {
+            group.classList.add('disable-hover');
+        });
+    } else {
+        document.querySelectorAll('.group.disable-hover').forEach(function (group) {
+            group.classList.remove('disable-hover');
+        });
+    }
+});
+sidebarToggle2.addEventListener('click', function () {
     if (sidebar.classList.contains('sidebar-expanded')) {
         document.querySelectorAll('.group').forEach(function (group) {
             group.classList.add('disable-hover');
