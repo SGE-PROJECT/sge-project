@@ -11,7 +11,7 @@
         </div>
         <div class="flex flex-wrap justify-center">
             <div class="w-full md:w-1/2 flex justify-center">
-                <a href="{{ route('viewproject') }}" class="w-11/12 ">
+                <a href="{{ route('projectform') }}" class="w-11/12 ">
                     <div class="bg-white rounded overflow-hidden shadow-lg mt-6 h-full relative card-invitation"
                         onclick="toggleCard(this)">
                         <img class="w-full h-40 object-cover" src="images/projects/projectuser/proyecto.jpg"

@@ -37,12 +37,12 @@ class CompaniesController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'company_name' => 'required',
-        'address' => 'required',
-        'contact_name' => 'required',
+        'company_name' => ['required', 'regex:/^(?![\s\S]0[\s\S]$)[\s\S]*$/'],
+        'address' => ['required', 'regex:/^(?!\s+$)[\s\S]*$/'], // No permitir solo espacios en blanco
+        'contact_name' => ['required', 'regex:/^[^\d\s]+$/'], // No permitir números ni espacios
         'contact_email' => 'required|email',
-        'contact_phone' => 'required|numeric',
-        'description' => 'required',
+        'contact_phone' => ['required', 'regex:/^\d{10,}$/'], // Asumiendo que el número de teléfono debe tener al menos 10 dígitos
+        'description' => ['required', 'regex:/^(?!\s+$)[\s\S]*$/'], // No permitir solo espacios en blanco
         'affiliation_date' => 'required|date_format:Y-m-d',
         'image' => 'image|mimes:jpeg,png,jpg,gif',
     ]);
@@ -59,7 +59,7 @@ class CompaniesController extends Controller
     $company->contact_email = $request->contact_email;
     $company->contact_phone = $request->contact_phone;
     $company->description = $request->description;
-    $company->affiliation_date = $request->affiliation_date;
+    $company->affiliation_date = Carbon::parse($request->affiliation_date)->toDateString();
     $company->save();
 
     if ($request->hasFile('image')) {
@@ -83,12 +83,12 @@ class CompaniesController extends Controller
     public function update(Request $request, string $id)
 {
     $request->validate([
-        'company_name' => 'required',
-        'address' => 'required',
-        'contact_name' => 'required',
+        'company_name' => ['required', 'regex:/^(?![\s\S]0[\s\S]$)[\s\S]*$/'],
+        'address' => ['required', 'regex:/^(?!\s+$)[\s\S]*$/'], // No permitir solo espacios en blanco
+        'contact_name' => ['required', 'regex:/^[^\d\s]+$/'], // No permitir números ni espacios
         'contact_email' => 'required|email',
-        'contact_phone' => 'required|numeric',
-        'description' => 'required',
+        'contact_phone' => ['required', 'regex:/^\d{10,}$/'], // Asumiendo que el número de teléfono debe tener al menos 10 dígitos
+        'description' => ['required', 'regex:/^(?!\s+$)[\s\S]*$/'], // No permitir solo espacios en blanco
         // 'affiliation_date' => 'required|date_format:Y-m-d',
         'image' => 'image|mimes:jpeg,png,jpg,gif',
     ]);

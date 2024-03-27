@@ -1,7 +1,7 @@
   /* Estilos CSS */
   .container {
     width: 90%; /* Cambia el ancho al 90% */
-    max-width: 1200px;
+    max-width: auto;
     height: 100%; /* Establece la altura del contenedor al 100% del viewport */
     padding: 40px;
     margin: 0 auto;
@@ -94,24 +94,32 @@
 .checkbox-group {
     margin-top: 20px;
     max-height: 350px; 
-    max-width: 1250px; 
+    max-width: 1300px; 
     overflow-y: auto; 
+    
 }
 
 
 .checkbox {
     display: flex; 
     align-items: flex-end; 
-    margin-left: 300px;
+    margin-left: 90px;
     margin-top: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 5px;
 }
 .input-checkbox {
-  margin-right: 10px; 
+  margin-left: 100px; 
 }
 
 .checkbox-label {
+  width: 1550px;
   font-size: 16px;
+  display: flex;
+  flex-wrap: wrap; /* Permitir que el texto haga saltos de línea */
+  align-items: flex-start; /* Alinear el texto al principio */
+}
+.checkbox-label-text {
+  width: 100%; /* Permitir que el texto ocupe todo el ancho disponible */
 }
 .botones-container {
   text-align: center; /* Alinea los botones al centro horizontalmente */

@@ -62,13 +62,6 @@
     </script>
 
     <div class="BtnCrearDivisions botonVereventos relative lg:absolute mr-[20px] lg:mr-[75px]" id="contbtnCitas">
-        <button class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
-            id="cambiarCita">
-            <span class="Btntext_divisions">Cambiar<b>-</b>cita</span>
-            <span class="svgIcon_divisions">
-                <i class="nf nf-md-update"></i>
-            </span>
-        </button>
         <button
             class="Btn_divisions ml-[20px] bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
             id="botonCitas">
@@ -117,25 +110,6 @@
     <script>
         var actionUrlTemplate = '{{ route("asesorias.update", ":id") }}';
     </script>
-    <div id="myModal3" class="modal-background">
-        <form class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
-            <span class="close3">&times;</span>
-            @csrf
-            <h2>Solicitar cambio de cita</h2>
-            <div class="form-group">
-                <label for="solitAsunto">Asunto:</label>
-                <input name="asunto" maxlength="250" id="solitAsunto" placeholder="Asunto de la solicitud">
-            </div>
-            <div class="form-group">
-                <label for="solitMensaje">Mensaje:</label>
-                <textarea name="mensaje" maxlength="250" id="solitMensaje"
-                    placeholder="Justificacion de la solicitud"></textarea>
-            </div>
-            <p id="error2">Error</p>
-            <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit"
-                id="solicitar">Solicitar cambio</button>
-        </form>
-    </div>
     <div id="myModal4" class="modal-background">
         <form action="#" method="POST"
             class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias" id="borrarCita">
@@ -268,7 +242,8 @@
             @foreach($Projects as $proyect)
             <option value="{{ $proyect->id }}">{{ $proyect->name }}</option>
             @endforeach
-        </select>
+        </select> 
+        <input type="number" class="hidden" name="id_advisor_id" value="{{ auth()->user()->id }}"/>
         <p>Motivo de asesoria</p>
         <span class="motivo">
             <textarea id="motivo" name="description" maxlength="250"></textarea>
