@@ -83,6 +83,7 @@ body{
       z-index: 500;
       transition: width .4s ease;
       height: 100vh;
+      min-height: 500px;
   }
 
   .scroll2{

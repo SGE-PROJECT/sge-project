@@ -6,16 +6,48 @@
 
 @section('contenido')
 <section class=" mx-8 font-poppins mt-4 mb-4 ">
-       {{--  <section class=" ">
-            <h1 class=" uppercase font-semibold text-2xl">Notificaciones</h1>
-            <button class=" rounded p-1 bg-neutral-50 text-slate-700 hover:border-gray-300 hover:bg-white border-[1px] border-gray-100 shadow-sm flex gap-1 float-right">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
-                  </svg>
-                  
-                Marcar todos como leídos</button>
-        </section> --}}
-        <section class="  ">
+    
+
+
+
+    {{-- <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center"  >
+            <li class="cursor-pointer me-2 inline-block p-4 border-b-2 rounded-t-lg border-teal-500 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="select-tab">
+                Profile
+            </li>
+            <li class="cursor-pointer me-2 inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"id="select-tab" >
+               Dashboard
+            </li>
+            <li class="cursor-pointer me-2 inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"id="select-tab" >
+Settings
+            </li>
+            <li class="cursor-pointer me-2 inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="select-tab" >
+                Contacts
+            </li>
+        </ul>
+    </div>
+    <div >
+        <div id="select-content"class=" p-4 rounded-lg bg-gray-50 dark:bg-gray-800" >
+            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Profile tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+        </div>
+        <div id="select-content"class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" >
+            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+        </div>
+        <div id="select-content"class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
+            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Settings tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+        </div>
+        <div id="select-content"class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" >
+            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+        </div>
+    </div>
+    <div>
+    @foreach (auth()->user()->notifications as  $notification)
+<p>{{$notification->data['data']}}</p>        
+    @endforeach
+    </div> --}}
+    
+     
+         <section class="  ">
             <h1 class=" uppercase font-semibold text-2xl text-[#293846] ">Notificaciones</h1>
           
             <button class=" rounded p-1 text-neutral-50 bg-teal-500 hover:border-gray-300 hover:bg-teal-600 border-[1px] border-gray-100 shadow-sm flex gap-1 float-right">
@@ -415,28 +447,47 @@
     </section>
     <!-- Asegúrate de utilizar la versión más reciente de Alpine.js -->
 <script src="//unpkg.com/alpinejs" defer>
-
 </script>
 <script>
-     const button = document.getElementById('btn-notification');
-        button.addEventListener('click',()=>{
-            const notifications=document.getElementById('notifications');
-         notifications.classList.toggle("hidden");
-         button.innerHTML = notifications.classList.contains('hidden') ?
-            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>   Mostrar' :
-            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" /></svg>Ocultar';
-        })
+   const button = document.getElementById('btn-notification');
+   button.addEventListener('click',()=>{
+       const notifications=document.getElementById('notifications');
+    notifications.classList.toggle("hidden");
+    button.innerHTML = notifications.classList.contains('hidden') ?
+       '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>   Mostrar' :
+       '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" /></svg>Ocultar';
+   })
 
-        const buttonYesterday = document.getElementById('btn-notification-yesterday');
-        buttonYesterday.addEventListener('click',()=>{
-            const notificationsYesterday=document.getElementById('notifications-yesterday');
-         notificationsYesterday.classList.toggle("hidden");
-         buttonYesterday.innerHTML = notificationsYesterday.classList.contains('hidden') ?
-            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>   Mostrar' :
-            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" /></svg>Ocultar';
-        })
-   
-</script>
+   const buttonYesterday = document.getElementById('btn-notification-yesterday');
+   buttonYesterday.addEventListener('click',()=>{
+       const notificationsYesterday=document.getElementById('notifications-yesterday');
+    notificationsYesterday.classList.toggle("hidden");
+    buttonYesterday.innerHTML = notificationsYesterday.classList.contains('hidden') ?
+       '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>   Mostrar' :
+       '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5  group-hover/item:text-teal-500"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" /></svg>Ocultar';
+   })
+
+   const tabsArray=Array.from(document.querySelectorAll('#select-tab'))
+   const contentArray=Array.from(document.querySelectorAll('#select-content'))
+ 
+   tabsArray.forEach(tab => {
+    tab.addEventListener('click',()=>{
+       target=tab
+       tabsArray.forEach(t=>{
+        t.classList.remove('border-teal-500')
+       })
+       target.classList.add('border-teal-500') 
+      
+       const currentTab =tabsArray.indexOf(target)
+       contentArray.forEach((content)=>{
+        if(contentArray.indexOf(content)===currentTab){
+            content.classList.remove('hidden')
+       }else if(contentArray.indexOf(content)!== currentTab){
+        content.classList.add('hidden')
+       }})
+    })
+   });
+</script> 
 
         
 @endsection

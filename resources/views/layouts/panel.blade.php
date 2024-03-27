@@ -13,6 +13,7 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   @vite('resources/css/app.css')
   @vite('resources/css/asesorias.css')
+  @vite('resources/css/asesoriasStudents.css')
   @vite('resources/js/sidebar.js')
   @vite('resources/js/asesorias.js')
   @vite('resources/js/tableproject.js')
@@ -71,7 +72,7 @@
   </div>
   <section class="flex">
     <div
-      class="relative sidebar sidebar-contracted fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
+      class="relative sidebar fixed left-0 top-0 h-full bg-[#293846] p-4 z-50 transition-transform">
       <div class="">
         <a href="/" class="flex justify-center items-center border-b border-b-white">
           <img class="w-[60%]" id="imagen" src="{{ asset('images/logo_sge.svg') }}" alt="">
@@ -91,6 +92,7 @@
         </li>
         @endif
 
+<<<<<<< HEAD
 @if(Auth::check() && Auth::user()->hasAnyRole([ 'Asesor Académico',  'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
 @else
 <li class="mb-1 group relative z-2">
@@ -115,6 +117,32 @@
         <li class="">
             <a href="/roles-permisos"
                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+=======
+        @if(Auth::check() && Auth::user()->hasAnyRole([ 'Adviser', 'Student', 'President', 'Secretary']))
+        @else
+        <li class="mb-1 group relative z-2">
+          <a href=""
+            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
+            <i class='bx bx-building-house mr-3 text-lg'></i>
+            <span class="nav-text text-sm">Administración</span>
+            <i
+              class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
+          </a>
+          <ul class="hidden absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
+            @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President',
+            'Secretary']))
+            @else
+            <li class=" ">
+              <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+                <i class='bx bx-user mr-3 text-lg'></i>
+                <span>Usuarios</span>
+              </a>
+            </li>
+            @endif
+            <li class="">
+              <a href="/roles-permisos"
+                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+>>>>>>> develop
                 <i class='bx bx-lock-open mr-3 text-lg'></i>
                 <span>Roles y Permisos</span>
               </a>
@@ -143,13 +171,20 @@
           <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
             <li>
 
-              <a href="{{ route('dashboardProjects')}}" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="{{ route('dashboardProjects')}}"
+                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Proyectos</span></a>
             </li>
             <li class="">
+<<<<<<< HEAD
               @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
+=======
+              @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'Student', 'President',
+              'Secretary']))
+>>>>>>> develop
               @else
-              <a href="{{ route('divisiones.index')}}" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+              <a href="{{ route('divisiones.index')}}"
+                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                   class='bx bx-buildings mr-3 text-lg'></i><span class=" text-sm">Divisiones</span></a>
             </li>
             @endif
@@ -168,6 +203,7 @@
 
 
         <!-- EMPRESAS Section -->
+        @if(Auth::check() && Auth::user()->hasAnyRole(['Secretary']))
         <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
         <li class="mb-1 group">
           <a href={{ route ('empresas.index')}}
@@ -176,8 +212,14 @@
             <span class="nav-text text-sm">Empresas Afiliadas</span>
           </a>
         </li>
+<<<<<<< HEAD
         
         @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Presidente Académico']))
+=======
+        @endif
+
+        @if(Auth::check() && Auth::user()->hasAnyRole(['ManagmentAdmin', 'Adviser', 'President']))
+>>>>>>> develop
         @else
         <!-- RECURSOS Section -->
         <span class="text-gray-400 nav-text font-bold">RECURSOS</span>
@@ -276,8 +318,12 @@
           </li>
           <li class="dropdown  hidden md:block">
             <button type="button"
-              class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="hover:bg-gray-100 rounded-full"
+              class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600 relative">
+              <div class="top-0 left-5 absolute w-3 h-3 bg-teal-400 border-2 border-slate-400 rounded-full animate-ping">
+              </div>
+              <div class="top-0 left-5 absolute w-3 h-3 bg-teal-500 border-2 border-white rounded-full"></div>
+             
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class=" rounded-full relative"
                 viewBox="0 0 24 24" style="fill: gray;transform: ;msFilter:;">
                 <path
                   d="M19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707L19 13.586zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 5a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22z">
@@ -295,92 +341,45 @@
               </div>
               <div class="my-2">
                 <ul class="max-h-64 overflow-y-auto" data-tab-for="notification" data-page="notifications">
+                  @forelse (auth()->user()->notifications()->whereDate('created_at', today())->get() as $notification)
+                   
+                      <li>
+                        <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                          </svg>
+                          <div class="ml-2">
+                            <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500 group-hover:animate-bounce-slow">¡{{$notification->data['object']}}!
+                            </div>
+                            <d  iv class="text-[11px] text-gray-400 ">{{$notification->data['data']}}</d>
+                            <div class="text-[11px] text-slate-600">{{$notification->created_at->diffForHumans()}}</div>
+
+                          </div>
+                        </a>
+                      </li>
+                    {{--   @if ($notification->type==="App\\Notifications\\ProjectNotification")
+                      <p>este</p>
+                        
+                      @endif --}}
+                
+                  @empty
                   <li>
                     <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor"
-                        class=" w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
                       </svg>
+                      
                       <div class="ml-2">
-                        <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">¡Tu
-                          proyecto ha sido calificado!
+                        <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">¡No hay notificaciones!
                         </div>
-                        <div class="text-[11px] text-gray-400">El profesor Carlos Ramos ha dado 4 estrellas a tu
-                          proyecto</div>
+                        <div class="text-[11px] text-gray-400">Bandeja Vacía</div>
                       </div>
                     </a>
                   </li>
-                  <li>
-                    <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px]">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-                      </svg>
-                      <div class="ml-2">
-                        <div class="text-[13px] text-slate-800 font-medium truncate group-hover:text-teal-500">¡Nuevo
-                          Miembro del Equipo!
-                        </div>
-                        <div class="text-[11px] text-slate-600">El profesor Carlos Ramos ha dado 4 estrellas a tu
-                          proyecto</div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px]">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-                      </svg>
-                      <div class="ml-2">
-                        <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">
-                          ¡Comentario Pendiente de Respuesta!
-                        </div>
-                        <div class="text-[11px] text-gray-400">El profesor Carlos Ramos ha dado 4 estrellas a tu
-                          proyecto</div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px]">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-                      </svg>
-                      <div class="ml-2">
-                        <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">¡Tu
-                          Proyecto ha sido Calificado!
-                        </div>
-                        <div class="text-[11px] text-gray-400 ">El profesor Carlos Ramos ha dado 4 estrellas a tu
-                          proyecto</div>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px]">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                      </svg>
-                      <div class="ml-2">
-                        <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">¡Nuevo
-                          Miembro del Equipo!
-                        </div>
-                        <div class="text-[11px] text-gray-400">El profesor Carlos Ramos ha dado 4 estrellas a tu
-                          proyecto</div>
-                      </div>
-                    </a>
-                  </li>
+                    
+                  @endforelse
                 </ul>
+                {{-- demas --}}
                 <ul class="max-h-64 overflow-y-auto hidden" data-tab-for="notification" data-page="messages">
                   <li>
                     <a href="#" class="py-2 px-4 flex items-center hover:bg-gray-50 group">

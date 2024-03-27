@@ -88,48 +88,31 @@
                             </span>
                         </button>
 
-                        <div class="rating mr-5 mt-6 md:mt-0 mb-6 md:mb-0">
-                            <input type="radio" id="star-1" name="star-radio" value="star-1">
-                            <label for="star-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path pathLength="360"
-                                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                                    </path>
-                                </svg>
-                            </label>
-                            <input type="radio" id="star-2" name="star-radio" value="star-1">
-                            <label for="star-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path pathLength="360"
-                                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                                    </path>
-                                </svg>
-                            </label>
-                            <input type="radio" id="star-3" name="star-radio" value="star-1">
-                            <label for="star-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path pathLength="360"
-                                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                                    </path>
-                                </svg>
-                            </label>
-                            <input type="radio" id="star-4" name="star-radio" value="star-1">
-                            <label for="star-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path pathLength="360"
-                                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                                    </path>
-                                </svg>
-                            </label>
-                            <input type="radio" id="star-5" name="star-radio" value="star-1">
-                            <label for="star-5">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path pathLength="360"
-                                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                                    </path>
-                                </svg>
-                            </label>
+                        <!-- Muestra el promedio de las calificaciones con estrellas -->
+                        <div class="rating mr-5 mt-4">
+                            @php
+                                $averageScore = number_format($project->scores()->avg('score'), 1);
+                                $fullStars = floor($averageScore);
+                                $halfStar = ceil($averageScore) > $fullStars ? 1 : 0;
+                                $emptyStars = 5 - $fullStars - $halfStar;
+                            @endphp
+
+                            <span>
+                                @for ($i = 0; $i < $fullStars; $i++)
+                                    ⭐
+                                @endfor
+
+                                @if ($halfStar)
+                                    ⭐
+                                @endif
+
+                                @for ($i = 0; $i < $emptyStars; $i++)
+                                    ☆
+                                @endfor
+                            </span>
+                            <label class="mr-2" for="score">Puntaje: {{ $averageScore }}</label>
                         </div>
+
                         <button type="button"
                             class="relative text-lg cursor-default text-white rounded-full bg-[#279c90] p-2.5 font-semibold">
                             <i class='bx bxs-message-rounded-detail p-1'></i>

@@ -195,8 +195,34 @@
                 </div>
             </div>
         </div>
+        <div class="tooltip">
+            <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
+                Personas que han dado like
+            </button>
+            <span class="tooltip-text">
+                @if ($project->likes->isEmpty())
+                    <p>Nadie ha dado like</p>
+                @else
+                    @foreach ($project->likes as $like)
+                        <div class="p-4 border-b border-gray-300 relative">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="flex items-center">
+                                        <img src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                            alt="Avatar" class="w-8 h-8 rounded-full mr-2">
+                                        <p class="text-white font-bold">{{ $like->user->name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </span>
 
-        <div class=" bg-white shadow-lg p-5 mb-5 rounded-lg">
+        </div>
+
+
+        <div class=" bg-white shadow-lg p-5 pb-12 mb-5 rounded-lg">
             <label class="block text-2xl text-center font-bold mb-4 text-teal-800">Agregar un nuevo comentario</label>
             <form method="POST"
                 action="{{ route('comentario.store', ['user' => $user->id, 'project' => $project->id]) }}">
@@ -220,23 +246,85 @@
             <div class="bg-white shadow mb-5 max-h-96 overflow-y-scroll mt-10">
                 @if ($project->comments->count())
                     @foreach ($project->comments as $comment)
-                        <div class="p-4 border-b border-gray-300">
-                            <div class="flex items-center">
-                                <img src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
-                                    alt="Avatar" class="w-8 h-8 rounded-full mr-2">
-                                <p class="text-gray-800 font-bold">{{ $comment->user->name }} <i
-                                        class='bx bxs-badge-check text-[#03A696] text-2xl'></i>
-                                </p>
-                            </div>
+                        <div class="p-4 border-b border-gray-300 relative">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="flex items-center">
+                                        <img src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                            alt="Avatar" class="w-8 h-8 rounded-full mr-2">
+                                        <p class="text-gray-800 font-bold">{{ $comment->user->name }} <i
+                                                class='bx bxs-badge-check text-[#03A696] text-2xl'></i>
+                                        </p>
+                                    </div>
 
-                            <p class="mt-1">{{ $comment->content_message }}</p>
-                            <p class="text-gray-600 text-sm">{{ $comment->created_at->diffForHumans() }}</p>
+                                    <p class="mt-1">{{ $comment->content_message }}</p>
+                                    <p class="text-gray-600 text-sm">{{ $comment->created_at->diffForHumans() }}</p>
+                                </div>
+
+                                @if (Auth::check() && Auth::user()->id === $comment->user_id)
+                                    <form method="POST"
+                                        action="{{ route('comentario.destroy', ['comment' => $comment->id]) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" value="Resolver"
+                                            class="w-30 bg-teal-500 text-white cursor-pointer font-semibold px-4 py-2 rounded-lg hover:bg-teal-700 focus:outline-none">
+                                    </form>
+                                @endif
+                            </div>
                         </div>
                     @endforeach
                 @else
-                    <p class="p-10 font-semibold text-xl text-center font-poppins">No hay comentarios aún</p>
+                    <p class="p-10 font-semibold text-xl text-center font-poppins">No hay comentarios aún.</p>
 
                 @endif
+            </div>
+
+            <label class="block text-2xl text-center font-bold mb-8 text-teal-800">Asigna una calificación este proyecto</label>
+
+            <div class="rating mr-5 mt-4 ">
+                <!-- Formulario de calificación -->
+                <form method="POST" action="{{ route('rateProject', $project->id) }}">
+                    @csrf
+                    <div class="flex items-center">
+                        <label class="mr-2" for="score">Calificación:</label>
+                        <select name="score" id="score" class="border rounded-md py-1 px-2">
+                            <option value="1">⭐</option>
+                            <option value="2">⭐⭐</option>
+                            <option value="3">⭐⭐⭐</option>
+                            <option value="4">⭐⭐⭐⭐</option>
+                            <option value="5">⭐⭐⭐⭐⭐</option>
+                        </select>
+                        <button type="submit" class="relative bg-teal-500 text-white ml-2 px-4 py-2 rounded hover:bg-teal-600 transition-colors">Calificar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tooltip mb-12 mt-4">
+                <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
+                    Personas que han calificado
+                </button>
+                <span class="tooltip-text">
+                    @if ($project->scores->isEmpty())
+                        <p>Nadie ha calificado este proyecto</p>
+                    @else
+                        @foreach ($project->scores as $score)
+                            <div class="p-4 border-b border-gray-300 relative">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="flex items-center">
+                                            <img src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                                alt="Avatar" class="w-8 h-8 rounded-full mr-2">
+                                            <p class="text-white font-bold">{{ $score->user->name }}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-bold">{{ $score->score }} estrellas</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                </span>
             </div>
         </div>
 

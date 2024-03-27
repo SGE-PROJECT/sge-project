@@ -22,6 +22,70 @@ class UserSeeder extends Seeder
             'created_at' => now()
         ]);
 
+        $StudentUser2 = User::create([
+            'name' => 'Juan Villegas',
+            'email' => 'juanvillegas@gmail.com',
+            'password' => Hash::make('juan'),
+            'division_id' => 2,
+            'created_at' => now()
+        ]);
+
+        $StudentUser3 = User::create([
+            'name' => 'Franklin Villegas',
+            'email' => 'franklinvillegas@gmail.com',
+            'password' => Hash::make('frank'),
+            'division_id' => 2,
+            'created_at' => now()
+        ]);
+
+        $StudentUser4 = User::create([
+            'name' => 'Noeli Villegas',
+            'email' => 'noelivillegas@gmail.com',
+            'password' => Hash::make('noeli'),
+            'division_id' => 2,
+            'created_at' => now()
+        ]);
+
+        $StudentUser5 = User::create([
+            'name' => 'Emmanuel Villegas',
+            'email' => 'emmanuelvillegas@gmail.com',
+            'password' => Hash::make('emmanuel'),
+            'division_id' => 2,
+            'created_at' => now()
+        ]);
+
+        $StudentUser6 = User::create([
+            'name' => 'Rojas Villegas',
+            'email' => 'rojasvillegas@gmail.com',
+            'password' => Hash::make('rojas'),
+            'division_id' => 2,
+            'created_at' => now()
+        ]);
+
+        $StudentUser7 = User::create([
+            'name' => 'luis Villegas',
+            'email' => 'luisvillegas@gmail.com',
+            'password' => Hash::make('luis'),
+            'division_id' => 2,
+            'created_at' => now()
+        ]);
+
+        $StudentUser8 = User::create([
+            'name' => 'Alisson Alexandra',
+            'email' => 'alissonalexandra@gmail.com',
+            'password' => Hash::make('alisson'),
+            'division_id' => 2,
+            'created_at' => now()
+        ]);
+
+        $StudentUser9 = User::create([
+            'name' => 'Mariana Garcia Medina',
+            'email' => 'garciamedina@gmail.com',
+            'password' => Hash::make('mariana'),
+            'division_id' => 2,
+            'created_at' => now()
+        ]);
+
         $StudentUser = User::create([
             'name' => 'Jose Martinez',
             // 'last_name' => 'Garcia',
@@ -32,10 +96,10 @@ class UserSeeder extends Seeder
             // 'is_active' => 1,
             'created_at' => now()
         ]);
-        
+
 
         $ManagmentAdminUser = User::create([
-        
+
             'name' => 'Rafael Villegas',
             'email' => 'rvillegas@gmail.com',
             'password' => Hash::make('rafael'),
@@ -95,12 +159,20 @@ class UserSeeder extends Seeder
         $ManagmentAdminUser->assignRole($ManagmentAdminRole);
         $AdviserUser->assignRole($AdviserRole);
         $StudentUser1->assignRole($StudentRole);
+        $StudentUser2->assignRole($StudentRole);
+        $StudentUser3->assignRole($StudentRole);
+        $StudentUser4->assignRole($StudentRole);
+        $StudentUser5->assignRole($StudentRole);
+        $StudentUser6->assignRole($StudentRole);
+        $StudentUser7->assignRole($StudentRole);
+        $StudentUser8->assignRole($StudentRole);
+        $StudentUser9->assignRole($StudentRole);
         $StudentUser->assignRole($StudentRole);
         $PresidentUser->assignRole($PresidentRole);
         $SecretaryUser->assignRole($SecretaryRole);
 
 
-            
+
 
 
 

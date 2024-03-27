@@ -54,6 +54,10 @@ class Project extends Model
     }
 
 
+    public function Scores()
+    {
+        return $this->hasMany(Scores::class);
+    }
 
 
     //public function academicAdvisor()
