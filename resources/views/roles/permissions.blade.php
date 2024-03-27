@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Roles y permisos')
 
@@ -56,10 +56,10 @@
                             <a href="{{ route('roles.permissions.edit', $role->id) }}" class="btn btn-primary">Editar</a>
                         </div>
                         <div class="button-container">
-                           
+
                                 <button type="button" class="btn btn-danger"
                                 onclick="showConfirmModal({{ $role->id }})">Eliminar</button>
-                            
+
                         </div>
                     </div>
                 </div>
