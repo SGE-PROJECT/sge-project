@@ -124,15 +124,16 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
-    Route::get('projectform', [ProjectController::class, 'projectform'])->name('projectform');
-    Route::post('projectform', [ProjectController::class, 'store']);
+    Route::get('formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
+    Route::post('formanteproyecto', [ProjectController::class, 'store'])->name('envproyecto');
     Route::resource('projects', ProjectController::class);
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+    Route::delete('/comentarios/{comment}', [ComentarioController::class, 'destroy'])->name('comentario.destroy');
     Route::get('vistaproyectos', [ProjectController:: class, 'viewproject'])->name('viewproject');
     Route::get('proyectoequipos', [ProjectController:: class, 'projectteams'])->name('projectteams');
     Route::post('/proyecto/{project}/comentario', [ComentarioController::class, 'store'])->name('comentario.store');
     Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
-
+    Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
 
     Route::get('/recuperar-contraseña', function () {
         return view('auth.recoverPassword');
@@ -190,7 +191,6 @@ Route::middleware(['auth', 'role:Student'])->group(function () {
 //     Route::resource('/', Controller::class);
 //     Route::resource('/', Controller::class);
 // });
-
 
 
 

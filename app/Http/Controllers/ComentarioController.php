@@ -36,4 +36,14 @@ class ComentarioController extends Controller
         $user = Auth::user();
         return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user]);
     }
+
+    public function destroy(Comment $comment)
+    {
+        if (Auth::check() && Auth::user()->id === $comment->user_id) {
+            $comment->delete();
+            return back()->with('success', 'Comentario eliminado correctamente.');
+        } else {
+            return back()->with('error', 'No tienes permiso para eliminar este comentario.');
+        }
+    }
 }

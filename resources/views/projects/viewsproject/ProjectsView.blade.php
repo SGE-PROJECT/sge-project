@@ -4,7 +4,7 @@
 @section('titulo', 'Proyectos por división')
 
 @section('contenido')
-    <h2 class="text-3xl font-bold sm:text-4xl mt-4 text-center ">LISTA DE PROYECTOS</h2>
+    <h2 class="text-3xl font-bold sm:text-4xl mt-4 text-center ">LISTA DE ANTEPROYECTOS</h2>
     @foreach ($Projects as $project)
         @php
             $commentCount = $project->comments()->count();
@@ -88,51 +88,32 @@
                             </span>
                         </button>
 
-                        <div class="rating mr-5 mt-6 md:mt-0 mb-6 md:mb-0">
-                            <input type="radio" id="star-1" name="star-radio" value="star-1">
-                            <label for="star-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path pathLength="360"
-                                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                                    </path>
-                                </svg>
-                            </label>
-                            <input type="radio" id="star-2" name="star-radio" value="star-1">
-                            <label for="star-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path pathLength="360"
-                                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                                    </path>
-                                </svg>
-                            </label>
-                            <input type="radio" id="star-3" name="star-radio" value="star-1">
-                            <label for="star-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path pathLength="360"
-                                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                                    </path>
-                                </svg>
-                            </label>
-                            <input type="radio" id="star-4" name="star-radio" value="star-1">
-                            <label for="star-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path pathLength="360"
-                                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                                    </path>
-                                </svg>
-                            </label>
-                            <input type="radio" id="star-5" name="star-radio" value="star-1">
-                            <label for="star-5">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path pathLength="360"
-                                        d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
-                                    </path>
-                                </svg>
-                            </label>
+
+
+                        <div class="rating mr-5 mt-4 ">
+                            <!-- Formulario de calificación -->
+                            <form method="POST" action="{{ route('rateProject', $project->id) }}">
+                                @csrf
+                                <div class="flex items-center">
+                                    <label class="mr-2" for="score">Calificación:</label>
+                                    <select name="score" id="score" class="border rounded-md py-1 px-2">
+                                        <option value="1">⭐</option>
+                                        <option value="2">⭐⭐</option>
+                                        <option value="3">⭐⭐⭐</option>
+                                        <option value="4">⭐⭐⭐⭐</option>
+                                        <option value="5">⭐⭐⭐⭐⭐</option>
+                                    </select>
+                                    <button type="submit" class="relative bg-teal-500 text-white ml-2 px-4 py-2 rounded hover:bg-teal-600 transition-colors">Calificar</button>
+                                </div>
+                            </form>
                         </div>
+
+
+
+
                         <button type="button"
                             class="relative text-lg cursor-default text-white rounded-full bg-[#279c90] p-2.5 font-semibold">
-                            <i class='bx bxs-message-rounded-detail p-1'></i>
+                            <i class='bx bxs-message-rounded-detail p-1.5'></i>
                             <span
                                 class="absolute text-white top-0 right-0 bg-gray-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">{{ $commentCount }}</span>
                         </button>
