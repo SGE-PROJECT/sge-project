@@ -53,9 +53,11 @@ class Project extends Model
         return $this->hasMany(Project_likes::class);
     }
 
-    
 
-
+    public function Scores()
+    {
+        return $this->hasMany(Scores::class);
+    }
 
 
     //public function academicAdvisor()
