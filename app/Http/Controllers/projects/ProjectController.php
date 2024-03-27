@@ -10,6 +10,8 @@ use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Scores;
+use Illuminate\Support\Facades\DB;
+
 
 
 class ProjectController extends Controller
@@ -174,35 +176,35 @@ class ProjectController extends Controller
 
     public function rateProject(Request $request, $projectId)
     {
-        // Validar la calificación recibida en la solicitud
-        $validatedData = $request->validate([
-            'score' => 'required|integer|between:1,5',
-        ]);
+        $user = Auth::user();
 
-        // Buscar el proyecto correspondiente al ID proporcionado
-        $project = Project::findOrFail($projectId);
-
-        // Verificar si el usuario ya ha calificado este proyecto
-        $existingScore = Scores::where('user_id', Auth::id())
-                              ->where('project_id', $projectId)
-                              ->first();
+        // Verificar si el usuario ya asignó una calificación al proyecto
+        $existingScore = Scores::where('user_id', $user->id)
+                                ->where('project_id', $projectId)
+                                ->first();
 
         if ($existingScore) {
-            // Si ya existe una puntuación del usuario para este proyecto, actualizarla
-            $existingScore->update(['score' => $validatedData['score']]);
-        } else {
-            // Si el usuario aún no ha calificado este proyecto, crear una nueva puntuación
-            Scores::create([
-                'user_id' => Auth::id(),
-                'project_id' => $projectId,
-                'score' => $validatedData['score'],
-            ]);
+            return redirect()->back()->with('error', 'Ya has asignado una calificación a este proyecto. No puedes cambiar tu calificación.');
         }
 
-        // Redirigir de vuelta a la página del proyecto con un mensaje de éxito
-        return redirect()->route('projects.show', $projectId)->with('success', 'Puntuación asignada correctamente.');
+        // Crear una nueva puntuación
+        Scores::create([
+            'user_id' => $user->id,
+            'project_id' => $projectId,
+            'score' => $request->input('score'),
+        ]);
+
+        // Calcular el total de puntuaciones para el proyecto
+        $totalScore = Scores::where('project_id', $projectId)->sum('score');
+
+        // Actualizar el campo 'total_score' en la tabla 'Scores' con la nueva calificación
+        $projectScores = Scores::where('project_id', $projectId)->get();
+        foreach ($projectScores as $score) {
+            $score->total_score = $totalScore;
+            $score->save();
+        }
+
+        return redirect()->back()->with('success', 'Calificación asignada exitosamente al proyecto.');
     }
-
-
 
 }
