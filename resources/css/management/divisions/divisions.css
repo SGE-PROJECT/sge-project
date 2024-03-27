@@ -1,4 +1,217 @@
-.card:hover {
+.text-font_divisions {
+    font-family: url('/public/fonts/Poppins-Bold.ttf');
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.contenedor_divisions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0px 10px 0px;
+    margin-right: 30px;
+}
+
+.header_divisions {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 18px 25px 28px;
+}
+
+.search-btn {
+    background-color: #03a696c0;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-btn:hover {
+    background-color: #03A696;
+}
+
+.BtnCrearDivisions {
+    margin-left: 30px;
+}
+
+.Btn_division {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: .3s;
+    background-color: green;
+}
+
+.sign_division {
+    width: 100%;
+    font-size: 2em;
+    color: white;
+    transition-duration: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text_division {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: white;
+    font-size: 1.0em;
+    font-weight: 500;
+    transition-duration: .3s;
+}
+
+.Btn_division:hover {
+    width: 125px;
+    transition-duration: .3s;
+    border-radius: 10px;
+}
+
+.Btn_division:hover .sign_division {
+    width: 30%;
+    transition-duration: .3s;
+    padding-left: -2px;
+}
+
+.Btn_division:hover .text_division {
+    opacity: 1;
+    width: 70%;
+    transition-duration: .3s;
+    padding-right: 20px;
+}
+
+.Btn_division:active {
+    transform: translate(2px, 2px);
+}
+
+.card__division {
+    flex: 0 1 calc(33.33% - 30px);
+    margin-left: 25px;
+    margin-bottom: 30px;
+    position: relative;
+    width: 330px;
+    aspect-ratio: 16/9;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    overflow: hidden;
+    perspective: 1000px;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@media (max-width: 992px) {
+    .card__division {
+        flex-basis: calc(50% - 30px);
+    }
+}
+
+@media (max-width: 576px) {
+    .card__division {
+        flex-basis: calc(100% - 30px);
+    }
+}
+
+.card__division .Titulo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-transform: uppercase;
+    font-size: 23px;
+    opacity: 1;
+    text-align: center;
+    transition: opacity 0.3s ease;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3),
+    0 0 15px rgba(255, 255, 255, 0.5),
+    0 0 30px #03A696,
+    0 0 60px #03A696,
+    0 0 70px #03A696;
+    font-weight: bold;
+}
+
+.card__division img {
+    width: 100%;
+    height: 100%;
+    fill: #333;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: none; /* Elimina el desenfoque inicialmente */
+}
+
+.card__image {
+    width: 100%;
+    height: 100%;
+}
+
+.card__division:hover {
     transform: scale(1.05);
-    transition: transform 0.3s ease;
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+
+.card__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    transform: rotateX(-90deg);
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card__button {
+    padding: 10px;
+    border-radius: 8px;
+    background: green;
+    border: none;
+    color: white;
+}
+
+.card__division:hover .card__content {
+    transform: rotateX(0deg);
+}
+
+.card__division:hover .Titulo {
+    opacity: 0; /* Establece la opacidad a 0 al hacer hover */
+}
+
+.card__title {
+    margin: 0;
+    font-size: 15px;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.card__division:hover svg {
+    scale: 0;
+}
+
+.card__description {
+    margin: 10px 0 10px;
+    font-size: 10px;
+    color: white;
+    line-height: 1.4;
+}
+
+.card__division:hover img {
+    filter: blur(4px); /* Agrega el desenfoque al hacer hover */
 }

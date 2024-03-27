@@ -1,0 +1,9 @@
+.highcharts-background {
+    fill: transparent !important; /* Establece el relleno como transparente */
+  }
+
+  .grafica{
+    width: 550px;
+    height: 550px;
+    margin: 35px auto;
+  }

@@ -30,10 +30,17 @@ return [
 
     'disks' => [
 
-        'local' => [
+        /* 'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
             'throw' => false,
+        ], */
+
+        'local' => [
+            'driver' => 'local',
+            'root' => public_path('images/books'), // Ruta a la carpeta de almacenamiento
+            'url' => env('APP_URL').'/images/books', // URL para acceder a los archivos
+            'visibility' => 'public',
         ],
 
         'public' => [

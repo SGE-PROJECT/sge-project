@@ -1,0 +1,185 @@
+.card-invitation {
+    transition: transform 0.3s ease;
+    border-radius: 10px;
+}
+
+.card-invitation:hover {
+    transform: scale(1.05);
+}
+
+.card-invitation.flipped {
+    transform: rotateY(180deg);
+}
+
+.porfile{
+    width: 50px !important;
+    border-radius: 9999px;
+}
+
+.oculto {
+    display: none;
+}
+
+.contenedor{
+    padding-top: 120px;
+}
+
+.card_invitation{
+    background-color: #97F5F5;
+    border-radius: 20px;
+    text-align: center;
+    align-items: center;
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 450px;
+    height: 200px;
+    padding-top: 20px;
+}
+.invitacion *{
+    width: 100%;
+}
+
+.content_invitation{
+    display: flex;
+    padding-left: 110px;    
+}
+
+.user_invitation{
+    display:flex;
+    width: fit-content;
+    flex-direction: column;
+    align-items: center
+
+}
+.user_invitation p{
+    width: fit-content;
+    padding-left: 10px;
+}
+
+.info{
+    padding-left: 200px;
+}
+
+.users{
+    display: flex;
+    align-items: center;
+    width: 525px;
+    height: 65px;
+    padding-left: 5px;
+    background-color: #D9D9D9;
+}
+
+.users:nth-child(odd) {
+    background-color: #ffffff;
+}
+.user{
+    display: flex;
+    align-items: center;
+    width: 525px;
+    height: 65px;
+    padding-left: 5px;
+    background-color: #ffffff;
+}
+
+.user:nth-child(odd) {
+    background-color: #D9D9D9;
+}
+
+.text_user{
+    padding-left: 20px;
+}
+
+.text{
+    text-align: center;
+}
+
+.text_state{
+    padding-left: 25px;
+}
+
+.invitation{
+    display: flex;
+    padding: 30px;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.buttons{
+    background-color: #394C5F;
+    border-radius: 15px;
+    width: 125px;
+    height: 45px;
+    color: white;
+}
+
+.buttons:hover{
+    background-color: white;
+    color: #394C5F;
+}
+
+.button{
+    background-color: #394C5F;
+    border-radius: 10px;
+    width: 120px;
+    height: 40px;
+    color: white;
+}
+
+.button-modal{
+    background-color: #394C5F;
+    border-radius: 10px;
+    width: 120px;
+    height: 40px;
+    color: white;
+    
+}
+
+.modal-invitation{
+    padding-left: 20px;
+}
+
+.button-invitation{
+    padding-left: 25px;
+}
+
+.text_invitation{
+    text-decoration-line: underline;
+    text-align: center;
+    font-size: 22px;
+}
+
+.modal {
+    padding-left: 100px;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 0;
+    border: 1px solid #888;
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
