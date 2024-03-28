@@ -1,13 +1,13 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Editar Rol')
 
 @section('contenido')
-    <link rel="stylesheet" href="/css/roles/edit.css">
+@vite('resources/css/roles/edit.css');
 
     <div class="container">
         <div class="heading">
-            {{ __('EDICIÓN DEL ROL') }}
+            {{ __('EDICIÓN DE PERMISOS DEL ROL') }}
         </div>
         <form class="edit-form" method="POST" action="{{ route('roles.permissions.update', $role->id) }}">
             @csrf
@@ -19,6 +19,7 @@
                     <label for="name">Nombre del rol</label>
                 </div>
             </div>
+            
 
             <div class="form-group">
                 <label class="permission-label">{{ __('Permisos') }}</label>
@@ -42,4 +43,5 @@
             </div>
         </form>
     </div>
+    
 @endsection

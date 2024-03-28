@@ -4,10 +4,15 @@ namespace App\Http\Controllers\projects;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Projects\ProjectFormRequest;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Scores;
+use Illuminate\Support\Facades\DB;
+
+
 
 class ProjectController extends Controller
 {
@@ -60,7 +65,8 @@ class ProjectController extends Controller
 
     public function viewproject()
     {
-        return view('projects.viewsproject.ProjectsView');
+        $Projects = Project::paginate(3);
+        return view('projects.viewsproject.ProjectsView', compact('Projects'));
     }
 
     public function projectform()
@@ -115,10 +121,18 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
-        //
+
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Pasar el proyecto y el usuario a la vista
+        return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user]);
     }
+
+
+
 
 
     /**
@@ -158,4 +172,39 @@ class ProjectController extends Controller
             return back()->with('error', '¡Se produjo un error al eliminar el proyecto!');
         }
     }
+
+
+    public function rateProject(Request $request, $projectId)
+    {
+        $user = Auth::user();
+
+        // Verificar si el usuario ya asignó una calificación al proyecto
+        $existingScore = Scores::where('user_id', $user->id)
+                                ->where('project_id', $projectId)
+                                ->first();
+
+        if ($existingScore) {
+            return redirect()->back()->with('error', 'Ya has asignado una calificación a este proyecto. No puedes cambiar tu calificación.');
+        }
+
+        // Crear una nueva puntuación
+        Scores::create([
+            'user_id' => $user->id,
+            'project_id' => $projectId,
+            'score' => $request->input('score'),
+        ]);
+
+        // Calcular el total de puntuaciones para el proyecto
+        $totalScore = Scores::where('project_id', $projectId)->sum('score');
+
+        // Actualizar el campo 'total_score' en la tabla 'Scores' con la nueva calificación
+        $projectScores = Scores::where('project_id', $projectId)->get();
+        foreach ($projectScores as $score) {
+            $score->total_score = $totalScore;
+            $score->save();
+        }
+
+        return redirect()->back()->with('success', 'Calificación asignada exitosamente al proyecto.');
+    }
+
 }

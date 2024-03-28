@@ -1,15 +1,15 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo')
     Crear Roles
 @endsection
 
 @section('contenido')
-    <link rel="stylesheet" href="/css/roles/crateroles.css">
+@vite('resources/css/roles/crateroles.css');
 
     <div class="container">
         <div class="heading">
-            {{ __('CREAR NUEVO ROL') }}
+            {{ __('AGREGAR NUEVO ROL') }}
         </div>
 
         <div class="edit-form">
@@ -61,4 +61,7 @@
             </form>
         </div>
     </div>
+{{-- LOGICA PARA QUE LOS CHECKBOX PRINCIPALES SE AUTOMARQUEN CUANDO SE SELECCIONA UN PERMISO RELACIONADO CON EL PRINCIPAL --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/js/permissions.js"></script>
 @endsection
