@@ -89,7 +89,11 @@ Route::middleware(['auth'])->group(function () {
     // Se acaba Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
 
-    Route::get('/sanciones', [ManagementUserController::class, 'index']);
+    Route::post('/sanciones', [ManagementUserController::class, 'index']);
+     Route::get('/enviar-notification',function(){
+        return view('books-notifications.books.test-notifications');
+     }); 
+    Route::post('/not',[BooksController::class, 'notifications'])->name('sendNotification');
 
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
     Route::get('/perfil', [ProfileController::class,'index']);
@@ -155,7 +159,7 @@ Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])-
     Route::resource('/carreras', ProgramController::class);
 });
 
-Route::middleware(['auth', 'role:Adviser'])->group(function () {
+Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
     Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
     Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
