@@ -230,9 +230,10 @@ class BooksController extends Controller
     return redirect()->route('libros.index')->with('success', 'Libro eliminado exitosamente.');
 }
 
-public function export() 
+public function export()
 {
     return Excel::download(new BooksExport, 'libros.xlsx');
 }
+
 
 }

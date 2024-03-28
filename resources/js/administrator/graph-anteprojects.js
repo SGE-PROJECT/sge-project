@@ -1,6 +1,6 @@
 import Highcharts from 'highcharts';
 
-Highcharts.chart('container-projects', {
+Highcharts.chart('container-anteprojects', {
     credits: {
     enabled: false // Deshabilita los créditos (enlace) debajo de la gráfica
     },
@@ -9,7 +9,7 @@ Highcharts.chart('container-projects', {
         plotShadow: false,
     },
     title: {
-        text: '79 <br> Proyectos',
+        text: '79 <br> Anteproyectos',
         align: 'center',
         verticalAlign: 'middle',
         y: 30,
@@ -52,9 +52,9 @@ Highcharts.chart('container-projects', {
         name: 'Datos',
         innerSize: '60%',
         data: [
-        { name: 'En curso', y: 54, color: '#22C55E' },
-        { name: 'Finalizado', y: 12, color: '#a1a1a1' },
-        { name: 'Reprobados', y: 21, color: '#f87171' },
+        { name: 'Registrados', y: 54, color: '#22C55E' },
+        { name: 'En revisión', y: 12, color: '#eab308' },
+        { name: 'Rechazados', y: 21, color: '#f87171' },
         ]
     }]
 });

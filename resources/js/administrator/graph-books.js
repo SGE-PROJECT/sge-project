@@ -2,14 +2,14 @@ import Highcharts from 'highcharts';
 
 Highcharts.chart('container-books', {
     credits: {
-    enabled: false // Deshabilita los créditos (enlace) debajo de la gráfica
+        enabled: false // Deshabilita los créditos (enlace) debajo de la gráfica
     },
     chart: {
         plotBorderWidth: 0,
         plotShadow: false,
     },
     title: {
-        text: '876 <br> Libros',
+        text: '65 <br> Libros',
         align: 'center',
         verticalAlign: 'middle',
         y: 30,
@@ -53,8 +53,8 @@ Highcharts.chart('container-books', {
         name: 'Datos',
         innerSize: '60%',
         data: [
-        { name: 'Libros totales', y: 876, color: '#03a6a6' },
-        { name: '', y: 156 , color: '#a1a1a1' },
+            { name: 'En proceso', y: 98, color: '#03a6a6' },
+            { name: 'Finalizados', y: 156 , color: '#a1a1a1' },
         ]
     }]
 });

@@ -5,18 +5,19 @@
 @section('contenido')
     @vite('resources/css/administrator/dashboard.css')
     @vite('resources/js/administrator/graph-general.js')
+    @vite('resources/js/administrator/divisions.js')
 
-    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        @include('administrator.graph-anteprojects')
         @include('administrator.graph-projects')
         @include('administrator.graph-users')
         @include('administrator.graph-books')
     </div>
 
-
     <div class="p-6 font-sans">
         <div class="grid grid-cols-1 lg:grid-cols-1 gap-5 mb-6">
 
-            <!--SECCION DE CARRERAS-->
+            <!--SECCION DE CARRERAS POR DIVISIONES-->
             <div class="seccion-carreras bg-white p-5 rounded-xl">
                 <div class="flex justify-between mb-4 items-start">
                     <div class="text-2xl font-bold">Divisiones</div>
@@ -24,96 +25,107 @@
                 </div>
 
                 <section>
-                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
+                    <div class="w-full bg-white border-2 border-gray-300 rounded-lg shadow">
+                        <div class="sm:hidden">
+                            <label for="tabs-mobile" class="sr-only">Select tab</label>
+                            <select id="tabs-mobile" class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <option>Ingeniería y Tecnología</option>
+                                <option>Económico Administrativa</option>
+                                <option>Turismo</option>
+                                <option>Gastronomía</option>
+                            </select>
+                        </div>
+                        <ul class="hidden text-sm font-medium text-center text-black divide-x divide-gray-300 rounded-lg sm:flex rtl:divide-x-reverse" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
+                            <li class="w-full">
+                                <button id="tecno-tab" data-tabs-target="#tecno" type="button" role="tab" aria-controls="tecno" aria-selected="true" class="inline-block w-full p-4 rounded-ss-lg bg-gray-50 hover:bg-gray-100 focus:outline-none">Ingeniería y Tecnología</button>
+                            </li>
+                            <li class="w-full">
+                                <button id="econ-tab" data-tabs-target="#econ" type="button" role="tab" aria-controls="econ" aria-selected="false" class="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none">Económico Administrativa</button>
+                            </li>
+                            <li class="w-full">
+                                <button id="tur-tab" data-tabs-target="#tur" type="button" role="tab" aria-controls="tur" aria-selected="false" class="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none">Turismo</button>
+                            </li>
+                            <li class="w-full">
+                                <button id="gast-tab" data-tabs-target="#gast" type="button" role="tab" aria-controls="gast" aria-selected="false" class="inline-block w-full p-4 rounded-se-lg bg-gray-50 hover:bg-gray-100 focus:outline-none">Gastronomía</button>
+                            </li>
+                        </ul>
 
-                        <!--Division de ingenieria-->
-                        <div class="block rounded-lg bg-white text-surface shadow-secondary-1">
-                            <div class="border-b-2 border-solid-100 px-6 py-3 font-bold">
-                                División Ingeniería y Tecnología
+                        <div id="fullWidthTabContent" class="border-t border-gray-200 ">
+                            <!-- Ingeniería y Tecnología -->
+                            <div class="hidden p-4 bg-white rounded-lg md:p-8 " id="tecno" role="tabpanel" aria-labelledby="tecno-tab">
+                                <div class="grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
+
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'TI Área Desarrollo de Software Multiplataforma',
+                                        'image' => 'images/administrator/pexels-lukas-574071.jpg',
+                                    ])
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'TI Área Infraestructura de Redes Digitales',
+                                        'image' => 'images/administrator/redes.jpeg',
+                                    ])
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'Mantenimiento Área Instalaciones',
+                                        'image' => 'images/administrator/pexels-kateryna-babaieva-2760241.jpg',
+                                    ])
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'Mantenimiento Área Naval',
+                                        'image' => 'images/administrator/pexels-david-mcelwee-16240659.jpg',
+                                    ])
+                                </div>
                             </div>
-                            <div class="grid grid-cols-1 gap-5 p-5 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
 
-                                @include('administrator.career', [
-                                    'Namecareer' => 'TI Área Desarrollo de Software Multiplataforma',
-                                    'image' => 'images/administrator/pexels-lukas-574071.jpg',
-                                ])
-                                @include('administrator.career', [
-                                    'Namecareer' => 'TI Área Infraestructura de Redes Digitales',
-                                    'image' => 'images/administrator/redes.jpeg',
-                                ])
-                                @include('administrator.career', [
-                                    'Namecareer' => 'Mantenimiento Área Instalaciones',
-                                    'image' => 'images/administrator/pexels-kateryna-babaieva-2760241.jpg',
-                                ])
-                                @include('administrator.career', [
-                                    'Namecareer' => 'Mantenimiento Área Naval',
-                                    'image' => 'images/administrator/pexels-david-mcelwee-16240659.jpg',
-                                ])
+                            <!-- Económico Administrativa -->
+                            <div class="hidden p-4 bg-white rounded-lg md:p-8" id="econ" role="tabpanel" aria-labelledby="econ-tab">
+                                <div class="grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
 
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'Desarrollo de Negocios Área Mercadotecnia',
+                                        'image' => 'images/administrator/pexels-alena-darmel-7710218.jpg',
+                                    ])
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'Contaduría',
+                                        'image' => 'images/administrator/Conta_1.jpg',
+                                    ])
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'Administración Área Capital Humano',
+                                        'image' => 'images/administrator/b910f4651295.jpg',
+                                    ])
+
+                                </div>
+                            </div>
+
+                            <!-- Turismo -->
+                            <div class="hidden p-4 bg-white rounded-lg md:p-8 " id="tur" role="tabpanel" aria-labelledby="tur-tab">
+                                <div class="grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
+
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'Turismo Área Desarrollo de Productos Alternativos',
+                                        'image' => 'images/administrator/ventas22-696x586.jpg',
+                                    ])
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'Turismo Área en Hotelería',
+                                        'image' => 'images/administrator/hoteleria.jpg',
+                                    ])
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'Terapia Física',
+                                        'image' => 'images/administrator/bono-fisioterapia-pamplona.jpg',
+                                    ])
+
+                                </div>
+                            </div>
+
+                            <!-- Gastronomía -->
+                            <div class="hidden p-4 bg-white rounded-lg md:p-8 " id="gast" role="tabpanel" aria-labelledby="gast-tab">
+                                <div class="grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
+
+                                    @include('administrator.career', [
+                                        'Namecareer' => 'Gastronomía',
+                                        'image' => 'images/administrator/gastronomia.jpg',
+                                    ])
+
+                                </div>
                             </div>
                         </div>
-
-                        <!--Division de economia-->
-                        <div class="block rounded-lg bg-white text-surface shadow-secondary-1">
-                            <div class="border-b-2 border-solid-100 px-6 py-3 font-bold">
-                                División Económico Administrativa
-                            </div>
-                            <div class="grid grid-cols-1 gap-5 p-5 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
-
-                                @include('administrator.career', [
-                                    'Namecareer' => 'Desarrollo de Negocios Área Mercadotecnia',
-                                    'image' => 'images/administrator/pexels-alena-darmel-7710218.jpg',
-                                ])
-                                @include('administrator.career', [
-                                    'Namecareer' => 'Contaduría',
-                                    'image' => 'images/administrator/Conta_1.jpg',
-                                ])
-                                @include('administrator.career', [
-                                    'Namecareer' => 'Administración Área Capital Humano',
-                                    'image' => 'images/administrator/b910f4651295.jpg',
-                                ])
-
-                            </div>
-                        </div>
-
-                        <!--Division de turismo-->
-                        <div class="block rounded-lg bg-white text-surface shadow-secondary-1">
-                            <div class="border-b-2 border-solid-100 px-6 py-3 font-bold">
-                                División de Turismo
-                            </div>
-                            <div class="grid grid-cols-1 gap-5 p-5 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
-
-                                @include('administrator.career', [
-                                    'Namecareer' => 'Turismo Área Desarrollo de Productos Alternativos',
-                                    'image' => 'images/administrator/ventas22-696x586.jpg',
-                                ])
-                                @include('administrator.career', [
-                                    'Namecareer' => 'Turismo Área en Hotelería',
-                                    'image' => 'images/administrator/hoteleria.jpg',
-                                ])
-                                @include('administrator.career', [
-                                    'Namecareer' => 'Terapia Física',
-                                    'image' => 'images/administrator/bono-fisioterapia-pamplona.jpg',
-                                ])
-
-                            </div>
-                        </div>
-
-                        <!--Division de gastronomia-->
-                        <div class="block rounded-lg bg-white text-surface shadow-secondary-1">
-                            <div class="border-b-2 border-solid-100 px-6 py-3 font-bold">
-                                División de Gastronomía
-                            </div>
-                            <div class="grid grid-cols-1 gap-5 p-5 sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
-
-                                @include('administrator.career', [
-                                    'Namecareer' => 'Gastronomía',
-                                    'image' => 'images/administrator/gastronomia.jpg',
-                                ])
-
-                            </div>
-                        </div>
-
                     </div>
                 </section>
             </div>
