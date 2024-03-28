@@ -62,9 +62,9 @@
             name: 'Datos',
             innerSize: '60%',
             data: [
-            { name: 'Completados', y: {{$completadosCount}}, color: '#22C55E' },
-            { name: 'En desarrollo', y: {{$enDesarrolloCount}}, color: '#eab308' },
-            { name: 'Reprobados', y: {{$reprobadosCount}}, color: '#9ca3af' },
+            { name: 'Completados', y:19, color: '#22C55E' },
+            { name: 'En desarrollo', y: 13, color: '#eab308' },
+            { name: 'Reprobados', y: 4, color: '#9ca3af' },
             ]
         }]
     });
