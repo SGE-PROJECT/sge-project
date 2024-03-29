@@ -30,24 +30,24 @@ class LoginControlller extends Controller
             $role = optional($user->roles->first())->name; // Obtenemos el nombre del rol del usuario
             // Comenzamos a redireccionar según el rol del usuario, con el switch, una maravilla
             switch ($role) {
-                case 'SuperAdmin':
+                case 'Super Administrador':
                     return redirect()->route('posts.index'); // Nos redirecciona al dashboard general
                     
-                case 'ManagmentAdmin':
+                case 'Administrador de División':
                     return redirect('/carreras'); //Ese slash es provisional, solo hay que poner la ruta verdadera 
                     
-                case 'Adviser':
+                case 'Asesor Académico':
                     $adviserId = $user->id; 
                     return redirect("/asesorias/{$adviserId}");
                         
-                case 'Student':
+                case 'Estudiante':
                     $studentId = $user->id; 
                     return redirect("proyectoinvitacion");
                     
-                case 'President':
+                case 'Presidente Académico':
                     return redirect('/projects');
-                    
-                case 'Secretary': 
+                   
+                case 'Asistente de Dirección': 
                     return redirect('/libros');
                     
                 
