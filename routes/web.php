@@ -89,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
     // Se acaba Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
 
-    Route::post('/sanciones', [ManagementUserController::class, 'index']);
+    Route::resource('/sanciones', ManagementUserController::class);
      Route::get('/enviar-notification',function(){
         return view('books-notifications.books.test-notifications');
      }); 
