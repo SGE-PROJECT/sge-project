@@ -3,6 +3,7 @@
 <html lang="es">
 
 <head>
+    @livewireStyles
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -298,113 +299,45 @@
                                 --}}
                             </div>
                             <div class="my-2">
-                                <ul class="max-h-64 overflow-y-auto" data-tab-for="notification"
-                                    data-page="notifications">
-                                    <li>
-                                        <a href="/notificaciones"
-                                            class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor"
-                                                class=" w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                                <ul class="max-h-64 overflow-y-auto" data-tab-for="notification" data-page="notifications">
+                                    @forelse (auth()->user()->notifications()->whereDate('created_at', today())->get() as $notification)
+                                     
+                                        <li>
+                                          <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
                                             </svg>
                                             <div class="ml-2">
-                                                <div
-                                                    class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">
-                                                    ¡Tu
-                                                    proyecto ha sido calificado!
-                                                </div>
-                                                <div class="text-[11px] text-gray-400">El profesor Carlos Ramos ha dado
-                                                    4 estrellas a tu
-                                                    proyecto</div>
+                                              <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500 group-hover:animate-bounce-slow">¡{{$notification->data['object']}}!
+                                              </div>
+                                              <d  iv class="text-[11px] text-gray-400 ">{{$notification->data['data']}}</d>
+                                              <div class="text-[11px] text-slate-600">{{$notification->created_at->diffForHumans()}}</div>
+                  
                                             </div>
-                                        </a>
-                                    </li>
+                                          </a>
+                                        </li>
+                                      {{--   @if ($notification->type==="App\\Notifications\\ProjectNotification")
+                                        <p>este</p>
+                                          
+                                        @endif --}}
+                                  
+                                    @empty
                                     <li>
-                                        <a href="/notificaciones"
-                                            class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor"
-                                                class="w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px]">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-                                            </svg>
-                                            <div class="ml-2">
-                                                <div
-                                                    class="text-[13px] text-slate-800 font-medium truncate group-hover:text-teal-500">
-                                                    ¡Nuevo
-                                                    Miembro del Equipo!
-                                                </div>
-                                                <div class="text-[11px] text-slate-600">El profesor Carlos Ramos ha dado
-                                                    4 estrellas a tu
-                                                    proyecto</div>
-                                            </div>
-                                        </a>
+                                      <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
+                                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
+                                        </svg>
+                                        
+                                        <div class="ml-2">
+                                          <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">¡No hay notificaciones!
+                                          </div>
+                                          <div class="text-[11px] text-gray-400">Bandeja Vacía</div>
+                                        </div>
+                                      </a>
                                     </li>
-                                    <li>
-                                        <a href="/notificaciones"
-                                            class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor"
-                                                class="w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px]">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-                                            </svg>
-                                            <div class="ml-2">
-                                                <div
-                                                    class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">
-                                                    ¡Comentario Pendiente de Respuesta!
-                                                </div>
-                                                <div class="text-[11px] text-gray-400">El profesor Carlos Ramos ha dado
-                                                    4 estrellas a tu
-                                                    proyecto</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/notificaciones"
-                                            class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor"
-                                                class="w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px]">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-                                            </svg>
-                                            <div class="ml-2">
-                                                <div
-                                                    class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">
-                                                    ¡Tu
-                                                    Proyecto ha sido Calificado!
-                                                </div>
-                                                <div class="text-[11px] text-gray-400 ">El profesor Carlos Ramos ha dado
-                                                    4 estrellas a tu
-                                                    proyecto</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/notificaciones"
-                                            class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor"
-                                                class="w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px]">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                                            </svg>
-                                            <div class="ml-2">
-                                                <div
-                                                    class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">
-                                                    ¡Nuevo
-                                                    Miembro del Equipo!
-                                                </div>
-                                                <div class="text-[11px] text-gray-400">El profesor Carlos Ramos ha dado
-                                                    4 estrellas a tu
-                                                    proyecto</div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
+                                      
+                                    @endforelse
+                                  </ul>
                                 <ul class="max-h-64 overflow-y-auto hidden" data-tab-for="notification"
                                     data-page="messages">
                                     <li>
@@ -549,7 +482,7 @@
     <script src="{{ asset('resources/js/divisions.js') }}"></script>
     @yield('scripts')
     <link href="{{ asset('css/projectstyle.css') }}" rel="stylesheet">
-
+    @livewireScripts
 </body>
 
 </html>

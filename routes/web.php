@@ -107,8 +107,11 @@ Route::middleware(['auth'])->group(function () {
         return view('books-notifications.books.add-books');
     })->name('añadir.libros');
 
-    Route::get('/notificaciones', function () {
+    Route::get('/admin/notificaciones', function () {
         return view('books-notifications.notifications');
+    });
+    Route::get('/notificaciones', function () {
+        return view('books-notifications.notificaciones-user');
     });
     Route::get('/usuarios', function () {
         return view('administrator.dashboard.DashboardUsers');
