@@ -13,17 +13,13 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     @vite('resources/css/app.css')
-    @vite('resources/css/asesorias.css')
-    @vite('resources/css/asesoriasStudents.css')
     @vite('resources/js/sidebarUser.js')
-    @vite('resources/js/asesorias.js')
     @vite('resources/js/tableproject.js')
     @vite('resources/css/sidebarUser.css')
     @vite('resources/css/management/divisions/divisions.css')
     @vite('resources/css/projects/projectDashboardStyle.css')
     @vite('resources/css/books-notifications/books/books.css')
     @vite('resources/css/books-notifications/books/add-books.css')
-    @vite('resources/js/asesoriasStudent.js')
     @vite('resources/css/buttonappoint.css')
     @vite('resources/css/input.css')
     @vite('resources/js/projectview.js')
@@ -31,6 +27,8 @@
     @vite('resources/css/Dashboard/DashboardUsers.css')
     @vite('resources/css/projects/projectview.css')
     @vite('resources/css/management/projects.css')
+    @yield('js')
+    @yield('css')
 
     <title>@yield('titulo')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">

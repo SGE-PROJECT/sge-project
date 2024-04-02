@@ -468,7 +468,7 @@ class UserSeeder extends Seeder
         $PresidentUser9->assignRole($PresidentRole);
 
 
-        //Secretarias 
+        //Secretarias
         $SecretaryUser->assignRole($SecretaryRole);
         $SecretaryUser1->assignRole($SecretaryRole);
         $SecretaryUser2->assignRole($SecretaryRole);
