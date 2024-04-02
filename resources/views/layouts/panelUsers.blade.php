@@ -13,17 +13,13 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     @vite('resources/css/app.css')
-    @vite('resources/css/asesorias.css')
-    @vite('resources/css/asesoriasStudents.css')
     @vite('resources/js/sidebarUser.js')
-    @vite('resources/js/asesorias.js')
     @vite('resources/js/tableproject.js')
     @vite('resources/css/sidebarUser.css')
     @vite('resources/css/management/divisions/divisions.css')
     @vite('resources/css/projects/projectDashboardStyle.css')
     @vite('resources/css/books-notifications/books/books.css')
     @vite('resources/css/books-notifications/books/add-books.css')
-    @vite('resources/js/asesoriasStudent.js')
     @vite('resources/css/buttonappoint.css')
     @vite('resources/css/input.css')
     @vite('resources/js/projectview.js')
@@ -31,6 +27,8 @@
     @vite('resources/css/Dashboard/DashboardUsers.css')
     @vite('resources/css/projects/projectview.css')
     @vite('resources/css/management/projects.css')
+    @yield('js')
+    @yield('css')
 
     <title>@yield('titulo')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -301,7 +299,7 @@
                             <div class="my-2">
                                 <ul class="max-h-64 overflow-y-auto" data-tab-for="notification" data-page="notifications">
                                     @forelse (auth()->user()->notifications()->whereDate('created_at', today())->get() as $notification)
-                                     
+
                                         <li>
                                           <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
@@ -312,22 +310,22 @@
                                               </div>
                                               <d  iv class="text-[11px] text-gray-400 ">{{$notification->data['data']}}</d>
                                               <div class="text-[11px] text-slate-600">{{$notification->created_at->diffForHumans()}}</div>
-                  
+
                                             </div>
                                           </a>
                                         </li>
                                       {{--   @if ($notification->type==="App\\Notifications\\ProjectNotification")
                                         <p>este</p>
-                                          
+
                                         @endif --}}
-                                  
+
                                     @empty
                                     <li>
                                       <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
                                           <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
                                         </svg>
-                                        
+
                                         <div class="ml-2">
                                           <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">¡No hay notificaciones!
                                           </div>
@@ -335,7 +333,7 @@
                                         </div>
                                       </a>
                                     </li>
-                                      
+
                                     @endforelse
                                   </ul>
                                 <ul class="max-h-64 overflow-y-auto hidden" data-tab-for="notification"

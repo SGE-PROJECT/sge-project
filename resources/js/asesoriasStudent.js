@@ -119,9 +119,13 @@ function volver() {
     document.getElementById("student-eventosContainer").classList.remove("ocultar");
     document.getElementById('student-dia').classList.add('ocultar');
     document.getElementById('student-calendario').classList.remove('ocultar');
+    document.querySelector(".hora-asesorias").classList.add("ocultar");
+    document.querySelector(".fechas-asesorias").classList.remove("ocultar");
 }
 function onDayClick(year, month, dayOfWeek, dayOfMonth) {
     document.getElementById("student-eventosContainer").classList.add("ocultar");
+    document.querySelector(".hora-asesorias").classList.remove("ocultar");
+    document.querySelector(".fechas-asesorias").classList.add("ocultar");
     let selectedDate = new Date(year, month, dayOfMonth);
     let currentDate = new Date();
     selectedDate.setHours(0, 0, 0, 0);
