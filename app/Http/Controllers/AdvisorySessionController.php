@@ -11,14 +11,14 @@ use App\Models\Project;
 use Carbon\Carbon;
 
 class AdvisorySessionController extends Controller
-{    
+{
 
     public function index($id)
     {
         $sessions = AdvisorySession::with(['proyect'])->where('id_advisor_id', $id)->get();
         $Projects = ProjectsTest::where('id_advisor_id', $id)->get();
         $projects = ProjectsTest::with('students')->where('id_advisor_id', $id)->get();
-        
+
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
@@ -48,12 +48,47 @@ class AdvisorySessionController extends Controller
         return view('consultancy.Dates', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents']));
     }
 
+    public function all($id)
+    {
+        $sessions = AdvisorySession::with(['proyect'])->where('id_advisor_id', $id)->get();
+        $Projects = ProjectsTest::where('id_advisor_id', $id)->get();
+        $projects = ProjectsTest::with('students')->where('id_advisor_id', $id)->get();
+
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        $sessionsThisWeek = $sessions->filter(function ($session) use ($startOfWeek, $endOfWeek) {
+            $sessionDate = Carbon::parse($session->session_date);
+            return $sessionDate->between($startOfWeek, $endOfWeek);
+        })->values()->map(function ($session) {
+            $sessionDateTime = Carbon::parse($session->session_date);
+            $session->date_only = $sessionDateTime->toDateString();
+            $session->time_only = $sessionDateTime->toTimeString();
+
+            return $session;
+        });
+
+        $allStudents = [];
+        $colores = ["verde", "amarillo", "morado", "azul", "rosa"];
+        $colorIndex = 0;
+        foreach ($projects as $project) {
+            $students = $project->students;
+            foreach ($students as $student) {
+                $student->color = $colores[$colorIndex % count($colores)];
+                $allStudents[] = $student;
+                $colorIndex++;
+            }
+        }
+
+        return view('consultancy.DatesAll', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents']));
+    }
+
     public function student($id)
     {
         $sessions = AdvisorySession::with(['proyect'])->where('id_advisor_id', $id)->get();
         $Projects = ProjectsTest::where('id_advisor_id', $id)->get();
         $projects = ProjectsTest::with('students')->where('id_advisor_id', $id)->get();
-        
+
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
@@ -133,5 +168,5 @@ class AdvisorySessionController extends Controller
 
         return back()->with('success', 'La sesión de asesoría ha sido editada exitosamente.');
     }
-    
+
 }

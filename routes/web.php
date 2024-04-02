@@ -92,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/sanciones', ManagementUserController::class);
      Route::get('/enviar-notification',function(){
         return view('books-notifications.books.test-notifications');
-     }); 
+     });
     Route::post('/not',[BooksController::class, 'notifications'])->name('sendNotification');
 
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
@@ -162,16 +162,16 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
     Route::resource('/carreras', ProgramController::class);
 /* });
  */
-/* Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
- */    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
+Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
+    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
     Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
+    Route::get('/asesorias/{id}/todas', [AdvisorySessionController::class, 'all'])->name('asesoriasTodas');
     Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
     Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
-/* }); */
-/* Route::middleware(['auth', 'role:Estudiante'])->group(function () {
- */    Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
-/* });
- */
+});
+Route::middleware(['auth', 'role:Estudiante'])->group(function () {
+     Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
+});
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 
