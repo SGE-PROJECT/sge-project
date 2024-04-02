@@ -31,8 +31,8 @@ Gestión De Usuarios
         box-shadow: 0 0 0 0 black;
     }
     .fondo{
-        text-align: center;  
-        font-size: 35px; 
+        text-align: center;
+        font-size: 35px;
         color: #293846;
         padding: 1.5%;
         text-shadow: 0px 0px 9px #808B96;
@@ -41,7 +41,8 @@ Gestión De Usuarios
 
 <h1 class="fondo text-center font-bold pt-10 pb-12">Lista de Usuarios</h1>
 
-<a  href="{{ route('users.cruduser.create')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Agregar usuario</a>
+<a  href="{{ route('users.cruduser.create')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Agregar usuario </a>
+<a  href="{{ route('users.masiveadd.index')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Agregar usuarios </a>
 
 <div class="tabla-project rounded-t-lg">
     <div class="tabla-cont-project rounded-t-lg">

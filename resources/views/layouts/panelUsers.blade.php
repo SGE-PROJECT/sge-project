@@ -105,7 +105,7 @@
                         'Presidente Académico', 'Asistente de Dirección']))
                         @else
                         <li class=" ">
-                            <a href="/"
+                            <a href="/gestion-usuarios"
                                 class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#00755e] p-1 rounded-md ">
                                 <i class='bx bx-user mr-3 text-lg'></i>
                                 <span>Usuarios</span>
@@ -301,7 +301,7 @@
                             <div class="my-2">
                                 <ul class="max-h-64 overflow-y-auto" data-tab-for="notification" data-page="notifications">
                                     @forelse (auth()->user()->notifications()->whereDate('created_at', today())->get() as $notification)
-                                     
+
                                         <li>
                                           <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
@@ -312,22 +312,22 @@
                                               </div>
                                               <d  iv class="text-[11px] text-gray-400 ">{{$notification->data['data']}}</d>
                                               <div class="text-[11px] text-slate-600">{{$notification->created_at->diffForHumans()}}</div>
-                  
+
                                             </div>
                                           </a>
                                         </li>
                                       {{--   @if ($notification->type==="App\\Notifications\\ProjectNotification")
                                         <p>este</p>
-                                          
+
                                         @endif --}}
-                                  
+
                                     @empty
                                     <li>
                                       <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
                                           <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
                                         </svg>
-                                        
+
                                         <div class="ml-2">
                                           <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">¡No hay notificaciones!
                                           </div>
@@ -335,7 +335,7 @@
                                         </div>
                                       </a>
                                     </li>
-                                      
+
                                     @endforelse
                                   </ul>
                                 <ul class="max-h-64 overflow-y-auto hidden" data-tab-for="notification"
