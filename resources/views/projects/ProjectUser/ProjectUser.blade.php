@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo')
     Gestión De Sanciones (GS)
@@ -69,71 +69,31 @@
                     <br><br>
                     <div class="cajas">
                         <ul>
+                        @foreach ($users as $student)
                             <li class="users">
                                 <img class="porfile"
-                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    src="images/avatar.jpg"
                                     alt="text">
-                                <p class="text_user">Juan Diego Villegas Gutierrez</p>
+                                <p class="text_user">{{$student->first_name}} {{$student->last_name}}</p>
                                 <p class="text_state text-green-600">Disponible</p>
                                 <button class="button-invitation" id="mostrar-invitacion"
                                     onclick="invitation()">Seleccionar</button>
                             </li>
-                            <li class="users">
-                                <img class="porfile"
-                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="">
-                                <p class="text_user">Juan Diego Villegas Gutierrez</p>
-                                <p class="text_state text-red-500">En equipo</p>
-                                <button class="button-invitation" id="mostrar-invitacion"
-                                    onclick="invitation()">Seleccionar</button>
-                            </li>
-                            <li class="users">
-                                <img class="porfile"
-                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="">
-                                <p class="text_user">Juan Diego Villegas Gutierrez</p>
-                                <p class="text_state text-green-600">Disponible</p>
-                                <button class="button-invitation" id="mostrar-invitacion"
-                                    onclick="invitation()">Seleccionar</button>
-                            </li>
-                            <div class="caja oculto">
-                                <li class="user">
-                                    <img class="porfile"
-                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        alt="">
-                                    <p class="text_user">Juan Diego Villegas Gutierrez</p>
-                                    <p class="text_state text-red-500">En equipo</p>
-                                    <button class="button-invitation" id="mostrar-invitacion"
-                                        onclick="invitation()">Seleccionar</button>
-                                </li>
-                                <li class="user">
-                                    <img class="porfile"
-                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        alt="">
-                                    <p class="text_user">Juan Diego Villegas Gutierrez</p>
-                                    <p class="text_state text-green-600">Disponible</p>
-                                    <button class="button-invitation" id="mostrar-invitacion"
-                                        onclick="invitation()">Seleccionar</button>
-                                </li>
-                                <li class="user">
-                                    <img class="porfile"
-                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                        alt="">
-                                    <p class="text_user">Juan Diego Villegas Gutierrez</p>
-                                    <p class="text_state text-green-600">Disponible</p>
-                                    <button class="button-invitation" id="mostrar-invitacion"
-                                        onclick="invitation()">Seleccionar</button>
-                                </li>
+                            @endforeach
                             </div>
+                            
                         </ul>
+                        
                     </div>
+                    
                 </div>
+                
                 <div class="card_invitation invitacion">
-
+            
                     <h2 class="text_invitation"><b>Alumno seleccionado</b></h2>
                     <div class="content_invitation">
                         <div class="user_invitation">
-                            <p class="">Juan Diego Villegas Gutierrez</p>
+                            <p class="">{{$student->first_name}} {{$student->last_name}}</p>
                             <p class="">22393183</p>
                             <div class="pt-1.5">
                                 <select class="bg-white rounded-lg cursor-pointer">
@@ -152,6 +112,7 @@
 
 
                 </div>
+                
             </div>
         </div>
     </div>

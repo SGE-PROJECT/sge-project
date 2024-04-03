@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo')
     Gestión De Sanciones (GS)
@@ -6,7 +6,7 @@
 
 @section('contenido')
 <div class="pt-4">
-<div class="w-[96%] ml-3 pl-3.5 mr-3 rounded-tl-md rounded-tr-md bg-slate-600 flex">
+<div class="w-[96%] ml-3 pl-3.5 mr-3 rounded-tl-md rounded-tr-md bg-emerald-500 flex">
     <select class="py-3 px-4 bg-white rounded-lg my-5 mr-3 flex cursor-pointer">
         <option value="carreras">Carreras</option>
         <option value="carreras">Gastronomia</option>
@@ -35,7 +35,7 @@
             <div class="w-max pl-12 pt-1.5 ml-6  px-0 mt-5 rounded  bg-white flex">
                 <div class="flex items-center">
                     <div class="w-[50%] pt-2 ">
-                        <div class="flex justify-evenly rounded pl-2 w-80 pt-0  text-white bg-slate-600
+                        <div class="flex justify-evenly rounded pl-2 w-80 pt-0  text-white bg-emerald-500
                         ">
                             <p>Equipo: <b class="">SM-53</b></p>
                             <p>Proyecto: <b class="">Proyecto Sync</b></p>
@@ -79,7 +79,7 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="flex justify-evenly  rounded text-white bg-slate-600">
+                        <div class="flex justify-evenly  rounded text-white bg-emerald-500">
                             <p><b>Asesores A/C</b></p>
                         </div>
                         <div class="bg-white px-3">
@@ -102,7 +102,7 @@
             <div class="w-max pl-12 pt-1.5 ml-6  px-0 mt-5 rounded  bg-white flex">
                 <div class="flex items-center">
                     <div class="w-[50%] pt-2 ">
-                        <div class="flex justify-evenly rounded pl-2 w-80 pt-0  text-white bg-slate-600
+                        <div class="flex justify-evenly rounded pl-2 w-80 pt-0  text-white bg-emerald-500
                         ">
                             <p>Equipo: <b class="">SM-53</b></p>
                             <p>Proyecto: <b class="">Proyecto Sync</b></p>
@@ -146,7 +146,7 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="flex justify-evenly  rounded text-white bg-slate-600">
+                        <div class="flex justify-evenly  rounded text-white bg-emerald-500">
                             <p><b>Asesores A/C</b></p>
                         </div>
                         <div class="bg-white px-3">
@@ -169,7 +169,7 @@
             <div class="w-max pl-12 pt-1.5 ml-6  px-0 mt-5 rounded  bg-white flex">
                 <div class="flex items-center">
                     <div class="w-[50%] pt-2 ">
-                        <div class="flex justify-evenly rounded pl-2 w-80 pt-0  text-white bg-slate-600
+                        <div class="flex justify-evenly rounded pl-2 w-80 pt-0  text-white bg-emerald-500
                         ">
                             <p>Equipo: <b class="">SM-53</b></p>
                             <p>Proyecto: <b class="">Proyecto Sync</b></p>
@@ -213,7 +213,7 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="flex justify-evenly  rounded text-white bg-slate-600">
+                        <div class="flex justify-evenly  rounded text-white bg-emerald-500">
                             <p><b>Asesores A/C</b></p>
                         </div>
                         <div class="bg-white px-3">

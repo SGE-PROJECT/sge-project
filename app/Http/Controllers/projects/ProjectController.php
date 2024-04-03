@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Scores;
 use Illuminate\Support\Facades\DB;
+use App\Models\UsersTest;
 
 
 
@@ -55,7 +56,8 @@ class ProjectController extends Controller
 
     public function invitation()
     {
-        return view("projects.ProjectUser.ProjectUser");
+        $users = UsersTest::all();
+        return view("projects.ProjectUser.ProjectUser", compact('users'));
     }
 
     public function dashboardproject()
