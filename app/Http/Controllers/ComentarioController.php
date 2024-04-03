@@ -41,7 +41,7 @@ class ComentarioController extends Controller
     {
         if (Auth::check() && Auth::user()->id === $comment->user_id) {
             $comment->delete();
-            return back()->with('success', 'Comentario eliminado correctamente.');
+            return back()->with('error', 'Comentario eliminado correctamente.');
         } else {
             return back()->with('error', 'No tienes permiso para eliminar este comentario.');
         }
