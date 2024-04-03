@@ -1,11 +1,11 @@
   /* Estilos CSS */
   .container {
-    width: 90%; /* Cambia el ancho al 90% */
-    max-width: auto;
+    width: 80%; /* Cambia el ancho al 90% */
+    max-width: 1200px;
     height: 100%; /* Establece la altura del contenedor al 100% del viewport */
-    padding: 40px;
+    padding: 10px;
     margin: 0 auto;
-    background-color: #f9f9f9;
+    background-color: rgba(249, 249, 249, 0);
 }
 .edit-form {
   background-color: #f9f9f9;
@@ -15,14 +15,31 @@
  justify-content: center;
 }
 .heading {
-  font-family: "Arial";
-
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
+  text-align: center;  
+  font-size: 25px; 
+  color: #293846;
+  padding: 10px 15px 20px;
+  font-weight: bold;
+  position: relative;
+  z-index: 2;
 }
 
+.names, .permission-label  {
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: bold;
+  color: #000000;
+}
+.permission-label  {
+  font-size: 16px;
+}
+.edit-form {
+  background-color: #DBEFF0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+ justify-content: center;
+}
 .form-group {
     margin-top: 30px;
     text-align: center;
@@ -87,28 +104,24 @@
     transform: translateY(15px);
     transition: all 0.35s ease;
   }
-  
-
-
 
 .checkbox-group {
     margin-top: 20px;
     max-height: 350px; 
     max-width: 1300px; 
     overflow-y: auto; 
-    
 }
-
 
 .checkbox {
     display: flex; 
     align-items: flex-end; 
     margin-left: 90px;
     margin-top: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
+
 .input-checkbox {
-  margin-left: 100px; 
+  margin-left: 100px;
 }
 
 .checkbox-label {
@@ -135,12 +148,22 @@
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: #5A94D2;
     color: #fff;
+    border-radius: 10px;
+}
+.btn-primary:hover {
+  background-color: #007bff;
+  border-radius: 10px;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
+    background-color: #94989A;
     color: #fff;
     margin-left: 10px;
+    border-radius: 10px;
+}
+.btn-secondary:hover {
+  background-color: #6c757d;
+  border-radius: 10px;
 }
