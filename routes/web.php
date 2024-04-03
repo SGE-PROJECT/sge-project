@@ -90,10 +90,14 @@ Route::middleware(['auth'])->group(function () {
         'edit' => 'users.masiveadd.edit',
         'update' => 'users.masiveadd.update',
         'destroy' => 'users.masiveadd.destroy',
-        'import' => 'users.masiveadd.import',
-        'export' => 'users.masiveadd.export',
     ]);
-    
+
+    // Ruta adicional para la importación de usuarios
+Route::post('gestion-usuarios-masiva/import', [MasiveAddController::class, 'import'])->name('users.masiveadd.import');
+
+// Ruta adicional para la exportación de la plantilla de usuarios
+Route::get('gestion-usuarios-masiva/export', [MasiveAddController::class, 'export'])->name('users.masiveadd.export');
+
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
     //-----
