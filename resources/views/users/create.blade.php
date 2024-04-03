@@ -12,7 +12,7 @@ Crear Usuario
         text-transform: uppercase;
         font-weight: 200;
         color: #ffffff;
-        background-color: #1E5C43;
+        background-color: bg-teal-500;
         border: none;
         border-radius: 10px;
         transition: all 0.3s ease 0s;
@@ -20,10 +20,9 @@ Crear Usuario
         outline: none;
     }
     .modal-button:hover {
-        background-color: #1E5C43;
         box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
         color: #ffffff;
-        transform: translateY(-7px);
+        transform: translateY(-4px);
     }
     .modal-button:active {
         transform: translateY(-1px);
@@ -31,8 +30,8 @@ Crear Usuario
     .text-pattern {
     color: transparent;
     text-align: center;
-    background-color: #025b52;
-    background-image: repeating-linear-gradient(40deg, green, green 25px, rgba(255, 255, 255, .5) 25px, rgba(255, 255, 255, .5) 50px);    
+    background-color: rgba(90, 204, 204, 0.5);
+    background-image: repeating-linear-gradient(40deg, teal, teal 25px, rgba(255, 255, 255, .5) 25px, rgba(255, 255, 255, .5) 40px);    
     background-clip: text;
     animation: color 50s linear infinite;
     background-size: 200%;    

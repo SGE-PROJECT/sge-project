@@ -1,13 +1,14 @@
 @vite('resources/css/app.css')
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Editar Anteproyecto')
 
 @section('contenido')
     <div class="rounded-lg bg-white  p-8 shadow-lg lg:col-span-3 lg:p-12">
-        <li class="flex items-center  font-sans hover:text-teal-500 font-semibold  transition-colors duration-300 cursor-pointer">
+        <li
+            class="flex items-center  font-sans hover:text-teal-500 font-semibold  transition-colors duration-300 cursor-pointer">
             <a class="text-xl" href="/projectdashboard">⭠ Regresar</a>
-        </li>   
+        </li>
         <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
         <form action="{{ route('projects.update', $proyecto->id) }}" method="POST" class="space-y-4">
             @csrf
@@ -17,7 +18,7 @@
                 <div>
                     <label class="text-sm font-semibold">Nombre Completo:</label>
                     <input name="fullname_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu nombre completo" type="text" value="{{$proyecto->fullname_student}}" />
+                        placeholder="Ingresa tu nombre completo" type="text" value="{{ $proyecto->fullname_student }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('fullname_student')
                             {{ $message }}
@@ -29,7 +30,7 @@
                 <div>
                     <label class="text-sm font-semibold">Matricula:</label>
                     <input name="id_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu matricula" type="text" value="{{$proyecto->id_student}}"  />
+                        placeholder="Ingresa tu matricula" type="text" value="{{ $proyecto->id_student }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('id_student')
                             {{ $message }}
@@ -42,7 +43,7 @@
                 <div>
                     <label class="text-sm font-semibold">Grupo:</label>
                     <input name="group_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu grupo" type="text" value="{{$proyecto->group_student}}" />
+                        placeholder="Ingresa tu grupo" type="text" value="{{ $proyecto->group_student }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('group_student')
                             {{ $message }}
@@ -53,7 +54,7 @@
                 <div>
                     <label class="text-sm font-semibold" for="phone">Número Teléfonico:</label>
                     <input name="phone_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu número teléfonico" type="tel" value="{{$proyecto->phone_student}}" />
+                        placeholder="Ingresa tu número teléfonico" type="tel" value="{{ $proyecto->phone_student }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('phone_student')
                             {{ $message }}
@@ -63,19 +64,20 @@
                 <div>
                     <label class="text-sm font-semibold" for="email">Correo Electrónico:</label>
                     <input name="email_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu correo electrónico" type="email" value="{{$proyecto->email_student}}" />
+                        placeholder="Ingresa tu correo electrónico" type="email" value="{{ $proyecto->email_student }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('email_student')
                             {{ $message }}
                         @enderror
                     </div>
                 </div>
-            </div>            
+            </div>
             <div class="grid grid-cols-1 gap-4">
                 <div>
                     <label class="text-sm font-semibold">Nombre del Proyecto:</label>
                     <input name="name_project" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa el nombre del proyecto" type="text" value="{{$proyecto->name_project}}" />
+                        placeholder="Ingresa el nombre del proyecto" type="text"
+                        value="{{ $proyecto->name_project }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('name_project')
                             {{ $message }}
@@ -86,8 +88,10 @@
             <div>
                 <label class="text-sm font-semibold">Estado del Proyecto:</label>
                 <select name="status" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm">
-                    <option value="Registrado" {{ $proyecto->status === 'Registrado' ? 'selected' : '' }}>Registrado</option>
-                    <option value="En Revisión" {{ $proyecto->status === 'En Revisión' ? 'selected' : '' }}>En Revisión</option>
+                    <option value="Registrado" {{ $proyecto->status === 'Registrado' ? 'selected' : '' }}>Registrado
+                    </option>
+                    <option value="En Revisión" {{ $proyecto->status === 'En Revisión' ? 'selected' : '' }}>En Revisión
+                    </option>
                     <option value="Rechazado" {{ $proyecto->status === 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
                     <option value="Aprobado" {{ $proyecto->status === 'Aprobado' ? 'selected' : '' }}>Aprobado</option>
                 </select>
@@ -97,13 +101,14 @@
                     @enderror
                 </div>
             </div>
-            
-            
+
+
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label class="text-sm font-semibold">Empresa:</label>
                     <input name="company_name" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa el nombre de la empresa" type="text" value="{{$proyecto->company_name}}" />
+                        placeholder="Ingresa el nombre de la empresa" type="text"
+                        value="{{ $proyecto->company_name }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('company_name')
                             {{ $message }}
@@ -115,7 +120,7 @@
                     <label class="text-sm font-semibold">Dirreción de la Empresa:</label>
                     <input name="company_address" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa la dirección de la empresa" type="text"
-                        value="{{$proyecto->company_address}}" />
+                        value="{{ $proyecto->company_address }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('company_address')
                             {{ $message }}
@@ -128,7 +133,7 @@
                     <label class="text-sm font-semibold">Nombre del Asesor Empresarial:</label>
                     <input name="advisor_business_name" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el nombre del asesor" type="text"
-                        value="{{$proyecto->advisor_business_name}}" />
+                        value="{{ $proyecto->advisor_business_name }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_name')
                             {{ $message }}
@@ -140,7 +145,7 @@
                     <label class="text-sm font-semibold">Cargo del Asesor:</label>
                     <input name="advisor_business_position" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el cargo del asesor" type="text"
-                        value="{{$proyecto->advisor_business_position}}" />
+                        value="{{ $proyecto->advisor_business_position }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_position')
                             {{ $message }}
@@ -153,7 +158,7 @@
                     <label class="text-sm font-semibold">Número Teléfonico del Asesor:</label>
                     <input name="advisor_business_phone" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el número teléfonico del asesor" type="tel"
-                        value="{{$proyecto->advisor_business_phone}}" />
+                        value="{{ $proyecto->advisor_business_phone }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_phone')
                             {{ $message }}
@@ -165,7 +170,7 @@
                     <label class="text-sm font-semibold">Correo Electrónico:</label>
                     <input name="advisor_business_email" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el correo electrónico del asesor" type="email"
-                        value="{{$proyecto->advisor_business_email}}" />
+                        value="{{ $proyecto->advisor_business_email }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_email')
                             {{ $message }}
@@ -177,7 +182,7 @@
                 <div>
                     <label class="text-sm font-semibold">Área donde se realizara el proyecto:</label>
                     <input name="project_area" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu área actual" type="text" value="{{$proyecto->project_area}}" />
+                        placeholder="Ingresa tu área actual" type="text" value="{{ $proyecto->project_area }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('project_area')
                             {{ $message }}
@@ -192,7 +197,7 @@
 
                 <div class="relative">
                     <textarea name="general_objective" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Redacta aqui..." rows="8">{{$proyecto->general_objective}}</textarea>
+                        placeholder="Redacta aqui..." rows="8">{{ $proyecto->general_objective }}</textarea>
 
                     <div class="absolute bottom-[-6px] text-red-400 font-bold text-lg">
                         @error('general_objective')
@@ -208,7 +213,7 @@
 
                 <div class="relative">
                     <textarea name="problem_statement" class="w-full rounded-lg  border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Redacta aqui..." rows="8">{{$proyecto->problem_statement}}</textarea>
+                        placeholder="Redacta aqui..." rows="8">{{ $proyecto->problem_statement }}</textarea>
 
                     <div class="absolute bottom-[-6px] text-red-400 font-bold text-lg">
                         @error('problem_statement')
@@ -226,7 +231,7 @@
 
                 <div class="relative">
                     <textarea name="justification" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Redacta aqui..." rows="8">{{$proyecto->justification}}</textarea>
+                        placeholder="Redacta aqui..." rows="8">{{ $proyecto->justification }}</textarea>
 
                     <div class="absolute bottom-[-6px] text-red-400 font-bold text-lg">
                         @error('justification')
@@ -241,7 +246,7 @@
 
                 <div class="relative">
                     <textarea name="activities" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Redacta aqui..." rows="8">{{$proyecto->activities}}</textarea>
+                        placeholder="Redacta aqui..." rows="8">{{ $proyecto->activities }}</textarea>
 
                     <div class="absolute bottom-[-6px] text-red-400 font-bold text-lg">
                         @error('activities')

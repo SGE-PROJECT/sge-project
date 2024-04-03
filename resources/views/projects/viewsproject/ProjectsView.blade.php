@@ -1,10 +1,10 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 @vite('resources/css/app.css')
 
 @section('titulo', 'Proyectos por división')
 
 @section('contenido')
-    <h2 class="text-3xl font-bold sm:text-4xl mt-4 text-center ">LISTA DE PROYECTOS</h2>
+    <h2 class="text-3xl font-bold sm:text-4xl mt-4 text-center ">LISTA DE ANTEPROYECTOS</h2>
     @foreach ($Projects as $project)
         @php
             $commentCount = $project->comments()->count();
@@ -89,7 +89,7 @@
                         </button>
 
                         <!-- Muestra el promedio de las calificaciones con estrellas -->
-                        <div class="rating mr-5 mt-4">
+                        <div class="rating mr-5">
                             @php
                                 $averageScore = number_format($project->scores()->avg('score'), 1);
                                 $fullStars = floor($averageScore);
@@ -110,7 +110,7 @@
                                     ☆
                                 @endfor
                             </span>
-                            <label class="mr-2" for="score">Puntaje: {{ $averageScore }}</label>
+                            <label class="mr-2 font-bold text-xl" for="score">Puntaje: {{ $averageScore }}</label>
                         </div>
 
                         <button type="button"
