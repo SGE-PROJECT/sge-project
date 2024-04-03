@@ -90,7 +90,7 @@
 table {
     width: 100%;
     margin-bottom: 20px;
-    color: #394C5F;
+    color: #000000;
     border-spacing: 0;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra debajo de la tabla */
@@ -111,15 +111,20 @@ tbody tr:nth-child(even) {
 }
 
 td {
-    font-weight: bold;
-    color: #394C5F;
+  padding: 15px;
+  font-size: 16px;
+  color: #090909;
+  text-align: center;
+  font-weight: 500;
 }
 
 th {
-    background-color: #394C5F;
+    background-color: #293846;
     font-weight: bold;
     color: #fff;
     padding: 8px;
+    text-align: center;
+    height: 60px;
 }
 
 .carta-payment-careers {
