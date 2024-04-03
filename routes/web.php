@@ -6,13 +6,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\auth\PostController;
 
-use App\Http\Controllers\UsersTestController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\auth\LoginControlller;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\books\BooksController;
 
-use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\ProgramController;
 use App\Http\Controllers\AdvisorySessionController;
@@ -25,7 +23,6 @@ use App\Http\Controllers\users\RegisterUserController;
 //import test
 use App\Http\Controllers\Companies\CompaniesController;
 use App\Http\Controllers\ProjectLikeController;
-use App\Http\Controllers\ProjectStudentsTestController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
@@ -92,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/sanciones', ManagementUserController::class);
      Route::get('/enviar-notification',function(){
         return view('books-notifications.books.test-notifications');
-     }); 
+     });
     Route::post('/not',[BooksController::class, 'notifications'])->name('sendNotification');
 
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
@@ -162,16 +159,16 @@ Route::get('/books/export', [BooksController::class, 'export'])->name('books.exp
     Route::resource('/carreras', ProgramController::class);
 /* });
  */
-/* Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
- */    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
+Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
+    Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
     Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
+    Route::get('/asesorias/{id}/todas', [AdvisorySessionController::class, 'all'])->name('asesoriasTodas');
     Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
     Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
-/* }); */
-/* Route::middleware(['auth', 'role:Estudiante'])->group(function () {
- */    Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
-/* });
- */
+});
+Route::middleware(['auth', 'role:Estudiante'])->group(function () {
+     Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
+});
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 

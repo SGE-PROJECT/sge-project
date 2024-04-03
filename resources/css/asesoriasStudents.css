@@ -193,7 +193,14 @@
     border-radius: 5px;
     padding: 5px 0;
 }
-
+select.select-asesorias{
+    position: relative;
+    right: 0;
+    top: 0;
+    margin: 0;
+    left: 0px;
+    outline: none;
+}
 /* Botón para cerrar el modal */
 .close {
     color: #aaa;
@@ -226,6 +233,16 @@ tbody th{
     display: flex;
     align-items:center;
     height: fit-content;
+    transition: width .3s;
+    cursor:auto;
+}
+.etiqueta i{
+    display: none;
+    animation: aparecer .5s;
+
+}
+.etiqueta:hover > i{
+    display: block;
 }
 .etiquetas2{
     display: flex;
@@ -451,6 +468,8 @@ input[type=number]::-webkit-outer-spin-button {
     height: fit-content;
     overflow: hidden;
     animation: aparecer2 .3s ease;
+    padding: 10px 0px 0px 0px;
+    margin-right: 10px;
 }
 #student-eventosContainer tbody tr:nth-child(even) {
     background: #dcdbdb;
@@ -574,17 +593,16 @@ input[type=number]::-webkit-outer-spin-button {
 .Btn_divisions:active{
     animation: desaparecer .3s ease;
 }
-.botonVereventos{
-    padding: 0 !important;
-    width: 100%;
-   display: flex;
-   margin-top: 20px !important;
-   justify-content: right;
-   margin-left: 20px !important;
-   transition: all .3s;
-}
 .todas{
    justify-content: space-between !important;
+}
+.botonVereventos{
+    padding: 0 !important;
+    display: flex;
+    justify-content: right;
+    height: 35px;
+    margin: 0 !important;
+    transition: all .3s;
 }
 .botonVereventos h3{
     font-size: 30px;
@@ -653,7 +671,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 #borrarEventoBoton:active{
     transform: scale(.9);
-    
+
 }
 .graficas{
     max-height: 200px;
@@ -662,5 +680,57 @@ input[type=number]::-webkit-outer-spin-button {
 @media (min-width: 768px){
     .tamaño-dia{
         width: 20px !important;
+    }
+  }
+  .asesorias-opciones{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 20px 10px 20px;
+    flex-wrap: wrap;
+}
+.asesorias-opciones .fechas-asesorias, .hora-asesorias{
+    display: flex;
+    gap: 20px;
+}
+@media (min-width: 768px){
+    .tamaño-dia{
+        width: 20px !important;
+    }
+  }
+  @media (max-width: 768px){
+    .botonVereventos{
+        display: block;
+        margin-bottom: 10px;
+    }
+    .botonVereventos h3{
+        width: 100%;
+    }
+    .asesorias-opciones .fechas-asesorias{
+        display: block;
+        width: 100%;
+    }
+    .asesorias-opciones .hora-asesorias{
+        display: flex;
+        gap: 20px;
+        margin-bottom: 10px;
+    }
+    .asesorias-opciones .fechas-asesorias select{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .asesorias-opciones{
+        display: block;
+    }
+    .asesorias-opciones .botonVereventos, .asesorias-opciones .botonVereventos button{
+        width: 100% !important;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+  }
+  @media (max-width: 1024px){
+    #student-eventosContainer{
+        padding: 10px 20px 10px 20px;
     }
   }

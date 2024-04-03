@@ -4,7 +4,7 @@
 
 @section('contenido')
 
-    @vite('resources/css/roles/roles.css');
+    @vite('resources/css/roles/roles.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <div class="container">
