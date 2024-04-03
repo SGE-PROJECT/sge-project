@@ -17,6 +17,7 @@ class UsersTestSeeder extends Seeder
             ['first_name' => 'Juan', 'last_name' => 'Villegas', 'email' => 'alice.smith@example.com', 'phone_number' => '1122334455', 'password' => bcrypt('password'), 'avatar' => 'avatar.jpg', 'isActive' => true],
             ['first_name' => 'Emmanuel', 'last_name' => 'Rojas Ceron', 'email' => 'bob.brown@example.com', 'phone_number' => '5566778899', 'password' => bcrypt('password'), 'avatar' => 'avatar.jpg', 'isActive' => true],
             ['first_name' => 'Angel', 'last_name' => 'Cochi', 'email' => 'bob.brown@example.com', 'phone_number' => '5566778899', 'password' => bcrypt('password'), 'avatar' => 'avatar.jpg', 'isActive' => true],
+            ['first_name' => 'Andres', 'last_name' => 'Leyva', 'email' => 'bob.brown@example.com', 'phone_number' => '5566778899', 'password' => bcrypt('password'), 'avatar' => 'avatar.jpg', 'isActive' => true],
             ['first_name' => 'Andres', 'last_name' => 'Leyva', 'email' => 'bob.brown@example.com', 'phone_number' => '5566778899', 'password' => bcrypt('password'), 'avatar' => 'avatar.jpg', 'isActive' => true]
         ]);
     }

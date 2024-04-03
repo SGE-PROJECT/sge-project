@@ -11,14 +11,14 @@ class Student extends Model
 
     protected $fillable =[
         'registration_number',
-        'id_user_id',
+        'user_id',
         'group_id',
         'academic_advisor_id',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function group()

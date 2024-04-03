@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Editar Rol')
 
@@ -15,7 +15,7 @@
 
             <div class="form-group-name">
                 <div class="input-box">
-                    <input id="name" type="text" name="name" value="{{ $role->namespanish ?: $role->name }}" required autofocus />
+                    <input id="name" type="text" name="name" value="{{ $role->name }}" required autofocus />
                     <label for="name">Nombre del rol</label>
                 </div>
             </div>

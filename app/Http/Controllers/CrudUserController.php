@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -42,13 +43,27 @@ class CrudUserController extends Controller
         ]);
 
         $user = User::create([
+
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'division_id' => $request->division_id, // Agrega la asignación de división
         ]);
 
+        $userId = $user->id; // Obtener el ID del usuario creado
+
         $user->assignRole($request->role);
+
+        if ($request->role === 'Estudiante') {
+            Student::create([
+                'user_id' => $userId,
+                'registration_number' => '123456', // Puedes establecer esto de acuerdo a tus requerimientos
+                'group_id' => 1,
+                'academic_advisor_id' => 1,
+            ]);
+        }
+
+
 
         return redirect()->route('users.cruduser.index');
     }
