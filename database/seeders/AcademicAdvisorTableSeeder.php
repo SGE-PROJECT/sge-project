@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\AcademicAdvisor;
 use App\Models\User;
-use App\Models\AcademicAdvisor;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
