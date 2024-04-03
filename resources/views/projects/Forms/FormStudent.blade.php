@@ -1,16 +1,13 @@
 @vite('resources/css/app.css')
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'FormularioAnteproyecto')
 
 @section('contenido')
     <div class="rounded-lg bg-white  p-8 shadow-lg lg:col-span-3 lg:p-12">
-        <li class="flex items-center font-sans hover:text-teal-500 text-xl antialiased font-semibold leading-normal transition-colors duration-300 cursor-pointer">
-            @if (Auth::user()->role == 'Student')
+        <li
+            class="flex items-center font-sans hover:text-teal-500 text-xl antialiased font-semibold leading-normal transition-colors duration-300 cursor-pointer">
                 <a href="proyectoinvitacion">⭠ Regresar</a>
-            @else
-                <a href="/projectdashboard">⭠ Regresar</a>
-            @endif
         </li>
         <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
         <form action="{{ route('envproyecto') }}" method="POST" class="space-y-4">
@@ -20,19 +17,17 @@
                 <div>
                     <label class="text-sm font-semibold">Nombre Completo:</label>
                     <input name="fullname_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu nombre completo" type="text" value="{{ old('fullname_student') }}" />
+                        type="text" value="{{ Auth::user()->name }}" readonly>
                     <div class="text-red-400 font-bold text-lg">
                         @error('fullname_student')
                             {{ $message }}
                         @enderror
                     </div>
                 </div>
-
-
                 <div>
                     <label class="text-sm font-semibold">Matricula:</label>
-                    <input name="id_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu matricula" type="text" value="{{ old('id_student') }}" />
+                    <input name="id_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm" type="text"
+                        value="{{ Auth::user()->student->registration_number }}" readonly></input>
                     <div class="text-red-400 font-bold text-lg">
                         @error('id_student')
                             {{ $message }}
@@ -45,20 +40,10 @@
                 <div>
                     <label class="text-sm font-semibold">Grupo:</label>
                     <input name="group_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu grupo" type="text" value="{{ old('group_student') }}" />
+                        value="{{ Auth::user()->student->group->name }}" readonly>
+                    </input>
                     <div class="text-red-400 font-bold text-lg">
                         @error('group_student')
-                            {{ $message }}
-                        @enderror
-                    </div>
-                </div>
-
-                <div>
-                    <label class="text-sm font-semibold" for="phone">Número Teléfonico:</label>
-                    <input name="phone_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu número teléfonico" type="tel" value="{{ old('phone_student') }}" />
-                    <div class="text-red-400 font-bold text-lg">
-                        @error('phone_student')
                             {{ $message }}
                         @enderror
                     </div>
@@ -66,9 +51,19 @@
                 <div>
                     <label class="text-sm font-semibold" for="email">Correo Electrónico:</label>
                     <input name="email_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu correo electrónico" type="email" value="{{ old('email_student') }}" />
+                        type="email" value="{{ Auth::user()->email }}" readonly></input>
                     <div class="text-red-400 font-bold text-lg">
                         @error('email_student')
+                            {{ $message }}
+                        @enderror
+                    </div>
+                </div>
+                <div>
+                    <label class="text-sm font-semibold" for="phone">Número Teléfonico:</label>
+                    <input name="phone_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                        placeholder="Ingresa tu número teléfonico" type="tel" value="{{ old('phone_student') }}" />
+                    <div class="text-red-400 font-bold text-lg">
+                        @error('phone_student')
                             {{ $message }}
                         @enderror
                     </div>
@@ -152,7 +147,7 @@
                 </div>
 
                 <div>
-                    <label class="text-sm font-semibold">Cargo del Asesor:</label>
+                    <label class="text-sm font-semibold">Cargo del Asesor Empresarial:</label>
                     <input name="advisor_business_position" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el cargo del asesor" type="text"
                         value="{{ old('advisor_business_position') }}" />
@@ -165,7 +160,7 @@
             </div>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                    <label class="text-sm font-semibold">Número Teléfonico del Asesor:</label>
+                    <label class="text-sm font-semibold">Número Teléfonico del Asesor Empresarial:</label>
                     <input name="advisor_business_phone" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el número teléfonico del asesor" type="tel"
                         value="{{ old('advisor_business_phone') }}" />

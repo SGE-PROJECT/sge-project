@@ -409,7 +409,6 @@ function updateCalendar() {
     let calendarContainer = document.getElementById('calendar');
     calendarContainer.innerHTML = '';
     calendarContainer.appendChild(calendar);
-    mostrarTodosLosEventos();
 }
 function populateYears() {
     let yearSelect = document.getElementById('year');

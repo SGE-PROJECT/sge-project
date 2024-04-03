@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\AcademicDirector;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,76 +14,74 @@ class AcademicDirectorTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $PresidentUser = User::create([
+        $PresidentUser = AcademicDirector::create([
             'user_id' => 42,
+            'payrol' => '1111',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $PresidentUser1 = User::create([
+        $PresidentUser1 = AcademicDirector::create([
             'user_id' => 43,
+            'payrol' => '2222',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $PresidentUser2 = User::create([
+        $PresidentUser2 = AcademicDirector::create([
             'user_id' => 44,
+            'payrol' => '3333',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $PresidentUser3 = User::create([
+        $PresidentUser3 = AcademicDirector::create([
             'user_id' => 45,
+            'payrol' => '4444',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $PresidentUser4 = User::create([
+        $PresidentUser4 = AcademicDirector::create([
             'user_id' => 46,
+            'payrol' => '5555',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $PresidentUser5 = User::create([
+        $PresidentUser5 = AcademicDirector::create([
             'user_id' => 47,
+            'payrol' => '6666',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $PresidentUser6 = User::create([
+        $PresidentUser6 = AcademicDirector::create([
             'user_id' => 48,
+            'payrol' => '7777',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $PresidentUser7 = User::create([
+        $PresidentUser7 = AcademicDirector::create([
             'user_id' => 49,
+            'payrol' => '8888',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $PresidentUser8 = User::create([
+        $PresidentUser8 = AcademicDirector::create([
             'user_id' => 50,
+            'payrol' => '9999',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $PresidentUser9 = User::create([
+        $PresidentUser9 = AcademicDirector::create([
             'user_id' => 51,
+            'payrol' => '0000',
             'division_id' => 1,
             'created_at' => now()
         ]);
-
-        $PresidentRole  = Role::findByName('Presidente Académico');
-        
-        $PresidentUser->assignRole($PresidentRole);
-        $PresidentUser1->assignRole($PresidentRole);
-        $PresidentUser2->assignRole($PresidentRole);
-        $PresidentUser3->assignRole($PresidentRole);
-        $PresidentUser4->assignRole($PresidentRole);
-        $PresidentUser5->assignRole($PresidentRole);
-        $PresidentUser6->assignRole($PresidentRole);
-        $PresidentUser7->assignRole($PresidentRole);
-        $PresidentUser8->assignRole($PresidentRole);
-        $PresidentUser9->assignRole($PresidentRole);    }
+    }
 }

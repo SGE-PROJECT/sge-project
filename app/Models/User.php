@@ -9,6 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\AdvisorySession;
 
 class User extends Authenticatable
 {
@@ -22,7 +23,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'slug',
         'email',
+        'phone_number',
+        'avatar',
+        'isActive',
         'division_id',
         'password',
     ];
@@ -85,4 +90,8 @@ class User extends Authenticatable
         return $this->hasOne(ManagmentAdmin::class);
     }
 
+    public function advisorySessionsUser()
+    {
+        return $this->hasMany(AdvisorySession::class);
+    }
 }
