@@ -90,6 +90,8 @@ Route::middleware(['auth'])->group(function () {
         'edit' => 'users.masiveadd.edit',
         'update' => 'users.masiveadd.update',
         'destroy' => 'users.masiveadd.destroy',
+        'import' => 'users.masiveadd.import',
+        'export' => 'users.masiveadd.export',
     ]);
     
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.

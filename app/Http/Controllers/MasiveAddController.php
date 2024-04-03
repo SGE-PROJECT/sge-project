@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MasiveAddController extends Controller
@@ -11,7 +12,8 @@ class MasiveAddController extends Controller
      */
     public function index()
     {
-        return view('users.masiveadd');
+        $users = User::all(); // Obtener todos los usuarios
+        return view('users.masiveadd', ['users' => $users]);
     }
 
     /**
@@ -58,6 +60,16 @@ class MasiveAddController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
+    {
+        //
+    }
+
+    public function import(Request $request)
+    {
+        //
+    }
+
+    public function export(Request $request)
     {
         //
     }
