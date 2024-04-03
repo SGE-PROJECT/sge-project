@@ -13,8 +13,8 @@
         border-radius: 10px;
         position: relative;
         overflow: hidden;
-        transition: all 0.5s ease-in;
-        z-index: 1;
+        transition: all 0.3s ease-in;
+        z-index: 2;
     }
     button.abrir-modal::before,
     button.abrir-modal::after {
@@ -28,14 +28,6 @@
         overflow: hidden;
         z-index: -1;
     }
-    button.abrir-modal::before {
-        left: -10px;
-        background: #166656;
-    }
-    button.abrir-modal::after {
-        right: -10px;
-        background: #04CAB6;
-    }
     button.abrir-modal:hover::before,
     button.abrir-modal:hover::after {
         width: 58%;
@@ -44,8 +36,9 @@
         background-color: #ddd;
     }
     tr:hover td{
-        background-color:#808B96;
+        background-color:#A5AEB8;
         color: #ffffff;
+        font: bold;
     }
     .modal-button, .modal-button2 {
         padding: 1.0em 2em;
@@ -78,20 +71,46 @@
     .modal-button:active, .modal-button2:active {
         transform: translateY(-1px);
     }
+    .rounded-lg {
+        border: 3px solid #CCD1D1;
+    }
     .fondo{
         text-align: center;  
         font-size: 35px; 
-        COLOR: #293846;
-        padding: 2%;
-        text-shadow: 0px 0px 9px #808B96;
+        color: #293846;
+        padding: 15px 10px 2px;
+        font-weight: bold;
+        position: relative;
+        z-index: 2;
+    }
+    .tabla-project {
+        position: relative;
+        z-index: 2;
+    }
+    .video-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+    .video-container video {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.5;
+        z-index: 1;
     }
 </style>
+<div class="video-container">
+    <video autoplay muted loop>
+        <source src="{{ asset('/images/roles/video3.mp4') }}" type="video/mp4">
+    </video>
 
 <div class="container mx-auto px-4 sm:px-8">
     <h1 class="fondo text-center font-bold pt-4 pb-12">
         Mis Asesorados
     </h1>
-
+    </div>
     <div class="tabla-project">
         <div class="tabla-cont-project ">
             <table class="rounded-lg">
@@ -129,7 +148,7 @@
                             Garcia
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <button id="abrir-modal" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8  mr-5 w-32">
+                            <button id="abrir-modal-1" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8  mr-5 w-32">
                                 Sancionar
                             </button>
                         </td>
@@ -149,7 +168,45 @@
                             Williams
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <button id="abrir-modal" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mr-5 w-32">
+                            <button id="abrir-modal-2" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mr-5 w-32">
+                                Sancionar
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="bg-white  dark:bg-gray-100 dark:border-gray-700">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
+                            SM-53
+                        </td>
+                        <td class="px-6 py-4">
+                            22393204
+                        </td>
+                        <td class="px-6 py-4">
+                            Guillermo
+                        </td>
+                        <td class="px-6 py-4">
+                            Garcia
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <button id="abrir-modal-4" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8  mr-5 w-32">
+                                Sancionar
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="bg-white  dark:bg-gray-100 dark:border-gray-700">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
+                            SM-53
+                        </td>
+                        <td class="px-6 py-4">
+                            22394139
+                        </td>
+                        <td class="px-6 py-4">
+                            Maria Jose
+                        </td>
+                        <td class="px-6 py-4">
+                            Lopez
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            <button id="abrir-modal-5" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8  mr-5 w-32">
                                 Sancionar
                             </button>
                         </td>
@@ -159,16 +216,16 @@
                             SM-53
                         </td>
                         <td class="px-6 py-4">
-                            22393205
+                            22394248
                         </td>
                         <td class="px-6 py-4">
-                            Anthony
+                            Victoria
                         </td>
                         <td class="px-6 py-4">
-                            Williams
+                            Cruz
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <button id="abrir-modal" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mr-5 w-32">
+                            <button id="abrir-modal-3" class="abrir-modal bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mr-5 w-32">
                                 Sancionar
                             </button>
                         </td>
@@ -179,14 +236,13 @@
     </div>
 </div>
 
+
 <div id="model-component-container" class="hidden fixed inset-0 z-10 overflow-y-auto">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <!-- Fondo del modal -->
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
         <!-- Contenedor del modal -->
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
         <!-- Modal -->
         <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
             <!-- Contenido del modal -->
@@ -227,7 +283,7 @@
     <button class="Guille">
         <div class="svg-wrapper-memo">
           <div class="svg-wrapper-si">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M19 4h-3V2h-2v2h-4V2H8v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zM5 20V7h14V6l.002 14H5z"></path><path d="m15.628 12.183-1.8-1.799 1.37-1.371 1.8 1.799zm-7.623 4.018V18h1.799l4.976-4.97-1.799-1.799z"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: msFilter "><path d="M19 4h-3V2h-2v2h-4V2H8v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zM5 20V7h14V6l.002 14H5z"></path><path d="m15.628 12.183-1.8-1.799 1.37-1.371 1.8 1.799zm-7.623 4.018V18h1.799l4.976-4.97-1.799-1.799z"></path></svg>
           </div>
         </div>
         <div class="text">Agendar</div>
@@ -237,33 +293,28 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     var modal = document.getElementById('model-component-container');
-    var btnAbrir = document.getElementById('abrir-modal');
+    var botonesAbrir = document.querySelectorAll('.abrir-modal');
     var btnCancel = document.getElementById('cancel-button');
-    // Selector para el contenido principal del modal que queremos excluir del evento de clic para cerrar
     var modalContent = document.querySelector('#model-component-container > .flex');
-
-    btnAbrir.addEventListener('click', function(event) {
-        event.preventDefault(); // Previene el comportamiento por defecto
-        modal.classList.remove('hidden');
+    // Agregar evento de clic a todos los botones
+    botonesAbrir.forEach(function(boton) {
+        boton.addEventListener('click', function(event) {
+            event.preventDefault();
+            modal.classList.remove('hidden');
+        });
     });
-
     btnCancel.addEventListener('click', function() {
         modal.classList.add('hidden');
     });
-
     window.addEventListener('click', function(event) {
-        // Verifica si el clic fue directamente en el modal (fondo), pero no en el contenido
         if (event.target === modal) {
             modal.classList.add('hidden');
         }
     });
-
-    // Esta es una medida extra para prevenir el cierre cuando se hace clic en el contenido del modal.
     modalContent.addEventListener('click', function(event) {
-        event.stopPropagation(); // Evita que el evento de clic se propague al contenedor padre
+        event.stopPropagation();
     });
 });
-
-    </script>
+</script>
 
 @endsection
