@@ -11,8 +11,8 @@
 
             <!-- Formulario de búsqueda -->
             <div class="mb-4 flex flex-col md:flex-row items-start md:items-center mr-5">
-                <input type="text" placeholder="Buscar empresa..." class="border p-2 rounded mr-2">
-                <button class="bg-[#03A696] text-white py-2 px-4 rounded">Buscar</button>
+                <input type="text" id="searchInput" placeholder="Buscar empresa..." class="border p-2 rounded mr-2">
+                <button onclick="search()" class="bg-[#03A696] text-white py-2 px-4 rounded">Buscar</button>
             </div>
 
             <!-- Detalles del filtro -->
@@ -51,7 +51,7 @@
                                         class="size-5 rounded border-gray-300" />
                                     <span class="text-sm font-medium text-gray-700">Ordenar por fecha</span>
                                 </label>
-                                <select class="text-sm border rounded p-1 ml-6">
+                                <select id="orderBySelect" class="text-sm border rounded p-1 ml-6">
                                     <option value="recent">Recientes</option>
                                     <option value="old">Más antiguos</option>
                                 </select>
@@ -74,7 +74,7 @@
 
 
         <!-- Tabla de empresas -->
-        <table class="project-table ">
+        <table id="empresaTable" class="project-table ">
             <thead>
                 <tr>
                     <th>Logotipo</th>
@@ -124,4 +124,27 @@
             </tbody>
         </table>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        function search() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("empresaTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Change index to match the column you want to filter
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 @endsection
