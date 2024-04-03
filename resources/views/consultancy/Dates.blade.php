@@ -19,9 +19,8 @@
                     $project->id => [
                         'id' => $project->id,
                         'nombre' => $project->name,
-                        'descripcion' =>
-                            json_decode($project->general_information)->detail ?? 'Descripción no disponible',
-                        'alumnos' => $project->students->pluck('id')->all(),
+                        'descripcion' =>$project->description,
+                        'alumnos' => $project->students,
                         'imagen' => $project->image,
                     ],
                 ];
@@ -29,7 +28,7 @@
             $studentsData = [];
             foreach ($allStudents as $student) {
                 $studentsData[$student->id] = [
-                    'nombre' => $student->first_name . ' ' . $student->last_name,
+                    'nombre' => $student->name,
                     'imagen' => $student->avatar,
                     'color' => $student->color,
                 ];
@@ -101,7 +100,7 @@
             </span>
 
             <div class="BtnCrearDivisions botonVereventos" id="contbtnCitas">
-                <a href="{{ route('asesoriasTodas', ['id' => auth()->user()->id ]) }}"
+                <a href="{{ route('asesoriasTodas', ['id' => auth()->user()->slug ]) }}"
                     class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors flex items-center"
                     id="">
                     <span class="Btntext_divisions">Citas</span>
@@ -280,7 +279,7 @@
                 <tbody>
                     @forelse($sessionsThisWeek as $session)
                         <tr>
-                            <td>{{ $session->proyect->name ?? 'Proyecto no especificado' }}</td>
+                            <td>{{ $session->proyect->name_project ?? 'Proyecto no especificado' }}</td>
                             <td>{{ \Carbon\Carbon::parse($session->session_date)->format('d/m/Y') }}</td>
                         </tr>
                     @empty

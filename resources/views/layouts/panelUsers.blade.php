@@ -223,25 +223,25 @@
                     <!-- ACTIVIDADES Section -->
                     <span class="text-[#fff] nav-text font-bold">ACTIVIDADES</span>
 
-                    <li class="mb-1 group">
-                        <a href="{{ route('asesorias', ['id' => auth()->user()->id]) }}"
-                            class="flex font-semibold items-center py-2 px-4 text-white rounded-md hover:text-[#d0d3d4]">
-                            <i class='bx bx-calendar-event mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Sesiones de Asesoría</span>
-                        </a>
-                    </li>
+                <li class="mb-1 group">
+                    <a href="{{ route('asesorias', ['id' => auth()->user()->slug ]) }}"
+                        class="flex font-semibold items-center py-2 px-4 text-white rounded-md hover:text-[#d0d3d4]">
+                        <i class='bx bx-calendar-event mr-3 text-lg'></i>
+                        <span class="nav-text text-sm">Sesiones de Asesoría</span>
+                    </a>
+                </li>
                 @else
                 @endif
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Estudiante']))
-                    <!-- ACTIVIDADES Section -->
-                    <span class="text-[#fff] nav-text font-bold">ACTIVIDADES</span>
-                    <li class="mb-1 group">
-                        <a href="{{ route('asesoriasStudent', ['id' => auth()->user()->id]) }}"
-                            class="flex font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md hover:text-[#d0d3d4]">
-                            <i class='bx bx-calendar-event mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Sesiones de Asesoría</span>
-                        </a>
-                    </li>
+                @if(Auth::check() && Auth::user()->hasAnyRole(['Estudiante']))
+                <!-- ACTIVIDADES Section -->
+                <span class="text-[#fff] nav-text font-bold">ACTIVIDADES</span>
+                <li class="mb-1 group">
+                    <a href="{{ route('asesoriasStudent', ['id' => auth()->user()->slug ]) }}"
+                        class="flex font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md hover:text-[#d0d3d4]">
+                        <i class='bx bx-calendar-event mr-3 text-lg'></i>
+                        <span class="nav-text text-sm">Sesiones de Asesoría</span>
+                    </a>
+                </li>
                 @else
                 @endif
 

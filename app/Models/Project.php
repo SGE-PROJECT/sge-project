@@ -6,6 +6,7 @@ use App\Models\management\Affiliated_companie;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Models\AdvisorySession;
 
 class Project extends Model
 {
@@ -52,11 +53,17 @@ class Project extends Model
     {
         return $this->hasMany(Project_likes::class);
     }
-
-
     public function Scores()
     {
         return $this->hasMany(Scores::class);
+    }
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'project_students', 'project_id', 'student_id');
+    }
+    public function advisorySessions()
+    {
+        return $this->hasMany(AdvisorySession::class);
     }
 
 

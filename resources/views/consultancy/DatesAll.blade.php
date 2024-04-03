@@ -18,9 +18,8 @@
                     $project->id => [
                         'id' => $project->id,
                         'nombre' => $project->name,
-                        'descripcion' =>
-                            json_decode($project->general_information)->detail ?? 'Descripción no disponible',
-                        'alumnos' => $project->students->pluck('id')->all(),
+                        'descripcion' =>$project->description,
+                        'alumnos' => $project->students,
                         'imagen' => $project->image,
                     ],
                 ];
@@ -28,7 +27,7 @@
             $studentsData = [];
             foreach ($allStudents as $student) {
                 $studentsData[$student->id] = [
-                    'nombre' => $student->first_name . ' ' . $student->last_name,
+                    'nombre' => $student->name,
                     'imagen' => $student->avatar,
                     'color' => $student->color,
                 ];
@@ -83,7 +82,7 @@
                         <i class="nf nf-oct-diff_added"></i>
                     </span>
                 </button>
-                <a href="{{ route('asesorias', ['id' => auth()->user()->id ]) }}" class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
+                <a href="{{ route('asesorias', ['id' => auth()->user()->slug ]) }}" class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
                     id="botonCitas2">
                     <span class="Btntext_divisions">Calendario</span>
                     <span class="svgIcon_divisions">
@@ -201,7 +200,7 @@
                             <td></td>
                         </tr>
                     </tbody>
-                    
+
                 </table>
         </div>
         </span>

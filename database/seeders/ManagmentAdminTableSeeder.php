@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\ManagmentAdmin;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,77 +14,74 @@ class ManagmentAdminTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $ManagmentAdminUser = User::create([
+        $ManagmentAdminUser = ManagmentAdmin::create([
             'user_id' => 11,
+            'payrol' => '1111',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $ManagmentAdminUser1 = User::create([
+        $ManagmentAdminUser1 = ManagmentAdmin::create([
             'user_id' => 12,
+            'payrol' => '2222',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $ManagmentAdminUser2 = User::create([
+        $ManagmentAdminUser2 = ManagmentAdmin::create([
             'user_id' => 13,
+            'payrol' => '3333',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $ManagmentAdminUser3 = User::create([
+        $ManagmentAdminUser3 = ManagmentAdmin::create([
             'user_id' => 14,
+            'payrol' => '4444',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $ManagmentAdminUser4 = User::create([
+        $ManagmentAdminUser4 = ManagmentAdmin::create([
             'user_id' => 15,
+            'payrol' => '5555',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $ManagmentAdminUser5 = User::create([
+        $ManagmentAdminUser5 = ManagmentAdmin::create([
             'user_id' => 16,
+            'payrol' => '6666',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $ManagmentAdminUser6 = User::create([
+        $ManagmentAdminUser6 = ManagmentAdmin::create([
             'user_id' => 17,
+            'payrol' => '7777',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $ManagmentAdminUser7 = User::create([
+        $ManagmentAdminUser7 = ManagmentAdmin::create([
             'user_id' => 18,
+            'payrol' => '8888',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $ManagmentAdminUser8 = User::create([
+        $ManagmentAdminUser8 = ManagmentAdmin::create([
             'user_id' => 19,
+            'payrol' => '9999',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $ManagmentAdminUser9 = User::create([
+        $ManagmentAdminUser9 = ManagmentAdmin::create([
             'user_id' => 20,
+            'payrol' => '0000',
             'division_id' => 1,
             'created_at' => now()
         ]);
-
-        $ManagmentAdminRole  = Role::findByName('Administrador de División');
-        
-        $ManagmentAdminUser->assignRole($ManagmentAdminRole);
-        $ManagmentAdminUser1->assignRole($ManagmentAdminRole);
-        $ManagmentAdminUser2->assignRole($ManagmentAdminRole);
-        $ManagmentAdminUser3->assignRole($ManagmentAdminRole);
-        $ManagmentAdminUser4->assignRole($ManagmentAdminRole);
-        $ManagmentAdminUser5->assignRole($ManagmentAdminRole);
-        $ManagmentAdminUser6->assignRole($ManagmentAdminRole);
-        $ManagmentAdminUser7->assignRole($ManagmentAdminRole);
-        $ManagmentAdminUser8->assignRole($ManagmentAdminRole);
-        $ManagmentAdminUser9->assignRole($ManagmentAdminRole);
     }
 }
