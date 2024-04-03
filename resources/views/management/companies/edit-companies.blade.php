@@ -1,4 +1,6 @@
-@extends('layouts.panel')
+
+
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Editar Empresa')
 
