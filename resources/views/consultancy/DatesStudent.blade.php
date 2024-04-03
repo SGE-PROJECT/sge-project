@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Asesorias')
 
@@ -18,9 +18,8 @@
                     $project->id => [
                         'id' => $project->id,
                         'nombre' => $project->name,
-                        'descripcion' =>
-                            json_decode($project->general_information)->detail ?? 'Descripción no disponible',
-                        'alumnos' => $project->students->pluck('id')->all(),
+                        'descripcion' =>$project->description,
+                        'alumnos' => [$project->students->first()->id],
                         'imagen' => $project->image,
                     ],
                 ];
@@ -119,7 +118,7 @@
                     id="student-solicitar">Solicitar cambio</button>
             </form>
         </div>
-        <div class="calendar-container w-full lg:w-[70%] relative z-20" id="student-calendario">
+        <div class="calendar-container w-full lg:w-[65%] relative z-20" id="student-calendario">
             <div id="student-calendar" class=""></div>
         </div>
 
@@ -198,18 +197,18 @@
                 <thead>
                     <tr>
                         <th>
-                            <div>Proyecto</div>
+                            <div>Fecha</div>
                         </th>
                         <th>
-                            <div>Fecha</div>
+                            <div>Hora</div>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($sessionsThisWeek as $session)
                         <tr>
-                            <td>{{ $session->proyect->name ?? 'Proyecto no especificado' }}</td>
                             <td>{{ \Carbon\Carbon::parse($session->session_date)->format('d/m/Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($session->session_date)->format('h:i A') }}</td>
                         </tr>
                     @empty
                         <tr>

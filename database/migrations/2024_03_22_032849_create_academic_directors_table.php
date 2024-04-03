@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('academic_directors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('division_id')->constrained('divisions');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('payrol')->unique();
+            $table->foreignId('division_id')->constrained('divisions')->onDelete('cascade');
             $table->timestamps();
         });
     }

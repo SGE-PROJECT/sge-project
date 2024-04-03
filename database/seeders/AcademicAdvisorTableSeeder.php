@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\AcademicAdvisor;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,76 +15,74 @@ class AcademicAdvisorTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $AdviserUser = User::create([
+        $AdviserUser = AcademicAdvisor::create([
             'user_id' => 21,
+            'payrol' => '1111',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $AdviserUser1 = User::create([
+        $AdviserUser1 = AcademicAdvisor::create([
             'user_id' => 22,
+            'payrol' => '2222',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $AdviserUser2 = User::create([
+        $AdviserUser2 = AcademicAdvisor::create([
             'user_id' => 23,
+            'payrol' => '3333',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $AdviserUser3 = User::create([
+        $AdviserUser3 = AcademicAdvisor::create([
             'user_id' => 24,
+            'payrol' => '4444',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $AdviserUser4 = User::create([
+        $AdviserUser4 = AcademicAdvisor::create([
             'user_id' => 25,
+            'payrol' => '5555',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $AdviserUser5 = User::create([
+        $AdviserUser5 = AcademicAdvisor::create([
             'user_id' => 26,
+            'payrol' => '6666',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $AdviserUser6 = User::create([
+        $AdviserUser6 = AcademicAdvisor::create([
             'user_id' => 27,
+            'payrol' => '7777',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $AdviserUser7 = User::create([
+        $AdviserUser7 = AcademicAdvisor::create([
             'user_id' => 28,
+            'payrol' => '8888',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $AdviserUser8 = User::create([
+        $AdviserUser8 = AcademicAdvisor::create([
             'user_id' => 29,
+            'payrol' => '9999',
             'division_id' => 1,
             'created_at' => now()
         ]);
 
-        $AdviserUser9 = User::create([
+        $AdviserUser9 = AcademicAdvisor::create([
             'user_id' => 30,
+            'payrol' => '0000',
             'division_id' => 1,
             'created_at' => now()
         ]);
-
-        $AdviserRole  = Role::findByName('Asesor Académico');
-        
-        $AdviserUser->assignRole($AdviserRole);
-        $AdviserUser1->assignRole($AdviserRole);
-        $AdviserUser2->assignRole($AdviserRole);
-        $AdviserUser3->assignRole($AdviserRole);
-        $AdviserUser4->assignRole($AdviserRole);
-        $AdviserUser5->assignRole($AdviserRole);
-        $AdviserUser6->assignRole($AdviserRole);
-        $AdviserUser7->assignRole($AdviserRole);
-        $AdviserUser8->assignRole($AdviserRole);
-        $AdviserUser9->assignRole($AdviserRole);    }
+    }
 }

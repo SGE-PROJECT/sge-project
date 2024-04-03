@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('secretaries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('division_id')->constrained();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('payrol')->unique();
+            $table->foreignId('division_id')->constrained('divisions')->onDelete('cascade');
             $table->timestamps();
         });
     }
