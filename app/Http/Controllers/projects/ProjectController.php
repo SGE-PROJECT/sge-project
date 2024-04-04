@@ -22,7 +22,10 @@ class ProjectController extends Controller
     public function index()
     {
         $Projects = Project::paginate();
-        return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
+        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
+        $completadosCount = $Projects->where('status', 'Completado')->count();
+        return view("projects.ProjectsDash.projectDashboard", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
 
     public function list()
@@ -31,11 +34,18 @@ class ProjectController extends Controller
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $completadosCount = $Projects->where('status', 'Completado')->count();
-        return view("administrator.project", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'))
-            ->with('administrator.graphProjects', compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'))
-            ->with('projects.ProjectsDash.projectDashboard', compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+        return view("administrator.project")
+            ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
-
+    public function dashgeneral()
+    {
+        $Projects = Project::all();
+        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
+        $completadosCount = $Projects->where('status', 'Completado')->count();
+        return view("administrator.dashboard.dashboard-general")
+            ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+    }
     public function invitation()
     {
         return view("projects.ProjectUser.ProjectUser");
@@ -163,8 +173,8 @@ class ProjectController extends Controller
 
         // Verificar si el usuario ya asignó una calificación al proyecto
         $existingScore = Scores::where('user_id', $user->id)
-                                ->where('project_id', $projectId)
-                                ->first();
+            ->where('project_id', $projectId)
+            ->first();
 
         if ($existingScore) {
             return redirect()->back()->with('error', 'Ya has asignado una calificación a este proyecto. No puedes cambiar tu calificación.');
@@ -189,5 +199,4 @@ class ProjectController extends Controller
 
         return redirect()->back()->with('success', 'Calificación asignada exitosamente al proyecto.');
     }
-
 }
