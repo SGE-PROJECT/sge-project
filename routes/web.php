@@ -97,6 +97,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
     Route::get('/perfil', [ProfileController::class,'index']);
+    Route::post('/perfil/actualizar-foto', [ProfileController::class, 'actualizarFoto'])->name('actualizar_foto');
+
     Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
 
 
