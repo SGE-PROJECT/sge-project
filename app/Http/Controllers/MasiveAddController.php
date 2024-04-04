@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Exports\UserExport;
+use App\Imports\UsersImport;
+use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -67,12 +69,17 @@ class MasiveAddController extends Controller
     }
 
     public function import(Request $request)
-{
-
-}
-public function exportCsv()
-{
-    return Excel::download(new UserExport, 'users.xlsx');
-}
-
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls,csv', // Asegúrate de permitir los tipos de archivo correctos
+        ]);
+    
+        Excel::import(new UsersImport, $request->file('file'));
+    
+        return back()->with('success', 'Usuarios importados correctamente.');
+    }
+    public function exportCsv()
+    {
+        return Excel::download(new UserExport, 'users.xlsx');
+    }
 }
