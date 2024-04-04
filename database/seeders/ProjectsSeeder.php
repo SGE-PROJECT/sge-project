@@ -18,7 +18,7 @@ class ProjectsSeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             Project::create([
                 'fullname_student' => 'Nombre completo estudiante ' . ($i + 1),
-                'id_student' => rand(10000000, 99999999),
+                'id_student' => ($i + 1),
                 'group_student' => 'Grupo ' . ($i + 1),
                 'phone_student' => rand(1000000000, 9999999999),
                 'email_student' => 'estudiante' . ($i + 1) . '@example.com',

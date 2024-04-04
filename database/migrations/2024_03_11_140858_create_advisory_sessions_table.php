@@ -17,9 +17,9 @@ return new class extends Migration
             $table->text('description');
             $table->boolean('is_confirmed')->default(false);
             $table->unsignedBigInteger('id_project_id');
-            $table->foreign('id_project_id')->references('id')->on('projects_tests')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('id_project_id')->references('id')->on('projects')->onUpdate('cascade')->onDelete('restrict');
             $table->unsignedBigInteger('id_advisor_id');
-            $table->foreign('id_advisor_id')->references('id')->on('users_tests')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('id_advisor_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });
     }

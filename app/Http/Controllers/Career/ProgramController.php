@@ -20,7 +20,8 @@ class ProgramController extends Controller
     {
         $programs = Program::with('programImage', 'division')->get();
         $divisions = Division::all();
-        return view('management.careers.Careers', compact('programs', 'divisions'));
+        $totalCarreras = Program::count();
+        return view('management.careers.Careers', compact('programs', 'divisions','totalCarreras'));
     }
 
     /**

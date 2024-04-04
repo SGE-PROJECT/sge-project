@@ -11,8 +11,9 @@ class AcademicAdvisor extends Model
     use HasFactory;
 
     protected $fillable = [
-    'user_id',
-    'division_id',
+        'user_id',
+        'payrol',
+        'division_id',
     ];
 
     public function user()

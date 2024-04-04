@@ -1,5 +1,5 @@
 @vite('resources/css/app.css')
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Mostrar Anteproyecto')
 

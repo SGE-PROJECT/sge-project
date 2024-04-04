@@ -3,6 +3,7 @@
 <html lang="es">
 
 <head>
+  @livewireStyles
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -104,7 +105,7 @@
             'Asistente de Dirección']))
             @else
             <li class=" ">
-              <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              <a href="/gestion-usuarios" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-user mr-3 text-lg'></i>
                 <span>Usuarios</span>
               </a>
@@ -166,16 +167,17 @@
 
 
         <!-- EMPRESAS Section -->
-        @if(Auth::check() && Auth::user()->hasAnyRole(['Asistente de Dirección']))
-        <span class="text-gray-400 nav-text font-bold">EMPRESAS</span>
+        @if (Auth::check() && Auth::user()->hasAnyRole(['Super Administrador','Estudiante','Asesor Académico']))
+        <span class="text-[#fff] nav-text font-bold">EMPRESAS</span>
+
         <li class="mb-1 group">
-          <a href={{ route ('empresas.index')}}
-            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
-            <i class='  bx bx-buildings mr-3 text-lg'></i>
-            <span class="nav-text text-sm">Empresas Afiliadas</span>
-          </a>
+            <a href={{ route('empresas.index') }}
+                class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md">
+                <i class='  bx bx-buildings mr-3 text-lg'></i>
+                <span class="nav-text text-sm">Empresas Afiliadas</span>
+            </a>
         </li>
-        @endif
+    @endif
 
         @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Presidente Académico']))
         @else
@@ -195,7 +197,7 @@
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
 
         <li class="mb-1 group">
-          <a href="{{ route('asesorias', ['id' => auth()->user()->id ]) }}"
+          <a href="{{ route('asesorias', ['id' => auth()->user()->slug ]) }}"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-calendar-event mr-3 text-lg'></i>
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
@@ -207,7 +209,7 @@
         <!-- ACTIVIDADES Section -->
         <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
         <li class="mb-1 group">
-          <a href="{{ route('asesoriasStudent', ['id' => auth()->user()->id ]) }}"
+          <a href="{{ route('asesoriasStudent', ['id' => auth()->user()->slug ]) }}"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-calendar-event mr-3 text-lg'></i>
             <span class="nav-text text-sm">Sesiones de Asesoría</span>
@@ -220,7 +222,7 @@
         <!-- PERSONAL Section -->
         <span class="text-gray-400 font-bold nav-text">PERSONAL</span>
         <li class="mb-1 group">
-          <a href="/notificaciones"
+          <a href="/admin/notificaciones"
             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
             <i class='bx bx-bell mr-3 text-lg'></i>
             <span class="nav-text text-sm">Notificaciones</span>
@@ -280,7 +282,7 @@
               <div class="top-0 left-5 absolute w-3 h-3 bg-teal-400 border-2 border-slate-400 rounded-full animate-ping">
               </div>
               <div class="top-0 left-5 absolute w-3 h-3 bg-teal-500 border-2 border-white rounded-full"></div>
-             
+
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class=" rounded-full relative"
                 viewBox="0 0 24 24" style="fill: gray;transform: ;msFilter:;">
                 <path
@@ -300,9 +302,9 @@
               <div class="my-2">
                 <ul class="max-h-64 overflow-y-auto" data-tab-for="notification" data-page="notifications">
                   @forelse (auth()->user()->notifications()->whereDate('created_at', today())->get() as $notification)
-                   
+
                       <li>
-                        <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
+                        <a href="/admin/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
                           </svg>
@@ -317,16 +319,16 @@
                       </li>
                     {{--   @if ($notification->type==="App\\Notifications\\ProjectNotification")
                       <p>este</p>
-                        
+
                       @endif --}}
-                
+
                   @empty
                   <li>
-                    <a href="/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
+                    <a href="/admin/notificaciones" class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
                       </svg>
-                      
+
                       <div class="ml-2">
                         <div class="text-[13px] text-gray-600 font-medium truncate group-hover:text-teal-500">¡No hay notificaciones!
                         </div>
@@ -334,7 +336,7 @@
                       </div>
                     </a>
                   </li>
-                    
+
                   @endforelse
                 </ul>
                 {{-- demas --}}
@@ -467,7 +469,7 @@
   <script src="{{ asset('resources/js/divisions.js') }}"></script>
   @yield('scripts')
   <link href="{{ asset('css/projectstyle.css') }}" rel="stylesheet">
-
+@livewireScripts
 </body>
 
 </html>

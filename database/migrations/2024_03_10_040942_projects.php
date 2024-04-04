@@ -37,22 +37,6 @@ return new class extends Migration
             $table->text('problem_statement');
             $table->text('justification');
             $table->text('activities');
-            $table->foreignId("academic_advisor_id")->nullable()->constrained("academic_advisors")
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
-            $table->foreignId("business_advisor_id")->nullable()->constrained("business_advisors")
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
-            $table->foreignId("id_company_id")->nullable()->constrained("affiliated_companies");
-            $table->foreignId("program_id")->nullable()->constrained("programs")
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
-            $table->foreignId("company_id")->nullable()->constrained("affiliated_companies")
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
-            $table->foreignId('group_id')->nullable()->constrained('groups')
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
             $table->foreignId('project_students_id')->nullable()->constrained('project_students')
                 ->onUpdate('restrict')
                 ->onDelete('restrict');

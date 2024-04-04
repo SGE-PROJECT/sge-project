@@ -34,6 +34,10 @@ export default {
             fontFamily: {
                 poppins: ["Poppins", "sans-serif"],
             },
+            boxShadow: {
+                "teal-500":
+                    "0 0px 8px -2px rgba(3, 166, 150, 0.1), 0 2px 6px -2px rgba(3, 166, 150, 0.06)",
+            },
         },
     },
     plugins: ["@tailwindcss/forms"],
