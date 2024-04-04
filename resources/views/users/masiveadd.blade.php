@@ -7,12 +7,8 @@ Gestión Masiva De Usuarios
 @section('contenido')
 <h1 class="text-center font-bold text-4xl py-4 text-black">Registro de usuarios</h1>
 
-<a  href="{{ route('users.masiveadd.export')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Descargar Excell</a>
-<form action="{{ route('users.masiveadd.import') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <input type="file" name="file" required>
-    <button type="submit" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white rounded hover:bg-teal-600 transition-colors">Subir Excel</button>
-</form>
+<a  href="{{ route('masiveadd.exportCsv')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Descargar Excell</a>
+<a  href="{{ route('users.masiveadd.import')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Subir Excell</a>
 
 <div class="tabla-project rounded-t-lg">
     <div class="tabla-cont-project rounded-t-lg">
