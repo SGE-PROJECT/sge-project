@@ -6,23 +6,27 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\auth\PostController;
 
+use App\Http\Controllers\MasiveAddController;
+use App\Http\Controllers\UsersTestController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\auth\LoginControlller;
+
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\books\BooksController;
-
+use App\Http\Controllers\ProjectLikeController;
+use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\ProgramController;
 use App\Http\Controllers\AdvisorySessionController;
-use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\profile\ProfileController;
 use App\Http\Controllers\projects\ProjectController;
-use App\Http\Controllers\divisions\DivisionController;
-use App\Http\Controllers\users\RegisterUserController;
 
 //import test
+use App\Http\Controllers\divisions\DivisionController;
+use App\Http\Controllers\users\RegisterUserController;
 use App\Http\Controllers\Companies\CompaniesController;
-use App\Http\Controllers\ProjectLikeController;
+use App\Http\Controllers\ProjectStudentsTestController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
@@ -67,7 +71,7 @@ Route::middleware(['auth'])->group(function () {
 
     //modulo administrativo
     Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
-    Route::resource('crud-usuarios', CrudUserController::class)->names([
+    Route::resource('gestion-usuarios', CrudUserController::class)->names([
         'index' => 'users.cruduser.index',
         'create' => 'users.cruduser.create',
         'store' => 'users.cruduser.store',
@@ -77,7 +81,22 @@ Route::middleware(['auth'])->group(function () {
         'destroy' => 'users.cruduser.destroy',
     ]);
     // Ruta específica para la actualización de usuarios
-    Route::put('crud-usuarios/{user}', [CrudUserController::class, 'update'])->name('users.cruduser.update');
+    Route::put('gestion-usuarios/{user}', [CrudUserController::class, 'update'])->name('users.cruduser.update');
+    Route::resource('gestion-usuarios-masiva', MasiveAddController::class)->names([
+        'index' => 'users.masiveadd.index',
+        'create' => 'users.masiveadd.create',
+        'store' => 'users.masiveadd.store',
+        'show' => 'users.masiveadd.show',
+        'edit' => 'users.masiveadd.edit',
+        'update' => 'users.masiveadd.update',
+        'destroy' => 'users.masiveadd.destroy',
+    ]);
+
+    // Ruta adicional para la importación de usuarios
+Route::post('gestion-usuarios-masiva/import', [MasiveAddController::class, 'import'])->name('users.masiveadd.import');
+
+// Ruta adicional para la exportación de la plantilla de usuarios
+Route::get('/users/export', [MasiveAddController::class, 'exportCsv'])->name('users.exportCsv');
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 

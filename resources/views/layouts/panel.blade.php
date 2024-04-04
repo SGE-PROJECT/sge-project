@@ -105,7 +105,7 @@
             'Asistente de Dirección']))
             @else
             <li class=" ">
-              <a href="/" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+              <a href="/gestion-usuarios" class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
                 <i class='bx bx-user mr-3 text-lg'></i>
                 <span>Usuarios</span>
               </a>
