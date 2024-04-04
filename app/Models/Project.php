@@ -6,7 +6,7 @@ use App\Models\management\Affiliated_companie;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use App\Models\AdvisorySession;
+
 
 class Project extends Model
 {
@@ -63,7 +63,7 @@ class Project extends Model
     }
     public function advisorySessions()
     {
-        return $this->hasMany(AdvisorySession::class);
+        return $this->hasMany(AdvisorySession::class, 'id_advisor_id');
     }
 
 
