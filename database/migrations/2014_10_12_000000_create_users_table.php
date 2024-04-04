@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone_number', 20)->default('');
-            $table->foreignId("division_id")->nullable()->constrained("divisions")
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
+            //$table->foreignId("division_id")->nullable()->constrained("divisions")
+            //    ->onUpdate('restrict')
+            //    ->onDelete('restrict');
             $table->string('avatar', 500)->default('avatar.jpg');
             $table->boolean('isActive')->default(true);
             $table->timestamp('email_verified_at')->nullable();
