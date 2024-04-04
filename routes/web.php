@@ -96,7 +96,7 @@ Route::middleware(['auth'])->group(function () {
 Route::post('gestion-usuarios-masiva/import', [MasiveAddController::class, 'import'])->name('users.masiveadd.import');
 
 // Ruta adicional para la exportación de la plantilla de usuarios
-Route::get('gestion-usuarios-masiva/export-csv', [MasiveAddController::class, 'exportCsv'])->name('masiveadd.exportCsv');
+Route::get('/users/export', [MasiveAddController::class, 'exportCsv'])->name('users.exportCsv');
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
