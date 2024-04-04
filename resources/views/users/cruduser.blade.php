@@ -1,4 +1,4 @@
-@extends('layouts.panelUsers')
+@extends('layouts.panel')
 
 @section('titulo')
 Gestión De Usuarios
@@ -23,8 +23,8 @@ Gestión De Usuarios
         z-index: 2;
     }
     .fondo{
-        text-align: center;  
-        font-size: 30px; 
+        text-align: center;
+        font-size: 30px;
         color: #293846;
         padding: 20px 10px 2px;
         font-weight: bold;
