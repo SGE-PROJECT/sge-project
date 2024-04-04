@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'DashboardProjects')
 
@@ -17,9 +17,6 @@
         </div>
 
         <h1 class="proyect-table-title">Anteproyectos</h1>
-        <a href="{{ route('projectform') }}">
-            <button class="project-add-Proyect">Agregar Anteproyecto</button>
-        </a>
         <table class="project-table">
             <thead>
                 <tr>
@@ -46,15 +43,7 @@
                         <td>
                             <!-- Íconos de acción -->
                             <div class="flex-dash-project">
-                                <a href="{{ route('projects.edit', $project->id) }}"
-                                    class="bg-[#03A696] hover:bg-blue-600 cursor-pointer text-white py-2 px-4 rounded mr-2 mb-1 ">Editar</a>
-                                <form method="POST" action="{{ route('projects.destroy', $project->id) }}">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit"
-                                        class="bg-[#03A696] hover:bg-red-600 cursor-pointer text-white py-2 px-4 rounded mr-2 mb-1">Eliminar</button>
-                                </form>
-
+                                <a href="{{route('projects.edit', $project-> id)}}" class="bg-[#03A696] hover:bg-blue-600 cursor-pointer text-white py-2 px-4 rounded mr-2 mb-1 ">Editar</a>                                                            
                             </div>
                         </td>
                     </tr>

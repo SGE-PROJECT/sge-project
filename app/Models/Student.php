@@ -28,6 +28,10 @@ class Student extends Model
 
     public function academicAdvisor()
     {
-        return $this->belongsTo(AcademicAdvisor::class);
+        return $this->belongsTo(AcademicAdvisor::class, 'academic_advisor_id');
+    }
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'project_students', 'student_id', 'project_id');
     }
 }

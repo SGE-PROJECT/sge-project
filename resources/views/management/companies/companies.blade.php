@@ -1,4 +1,7 @@
-@extends('layouts.panel')
+
+@extends('layouts.panelUsers')
+
+
 
 @section('titulo', 'Empresas')
 
@@ -11,8 +14,17 @@
 
             <!-- Formulario de búsqueda -->
             <div class="mb-4 flex flex-col md:flex-row items-start md:items-center mr-5">
-                <input type="text" placeholder="Buscar empresa..." class="border p-2 rounded mr-2">
-                <button class="bg-[#03A696] text-white py-2 px-4 rounded">Buscar</button>
+                <span class="flex">
+                    <input id="searchInput" class="search_divisions px-3 outline-none border-l-5" type="text"
+                        placeholder="Buscar...">
+                    <button id="searchButton" class="search-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round"
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </button>
+                </span>
             </div>
 
             <!-- Detalles del filtro -->
@@ -49,20 +61,15 @@
                                 <label for="OrderByDate" class="inline-flex items-center gap-2">
                                     <input type="radio" id="OrderByDate" name="orderBy"
                                         class="size-5 rounded border-gray-300" />
-                                    <span class="text-sm font-medium text-gray-700">Ordenar por fecha</span>
+                                    <span class="text-sm font-medium text-gray-700">Ordenar por fecha de afiliación</span>
                                 </label>
-                                <select class="text-sm border rounded p-1 ml-6">
-                                    <option value="recent">Recientes</option>
-                                    <option value="old">Más antiguos</option>
-                                </select>
                             </li>
                         </ul>
                     </div>
                 </details>
             </div>
 
-            @if (Auth::check() && Auth::user()->hasAnyRole(['Student']))
-            @else
+            @if (Auth::check() && Auth::user()->hasAnyRole(['Super Administrador']))
                 <!-- Botón para agregar usuario -->
                 <div class="mr-28 mb-4">
                     <a href="{{ route('empresas.create') }}"
@@ -74,7 +81,7 @@
 
 
         <!-- Tabla de empresas -->
-        <table class="project-table ">
+        <table id="empresaTable" class="project-table ">
             <thead>
                 <tr>
                     <th>Logotipo</th>
@@ -84,7 +91,9 @@
                     <th>Teléfono</th>
                     <th>Correo Electrónico</th>
                     <th>Fecha de Afiliación</th>
-                    <th>Acciones</th>
+                    @if (Auth::check() && Auth::user()->hasRole('Super Administrador'))
+                        <th>Acciones</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -103,9 +112,8 @@
                         <td>{{ $company->contact_phone }}</td>
                         <td>{{ $company->contact_email }}</td>
                         <td>{{ $company->affiliation_date }}</td>
-                        @if (Auth::check() && Auth::user()->hasAnyRole(['Student']))
-                        @else
-                            <td>
+                        <td>
+                            @if (Auth::check() && Auth::user()->hasRole('Super Administrador'))
                                 <div class="inline-flex">
                                     <a href="{{ route('empresas.edit', $company->id) }}"
                                         class="bg-[#03A696] hover:bg-blue-600 text-white py-2 px-4 rounded mr-2 mb-2 ">Editar</a>
@@ -117,11 +125,69 @@
                                             class="bg-[#03A696] hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
                                     </form>
                                 </div>
-                            </td>
                             @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var filter, table, tr, td, i, txtValue;
+            filter = this.value.toUpperCase();
+            table = document.getElementById("empresaTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Columna de nombre de empresa
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        });
+
+        document.getElementById('OrderByAlphabet').addEventListener('click', function() {
+            sortTable('empresaTable', 1);
+        });
+
+        document.getElementById('OrderByDate').addEventListener('click', function() {
+            sortTable('empresaTable', 6);
+        });
+
+        function sortTable(tableId, columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById(tableId);
+            switching = true;
+
+            while (switching) {
+                switching = false;
+                rows = table.getElementsByTagName('tr');
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName('td')[columnIndex];
+                    y = rows[i + 1].getElementsByTagName('td')[columnIndex];
+
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
 @endsection

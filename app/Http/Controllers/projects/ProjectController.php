@@ -53,7 +53,8 @@ class ProjectController extends Controller
 
     public function dashboardproject()
     {
-        return view("projects.ProjectsDash.projectDashboard");
+        $Projects = Project::with(['student.academicAdvisor'])->get();
+        return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
     public function viewproject()
@@ -88,9 +89,9 @@ class ProjectController extends Controller
         $proyecto = new Project();
         $proyecto->fullname_student = $request->fullname_student;
         $proyecto->id_student = $request->id_student;
-        $proyecto->group_student = $request->group_student;
-        $proyecto->phone_student = $request->phone_student;
+        $proyecto->group_student = Auth::user()->student->group->name;
         $proyecto->email_student = $request->email_student;
+        $proyecto->phone_student = $request->phone_student;
         $proyecto->startproject_date = $request->startproject_date;
         $proyecto->endproject_date = $request->endproject_date;
         $proyecto->name_project = $request->name_project;
