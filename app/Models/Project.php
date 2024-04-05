@@ -37,6 +37,7 @@ class Project extends Model
         'id_program_id',
         'id_company_id',
         'status',
+        'is_project',
     ];
 
     protected $casts = [
