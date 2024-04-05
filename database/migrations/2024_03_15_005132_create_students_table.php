@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->string('registration_number')->unique();
             $table->foreignId('academic_advisor_id')->constrained('academic_advisors')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreignId('book_id')->constrained()->inDelete('cascade');
+            $table->foreignId('book_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }
