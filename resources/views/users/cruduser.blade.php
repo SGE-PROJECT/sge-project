@@ -1,4 +1,4 @@
-@extends('layouts.panelUsers')
+@extends('layouts.panel')
 
 @section('titulo')
 Gestión De Usuarios
@@ -23,8 +23,8 @@ Gestión De Usuarios
         z-index: 2;
     }
     .fondo{
-        text-align: center;  
-        font-size: 30px; 
+        text-align: center;
+        font-size: 30px;
         color: #293846;
         padding: 20px 10px 2px;
         font-weight: bold;
@@ -60,8 +60,9 @@ Gestión De Usuarios
         <source src="{{ asset('/images/roles/video2.mp4') }}" type="video/mp4">
     </video>
 <h1 class="fondo text-center font-bold pt-10 pb-12">Lista de Usuarios</h1>
-<a  href="{{ route('users.cruduser.create')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors mb-2 sm:mb-0 md:mb-2 lg:mb-0">Agregar usuario</a>
-</div>
+
+<a  href="{{ route('users.cruduser.create')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Agregar usuario </a>
+<a  href="{{ route('users.masiveadd.index')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Agregar usuarios </a>
 
 <div class="tabla-project rounded-t-lg">
     <div class="tabla-cont-project rounded-t-lg">
@@ -95,7 +96,7 @@ Gestión De Usuarios
                         {{ $user->email }}
                     </td>
                     <td class="py-4 px-6">
-                        {{$user->division->name ?? 'Sin división'}}
+                        {{$user->division_name ?? 'Sin división'}}
                     </td>
                     <td class="py-4 px-6">
                         {{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}

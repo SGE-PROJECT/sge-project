@@ -11,6 +11,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Scores;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+
 
 
 
@@ -60,14 +62,16 @@ class ProjectController extends Controller
 
     public function dashboardproject()
     {
-        return view("projects.ProjectsDash.projectDashboard");
+        $Projects = Project::with(['student.academicAdvisor'])->get();
+        return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
     public function viewproject()
     {
-        $Projects = Project::paginate(3);
+        $Projects = Project::where('is_project', true)->paginate(3);
         return view('projects.viewsproject.ProjectsView', compact('Projects'));
     }
+
 
     public function projectform()
     {
@@ -95,9 +99,9 @@ class ProjectController extends Controller
         $proyecto = new Project();
         $proyecto->fullname_student = $request->fullname_student;
         $proyecto->id_student = $request->id_student;
-        $proyecto->group_student = $request->group_student;
-        $proyecto->phone_student = $request->phone_student;
+        $proyecto->group_student = Auth::user()->student->group->name;
         $proyecto->email_student = $request->email_student;
+        $proyecto->phone_student = $request->phone_student;
         $proyecto->startproject_date = $request->startproject_date;
         $proyecto->endproject_date = $request->endproject_date;
         $proyecto->name_project = $request->name_project;
@@ -112,6 +116,16 @@ class ProjectController extends Controller
         $proyecto->problem_statement = $request->problem_statement;
         $proyecto->justification = $request->justification;
         $proyecto->activities = $request->activities;
+
+
+        // Verificar qué botón se presionó
+        if ($request->action == 'publicar') {
+            $proyecto->status = 'En revision'; // Estado "Publicado"
+            $proyecto->is_project = 1; // Marcar como proyecto
+        } else {
+            $proyecto->status = 'Registrado'; // Estado "Registrado" por defecto
+            $proyecto->is_project = 0; // No marcar como proyecto
+        }
 
         $proyecto->save();
 
@@ -131,10 +145,6 @@ class ProjectController extends Controller
         return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user]);
     }
 
-
-
-
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -152,6 +162,13 @@ class ProjectController extends Controller
     {
         $proyecto = Project::find($id);
         $proyecto->update($request->all());
+
+        // Verificar si se está publicando el proyecto
+        if ($request->action == 'publicar') {
+            $proyecto->status = 'En revision'; // Cambiar el estado a 'En revisión'
+            $proyecto->is_project = 1; // Marcar como proyecto
+            $proyecto->save(); // Guardar el cambio en la base de datos
+        }
 
         return redirect()->route('projects.index')->withInput()->with('success', 'Proyecto actualizado correctamente.');
     }
@@ -174,14 +191,23 @@ class ProjectController extends Controller
     }
 
 
+
     public function rateProject(Request $request, $projectId)
     {
+        // Obtener el usuario actual
         $user = Auth::user();
 
+        // Verificar si el usuario es un estudiante
+        if ($user->roles->contains('name', 'Estudiante')) {
+            // Si el usuario es un estudiante, redirigir con un mensaje de error
+            return redirect()->back()->with('error', 'Los estudiantes no pueden asignar puntajes a proyectos.');
+        }
+
+        // Si el usuario no es un estudiante, proceder con la asignación de puntaje
         // Verificar si el usuario ya asignó una calificación al proyecto
         $existingScore = Scores::where('user_id', $user->id)
-                                ->where('project_id', $projectId)
-                                ->first();
+            ->where('project_id', $projectId)
+            ->first();
 
         if ($existingScore) {
             return redirect()->back()->with('error', 'Ya has asignado una calificación a este proyecto. No puedes cambiar tu calificación.');

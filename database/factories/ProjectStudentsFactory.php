@@ -17,8 +17,8 @@ class ProjectStudentsFactory extends Factory
     public function definition(): array
     {
         return [
-            'project_id' => $this -> faker -> numberBetween(1, 20),
-            'student_id' => $this -> faker -> numberBetween(1, 20),
+            'project_id' => $this -> faker -> numberBetween(1, 5),
+            'student_id' => $this -> faker -> numberBetween(1, 10),
             'is_main_student' => $this -> faker -> numberBetween(1, 10),
         ];
     }

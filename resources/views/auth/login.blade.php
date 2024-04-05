@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="icon" href="{{ asset('images/logo_sge.svg') }}">
     <link href="{{ asset('css/Login.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -82,7 +83,7 @@
         function submitForm() {
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
-            
+
             // Assign values to hidden inputs if necessary
             document.getElementById('email').value = email;
             document.getElementById('password').value = password;
