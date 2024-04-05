@@ -21,7 +21,6 @@ return new class extends Migration
             //$table->foreignId("division_id")->nullable()->constrained("divisions")
             //    ->onUpdate('restrict')
             //    ->onDelete('restrict');
-            $table->string('avatar', 500)->default('avatar.jpg');
             $table->boolean('isActive')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
