@@ -29,7 +29,7 @@
 
 
             <div class="w-full md:w-1/2 flex justify-center">
-                <a class="w-11/12">
+                <a href="{{ route('projectteams') }}" class="w-11/12">
                     <div class="bg-white rounded overflow-hidden shadow-lg mt-6 h-full relative card-invitation">
                         <img class="w-full h-40 object-cover" src="images/projects/projectuser/equipo.jpg"
                             alt="Imagen de la tarjeta">

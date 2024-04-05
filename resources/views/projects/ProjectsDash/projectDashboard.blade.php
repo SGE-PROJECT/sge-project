@@ -38,7 +38,7 @@
                         <td>Rafael Villegas</td>
                         <td>Software</td>
                         <td>{{ $project->company_name }}</td>
-                        <td>{{ $project->is_project ? 'Sí' : 'No' }}</td> 
+                        <td>{{ $project->is_project ? 'Sí' : 'No' }}</td>
                         <td>
                             <!-- Íconos de acción -->
                             <div class="flex-dash-project">

@@ -60,6 +60,7 @@ class ProjectController extends Controller
         return view("projects.ProjectUser.ProjectUser", compact('users'));
     }
 
+    
     public function dashboardproject()
     {
         $Projects = Project::with(['student.academicAdvisor'])->get();
@@ -144,8 +145,16 @@ class ProjectController extends Controller
     public function edit(string $id)
     {
         $proyecto = Project::find($id);
+        
+        $approvedStates = ['Aprobado', 'En curso', 'Finalizado', 'Reprobado'];
+        
+        if (in_array($proyecto->status, $approvedStates)) {
+            return view('projects.Forms.edit-formstudent-isproject', compact('proyecto'));
+        }
+        
         return view('projects.Forms.edit-formstudent', compact('proyecto'));
     }
+    
 
 
     /**
@@ -155,7 +164,13 @@ class ProjectController extends Controller
     {
         $proyecto = Project::find($id);
         $proyecto->update($request->all());
-
+    
+        // Verificar si el estado ha cambiado a 'Aprobado' y actualizar is_project en consecuencia
+        if ($request->status === 'Aprobado' && !$proyecto->is_project) {
+            $proyecto->is_project = true;
+            $proyecto->save();
+        }
+    
         return redirect()->route('projects.index')->withInput()->with('success', 'Proyecto actualizado correctamente.');
     }
 
