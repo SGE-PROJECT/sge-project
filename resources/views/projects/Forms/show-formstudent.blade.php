@@ -208,7 +208,8 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <div class="flex items-center">
-                                        <img src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                        <img src="{{ asset($like->academicAdvisor->user->photo) }}"
+                                            
                                             alt="Avatar" class="w-8 h-8 rounded-full mr-2">
                                         <p class="text-white font-bold">{{ $like->academicAdvisor->user->name }}</p>
 
@@ -315,7 +316,7 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <div class="flex items-center">
-                                            <img src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                            <img src="{{ asset($score->AcademicAdvisor->user->photo) }}"
                                                 alt="Avatar" class="w-8 h-8 rounded-full mr-2">
                                             <p class="text-white font-bold">{{ $score->AcademicAdvisor->user->name }}</p>
                                         </div>
