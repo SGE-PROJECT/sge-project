@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Projects\ProjectFormRequest;
 use App\Models\AcademicAdvisor;
+use App\Models\BusinessAdvisor;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -63,7 +64,7 @@ class ProjectController extends Controller
 
     public function viewproject()
     {
-        $Projects = Project::where('is_project', true)->paginate(3);
+        $Projects = Project::where('is_project', false)->paginate(3);
         return view('projects.viewsproject.ProjectsView', compact('Projects'));
     }
 
@@ -91,6 +92,15 @@ class ProjectController extends Controller
      */
     public function store(ProjectFormRequest $request)
     {
+
+        $business_advisor = BusinessAdvisor::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'position' => $request->position,
+
+        ]);
+
         $proyecto = new Project();
         $proyecto->fullname_student = $request->fullname_student;
         $proyecto->id_student = $request->id_student;
@@ -102,10 +112,7 @@ class ProjectController extends Controller
         $proyecto->name_project = $request->name_project;
         $proyecto->company_name = $request->company_name;
         $proyecto->company_address = $request->company_address;
-        $proyecto->advisor_business_name = $request->advisor_business_name;
-        $proyecto->advisor_business_position = $request->advisor_business_position;
-        $proyecto->advisor_business_phone = $request->advisor_business_phone;
-        $proyecto->advisor_business_email = $request->advisor_business_email;
+        $proyecto->business_advisor_id = $business_advisor->id;
         $proyecto->project_area = $request->project_area;
         $proyecto->general_objective = $request->general_objective;
         $proyecto->problem_statement = $request->problem_statement;
