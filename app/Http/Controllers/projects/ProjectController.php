@@ -31,6 +31,7 @@ class ProjectController extends Controller
     public function list()
     {
         $Projects = Project::all();
+        
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $completadosCount = $Projects->where('status', 'Completado')->count();

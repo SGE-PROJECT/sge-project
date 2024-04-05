@@ -2,6 +2,7 @@
 @extends('layouts.panel')
 @section('titulo', 'Proyectos')
 @section('contenido')
+
     <h1 class="text-3xl font-bold text-center mt-5">Proyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
     <div class="flex flex-wrap justify-center gap-5 p-5">
@@ -180,9 +181,10 @@
         </div>
         <!-- CONTENEDOR DE LA PAGINACIÓN -->
     </div>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
     <script>
@@ -219,6 +221,17 @@
                         }
                     }
                 }
+            });
+        });
+    </script>
+    <!-- export Scripts -->
+    <script>
+        $(document).ready(function() {
+            $('#tabla-proyectos').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
             });
         });
     </script>
