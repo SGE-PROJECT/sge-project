@@ -110,7 +110,7 @@ Route::get('/users/export', [MasiveAddController::class, 'exportCsv'])->name('us
         return view('books-notifications.books.test-notifications');
      });
     Route::post('/not',[BooksController::class, 'notifications'])->name('sendNotification');
-
+Route::get('/scraping',[BooksController::class, 'imageBooks']);
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
     Route::get('/perfil', [ProfileController::class,'index']);
     Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
