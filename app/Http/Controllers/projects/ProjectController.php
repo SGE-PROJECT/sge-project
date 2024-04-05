@@ -26,37 +26,31 @@ class ProjectController extends Controller
     public function index()
     {
         $Projects = Project::paginate();
-        return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
+        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
+        $completadosCount = $Projects->where('status', 'Completado')->count();
+        return view("projects.ProjectsDash.projectDashboard", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
 
     public function list()
     {
-        $Projects = Project::paginate();
         $Projects = Project::all();
-
-        $enDesarrolloCount = 0;
-        $reprobadosCount = 0;
-        $completadosCount = 0;
-
-        // Contar los proyectos según su estado
-        foreach ($Projects as $project) {
-            switch ($project->status) {
-                case 'En desarrollo':
-                    $enDesarrolloCount++;
-                    break;
-                case 'Reprobado':
-                    $reprobadosCount++;
-                    break;
-                case 'Completado':
-                    $completadosCount++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        return view("administrator.project", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+        
+        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
+        $completadosCount = $Projects->where('status', 'Completado')->count();
+        return view("administrator.project")
+            ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
-
+    public function dashgeneral()
+    {
+        $Projects = Project::all();
+        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
+        $completadosCount = $Projects->where('status', 'Completado')->count();
+        return view("administrator.dashboard.dashboard-general")
+            ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+    }
     public function invitation()
     {
         return view("projects.ProjectUser.ProjectUser");

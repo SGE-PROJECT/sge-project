@@ -8,7 +8,7 @@
     background-color: rgba(249, 249, 249, 0);
 }
 .edit-form {
-  background-color: #f9f9f9;
+  background-color: #EDF1F5;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -64,7 +64,7 @@
   }
   input,
   label {
-    font-family: "Arial";
+    font-family: "Helvetica";
     text-align: left;
     color: #000000;
     cursor: text;
@@ -108,7 +108,7 @@
 .checkbox-group {
     margin-top: 20px;
     max-height: 350px; 
-    max-width: 1300px; 
+    max-width: 1250px; 
     overflow-y: auto; 
 }
 
@@ -148,13 +148,9 @@
 }
 
 .btn-primary {
-    background-color: #5A94D2;
+    background-color: #38B2AC;
     color: #fff;
     border-radius: 10px;
-}
-.btn-primary:hover {
-  background-color: #007bff;
-  border-radius: 10px;
 }
 
 .btn-secondary {
@@ -162,8 +158,4 @@
     color: #fff;
     margin-left: 10px;
     border-radius: 10px;
-}
-.btn-secondary:hover {
-  background-color: #6c757d;
-  border-radius: 10px;
 }

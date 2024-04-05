@@ -51,7 +51,7 @@ class CrudUserController extends Controller
 
         return view('users.cruduser', ['users' => $users]);
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -87,7 +87,6 @@ class CrudUserController extends Controller
             'slug' => $slug,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            //'division_id' => $request->division_id,
             'phone_number' => $request->phone_number,
             'avatar' => $request->avatar,
             'isActive' => $request->isActive,
