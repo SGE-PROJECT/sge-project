@@ -5,7 +5,7 @@
 @endsection
 
 @section('contenido')
-@vite('resources/css/roles/crateroles.css');
+@vite('resources/css/roles/crateroles.css')
 
     <div class="container">
         <div class="heading">

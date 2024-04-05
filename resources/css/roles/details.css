@@ -8,7 +8,7 @@
     background-color: rgba(249, 249, 249, 0);
 }
 .edit-form {
-  background-color: #DBEFF0;
+  background-color: #EDF1F5;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -36,7 +36,7 @@
 }
 
 .permission-label{
-  
+  font-weight: bold;
   text-align: center; /* Centramos el texto horizontalmente */
 
 }
@@ -98,12 +98,10 @@
     transition: all 0.35s ease;
   }
   
-
-
-
+  
 .checkbox-group {
     margin-top: 20px;
-    max-height: 300px; 
+    max-height: 350px; 
     max-width: 1250px; 
     overflow-y: auto; 
 }
@@ -134,24 +132,14 @@
 }
 
 .btn-primary {
-    background-color: #5A94D2;
+    background-color: #38B2AC;
     color: #fff;
     border-radius: 10px;
-}
-.btn-primary:hover {
-  background-color: #007bff;
-  color: #fff;
-  border-radius: 10px;
 }
 
 .btn-secondary {
     background-color: #94989A;
     color: #fff;
     margin-left: 10px;
-    border-radius: 10px;
-}
-
-.btn-secondary:hover {
-    background-color: #6c757d;
     border-radius: 10px;
 }

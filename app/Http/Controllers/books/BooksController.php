@@ -82,21 +82,13 @@ class BooksController extends Controller
             'author' => 'required|string|max:255',
             'editorial' => 'required|string|max:255',
             'year_published' => 'required|integer|min:1900|max:' . date('Y'),
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:300',
             'student' => 'required|string|max:255',
             'tuition' => 'required|string|max:255',
             'image_book' => [
                 'required',
                 'image',
                 'mimes:jpeg,png,jpg',
-                // Tamaño máximo del archivo en kilobytes
-                /* function ($attribute, $value, $fail) {
-                    // Verificar el tamaño de la imagen en píxeles
-                    list($width, $height) = getimagesize($value);
-                    if ($width > 900 || $height > 1200) {
-                        $fail('La imagen debe tener un ancho máximo de 900px y un alto máximo de 1200px.');
-                    }
-                }, */
             ],
             'estate' => 'required|boolean',
         ]);
