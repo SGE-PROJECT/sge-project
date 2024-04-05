@@ -3,15 +3,18 @@
 namespace App\Exports;
 
 use App\Models\User;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class UserExport implements FromCollection
+
+class UserExport implements FromView
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    use \Maatwebsite\Excel\Concerns\Exportable;
+
+    public function view(): View
     {
-        return User::all();
+        return view('exports.users', [
+            'users' => User::with('roles')->get() // Asegúrate de ajustar la consulta según tus necesidades
+        ]);
     }
 }

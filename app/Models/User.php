@@ -28,7 +28,7 @@ class User extends Authenticatable
         'phone_number',
         'avatar',
         'isActive',
-        'division_id',
+        //'division_id',
         'password',
     ];
 
@@ -60,10 +60,11 @@ class User extends Authenticatable
     }
 
     // Agrega una relación con el modelo Division, si existe
-    public function division()
-    {
-        return $this->belongsTo(Division::class, 'division_id');
-    }
+    
+    //public function division()
+    //{
+    //    return $this->belongsTo(Division::class, 'division_id');
+    //}
 
     // Agrega una relación con el modelo Secretary, si existe
     public function secretary()
