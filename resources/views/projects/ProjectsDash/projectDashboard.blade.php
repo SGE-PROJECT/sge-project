@@ -8,8 +8,9 @@
         <link rel="stylesheet" href="{{ asset('css/projects/projectDashboardStyle.css') }}">
 
         <div class="project-administrator-card">
-            @include('administrator.graph-projects', ['number' => 12, 'name' => 'Proyectos'])
+            @include('administrator.graph-projects')
         </div>
+
 
         <div class="project-section-projects">
             @include('administrator.section-projects', ['number' => 12, 'name' => 'Proyectos'])
@@ -38,7 +39,7 @@
                         <td>Rafael Villegas</td>
                         <td>Software</td>
                         <td>{{ $project->company_name }}</td>
-                        <td>{{ $project->is_project ? 'Sí' : 'No' }}</td> 
+                        <td>{{ $project->is_project ? 'Sí' : 'No' }}</td>
                         <td>
                             <!-- Íconos de acción -->
                             <div class="flex-dash-project">
@@ -46,7 +47,6 @@
                             </div>
                         </td>
                     </tr>
-                    
                 @endforeach
             </tbody>
         </table>
@@ -57,8 +57,7 @@
 
     @include('layouts.modal', [
         'title' => 'Eliminar Proyecto',
-        'message' =>
-            '¿Estás seguro de que deseas borrar el proyecto? Esta acción no se puede deshacer.',
+        'message' => '¿Estás seguro de que deseas borrar el proyecto? Esta acción no se puede deshacer.',
         'cancelButton' => 'Cancelar',
         'confirmButton' => 'Eliminar',
     ])
