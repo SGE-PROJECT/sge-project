@@ -111,9 +111,15 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::post('/not', [BooksController::class, 'notifications'])->name('sendNotification');
 
-    Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
-    Route::get('/perfil', [ProfileController::class, 'index']);
-    Route::get('/registrar-usuario', [RegisterUserController::class, 'index']);
+    Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
+    Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
+    Route::delete('/configurar-cuenta/{id}/eliminar-foto', [ManagementConfiguration::class, 'destroyProfilePhoto'])->name('configurar_cuenta.remove_photo');
+    
+
+    Route::get('/perfil', [ProfileController::class,'index']);
+    Route::post('/perfil/actualizar-foto', [ProfileController::class, 'actualizarFoto'])->name('actualizar_foto');
+
+    Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
 
 
     Route::get('libros/slug/{slug}', [BooksController::class, 'show'])->name('libros.show');
