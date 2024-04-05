@@ -27,6 +27,7 @@ class User extends Authenticatable
         'email',
         'phone_number',
         'avatar',
+        'photo',
         'isActive',
         //'division_id',
         'password',
@@ -60,7 +61,7 @@ class User extends Authenticatable
     }
 
     // Agrega una relación con el modelo Division, si existe
-    
+
     //public function division()
     //{
     //    return $this->belongsTo(Division::class, 'division_id');
