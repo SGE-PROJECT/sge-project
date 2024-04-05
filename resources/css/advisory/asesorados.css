@@ -196,6 +196,151 @@
 .rojo:hover{
     background-color: #A52A2A !important;
 }
+#borrarEventoBoton{
+    background-color: #e00;
+    transition: all .3s;
+}
+#borrarEventoBoton:hover{
+    background-color: rgb(216, 4, 4);
+}
+#borrarEventoBoton:active{
+    transform: scale(.9);
+
+}
+.modal-background {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.asesorias-formulario{
+    flex-grow: 1;
+    min-width: 200px;
+    padding: 1.5rem 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    height: fit-content;
+    animation: aparecer2 .3s ease;
+}
+.asesorias-formulario *{
+    width: 100%;
+    margin-bottom: 5px;
+}
+.asesorias-formulario h4{
+    color: #293846;
+    font-weight: 500;
+    font-size: 25px;
+    text-align: center;
+    text-wrap:balance;
+    margin-bottom: 20px;
+}
+.asesorias-formulario p{
+    font-size: 18px;
+    font-weight:normal;
+    color: #293846;
+}
+.asesorias-formulario button{
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+#error2{
+    display: none;
+    border:2px solid #e00;
+    border-radius: 5px;
+    text-align: center;
+    color: #e00;
+    background-color: rgb(253, 195, 195);
+    margin-bottom: 20px;
+    padding: 3px;
+    animation: aparecer2 .3s ease;
+}
+.asesorias-formulario input{
+    color: #293846;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    padding: 0px 5px;
+    outline: 0.3px solid #888;
+    transition: all .3s;
+}
+.asesorias-formulario textarea{
+    color: #293846;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 0px 5px;
+    height: 60px;
+    outline: 0.3px solid #888;
+    transition: all .3s;
+    resize: none;
+}
+.motivo{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+#motivo{
+    margin: 0;
+}
+.motivo p, #editContador{
+    right: 5px;
+    text-align: right;
+    font-size: 12px;
+}
+#editContador{
+    width: 100%;
+    text-align: right;
+    display: block;
+}
+#editMotivo{
+    margin: 0px;
+}
+.asesorias-formulario input:focus{
+    outline-color: #293846;
+}
+.asesorias-formulario textarea:focus{
+    outline-color: #293846;
+}
+.close {
+    color: #aaa;
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-asesorias{
+    max-width: 300px;
+    position: relative;
+}
+.modal-asesorias .close{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 30px;
+    width: fit-content;
+    cursor: pointer;
+}
+.modal-asesorias h2{
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 @media (max-width: 768px){
     .asesorias-opciones{
         justify-content: center;
