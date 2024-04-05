@@ -19,7 +19,7 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->identifier_number }}</td>
                 <td>{{ implode(', ', $user->roles->pluck('name')->toArray()) }}</td>
-                <td>{{ $user->division->name ?? 'Sin división' }}</td>
+                <td>{{ $user->division_name  ?? 'Sin división' }}</td>
                 <td>{{ $user->phone_number }}</td>
                 <td>{{ $user->isActive ? 'Yes' : 'No' }}</td>
             </tr>
