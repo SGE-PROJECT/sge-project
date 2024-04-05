@@ -210,8 +210,9 @@
                                     <div class="flex items-center">
                                         <img src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
                                             alt="Avatar" class="w-8 h-8 rounded-full mr-2">
-                                        <p class="text-white font-bold">{{ $like->user->name }}</p>
-                                    </div>
+                                            <p class="text-white font-bold">{{ $like->academicAdvisor->user->name }}</p>
+
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +253,7 @@
                                     <div class="flex items-center">
                                         <img src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
                                             alt="Avatar" class="w-8 h-8 rounded-full mr-2">
-                                        <p class="text-gray-800 font-bold">{{ $comment->user->name }} <i
+                                        <p class="text-gray-800 font-bold">{{ $comment->academic_advisor->user->name }} <i
                                                 class='bx bxs-badge-check text-[#03A696] text-2xl'></i>
                                         </p>
                                     </div>

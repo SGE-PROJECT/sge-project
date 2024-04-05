@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcademicAdvisor;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 use App\Models\Project;
@@ -18,9 +19,11 @@ class ComentarioController extends Controller
     if (Auth::check()) {
         $user = Auth::user();
 
+        $getIdAdvisor = AcademicAdvisor::where('user_id', $user->id)->first();
+
         $comment = new Comment();
         $comment->content_message = $validatedData['content_message'];
-        $comment->user_id = $user->id;
+        $comment->academic_advisor_id = $getIdAdvisor->id;
         $comment->project_id = $project->id;
         $comment->save();
 
