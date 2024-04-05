@@ -3,7 +3,7 @@
 @section('titulo', 'Editar Rol')
 
 @section('contenido')
-@vite('resources/css/roles/edit.css');
+@vite('resources/css/roles/edit.css')
 
     <div class="container">
         <div class="heading">
@@ -13,10 +13,11 @@
             @csrf
             @method('PUT')
 
+            <div class="edit-for">
             <div class="form-group-name">
                 <div class="input-box">
                     <input id="name" type="text" name="name" value="{{ $role->name }}" required autofocus />
-                    <label for="name">Nombre del rol</label>
+                    <label class="names" for="name">Nombre del rol</label>
                 </div>
             </div>
             
@@ -43,5 +44,6 @@
             </div>
         </form>
     </div>
+</div>
     
 @endsection

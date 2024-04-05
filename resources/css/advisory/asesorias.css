@@ -1,0 +1,743 @@
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+@font-face {
+    font-family: 'helvetica';
+    src: url('../fonts/Helvetica.ttf') format('ttf');
+}
+@font-face {
+    font-family: 'roboto';
+    src: url('../fonts/Roboto.ttf') format('ttf');
+}
+@font-face {
+    font-family: 'lato';
+    src: url('../fonts/Lato.ttf') format('ttf');
+}
+
+#nombre{
+    outline: none;
+}
+.limitar2{
+    max-height: 70px;
+    overflow-y: scroll;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
+}
+.vista_asesorias{
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+    justify-content: center;
+    gap: 10px;
+}
+.vista_asesorias > * {
+    align-self: flex-start;
+}
+
+/* Anula align-items: flex-end para el último elemento hijo */
+.vista_asesorias > *:last-child {
+    align-self: auto;
+}
+.vista_asesorias .Btntext_divisions {
+    text-transform:none !important;
+}
+#calendar, #dia2, #student-dia2{
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
+}
+#calendar table, #dia2 table , #student-dia2 table{
+    width: 100%;
+    border-collapse: collapse;
+    animation: aparecer2 .3s ease;
+}
+
+#calendar th,
+#calendar td{
+    border: 1px solid #888;
+    padding: 5px;
+    width: 14.2%;
+    text-align: center;
+}
+#calendar thead td, #dia2 thead td, #student-dia2 thead td{
+    background-color: #293846;
+    color: #fff;
+    font-weight: bold;
+}
+#calendar table{
+    border-radius: 5px;
+}
+#calendar table thead tr:first-child th:first-child,
+#calendar table thead tr:first-child td:first-child,
+#dia2 table thead tr:first-child th:first-child,#student-dia2 table thead tr:first-child th:first-child
+#dia2 table thead tr:first-child td:first-child, #student-dia2 table thead tr:first-child td:first-child {
+    border-top-left-radius: 5px;
+}
+
+/* Esquina superior derecha */
+#calendar table thead tr:first-child th:last-child,
+#calendar table thead tr:first-child td:last-child,
+#dia table thead tr:first-child th:last-child,
+#dia table thead tr:first-child td:last-child {
+    border-top-right-radius: 5px;
+}
+#calendar table tbody tr:last-child th:first-child,
+#calendar table tbody tr:last-child td:first-child,
+#dia table tbody tr:last-child th:first-child,
+#dia table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 5px;
+}
+
+/* Esquina superior derecha */
+#calendar table tbody tr:last-child th:last-child,
+#calendar table tbody tr:last-child td:last-child,
+#dia table tbody tr:last-child th:last-child,
+#dia table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 5px;
+}
+#dia2 th, #dia2 td, #student-dia2 th, #student-dia2 td{
+    width: fit-content;
+    border: 1px solid #888;
+    padding: 5px 10px;
+    height: fit-content;
+    text-align: center;
+}
+#calendar tbody td{
+    height: 70px;
+    text-align: left;
+    vertical-align: top;
+    background-color: #fff;
+    transform: all 1s;
+}
+
+#calendar tbody td:hover, #dia2 tbody td:hover, #student-dia2 tbody td:hover {
+    cursor: cell;
+    background-color: #f5f5f5;
+}
+.verde{
+    background-color: #efe !important;
+}
+.nf-md-pencil, .nf-fa-trash{
+    cursor: pointer;
+}
+.calendar-container {
+    text-align: center;
+}
+.select-mes{
+    outline: none;
+    width: fit-content;
+    text-align: center;
+    font-weight: 600;
+    background-color: #fff0;
+}
+.select-mes option{
+    font-size: 16px;
+}
+select.select-asesorias{
+    position: relative;
+    right: 0;
+    top: 0;
+    margin: 0;
+    left: 0px;
+    outline: none;
+}
+
+#dia{
+    min-width: 400px;
+}
+.info{
+    width: 100%;
+    flex-grow: 1;
+    text-align: left;
+}
+
+#calendar table{
+    animation: aparecer2 .3s ease;
+}
+.ocultar {
+    display: none !important;
+}
+
+.modal-background {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Estilo para el contenido del modal */
+.modal-content-asesorias {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 300px;
+    border-radius: 5px;
+    width: 80%;
+    position: relative;
+    animation: aparecer2 .3s ease;
+}
+.modal-content-asesorias p{
+    width: 100%;
+    font-size: 21px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+#fecha, #editFecha{color: #293846 !important;}
+.modal-content-asesorias select{
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid #888;
+    border-radius: 5px;
+    padding: 5px 0;
+}
+
+/* Botón para cerrar el modal */
+.close {
+    color: #aaa;
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+tbody th{
+    font-weight: normal;
+}
+.etiquetas{
+    display: flex;
+    width: 100%;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+.etiqueta{
+    width: 100%;
+    padding: 5px 10px;
+    position: relative;
+    display: flex;
+    align-items:center;
+    height: fit-content;
+    transition: width .3s;
+    cursor:auto;
+}
+.etiqueta i{
+    display: none;
+    animation: aparecer .5s;
+
+}
+.etiqueta:hover > i{
+    display: block;
+}
+.etiquetas2{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    flex-wrap: wrap;
+    max-width: 150px;
+}
+.etiqueta2{
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items:flex-start;
+    gap: 10px;
+    width: fit-content;
+    height: fit-content;
+}
+.img_estudiante{
+    min-width: 30px;
+    max-width: 30px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+.etiqueta .img_estudiante{
+    margin-right: 10px;
+}
+.nombre{
+    position: absolute;
+    z-index: 10;
+    left: 20px;
+    top: -5px;
+    background-color: #293846;
+    width: 150px;
+    border-radius: 5px;
+    padding: 0px 5px;
+    display: none;
+    color: #fff;
+    animation: aparecer .3s;
+}
+.img_estudiante:hover + .nombre{
+    display: block;
+}
+.nombre:hover{display: block;}
+@keyframes aparecer{
+    from{
+        transform: scale(.8);
+        opacity: 0.5;
+    }
+    to{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes aparecer2{
+    0%{
+        transform: scale(.85);
+    }
+}
+@keyframes desaparecer{
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(.8);
+    }
+}
+#calendar table, #dia table {
+    border-collapse: collapse; /* Combina los bordes de las celdas adyacentes */
+}
+
+#calendar th,
+#calendar td,
+#dia2 th,
+#dia2 td,
+#student-dia2 th,
+#student-dia2 td { /* Borde transparente para todas las celdas */
+    border: none;
+    border-right: 1px solid #888;
+    padding: 5px;
+    width: 14.2%;
+    text-align: center;
+}
+#dia2 th, #student-dia2 th{
+    max-width:100px !important;
+}
+#calendar tr td:last-child, #dia tr th:last-child, #dia tr td:last-child{
+    border-right: none;
+}
+#calendar tr,#dia2 tr, #student-dia2 tr{
+    border-bottom: 1px solid #888;
+}
+#calendar tr:last-child, #dia2 tr:last-child, #student-dia2 tr:last-child{
+    border-bottom: none;
+}
+
+#calendar thead td, #dia2 thead th, #student-dia2 thead th{
+    background-color: #293846;
+    color: #fff;
+    font-weight: bold;
+}
+
+#calendar table, #dia2 table, #student-dia2 table {
+    border-radius: 5px;
+}
+.desactivado{
+    background-color: #eee !important;
+}
+.desactivado:hover{
+    background-color: #eee !important;
+    cursor:not-allowed !important;
+}
+.horas{
+    width: auto !important; /* Eliminar el ancho fijo */
+    background-color: #fff;
+}
+.horas:hover{
+    cursor: auto !important;
+}
+#dia td{
+    background-color: #fff;
+    width: 75%;
+}
+.amarillo{
+    background-color: rgb(246, 246, 182);
+}
+.morado{
+    background-color: rgb(221, 176, 221);
+}
+.azul{
+    background-color: #bfdbf6;
+}
+.rosa{
+    background-color: rgb(248, 214, 219);
+}
+#dia2 td, #student-dia2 td{
+    padding: 0;
+}
+.asesorias-formulario{
+    flex-grow: 1;
+    min-width: 200px;
+    padding: 1.5rem 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    height: fit-content;
+    animation: aparecer2 .3s ease;
+}
+.asesorias-formulario *{
+    width: 100%;
+    margin-bottom: 5px;
+}
+.asesorias-formulario h4{
+    color: #293846;
+    font-weight: 500;
+    font-size: 25px;
+    text-align: center;
+    text-wrap:balance;
+    margin-bottom: 20px;
+}
+.asesorias-formulario p{
+    font-size: 18px;
+    font-weight:normal;
+    color: #293846;
+}
+.asesorias-formulario button{
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.asesorias-formulario input{
+    color: #293846;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    padding: 0px 5px;
+    outline: 0.3px solid #888;
+    transition: all .3s;
+}
+.asesorias-formulario textarea{
+    color: #293846;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 0px 5px;
+    height: 60px;
+    outline: 0.3px solid #888;
+    transition: all .3s;
+    resize: none;
+}
+.motivo{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+#motivo{
+    margin: 0;
+}
+.motivo p, #editContador{
+    right: 5px;
+    text-align: right;
+    font-size: 12px;
+}
+#editContador{
+    width: 100%;
+    text-align: right;
+    display: block;
+}
+#editMotivo{
+    margin: 0px;
+}
+.asesorias-formulario input:focus{
+    outline-color: #293846;
+}
+.asesorias-formulario textarea:focus{
+    outline-color: #293846;
+}
+#eventosContainer{
+    flex-grow: 1;
+    border-radius: 5px;
+    height: fit-content;
+    overflow: hidden;
+    animation: aparecer2 .3s ease;
+    padding: 10px 0px 0px 0px;
+    margin-right: 10px;
+}
+#eventosContainer tbody tr:nth-child(even) {
+    background: #dcdbdb;
+}
+#eventosContainer span{
+    width: 100%;
+    display: flex;
+    overflow: scroll;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
+}
+#eventosContainer h2{
+    background-color: #293846;
+    border-radius:5px 5px 0 0;
+    width: 100%;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 0px;
+    text-align: center;
+}
+#eventosContainer table{
+    background-color: #f2f2f2;
+    width: 100%;
+}
+#eventosContainer th{
+    padding: 5px 10px;
+    min-width: 150px;
+    color: #293846;
+}
+#eventosContainer th div{
+    padding: 5px 0;
+    color: #293846;
+    border-bottom: solid 1px #293846;
+}
+#eventosContainer td{
+    padding: 7px 10px;
+    min-width: 200px;
+    color: #000;
+    text-align: center;
+}
+
+#eventosContainer2{
+    margin: 20px;
+    flex-grow: 1;
+    border-radius: 5px;
+    height: fit-content;
+    overflow: hidden;
+    animation: aparecer2 .3s ease;
+}
+#eventosContainer2 span{
+    width: 100%;
+    display: flex;
+    overflow: scroll;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
+}
+#eventosContainer2 h2{
+    background-color: #293846;
+    border-radius:5px 5px 0 0;
+    width: 100%;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 0px;
+    text-align: center;
+}
+#eventosContainer2 table{
+    background-color: #f2f2f2;
+    width: 100%;
+}
+#eventosContainer2 th{
+    padding: 5px 10px;
+    color: #293846;
+}
+#eventosContainer2 tbody tr:nth-child(even) {
+    background: #dcdbdb;
+}
+#eventosContainer2 th div{
+    padding: 5px 0;
+    color: #293846;
+    border-bottom: solid 1px #293846;
+}
+#eventosContainer2 td{
+    padding: 7px 10px;
+    min-width: 100px;
+    color: #000;
+    text-align: center;
+}
+#dia{
+    flex-grow: 1;
+}
+.limitar{
+    text-wrap:balance;
+    max-width: 150px !important;
+}
+#tablaEventos{
+    border-radius: 0px 0px 5px 5px;
+}
+.nf-cod-trash{
+    font-size: 20px;
+}
+#error, #error2{
+    display: none;
+    border:2px solid #e00;
+    border-radius: 5px;
+    text-align: center;
+    color: #e00;
+    background-color: rgb(253, 195, 195);
+    margin-bottom: 20px;
+    padding: 3px;
+    animation: aparecer2 .3s ease;
+}
+#matricula{
+    outline: 1px solid #888;
+    border-radius: 5px;
+}
+#matricula:focus{
+    outline-color: #293846;
+}
+.Btn_divisions:active{
+    animation: desaparecer .3s ease;
+}
+.botonVereventos{
+    padding: 0 !important;
+    display: flex;
+    justify-content: right;
+    height: 35px;
+    margin: 0 !important;
+    transition: all .3s;
+}
+.todas{
+   justify-content: space-between !important;
+}
+.botonVereventos h3{
+    font-size: 30px;
+    font-weight: bold;
+}
+.botonVereventos i{
+    padding: 5px;
+}
+.botonVereventos .Btntext_divisions{
+    width: fit-content;
+    padding: 5px;
+}
+.Btn_divisions{
+    width: fit-content !important;
+   animation: aparecer2 .3s ease;
+}
+#contbtnCitas2{
+    position: relative;
+}
+.modal-asesorias{
+    max-width: 300px;
+    position: relative;
+}
+#eventosContainer2 thead{
+    background-color: #293846;
+}
+#eventosContainer2 thead div{
+    background-color: #293846;
+    color: #fff !important;
+}
+.modal-asesorias .close2, .close3, .close4, .close5{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 30px;
+    width: fit-content;
+    cursor: pointer;
+}
+.modal-asesorias h2{
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.evento{
+    font-size: 20px;
+    color: #293846;
+    margin-inline: 10px;
+}
+.etiqueta .evento{margin-inline: 5px;}
+.Btntext_divisions b{
+    color: #0000;
+}
+.tamaño-dia{
+    width: fit-content;
+}
+#eventosContainer2 tbody{
+    height: 100px !important;
+    overflow-y: hidden;
+}
+#borrarEventoBoton{
+    background-color: #e00;
+    transition: all .3s;
+}
+#borrarEventoBoton:hover{
+    background-color: rgb(216, 4, 4);
+}
+#borrarEventoBoton:active{
+    transform: scale(.9);
+
+}
+.graficas{
+    max-height: 200px;
+}
+.asesorias-opciones{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 20px 10px 20px;
+    flex-wrap: wrap;
+}
+.asesorias-opciones .fechas-asesorias, .hora-asesorias{
+    display: flex;
+    gap: 20px;
+}
+#myModal form{
+    max-width: 350px;
+    position: relative;
+}
+@media (min-width: 768px){
+    .tamaño-dia{
+        width: 20px !important;
+    }
+  }
+  @media (max-width: 768px){
+    .botonVereventos{
+        display: block;
+        margin-bottom: 10px;
+    }
+    .botonVereventos h3{
+        width: 100%;
+    }
+    .asesorias-opciones .fechas-asesorias{
+        display: block;
+        width: 100%;
+    }
+    .asesorias-opciones .hora-asesorias{
+        display: flex;
+        gap: 20px;
+        margin-bottom: 10px;
+    }
+    .asesorias-opciones .fechas-asesorias select{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .asesorias-opciones{
+        display: block;
+    }
+    .asesorias-opciones .botonVereventos a{
+        display: flex;
+    }
+    .asesorias-opciones .botonVereventos, .asesorias-opciones .botonVereventos button, .asesorias-opciones .botonVereventos a{
+        width: 100% !important;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    #eventosContainer2{
+        margin-top: 40px;
+    }
+  }
+  @media (max-width: 1024px){
+    #eventosContainer{
+        padding: 10px 20px 10px 20px;
+    }
+  }
+
+

@@ -2,34 +2,38 @@
 .container {
     padding: 0 20px;
     max-width: 1200px; 
-    margin: auto;
+    margin: auto;   
 }
-
 h1 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    margin-top: 3rem;
-    text-align: center;
-    color: #333; 
+    text-align: center;  
+    font-size: 35px; 
+    color: #293846;
+    padding: 0 10px;
+    font-weight: bold;
+    position: relative;
+    z-index: 2; 
+}
+.add-btn {
+        padding: 1.0em 1.0em;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #FFFFFF;
+        background-color: #4FD1C5;
+        border: none;
+        border-radius: 10px;
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
+        display: inline-block;
+        position: relative;
+        z-index: 2;
 }
 
-.add-btn {
-    margin-bottom: 1.5rem;
-    background-color: #009678;
-    color: #ffffff;
-    border: none;
-    padding: .7rem 1.5rem;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    font-size: medium;
-    text-align: center;
-    display: inline-block;
-    vertical-align: middle;
-}
  .botonagregar{
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 20px;
  }
 .cards-container {
     display: flex;
@@ -37,115 +41,88 @@ h1 {
     justify-content: space-between;
     margin-bottom: 2rem;
 }
-
 .card {
-    width: calc(33.33% - 20px);
-
+    width: calc(33.33% - 15px);
     margin-bottom: 20px;
-    background-color: #f1f1f1;
-    border: 4px solid #ffffff;
+    background-color: #FFFFFF;
+    border: 4px solid #CACFCE;
     border-radius: 0.675rem;
     padding: 1rem;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     transition: box-shadow 0.3s ease; 
     position: relative;
-    height: 300px;
+    height: 300px;   
 }
-
 .card:hover {
-    background-color: white;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
+    box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.4);
+    transform: translateY(-5px);
 }
-
 .card-body {
     padding: 90px 20px; 
     height: calc(100% - 100px);
 }
-
 .card-title {
     position: absolute;
     top: 1rem;
     left: 0;
-    width: 100%;
-    
+    width: 100%; 
     font-size: 1.75rem;
     font-weight: 600;
     color: #000000;
     margin-top: 1rem;
     border-bottom: 2px solid #929292;
 }
-
 .card img {
     width: 150px;
     height: 150px;
 }
-
 .card-iconos{
     font-size: 60px;
-
+    text-shadow: 4px 2px 2px teal;
 }
-
-
 .card-footer {
     position: absolute;
-    border-top: 2px solid #929292;
+    /*border-top: 2px solid #929292;*/
     text-align: center;
     padding: 10px 1rem;
-    bottom: 0;
+    bottom: 20px;
     width: 100%;
     left: 0;
 }
-
 .card-footer .button-container {
     display: inline-block;
     margin-left: 10px;
 }
-
 .btn {
-    padding: 8px 16px;
+    padding: 10px 18px;
     font-size: 14px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-weight: bold; /* Texto en negrita */
+    font-weight: bold;
 }
-
 .btn-info {
-    background-color: #17a2b8;
+    background-color: #54B8C7;
     color: #fff;
-}
-
-.btn-info:hover {
-    background-color: #138496;
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: #548ECD;
     color: #fff;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
 }
 
 .btn-danger {
-    background-color: #dc3545;
+    background-color: #CD3A49;
     color: #fff;
 }
-
-.btn-danger:hover {
-    background-color: #bb2d3b;
-}
-
 
 @media (max-width: 992px) {
     .card {
         width: calc(50% - 20px);
     }
 }
-
 @media (max-width: 576px) {
     .card {
         width: calc(100% - 20px);

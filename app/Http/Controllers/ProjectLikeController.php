@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\AcademicAdvisor;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
 use App\Models\Project_likes;
@@ -12,15 +13,17 @@ class ProjectLikeController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-    
-            $existingLike = Project_likes::where('user_id', $user->id)->where('project_id', $project->id)->first();
-    
+
+            $getAcademicAdvisorId = AcademicAdvisor::where('user_id', $user->id)->first();
+
+            $existingLike = Project_likes::where('academic_advisor_id', $getAcademicAdvisorId->id)->where('project_id', $project->id)->first();
+
             if (!$existingLike) {
                 $like = new Project_likes();
-                $like->user_id = $user->id;
+                $like->academic_advisor_id = $getAcademicAdvisorId->id;
                 $like->project_id = $project->id;
                 $like->save();
-    
+
                 return redirect()->back()->with('success', '¡Like agregado correctamente!');
             } else {
                 $existingLike->delete();
@@ -30,5 +33,5 @@ class ProjectLikeController extends Controller
             return redirect()->route('login')->with('error', '¡Debes iniciar sesión para dar like a un proyecto!');
         }
     }
-    
+
 }

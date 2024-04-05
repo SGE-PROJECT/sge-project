@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\UsersTest;
-use App\Models\ProjectsTest;
+use App\Models\AcademicAdvisor;
+use App\Models\Project;
 
 class AdvisorySession extends Model
 {
@@ -22,11 +22,11 @@ class AdvisorySession extends Model
 
     public function proyect()
     {
-        return $this->belongsTo(ProjectsTest::class, 'id_project_id');
+        return $this->belongsTo(Project::class, 'id_project_id');
     }
 
     public function user()
     {
-        return $this->belongsTo(UsersTest::class, 'id_advisor_id');
+        return $this->belongsTo(AcademicAdvisor::class, 'id_advisor_id');
     }
 }

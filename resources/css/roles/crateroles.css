@@ -5,22 +5,29 @@
     height: 100%; /* Establece la altura del contenedor al 100% del viewport */
     padding: 40px;
     margin: 0 auto;
-    background-color: #f9f9f9;
+    background-color: rgba(249, 249, 249, 0);
 }
 .edit-form {
-  background-color: #f9f9f9;
+  background-color: #EDF1F5;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
  justify-content: center;
 }
 .heading {
-  font-family: "Arial";
-
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
+  text-align: center;  
+  font-size: 25px; 
+  color: #293846;
+  padding: 10px 15px 20px;
+  font-weight: bold;
+  position: relative;
+  z-index: 2;
+}
+.names, .permission-label  {
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: bold;
+  color: #000000;
 }
 
 .form-group {
@@ -47,7 +54,7 @@
   }
   input,
   label {
-    font-family: "Arial";
+    font-family: "Helvetica";
     text-align: left;
     color: #000000;
     cursor: text;
@@ -131,12 +138,14 @@
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: #38B2AC;
     color: #fff;
+    border-radius: 10px;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
+    background-color: #94989A;
     color: #fff;
     margin-left: 10px;
+    border-radius: 10px;
 }

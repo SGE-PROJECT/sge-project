@@ -15,16 +15,15 @@ class DivisionController extends Controller
         $this->middleware("can:divisiones.create")->only('create', 'store');
         $this->middleware("can:divisiones.destroy")->only('destroy');
     }
+
     public function index()
     {
         $divisions = Division::with('divisionImage')->get();
-
         return view('management.divisions.divisions', compact('divisions'));
     }
 
     public function getProjectsPerDivision()
     {
-
         return view("management.divisions.projects-per-division");
     }
 
@@ -46,24 +45,29 @@ class DivisionController extends Controller
         $division->description = $request->description;
         $division->save();
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
+        // Verificar si se seleccionó una imagen personalizada
+        if ($request->hasFile('custom_image')) {
+            $image = $request->file('custom_image');
             $imageName = $image->getClientOriginalName();
 
-            // Guardar la imagen en la carpeta deseada
+            // Guardar la imagen personalizada en la carpeta deseada
             $image->move(public_path('images/divisions'), $imageName);
 
             $divisionImage = new Division_image();
             $divisionImage->division_id = $division->id;
             $divisionImage->image_path = 'images/divisions/' . $imageName;
             $divisionImage->save();
+        } elseif ($request->has('image')) {
+            // Si se seleccionó una imagen predeterminada, utilizarla
+            $selectedImage = $request->input('image');
+            $divisionImage = new Division_image();
+            $divisionImage->division_id = $division->id;
+            $divisionImage->image_path = $selectedImage;
+            $divisionImage->save();
         }
 
-        return redirect()->route('divisiones.index')->with('success', 'Division created successfully');
+        return redirect()->route('divisiones.index')->with('success', 'División creada correctamente.');
     }
-
-
-
 
     public function show(string $id)
     {
@@ -86,31 +90,30 @@ class DivisionController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
-    $division = Division::findOrFail($id);
-    $division->name = $request->name;
-    $division->description = $request->description;
+        $division = Division::findOrFail($id);
+        $division->name = $request->name;
+        $division->description = $request->description;
 
-    if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $imageName = $image->getClientOriginalName();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
 
-        $image->move(public_path('images/divisions'), $imageName);
+            $image->move(public_path('images/divisions'), $imageName);
 
-        if ($division->divisionImage) {
-            $division->divisionImage->delete();
+            if ($division->divisionImage) {
+                $division->divisionImage->delete();
+            }
+
+            $divisionImage = new Division_image();
+            $divisionImage->division_id = $division->id;
+            $divisionImage->image_path = 'images/divisions/' . $imageName;
+            $divisionImage->save();
         }
 
-        $divisionImage = new Division_image();
-        $divisionImage->division_id = $division->id;
-        $divisionImage->image_path = 'images/divisions/' . $imageName;
-        $divisionImage->save();
+        $division->save();
+
+        return redirect()->route('divisiones.index')->with('success', 'División actualizada correctamente.');
     }
-
-    $division->save();
-
-    return redirect()->route('divisiones.index')->with('success', 'División actualizada correctamente.');
-    }
-
 
     public function destroy(string $id)
     {

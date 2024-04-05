@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(BooksTableSeeder::class);
         $this->call(ProgramsSeeder::class);
         $this->call(CompaniesSeeder::class);
+        $this->call(GroupsTableSeeder::class);
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -30,15 +32,17 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RoleSeeder::class);
 
+        $this->call(GroupTableSeeder::class);
+
 
         $this->call(UserSeeder::class);
-
-        $this->call([
-            UsersTestSeeder::class,
-            ProjectsTestSeeder::class,
-            ProjectsSeeder::class,
-            ProyectStudentTestSeeder::class,
-        ]);
-
+        $this->call(AcademicAdvisorTableSeeder::class);
+        $this->call(AcademicDirectorTableSeeder::class);
+        $this->call(ManagmentAdminTableSeeder::class);
+        $this->call(SecretariesTableSeeder::class);
+        $this->call(StudentsTableSeeder::class);
+        $this->call(ProjectsSeeder::class);
+        $this->call(projectStudentsTableSeeder::class);
+        $this->call(BooksTableSeeder::class);
     }
 }

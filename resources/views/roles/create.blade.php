@@ -5,7 +5,7 @@
 @endsection
 
 @section('contenido')
-@vite('resources/css/roles/crateroles.css');
+@vite('resources/css/roles/crateroles.css')
 
     <div class="container">
         <div class="heading">
@@ -18,7 +18,7 @@
                 <div class="form-group-name">
                     <div class="input-box">
                         <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus />
-                        <label for="name">Nombre del rol</label>
+                        <label class="names" for="name">Nombre del rol</label>
 
                         @error('name')
                             <span role="alert" class="error-message">
