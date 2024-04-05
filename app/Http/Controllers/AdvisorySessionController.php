@@ -22,7 +22,7 @@ class AdvisorySessionController extends Controller
 
         $academicAdvisor = $user->academicAdvisor;
 
-        $students = $academicAdvisor->students()->with('user')->get();
+        $students = $academicAdvisor->students()->with('user')->whereHas('user', function ($query) {$query->where('isActive', true);})->get();
         $studentIds = $students->pluck('id');
 
         $Projects = collect();
@@ -53,10 +53,22 @@ class AdvisorySessionController extends Controller
         });
 
 
+        $activeStudents = $academicAdvisor->students()->whereHas('user', function ($query) {
+            $query->where('isActive', true);
+        })->get();
+
+        $projectIds = $activeStudents->flatMap(function ($student) {
+            return $student->projects->pluck('id');
+        })->unique();
+
+        $sessions = AdvisorySession::with(['proyect'])
+            ->whereIn('id_project_id', $projectIds)
+            ->where('session_date', '>', now())
+            ->get();
+
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
-        $sessions = AdvisorySession::with(['proyect'])->where('id_advisor_id', $user->id)->get();
         $sessionsThisWeek = $sessions->filter(function ($session) use ($startOfWeek, $endOfWeek) {
             $sessionDate = Carbon::parse($session->session_date);
             return $sessionDate->between($startOfWeek, $endOfWeek);
@@ -66,7 +78,8 @@ class AdvisorySessionController extends Controller
             $session->time_only = $sessionDateTime->toTimeString();
             return $session;
         });
-        return view('consultancy.Dates', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents']));
+
+        return view('consultancy.Dates', compact('sessions', 'sessionsThisWeek', 'Projects', 'allStudents'));
     }
 
     public function all($slug)
@@ -78,7 +91,7 @@ class AdvisorySessionController extends Controller
 
         $academicAdvisor = $user->academicAdvisor;
 
-        $students = $academicAdvisor->students()->with('user')->get();
+        $students = $academicAdvisor->students()->with('user')->whereHas('user', function ($query) {$query->where('isActive', true);})->get();
         $studentIds = $students->pluck('id');
 
         $Projects = collect();
@@ -95,7 +108,6 @@ class AdvisorySessionController extends Controller
             $project->image = 'avatar.jpg';
             $project->name = $project->name_project;
             $project->description = $project->general_objective;
-            // Filtrar los estudiantes para asegurarse de que solo se incluyan aquellos que están asociados a este proyecto
             $project->students = $project->students()->whereIn('students.id', $studentIds)->pluck('students.id')->toArray();
         }
 
@@ -109,10 +121,21 @@ class AdvisorySessionController extends Controller
         });
 
 
+        $activeStudents = $academicAdvisor->students()->whereHas('user', function ($query) {
+            $query->where('isActive', true);
+        })->get();
+
+        $projectIds = $activeStudents->flatMap(function ($student) {
+            return $student->projects->pluck('id');
+        })->unique();
+
+        $sessions = AdvisorySession::with(['proyect'])
+            ->whereIn('id_project_id', $projectIds)
+            ->get();
+
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
-        $sessions = AdvisorySession::with(['proyect'])->where('id_advisor_id', $user->id)->get();
         $sessionsThisWeek = $sessions->filter(function ($session) use ($startOfWeek, $endOfWeek) {
             $sessionDate = Carbon::parse($session->session_date);
             return $sessionDate->between($startOfWeek, $endOfWeek);
@@ -122,39 +145,52 @@ class AdvisorySessionController extends Controller
             $session->time_only = $sessionDateTime->toTimeString();
             return $session;
         });
+
         return view('consultancy.DatesAll', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents']));
     }
 
     public function student($slug)
-{
-    $user = User::where('slug', $slug)->firstOrFail();
-    if (!$user->hasRole('Estudiante')) {
-        abort(404);
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+        if (!$user->hasRole('Estudiante')) {
+            abort(404);
+        }
+        $student = $user->student;
+        if (!$student) {
+            abort(404);
+        }
+        $academicAdvisor = $student->academicAdvisor;
+        if (!$academicAdvisor) {
+            abort(404);
+        }
+        $advisorUserId = $academicAdvisor->user_id;
+
+        $activeStudents = $academicAdvisor->students()->whereHas('user', function ($query) use ($slug) {
+            $query->where('users.slug', $slug);
+        })->get();
+
+        $projectIds = $activeStudents->flatMap(function ($student) {
+            return $student->projects->pluck('id');
+        })->unique();
+
+        $sessions = AdvisorySession::with(['proyect'])
+            ->whereIn('id_project_id', $projectIds)
+            ->where('session_date', '>', now())
+            ->get();
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+        $sessionsThisWeek = $sessions->filter(function ($session) use ($startOfWeek, $endOfWeek) {
+            $sessionDate = Carbon::parse($session->session_date);
+            return $sessionDate->between($startOfWeek, $endOfWeek);
+        });
+        $Projects = $student->projects()->get();
+        foreach ($Projects as $project) {
+            $project->image = 'avatar.jpg';
+            $project->name = $project->name_project;
+            $project->description = $project->general_objective;
+        }
+        return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects'));
     }
-    $student = $user->student;
-    if (!$student) {
-        abort(404);
-    }
-    $academicAdvisor = $student->academicAdvisor;
-    if (!$academicAdvisor) {
-        abort(404);
-    }
-    $advisorUserId = $academicAdvisor->user_id;
-    $sessions = AdvisorySession::where('id_advisor_id', $advisorUserId)->get();
-    $startOfWeek = Carbon::now()->startOfWeek();
-    $endOfWeek = Carbon::now()->endOfWeek();
-    $sessionsThisWeek = $sessions->filter(function ($session) use ($startOfWeek, $endOfWeek) {
-        $sessionDate = Carbon::parse($session->session_date);
-        return $sessionDate->between($startOfWeek, $endOfWeek);
-    });
-    $Projects = $student->projects()->get();
-    foreach ($Projects as $project) {
-        $project->image = 'avatar.jpg';
-        $project->name = $project->name_project;
-        $project->description = $project->general_objective;
-    }
-    return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects'));
-}
 
 
 
