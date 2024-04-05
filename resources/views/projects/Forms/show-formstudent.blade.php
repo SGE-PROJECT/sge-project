@@ -114,14 +114,14 @@
             <div>
                 <label class="text-sm font-bold text-teal-800">Nombre del Asesor Empresarial:</label>
                 <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->advisor_business_name }}
+                    {{ $project->businessAdvisor->name }}
                 </div>
             </div>
 
             <div>
                 <label class="text-sm font-bold text-teal-800">Cargo del Asesor:</label>
                 <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->advisor_business_position }}
+                    {{ $project->businessAdvisor->position }}
                 </div>
             </div>
         </div>
@@ -129,14 +129,14 @@
             <div>
                 <label class="text-sm font-bold text-teal-800">Número Teléfonico del Asesor:</label>
                 <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->advisor_business_phone }}
+                    {{ $project->businessAdvisor->phone }}
                 </div>
             </div>
 
             <div>
                 <label class="text-sm font-bold text-teal-800">Correo Electrónico:</label>
                 <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->advisor_business_email }}
+                    {{ $project->businessAdvisor->email }}
                 </div>
             </div>
         </div>
@@ -209,7 +209,7 @@
                                 <div>
                                     <div class="flex items-center">
                                         <img src="{{ asset($like->academicAdvisor->user->photo) }}"
-                                            
+
                                             alt="Avatar" class="w-8 h-8 rounded-full mr-2">
                                         <p class="text-white font-bold">{{ $like->academicAdvisor->user->name }}</p>
 

@@ -3,7 +3,7 @@
 @section('titulo', 'Editar Rol')
 
 @section('contenido')
-@vite('resources/css/roles/edit.css');
+@vite('resources/css/roles/edit.css')
 
     <div class="container">
         <div class="heading">

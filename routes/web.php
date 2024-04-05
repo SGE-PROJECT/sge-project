@@ -19,6 +19,7 @@ use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\ProgramController;
 use App\Http\Controllers\AdvisorySessionController;
+use App\Http\Controllers\AdvisoryReportsController;
 use App\Http\Controllers\profile\ProfileController;
 use App\Http\Controllers\projects\ProjectController;
 
@@ -110,11 +111,11 @@ Route::middleware(['auth'])->group(function () {
         return view('books-notifications.books.test-notifications');
     });
     Route::post('/not', [BooksController::class, 'notifications'])->name('sendNotification');
-
+Route::get('/scraping',[BooksController::class, 'imageBooks']);
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
     Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
     Route::delete('/configurar-cuenta/{id}/eliminar-foto', [ManagementConfiguration::class, 'destroyProfilePhoto'])->name('configurar_cuenta.remove_photo');
-    
+
 
     Route::get('/perfil', [ProfileController::class,'index']);
     Route::post('/perfil/actualizar-foto', [ProfileController::class, 'actualizarFoto'])->name('actualizar_foto');
@@ -191,6 +192,10 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     Route::get('/asesorias/{id}/todas', [AdvisorySessionController::class, 'all'])->name('asesoriasTodas');
     Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
     Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
+
+    //asesorados
+    Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
+    Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
 });
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
     Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');

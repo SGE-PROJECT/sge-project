@@ -1,0 +1,213 @@
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+.vista_asesorados{
+    width: 100%;
+    min-height: 100px;
+    padding: 10px 20px 10px 20px;
+}
+.asesorias-opciones{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.vista_asesorados .titulo{
+    outline: none;
+    font-size: 30px;
+    width: -moz-fit-content;
+    width: fit-content;
+    text-align: center;
+    font-weight: 600;
+    background-color: #fff0;
+}
+.botonVereventos{
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+    height: 35px;
+    margin: 0 !important;
+    transition: all .3s;
+}
+.botonVereventos a{
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+    height: 35px;
+    margin: 0 !important;
+    transition: all .3s;
+}
+.botonVereventos h3{
+    font-size: 30px;
+    font-weight: bold;
+}
+.botonVereventos i{
+    padding: 5px;
+}
+.botonVereventos .Btntext_divisions{
+    padding: 5px;
+}
+.proyectos{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 40px;
+    justify-items: center;
+    align-content: start;
+    padding: 10px 20px 25px 20px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+.proyectos div {
+    border-radius: 10px;
+    width: 100%;
+    max-width: 300px;
+    min-height: 300px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+    padding: 30px 35px;
+    display: flex;
+    flex-wrap: wrap;
+    transition: all .3s;
+    animation: iniciar .5s;
+    background-color: #fff;;
+    position: relative;
+}
+.proyectos div::before{
+    content: "";
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background-image: linear-gradient(to right, #00ab84, #00e7b1);
+    height: 60%;
+    border-radius: 10px 10px 50% 50%;
+    width: 100%;
+}
+.proyectos div article{
+    padding: 60px 10px 10px 10px;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    align-content: space-between;
+    z-index: 20;
+    background-color: rgb(229 231 235 );
+    animation: iniciar .5s;
+    box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.6);
+}
+.proyectos div article h3{
+    text-transform: uppercase;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.proyectos div article p{
+    font-size: 16px;
+    text-align: justify;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.proyectos div:hover {
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4);
+    translate:0 2px;
+    transform: scale(1.01);
+}
+.icono {
+    width:fit-content;
+    height: 65px;
+    width: 65px;
+    background-color: #eee;
+    border: 3px solid #000;
+    border-radius: 50%;
+    position: absolute;
+    top: -20px !important;
+    left: calc(50% - 32.5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: #000;
+}
+.elem{
+    display: flex;
+    width: 100%;
+    max-height: 37px;
+    gap:20px;
+    justify-content: space-between;
+}
+.ir{
+    position: absolute !important;
+    bottom: 15px !important;
+    right: 15px !important;
+    cursor: pointer;
+    color: #000 !important;
+    width: fit-content !important;
+    height: fit-content !important;
+    font-weight: bold;
+    font-size: 20px !important;
+    text-decoration: none !important;
+}
+.elem *{
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+.elem h3{
+    width: 100%;
+    text-align: center;
+    height: auto;
+    overflow:scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+.elem span{
+    background-color: #bbb;
+    color: #fff;
+}
+.elem a{
+    color: #fff;
+    background-color: #548ECD;
+    min-height: 30px;
+    cursor: pointer;
+}
+.elem a:hover{
+    background-color: #2B4C6E;
+}
+.elem button:active{
+    background-color: #24415e;
+    transform: scale(.9);
+}
+.elem p{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.rojo{background-color: #CD3A49 !important; padding: 10px; color: #fff;} .verde{background-color: #006400 !important;padding: 10px;} .amarillo{background-color: #FFD700 !important; color: #440 !important;padding: 10px;}
+.rojo:hover{
+    background-color: #A52A2A !important;
+}
+@media (max-width: 768px){
+    .asesorias-opciones{
+        justify-content: center;
+    }
+    .botonVereventos{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .botonVereventos a{
+        width: 100%;
+    }
+    .botonVereventos h3{
+        width: 100%;
+    }
+  }
