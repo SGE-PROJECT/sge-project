@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Projects\ProjectFormRequest;
+use App\Models\AcademicAdvisor;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -24,37 +25,31 @@ class ProjectController extends Controller
     public function index()
     {
         $Projects = Project::paginate();
-        return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
+        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
+        $completadosCount = $Projects->where('status', 'Completado')->count();
+        return view("projects.ProjectsDash.projectDashboard", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
 
     public function list()
     {
-        $Projects = Project::paginate();
         $Projects = Project::all();
-
-        $enDesarrolloCount = 0;
-        $reprobadosCount = 0;
-        $completadosCount = 0;
-
-        // Contar los proyectos según su estado
-        foreach ($Projects as $project) {
-            switch ($project->status) {
-                case 'En desarrollo':
-                    $enDesarrolloCount++;
-                    break;
-                case 'Reprobado':
-                    $reprobadosCount++;
-                    break;
-                case 'Completado':
-                    $completadosCount++;
-                    break;
-                default:
-                    break;
-            }
-        }
-        return view("administrator.project", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+        
+        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
+        $completadosCount = $Projects->where('status', 'Completado')->count();
+        return view("administrator.project")
+            ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
-
+    public function dashgeneral()
+    {
+        $Projects = Project::all();
+        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
+        $completadosCount = $Projects->where('status', 'Completado')->count();
+        return view("administrator.dashboard.dashboard-general")
+            ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+    }
     public function invitation()
     {
         return view("projects.ProjectUser.ProjectUser");
@@ -197,6 +192,8 @@ class ProjectController extends Controller
         // Obtener el usuario actual
         $user = Auth::user();
 
+        $getAdvisorId = AcademicAdvisor::where('user_id', $user->id)->first();
+
         // Verificar si el usuario es un estudiante
         if ($user->roles->contains('name', 'Estudiante')) {
             // Si el usuario es un estudiante, redirigir con un mensaje de error
@@ -205,7 +202,7 @@ class ProjectController extends Controller
 
         // Si el usuario no es un estudiante, proceder con la asignación de puntaje
         // Verificar si el usuario ya asignó una calificación al proyecto
-        $existingScore = Scores::where('user_id', $user->id)
+        $existingScore = Scores::where('academic_advisor_id', $getAdvisorId->id)
             ->where('project_id', $projectId)
             ->first();
 
@@ -215,7 +212,7 @@ class ProjectController extends Controller
 
         // Crear una nueva puntuación
         Scores::create([
-            'user_id' => $user->id,
+            'academic_advisor_id' => $getAdvisorId->id,
             'project_id' => $projectId,
             'score' => $request->input('score'),
         ]);
