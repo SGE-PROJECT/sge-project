@@ -1,20 +1,17 @@
+const publishButton = document.getElementById('publishButton');
+const confirmButton = document.getElementById('confirmButton');
 const modal = document.getElementById('modal');
-const openModalButton = document.getElementById('openModalButton');
-const closeModalButton = document.getElementById('closeModalButton');
-const cancelButton = document.getElementById('cancelButton');
 
-function openModal() {
+publishButton.addEventListener('click', function() {
+    // Abrir el modal de confirmación
     modal.classList.remove('hidden');
-}
-
-function closeModal() {
-    modal.classList.add('hidden');
-}
-
-openModalButton.addEventListener('click', function(event){
-    event.preventDefault(); 
-    openModal();
 });
 
-cancelButton.addEventListener('click', closeModal);
-closeModalButton.addEventListener('click', closeModal);
+confirmButton.addEventListener('click', function() {
+    // Cambiar el valor del campo "is_project" a 1
+    document.querySelector('input[name="is_project"]').value = 1;
+    // Cambiar el valor del campo "status" a "Publicado"
+    document.querySelector('input[name="status"]').value = 'Publicado';
+    // Enviar el formulario
+    document.getElementById('projectForm').submit();
+});
