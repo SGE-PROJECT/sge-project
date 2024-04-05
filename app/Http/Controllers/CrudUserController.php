@@ -19,9 +19,39 @@ class CrudUserController extends Controller
      */
     public function index()
     {
-        $users = User::all(); // Obtener todos los usuarios
+        $users = User::with([
+            'student.group.program.division',
+            'secretary.division',
+            'academicDirector.division',
+            'academicAdvisor.division',
+            'managmentAdmin.division'
+        ])->get();
+
+        // Iteramos sobre cada usuario para asignarle explícitamente division_id y division_name
+        $users->each(function ($user) {
+            if ($user->relationLoaded('student') && $user->student) {
+                $division = $user->student->group->program->division ?? null;
+            } elseif ($user->relationLoaded('secretary') && $user->secretary) {
+                $division = $user->secretary->division ?? null;
+            } elseif ($user->relationLoaded('academicDirector') && $user->academicDirector) {
+                $division = $user->academicDirector->division ?? null;
+            } elseif ($user->relationLoaded('academicAdvisor') && $user->academicAdvisor) {
+                $division = $user->academicAdvisor->division ?? null;
+            } elseif ($user->relationLoaded('managmentAdmin') && $user->managmentAdmin) {
+                $division = $user->managmentAdmin->division ?? null;
+            } else {
+                $division = null;
+            }
+
+            // Asignamos los valores de division_id y division_name
+            $user->division_id = $division ? $division->id : 'Sin ID de División';
+            $user->division_name = $division ? $division->name : 'Sin División';
+        });
+
+
         return view('users.cruduser', ['users' => $users]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -43,7 +73,7 @@ class CrudUserController extends Controller
             'password' => 'required|string|min:8',
             'identifier_number' => 'required|string',
             'role' => 'required',
-            'division_id' => 'required|exists:divisions,id', // Asegúrate de validar que el ID de la división exista
+            //'division_id' => 'required|exists:divisions,id', // Asegúrate de validar que el ID de la división exista
             'phone_number' => 'required|string|max:20',
             'avatar' => 'nullable|string|max:500',
             'isActive' => 'required|boolean',
@@ -57,7 +87,7 @@ class CrudUserController extends Controller
             'slug' => $slug,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'division_id' => $request->division_id,
+            //'division_id' => $request->division_id,
             'phone_number' => $request->phone_number,
             'avatar' => $request->avatar,
             'isActive' => $request->isActive,
