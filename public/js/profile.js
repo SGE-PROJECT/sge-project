@@ -16,21 +16,25 @@ window.onclick = function(event) {
     }
 }
 
-// Evitar la propagación del evento clic en el overlay de la imagen
-document.querySelector('.profile-picture-overlay label').addEventListener('click', function(event) {
-    event.stopPropagation();
-});
-
 // Obtener elementos del DOM
 const photoInput = document.getElementById('photoInput');
 const guardarFotoBtn = document.getElementById('guardarFotoBtn');
 const profilePicture = document.getElementById('profilePicture');
 
 // Variable para controlar si el perfil ha sido editado
-let perfilEditado = false;
+let perfilEditado = true;
+
+// Evitar la propagación del evento clic en el overlay de la imagen
+const profilePictureOverlayLabel = document.querySelector('.profile-picture-overlay label');
+if (profilePictureOverlayLabel) {
+    profilePictureOverlayLabel.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+}
 
 // Mostrar el botón de guardar foto después de seleccionar un archivo, solo si el perfil ha sido editado
 photoInput.addEventListener('change', () => {
+    console.log('Cambio detectado en el input de la foto');
     if (perfilEditado) {
         mostrarFotoSeleccionada();
         mostrarBotonGuardar();
@@ -39,15 +43,21 @@ photoInput.addEventListener('change', () => {
 
 // Función para mostrar la foto seleccionada en la vista
 function mostrarFotoSeleccionada() {
-    const file = photoInput.files[0];
-    const reader = new FileReader();
+    try {
+        console.log('Mostrando foto seleccionada');
+        const file = photoInput.files[0];
+        const reader = new FileReader();
 
-    reader.onload = function(e) {
-        profilePicture.src = e.target.result; // Mostrar la imagen seleccionada en la vista
+        reader.onload = function(e) {
+            profilePicture.src = e.target.result; // Mostrar la imagen seleccionada en la vista
+        }
+
+        reader.readAsDataURL(file);
+    } catch (error) {
+        console.error('Error al mostrar la foto seleccionada:', error);
     }
-
-    reader.readAsDataURL(file);
 }
+
 
 // Función para mostrar el botón de guardar foto
 function mostrarBotonGuardar() {

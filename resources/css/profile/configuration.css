@@ -1,0 +1,9 @@
+.password-toggle {
+    position: absolute;
+    font-size: 25px;
+    top: 50%;
+    right: 30px;
+    /* Ajusta la distancia del icono desde el borde derecho */
+    transform: translateY(-50%);
+    cursor: pointer;
+}

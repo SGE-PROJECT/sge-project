@@ -111,7 +111,11 @@ Route::get('/users/export', [MasiveAddController::class, 'exportCsv'])->name('us
      });
     Route::post('/not',[BooksController::class, 'notifications'])->name('sendNotification');
 
-    Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index']);
+    Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
+    Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
+    Route::delete('/configurar-cuenta/{id}/eliminar-foto', [ManagementConfiguration::class, 'destroyProfilePhoto'])->name('configurar_cuenta.remove_photo');
+    
+
     Route::get('/perfil', [ProfileController::class,'index']);
     Route::post('/perfil/actualizar-foto', [ProfileController::class, 'actualizarFoto'])->name('actualizar_foto');
 

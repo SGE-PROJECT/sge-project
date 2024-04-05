@@ -9,28 +9,44 @@
 
     <div class="container mx-auto ">
         <div class="bg-white p-8 m-5  rounded-lg shadow-xl">
-                <!-- Perfil de Usuario -->
-                <div class="flex flex-col md:flex-row justify-center md:items-start m-8">
-                    <!-- Imagen de perfil -->
-                    <div class="m-6 md:mb-0 profile-picture-container" onclick="openModal()">
-                        <img id="profilePicture" alt="Profile Picture" src="{{ asset(auth()->user()->photo) }}" class="w-48 h-48 rounded-full border-4 border-white shadow-xl" onclick="openModal()">
 
-                        <div class="profile-picture-overlay">
-                            <p style="cursor: pointer;">Ver foto de perfil</p>
-                            <label for="photoInput" style="color: rgb(168, 255, 217); font-weight: bold; font-size:1.3rem; cursor: pointer;">Editar foto de perfil</label>
-                        
-                        </div>
-                    
+            @if (session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Éxito:</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+                <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none';">
+                    <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <title>Cerrar</title>
+                        <path d="M14.354 5.646a.5.5 0 0 0-.708 0L10 9.293 5.354 4.646a.5.5 0 1 0-.708.708L9.293 10l-4.647 4.646a.5.5 0 1 0 .708.708L10 10.707l4.646 4.647a.5.5 0 0 0 .708-.708L10.707 10l4.647-4.646a.5.5 0 0 0 0-.708z" />
+                    </svg>
+                </button>
+            </div>
+        @endif
+        
+
+            <!-- Perfil de Usuario -->
+            <div class="flex flex-col md:flex-row justify-center md:items-start m-8">
+                <!-- Imagen de perfil -->
+                <div class="m-6 md:mb-0 profile-picture-container" onclick="openModal()">
+
+                    <img id="profilePicture" alt="Profile Picture"
+                        src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : asset('images/profileconfiguration/user-icon.jpeg') }}"
+                        class="w-48 h-48 rounded-full border-4 border-white shadow-xl" onclick="openModal()">
+
+                    <div class="profile-picture-overlay">
+                        <p style="cursor: pointer;">Ver foto de perfil</p>
+                        <label for="photoInput"
+                            style="color: rgb(168, 255, 217); font-weight: bold; font-size:1.3rem; cursor: pointer;">Editar
+                            foto de perfil</label>
+
+                    </div>
+
+
 
                 </div>
-                <form action="{{ route('actualizar_foto') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" name="photo" id="photoInput" accept="image/*" style="display: none;">
-                    <button type="submit" id="guardarFotoBtn" class="bg-cyan-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 mt-40 mr-8 rounded">
-                        Guardar foto
-                    </button>
-                </form>
-                
+
+
+
                 <!-- Información de perfil -->
                 <div>
                     <div class="mb-4">
@@ -38,19 +54,19 @@
 
                     </div>
                     <p class="text-lg text-blueGray-700 mb-2">
-                        @if(auth()->user()->roles->isNotEmpty())
+                        @if (auth()->user()->roles->isNotEmpty())
                             {{ auth()->user()->roles->first()->name }}
                         @else
                             No tiene un rol asignado
                         @endif
                     </p>
-                                        <p class="text-lg font-bold text-teal-600 mb-4">División: 
+                    <p class="text-lg font-bold text-teal-600 mb-4">División:
                         @if (auth()->user()->division)
                             {{ auth()->user()->division->name }}
                         @else
                             No asignada
                         @endif
-                    </p>                    <!-- Detalles adicionales -->
+                    </p> <!-- Detalles adicionales -->
                     <div class="flex flex-col">
                         <div class="flex items-center text-sm text-blueGray-400 mb-2">
                             <i class="fas fa-map-marker-alt mr-2 text-teal-600"></i>
@@ -69,6 +85,19 @@
                             <span>Universidad Tecnológica de Cancún</span>
                         </div>
                     </div>
+
+                    <form action="{{ route('actualizar_foto') }}" method="POST" enctype="multipart/form-data"
+                        class="flex items-center justify-center md:flex-col">
+                        @csrf
+                        <button type="submit" id="guardarFotoBtn"
+                            class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors cursor-pointer ml-4 mt-8">
+                            Guardar foto
+                        </button>
+                        <input type="file" name="photo" id="photoInput" accept="image/*" style="display: none;">
+                    </form>
+
+
+
                 </div>
 
             </div>
@@ -106,7 +135,7 @@
 
             </div>
 
-            
+
 
             <!-- Modal para ver foto-->
             <div id="myModal" class="modal absolute bottom-0 left-0 right-0 top-0 bg-black bg-opacity-50 hidden ">
