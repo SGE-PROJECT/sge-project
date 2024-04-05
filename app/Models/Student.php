@@ -14,6 +14,7 @@ class Student extends Model
         'id_user_id',
         'group_id',
         'academic_advisor_id',
+        'book_id',
     ];
 
     public function user()
@@ -30,4 +31,10 @@ class Student extends Model
     {
         return $this->belongsTo(AcademicAdvisor::class);
     }
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
+
 }

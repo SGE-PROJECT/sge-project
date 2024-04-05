@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('academic_advisor_id')->constrained()->onDelete('cascade');
+            $table->foreignId('book_id')->constrained()->inDelete('cascade');
             $table->timestamps();
         });
     }
