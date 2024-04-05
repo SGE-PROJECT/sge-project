@@ -16,6 +16,7 @@
         "maatwebsite/excel": "3.1.48",
         "phpoffice/phpspreadsheet": "^1.18",
         "spatie/laravel-permission": "^6.4",
+        "yajra/laravel-datatables": "^10.1",
         "symfony/css-selector": "^5.0"
     },
     "require-dev": {

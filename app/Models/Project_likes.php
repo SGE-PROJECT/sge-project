@@ -11,12 +11,14 @@ class Project_likes extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id',
+        'academic_advisor_id',
         'project_id',
     ];
 
-    public function user()
+    public function academicAdvisor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(AcademicAdvisor::class, 'academic_advisor_id');
     }
+
+
 }

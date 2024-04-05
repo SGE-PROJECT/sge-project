@@ -2,6 +2,7 @@
 @extends('layouts.panel')
 @section('titulo', 'Proyectos')
 @section('contenido')
+
     <h1 class="text-3xl font-bold text-center mt-5">Proyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
     <div class="flex flex-wrap justify-center gap-5 p-5">
@@ -33,8 +34,7 @@
         <!-- SE AGREGA EL FILTRO -->
         <div x-data="{ isActive: false }" class="relative">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
-                <a href="#"
-                    class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
+                <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                     Filtrar
                 </a>
                 <button x-on:click="isActive = !isActive"
@@ -52,10 +52,12 @@
                 x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
                 x-on:keydown.escape.window="isActive = false">
                 <div class="p-2" id="">
+                    <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Estado </strong>
                     <label for="Option1" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="enDesarrollo" value="En desarrollo" />
+                            <input type="checkbox" class="size-4 rounded border-gray-300" id="enDesarrollo"
+                                value="En desarrollo" />
                         </div>
                         <div>
                             <strong class="font-medium text-gray-900">En desarrollo</strong>
@@ -64,7 +66,8 @@
                     <label for="Option2" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="completado" value="Completado" />
+                            <input type="checkbox" class="size-4 rounded border-gray-300" id="completado"
+                                value="Completado" />
                         </div>
 
                         <div>
@@ -74,13 +77,15 @@
                     <label for="Option3" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="reprobado" value="Reprobado"/>
+                            <input type="checkbox" class="size-4 rounded border-gray-300" id="reprobado"
+                                value="Reprobado" />
                         </div>
 
                         <div>
                             <strong class="font-medium text-gray-900">Reprobado</strong>
                         </div>
                     </label>
+                    <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Carrera </strong>
                 </div>
             </div>
         </div>
@@ -103,8 +108,7 @@
         <!-- BOTÓN QUE NOS SIRVE PARA EXPORTAR LOS ARCHIVOS -->
         <div x-data="{ isActive: false }" class="relative ml-auto mr-8">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
-                <a href="#"
-                    class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
+                <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                     Exportar
                 </a>
                 <button x-on:click="isActive = !isActive"
@@ -161,60 +165,74 @@
                 </thead>
                 <tbody>
                     @foreach ($Projects as $project)
-                        <tr>
-                            <td>{{ $project->name_project }}</td>
-                            <td>{{ $project->fullname_student }}</td>
-                            <td><span class="project-status">{{ $project->status }}</span></td>
-                            <td>{{ $project->id_academic_advisor_id }}</td>
-                            <td>Software</td>
-                            <td>{{ $project->company_name }}</td>
-                        </tr>
+                        @if ($project->is_project == 1)
+                            <tr>
+                                <td>{{ $project->name_project }}</td>
+                                <td>{{ $project->fullname_student }}</td>
+                                <td><span class="project-status">{{ $project->status }}</span></td>
+                                <td>{{ $project->id_academic_advisor_id }}</td>
+                                <td>Software</td>
+                                <td>{{ $project->company_name }}</td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>
         </div>
         <!-- CONTENEDOR DE LA PAGINACIÓN -->
     </div>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
     <script>
         $(document).ready(function() {
-        var ctx = document.getElementById('barChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['En desarrollo', 'Reprobados', 'Completados'],
-                datasets: [{
-                    label: 'Estado del proyecto',
-                    data: [
-                        {{ $enDesarrolloCount }},
-                        {{ $reprobadosCount }},
-                        {{ $completadosCount }}
-                    ],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            var ctx = document.getElementById('barChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['En desarrollo', 'Reprobados', 'Completados'],
+                    datasets: [{
+                        label: 'Estado del proyecto',
+                        data: [
+                            {{ $enDesarrolloCount }},
+                            {{ $reprobadosCount }},
+                            {{ $completadosCount }}
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
+            });
         });
-    });
+    </script>
+    <!-- export Scripts -->
+    <script>
+        $(document).ready(function() {
+            $('#tabla-proyectos').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+            });
+        });
     </script>
 @endsection

@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'email' => 'guillermo.jesus.garcia.canul@gmail.com',
             'password' => Hash::make('guillermo'),
             'slug' => Str::slug('Guillermo Garcia', '-'),
-            'division_id' => 2,
+            //'division_id' => 2,
             'created_at' => now()
         ]);
 
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'email' => 'juanvillegas@gmail.com',
             'password' => Hash::make('juan'),
             'slug' => Str::slug('Juan Villegas', '-'),
-            'division_id' => 2,
+            //'division_id' => 2,
             'created_at' => now()
         ]);
 
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'email' => 'franklinvillegas@gmail.com',
             'password' => Hash::make('frank'),
             'slug' => Str::slug('Franklin Villegas', '-'),
-            'division_id' => 2,
+            //'division_id' => 2,
             'created_at' => now()
         ]);
 
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
             'email' => 'noelivillegas@gmail.com',
             'password' => Hash::make('noeli'),
             'slug' => Str::slug('Noeli Villegas', '-'),
-            'division_id' => 2,
+            //'division_id' => 2,
             'created_at' => now()
         ]);
 
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
             'email' => 'emmanuelvillegas@gmail.com',
             'password' => Hash::make('emmanuel'),
             'slug' => Str::slug('Emmanuel Villegas', '-'),
-            'division_id' => 2,
+            //'division_id' => 2,
             'created_at' => now()
         ]);
 
@@ -65,7 +65,7 @@ class UserSeeder extends Seeder
             'email' => 'rojasvillegas@gmail.com',
             'password' => Hash::make('rojas'),
             'slug' => Str::slug('Rojas Villegas', '-'),
-            'division_id' => 2,
+            //'division_id' => 2,
             'created_at' => now()
         ]);
 
@@ -74,7 +74,7 @@ class UserSeeder extends Seeder
             'email' => 'luisvillegas@gmail.com',
             'password' => Hash::make('luis'),
             'slug' => Str::slug('luis Villegas', '-'),
-            'division_id' => 2,
+            //'division_id' => 2,
             'created_at' => now()
         ]);
 
@@ -83,7 +83,7 @@ class UserSeeder extends Seeder
             'email' => 'alissonalexandra@gmail.com',
             'password' => Hash::make('alisson'),
             'slug' => Str::slug('Alisson Alexandra', '-'),
-            'division_id' => 2,
+            //'division_id' => 2,
             'created_at' => now()
         ]);
 
@@ -92,7 +92,7 @@ class UserSeeder extends Seeder
             'email' => 'garciamedina@gmail.com',
             'password' => Hash::make('mariana'),
             'slug' => Str::slug('Mariana Garcia Medina', '-'),
-            'division_id' => 2,
+            //'division_id' => 2,
             'created_at' => now()
         ]);
 
@@ -100,7 +100,7 @@ class UserSeeder extends Seeder
             'name' => 'Jose Martinez',
             // 'last_name' => 'Garcia',
             'email' => 'jose@gmail.com',
-            // 'phone_number' => '9983187269',
+            'phone_number' => '9983187269',
             'password' => Hash::make('jose'),
             'slug' => Str::slug('Jose Martinez', '-'), // Usar un hash seguro para la contraseña
             // 'avatar' => 'default.jpg',
