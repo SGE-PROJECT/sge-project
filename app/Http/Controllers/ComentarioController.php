@@ -42,7 +42,7 @@ class ComentarioController extends Controller
 
     public function destroy(Comment $comment)
     {
-        if (Auth::check() && Auth::user()->id === $comment->user_id) {
+        if (Auth::check() && Auth::user()->id === $comment->academic_advisor->user->id) {
             $comment->delete();
             return back()->with('error', 'Comentario eliminado correctamente.');
         } else {

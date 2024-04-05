@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Projects\ProjectFormRequest;
+use App\Models\AcademicAdvisor;
 use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -179,8 +180,10 @@ class ProjectController extends Controller
     {
         $user = Auth::user();
 
+        $getAdvisorId = AcademicAdvisor::where('user_id', $user->id)->first();
+
         // Verificar si el usuario ya asignó una calificación al proyecto
-        $existingScore = Scores::where('user_id', $user->id)
+        $existingScore = Scores::where('academic_advisor_id', $getAdvisorId->id)
             ->where('project_id', $projectId)
             ->first();
 
@@ -190,7 +193,7 @@ class ProjectController extends Controller
 
         // Crear una nueva puntuación
         Scores::create([
-            'user_id' => $user->id,
+            'academic_advisor_id' => $getAdvisorId->id,
             'project_id' => $projectId,
             'score' => $request->input('score'),
         ]);

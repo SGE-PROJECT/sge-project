@@ -262,7 +262,7 @@
                                     <p class="text-gray-600 text-sm">{{ $comment->created_at->diffForHumans() }}</p>
                                 </div>
 
-                                @if (Auth::check() && Auth::user()->id === $comment->user_id)
+                                @if (Auth::check() && Auth::user()->id === $comment->academic_advisor->user->id)
                                     <form method="POST"
                                         action="{{ route('comentario.destroy', ['comment' => $comment->id]) }}">
                                         @csrf
@@ -315,7 +315,7 @@
                                         <div class="flex items-center">
                                             <img src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
                                                 alt="Avatar" class="w-8 h-8 rounded-full mr-2">
-                                            <p class="text-white font-bold">{{ $score->user->name }}</p>
+                                            <p class="text-white font-bold">{{ $score->AcademicAdvisor->user->name }}</p>
                                         </div>
                                     </div>
                                     <div>
