@@ -46,7 +46,7 @@ class AdvisorySessionController extends Controller
         $allStudents = $students->map(function ($student, $key) {
             $colores = ["verde", "amarillo", "morado", "azul", "rosa"];
             $colorIndex = $key % count($colores);
-            $student->avatar = $student->user->avatar;
+            $student->avatar = $student->user->photo;
             $student->name = $student->user->name;
             $student->color = $colores[$colorIndex];
             return $student;
@@ -191,9 +191,6 @@ class AdvisorySessionController extends Controller
         }
         return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects'));
     }
-
-
-
 
     public function store(Request $request)
     {

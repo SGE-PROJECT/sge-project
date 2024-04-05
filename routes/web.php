@@ -196,6 +196,7 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     //asesorados
     Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
     Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
+    Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
 });
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
     Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');

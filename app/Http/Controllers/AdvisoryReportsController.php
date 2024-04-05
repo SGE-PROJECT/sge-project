@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Student;
 
 class AdvisoryReportsController extends Controller
 {
@@ -46,13 +47,22 @@ class AdvisoryReportsController extends Controller
         //
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'message' => 'required|max:255'
+        ]);
+        $user = Student::where('id', $id)->firstOrFail();
+        if (!$user->user->hasRole('Estudiante')) {
+            abort(404);
+        }
+        $cantidad = $user->sanction + 1;
+        $user->update(['sanction' => $cantidad]);
+        return back()->with('success', 'Se ha sancionado al alumno exitosamente.');
     }
 
     public function destroy(string $id)
     {
-        //
+
     }
 }
