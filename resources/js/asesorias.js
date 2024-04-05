@@ -1,5 +1,7 @@
 var idEvento = 1;
+var idFecha = "";
 var eliminarId = 1;
+var diaSemana = "", diaMes = "", Mes = "", año = "", numeroMes = "";
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("contador").textContent = 0 + "/250";
@@ -11,8 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('month').addEventListener('change', updateCalendar);
     document.getElementById('year').addEventListener('change', updateCalendar);
     document.getElementById('volverButton').addEventListener('click', volver);
-    document.getElementById('botonCitas').addEventListener('click', mostrarTodo);
-    document.getElementById('botonCitas2').addEventListener('click', ocultarTodo);
     document.getElementById("guardarEventoButton").addEventListener('click', editarGuardar);
     document.getElementById("borrarEventoBoton").addEventListener('click', eliminarEvento2);
     document.querySelectorAll('td[data-hora]').forEach(td => {
@@ -196,7 +196,7 @@ function mostrarEventos(cell, date) {
 
 function showModal() { document.getElementById("myModal").style.display = "flex"; }
 
-function llenarHorasConEventos() {
+function llenarHorasConEventos(año, numeroMes, diaMes) {
     let tablaHoras = document.querySelector("#dia2 table tbody");
     let filas = tablaHoras.querySelectorAll("tr");
     let fecha = new Date(año, numeroMes, diaMes);
@@ -277,7 +277,6 @@ function closeModal4() {
     error.style.display = "none";
 }
 
-var diaSemana = "", diaMes = "", Mes = "", año = "", numeroMes = "";
 
 function tiempo(td, tiem) {
     let div = td.querySelector('div');
@@ -305,7 +304,9 @@ function volver() {
     let error = document.getElementById("error");
     error.style.display = "none";
     document.getElementById("asesorias-formulario").classList.add("ocultar");
+    document.querySelector(".hora-asesorias").classList.add("ocultar");
     document.getElementById("eventosContainer").classList.remove("ocultar");
+    document.querySelector(".fechas-asesorias").classList.remove("ocultar");
     document.getElementById('dia').classList.add('ocultar');
     document.getElementById('calendario').classList.remove('ocultar');
     document.getElementById('fecha').value = "";
@@ -315,8 +316,6 @@ function volver() {
     document.getElementById('motivo').value = "";
 }
 function onDayClick(year, month, dayOfWeek, dayOfMonth) {
-    document.getElementById("asesorias-formulario").classList.remove("ocultar");
-    document.getElementById("eventosContainer").classList.add("ocultar");
     let selectedDate = new Date(year, month, dayOfMonth);
     let currentDate = new Date();
     selectedDate.setHours(0, 0, 0, 0);
@@ -339,7 +338,11 @@ function onDayClick(year, month, dayOfWeek, dayOfMonth) {
     document.getElementById('calendario').classList.add('ocultar');
     document.getElementById('fecha').value = formattedDate;
     document.getElementById('hora').innerHTML = `${diaSemana}, ${diaMes} de ${Mes}`;
-    llenarHorasConEventos();
+    llenarHorasConEventos(año, numeroMes, diaMes);
+    document.getElementById("asesorias-formulario").classList.remove("ocultar");
+    document.querySelector(".hora-asesorias").classList.remove("ocultar");
+    document.getElementById("eventosContainer").classList.add("ocultar");
+    document.querySelector(".fechas-asesorias").classList.add("ocultar");
 }
 function createCalendar(year, month) {
     let calendar = document.createElement('table');
@@ -406,7 +409,6 @@ function updateCalendar() {
     let calendarContainer = document.getElementById('calendar');
     calendarContainer.innerHTML = '';
     calendarContainer.appendChild(calendar);
-    mostrarTodosLosEventos();
 }
 function populateYears() {
     let yearSelect = document.getElementById('year');
@@ -423,96 +425,9 @@ function populateYears() {
     yearSelect.value = currentYear;
     monthSelect.value = currentMonth;
 }
-function mostrarTodosLosEventos() {
-    let tablaEventos = document.getElementById('tablaEventos2').getElementsByTagName('tbody')[0];
-    tablaEventos.innerHTML = '';
-    let eventosOrdenados = Object.values(eventos).sort((a, b) => a.proyectoId - b.proyectoId);
-    if (eventosOrdenados.length === 0) {
-        let fila = tablaEventos.insertRow();
-        let celdaMensaje = fila.insertCell();
-        celdaMensaje.textContent = 'No hay eventos registrados.';
-        celdaMensaje.colSpan = 6;
-        celdaMensaje.classList.add('text-center');
-    } else {
-        for (let i = 0; i < eventosOrdenados.length; i++) {
-            let evento = eventosOrdenados[i];
-            let fila = tablaEventos.insertRow();
-
-            let celdaProyecto = fila.insertCell();
-            let divNombreProyecto = document.createElement('div');
-            divNombreProyecto.textContent = proyectos[evento.proyectoId].nombre;
-            celdaProyecto.appendChild(divNombreProyecto);
-
-            let celdaAlumnos = fila.insertCell();
-            let alumnosProyecto = proyectos[evento.proyectoId].alumnos.map(matricula => estudiantes[matricula].nombre).join(', ');
-            let divAlumnos = document.createElement('div');
-            divAlumnos.classList.add("limitar2")
-            divAlumnos.textContent = alumnosProyecto;
-            celdaAlumnos.appendChild(divAlumnos);
-
-            let celdaMotivo = fila.insertCell();
-            let divMotivo = document.createElement('div');
-            divMotivo.classList.add("limitar2");
-            divMotivo.textContent = evento.motivo;
-            celdaMotivo.appendChild(divMotivo);
-
-            let celdaHora = fila.insertCell();
-            let horaEvento = formato12Horas(evento.hora);
-            let divHora = document.createElement('div');
-            divHora.textContent = horaEvento;
-            celdaHora.appendChild(divHora);
-
-            let celdaFecha = fila.insertCell();
-            let fechaEvento = new Date(evento.fecha + "T00:00:00");
-            fechaEvento = new Date(fechaEvento.getTime() + fechaEvento.getTimezoneOffset() * 60000);
-            let options = { year: 'numeric', month: 'long', day: 'numeric' };
-            let divFecha = document.createElement('div');
-            divFecha.textContent = fechaEvento.toLocaleDateString('es-ES', options);
-            celdaFecha.appendChild(divFecha);
-
-            let celdaAccion = fila.insertCell();
-            let divAcciones = document.createElement('div');
-            let botonEditar = document.createElement('button');
-            botonEditar.innerHTML = `<i class="nf nf-md-pencil evento"></i>`;
-            botonEditar.addEventListener('click', function () { editarEvento(evento.id, evento.fecha, evento.hora, evento.motivo); });
-            divAcciones.appendChild(botonEditar);
-
-            let botonEliminar = document.createElement('button');
-            botonEliminar.innerHTML = `<i class="nf nf-fa-trash evento"></i>`;
-            botonEliminar.addEventListener('click', function () { eliminarEvento(evento.id); });
-            divAcciones.appendChild(botonEliminar);
-
-            celdaAccion.appendChild(divAcciones);
-        }
-    }
-}
-function mostrarTodo() {
-    document.getElementById("contbtnCitas").classList.add("ocultar");
-    document.getElementById("contbtnCitas2").classList.remove("ocultar");
-    let error = document.getElementById("error");
-    error.style.display = "none";
-    document.getElementById('fecha').value = "";
-    document.getElementById('horas').value = "";
-    document.getElementById("contador").textContent = 0 + "/250";
-    document.getElementById('motivo').value = "";
-    document.getElementById('matricula').value = "0";
-    document.getElementById('dia').classList.add('ocultar');
-    document.getElementById('calendario').classList.remove('ocultar');
-    document.getElementById("asesorias-formulario").classList.add("ocultar");
-    document.getElementById("eventosContainer").classList.add("ocultar");
-    document.getElementById("calendario").classList.add("ocultar");
-    document.getElementById("eventosContainer2").classList.remove("ocultar");
-}
-function ocultarTodo() {
-    document.getElementById("contbtnCitas").classList.remove("ocultar");
-    document.getElementById("contbtnCitas2").classList.add("ocultar");
-    document.getElementById("asesorias-formulario").classList.add("ocultar");
-    document.getElementById("eventosContainer").classList.remove("ocultar");
-    document.getElementById("calendario").classList.remove("ocultar");
-    document.getElementById("eventosContainer2").classList.add("ocultar");
-}
 function editarGuardar() {
     let id = idEvento;
+    let idFech = idFecha;
     var fechaInput = document.getElementById("editFecha");
     var horasInput = document.getElementById("editHora");
     var motivoInput = document.getElementById("editMotivo");
@@ -553,11 +468,19 @@ function editarGuardar() {
         return;
     }
     let idEventos = nuevaFecha + ' ' + nuevaHora;
-    if (idEventos in eventos) {
-        error.style.display = "block";
-        error.innerHTML = "La cita ya existe.";
-        return;
+    if(idFech!==idEventos){
+        if (idEventos in eventos) {
+            error.style.display = "block";
+            error.innerHTML = "La cita ya existe.";
+            return;
+        }
     }
+    if(idFech==idEventos && eventos[idFech].motivo == nuevoMotivo){
+        error.style.display = "block";
+            error.innerHTML = "Los datos de la cita son identicos.";
+            return;
+    }
+
     var formulario = document.getElementById('editarCita');
     var actionUrl = actionUrlTemplate.replace(':id', id);
     formulario.action = actionUrl;
@@ -566,6 +489,7 @@ function editarGuardar() {
 }
 function editarEvento(id, fecha, hora, motivo) {
     idEvento = id;
+    idFecha = fecha + ' ' + hora;
     var fechaInput = document.getElementById("editFecha");
     var horasInput = document.getElementById("editHora");
     var motivoInput = document.getElementById("editMotivo");
@@ -576,6 +500,5 @@ function editarEvento(id, fecha, hora, motivo) {
     document.getElementById("editContador").textContent = cantidad + "/250";
     document.getElementById("myModal2").style.display = "flex";
 }
-mostrarTodosLosEventos();
 populateYears();
 updateCalendar();

@@ -1,10 +1,10 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Roles y permisos')
 
 @section('contenido')
 
-    @vite('resources/css/roles/roles.css');
+    @vite('resources/css/roles/roles.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <div class="container">
@@ -56,10 +56,10 @@
                             <a href="{{ route('roles.permissions.edit', $role->id) }}" class="btn btn-primary">Editar</a>
                         </div>
                         <div class="button-container">
-                           
+
                                 <button type="button" class="btn btn-danger"
                                 onclick="showConfirmModal({{ $role->id }})">Eliminar</button>
-                            
+
                         </div>
                     </div>
                 </div>

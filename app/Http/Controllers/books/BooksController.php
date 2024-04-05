@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\books;
 
 use App\Models\Book;
+use App\Models\User;
 use App\Exports\BooksExport;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
+use App\Mail\CommentNotification;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\ProjectNotification;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class BooksController extends Controller
 {
@@ -227,4 +233,21 @@ public function export()
     return Excel::download(new BooksExport, 'libros.xlsx');
 }
 
+public function notifications (Request $request){
+    $recipients = User::all();
+    $user=User::find(9);
+
+   /*  $notification = new ProjectNotification($request->data, $recipient); */
+   /* aqui se envia la notificacion a la bd */
+   foreach ($recipients as $recipient) {
+            Notification::send($recipient,new ProjectNotification($request->data,$recipient)); 
+   }
+ /*  $recipient->notify($notification); // Aquí enviamos la notificación al usuario */
+ /* aqui se envia al email del usuario */
+ Mail::to($user->email)->send(new CommentNotification($request->data, $user->name));
+ Mail::to('angelguxman77@gmail.com')->send(new CommentNotification($request->data, $user->name));
+    return redirect()->route('libros.index');
+
+
+}
 }

@@ -98,15 +98,13 @@ function llenarHorasConEventos() {
                 eventosSinMinutos[horaSinMinutos].forEach(evento => {
                     let proyecto = proyectos[evento.proyectoId];
                     proyecto.alumnos.forEach(matricula => {
-                        let estudiante = estudiantes[matricula];
                         let eventoDiv = document.createElement('div');
                         eventoDiv.classList.add("etiqueta");
                         eventoDiv.innerHTML = `
-                            <img src="/images/${estudiante.imagen}" alt="${estudiante.nombre}" class="img_estudiante">
-                            <p class="info">${estudiante.nombre} - ${proyecto.nombre}</p>
+                            <p class="info">${evento.motivo}</p>
                             <p class="hora"> ${evento.hora}</p>`;
                         eventoDiv2.appendChild(eventoDiv);
-                        eventoDiv.classList.add(estudiante.color);
+                        eventoDiv.classList.add("azul");
                     });
                 });
                 td.onclick = null;
@@ -121,9 +119,13 @@ function volver() {
     document.getElementById("student-eventosContainer").classList.remove("ocultar");
     document.getElementById('student-dia').classList.add('ocultar');
     document.getElementById('student-calendario').classList.remove('ocultar');
+    document.querySelector(".hora-asesorias").classList.add("ocultar");
+    document.querySelector(".fechas-asesorias").classList.remove("ocultar");
 }
 function onDayClick(year, month, dayOfWeek, dayOfMonth) {
     document.getElementById("student-eventosContainer").classList.add("ocultar");
+    document.querySelector(".hora-asesorias").classList.remove("ocultar");
+    document.querySelector(".fechas-asesorias").classList.add("ocultar");
     let selectedDate = new Date(year, month, dayOfMonth);
     let currentDate = new Date();
     selectedDate.setHours(0, 0, 0, 0);
@@ -131,8 +133,20 @@ function onDayClick(year, month, dayOfWeek, dayOfMonth) {
     if (selectedDate <= currentDate) {
         return;
     }
+    let months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    let days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    diaSemana = days[dayOfWeek];
+    diaMes = dayOfMonth;
+    Mes = months[month];
+    numeroMes = month;
+    año = year;
+    let formattedMonth = String(month + 1).padStart(2, '0');
+    let formattedDay = String(dayOfMonth).padStart(2, '0');
+    let formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
+    console.log(formattedDate);
     document.getElementById('student-dia').classList.remove('ocultar');
     document.getElementById('student-calendario').classList.add('ocultar');
+    document.getElementById('student-hora').innerHTML = `${diaSemana}, ${diaMes} de ${Mes}`;
     llenarHorasConEventos();
 }
 function createCalendar(year, month) {

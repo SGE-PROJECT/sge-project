@@ -5,12 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Scores extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id',
+        'academic_advisor_id',
         'project_id',
-        'score'
+        'score',
+        'total_score'
     ];
+
+    public function academicAdvisor()
+    {
+        return $this->belongsTo(AcademicAdvisor::class, 'academic_advisor_id');
+    }
 }

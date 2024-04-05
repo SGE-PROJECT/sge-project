@@ -17,9 +17,26 @@ class ProfileController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
+    public function actualizarFoto(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $usuario = auth()->user();
+
+        $imagen = $request->file('photo');
+        $nombreImagen = time() . '.' . $imagen->extension();
+        $imagen->move(public_path('fotos'), $nombreImagen);
+
+        $usuario->photo = 'fotos/' . $nombreImagen;
+        $usuario->save();
+
+        return redirect()->back()->with('success', 'Foto de perfil actualizada exitosamente.');
+    }
+
+     
     public function create()
     {
         //

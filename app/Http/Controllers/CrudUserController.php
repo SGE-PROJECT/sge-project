@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Models\AcademicAdvisor;
+use App\Models\AcademicDirector;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 
 class CrudUserController extends Controller
@@ -15,9 +19,39 @@ class CrudUserController extends Controller
      */
     public function index()
     {
-        $users = User::all(); // Obtener todos los usuarios
+        $users = User::with([
+            'student.group.program.division',
+            'secretary.division',
+            'academicDirector.division',
+            'academicAdvisor.division',
+            'managmentAdmin.division'
+        ])->get();
+
+        // Iteramos sobre cada usuario para asignarle explícitamente division_id y division_name
+        $users->each(function ($user) {
+            if ($user->relationLoaded('student') && $user->student) {
+                $division = $user->student->group->program->division ?? null;
+            } elseif ($user->relationLoaded('secretary') && $user->secretary) {
+                $division = $user->secretary->division ?? null;
+            } elseif ($user->relationLoaded('academicDirector') && $user->academicDirector) {
+                $division = $user->academicDirector->division ?? null;
+            } elseif ($user->relationLoaded('academicAdvisor') && $user->academicAdvisor) {
+                $division = $user->academicAdvisor->division ?? null;
+            } elseif ($user->relationLoaded('managmentAdmin') && $user->managmentAdmin) {
+                $division = $user->managmentAdmin->division ?? null;
+            } else {
+                $division = null;
+            }
+
+            // Asignamos los valores de division_id y division_name
+            $user->division_id = $division ? $division->id : 'Sin ID de División';
+            $user->division_name = $division ? $division->name : 'Sin División';
+        });
+
+
         return view('users.cruduser', ['users' => $users]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -37,19 +71,57 @@ class CrudUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
+            'identifier_number' => 'required|string',
             'role' => 'required',
-            'division_id' => 'required|exists:divisions,id', // Asegúrate de validar que el ID de la división exista
+            //'division_id' => 'required|exists:divisions,id', // Asegúrate de validar que el ID de la división exista
+            'phone_number' => 'required|string|max:20',
+            'avatar' => 'nullable|string|max:500',
+            'isActive' => 'required|boolean',
         ]);
+
+        // Generar el slug a partir del nombre
+        $slug = Str::slug($request->name, '-');
 
         $user = User::create([
             'name' => $request->name,
+            'slug' => $slug,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'division_id' => $request->division_id, // Agrega la asignación de división
+            //'division_id' => $request->division_id,
+            'phone_number' => $request->phone_number,
+            'avatar' => $request->avatar,
+            'isActive' => $request->isActive,
         ]);
+
+        $userId = $user->id; // Obtener el ID del usuario creado
 
         $user->assignRole($request->role);
 
+        if ($request->role === 'Estudiante') {
+            $request->validate([
+                'group_id' => 'required|exists:groups,id',
+                'academic_advisor_id' => 'required|exists:academic_advisors,id',
+            ]);
+            Student::create([
+                'user_id' => $userId,
+                'registration_number' => $request->identifier_number,
+                'group_id' => $request->group_id,
+                'academic_advisor_id' => $request->academic_advisor_id,
+                'division_id' => $request->division_id,
+            ]);
+        } elseif ($request->role === 'Asesor Académico') {
+            AcademicAdvisor::create([
+                'user_id' => $userId,
+                'payroll' => $request->identifier_number,
+                'division_id' => $request->adivision_id,
+            ]);
+        } else {
+            AcademicDirector::create([
+                'user_id' => $userId,
+                'payroll' => $request->identifier_number,
+                'division_id' => $request->adivision_id,
+            ]);
+        }
         return redirect()->route('users.cruduser.index');
     }
 

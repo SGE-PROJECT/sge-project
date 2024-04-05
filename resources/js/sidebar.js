@@ -41,7 +41,6 @@ function closeSidebar() {
         image.classList.add('hidden');
         ut.classList.remove('hidden');
     }, 100);
-
 }
 
 function openSidebar() {

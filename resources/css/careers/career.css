@@ -45,10 +45,11 @@
     margin-right: 32px; /* Espacio a la derecha igual que la tarjeta de carreras */
     overflow: hidden;
     width: calc(100% - 64px); /* Ajusta el ancho si es necesario para mantener el espaciado uniforme */
-    margin-left: 64px;
-    margin-right: 64px;
+    margin-left:30px;
+    margin-right: 80px;
     overflow: hidden; /* Oculta los bordes de los elementos internos que sobresalen */
-    margin-top: 35px; 
+    margin-top: 35px;
+    border-radius:20px;
 }
 
 .divisions h2 {
@@ -89,7 +90,7 @@
 table {
     width: 100%;
     margin-bottom: 20px;
-    color: #394C5F;
+    color: #000000;
     border-spacing: 0;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra debajo de la tabla */
@@ -110,15 +111,20 @@ tbody tr:nth-child(even) {
 }
 
 td {
-    font-weight: bold;
-    color: #394C5F;
+  padding: 15px;
+  font-size: 16px;
+  color: #090909;
+  text-align: center;
+  font-weight: 500;
 }
 
 th {
-    background-color: #394C5F;
+    background-color: #293846;
     font-weight: bold;
     color: #fff;
     padding: 8px;
+    text-align: center;
+    height: 60px;
 }
 
 .carta-payment-careers {
