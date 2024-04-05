@@ -1,0 +1,68 @@
+/*Estilos Css*/
+.abrir-modal {
+    display: inline-block;
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    position: relative;
+}
+.rounded-lg {
+    border: 3px solid #CCD1D1;
+}
+.fondo{
+    text-align: center;  
+    font-size: 35px; 
+    color: #293846;
+    padding: 15px 10px 2px;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+}
+.tabla-project {
+    position: relative;
+    z-index: 2;
+}
+.Agendar {
+    position: fixed;
+    top: 115px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #03A696;
+    color: white;
+    font-weight: bold;
+}
+.svg-wrapper-memo {
+    margin-right: 10px;
+}
+.svg-wrapper-si {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.text {
+    display: none;
+}
+
+/*Ajustes para hacer la  pantalla responsiva*/
+@media (max-width: 992px) {
+    .card {
+        width: calc(50% - 20px);
+    }
+}
+@media (max-width: 576px) {
+    .card {
+        width: calc(100% - 20px);
+    }
+}   
+@media (max-width: 360px) {
+    .card {
+        width: calc(100% - 20px);
+    }
+}
