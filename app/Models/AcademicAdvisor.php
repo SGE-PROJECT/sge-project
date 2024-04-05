@@ -30,6 +30,21 @@ class AcademicAdvisor extends Model
     {
         return $this->hasMany(Student::class, 'academic_advisor_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'academic_advisor_id');
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(Scores::class, 'academic_advisor_id');
+    }
+
+    public function projectLikes()
+    {
+        return $this->hasMany(Project_likes::class, 'academic_advisor_id');
+    }
 }
 
 

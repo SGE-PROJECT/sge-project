@@ -458,9 +458,16 @@
                         <button type="button" class="dropdown-toggle flex items-center">
                             <div class="flex-shrink-0 w-10 h-10 relative">
                                 <div class="p-1 bg-white rounded-full focus:outline-none focus:ring">
+                                    @if (auth()->user()->photo)
                                     <img class="w-8 h-8 rounded-full"
-                                        src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                        src="{{ asset(auth()->user()->photo) }}"
                                         alt="" />
+                                        @else
+                                        <!-- Si el usuario no tiene foto de perfil, muestra un icono de usuario predeterminado -->
+                                        <img id="preview" class="w-8 h-8 rounded-full"
+                                        src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                            alt="Ícono de usuario predeterminado">
+                                    @endif
                                     <div
                                         class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping">
                                     </div>
@@ -488,11 +495,11 @@
                             class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
                             <li>
                                 <a href="/perfil"
-                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Profile</a>
+                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50"> Ver Perfil</a>
                             </li>
                             <li>
                                 <a href="Configurar_Cuenta"
-                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Settings</a>
+                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Configurar Cuenta</a>
                             </li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}" class="">
@@ -501,7 +508,7 @@
                                         class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50 cursor-pointer"
                                         onclick="event.preventDefault();
                                   this.closest('form').submit();">
-                                        Log Out
+                                        Cerrar Sesión
                                     </a>
                                 </form>
                             </li>
