@@ -7,10 +7,10 @@
     <div class="rounded-lg bg-white  p-8 shadow-lg lg:col-span-3 lg:p-12">
         <li
             class="flex items-center font-sans hover:text-teal-500 text-xl antialiased font-semibold leading-normal transition-colors duration-300 cursor-pointer">
-                <a href="proyectoinvitacion">⭠ Regresar</a>
+            <a href="proyectoinvitacion">⭠ Regresar</a>
         </li>
         <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
-        <form action="{{ route('envproyecto') }}" method="POST" class="space-y-4">
+        <form id="projectForm" action="{{ route('envproyecto') }}" method="POST" class="space-y-4">
             @csrf
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -262,11 +262,14 @@
             </div>
 
             <div class="mt-8 flex justify-center text-center space-x-6">
-                <button type="submit"
-                    class=" font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Guardar</button>
-                <button type="submit" id="openModalButton"
-                    class=" font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Publicar</button>
+                <button type="submit" name="action" value="guardar"
+                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Guardar</button>
+
+                <button type="submit" name="action" value="publicar" id="publishButton"
+                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Publicar</button>
+
             </div>
+            <input type="hidden" name="is_project" value="0">
         </form>
     </div>
 
