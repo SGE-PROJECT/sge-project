@@ -29,9 +29,7 @@ h1 {
         position: relative;
         z-index: 2;
 }
-.add-btn:hover {
-    background-color: #38B2AC;
-}
+
  .botonagregar{
     display: flex;
     justify-content: flex-end;
@@ -57,10 +55,8 @@ h1 {
     height: 300px;   
 }
 .card:hover {
-    background-color: #E0FDF5;
     box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.4);
     transform: translateY(-5px);
-    border: 2px solid #9BEEEE;
 }
 .card-body {
     padding: 90px 20px; 
@@ -111,26 +107,17 @@ h1 {
     background-color: #54B8C7;
     color: #fff;
 }
-.btn-info:hover {
-    background-color: #38828D;
-    border: 2px solid #02DDFF;
-}
+
 .btn-primary {
     background-color: #548ECD;
     color: #fff;
 }
-.btn-primary:hover {
-    background-color: #2B4C6E;
-    border: 2px solid #0480FD;
-}
+
 .btn-danger {
     background-color: #CD3A49;
     color: #fff;
 }
-.btn-danger:hover {
-    background-color: #941F2B;
-    border: 2px solid #FD041C;
-}
+
 @media (max-width: 992px) {
     .card {
         width: calc(50% - 20px);

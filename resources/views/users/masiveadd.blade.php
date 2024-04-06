@@ -47,7 +47,7 @@ Gestión Masiva De Usuarios
                         {{ $user->email }}
                     </td>
                     <td class="py-4 px-6">
-                        {{$user->division->name ?? 'Sin división'}}
+                        {{$user->division_name ?? 'Sin división'}}
                     </td>
                     <td class="py-4 px-6">
                         {{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}
