@@ -261,6 +261,10 @@
             <div class="mt-8 flex justify-center text-center space-x-6">
                 <button
                     class=" font-bold bg-teal-500 text-white  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
+
+                <button type="submit" name="action" value="publicar" id="publishButton"
+                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Publicar</button>
+
             </div>
         </form>
     </div>

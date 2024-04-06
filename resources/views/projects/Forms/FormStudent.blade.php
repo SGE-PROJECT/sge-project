@@ -27,7 +27,7 @@
                 <div>
                     <label class="text-sm font-semibold">Matricula:</label>
                     <input name="id_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm" type="text"
-                        value="{{ Auth::user()->student->registration_number }}" readonly></input>
+                        value="{{ Auth::user()->student->registration_number }}"readonly></input>
                     <div class="text-red-400 font-bold text-lg">
                         @error('id_student')
                             {{ $message }}
