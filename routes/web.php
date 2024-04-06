@@ -201,6 +201,7 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
 
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
     Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
+    Route::post('/asesorias/solicitar/{id}', [AdvisorySessionController::class, 'enviar'])->name('asesoriasEnviar');
 });
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol

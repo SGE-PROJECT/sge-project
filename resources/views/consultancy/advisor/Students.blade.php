@@ -65,12 +65,18 @@
             function llenarContenedor() {
                 var contenedor = document.getElementById('proyecto');
                 var contenedorWidth = contenedor.clientWidth;
+                console.log(contenedorWidth);
                 var hijos = contenedor.children;
-                var numHijos = hijos.length;
+                for (var i = hijos.length - 1; i >= 0; i--) {
+                    if (hijos[i].style.opacity === '0') {
+                        contenedor.removeChild(hijos[i]);
+                    }
+                }
+                var numHijos = contenedor.children.length;
                 var espacioDisponible = contenedorWidth - ((numHijos ) * 40) - (numHijos * 300) - 40;
                 if (espacioDisponible > 0) {
                     var numDivs = Math.floor(espacioDisponible / 300);
-                    for (var i = 0; i < numDivs; i++) {
+                    for (var j = 0; j < numDivs; j++) {
                         var divOculto = document.createElement('div');
                         divOculto.style.opacity = '0';
                         divOculto.style.width = '100%';
@@ -120,7 +126,7 @@
                 contador.textContent = document.getElementById('editMotivo').value.length + "/250";
             });
             });
-            window.addEventListener('resize', llenarContenedor);
+            window.addEventListener('resize', ()=>llenarContenedor());
         </script>
     </main>
 @endsection
