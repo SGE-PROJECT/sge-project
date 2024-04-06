@@ -14,6 +14,8 @@
             @csrf
             @method('put')
 
+            <input type="hidden" name="action" value="editar">
+
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label class="text-sm font-semibold">Nombre Completo:</label>
@@ -133,7 +135,7 @@
                     <label class="text-sm font-semibold">Nombre del Asesor Empresarial:</label>
                     <input name="advisor_business_name" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el nombre del asesor" type="text"
-                        value="{{ $proyecto->advisor_business_name }}" />
+                        value="{{ $proyecto->BusinessAdvisor->name }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_name')
                             {{ $message }}
@@ -145,7 +147,7 @@
                     <label class="text-sm font-semibold">Cargo del Asesor:</label>
                     <input name="advisor_business_position" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el cargo del asesor" type="text"
-                        value="{{ $proyecto->advisor_business_position }}" />
+                        value="{{ $proyecto->BusinessAdvisor->position }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_position')
                             {{ $message }}
@@ -158,7 +160,7 @@
                     <label class="text-sm font-semibold">Número Teléfonico del Asesor:</label>
                     <input name="advisor_business_phone" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el número teléfonico del asesor" type="tel"
-                        value="{{ $proyecto->advisor_business_phone }}" />
+                        value="{{ $proyecto->BusinessAdvisor->phone }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_phone')
                             {{ $message }}
@@ -170,7 +172,7 @@
                     <label class="text-sm font-semibold">Correo Electrónico:</label>
                     <input name="advisor_business_email" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el correo electrónico del asesor" type="email"
-                        value="{{ $proyecto->advisor_business_email }}" />
+                        value="{{ $proyecto->BusinessAdvisor->email }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_email')
                             {{ $message }}
