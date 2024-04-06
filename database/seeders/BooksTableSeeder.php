@@ -14,9 +14,9 @@ class BooksTableSeeder extends Seeder
     public function run(): void
     {
         // // Crear los 10 registros de libros utilizando el Factory
-        // foreach ($this->getBookData() as $bookData) {
-        //     Book::factory()->create($bookData);
-        // }
+         foreach ($this->getBookData() as $bookData) {
+            Book::factory()->create($bookData);
+         }
     }
 
     /**

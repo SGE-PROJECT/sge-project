@@ -23,17 +23,13 @@ class Project extends Model
         'name_project',
         'company_name',
         'company_address',
-        'advisor_business_name',
-        'advisor_business_position',
-        'advisor_business_phone',
-        'advisor_business_email',
         'project_area',
         'general_objective',
         'problem_statement',
         'justification',
         'activities',
+        'business_advisor_id',
         'id_academic_advisor_id',
-        'id_business_advisor_id',
         'id_program_id',
         'id_company_id',
         'status',
@@ -64,6 +60,12 @@ class Project extends Model
     public function advisorySessions()
     {
         return $this->hasMany(AdvisorySession::class, 'id_advisor_id');
+    }
+
+
+    public function businessAdvisor()
+    {
+        return $this->belongsTo(BusinessAdvisor::class, 'business_advisor_id');
     }
 
 

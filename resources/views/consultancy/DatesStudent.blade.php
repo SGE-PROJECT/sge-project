@@ -7,7 +7,7 @@
 @endsection
 
 @section('css')
-    @vite('resources/css/asesoriasStudents.css')
+    @vite('resources/css/advisory/asesoriasStudents.css')
 @endsection
 
 @section('contenido')

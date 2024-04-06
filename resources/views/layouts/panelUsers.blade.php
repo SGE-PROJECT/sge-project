@@ -12,6 +12,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>@import "https://www.nerdfonts.com/assets/css/webfont.css";</style>
     @vite('resources/css/app.css')
     @vite('resources/js/sidebarUser.js')
     @vite('resources/js/tableproject.js')
@@ -90,6 +91,43 @@
                 @if (Auth::check() &&
                         Auth::user()->hasAnyRole(['Asesor Académico', 'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
                 @else
+                <li class="mb-1 group relative z-2">
+                    <a href=""
+                        class="flex font-semibold items-center py-2 px-4 text-white sidebar-dropdown-toggle rounded-md">
+                        <i class='bx bx-building-house mr-3 text-lg'></i>
+                        <span class="nav-text text-sm">Administración</span>
+                        <i
+                            class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
+                    </a>
+                    <ul
+                        class="hidden transition duration-300 ease-in-out absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
+                        @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Estudiante',
+                        'Presidente Académico', 'Asistente de Dirección']))
+                        @else
+                        <li class=" ">
+                            <a href="/gestion-usuarios"
+                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#00755e] p-1 rounded-md ">
+                                <i class='bx bx-user mr-3 text-lg'></i>
+                                <span>Usuarios</span>
+                            </a>
+                        </li>
+                        @endif
+                        <li class="">
+                            <a href="/roles-permisos"
+                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#00755e] p-1 rounded-md">
+                                <i class='bx bx-lock-open mr-3 text-lg'></i>
+                                <span>Roles y Permisos</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="sanciones"
+                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+                                <i class='bx bx-no-entry mr-3 text-lg'></i>
+                                <span>Sanciones</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                     <li class="mb-1 group relative z-2">
                         <a href=""
                             class="flex font-semibold items-center py-2 px-4 text-white sidebar-dropdown-toggle rounded-md">
@@ -222,10 +260,16 @@
                 @if (Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']))
                     <!-- ACTIVIDADES Section -->
                     <span class="text-[#fff] nav-text font-bold">ACTIVIDADES</span>
-
+                    <li class="mb-1 group">
+                        <a href="{{ route('asesorados', ['id' => auth()->user()->slug ]) }}"
+                            class="flex font-semibold items-center py-1 px-4 text-white rounded-md hover:text-[#d0d3d4]">
+                            <i class='nf nf-fa-user_graduate mr-3 text-lg'></i>
+                            <span class="nav-text text-sm">Asesorados</span>
+                        </a>
+                    </li>
                 <li class="mb-1 group">
                     <a href="{{ route('asesorias', ['id' => auth()->user()->slug ]) }}"
-                        class="flex font-semibold items-center py-2 px-4 text-white rounded-md hover:text-[#d0d3d4]">
+                        class="flex font-semibold items-center py-1 px-4 text-white rounded-md hover:text-[#d0d3d4]">
                         <i class='bx bx-calendar-event mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Sesiones de Asesoría</span>
                     </a>
@@ -465,7 +509,7 @@
                                         @else
                                         <!-- Si el usuario no tiene foto de perfil, muestra un icono de usuario predeterminado -->
                                         <img id="preview" class="w-8 h-8 rounded-full"
-                                        src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                        src="{{ asset('images/profileconfiguration/avatar.jpg') }}"
                                             alt="Ícono de usuario predeterminado">
                                     @endif
                                     <div

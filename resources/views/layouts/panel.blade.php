@@ -31,6 +31,35 @@
     @vite('resources/css/Dashboard/DashboardUsers.css')
     @vite('resources/css/projects/projectview.css')
     @vite('resources/css/management/projects.css')
+  @livewireStyles
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="icon" href="{{ asset('images/logo_sge.svg') }}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  @vite('resources/css/app.css')
+  @vite('resources/css/asesorias.css')
+  @vite('resources/css/asesoriasStudents.css')
+  @vite('resources/js/sidebar.js')
+  @vite('resources/js/asesorias.js')
+  @vite('resources/js/tableproject.js')
+  @vite('resources/css/sidebar.css')
+  @vite('resources/css/management/divisions/divisions.css')
+  @vite('resources/css/projects/projectDashboardStyle.css')
+  @vite('resources/css/books-notifications/books/books.css')
+  @vite('resources/css/books-notifications/books/add-books.css')
+  @vite('resources/js/asesoriasStudent.js')
+  @vite('resources/css/buttonappoint.css')
+  @vite('resources/css/input.css')
+  @vite('resources/js/projectview.js')
+  @vite('resources/css/loader/loader.css')
+  @vite('resources/css/Dashboard/DashboardUsers.css')
+  @vite('resources/css/projects/projectview.css')
+  @vite('resources/css/management/projects.css')
 
 
     <title>@yield('titulo')</title>
@@ -467,7 +496,7 @@
                                     @else
                                     <!-- Si el usuario no tiene foto de perfil, muestra un icono de usuario predeterminado -->
                                     <img id="preview" class="w-8 h-8 rounded-full"
-                                    src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                    src="{{ asset('images/profileconfiguration/avatar.jpg') }}"
                                         alt="Ícono de usuario predeterminado">
                                 @endif
                                 <div
