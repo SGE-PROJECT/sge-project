@@ -19,6 +19,7 @@ window.onclick = function(event) {
 // Obtener elementos del DOM
 const photoInput = document.getElementById('photoInput');
 const guardarFotoBtn = document.getElementById('guardarFotoBtn');
+const cancelarBtn = document.getElementById('cancelarBtn');
 const profilePicture = document.getElementById('profilePicture');
 
 // Variable para controlar si el perfil ha sido editado
@@ -62,12 +63,14 @@ function mostrarFotoSeleccionada() {
 // Función para mostrar el botón de guardar foto
 function mostrarBotonGuardar() {
     guardarFotoBtn.style.display = 'block';
+    cancelarBtn.style.display = 'block';
 }
 
 // Almacenar en sessionStorage cuando se haya guardado la foto
 guardarFotoBtn.addEventListener('click', () => {
     sessionStorage.setItem('fotoGuardada', true);
     guardarFotoBtn.style.display = 'none'; // Ocultar el botón después de guardar la foto
+    cancelarBtn.style.display = 'none'; // Ocultar el botón después de guardar la foto
 });
 
 // Ocultar el botón de guardar foto si la foto ya ha sido guardada
@@ -75,6 +78,7 @@ window.addEventListener('load', () => {
     const fotoGuardada = sessionStorage.getItem('fotoGuardada');
     if (fotoGuardada) {
         guardarFotoBtn.style.display = 'none';
+        cancelarBtn.style.display = 'none';
     }
 });
 
@@ -83,3 +87,10 @@ document.getElementById('editarPerfilBtn').addEventListener('click', () => {
     perfilEditado = true; // Marcar el perfil como editado
     openModal(); // Abrir el modal de edición de perfil
 });
+
+
+// Función para cancelar la actualización de la foto
+function cancelUpdate() {
+    // Redirigir a la página anterior o a donde sea necesario
+    window.location.reload();
+}
