@@ -41,11 +41,6 @@ use App\Http\Controllers\users\ManagementUserController;
 |
 */
 
-Route::get('/', function () {
-    return view('administrator.dashboard.dashboard-general');
-});
-
-
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
     Route::get('/Iniciar-sesion', [LoginControlller::class, 'index'])->name('login');

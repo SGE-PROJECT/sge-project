@@ -20,45 +20,31 @@ class ProgramsSeeder extends Seeder
                 'division_id' => 1,
                 'programs' => [
                     [
-                        'name' => 'TSU en Mantenimiento área Instalaciones*',
-                        'description' => 'Descripción TSU en Mantenimiento área Instalaciones.',
+                        'name' => 'TSU en TI Área Desarrollo de Software Multiplataforma',
+                        'description' => 'Descripción TSU en TI Área Desarrollo de Software Multiplataforma.',
                         'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/pexels-lukas-574071.jpg',
                         'end_date' => '2024-12-31',
                     ],
                     [
-                        'name' => 'TSU en Mantenimiento área Naval*',
-                        'description' => 'Descripción TSU en Mantenimiento área Naval.',
+                        'name' => 'TSU en TI Área Infraestructura de Redes Digitales',
+                        'description' => 'Descripción TSU en TI Área Infraestructura de Redes Digitales.',
                         'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/redes.jpeg',
                         'end_date' => '2024-12-31',
                     ],
                     [
-                        'name' => 'TSU en Tecnologías de la Información área Desarrollo de Software Multiplataforma*',
-                        'description' => 'Descripción TSU en área Desarrollo de Software Multiplataforma.',
+                        'name' => 'TSU en Mantenimiento Área Instalaciones',
+                        'description' => 'Descripción TSU en Mantenimiento Área Instalaciones.',
                         'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/pexels-kateryna-babaieva-2760241.jpg',
                         'end_date' => '2024-12-31',
                     ],
                     [
-                        'name' => 'TSU en Tecnologías de la Información área Infraestructura de Redes Digitales*',
-                        'description' => 'Descripción TSU en área Infraestructura de Redes Digitales.',
+                        'name' => 'TSU en Mantenimiento Área Naval',
+                        'description' => 'Descripción TSU en Mantenimiento Área Naval.',
                         'start_date' => '2024-01-01',
-                        'end_date' => '2024-12-31',
-                    ],
-                    [
-                        'name' => 'Ingeniería en Mantenimiento Industrial*',
-                        'description' => 'Descripción Ingenieria en Mantenimiento.',
-                        'start_date' => '2024-01-01',
-                        'end_date' => '2024-12-31',
-                    ],
-                    [
-                        'name' => 'Ingeniería en Desarrollo y Gestión de Software*',
-                        'description' => 'Descripción ingeniería en Desarrollo y Gestión de Software',
-                        'start_date' => '2024-01-01',
-                        'end_date' => '2024-12-31',
-                    ],
-                    [
-                        'name' => 'Ingeniería en Redes Inteligentes y Ciberseguridad*',
-                        'description' => 'Descripción Ingeniería en Redes Inteligentes y Ciberseguridad.',
-                        'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/pexels-david-mcelwee-16240659.jpg',
                         'end_date' => '2024-12-31',
                     ],
                 ],
@@ -68,39 +54,24 @@ class ProgramsSeeder extends Seeder
                 'division_id' => 2,
                 'programs' => [
                     [
-                        'name' => 'TSU en Administración área Capital Humano*',
-                        'description' => 'Descripción TSU en Administración área Capital Humano.',
+                        'name' => 'TSU en Desarrollo de Negocios Área Mercadotecnia',
+                        'description' => 'Descripción TSU en Desarrollo de Negocios Área Mercadotecnia.',
                         'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/pexels-alena-darmel-7710218.jpg',
                         'end_date' => '2024-12-31',
                     ],
                     [
-                        'name' => 'TSU en Desarrollo de Negocios área Mercadotecnia*',
-                        'description' => 'Descripción TSU en Desarrollo de Negocios área Mercadotecnia.',
-                        'start_date' => '2024-01-01',
-                        'end_date' => '2024-12-31',
-                    ],
-                    [
-                        'name' => 'TSU en Contaduría*',
+                        'name' => 'TSU en Contaduría',
                         'description' => 'Descripción TSU en Contaduría.',
                         'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/Conta_1.jpg',
                         'end_date' => '2024-12-31',
                     ],
                     [
-                        'name' => 'Licenciatura en Gestión del Capital Humano*',
-                        'description' => 'Descripción Licenciatura en Gestión del Capital Humano',
+                        'name' => 'TSU en Administración Área Capital Humano',
+                        'description' => 'Descripción TSU en Administración Área Capital Humano.',
                         'start_date' => '2024-01-01',
-                        'end_date' => '2024-12-31',
-                    ],
-                    [
-                        'name' => 'Licenciatura en Innovación de Negocios y Mercadotecnia*',
-                        'description' => 'Descripción Licenciatura en Innovación de Negocios y Mercadotecnia',
-                        'start_date' => '2024-01-01',
-                        'end_date' => '2024-12-31',
-                    ],
-                    [
-                        'name' => 'Licenciatura en Contaduría*',
-                        'description' => 'Descripción Licenciatura en Contaduría',
-                        'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/b910f4651295.jpg',
                         'end_date' => '2024-12-31',
                     ],
                 ],
@@ -110,21 +81,24 @@ class ProgramsSeeder extends Seeder
                 'division_id' => 3, // Asegúrate de ajustar este ID según tu base de datos
                 'programs' => [
                     [
-                        'name' => 'TSU en Turismo área Desarrollo de Productos Alternativos*',
+                        'name' => 'TSU en Turismo Área Desarrollo de Productos Alternativos',
                         'description' => 'Preparación en la creación y gestión de productos turísticos innovadores y sostenibles.',
                         'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/ventas22-696x586.jpg',
                         'end_date' => '2024-12-31',
                     ],
                     [
-                        'name' => 'TSU en Turismo área Hotelería*',
+                        'name' => 'TSU en Turismo Área en Hotelería',
                         'description' => 'Formación en gestión hotelera, operaciones y servicios de alojamiento turístico.',
                         'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/hoteleria.jpg',
                         'end_date' => '2024-12-31',
                     ],
                     [
-                        'name' => 'Licenciatura en Gestión y Desarrollo Turístico*',
+                        'name' => 'TSU en Terapia Física',
                         'description' => 'Estudios enfocados en el desarrollo, promoción y gestión de destinos turísticos y empresas del sector.',
                         'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/bono-fisioterapia-pamplona.jpg',
                         'end_date' => '2024-12-31',
                     ],
                 ],
@@ -133,20 +107,15 @@ class ProgramsSeeder extends Seeder
                 'division_id' => 4, // Asegúrate de ajustar este ID según tu base de datos
                 'programs' => [
                     [
-                        'name' => 'TSU en Gastronomía*',
+                        'name' => 'TSU en Gastronomía',
                         'description' => 'Formación en técnicas culinarias, servicio y gestión de establecimientos gastronómicos.',
                         'start_date' => '2024-01-01',
-                        'end_date' => '2024-12-31',
-                    ],
-                    [
-                        'name' => 'Licenciatura en Gastronomía*',
-                        'description' => 'Estudios avanzados en gastronomía, incluyendo cocina internacional, gestión de restaurantes y nutrición.',
-                        'start_date' => '2024-01-01',
+                        'image_path' => 'images/program/gastronomia.jpg',
                         'end_date' => '2024-12-31',
                     ],
                 ],
             ],
-                        
+
 
         ];
 
@@ -163,7 +132,7 @@ class ProgramsSeeder extends Seeder
                 // Añadir imagen por defecto
                 ProgramImage::create([
                     'program_id' => $program->id,
-                    'image_path' => 'images/program/General.jpg',
+                    'image_path' => $programData['image_path'] ?? 'images/program/General.jpg',
                 ]);
             }
         }

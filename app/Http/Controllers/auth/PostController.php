@@ -15,6 +15,6 @@ class PostController extends Controller
     public function index()
     {
         // dd(auth()->user());
-        return view('administrator.dashboard.dashboard-general');
+        return view('administrator.dashboard.dashboard-role');
     }
 }
