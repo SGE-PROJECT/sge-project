@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\projects;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProjectEdit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Projects\ProjectFormRequest;
@@ -35,7 +36,7 @@ class ProjectController extends Controller
     public function list()
     {
         $Projects = Project::all();
-        
+
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $completadosCount = $Projects->where('status', 'Completado')->count();
@@ -160,10 +161,22 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProjectFormRequest $request, $id): RedirectResponse
+    public function update(ProjectEdit $request, $id): RedirectResponse
     {
+
         $proyecto = Project::find($id);
         $proyecto->update($request->all());
+
+        $getBusinessAdvisor = BusinessAdvisor::find($proyecto->business_advisor_id);
+
+        $getBusinessAdvisor->update(
+            [
+                'name' => $request->advisor_business_name,
+                'email' => $request->advisor_business_email,
+                'phone' => $request->advisor_business_phone,
+                'position' => $request->advisor_business_position,
+            ]
+        );
 
         // Verificar si se está publicando el proyecto
         if ($request->action == 'publicar') {

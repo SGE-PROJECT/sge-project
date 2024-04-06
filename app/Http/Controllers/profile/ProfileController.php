@@ -4,6 +4,8 @@ namespace App\Http\Controllers\profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class ProfileController extends Controller
 {
@@ -20,22 +22,33 @@ class ProfileController extends Controller
     
     public function actualizarFoto(Request $request)
     {
-        $request->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        $validator = Validator::make($request->all(), [
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:min_width=450,min_height=450,ratio=1',
+        ], [
+            'photo.required' => 'La imagen es requerida.',
+            'photo.image' => 'El archivo debe ser una imagen.',
+            'photo.mimes' => 'La imagen debe ser de tipo jpeg, png, jpg o gif.',
+            'photo.max' => 'La imagen no debe exceder los 2048 kilobytes.',
+            'photo.dimensions' => 'La imagen debe ser cuadrada con un tamaño mínimo de 450x450 píxeles.',
         ]);
-
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
         $usuario = auth()->user();
-
-        $imagen = $request->file('photo');
-        $nombreImagen = time() . '.' . $imagen->extension();
-        $imagen->move(public_path('fotos'), $nombreImagen);
-
-        $usuario->photo = 'fotos/' . $nombreImagen;
-        $usuario->save();
-
+    
+        if ($request->hasFile('photo')) {
+            $imagen = $request->file('photo');
+            $nombreImagen = time() . '.' . $imagen->extension();
+            $imagen->move(public_path('fotos'), $nombreImagen);
+            $usuario->photo = 'fotos/' . $nombreImagen;
+            $usuario->save();
+        }
+    
         return redirect()->back()->with('success', 'Foto de perfil actualizada exitosamente.');
     }
-
+    
      
     public function create()
     {
