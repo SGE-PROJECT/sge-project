@@ -49,7 +49,7 @@ class ProjectController extends Controller
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $completadosCount = $Projects->where('status', 'Completado')->count();
-        return view("administrator.dashboard.dashboard-general")
+        return view("administrator.project")
             ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
     public function invitation()
