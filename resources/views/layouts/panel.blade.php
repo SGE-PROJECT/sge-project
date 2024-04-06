@@ -496,7 +496,7 @@
                                     @else
                                     <!-- Si el usuario no tiene foto de perfil, muestra un icono de usuario predeterminado -->
                                     <img id="preview" class="w-8 h-8 rounded-full"
-                                    src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                    src="{{ asset('images/profileconfiguration/avatar.jpg') }}"
                                         alt="Ícono de usuario predeterminado">
                                 @endif
                                 <div
