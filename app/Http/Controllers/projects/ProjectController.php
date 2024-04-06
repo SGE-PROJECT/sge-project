@@ -34,7 +34,7 @@ class ProjectController extends Controller
     public function list()
     {
         $Projects = Project::all();
-        
+
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $completadosCount = $Projects->where('status', 'Completado')->count();
@@ -83,7 +83,20 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Verificar si el usuario ya tiene un proyecto creado
+        $existingProject = Project::where('user_id', $user->id)->first();
+
+        if ($existingProject) {
+            return redirect()->back()->with('error', 'Ya has creado un anteproyecto. No puedes crear otro.');
+        }
+
+        // Si el usuario no tiene ningún proyecto creado, mostrar el formulario de creación
+        return view('projects.Forms.FormStudent');
+       //return view('projects.ProjectsDash.projectDashboard');
+
     }
 
     /**
