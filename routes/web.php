@@ -111,7 +111,7 @@ Route::middleware(['auth'])->group(function () {
         return view('books-notifications.books.test-notifications');
     });
     Route::post('/not', [BooksController::class, 'notifications'])->name('sendNotification');
-
+Route::get('/scraping',[BooksController::class, 'imageBooks']);
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
     Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
     Route::delete('/configurar-cuenta/{id}/eliminar-foto', [ManagementConfiguration::class, 'destroyProfilePhoto'])->name('configurar_cuenta.remove_photo');
@@ -196,6 +196,7 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     //asesorados
     Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
     Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
+    Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
 });
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
     Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
