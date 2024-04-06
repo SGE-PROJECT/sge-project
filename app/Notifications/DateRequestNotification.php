@@ -7,20 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ProjectNotification extends Notification implements ShouldQueue
+class DateRequestNotification extends Notification
 {
     use Queueable;
 
-    protected $data;
-    protected $recipient;
-    /**
-     * Create a new notification instance.
-     */ 
-    public function __construct($data,$recipient)
+    public $users;
+    public $mensaje;
+    public $asesorado;
+
+    public function __construct($users,$asesorado,$mensaje)
     {
 
-        $this->data = $data;
-        $this->recipient=$recipient;
+        $this->users=$users;
+        $this->asesorado=$asesorado;
+        $this->mensaje=$mensaje->message;
 
     }
 
@@ -40,11 +40,9 @@ class ProjectNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-
-        ->line('Hola, ' . $this->recipient->name . '!') // Suponiendo que 'name' es un campo en el modelo del destinatario
-        ->line('Te estamos contactando para informarte sobre...')
-        ->action('Ver Detalles', url('/'))
-        ->line('Gracias por usar nuestra aplicación.');
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -55,9 +53,8 @@ class ProjectNotification extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'object'=>"Envio de Proyecto",
-            'data'=>"Hola ".$this->recipient->name ." Tu Proyecto ha sido enviado correctamente a tu Asesor Academico"
-
+            'object' => "Peticion de cambio de cita",
+            'data' => "Hola " . $this->users->name . ", Tu asesorado ".$this->asesorado." pidio un cambio de cita. Debido al siguiente motivo: " . $this->mensaje . "."
         ];
     }
 }

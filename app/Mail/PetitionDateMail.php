@@ -9,30 +9,25 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class CommentNotification extends Mailable
+class PetitionDateMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public $data;
-    public $name;
-    public function __construct($data,$name)
+    public $users;
+    public $mensaje;
+
+    public function __construct($users,$mensaje)
     {
-        //
-        $this->data=$data;
-        $this->name=$name;
+
+        $this->users=$users;
+        $this->mensaje=$mensaje->message;
 
     }
- 
-    /**
-     * Get the message envelope.
-     */
+
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Comentario en el anteproyecto',
+            subject: 'Te han aplicado una sancion.',
         );
     }
 
@@ -42,7 +37,7 @@ class CommentNotification extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.comment-notification',
+            view: 'mails.sanction',
         );
     }
 

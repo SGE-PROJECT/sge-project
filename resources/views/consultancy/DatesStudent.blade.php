@@ -18,7 +18,7 @@
                     $project->id => [
                         'id' => $project->id,
                         'nombre' => $project->name,
-                        'descripcion' =>$project->description,
+                        'descripcion' => $project->description,
                         'alumnos' => [$project->students->first()->id],
                         'imagen' => $project->image,
                     ],
@@ -84,13 +84,13 @@
                 </select>
             </span>
             <span class="hora-asesorias ocultar">
-                <button class="top-0 md:top-[0px] bg-teal-500 rounded px-2 text-[#fff] font-bold text-[20px] md:text-[25px] hover:bg-teal-600 transition-colors flex items-center"
+                <button
+                    class="top-0 md:top-[0px] bg-teal-500 rounded px-2 text-[#fff] font-bold text-[20px] md:text-[25px] hover:bg-teal-600 transition-colors flex items-center"
                     id="student-volverButton"><i class="nf nf-cod-arrow_left text-[20px]"></i></button>
                 <h3 class="w-full select-mes text-center text-[30px]" id="student-hora"></h3>
             </span>
 
-            <div class="BtnCrearDivisions botonVereventos "
-                id="student-contbtnCitas">
+            <div class="BtnCrearDivisions botonVereventos " id="student-contbtnCitas">
                 <button class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
                     id="student-cambiarCita">
                     <span class="Btntext_divisions">Cambiar<b>-</b>cita</span>
@@ -102,22 +102,35 @@
         </header>
 
         <div id="student-myModal3" class="modal-background">
-            <form class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias">
-                <span class="close3">&times;</span>
+            <form action="{{ route('asesoriasEnviar', ['id' => auth()->user()->id]) }}" method="POST" class="asesorias-formulario w-[90%] sm:w-[20%] m-[20px] md:mt-[85px] modal-asesorias" id="enviar">
+                <span class="close3" id="close3">&times;</span>
                 @csrf
                 <h2>Solicitar cambio de cita</h2>
                 <div class="form-group">
-                    <label for="solitAsunto">Asunto:</label>
-                    <input name="asunto" maxlength="250" id="student-solitAsunto" placeholder="Asunto de la solicitud">
-                </div>
-                <div class="form-group">
                     <label for="solitMensaje">Mensaje:</label>
-                    <textarea name="mensaje" maxlength="250" id="student-solitMensaje" placeholder="Justificacion de la solicitud"></textarea>
+                    <textarea name="message" maxlength="250" id="student-solitMensaje" placeholder="Justificacion de la solicitud"></textarea>
+                    <span id="editContador">0/250</span>
                 </div>
-                <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="submit"
-                    id="student-solicitar">Solicitar cambio</button>
+
+                <p id="error2">Error</p>
+                <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="button"
+                    onclick="eliminarEvento2()">Solicitar cambio</button>
             </form>
         </div>
+        <script>
+            function eliminarEvento2() {
+                var error = document.getElementById("error2");
+                error.style.display = "none";
+                if (document.getElementById('student-solitMensaje').value.length === 0) {
+                    error.style.display = "block";
+                    error.innerHTML = "Es necesario agregar la justificacion.";
+                    return;
+                }
+                var formulario = document.getElementById('enviar');
+                document.getElementById("student-myModal3").style.display = "none";
+                formulario.submit();
+            }
+        </script>
         <div class="calendar-container w-full lg:w-[65%] relative z-20" id="student-calendario">
             <div id="student-calendar" class=""></div>
         </div>
@@ -190,8 +203,7 @@
             </div>
         </div>
 
-        <div id="student-eventosContainer"
-            class="w-full lg:w-[20%] ">
+        <div id="student-eventosContainer" class="w-full lg:w-[20%] ">
             <h2>Citas próximas</h2>
             <table>
                 <thead>
