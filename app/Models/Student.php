@@ -13,7 +13,9 @@ class Student extends Model
         'registration_number',
         'user_id',
         'group_id',
+        'sanction',
         'academic_advisor_id',
+        'book_id',
     ];
 
     public function user()
@@ -34,4 +36,10 @@ class Student extends Model
     {
         return $this->belongsToMany(Project::class, 'project_students', 'student_id', 'project_id');
     }
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
+
 }

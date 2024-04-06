@@ -12,6 +12,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>@import "https://www.nerdfonts.com/assets/css/webfont.css";</style>
     @vite('resources/css/app.css')
     @vite('resources/js/sidebarUser.js')
     @vite('resources/js/tableproject.js')
@@ -216,10 +217,16 @@
                 @if (Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']))
                     <!-- ACTIVIDADES Section -->
                     <span class="text-[#fff] nav-text font-bold">ACTIVIDADES</span>
-
+                    <li class="mb-1 group">
+                        <a href="{{ route('asesorados', ['id' => auth()->user()->slug ]) }}"
+                            class="flex font-semibold items-center py-1 px-4 text-white rounded-md hover:text-[#d0d3d4]">
+                            <i class='nf nf-fa-user_graduate mr-3 text-lg'></i>
+                            <span class="nav-text text-sm">Asesorados</span>
+                        </a>
+                    </li>
                 <li class="mb-1 group">
                     <a href="{{ route('asesorias', ['id' => auth()->user()->slug ]) }}"
-                        class="flex font-semibold items-center py-2 px-4 text-white rounded-md hover:text-[#d0d3d4]">
+                        class="flex font-semibold items-center py-1 px-4 text-white rounded-md hover:text-[#d0d3d4]">
                         <i class='bx bx-calendar-event mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Sesiones de Asesoría</span>
                     </a>

@@ -28,10 +28,9 @@ return new class extends Migration
             $table->string('name_project');
             $table->string('company_name');
             $table->string('company_address');
-            $table->string('advisor_business_name');
-            $table->string('advisor_business_position');
-            $table->bigInteger('advisor_business_phone');
-            $table->string('advisor_business_email');
+            $table->foreignId('business_advisor_id')->nullable()->constrained('business_advisors')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
             $table->string('project_area');
             $table->text('general_objective');
             $table->text('problem_statement');

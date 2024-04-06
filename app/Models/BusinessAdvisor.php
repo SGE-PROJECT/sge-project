@@ -9,11 +9,15 @@ class BusinessAdvisor extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_user_id'
+        'name',
+        'email',
+        'phone',
+        'position',
     ];
 
-    public function user()
+    public function projects()
     {
-        return $this->belongsTo(User::class, 'id_user_id');
+        return $this->hasMany(Project::class);
     }
+
 }
