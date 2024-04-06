@@ -5,11 +5,12 @@ Gestión De Usuarios
 @endsection
 
 @section('contenido')
+@vite('resources/css/users/cruduser.css')
 
-<h1 class="text-2xl text-center font-bold mb-5">Lista de Usuarios</h1>
+<h1 class="fondo text-center font-bold pt-10 pb-12">Lista de Usuarios</h1>
 
-<a  href="{{ route('users.cruduser.create')}}" class="Btn_divisions ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Agregar usuario</a>
-
+<a  href="{{ route('users.cruduser.create')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded">Agregar usuario </a>
+<a  href="{{ route('users.masiveadd.index')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded">Agregar usuarios </a>
 
 <div class="tabla-project rounded-t-lg">
     <div class="tabla-cont-project rounded-t-lg">
@@ -43,17 +44,17 @@ Gestión De Usuarios
                         {{ $user->email }}
                     </td>
                     <td class="py-4 px-6">
-                        {{$user->division->name ?? 'Sin división'}}
+                        {{$user->division_name ?? 'Sin división'}}
                     </td>
                     <td class="py-4 px-6">
                         {{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}
                     </td>
                     <td class="py-4 px-6">
-                        <a href="{{ route('users.cruduser.edit', $user->id) }}" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 sm:mb-0">Editar</a>
+                        <a href="{{ route('users.cruduser.edit', $user->id) }}" class="modal-button bg-teal-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-2 sm:mb-0 md:mb-2 lg:mb-0">Editar</a>
                         <form action="{{ route('users.cruduser.destroy', $user->id) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 sm:mb-0 hover:underline" onclick="return confirm('¿Estás seguro de querer eliminar este usuario?');">Eliminar</button>
+                            <button type="submit" class="modal-button bg-teal-500 text-white font-bold py-2 px-4 rounded mb-2 sm:mb-0 md:mb-2 lg:mb-0 hover:underline" onclick="return confirm('¿Estás seguro de querer eliminar este usuario?');">Eliminar</button>
                         </form>
                     </td>
                 </tr>
@@ -61,5 +62,6 @@ Gestión De Usuarios
             </tbody>
         </table>
     </div>
+</div>
 
 @endsection

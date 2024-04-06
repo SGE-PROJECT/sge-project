@@ -22,11 +22,13 @@
                         </span>
                     </form>
                 </div>
+                @if(Auth::check() && Auth::user()->hasAnyRole(['Secretary']))
                 <select id="selectOption" onchange="window.location.href=this.value" class="select-books-sd bg-teal-500">
                     <option disabled selected>Exportar Como</option>
                     <option value="{{ route('books.reports') }}">PDF</option>
                     <option value="{{ route('books.export') }}">EXCEL</option>
                 </select>
+                @endif
                 <a href="{{ route('libros.create') }}">
                     <button class="add-button-book bg-teal-500">
                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAALZJREFUSEvdlesNwyAMhO82aTZJR+kkHSWjhFGyiSsiJUoQGOy8pPIX7M8+zEFcvHhxfhQBItIDGAC8jEVMAD4kQ4zTACOACPGsiWRXA8h8gDTJKCK7OK2D5wBplVsNT+nABUiDLEmaOqgBlv3SSC3DUJTocYAmwykS/RdA8w73JbcakgVwxOwCyffO7DJjGp3063DUvF1rL7dVnty51U3vALg0r/0X2w5cmjcDjuisxZq+Q08RP2kHzhnqPM52AAAAAElFTkSuQmCC"/>                    </button>
@@ -67,7 +69,8 @@
                                 </div>
                             </a>
                             <div class="shelf"></div>
-                            <div class="buttons-container">
+                            @if(Auth::check() && Auth::user()->hasAnyRole(['Secretary']))
+                            <div class="buttons-container"> 
                                 <form action="{{ route('libros.edit', ['libro' => $book->id]) }}" method="GET">
                                     @csrf
                                     <button type="submit" class="edit-button-book">
@@ -82,6 +85,8 @@
                                     </button>
                                 </form>
                             </div>
+                            @endif
+
                         </div>
                     @endforeach
                 </div>

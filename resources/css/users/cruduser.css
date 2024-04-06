@@ -1,0 +1,24 @@
+/* Estilos CSS */
+.modal-button {
+    padding: 1.0em 1.0em;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+}
+.fondo{
+    text-align: center;
+    font-size: 30px;
+    color: #293846;
+    padding: 20px 10px 2px;
+    font-weight: bold;
+}
+.rounded-lg {
+    border: 3px solid #CCD1D1;
+    overflow: visible;
+    width: 190px;
+    height: 254px;
+}

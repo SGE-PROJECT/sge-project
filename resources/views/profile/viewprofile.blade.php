@@ -1,29 +1,96 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Profile')
 
 @section('contenido')
+
+    @vite('resources/css/profile/viewprofile.css')
+
+
     <div class="container mx-auto ">
         <div class="bg-white p-8 m-5  rounded-lg shadow-xl">
+
+            @if ($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Error:</strong>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3"
+                        onclick="this.parentElement.style.display='none';">
+                        <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20">
+                            <title>Cerrar</title>
+                            <path
+                                d="M14.354 5.646a.5.5 0 0 0-.708 0L10 9.293 5.354 4.646a.5.5 0 1 0-.708.708L9.293 10l-4.647 4.646a.5.5 0 1 0 .708.708L10 10.707l4.646 4.647a.5.5 0 0 0 .708-.708L10.707 10l4.647-4.646a.5.5 0 0 0 0-.708z" />
+                        </svg>
+                    </button>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Éxito:</strong>
+                    <span class="block sm:inline">{{ session('success') }}</span>
+                    <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3"
+                        onclick="this.parentElement.style.display='none';">
+                        <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20">
+                            <title>Cerrar</title>
+                            <path
+                                d="M14.354 5.646a.5.5 0 0 0-.708 0L10 9.293 5.354 4.646a.5.5 0 1 0-.708.708L9.293 10l-4.647 4.646a.5.5 0 1 0 .708.708L10 10.707l4.646 4.647a.5.5 0 0 0 .708-.708L10.707 10l4.647-4.646a.5.5 0 0 0 0-.708z" />
+                        </svg>
+                    </button>
+                </div>
+            @endif
+
+
             <!-- Perfil de Usuario -->
             <div class="flex flex-col md:flex-row justify-center md:items-start m-8">
-                <!-- Imagen de perfil -->
-                <div class="m-6 md:mb-0 profile-picture-container" onclick="openModal()">
-                    <img alt="Profile Picture" src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
-                        class="w-48 h-48 rounded-full border-4 border-white shadow-xl" onclick="openModal()">
+                <div class="m-6 md:mb-0 profile-picture-container"
+                    onclick="{{ auth()->user()->photo ? 'openModal()' : '' }}">
+                    <img id="profilePicture" alt="Profile Picture"
+                        src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : asset('images/profileconfiguration/avatar.jpg') }}"
+                        class="w-48 h-48 rounded-full border-4 border-white shadow-xl {{ auth()->user()->photo ? 'cursor-pointer' : '' }}"
+                        {{ auth()->user()->photo ? 'onclick="openModal()"' : '' }}>
+
                     <div class="profile-picture-overlay">
-                        <p>Ver foto de perfil</p>
+                        @if (auth()->user()->photo)
+                            <p style="cursor: pointer;">Ver foto de perfil</p>
+                        @endif
+                        <label for="photoInput"
+                            style="color: rgb(168, 255, 217); font-weight: bold; font-size:1.3rem; cursor: pointer;">
+                            Editar foto de perfil
+                        </label>
                     </div>
                 </div>
-                 <!-- Información de perfil -->
-                 <div>
+
+
+
+
+
+                <!-- Información de perfil -->
+                <div>
                     <div class="mb-4">
-                        <h2 class="text-3xl font-bold text-teal-600">Paola Villegas</h2>
-                       
+                        <h2 class="text-3xl font-bold text-teal-600">{{ auth()->user()->name }}</h2>
+
                     </div>
-                    <p class="text-lg text-blueGray-700 mb-2">Profesora académica en 2024, programador web</p>
-                    <p class="text-lg font-bold text-teal-600 mb-4">Grupo: SM-53</p>
-                    <!-- Detalles adicionales -->
+                    <p class="text-lg text-blueGray-700 mb-2">
+                        @if (auth()->user()->roles->isNotEmpty())
+                            {{ auth()->user()->roles->first()->name }}
+                        @else
+                            No tiene un rol asignado
+                        @endif
+                    </p>
+                    <p class="text-lg font-bold text-teal-600 mb-4">División:
+                        @if (auth()->user()->division)
+                            {{ auth()->user()->division->name }}
+                        @else
+                            No asignada
+                        @endif
+                    </p> <!-- Detalles adicionales -->
                     <div class="flex flex-col">
                         <div class="flex items-center text-sm text-blueGray-400 mb-2">
                             <i class="fas fa-map-marker-alt mr-2 text-teal-600"></i>
@@ -31,7 +98,7 @@
                         </div>
                         <div class="flex items-center text-sm text-blueGray-400 mb-2">
                             <i class="fas fa-envelope mr-2 text-teal-600"></i>
-                            <span style="text-transform: lowercase;">pollitochicken@example.com</span>
+                            <span style="text-transform: lowercase;">{{ auth()->user()->email }}</span>
                         </div>
                         <div class="flex items-center text-sm text-blueGray-600 mb-2">
                             <i class="fas fa-briefcase mr-2 text-teal-600"></i>
@@ -42,183 +109,87 @@
                             <span>Universidad Tecnológica de Cancún</span>
                         </div>
                     </div>
+
+
+
+
+
+                </div>
+
+
+            </div>
+
+
+            <form action="{{ route('actualizar_foto') }}" method="POST" enctype="multipart/form-data"
+                class="flex flex-col items-center justify-center ">
+                @csrf
+
+                <!-- Contenedor de botones con fondo gris -->
+                <div class="bg-gray-100 rounded-lg shadow-md w-96 h-auto">
+
+                    <div class="flex justify-center">
+
+                        <button type="submit" id="guardarFotoBtn"
+                            class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors cursor-pointer m-4">
+                            Guardar foto
+                        </button>
+                        <button type="button" id="cancelarBtn" onclick="cancelUpdate()"
+                            class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400 transition-colors cursor-pointer m-4">Cancelar</button>
+
+                    </div>
+                </div>
+
+
+                <input type="file" name="photo" id="photoInput" accept="image/*" style="display: none;">
+            </form>
+
+
+
+
+
+
+            {{-- PROYECTOS Y EQUIPOS --}}
+            <div class="border-t border-blueGray-200 m-8 pt-8">
+                <div class="grid md:grid-cols-2 gap-10 ml-4">
+                    <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Proyecto</h1>
+                    <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Redes Sociales</h1>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-10 ml-4">
+                    <!-- Proyecto -->
+                    <div
+                        class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
+                        <h3 class="text-lg font-semibold text-gray-800">Nombre del Proyecto</h3>
+                        <p class="text-sm text-gray-600 mt-2">Descripción del proyecto.</p>
+                    </div>
+                    <!-- Equipos -->
+                    <div>
+
+                        <!-- Tarjeta de Equipo -->
+                        <div
+                            class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
+                            <h3 class="text-lg font-semibold text-gray-800">Nombre del Equipo</h3>
+                            <p class="text-sm text-gray-600 mt-2">Descripción del equipo.</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
 
 
+            <!-- Modal para ver foto-->
+            <div id="myModal" class="modal absolute bottom-0 left-0 right-0 top-0 bg-black bg-opacity-50 hidden ">
+                <!-- Contenido del modal -->
+                <div class="modal-content">
+                    <span class="close p-0" onclick="closeModal()">&times;</span>
+                    <img src="{{ asset(auth()->user()->photo) }}">
 
-
-
-    {{-- PROYECTOS Y EQUIPOS --}}
-    <div class="border-t border-blueGray-200 m-8 pt-8">
-        <div class="grid md:grid-cols-2 gap-10 ml-4">
-            <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Proyecto</h1>
-            <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Equipo</h1>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-10 ml-4">
-            <!-- Proyecto -->
-            <div class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
-                <h3 class="text-lg font-semibold text-gray-800">Nombre del Proyecto</h3>
-                <p class="text-sm text-gray-600 mt-2">Descripción del proyecto.</p>
-            </div>
-            <!-- Equipos -->
-            <div>
-
-                <!-- Tarjeta de Equipo -->
-                <div class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
-                    <h3 class="text-lg font-semibold text-gray-800">Nombre del Equipo</h3>
-                    <p class="text-sm text-gray-600 mt-2">Descripción del equipo.</p>
                 </div>
             </div>
         </div>
-
     </div>
-    <!-- Modal -->
-    <div id="myModal" class="modal absolute bottom-0 left-0 right-0 top-0 bg-black bg-opacity-50 hidden ">
-        <!-- Contenido del modal -->
-          <div class="modal-content">
-              <span class="close p-0" onclick="closeModal()">&times;</span>
-              <img src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg">
 
-          </div>
-      </div>
-        </div>
-    </div>
-    <script>
-        const botonSeguir = document.getElementById('boton-seguir');
-
-        // Agrega un evento de clic al botón de seguir
-        botonSeguir.addEventListener('click', function() {
-            // Verifica si el botón ya tiene la clase 'siguiendo'
-            if (botonSeguir.classList.contains('siguiendo')) {
-                // Si ya tiene la clase, la eliminamos
-                botonSeguir.classList.remove('siguiendo');
-                // Restauramos el texto original del botón
-                botonSeguir.textContent = 'Seguir';
-            } else {
-                // Si no tiene la clase, la agregamos
-                botonSeguir.classList.add('siguiendo');
-                // Cambiamos el texto del botón
-                botonSeguir.textContent = 'Siguiendo';
-            }
-        });
-        // Función para abrir el modal
-        function openModal() {
-            document.getElementById("myModal").style.display = "block";
-        }
-
-        // Función para cerrar el modal
-        function closeModal() {
-            document.getElementById("myModal").style.display = "none";
-        }
-
-        // Cierra el modal si se hace clic fuera del contenido
-        window.onclick = function(event) {
-            var modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-    <style>
-        .siguiendo {
-            background-color: #4CAF50;
-            /* Color verde */
-        }
-
-        .profile-picture-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .profile-picture-container img {
-            display: block;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-
-        .profile-picture-container:hover img {
-            transform: scale(1.1);
-        }
-
-        .profile-picture-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .profile-picture-container:hover .profile-picture-overlay {
-            opacity: 1;
-        }
-
-        .profile-picture-overlay p {
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        /* Estilos para el modal */
-        .modal {
-            display: none;
-            /* Por defecto, el modal está oculto */
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            /* Habilita el desplazamiento si es necesario */
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Fondo negro con opacidad */
-        }
-
-        /* Contenido del modal */
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 50%;
-            max-width: 500px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        /* Imagen dentro del modal */
-        .modal-content img {
-            width: auto%;
-            height: auto;
-            border-radius: 5px;
-        }
-
-        /* Botón de cierre del modal */
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #333;
-            font-size: 24px;
-            cursor: pointer;
-        }
-    </style>
+    <script src="/js/profile.js"></script>
 
 @endsection

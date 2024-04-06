@@ -11,14 +11,16 @@ class Student extends Model
 
     protected $fillable =[
         'registration_number',
-        'id_user_id',
+        'user_id',
         'group_id',
+        'sanction',
         'academic_advisor_id',
+        'book_id',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function group()
@@ -28,6 +30,16 @@ class Student extends Model
 
     public function academicAdvisor()
     {
-        return $this->belongsTo(AcademicAdvisor::class);
+        return $this->belongsTo(AcademicAdvisor::class, 'academic_advisor_id');
     }
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'project_students', 'student_id', 'project_id');
+    }
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
+
 }

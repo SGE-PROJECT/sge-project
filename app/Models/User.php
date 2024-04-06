@@ -9,6 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\AdvisorySession;
 
 class User extends Authenticatable
 {
@@ -22,8 +23,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'slug',
         'email',
-        'division_id',
+        'phone_number',
+        'avatar',
+        'photo',
+        'isActive',
+        //'division_id',
         'password',
     ];
 
@@ -55,10 +61,11 @@ class User extends Authenticatable
     }
 
     // Agrega una relación con el modelo Division, si existe
-    public function division()
-    {
-        return $this->belongsTo(Division::class, 'division_id');
-    }
+
+    //public function division()
+    //{
+    //    return $this->belongsTo(Division::class, 'division_id');
+    //}
 
     // Agrega una relación con el modelo Secretary, si existe
     public function secretary()
@@ -85,4 +92,8 @@ class User extends Authenticatable
         return $this->hasOne(ManagmentAdmin::class);
     }
 
+    public function advisorySessionsUser()
+    {
+        return $this->hasMany(AdvisorySession::class);
+    }
 }

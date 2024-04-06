@@ -11,13 +11,14 @@ class AcademicAdvisor extends Model
     use HasFactory;
 
     protected $fillable = [
-    'id_user_id',
-    'division_id',
+        'user_id',
+        'payrol',
+        'division_id',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function division()
@@ -28,6 +29,21 @@ class AcademicAdvisor extends Model
     public function students()
     {
         return $this->hasMany(Student::class, 'academic_advisor_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'academic_advisor_id');
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(Scores::class, 'academic_advisor_id');
+    }
+
+    public function projectLikes()
+    {
+        return $this->hasMany(Project_likes::class, 'academic_advisor_id');
     }
 }
 

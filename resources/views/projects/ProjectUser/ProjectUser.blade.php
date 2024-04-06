@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo')
     Gestión De Sanciones (GS)
@@ -7,11 +7,11 @@
 @section('contenido')
     <div class="contenedor">
         <div class="modal-invitation">
-            <button class="button-modal" id="openModalBtn" onclick="openModal()">Invitar Alumno</button>
+            <button class="button-modal bg-[#00ab84]" id="openModalBtn" onclick="openModal()">Invitar Alumno</button>
         </div>
         <div class="flex flex-wrap justify-center">
             <div class="w-full md:w-1/2 flex justify-center">
-                <a href="{{ route('viewproject') }}" class="w-11/12 ">
+                <a href="{{ route('projectform') }}" class="w-11/12 ">
                     <div class="bg-white rounded overflow-hidden shadow-lg mt-6 h-full relative card-invitation"
                         onclick="toggleCard(this)">
                         <img class="w-full h-40 object-cover" src="images/projects/projectuser/proyecto.jpg"
@@ -29,7 +29,7 @@
 
 
             <div class="w-full md:w-1/2 flex justify-center">
-                <a href="{{ route('projectteams') }}" class="w-11/12">
+                <a class="w-11/12">
                     <div class="bg-white rounded overflow-hidden shadow-lg mt-6 h-full relative card-invitation">
                         <img class="w-full h-40 object-cover" src="images/projects/projectuser/equipo.jpg"
                             alt="Imagen de la tarjeta">

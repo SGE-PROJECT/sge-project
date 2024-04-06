@@ -28,26 +28,15 @@ return new class extends Migration
             $table->string('name_project');
             $table->string('company_name');
             $table->string('company_address');
-            $table->string('advisor_business_name');
-            $table->string('advisor_business_position');
-            $table->bigInteger('advisor_business_phone');
-            $table->string('advisor_business_email');
+            $table->foreignId('business_advisor_id')->nullable()->constrained('business_advisors')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
             $table->string('project_area');
             $table->text('general_objective');
             $table->text('problem_statement');
             $table->text('justification');
             $table->text('activities');
-            $table->foreignId("academic_advisor_id")->nullable()->constrained("academic_advisors")
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
-            $table->foreignId("business_advisor_id")->nullable()->constrained("business_advisors")
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
-            $table->foreignId("id_company_id")->nullable()->constrained("affiliated_companies");
-            $table->foreignId("program_id")->nullable()->constrained("programs")
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
-            $table->foreignId("company_id")->nullable()->constrained("affiliated_companies")
+            $table->foreignId('project_students_id')->nullable()->constrained('project_students')
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
             $table->string('status')->default('Registrado');

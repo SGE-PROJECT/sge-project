@@ -1,51 +1,39 @@
-
-document.addEventListener("DOMContentLoaded", function() {
-    const editPermissionsBtns = document.querySelectorAll(".edit-permissions-btn");
-    const permissionsContainer = document.querySelectorAll(".permissions-container");
-    const cancelBtns = document.querySelectorAll(".cancel-btn");
-    const cardsContainer = document.querySelector(".cards-container");
-
-    editPermissionsBtns.forEach((btn, index) => {
-        btn.addEventListener("click", function(event) {
-            event.preventDefault();
-            const cardId = btn.dataset.card;
-            const selectedCard = document.getElementById(cardId);
-            const selectedPermissionsContainer = permissionsContainer[index];
-
-            // Ocultar todas las tarjetas excepto la seleccionada
-            cardsContainer.querySelectorAll(".card").forEach(card => {
-                if (card !== selectedCard) {
-                    card.style.display = "none";
+$(document).ready(function() {
+    // Función para marcar o desmarcar los permisos relacionados
+    function updateRelatedPermissions(start, end, relatedPermissionId) {
+        var anyRelatedSelected = false;
+        $('input[name="permissions[]"]').each(function() {
+            var permissionId = parseInt($(this).attr('id').replace('permission', ''));
+            if (permissionId >= start && permissionId <= end) {
+                if ($(this).is(':checked')) {
+                    anyRelatedSelected = true;
                 }
-            });
-
-            // Ocultar el botón de editar permisos dentro de la tarjeta seleccionada
-            selectedCard.querySelector(".edit-permissions-btn").style.display = "none";
-            // Ocultar el título
-            document.querySelector("h1").style.visibility = "hidden";
-            // Mostrar la lista de permisos correspondiente a la tarjeta seleccionada
-            selectedPermissionsContainer.classList.remove("hidden");
+            }
         });
+        $('#' + relatedPermissionId).prop('checked', anyRelatedSelected);
+    }
+
+    // Manejar el cambio de los permisos principales independientemente de los permisos relacionados
+    $('#permission1, #permission6, #permission10, #permission14').change(function() {
+        var permissionId = $(this).attr('id');
+        if (!$(this).is(':checked')) {
+            // Si se desmarca un permiso principal, desmarcar todos los permisos relacionados
+            $('input[name="permissions[]"]').filter('[id^="' + permissionId + '"]').prop('checked',
+                false);
+        }
     });
 
-    cancelBtns.forEach(cancelBtn => {
-        cancelBtn.addEventListener("click", function(event) {
-            event.preventDefault();
-            // Mostrar el título
-            document.querySelector("h1").style.visibility = "visible";
-            // Mostrar todas las tarjetas
-            cardsContainer.querySelectorAll(".card").forEach(card => {
-                card.style.display = "flex";
-            });
-            // Mostrar todos los botones de editar permisos
-            editPermissionsBtns.forEach(btn => {
-                btn.style.display = "block";
-            });
-
-            // Ocultar todas las secciones de permisos
-            permissionsContainer.forEach(container => {
-                container.classList.add("hidden");
-            });
-        });
+    // Manejar los cambios en los permisos relacionados
+    $('input[name="permissions[]"]').change(function() {
+        var permissionId = parseInt($(this).attr('id').replace('permission', ''));
+        if (permissionId >= 2 && permissionId <= 5) {
+            updateRelatedPermissions(2, 5, 'permission1');
+        } else if (permissionId >= 7 && permissionId <= 9) {
+            updateRelatedPermissions(7, 9, 'permission6');
+        } else if (permissionId >= 11 && permissionId <= 13) {
+            updateRelatedPermissions(11, 13, 'permission10');
+        } else if (permissionId >= 15 && permissionId <= 17) {
+            updateRelatedPermissions(15, 17, 'permission14');
+        }
     });
 });

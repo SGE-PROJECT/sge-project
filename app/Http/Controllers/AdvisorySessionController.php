@@ -5,20 +5,67 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AdvisorySession;
-use App\Models\ProjectsTest;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Project;
 use Carbon\Carbon;
 
 class AdvisorySessionController extends Controller
-{    
+{
 
-    public function index($id)
+    public function index($slug)
     {
-        $sessions = AdvisorySession::with(['proyect'])->where('id_advisor_id', $id)->get();
-        $Projects = ProjectsTest::where('id_advisor_id', $id)->get();
-        $projects = ProjectsTest::with('students')->where('id_advisor_id', $id)->get();
-        
+        $user = User::where('slug', $slug)->firstOrFail();
+        if (!$user->hasRole('Asesor Académico')) {
+            abort(404);
+        }
+
+        $academicAdvisor = $user->academicAdvisor;
+
+        $students = $academicAdvisor->students()->with('user')->whereHas('user', function ($query) {$query->where('isActive', true);})->get();
+        $studentIds = $students->pluck('id');
+
+        $Projects = collect();
+
+        foreach ($students as $student) {
+            $projects = $student->projects;
+            $Projects = $Projects->merge($projects);
+        }
+
+        $Projects = $Projects->unique('id');
+
+        foreach ($Projects as $project) {
+            $project->students = $project->students()->pluck('students.id')->toArray();
+            $project->image = 'avatar.jpg';
+            $project->name = $project->name_project;
+            $project->description = $project->general_objective;
+            // Filtrar los estudiantes para asegurarse de que solo se incluyan aquellos que están asociados a este proyecto
+            $project->students = $project->students()->whereIn('students.id', $studentIds)->pluck('students.id')->toArray();
+        }
+
+        $allStudents = $students->map(function ($student, $key) {
+            $colores = ["verde", "amarillo", "morado", "azul", "rosa"];
+            $colorIndex = $key % count($colores);
+            $student->avatar = $student->user->photo;
+            $student->name = $student->user->name;
+            $student->color = $colores[$colorIndex];
+            return $student;
+        });
+
+
+        $activeStudents = $academicAdvisor->students()->whereHas('user', function ($query) {
+            $query->where('isActive', true);
+        })->get();
+
+        $projectIds = $activeStudents->flatMap(function ($student) {
+            return $student->projects->pluck('id');
+        })->unique();
+
+        $sessions = AdvisorySession::with(['proyect'])
+            ->whereIn('id_project_id', $projectIds)
+            ->where('session_date', '>', now())
+            ->get();
+
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
@@ -29,31 +76,63 @@ class AdvisorySessionController extends Controller
             $sessionDateTime = Carbon::parse($session->session_date);
             $session->date_only = $sessionDateTime->toDateString();
             $session->time_only = $sessionDateTime->toTimeString();
-
             return $session;
         });
 
-        $allStudents = [];
-        $colores = ["verde", "amarillo", "morado", "azul", "rosa"];
-        $colorIndex = 0;
-        foreach ($projects as $project) {
-            $students = $project->students;
-            foreach ($students as $student) {
-                $student->color = $colores[$colorIndex % count($colores)];
-                $allStudents[] = $student;
-                $colorIndex++;
-            }
-        }
-
-        return view('consultancy.Dates', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents']));
+        return view('consultancy.Dates', compact('sessions', 'sessionsThisWeek', 'Projects', 'allStudents'));
     }
 
-    public function student($id)
+    public function all($slug)
     {
-        $sessions = AdvisorySession::with(['proyect'])->where('id_advisor_id', $id)->get();
-        $Projects = ProjectsTest::where('id_advisor_id', $id)->get();
-        $projects = ProjectsTest::with('students')->where('id_advisor_id', $id)->get();
-        
+        $user = User::where('slug', $slug)->firstOrFail();
+        if (!$user->hasRole('Asesor Académico')) {
+            abort(404);
+        }
+
+        $academicAdvisor = $user->academicAdvisor;
+
+        $students = $academicAdvisor->students()->with('user')->whereHas('user', function ($query) {$query->where('isActive', true);})->get();
+        $studentIds = $students->pluck('id');
+
+        $Projects = collect();
+
+        foreach ($students as $student) {
+            $projects = $student->projects;
+            $Projects = $Projects->merge($projects);
+        }
+
+        $Projects = $Projects->unique('id');
+
+        foreach ($Projects as $project) {
+            $project->students = $project->students()->pluck('students.id')->toArray();
+            $project->image = 'avatar.jpg';
+            $project->name = $project->name_project;
+            $project->description = $project->general_objective;
+            $project->students = $project->students()->whereIn('students.id', $studentIds)->pluck('students.id')->toArray();
+        }
+
+        $allStudents = $students->map(function ($student, $key) {
+            $colores = ["verde", "amarillo", "morado", "azul", "rosa"];
+            $colorIndex = $key % count($colores);
+            $student->avatar = $student->user->avatar;
+            $student->name = $student->user->name;
+            $student->color = $colores[$colorIndex];
+            return $student;
+        });
+
+
+        $activeStudents = $academicAdvisor->students()->whereHas('user', function ($query) {
+            $query->where('isActive', true);
+        })->get();
+
+        $projectIds = $activeStudents->flatMap(function ($student) {
+            return $student->projects->pluck('id');
+        })->unique();
+
+        $sessions = AdvisorySession::with(['proyect'])
+            ->whereIn('id_project_id', $projectIds)
+            ->get();
+
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
@@ -64,23 +143,53 @@ class AdvisorySessionController extends Controller
             $sessionDateTime = Carbon::parse($session->session_date);
             $session->date_only = $sessionDateTime->toDateString();
             $session->time_only = $sessionDateTime->toTimeString();
-
             return $session;
         });
 
-        $allStudents = [];
-        $colores = ["verde", "amarillo", "morado", "azul", "rosa"];
-        $colorIndex = 0;
-        foreach ($projects as $project) {
-            $students = $project->students;
-            foreach ($students as $student) {
-                $student->color = $colores[$colorIndex % count($colores)];
-                $allStudents[] = $student;
-                $colorIndex++;
-            }
-        }
+        return view('consultancy.DatesAll', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents']));
+    }
 
-        return view('consultancy.DatesStudent', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents']));
+    public function student($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+        if (!$user->hasRole('Estudiante')) {
+            abort(404);
+        }
+        $student = $user->student;
+        if (!$student) {
+            abort(404);
+        }
+        $academicAdvisor = $student->academicAdvisor;
+        if (!$academicAdvisor) {
+            abort(404);
+        }
+        $advisorUserId = $academicAdvisor->user_id;
+
+        $activeStudents = $academicAdvisor->students()->whereHas('user', function ($query) use ($slug) {
+            $query->where('users.slug', $slug);
+        })->get();
+
+        $projectIds = $activeStudents->flatMap(function ($student) {
+            return $student->projects->pluck('id');
+        })->unique();
+
+        $sessions = AdvisorySession::with(['proyect'])
+            ->whereIn('id_project_id', $projectIds)
+            ->where('session_date', '>', now())
+            ->get();
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+        $sessionsThisWeek = $sessions->filter(function ($session) use ($startOfWeek, $endOfWeek) {
+            $sessionDate = Carbon::parse($session->session_date);
+            return $sessionDate->between($startOfWeek, $endOfWeek);
+        });
+        $Projects = $student->projects()->get();
+        foreach ($Projects as $project) {
+            $project->image = 'avatar.jpg';
+            $project->name = $project->name_project;
+            $project->description = $project->general_objective;
+        }
+        return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects'));
     }
 
     public function store(Request $request)
@@ -89,7 +198,7 @@ class AdvisorySessionController extends Controller
         $validator = Validator::make(array_merge($request->all(), ['session_date' => $fechaHora]), [
             'session_date' => 'required|date_format:Y-m-d H:i',
             'description' => 'required|string|max:255',
-            'id_project_id' => 'required|exists:projects_tests,id',
+            'id_project_id' => 'required',
             'id_advisor_id' => 'required'
         ]);
         $validatedData = $validator->validated();
@@ -133,5 +242,5 @@ class AdvisorySessionController extends Controller
 
         return back()->with('success', 'La sesión de asesoría ha sido editada exitosamente.');
     }
-    
+
 }

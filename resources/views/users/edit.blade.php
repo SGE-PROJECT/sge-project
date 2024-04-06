@@ -5,9 +5,10 @@
 @endsection
 
 @section('contenido')
+@vite('resources/css/users/edit.css')
 
 <div class="max-w-lg mx-auto bg-white mt-8 rounded p-6">
-    <h1 class="text-2xl font-bold mb-5 pt-4">Editar Usuario</h1>
+    <h1 class="fondo text-2xl font-bold mb-5 pt-4">Editar Usuario</h1>
     @if ($errors->any())
         <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
             <strong class="font-bold">Error!</strong>
@@ -66,11 +67,12 @@
             @enderror
         </div>
         <div class="flex flex-col sm:flex-row items-center justify-between">
-            <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 sm:mb-0">
+            <button type="submit" class="modal-button bg-teal-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 sm:mb-0">
                 Editar Usuario
             </button>
-            <a  href="{{ route('users.cruduser.index')}}" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Volver</a>
+            <a  href="{{ route('users.cruduser.index')}}" class="modal-button bg-teal-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Volver</a>
         </div>
     </form>
 </div>
+
 @endsection

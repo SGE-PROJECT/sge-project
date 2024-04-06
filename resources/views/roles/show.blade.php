@@ -1,19 +1,19 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Detalles del Rol')
 
 @section('contenido')
-    <link rel="stylesheet" href="/css/roles/details.css">
+@vite('resources/css/roles/details.css')
 
     <div class="container">
         <div class="heading">
-            {{ __('DETALLES DEL ROL') }}
+            {{ __('INFORMACIÓN DEL ROL Y SUS PERMISOS') }}
         </div>
         <div class="edit-form">
             <div class="form-group-name">
                 <div class="input-box">
                     <input id="name" type="text" name="name" value="{{ $role->name }}" required autofocus />
-                    <label for="name">Nombre del rol</label>
+                    <label class="names" for="name">Nombre del rol</label>
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
 
 
             <div class="card-footer">
-                <a href="{{ route('roles.permissions.index') }}" class="btn btn-secondary">Volver a la lista de roles</a>
+                <a href="{{ route('roles.permissions.index') }}" class="btn btn-secondary">Volver a la sección de roles</a>
             </div>
         </div>
     </div>
