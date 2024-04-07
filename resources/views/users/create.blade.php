@@ -121,7 +121,7 @@ Crear Usuario
         function toggleFields() {
             const selectedRole = roleSelect.value;
             studentFields.style.display = selectedRole === 'Estudiante' ? 'block' : 'none';
-            otherRoleFields.style.display = selectedRole === 'Asistente de Dirección' || 'Director Académico' || 'Asesor Académico' || 'Administrador de División'  ? 'block' : 'none';
+            otherRoleFields.style.display = ['Asistente de Dirección', 'Presidente Académico', 'Asesor Académico', 'Administrador de División'].includes(selectedRole) ? 'block' : 'none';           
             divisionField.style.display = selectedRole === 'Super Administrador' ? 'none' : 'block'; 
         }
     

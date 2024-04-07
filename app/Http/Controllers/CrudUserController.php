@@ -90,17 +90,27 @@ class CrudUserController extends Controller
         if ($request->role === 'Estudiante') {
             $validationRules['group_id'] = 'required|exists:groups,id';
             $validationRules['registration_number'] = 'required|string|unique:students,registration_number';
-            $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id|min:8';
+            $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
         } elseif ($request->role === 'Asitente de Dirección'){
             $validationRules['payrol'] = 'required|string|min:4|max:6';
         }
 
         $request->validate($validationRules);
 
+        $baseSlug = Str::slug($request->name, '-');
+        $slug = $baseSlug;
+        $counter = 1;
+    
+        // Busca otros usuarios con el mismo slug y ajusta el slug para evitar duplicados
+        while (User::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . $counter;
+            $counter++;
+        }
+
         // Creación del usuario
         $user = User::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name, '-'),
+            'slug' => $slug,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone_number' => $request->phone_number ?? '',
@@ -127,7 +137,7 @@ class CrudUserController extends Controller
                     'payrol' => $request->payrol,
                 ]);
                 break;
-            case 'Director Académico':
+            case 'Presidente Académico':
                 AcademicDirector::create([
                     'user_id' => $user->id,
                     'division_id' => $request->division_id,
