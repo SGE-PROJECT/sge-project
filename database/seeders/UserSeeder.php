@@ -455,7 +455,7 @@ class UserSeeder extends Seeder
         $ManagmentAdminRole  = Role::findByName('Administrador de División');
         $AdviserRole  = Role::findByName('Asesor Académico');
         $StudentRole  = Role::findByName('Estudiante');
-        $PresidentRo le  = Role::findByName('Presidente Académico');
+        $PresidentRole  = Role::findByName('Presidente Académico');
         $SecretaryRole  = Role::findByName('Asistente de Dirección');
 
         $SuperAdminUser->assignRole($SuperAdminRole);

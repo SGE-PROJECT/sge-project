@@ -54,10 +54,6 @@ h1 {
     position: relative;
     height: 300px;   
 }
-.card:hover {
-    box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.4);
-    transform: translateY(-5px);
-}
 .card-body {
     padding: 90px 20px; 
     height: calc(100% - 100px);

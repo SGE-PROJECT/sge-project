@@ -27,7 +27,7 @@
                 <div>
                     <label class="text-sm font-semibold">Matricula:</label>
                     <input name="id_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm" type="text"
-                        value="{{ Auth::user()->student->registration_number }}" readonly></input>
+                        value="{{ Auth::user()->student->registration_number }}"readonly></input>
                     <div class="text-red-400 font-bold text-lg">
                         @error('id_student')
                             {{ $message }}
@@ -136,11 +136,11 @@
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label class="text-sm font-semibold">Nombre del Asesor Empresarial:</label>
-                    <input name="advisor_business_name" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                    <input name="name" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el nombre del asesor" type="text"
-                        value="{{ old('advisor_business_name') }}" />
+                        value="{{ old('name') }}" />
                     <div class="text-red-400 font-bold text-lg">
-                        @error('advisor_business_name')
+                        @error('name')
                             {{ $message }}
                         @enderror
                     </div>
@@ -148,11 +148,11 @@
 
                 <div>
                     <label class="text-sm font-semibold">Cargo del Asesor Empresarial:</label>
-                    <input name="advisor_business_position" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                    <input name="position" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el cargo del asesor" type="text"
-                        value="{{ old('advisor_business_position') }}" />
+                        value="{{ old('position') }}" />
                     <div class="text-red-400 font-bold text-lg">
-                        @error('advisor_business_position')
+                        @error('position')
                             {{ $message }}
                         @enderror
                     </div>
@@ -161,11 +161,11 @@
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label class="text-sm font-semibold">Número Teléfonico del Asesor Empresarial:</label>
-                    <input name="advisor_business_phone" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                    <input name="phone" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el número teléfonico del asesor" type="tel"
-                        value="{{ old('advisor_business_phone') }}" />
+                        value="{{ old('phone') }}" />
                     <div class="text-red-400 font-bold text-lg">
-                        @error('advisor_business_phone')
+                        @error('phone')
                             {{ $message }}
                         @enderror
                     </div>
@@ -173,11 +173,11 @@
 
                 <div>
                     <label class="text-sm font-semibold">Correo Electrónico:</label>
-                    <input name="advisor_business_email" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                    <input name="email" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el correo electrónico del asesor" type="email"
-                        value="{{ old('advisor_business_email') }}" />
+                        value="{{ old('email') }}" />
                     <div class="text-red-400 font-bold text-lg">
-                        @error('advisor_business_email')
+                        @error('email')
                             {{ $message }}
                         @enderror
                     </div>
@@ -262,7 +262,7 @@
             </div>
 
             <div class="mt-8 flex justify-center text-center space-x-6">
-                <button type="submit" name="action" value="guardar"
+                <button type="submit" action value="guardar"
                     class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Guardar</button>
 
                 <button type="submit" name="action" value="publicar" id="publishButton"

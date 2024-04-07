@@ -2,20 +2,29 @@
 
 namespace App\Http\Controllers\books;
 
+
+use Goutte\Client;
 use App\Models\Book;
 use App\Models\User;
 use App\Exports\BooksExport;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Http\Controllers\Controller;
 use App\Mail\CommentNotification;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\ProjectNotification;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\Panther\PantherTestCase;
+
+
 
 class BooksController extends Controller
 {
@@ -228,7 +237,7 @@ class BooksController extends Controller
     return redirect()->route('libros.index')->with('success', 'Libro eliminado exitosamente.');
 }
 
-public function export() 
+public function export()
 {
     return Excel::download(new BooksExport, 'libros.xlsx');
 }
@@ -240,14 +249,57 @@ public function notifications (Request $request){
    /*  $notification = new ProjectNotification($request->data, $recipient); */
    /* aqui se envia la notificacion a la bd */
    foreach ($recipients as $recipient) {
-            Notification::send($recipient,new ProjectNotification($request->data,$recipient)); 
+            Notification::send($recipient,new ProjectNotification($request->data,$recipient));
    }
- /*  $recipient->notify($notification); // Aquí enviamos la notificación al usuario */
- /* aqui se envia al email del usuario */
- Mail::to($user->email)->send(new CommentNotification($request->data, $user->name));
- Mail::to('angelguxman77@gmail.com')->send(new CommentNotification($request->data, $user->name));
+    /*  $recipient->notify($notification); // Aquí enviamos la notificación al usuario */
+    /* aqui se envia al email del usuario */
+    Mail::to($user->email)->send(new CommentNotification($request->data, $user->name));
+    Mail::to('angelguxman77@gmail.com')->send(new CommentNotification($request->data, $user->name));
     return redirect()->route('libros.index');
+}
 
+public function imageBooks()
+{
+    // Crear una instancia de cliente Goutte
+    $client = new Client();
+    $searchTerm = "cillyan murphy";
+    $imgpath='/'.str_replace(' ', '_', $searchTerm) . '.webp';
+
+
+
+    // Realizar la solicitud GET para cargar la página de búsqueda de Yahoo
+    $crawler = $client->request('GET', 'https://mx.search.yahoo.com/');
+
+   // Obtener el formulario de búsqueda
+   $form = $crawler->filter('#sf')->form();
+
+    // Establecer el valor del campo de entrada de búsqueda
+    $form['p'] = $searchTerm;
+
+    // Enviar el formulario
+    $crawler = $client->submit($form);
+
+     // Acceder a la sección de "Imágenes"
+     $linkImagenes = $crawler->selectLink('Imágenes')->link();
+     $crawler = $client->click($linkImagenes);
+
+    // Obtener el enlace de la primera imagen de búsqueda
+    $firstImageLink = $crawler->filter('li.ld > a.img > noscript > img')->first()->attr('src');
+
+    // Descargar la imagen desde la URL
+    $imageContent = file_get_contents($firstImageLink);
+
+    $imagePath = public_path("images\books").$imgpath; // Ruta donde se guardará la imagen, que tambien se puede guardar en la BD
+
+    file_put_contents($imagePath, $imageContent);
+
+
+   /*  // Imprimir la URL de la primera imagen de búsqueda
+    echo "URL de la primera imagen de búsqueda: " . $firstImageLink . PHP_EOL; */
+    // Retornar la vista y pasarle el valor de la URL obtenida
+    return view('books-notifications.books.book-img', ['imageUrl' => $firstImageLink]);
 
 }
+
+
 }

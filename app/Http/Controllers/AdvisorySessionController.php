@@ -9,6 +9,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Project;
 use Carbon\Carbon;
+use App\Mail\AdvisorySesionMail;
+use Illuminate\Support\Facades\Mail;
+use App\Notifications\AdvisorySesionNotification;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\DateRequestNotification;
+use App\Mail\DateRequestMail;
 
 class AdvisorySessionController extends Controller
 {
@@ -46,7 +52,7 @@ class AdvisorySessionController extends Controller
         $allStudents = $students->map(function ($student, $key) {
             $colores = ["verde", "amarillo", "morado", "azul", "rosa"];
             $colorIndex = $key % count($colores);
-            $student->avatar = $student->user->avatar;
+            $student->avatar = $student->user->photo;
             $student->name = $student->user->name;
             $student->color = $colores[$colorIndex];
             return $student;
@@ -189,11 +195,23 @@ class AdvisorySessionController extends Controller
             $project->name = $project->name_project;
             $project->description = $project->general_objective;
         }
+
         return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects'));
     }
 
-
-
+    public function enviar(Request $request, $id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+        if (!$user->hasRole('Estudiante')) {
+            abort(404);
+        }
+        $validatedData = $request->validate([
+            'message' => 'required|max:255'
+        ]);
+        Notification::send($user->student->academicAdvisor->user,new DateRequestNotification($user->student->academicAdvisor->user,$user->name, $request));
+        Mail::to($user->student->academicAdvisor->user->email)->send(new DateRequestMail($user->student->academicAdvisor->user,$user->name, $request));
+        return back()->with('success', 'Se ha solicitado al asesor exitosamente.');
+    }
 
     public function store(Request $request)
     {
@@ -207,6 +225,21 @@ class AdvisorySessionController extends Controller
         $validatedData = $validator->validated();
         $validatedData['is_confirmed'] = $request->input('is_confirmed', false);
         $session = AdvisorySession::create($validatedData);
+        $asesor = $session->user->academicAdvisor->id;
+        $message=$session->session_date;
+        $date = explode(' ', $message);
+        $users = [];
+        foreach ($session->proyect->students->where('academic_advisor_id', $asesor) as $student) {
+            $users[] = $student->user;
+        }
+
+        foreach ($users as $user) {
+            Notification::send($user,new AdvisorySesionNotification($user, $date));
+        }
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new AdvisorySesionMail($user, $date));
+        }
+
         return back()->with('success', 'La sesión de asesoría ha sido creada exitosamente.');
     }
 

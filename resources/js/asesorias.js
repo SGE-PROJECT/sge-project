@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (this.value.length > 250) {
             this.value = this.value.slice(0, 250);
         }
-        contador.textContent = document.getElementById('editMotivo').value.length + "/250";
+        contador.textContent = document.getElementById('editContador').value.length + "/250";
     });
     document.getElementById('fecha').addEventListener('click', function () {
         var dateInput = document.getElementById('fecha');
@@ -232,7 +232,7 @@ function llenarHorasConEventos(año, numeroMes, diaMes) {
                         let eventoDiv = document.createElement('div');
                         eventoDiv.classList.add("etiqueta");
                         eventoDiv.innerHTML = `
-                            <img src="/images/${estudiante.imagen}" alt="${estudiante.nombre}" class="img_estudiante">
+                            <img src="/${estudiante.imagen}" alt="${estudiante.nombre}" class="img_estudiante">
                             <p class="info">${estudiante.nombre} - ${proyecto.nombre}</p>
                             <p class="hora"> ${evento.hora}</p>
                             <i class="nf nf-md-pencil evento"></i>

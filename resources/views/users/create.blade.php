@@ -5,9 +5,16 @@ Crear Usuario
 @endsection
 
 @section('contenido')
+<<<<<<< HEAD
 
 <div class="max-w-lg mx-auto bg-white mt-8 rounded p-6">
     <h1 class="text-2xl font-bold mb-5">Agregar Usuario</h1>
+=======
+@vite('resources/css/users/create.css')
+
+<div class="max-w-lg mx-auto bg-white mt-8 rounded p-6">
+    <h1 class="fondo text-2xl font-bold mb-5 pt-4">Agregar Usuario</h1>
+>>>>>>> develop
 
     @if ($errors->any())
         <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -58,12 +65,19 @@ Crear Usuario
         </div>
 
         <div class="flex flex-col sm:flex-row items-center justify-between">
+<<<<<<< HEAD
             <button type="submit" class="modal-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Crear Usuario
             </button>
             <a href="{{ route('users.cruduser.index') }}" class="modal-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Volver
             </a>
+=======
+            <button type="submit" class="modal-button bg-teal-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 sm:mb-0">
+                Crear Usuario
+            </button>
+            <a  href="{{ route('users.cruduser.index')}}" class="modal-button bg-teal-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Volver</a>
+>>>>>>> develop
         </div>
     </form>
 </div>
