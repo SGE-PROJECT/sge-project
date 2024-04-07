@@ -92,7 +92,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Ruta adicional para la exportación de la plantilla de usuarios
     Route::get('/exportar-usuarios', [MasiveAddController::class, 'exportCsv'])->name('users.exportCsv');
-    Route::post('/importar-usuarios', [MasiveAddController::class, 'import'])->name('users.import');
+    Route::get('/exportar-usuarios-plantilla', [MasiveAddController::class, 'exportTemplate'])->name('users.exportTemplate');
+    Route::post('/importar-usuarios', [MasiveAddController::class, 'store'])->name('users.store');
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
