@@ -33,16 +33,6 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
 
-    public function list()
-    {
-        $Projects = Project::all();
-
-        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
-        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
-        $completadosCount = $Projects->where('status', 'Completado')->count();
-        return view("administrator.project")
-            ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
-    }
     public function dashgeneral()
     {
         $Projects = Project::all();

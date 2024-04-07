@@ -10,7 +10,6 @@
     @include('administrator.graph-anteprojects')
     @include('administrator.graph-projects')
     @include('administrator.graph-users')
-    @include('administrator.graph-books')
 </div>
 
 @endsection

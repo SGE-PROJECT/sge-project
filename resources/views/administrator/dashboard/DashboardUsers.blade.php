@@ -1,14 +1,10 @@
 @extends('layouts.panel')
 @section('contenido')
-    <h1 class="text-3xl font-bold text-center mt-5 mb-8">Usuarios</h1>
-    <div class="flex flex-wrap justify-center gap-5 p-5">
-        <div class="flex lg:flex-nowrap justify-center items-center gap-5 mr-10">
-            @include('administrator.card', ['number' => 13, 'name' => 'Usuarios'])
-        </div>
-        <div class="flex flex-wrap flex-col gap-5 mr-10">
-            <!--SECCION PROYECTOS-->
-            @include('administrator.section-usuers')
-        </div>
+
+    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        @include('administrator.graphs.graph-anteprojects')
+        @include('administrator.graphs.graph-projects')
+        @include('administrator.graphs.graph-users')
     </div>
 
     <div class="flex items-baseline align-middle">
@@ -64,7 +60,6 @@
                 <tr>
                     <td>Noely</td>
                     <td>Aguilar</td>
-                    
                     <td>Noely@gmail.com</td>
                     <td>36263262</td>
                     <td>Administrador</td>
@@ -74,6 +69,6 @@
                 </tbody>
             </table>
         </div>
-        
+
     </div>
 @endsection
