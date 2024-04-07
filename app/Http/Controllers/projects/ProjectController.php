@@ -167,7 +167,19 @@ class ProjectController extends Controller
     public function edit(string $id)
     {
         $proyecto = Project::find($id);
-        return view('projects.Forms.edit-formstudent', compact('proyecto'));
+    
+        if ($proyecto) {
+            if ($proyecto->is_project) {
+                // Redirigir a la vista para proyectos
+                return view('projects.Forms.edit-formstudent-isproject', compact('proyecto'));
+            } else {
+                // Redirigir a la vista para no proyectos
+                return view('projects.Forms.edit-formstudent', compact('proyecto'));
+            }
+        } else {
+            // Manejar el caso en que el proyecto no existe
+            return redirect()->route('projects.index')->with('error', 'El proyecto no existe.');
+        }
     }
 
 
@@ -191,12 +203,13 @@ class ProjectController extends Controller
             ]
         );
 
-        // Verificar si se está publicando el proyecto
-        if ($request->action == 'publicar') {
-            $proyecto->status = 'En revision'; // Cambiar el estado a 'En revisión'
+        // Verificar si se está publicando el proyecto  
+        if ($request->status === 'En curso') {
+            $proyecto->status = 'En curso'; // Estado "Aprobado"
             $proyecto->is_project = 1; // Marcar como proyecto
-            $proyecto->save(); // Guardar el cambio en la base de datos
+            $proyecto->save();
         }
+        
 
         return redirect()->route('projects.index')->withInput()->with('success', 'Proyecto actualizado correctamente.');
     }
