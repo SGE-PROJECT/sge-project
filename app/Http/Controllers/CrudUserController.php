@@ -90,7 +90,9 @@ class CrudUserController extends Controller
         if ($request->role === 'Estudiante') {
             $validationRules['group_id'] = 'required|exists:groups,id';
             $validationRules['registration_number'] = 'required|string|unique:students,registration_number';
-            $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
+            $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id|min:8';
+        } elseif ($request->role === 'Asitente de Dirección'){
+            $validationRules['payrol'] = 'required|string|min:4|max:6';
         }
 
         $request->validate($validationRules);
@@ -122,28 +124,28 @@ class CrudUserController extends Controller
                 Secretary::create([
                     'user_id' => $user->id,
                     'division_id' => $request->division_id,
-                    //'payrol' => $request->group_id, // Usa directamente group_id del request
+                    'payrol' => $request->payrol,
                 ]);
                 break;
             case 'Director Académico':
                 AcademicDirector::create([
                     'user_id' => $user->id,
                     'division_id' => $request->division_id,
-                    //'payrol' => $request->group_id, // Usa directamente group_id del request
+                    'payrol' => $request->payrol,
                 ]);
                 break;
             case 'Asesor Académico':
                 AcademicAdvisor::create([
                     'user_id' => $user->id,
                     'division_id' => $request->division_id,
-                    //'payrol' => $request->group_id, // Usa directamente group_id del request
+                    'payrol' => $request->payrol,
                 ]);
                 break;
             case 'Administrador de División':
                 ManagmentAdmin::create([
                     'user_id' => $user->id,
                     'division_id' => $request->division_id,
-                    //'payrol' => $request->group_id, // Usa directamente group_id del request
+                    'payrol' => $request->payrol,
                 ]);
                 break;
         }
@@ -207,6 +209,6 @@ class CrudUserController extends Controller
             $user->delete();
         }
 
-        return redirect()->route('users.cruduser');
+        return redirect()->route('users.cruduser.index');
     }
 }

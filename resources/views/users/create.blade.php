@@ -75,8 +75,18 @@ Crear Usuario
             
         </div>
 
-        
-        <div class="mb-4">
+        <!-- En caso de ser cualquier otro rol -->
+    
+        <div id="other_role" class="mb-4 hidden">
+
+            <div class="mb-4">
+                <label for="other_role" class="block text-gray-700 py-2 pt-2 text-sm font-bold mb-2">Número de Nómina:</label>
+                <input type="text" name="payrol" id="payrol" value="{{ old('payrol') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            </div>  
+ 
+        </div>
+
+        <div id="divisionField" class="mb-4">
             <label for="division_id" class="block text-gray-700 text-sm font-bold mb-2">División:</label>
             <select name="division_id" id="division_id" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 <option value="">Seleccione una División</option>
@@ -85,7 +95,7 @@ Crear Usuario
                 @endforeach
             </select>
         </div>
-
+        
         <div class="flex flex-col sm:flex-row items-center justify-between">
             <button type="submit" class="modal-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Crear Usuario
@@ -99,19 +109,24 @@ Crear Usuario
 
 @endsection
 
-<!-- Área de scripts para las validaciones, en este caso si es estudiante -->
+<!-- Área de scripts para las validaciones -->
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const roleSelect = document.getElementById('role');
         const studentFields = document.getElementById('studentFields');
+        const otherRoleFields = document.getElementById('other_role');
+        const divisionField = document.getElementById('divisionField');    
 
-        function toggleStudentFields() {
+        function toggleFields() {
             const selectedRole = roleSelect.value;
             studentFields.style.display = selectedRole === 'Estudiante' ? 'block' : 'none';
+            otherRoleFields.style.display = selectedRole === 'Asistente de Dirección' || 'Director Académico' || 'Asesor Académico' || 'Administrador de División'  ? 'block' : 'none';
+            divisionField.style.display = selectedRole === 'Super Administrador' ? 'none' : 'block'; 
         }
-
-        toggleStudentFields();
-        roleSelect.addEventListener('change', toggleStudentFields);
+    
+        toggleFields();
+        roleSelect.addEventListener('change', toggleFields);
     });
-</script>
+    </script>
+    
