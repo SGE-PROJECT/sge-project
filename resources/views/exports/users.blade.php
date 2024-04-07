@@ -1,13 +1,13 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
+            <th>Identificador</th>
             <th>Nombre</th>
-            <th>Correo Electrónico</th>
-            <th>Número De Identificación</th>
+            <th>Correo Electronico</th>
+            <th>Numero De Identificacion</th>
             <th>Roles</th>
             <th>Division</th>
-            <th>Número De Teléfono</th>
+            <th>Numero De Telefono</th>
             <th>Activo</th>
         </tr>
     </thead>

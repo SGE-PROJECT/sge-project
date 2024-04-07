@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Student;
+use App\Models\Secretary;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\ManagmentAdmin;
 use App\Models\AcademicAdvisor;
 use App\Models\AcademicDirector;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 
 class CrudUserController extends Controller
@@ -59,8 +61,15 @@ class CrudUserController extends Controller
     public function create()
     {
         $roles = Role::all(); // Obtener todos los roles para el formulario
-        return view('users.create', ['roles' => $roles]);
+        $divisions = \App\Models\management\Division::all(); // Asumiendo que este es el namespace correcto para tu modelo Division
+
+        // Pasar tanto roles como divisions a la vista
+        return view('users.create', [
+            'roles' => $roles,
+            'divisions' => $divisions
+        ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -71,58 +80,52 @@ class CrudUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'identifier_number' => 'required|string',
-            'role' => 'required',
-            //'division_id' => 'required|exists:divisions,id', // Asegúrate de validar que el ID de la división exista
-            'phone_number' => 'required|string|max:20',
-            'avatar' => 'nullable|string|max:500',
-            'isActive' => 'required|boolean',
+            'role' => 'required|exists:roles,name',
+            'phone_number' => 'nullable|string|max:20',
+            'division_id' => 'required|exists:divisions,id',
+            // Otros campos necesarios...
         ]);
 
-        // Generar el slug a partir del nombre
-        $slug = Str::slug($request->name, '-');
-
+        // Creación del usuario
         $user = User::create([
             'name' => $request->name,
-            'slug' => $slug,
+            'slug' => Str::slug($request->name, '-'),
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'phone_number' => $request->phone_number,
-            'avatar' => $request->avatar,
-            'isActive' => $request->isActive,
+            'phone_number' => $request->phone_number ?? '',
+            // Otros campos...
+            'isActive' => true, // asumiendo que siempre es true al crear
         ]);
 
-        $userId = $user->id; // Obtener el ID del usuario creado
+        // Asignación del rol
+        $role = $request->role;
+        $user->assignRole($role);
 
-        $user->assignRole($request->role);
+        // Asignación de la división basada en el rol
+        $division_id = $request->division_id;
+        switch ($role) {
+            case 'Estudiante':
+                Student::create(['user_id' => $user->id, 'division_id' => $division_id]);
+                break;
+            case 'Secretario':
+                Secretary::create(['user_id' => $user->id, 'division_id' => $division_id]);
+                break;
+            case 'Director Académico':
+                AcademicDirector::create(['user_id' => $user->id, 'division_id' => $division_id]);
+                break;
+            case 'Asesor Académico':
+                AcademicAdvisor::create(['user_id' => $user->id, 'division_id' => $division_id]);
+                break;
+            case 'Administrador de División':
+                ManagmentAdmin::create(['user_id' => $user->id, 'division_id' => $division_id]);
+                break;
 
-        if ($request->role === 'Estudiante') {
-            $request->validate([
-                'group_id' => 'required|exists:groups,id',
-                'academic_advisor_id' => 'required|exists:academic_advisors,id',
-            ]);
-            Student::create([
-                'user_id' => $userId,
-                'registration_number' => $request->identifier_number,
-                'group_id' => $request->group_id,
-                'academic_advisor_id' => $request->academic_advisor_id,
-                'division_id' => $request->division_id,
-            ]);
-        } elseif ($request->role === 'Asesor Académico') {
-            AcademicAdvisor::create([
-                'user_id' => $userId,
-                'payroll' => $request->identifier_number,
-                'division_id' => $request->adivision_id,
-            ]);
-        } else {
-            AcademicDirector::create([
-                'user_id' => $userId,
-                'payroll' => $request->identifier_number,
-                'division_id' => $request->adivision_id,
-            ]);
+                // Agrega casos para otros roles según sea necesario
         }
-        return redirect()->route('users.cruduser.index');
+
+        return redirect()->route('users.cruduser.index')->with('success', 'Usuario creado correctamente.');
     }
+
 
     /**
      * Display the specified resource.
@@ -139,7 +142,7 @@ class CrudUserController extends Controller
     {
         $user = User::find($id);
         $roles = Role::all();
-        $userRole = $user->roles->pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name', 'name')->all();
 
         return view('users.edit', ['user' => $user, 'roles' => $roles, 'userRole' => $userRole]);
     }
