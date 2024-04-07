@@ -90,12 +90,10 @@
             <div>
                 <label class="text-sm font-semibold">Estado del Proyecto:</label>
                 <select name="status" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm">
-                    <option value="Registrado" {{ $proyecto->status === 'Registrado' ? 'selected' : '' }}>Registrado
-                    </option>
-                    <option value="En Revisión" {{ $proyecto->status === 'En Revisión' ? 'selected' : '' }}>En Revisión
-                    </option>
-                    <option value="Rechazado" {{ $proyecto->status === 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
-                    <option value="En curso" {{ $proyecto->status === 'En curso' ? 'selected' : '' }}>Aprobado</option>
+                    <option value="En curso" {{ $proyecto->status === 'En curso' ? 'selected' : '' }}>En curso</option>
+                    <option value="Finalizado" {{ $proyecto->status === 'Finalizado' ? 'selected' : '' }}>Finalizado</option>
+                    <option value="Reprobado" {{ $proyecto->status === 'Reprobado' ? 'selected' : '' }}>Reprobado</option>
+                    <option value="Aprobado" {{ $proyecto->status === 'Aprobado' ? 'selected' : '' }}>Aprobado</option>
                 </select>
                 <div class="text-red-400 font-bold text-lg">
                     @error('status')
@@ -261,10 +259,6 @@
             <div class="mt-8 flex justify-center text-center space-x-6">
                 <button
                     class=" font-bold bg-teal-500 text-white  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
-
-                <button type="submit" name="action" value="publicar" id="publishButton"
-                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Publicar</button>
-
             </div>
         </form>
     </div>
