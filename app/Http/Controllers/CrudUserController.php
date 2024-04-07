@@ -61,30 +61,39 @@ class CrudUserController extends Controller
     public function create()
     {
         $roles = Role::all(); // Obtener todos los roles para el formulario
-        $divisions = \App\Models\management\Division::all(); // Asumiendo que este es el namespace correcto para tu modelo Division
+        $divisions = \App\Models\management\Division::all();
+        $groups = \App\Models\Group::all();
+        $academicAdvisors = \App\Models\AcademicAdvisor::with('user')->get();
 
-        // Pasar tanto roles como divisions a la vista
         return view('users.create', [
             'roles' => $roles,
-            'divisions' => $divisions
+            'divisions' => $divisions,
+            'groups' => $groups,
+            'academicAdvisors' => $academicAdvisors,
         ]);
     }
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validationRules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required|exists:roles,name',
             'phone_number' => 'nullable|string|max:20',
             'division_id' => 'required|exists:divisions,id',
-            // Otros campos necesarios...
-        ]);
+        ];
+
+        if ($request->role === 'Estudiante') {
+            $validationRules['group_id'] = 'required|exists:groups,id';
+            $validationRules['registration_number'] = 'required|string|unique:students,registration_number';
+            $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
+        }
+
+        $request->validate($validationRules);
 
         // Creación del usuario
         $user = User::create([
@@ -93,34 +102,50 @@ class CrudUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone_number' => $request->phone_number ?? '',
-            // Otros campos...
             'isActive' => true, // asumiendo que siempre es true al crear
         ]);
 
         // Asignación del rol
-        $role = $request->role;
-        $user->assignRole($role);
+        $user->assignRole($request->role);
 
-        // Asignación de la división basada en el rol
-        $division_id = $request->division_id;
-        switch ($role) {
+        switch ($request->role) {
             case 'Estudiante':
-                Student::create(['user_id' => $user->id, 'division_id' => $division_id]);
+                Student::create([
+                    'user_id' => $user->id,
+                    'division_id' => $request->division_id,
+                    'group_id' => $request->group_id,
+                    'registration_number' => $request->registration_number,
+                    'academic_advisor_id' => $request->academic_advisor_id,
+                ]);
                 break;
-            case 'Secretario':
-                Secretary::create(['user_id' => $user->id, 'division_id' => $division_id]);
+            case 'Asistente de Dirección':
+                Secretary::create([
+                    'user_id' => $user->id,
+                    'division_id' => $request->division_id,
+                    //'payrol' => $request->group_id, // Usa directamente group_id del request
+                ]);
                 break;
             case 'Director Académico':
-                AcademicDirector::create(['user_id' => $user->id, 'division_id' => $division_id]);
+                AcademicDirector::create([
+                    'user_id' => $user->id,
+                    'division_id' => $request->division_id,
+                    //'payrol' => $request->group_id, // Usa directamente group_id del request
+                ]);
                 break;
             case 'Asesor Académico':
-                AcademicAdvisor::create(['user_id' => $user->id, 'division_id' => $division_id]);
+                AcademicAdvisor::create([
+                    'user_id' => $user->id,
+                    'division_id' => $request->division_id,
+                    //'payrol' => $request->group_id, // Usa directamente group_id del request
+                ]);
                 break;
             case 'Administrador de División':
-                ManagmentAdmin::create(['user_id' => $user->id, 'division_id' => $division_id]);
+                ManagmentAdmin::create([
+                    'user_id' => $user->id,
+                    'division_id' => $request->division_id,
+                    //'payrol' => $request->group_id, // Usa directamente group_id del request
+                ]);
                 break;
-
-                // Agrega casos para otros roles según sea necesario
         }
 
         return redirect()->route('users.cruduser.index')->with('success', 'Usuario creado correctamente.');
