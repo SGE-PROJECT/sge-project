@@ -12,21 +12,25 @@
             Ir a Agregar
         </button>
         @include('administrator.filter')
-        <div class="relative ml-2 w-55">
-            <label for="Search" class="sr-only">Search</label>
+
+        <!--Buscador-->
+        <div class="relative ml-5 w-55 z-10 flex items-center">
+            <label for="Search" class="sr-only">Buscar</label>
             <input type="text" id="Search" placeholder="Buscar"
-                class="w-full rounded border-gray-200 py-2.5 pe-10 shadow-sm sm:text-sm" />
-            <span class="absolute inset-y-0 end-0 grid w-10 place-content-center">
-                <button type="button" class="text-gray-600 hover:text-gray-700">
-                    <span class="sr-only">Search</span>
+                class="w-full rounded border-gray-200 py-2.5 px-4 sm:text-sm h-full outline-none" />
+            <span class="absolute rounded inset-y-0 end-0 grid w-10 place-content-center bg-teal-500 text-white h-full">
+                <button type="button" class="text-gray-500 hover:text-gray-700 h-full">
+                    <span class="sr-only bg-white text-white">Buscar</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="h-4 w-4">
+                        stroke="currentColor" class="h-6 w-6 text-white">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
                 </button>
             </span>
         </div>
+
+        <!--Boto de exportar-->
         <a
             class="group flex items-center justify-between gap-4 rounded border border-[#03A696] bg-[#03A696] px-5 py-1 transition-colors hover:bg-[#025b52] focus:outline-none focus:ring ml-auto mr-8 w-38">
             <span class="font-medium text-white transition-colors group-hover:text-white group-active:text-white">

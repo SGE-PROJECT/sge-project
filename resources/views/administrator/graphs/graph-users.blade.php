@@ -7,3 +7,6 @@
     </a>
   </div>
 
+  <script>
+    var totalUsers = {{$activeUsersCount}};
+  </script>
