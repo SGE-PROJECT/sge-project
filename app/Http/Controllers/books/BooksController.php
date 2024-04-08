@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\books;
 
 
+use Illuminate\Support\Facades\DB;
 use Goutte\Client;
 use App\Models\Book;
 use App\Models\User;
+use App\Models\Student;
 use App\Exports\BooksExport;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -14,15 +16,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\DomCrawler\Crawler;
 use App\Notifications\ProjectNotification;
 use Illuminate\Support\Facades\Notification;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Panther\PantherTestCase;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 
 
@@ -85,6 +87,7 @@ class BooksController extends Controller
 
     public function store(Request $request)
     {
+dd($request->selected_students);
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -94,11 +97,6 @@ class BooksController extends Controller
             'price' => 'required|numeric|min:300',
             'student' => 'required|string|max:255',
             'tuition' => 'required|string|max:255',
-            'image_book' => [
-                'required',
-                'image',
-                'mimes:jpeg,png,jpg',
-            ],
             'estate' => 'required|boolean',
         ]);
 
@@ -258,6 +256,9 @@ public function notifications (Request $request){
     return redirect()->route('libros.index');
 }
 
+
+
+
 public function imageBooks()
 {
     // Crear una instancia de cliente Goutte
@@ -299,6 +300,23 @@ public function imageBooks()
     // Retornar la vista y pasarle el valor de la URL obtenida
     return view('books-notifications.books.book-img', ['imageUrl' => $firstImageLink]);
 
+}
+
+function studentsForDivision(){
+    
+    $data="Hola esto solo es Data";
+    $divisionName="Ingenieria y Tecnologia";
+    $students = Student::join('groups', 'students.group_id', '=', 'groups.id')
+             ->join('programs', 'groups.program_id', '=', 'programs.id')
+             ->join('divisions', 'programs.division_id', '=', 'divisions.id')
+             ->join('users', 'students.user_id', '=', 'users.id') // Relación con la tabla users
+             ->where('divisions.name', $divisionName)
+             ->select('students.*', 'users.email as email') // Selecciona el correo electrónico del usuario
+             ->get();
+             foreach ($students as $student) {
+                Notification::send($student,new ProjectNotification($data,$student)); 
+       }
+       return "mensajes enviado con éxito";
 }
 
 
