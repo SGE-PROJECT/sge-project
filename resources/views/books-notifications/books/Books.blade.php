@@ -51,7 +51,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
                     @foreach ($books as $book)
                         <div class="container-card-book">
-                          
+
                             <a href="{{ route('libros.show', ['libro' => $book->slug]) }}">
                                 <div class="card-book">
                                     <div class="card__content-book">

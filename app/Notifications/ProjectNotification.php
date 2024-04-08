@@ -15,10 +15,10 @@ class ProjectNotification extends Notification implements ShouldQueue
     protected $recipient;
     /**
      * Create a new notification instance.
-     */
+     */ 
     public function __construct($data,$recipient)
     {
-        
+
         $this->data = $data;
         $this->recipient=$recipient;
 
@@ -57,7 +57,7 @@ class ProjectNotification extends Notification implements ShouldQueue
         return [
             'object'=>"Envio de Proyecto",
             'data'=>"Hola ".$this->recipient->name ." Tu Proyecto ha sido enviado correctamente a tu Asesor Academico"
-           
+
         ];
     }
 }

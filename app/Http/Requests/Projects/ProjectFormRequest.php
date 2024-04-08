@@ -41,6 +41,7 @@ class ProjectFormRequest extends FormRequest
             'problem_statement' => 'bail|required|string',
             'justification' => 'bail|required|string',
             'activities' => 'bail|required|string',
+
         ];
     }
 }

@@ -14,6 +14,8 @@
             @csrf
             @method('put')
 
+            <input type="hidden" name="action" value="editar">
+
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label class="text-sm font-semibold">Nombre Completo:</label>
@@ -93,7 +95,7 @@
                     <option value="En Revisión" {{ $proyecto->status === 'En Revisión' ? 'selected' : '' }}>En Revisión
                     </option>
                     <option value="Rechazado" {{ $proyecto->status === 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
-                    <option value="Aprobado" {{ $proyecto->status === 'Aprobado' ? 'selected' : '' }}>Aprobado</option>
+                    <option value="En curso" {{ $proyecto->status === 'En curso' ? 'selected' : '' }}>Aprobado</option>
                 </select>
                 <div class="text-red-400 font-bold text-lg">
                     @error('status')
@@ -133,7 +135,7 @@
                     <label class="text-sm font-semibold">Nombre del Asesor Empresarial:</label>
                     <input name="advisor_business_name" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el nombre del asesor" type="text"
-                        value="{{ $proyecto->advisor_business_name }}" />
+                        value="{{ $proyecto->BusinessAdvisor->name }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_name')
                             {{ $message }}
@@ -145,7 +147,7 @@
                     <label class="text-sm font-semibold">Cargo del Asesor:</label>
                     <input name="advisor_business_position" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el cargo del asesor" type="text"
-                        value="{{ $proyecto->advisor_business_position }}" />
+                        value="{{ $proyecto->BusinessAdvisor->position }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_position')
                             {{ $message }}
@@ -158,7 +160,7 @@
                     <label class="text-sm font-semibold">Número Teléfonico del Asesor:</label>
                     <input name="advisor_business_phone" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el número teléfonico del asesor" type="tel"
-                        value="{{ $proyecto->advisor_business_phone }}" />
+                        value="{{ $proyecto->BusinessAdvisor->phone }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_phone')
                             {{ $message }}
@@ -170,7 +172,7 @@
                     <label class="text-sm font-semibold">Correo Electrónico:</label>
                     <input name="advisor_business_email" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
                         placeholder="Ingresa el correo electrónico del asesor" type="email"
-                        value="{{ $proyecto->advisor_business_email }}" />
+                        value="{{ $proyecto->BusinessAdvisor->email }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('advisor_business_email')
                             {{ $message }}
@@ -259,6 +261,10 @@
             <div class="mt-8 flex justify-center text-center space-x-6">
                 <button
                     class=" font-bold bg-teal-500 text-white  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
+
+                <button type="submit" name="action" value="publicar" id="publishButton"
+                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Publicar</button>
+
             </div>
         </form>
     </div>

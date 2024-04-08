@@ -45,11 +45,6 @@ use App\Http\Controllers\users\ManagementUserController;
 |
 */
 
-Route::get('/', function () {
-    return view('administrator.dashboard.dashboard-general');
-});
-
-
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
     Route::get('/Iniciar-sesion', [LoginControlller::class, 'index'])->name('login');
@@ -97,7 +92,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Ruta adicional para la exportación de la plantilla de usuarios
     Route::get('/exportar-usuarios', [MasiveAddController::class, 'exportCsv'])->name('users.exportCsv');
-    Route::post('/importar-usuarios', [MasiveAddController::class, 'import'])->name('users.import');
+    Route::get('/exportar-usuarios-plantilla', [MasiveAddController::class, 'exportTemplate'])->name('users.exportTemplate');
+    Route::post('/importar-usuarios', [MasiveAddController::class, 'store'])->name('users.store');
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
 
@@ -199,9 +195,12 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     //asesorados
     Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
     Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
+    Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
 });
+
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
     Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
+    Route::post('/asesorias/solicitar/{id}', [AdvisorySessionController::class, 'enviar'])->name('asesoriasEnviar');
 });
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
