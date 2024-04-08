@@ -2,9 +2,9 @@
 @section('contenido')
 
     <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        @include('administrator.graphs.graph-anteprojects')
-        @include('administrator.graphs.graph-projects')
-        @include('administrator.graphs.graph-users')
+        @include('administrator.graphs.graph-anteprojects', ['isActive' => Route::is('Dashboard-Anteproyectos')])
+        @include('administrator.graphs.graph-projects', ['isActive' => Route::is('Dashboard-Proyectos')])
+        @include('administrator.graphs.graph-users', ['isActive' => Route::is('Dashboard-Usuarios')])
     </div>
 
     <div class="flex items-baseline align-middle">
@@ -53,25 +53,32 @@
                 <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
                     <tr>
                         <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Correo Electronico</th>
-                        <th>No. Telefono</th>
+                        <th>Correo electrónico</th>
+                        <th>No. Teléfono</th>
                         <th>Rol</th>
+                        <th>División</th>
                         <th>Estado</th>
 
                     </tr>
                 </thead>
+                @foreach ($users as $user)
                 <tr>
-                    <td>Noely</td>
-                    <td>Aguilar</td>
-                    <td>Noely@gmail.com</td>
-                    <td>36263262</td>
-                    <td>Administrador</td>
-                    <td>Activos</td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{$user->phone_number}}</td>
+                    <td>
+                    @foreach ($user->roles as $role)
+                        <span>{{ $role->name }}</span>
+                    @endforeach</td>
+                    <td>{{$user->division_name}}</td>
+                    <td>{{$user->isActive == 1 ? 'Activo' : 'Inactivo'}}</td>
                 </tr>
-
+                @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="mt-1">
+            {{ $users->links() }}
         </div>
 
     </div>

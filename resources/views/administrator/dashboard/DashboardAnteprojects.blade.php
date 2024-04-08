@@ -165,15 +165,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($Projects as $project)
-                        @if ($project->is_project == 1)
+                    @foreach ($Anteprojects as $anteproject)
+                        @if ($anteproject->is_project == 0)
                             <tr>
-                                <td>{{ $project->name_project }}</td>
-                                <td>{{ $project->fullname_student }}</td>
-                                <td><span class="project-status">{{ $project->status }}</span></td>
-                                <td>{{ $project->id_academic_advisor_id }}</td>
+                                <td>{{ $anteproject->name_project }}</td>
+                                <td>{{ $anteproject->fullname_student }}</td>
+                                <td><span class="project-status">{{ $anteproject->status }}</span></td>
+                                <td>{{ $anteproject->id_academic_advisor_id }}</td>
                                 <td>Software</td>
-                                <td>{{ $project->company_name }}</td>
+                                <td>{{ $anteproject->company_name }}</td>
                             </tr>
                         @endif
                     @endforeach
@@ -194,13 +194,13 @@
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['En desarrollo', 'Reprobados', 'Completados'],
+                    labels: ['Registrados', 'En revision', 'Rechazados'],
                     datasets: [{
                         label: 'Estado del proyecto',
                         data: [
-                            {{ $enDesarrolloCount }},
-                            {{ $reprobadosCount }},
-                            {{ $completadosCount }}
+                            {{ $registradosCount }},
+                            {{ $enRevisionCount }},
+                            {{ $rechazadosCount }}
                         ],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',

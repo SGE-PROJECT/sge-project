@@ -132,9 +132,8 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     Route::get('/notificaciones', function () {
         return view('books-notifications.notificaciones-user');
     });
-    Route::get('/usuarios', function () {
-        return view('administrator.dashboard.DashboardUsers');
-    });
+
+    Route::get('/usuarios', [CrudUserController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
 
     Route::get('/equipos', function () {
         return view('administrator.dashboard.dashboardTeam');
@@ -149,7 +148,8 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
-    Route::get('/', [ProjectController::class, 'dashgeneral']);
+    Route::get('/', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
+    Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
     Route::get('formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('formanteproyecto', [ProjectController::class, 'store'])->name('envproyecto');

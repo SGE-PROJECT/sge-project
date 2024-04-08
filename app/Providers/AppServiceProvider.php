@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Spatie\Permission\Models\Role;
 use App\Models\Project;
 use App\Models\User;
 
@@ -32,16 +33,32 @@ class AppServiceProvider extends ServiceProvider
             $view->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount', 'totalProjectsCount'));
         });
 
+
+        //Anteproyectos
+        View::composer('administrator.graphs.graph-anteprojects', function ($view) {
+            $Anteprojects = Project::where('is_project', 0)->get();
+            $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
+            $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
+            $rechazadosCount = $Anteprojects->where('status', 'Rechazados')->count();
+            $totalAnteprojectsCount = $Anteprojects->count();
+
+            $view->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount', 'totalAnteprojectsCount'));
+        });
+
         //Usuarios
         View::composer('administrator.graphs.graph-users', function ($view) {
             $activeUsersCount = User::where('isActive', true)->count();
 
-            // Cualquier otro conteo o datos específicos que necesites
-            // Por ejemplo, si tienes diferentes roles de usuarios y quieres contarlos:
-            // $adminsCount = User::role('admin')->count();
-            // $editorsCount = User::role('editor')->count();
+                // Obtener los roles por nombre
+                $superAdminCount = Role::findByName('Super Administrador')->users()->count();
+                $managmentAdminCount = Role::findByName('Administrador de División')->users()->count();
+                $adviserCount = Role::findByName('Asesor Académico')->users()->count();
+                $studentCount = Role::findByName('Estudiante')->users()->count();
+                $presidentCount = Role::findByName('Presidente Académico')->users()->count();
+                $secretaryCount = Role::findByName('Asistente de Dirección')->users()->count();
 
-            $view->with(compact('activeUsersCount'));
-        });
+                // Pasar estos conteos a la vista
+                $view->with(compact('activeUsersCount','superAdminCount', 'managmentAdminCount', 'adviserCount', 'studentCount', 'presidentCount', 'secretaryCount'));
+            });
     }
 }

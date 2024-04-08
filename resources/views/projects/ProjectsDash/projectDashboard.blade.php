@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{{ asset('css/projects/projectDashboardStyle.css') }}">
 
         <div class="project-administrator-card">
-            @include('administrator.graphs.graph-projects')
+            @include('administrator.graphs.graph-projects', ['isActive' => Route::is('dashboardProjects')])
         </div>
 
 
