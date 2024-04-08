@@ -183,8 +183,6 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
     <script>
@@ -221,17 +219,6 @@
                         }
                     }
                 }
-            });
-        });
-    </script>
-    <!-- export Scripts -->
-    <script>
-        $(document).ready(function() {
-            $('#tabla-proyectos').DataTable({
-                pageLength: 25,
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
             });
         });
     </script>
