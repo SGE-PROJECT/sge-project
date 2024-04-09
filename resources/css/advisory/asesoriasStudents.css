@@ -47,6 +47,9 @@
         display: none;
     }
 }
+.ocultar-pading{
+    padding: 0px !important;
+}
 #student-calendar table, #student-dia2 table , #student-dia2 table{
     width: 100%;
     border-collapse: collapse;
