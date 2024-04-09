@@ -35,12 +35,13 @@ class ProjectController extends Controller
 
     public function dashgeneral()
     {
-        $Projects = Project::where('is_project', 1)->get();
-        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $Projects = Project::where('is_project', 1)->paginate(10);
+        $enCursoCount = $Projects->where('status', 'En curso')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
-        $completadosCount = $Projects->where('status', 'Completado')->count();
+        $finalizadosCount = $Projects->where('status', 'Finalizado')->count();
+        $aprobadosCount = $Projects->where('status', 'Aprobado')->count();
         return view("administrator.project")
-            ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+            ->with(compact('Projects', 'enCursoCount', 'reprobadosCount', 'finalizadosCount', 'aprobadosCount'));
     }
 
     public function dashAnteprojects()
