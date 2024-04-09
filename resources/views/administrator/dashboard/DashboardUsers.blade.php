@@ -2,9 +2,24 @@
 @section('contenido')
 
     <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        @include('administrator.graphs.graph-anteprojects')
-        @include('administrator.graphs.graph-projects')
-        @include('administrator.graphs.graph-users')
+        @include('administrator.graphs.graph-anteprojects', ['isActive' => Route::is('Dashboard-Anteproyectos')])
+        @include('administrator.graphs.graph-projects', ['isActive' => Route::is('Dashboard-Proyectos')])
+        @include('administrator.graphs.graph-users', ['isActive' => Route::is('Dashboard-Usuarios')])
+    </div>
+
+    <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- Gráfica de barras a la izquierda -->
+        <div class="flex flex-col lg:flex-row items-stretch w-full lg:w-auto">
+            <div id="barChartContainer"
+                class="seccion-projects p-12 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 w-full shadow-lg rounded-xl font-sans">
+                <canvas id="barChart" class="mt-5"
+                    style="display: block; box-sizing: border-box; height: 300px; width: 400px;"></canvas>
+            </div>
+        </div>
+        <!-- Componente administrator.section-projects a la derecha -->
+        <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
+            @include('administrator.section-users')
+        </div>
     </div>
 
     <div class="flex items-baseline align-middle">
@@ -53,25 +68,32 @@
                 <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
                     <tr>
                         <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Correo Electronico</th>
-                        <th>No. Telefono</th>
+                        <th>Correo electrónico</th>
+                        <th>No. Teléfono</th>
                         <th>Rol</th>
+                        <th>División</th>
                         <th>Estado</th>
 
                     </tr>
                 </thead>
+                @foreach ($users as $user)
                 <tr>
-                    <td>Noely</td>
-                    <td>Aguilar</td>
-                    <td>Noely@gmail.com</td>
-                    <td>36263262</td>
-                    <td>Administrador</td>
-                    <td>Activos</td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{$user->phone_number}}</td>
+                    <td>
+                    @foreach ($user->roles as $role)
+                        <span>{{ $role->name }}</span>
+                    @endforeach</td>
+                    <td>{{$user->division_name}}</td>
+                    <td>{{$user->isActive == 1 ? 'Activo' : 'Inactivo'}}</td>
                 </tr>
-
+                @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="mt-1">
+            {{ $users->links() }}
         </div>
 
     </div>

@@ -1,7 +1,7 @@
 @vite('resources/css/administrator/dashboard.css')
 
-<div class="border-t-16 border-green-ut w-auto h-56 shadow-lg hover:shadow-2xl transition duration-200 ease-in-out bg-white rounded-sm relative">
-    <a class="group w-full p-5 flex flex-col" href="proyectos">
+<div class="{{ $isActive ? 'border-t-16 border-green-ut' : '' }}  w-auto h-56 shadow-lg hover:shadow-2xl transition duration-200 ease-in-out bg-white rounded-sm relative">
+    <a class="group w-full p-5 flex flex-col" href="/">
     <div id="container-projects" class="w-full h-full min-h-[224px]"></div>
     </a>
   </div>
@@ -10,9 +10,10 @@
   <script>
     var totalProjectsCount = {{$totalProjectsCount}};
     var projectsData = [
-        { name: 'Completados', y: {{$enDesarrolloCount}}, color: '#22C55E' },
-        { name: 'En desarrollo', y: {{$reprobadosCount}}, color: '#eab308' },
-        { name: 'Reprobados', y: {{$completadosCount}}, color: '#f87171' },
+        { name: 'Aprobados', y: {{$aprobadosCount}}, color: '#22C55E' },
+        { name: 'En curso', y: {{$enCursoCount}}, color: '#eab308' },
+        { name: 'Finalizados', y: {{$finalizadosCount}}, color: '#a1a1a1' },
+        { name: 'Reprobados', y: {{$reprobadosCount}}, color: '#f87171' },
     ];
 </script>
 @vite('resources/js/administrator/graph-projects.js')

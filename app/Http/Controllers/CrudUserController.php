@@ -100,7 +100,7 @@ class CrudUserController extends Controller
         $baseSlug = Str::slug($request->name, '-');
         $slug = $baseSlug;
         $counter = 1;
-    
+
         // Busca otros usuarios con el mismo slug y ajusta el slug para evitar duplicados
         while (User::where('slug', $slug)->exists()) {
             $slug = $baseSlug . $counter;
@@ -221,4 +221,38 @@ class CrudUserController extends Controller
 
         return redirect()->route('users.cruduser.index');
     }
+
+    //Mapear usuarios en la vista DashboardUsers
+    public function dashboardUsers()
+    {
+    $users = User::with([
+        'student.group.program.division',
+        'secretary.division',
+        'academicDirector.division',
+        'academicAdvisor.division',
+        'managmentAdmin.division',
+        'roles' // Asegúrate de incluir la relación de roles también
+    ])->paginate(10);
+
+    $users->each(function ($user) {
+        $division = null;
+
+        if ($user->student) {
+            $division = $user->student->group->program->division ?? null;
+        } elseif ($user->secretary) {
+            $division = $user->secretary->division ?? null;
+        } elseif ($user->academicDirector) {
+            $division = $user->academicDirector->division ?? null;
+        } elseif ($user->academicAdvisor) {
+            $division = $user->academicAdvisor->division ?? null;
+        } elseif ($user->managmentAdmin) {
+            $division = $user->managmentAdmin->division ?? null;
+        }
+
+        $user->division_name = $division ? $division->name : 'Sin División';
+    });
+
+    return view('administrator.dashboard.DashboardUsers', compact('users'));
+    }
+
 }
