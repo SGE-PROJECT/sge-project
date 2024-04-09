@@ -199,7 +199,7 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
 });
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
-    Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
+    Route::get('/asesorias/estudiante/{slug}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
 });
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
