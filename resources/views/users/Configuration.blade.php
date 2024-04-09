@@ -9,20 +9,21 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 
-    @vite('resources/css/profile/configuration.css');
+    @vite('resources/css/profile/configuration.css')
 
     <div class="flex justify-center pt-6 p-6">
         <div class="bg-white rounded-lg p-6 shadow-xl w-full max-w-6xl mx-auto">
             <div class="md:flex md:flex-row md:justify-between">
-                    <!-- Sección de foto de perfil -->
-                    <div class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-6 md:mb-0 text-center md:text-left md:border-r md:pr-6 md:pt-40">
-                        <h2 class="text-2xl font-semibold text-center mb-4">Foto de perfil</h2>
-                        <p class="text-gray-600 text-center mb-4">Añade una foto.</p>
+                <!-- Sección de foto de perfil -->
+                <div class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-6 md:mb-0 text-center md:text-left md:border-r md:pr-6 md:pt-40">
+                    <h2 class="text-2xl font-semibold text-center mb-4">Foto de perfil</h2>
+                    <p class="text-gray-600 text-center mb-4">Añade una foto.</p>
 
-                        <img id="profilePicture" alt="Profile Picture" src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : asset('images/profileconfiguration/user-icon.jpeg') }}" class="w-48 h-48 rounded-full border-4 border-white shadow-xl  mx-auto" onclick="openModal()">
-                        
-                        @if (auth()->user()->photo)
+                    <img id="profilePicture" alt="Profile Picture"
+                        src="{{ auth()->user()->photo ? asset(auth()->user()->photo) : asset('images/profileconfiguration/avatar.jpg') }}"
+                        class="w-48 h-48 rounded-full border-4 border-white shadow-xl  mx-auto" onclick="openModal()">
 
+                    @if (auth()->user()->photo)
                         <form method="POST" action="{{ route('configurar_cuenta.remove_photo', ['id' => auth()->id()]) }}">
                             @csrf
                             @method('DELETE')
@@ -31,24 +32,29 @@
                                 Eliminar foto de perfil
                             </button>
                         </form>
-                        @endif
-                            
-                    
+                    @endif
 
-                        <form method="POST" action="{{ route('configurar_cuenta.update', ['id' => auth()->id()]) }}"
-                            enctype="multipart/form-data" class="space-y-4" id="photoForm">
-                            @csrf
-                            @method('PUT')
-                            <div class="mb-4">
-                                <input id="photo" name="photo" type="file" class="hidden"
-                                    onchange="previewImage(event)">
-                                <label for="photo"
-                                    class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors cursor-pointer flex items-center justify-center">
-                                    Subir una foto de perfil
-                                </label>
-                            </div>
-                            
-                    </div>
+
+
+                    <form method="POST" action="{{ route('configurar_cuenta.update', ['id' => auth()->id()]) }}"
+                        enctype="multipart/form-data" class="space-y-4" id="photoForm">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-4">
+                            <input id="photo" name="photo" type="file" class="hidden"
+                                onchange="previewImage(event)">
+                            <label for="photo"
+                                class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors cursor-pointer flex items-center justify-center">
+                                Subir una foto de perfil
+                            </label>
+                        </div>
+                        @if ($errors->has('photo'))
+                        <div class="text-red-500 mb-4 auto-hide-message">
+                            {{ $errors->first('photo') }}
+                        </div>
+                    @endif
+
+                </div>
 
 
 
@@ -61,6 +67,8 @@
                     @if (session('success'))
                         <div class="text-green-500 mb-4 auto-hide-message">{{ session('success') }}</div>
                     @endif
+                   
+
 
 
                     <div>
@@ -142,30 +150,30 @@
                             @enderror
                         </div>
                     </div>
+
+                    
                     <div>
-                        <div class="form-control" style="position: relative;">
+                        <div class="form-control">
                             <input type="password" name="password">
 
                             <label>
-
                                 <span style="transition-delay:0ms">N</span>
                                 <span style="transition-delay:50ms">u</span>
                                 <span style="transition-delay:100ms">e</span>
                                 <span style="transition-delay:150ms">v</span>
                                 <span style="transition-delay:200ms">a</span>
-                                <span style="transition-delay:250ms"> </span>
-                                <span style="transition-delay:300ms">C</span>
-                                <span style="transition-delay:350ms">o</span>
-                                <span style="transition-delay:400ms">n</span>
-                                <span style="transition-delay:450ms">t</span>
-                                <span style="transition-delay:500ms">r</span>
-                                <span style="transition-delay:550ms">a</span>
-                                <span style="transition-delay:600ms">s</span>
-                                <span style="transition-delay:650ms">e</span>
-                                <span style="transition-delay:700ms">ñ</span>
-                                <span style="transition-delay:750ms">a</span>
-                                <span style="transition-delay:800ms">: </span>
-
+                                <span style="transition-delay:250ms"></span>
+                                <span style="transition-delay:250ms">C</span>
+                                <span style="transition-delay:250ms">o</span>
+                                <span style="transition-delay:250ms">n</span>
+                                <span style="transition-delay:250ms">t</span>
+                                <span style="transition-delay:250ms">r</span>
+                                <span style="transition-delay:250ms">a</span>
+                                <span style="transition-delay:250ms">s</span>
+                                <span style="transition-delay:250ms">e</span>
+                                <span style="transition-delay:250ms">ñ</span>
+                                <span style="transition-delay:250ms">a</span>
+                                <span style="transition-delay:250ms">: </span>
                             </label>
 
                             <span id="togglePassword1" class="password-toggle"
@@ -173,16 +181,14 @@
                                 <i class="far fa-eye"></i>
                             </span>
 
-
-
-
-
                         </div>
 
                         @error('password')
                             <p class="text-red-500">{{ $message }}</p>
                         @enderror
                     </div>
+
+
                     <div>
                         <div class="form-control" style="position: relative;">
                             <input type="password" name="password_confirmation">

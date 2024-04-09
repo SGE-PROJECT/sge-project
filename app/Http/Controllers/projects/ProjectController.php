@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\projects;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProjectEdit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Projects\ProjectFormRequest;
@@ -32,25 +33,26 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
 
-    public function list()
+    public function dashgeneral()
     {
-        $Projects = Project::all();
-        
+        $Projects = Project::where('is_project', 1)->get();
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $completadosCount = $Projects->where('status', 'Completado')->count();
         return view("administrator.project")
             ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
-    public function dashgeneral()
+
+    public function dashAnteprojects()
     {
-        $Projects = Project::all();
-        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
-        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
-        $completadosCount = $Projects->where('status', 'Completado')->count();
-        return view("administrator.dashboard.dashboard-general")
-            ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+        $Anteprojects = Project::where('is_project', 0)->get();
+        $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
+        $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
+        $rechazadosCount = $Anteprojects->where('status', 'Rechazados')->count();
+        return view("administrator.dashboard.DashboardAnteprojects")
+          ->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount'));
     }
+
     public function invitation()
     {
         return view("projects.ProjectUser.ProjectUser");
@@ -62,10 +64,16 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
-    public function viewproject()
+    public function viewanteproject()
     {
         $Projects = Project::where('is_project', false)->paginate(3);
         return view('projects.viewsproject.ProjectsView', compact('Projects'));
+    }
+
+    public function viewproject()
+    {
+        $Projects = Project::where('is_project', true)->paginate(3);
+        return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
     }
 
 
@@ -84,7 +92,20 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Verificar si el usuario ya tiene un proyecto creado
+        $existingProject = Project::where('user_id', $user->id)->first();
+
+        if ($existingProject) {
+            return redirect()->back()->with('error', 'Ya has creado un anteproyecto. No puedes crear otro.');
+        }
+
+        // Si el usuario no tiene ningún proyecto creado, mostrar el formulario de creación
+        return view('projects.Forms.FormStudent');
+       //return view('projects.ProjectsDash.projectDashboard');
+
     }
 
     /**
@@ -153,24 +174,49 @@ class ProjectController extends Controller
     public function edit(string $id)
     {
         $proyecto = Project::find($id);
-        return view('projects.Forms.edit-formstudent', compact('proyecto'));
+
+        if ($proyecto) {
+            if ($proyecto->is_project) {
+                // Redirigir a la vista para proyectos
+                return view('projects.Forms.edit-formstudent-isproject', compact('proyecto'));
+            } else {
+                // Redirigir a la vista para no proyectos
+                return view('projects.Forms.edit-formstudent', compact('proyecto'));
+            }
+        } else {
+            // Manejar el caso en que el proyecto no existe
+            return redirect()->route('projects.index')->with('error', 'El proyecto no existe.');
+        }
     }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProjectFormRequest $request, $id): RedirectResponse
+    public function update(ProjectEdit $request, $id): RedirectResponse
     {
+
         $proyecto = Project::find($id);
         $proyecto->update($request->all());
 
+        $getBusinessAdvisor = BusinessAdvisor::find($proyecto->business_advisor_id);
+
+        $getBusinessAdvisor->update(
+            [
+                'name' => $request->advisor_business_name,
+                'email' => $request->advisor_business_email,
+                'phone' => $request->advisor_business_phone,
+                'position' => $request->advisor_business_position,
+            ]
+        );
+
         // Verificar si se está publicando el proyecto
-        if ($request->action == 'publicar') {
-            $proyecto->status = 'En revision'; // Cambiar el estado a 'En revisión'
+        if ($request->status === 'En curso') {
+            $proyecto->status = 'En curso'; // Estado "Aprobado"
             $proyecto->is_project = 1; // Marcar como proyecto
-            $proyecto->save(); // Guardar el cambio en la base de datos
+            $proyecto->save();
         }
+
 
         return redirect()->route('projects.index')->withInput()->with('success', 'Proyecto actualizado correctamente.');
     }

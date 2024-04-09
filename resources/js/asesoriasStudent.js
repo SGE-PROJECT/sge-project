@@ -6,14 +6,25 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('student-month').addEventListener('change', updateCalendar);
     document.getElementById('student-year').addEventListener('change', updateCalendar);
     document.getElementById('student-volverButton').addEventListener('click', volver);
-    document.getElementById('student-solicitar').addEventListener('click', solicitar);
     document.getElementById('student-cambiarCita').addEventListener('click', cambiar);
+    document.getElementById("editContador").textContent = 0 + "/250";
+    document.getElementById('student-solitMensaje').addEventListener('input', function () {
+        this.value = this.value.replace(/^[\W_]+|^ <>/, '');
+        var contador = document.getElementById("editContador");
+        if (this.value.length > 250) {
+            this.value = this.value.slice(0, 250);
+        }
+        contador.textContent = document.getElementById('student-solitMensaje').value.length + "/250";
+    });
 });
 function solicitar() {
-    document.getElementById("student-solitAsunto").value = "";
+    document.getElementById("editContador").textContent="0/250"
     document.getElementById("student-solitMensaje").value = "";
     document.getElementById("student-myModal3").style.display = "none";
+    var error = document.getElementById("error2");
+    error.style.display = "none";
 }
+
 function cambiar() {
     document.getElementById("student-myModal3").style.display = "flex";
 }

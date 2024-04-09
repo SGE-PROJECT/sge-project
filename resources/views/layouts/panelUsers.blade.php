@@ -91,6 +91,43 @@
                 @if (Auth::check() &&
                         Auth::user()->hasAnyRole(['Asesor Académico', 'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
                 @else
+                <li class="mb-1 group relative z-2">
+                    <a href=""
+                        class="flex font-semibold items-center py-2 px-4 text-white sidebar-dropdown-toggle rounded-md">
+                        <i class='bx bx-building-house mr-3 text-lg'></i>
+                        <span class="nav-text text-sm">Administración</span>
+                        <i
+                            class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
+                    </a>
+                    <ul
+                        class="hidden transition duration-300 ease-in-out absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
+                        @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Estudiante',
+                        'Presidente Académico', 'Asistente de Dirección']))
+                        @else
+                        <li class=" ">
+                            <a href="/gestion-usuarios"
+                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#00755e] p-1 rounded-md ">
+                                <i class='bx bx-user mr-3 text-lg'></i>
+                                <span>Usuarios</span>
+                            </a>
+                        </li>
+                        @endif
+                        <li class="">
+                            <a href="/roles-permisos"
+                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#00755e] p-1 rounded-md">
+                                <i class='bx bx-lock-open mr-3 text-lg'></i>
+                                <span>Roles y Permisos</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="sanciones"
+                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
+                                <i class='bx bx-no-entry mr-3 text-lg'></i>
+                                <span>Sanciones</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                     <li class="mb-1 group relative z-2">
                         <a href=""
                             class="flex font-semibold items-center py-2 px-4 text-white sidebar-dropdown-toggle rounded-md">
@@ -147,8 +184,20 @@
                     </a>
                     <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
                         <li>
-
                             <a href="{{ route('dashboardProjects') }}"
+                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                    class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                    class="text-sm">Lista Anteproyectos</span></a>
+                        </li>
+                        <li>
+
+                            <a href="{{ route('viewanteproject') }}"
+                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                    class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                    class="text-sm">Anteproyectos</span></a>
+                        </li>
+                        <li>
+                            <a href="{{ route('viewproject') }}"
                                 class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                     class='bx bx-folder-plus mr-3 text-lg'></i><span
                                     class="text-sm">Proyectos</span></a>
@@ -472,7 +521,7 @@
                                         @else
                                         <!-- Si el usuario no tiene foto de perfil, muestra un icono de usuario predeterminado -->
                                         <img id="preview" class="w-8 h-8 rounded-full"
-                                        src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
+                                        src="{{ asset('images/profileconfiguration/avatar.jpg') }}"
                                             alt="Ícono de usuario predeterminado">
                                     @endif
                                     <div

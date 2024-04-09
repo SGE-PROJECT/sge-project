@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log; // Importación correcta para Laravel
 use App\Models\User;
 use App\Exports\UserExport;
 use App\Imports\UsersImport;
 use Illuminate\Http\Request;
+use App\Exports\UserExportTemplate;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -61,8 +63,29 @@ class MasiveAddController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validación básica para el archivo
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls,csv|max:2048', // Limita a archivos Excel y de hasta 2MB
+        ]);
+    
+        if (!$request->hasFile('file')) {
+            return back()->with('error', 'No se recibió ningún archivo.');
+        }
+    
+        $file = $request->file('file');
+        
+        try {
+            Excel::import(new UsersImport, $file);
+        } catch (\Exception $e) {
+            // Atrapar errores generales durante la importación
+            Log::error('Error al importar usuarios: ' . $e->getMessage());
+            return back()->with('error', 'Hubo un problema al importar los usuarios. Por favor, intenta de nuevo.');
+        }
+    
+        return back()->with('success', 'Usuarios importados correctamente.');
     }
+    
+    
 
     /**
      * Display the specified resource.
@@ -96,18 +119,13 @@ class MasiveAddController extends Controller
         //
     }
 
-    public function import(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|file|mimes:xlsx,xls,csv', // Asegúrate de permitir los tipos de archivo correctos
-        ]);
-
-        Excel::import(new UsersImport, $request->file('file'));
-
-        return back()->with('success', 'Usuarios importados correctamente.');
-    }
     public function exportCsv()
     {
         return Excel::download(new UserExport, 'users.xlsx');
+    }
+
+    public function exportTemplate()
+    {
+        return Excel::download(new UserExportTemplate, 'UserImportTemplate.xlsx');
     }
 }

@@ -9,6 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('images/logo_sge.svg') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -31,35 +33,36 @@
     @vite('resources/css/Dashboard/DashboardUsers.css')
     @vite('resources/css/projects/projectview.css')
     @vite('resources/css/management/projects.css')
-  @livewireStyles
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="icon" href="{{ asset('images/logo_sge.svg') }}">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-  <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-  @vite('resources/css/app.css')
-  @vite('resources/css/asesorias.css')
-  @vite('resources/css/asesoriasStudents.css')
-  @vite('resources/js/sidebar.js')
-  @vite('resources/js/asesorias.js')
-  @vite('resources/js/tableproject.js')
-  @vite('resources/css/sidebar.css')
-  @vite('resources/css/management/divisions/divisions.css')
-  @vite('resources/css/projects/projectDashboardStyle.css')
-  @vite('resources/css/books-notifications/books/books.css')
-  @vite('resources/css/books-notifications/books/add-books.css')
-  @vite('resources/js/asesoriasStudent.js')
-  @vite('resources/css/buttonappoint.css')
-  @vite('resources/css/input.css')
-  @vite('resources/js/projectview.js')
-  @vite('resources/css/loader/loader.css')
-  @vite('resources/css/Dashboard/DashboardUsers.css')
-  @vite('resources/css/projects/projectview.css')
-  @vite('resources/css/management/projects.css')
+    @livewireStyles
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('images/logo_sge.svg') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    @vite('resources/css/app.css')
+    @vite('resources/css/asesorias.css')
+    @vite('resources/css/asesoriasStudents.css')
+    @vite('resources/js/sidebar.js')
+    @vite('resources/js/asesorias.js')
+    @vite('resources/js/tableproject.js')
+    @vite('resources/css/sidebar.css')
+    @vite('resources/css/management/divisions/divisions.css')
+    @vite('resources/css/projects/projectDashboardStyle.css')
+    @vite('resources/css/books-notifications/books/books.css')
+    @vite('resources/css/books-notifications/books/add-books.css')
+    @vite('resources/js/asesoriasStudent.js')
+    @vite('resources/css/buttonappoint.css')
+    @vite('resources/css/input.css')
+    @vite('resources/js/projectview.js')
+    @vite('resources/css/loader/loader.css')
+    @vite('resources/css/Dashboard/DashboardUsers.css')
+    @vite('resources/css/projects/projectview.css')
+    @vite('resources/css/management/projects.css')
 
 
     <title>@yield('titulo')</title>
@@ -487,26 +490,25 @@
                     </button>
                     <li class="dropdown ml-3">
                         <button type="button" class="dropdown-toggle flex items-center">
-                          <div class="flex-shrink-0 w-10 h-10 relative">
-                            <div class="p-1 bg-white rounded-full focus:outline-none focus:ring">
-                                @if (auth()->user()->photo)
-                                <img class="w-8 h-8 rounded-full"
-                                    src="{{ asset(auth()->user()->photo) }}"
-                                    alt="" />
+                            <div class="flex-shrink-0 w-10 h-10 relative">
+                                <div class="p-1 bg-white rounded-full focus:outline-none focus:ring">
+                                    @if (auth()->user()->photo)
+                                        <img class="w-8 h-8 rounded-full" src="{{ asset(auth()->user()->photo) }}"
+                                            alt="" />
                                     @else
-                                    <!-- Si el usuario no tiene foto de perfil, muestra un icono de usuario predeterminado -->
-                                    <img id="preview" class="w-8 h-8 rounded-full"
-                                    src="https://laravelui.spruko.com/tailwind/ynex/build/assets/images/faces/9.jpg"
-                                        alt="Ícono de usuario predeterminado">
-                                @endif
-                                <div
-                                    class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping">
-                                </div>
-                                <div
-                                    class="top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full">
+                                        <!-- Si el usuario no tiene foto de perfil, muestra un icono de usuario predeterminado -->
+                                        <img id="preview" class="w-8 h-8 rounded-full"
+                                            src="{{ asset('images/profileconfiguration/avatar.jpg') }}"
+                                            alt="Ícono de usuario predeterminado">
+                                    @endif
+                                    <div
+                                        class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping">
+                                    </div>
+                                    <div
+                                        class="top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                             <div class="p-2 hidden md:block text-left">
                                 <h2 class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</h2>
                                 @php
@@ -526,11 +528,13 @@
                             class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
                             <li>
                                 <a href="/perfil"
-                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Ver Perfil</a>
+                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Ver
+                                    Perfil</a>
                             </li>
                             <li>
                                 <a href="Configurar_Cuenta"
-                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Configurar Cuenta</a>
+                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Configurar
+                                    Cuenta</a>
                             </li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}" class="">

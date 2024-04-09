@@ -12,6 +12,7 @@ class ManagmentAdmin extends Model
 
     protected $fillable = [
         'user_id',
+        'payrol',
         'division_id',
     ];
 

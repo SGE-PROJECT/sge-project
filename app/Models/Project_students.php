@@ -16,6 +16,7 @@ class Project_students extends Model
         'student_id',
         'is_main_student'
     ];
+    
 
     // Interactua con el atributo directo para transformarlo en minusculas
     protected function name(): Attribute
