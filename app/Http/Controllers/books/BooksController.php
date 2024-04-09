@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Notification;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Panther\PantherTestCase;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use App\Notifications\DivisionAdministratorNotification;
 
 
 
@@ -322,8 +323,7 @@ function studentsForDivision(Request $request){
      // Obtener el usuario autenticado
      $user = Auth::user();
    $idUser =$user->id;
-     /* $data=$request->data; */
-     $data="fgdiobsdo";
+      $data=$request->data;
      // Verificar si el usuario está autenticado y tiene un rol
      if ($user) {
          // Obtener el rol del usuario utilizando Spatie Laravel Permission
@@ -334,19 +334,22 @@ function studentsForDivision(Request $request){
          } elseif ($role === 'Super Administrador') {
 
          }elseif ($role === 'Administrador de División') {
-            $divisionId = ManagmentAdmin::where('user_id', $idUser)->select('division_id')->get();
+            $divId = ManagmentAdmin::where('user_id', $idUser)->select('division_id')->get();
+            $divisionId=$divId[0]->division_id;
+            
             $students = Student::join('groups', 'students.group_id', '=', 'groups.id')
             ->join('programs', 'groups.program_id', '=', 'programs.id')
             ->join('divisions', 'programs.division_id', '=', 'divisions.id')
             ->join('users', 'students.user_id', '=', 'users.id') // Relación con la tabla users
             ->where('divisions.id', $divisionId)
-            ->select('students.*', 'users.email as email') // Selecciona el correo electrónico del usuario
+            ->select('students.*', 'users.email as email','users.name as name','users.id as user_id') // Selecciona el correo electrónico del usuario
             ->get();
             foreach ($students as $student) {
-                Notification::send($student,new ProjectNotification($data,$student)); 
+                $user = User::find($student->user_id); // Obtener el usuario asociado al estudiante
+                Notification::send($user,new DivisionAdministratorNotification($data,$student)); 
        }
 
-       return redirect()->route('libros.index');
+       return redirect()->back();
         }elseif ($role === 'Asesor Académico') {
             // Lógica para usuarios con rol de editor
         }elseif ($role === 'Presidente Académico') {

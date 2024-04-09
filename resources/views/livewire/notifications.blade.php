@@ -42,19 +42,23 @@
                       </button>
                       <div class=" p-10">
                       <h3 class="mb-4">¡Envia un mensaje a toda la comunidad estudiantil!</h3>
+                      <form    action="{{ route('studentsForDivision') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                       <div>
-                        <label class=" mb-2" for="">Mensaje:</label>
-                        <textarea name="" id="" cols="30" rows="10" maxlength="100"></textarea>
+                        <label class=" mb-2" for="data">Mensaje:</label>
+                        <textarea name="data" id="" cols="30" rows="10" maxlength="100"></textarea>
                       </div>
                       
                       <footer class=" flex justify-between">
                       <button class=" bg-teal-500 text-white p-1 rounded hover:bg-teal-600" id="btn-send-advise">Cerrar</button>
-                      <button type="button" class="flex-wrap rounded p-1 text-base text-neutral-50 bg-teal-500 hover:border-gray-300 hover:bg-teal-600 border-[1px] border-gray-100 shadow-sm flex gap-1 justify-center items-center">
+                    
+                      <button type="submit" class="flex-wrap rounded p-1 text-base text-neutral-50 bg-teal-500 hover:border-gray-300 hover:bg-teal-600 border-[1px] border-gray-100 shadow-sm flex gap-1 justify-center items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
                         </svg>
                        Enviar Aviso
                     </button>
+                          </form>
                   </footer>
                     </div>
                     </dialog>
@@ -75,7 +79,7 @@
   
             </div>
             @if ($selectedTab === 'today')
-            <ul class="flex flex-col gap-4" id="notifications">
+            <ul class="flex flex-col gap-4" id="notifications"> 
           
                 @forelse ($notificationsToday as $notification )
 
