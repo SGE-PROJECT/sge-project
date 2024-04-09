@@ -25,7 +25,7 @@ class CommentNotification extends Mailable
         $this->name=$name;
 
     }
-
+ 
     /**
      * Get the message envelope.
      */

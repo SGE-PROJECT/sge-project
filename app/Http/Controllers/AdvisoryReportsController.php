@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
+use App\Mail\PetitionDateMail;
+use Illuminate\Support\Facades\Mail;
+use App\Notifications\PetitionDateNotification;
+use Illuminate\Support\Facades\Notification;
 
 class AdvisoryReportsController extends Controller
 {
@@ -34,7 +38,7 @@ class AdvisoryReportsController extends Controller
 
     public function store(Request $request)
     {
-        //
+
     }
 
     public function show(string $id)
@@ -58,6 +62,8 @@ class AdvisoryReportsController extends Controller
         }
         $cantidad = $user->sanction + 1;
         $user->update(['sanction' => $cantidad]);
+        Notification::send($user->user,new PetitionDateNotification($user->user, $request));
+        Mail::to($user->user->email)->send(new PetitionDateMail($user->user, $request));
         return back()->with('success', 'Se ha sancionado al alumno exitosamente.');
     }
 

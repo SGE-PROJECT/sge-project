@@ -3,6 +3,12 @@
 namespace App\Imports;
 
 use App\Models\User;
+use App\Models\Student;
+use App\Models\Secretary;
+use Illuminate\Support\Str;
+use App\Models\ManagmentAdmin;
+use App\Models\AcademicAdvisor;
+use App\Models\AcademicDirector;
 use Spatie\Permission\Models\Role;
 use App\Models\management\Division;
 use Illuminate\Support\Facades\Hash;
@@ -14,47 +20,31 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
 {
     public function model(array $row)
     {
-        $user = User::updateOrCreate(
-            ['email' => $row['correo_electronico']], // Usando los encabezados en español
-            [
-                'name' => $row['nombre'],
-                'identifier_number' => $row['numero_de_identificacion'],
-                'phone_number' => $row['numero_de_telefono'],
-                'isActive' => strtolower($row['activo']) === 'sí' ? true : false, // Asumiendo que 'activo' podría ser 'Sí'/'No'
-                'password' => Hash::make('defaultPassword'), // Considera manejar esto de manera más segura
-            ]
-        );
-
-        // Asignación de roles
-        if (!empty($row['roles'])) {
-            $user->roles()->detach(); // Remover roles existentes
-            $rolesNames = explode(', ', $row['roles']);
-            foreach ($rolesNames as $roleName) {
-                $role = Role::firstOrCreate(['name' => trim($roleName)]);
-                $user->assignRole($role);
-            }
-        }
-
-        // Asignación de división
-        if (!empty($row['division'])) {
-            $division = Division::firstOrCreate(['name' => $row['division']]);
-            $user->division()->associate($division);
-            $user->save();
-        }
-
-        return $user;
+        dd($row);
+        return new User([
+            'name'           => $row['nombre'],
+            'email'          => $row['correo_electronico'],
+            'slug'           => Str::slug($row['nombre'] . '-' . uniqid()), // Asegúrate de que sea único
+            'password'       => Hash::make($row['contrasena'] ?? 'passwordPredeterminada'), // Asume una contraseña predeterminada si no se proporciona
+            'phone_number'   => $row['numero_de_telefono'] ?? '',
+            'isActive'       => strtolower($row['activo']) === 'si',
+        ]);
     }
 
     public function headingRow(): int
     {
-        return 1;
+        return 1; // Asegura que la fila de encabezados es la primera fila
     }
 
     public function rules(): array
     {
         return [
-            'correo_electronico' => 'required|email|unique:users,email',
-            // Añade aquí más reglas según sea necesario
+            '*.nombre'             => 'required|string|max:255',
+            '*.correo_electronico' => 'required|email|unique:users,email',
+            '*.numero_de_identificacion' => 'nullable|string',
+            '*.numero_de_telefono' => 'nullable|string|max:20',
+            '*.activo'             => 'required|string|in:si,no',
+            // No se requieren reglas de validación para contraseña ya que se asume una predeterminada
         ];
     }
 }

@@ -237,7 +237,7 @@ class BooksController extends Controller
     return redirect()->route('libros.index')->with('success', 'Libro eliminado exitosamente.');
 }
 
-public function export() 
+public function export()
 {
     return Excel::download(new BooksExport, 'libros.xlsx');
 }
@@ -249,12 +249,12 @@ public function notifications (Request $request){
    /*  $notification = new ProjectNotification($request->data, $recipient); */
    /* aqui se envia la notificacion a la bd */
    foreach ($recipients as $recipient) {
-            Notification::send($recipient,new ProjectNotification($request->data,$recipient)); 
+            Notification::send($recipient,new ProjectNotification($request->data,$recipient));
    }
- /*  $recipient->notify($notification); // Aquí enviamos la notificación al usuario */
- /* aqui se envia al email del usuario */
- Mail::to($user->email)->send(new CommentNotification($request->data, $user->name));
- Mail::to('angelguxman77@gmail.com')->send(new CommentNotification($request->data, $user->name));
+    /*  $recipient->notify($notification); // Aquí enviamos la notificación al usuario */
+    /* aqui se envia al email del usuario */
+    Mail::to($user->email)->send(new CommentNotification($request->data, $user->name));
+    Mail::to('angelguxman77@gmail.com')->send(new CommentNotification($request->data, $user->name));
     return redirect()->route('libros.index');
 }
 
@@ -264,8 +264,8 @@ public function imageBooks()
     $client = new Client();
     $searchTerm = "cillyan murphy";
     $imgpath='/'.str_replace(' ', '_', $searchTerm) . '.webp';
-    
-   
+
+
 
     // Realizar la solicitud GET para cargar la página de búsqueda de Yahoo
     $crawler = $client->request('GET', 'https://mx.search.yahoo.com/');
@@ -288,9 +288,9 @@ public function imageBooks()
 
     // Descargar la imagen desde la URL
     $imageContent = file_get_contents($firstImageLink);
-    
+
     $imagePath = public_path("images\books").$imgpath; // Ruta donde se guardará la imagen, que tambien se puede guardar en la BD
-   
+
     file_put_contents($imagePath, $imageContent);
 
 
