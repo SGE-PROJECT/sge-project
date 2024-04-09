@@ -85,7 +85,7 @@ class AdvisorySessionController extends Controller
             return $session;
         });
 
-        return view('consultancy.Dates', compact('sessions', 'sessionsThisWeek', 'Projects', 'allStudents'));
+        return view('consultancy.Dates', compact('sessions', 'sessionsThisWeek', 'Projects', 'allStudents', 'slug'));
     }
 
     public function all($slug)
@@ -152,7 +152,7 @@ class AdvisorySessionController extends Controller
             return $session;
         });
 
-        return view('consultancy.DatesAll', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents']));
+        return view('consultancy.DatesAll', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents', 'slug']));
     }
 
     public function student($slug)
@@ -196,7 +196,7 @@ class AdvisorySessionController extends Controller
             $project->description = $project->general_objective;
         }
 
-        return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects'));
+        return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects', 'slug'));
     }
 
     public function enviar(Request $request, $id)
