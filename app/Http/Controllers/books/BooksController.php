@@ -95,7 +95,7 @@ dd($request->selected_students);
             'editorial' => 'required|string|max:255',
             'year_published' => 'required|integer|min:1900|max:' . date('Y'),
             'price' => 'required|numeric|min:300',
-            'student' => 'required|string|max:255',
+            'selected_students' => 'required',
             'tuition' => 'required|string|max:255',
             'estate' => 'required|boolean',
         ]);
@@ -106,6 +106,21 @@ dd($request->selected_students);
                 ->withErrors($validator)
                 ->withInput();
         }
+
+        // Después de pasar la validación
+$selectedStudentsIds = json_decode($request->selected_students);
+return $selectedStudentsIds;
+$selectedStudents = Student::whereIn('id', $selectedStudentsIds)->get();
+
+// Hacer lo que necesites con los estudiantes seleccionados
+foreach ($selectedStudents as $student) {
+    // Por ejemplo, puedes imprimir los nombres de los estudiantes
+    echo $student->name . "<br>";
+}
+
+        
+
+        return $request;
 
         // Procesar y guardar la imagen
         $image = $request->file('image_book');
@@ -263,7 +278,7 @@ public function imageBooks()
 {
     // Crear una instancia de cliente Goutte
     $client = new Client();
-    $searchTerm = "cillyan murphy";
+    $searchTerm = "franklin givanni aranda rodriguez";
     $imgpath='/'.str_replace(' ', '_', $searchTerm) . '.webp';
 
 

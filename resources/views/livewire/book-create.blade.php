@@ -53,13 +53,13 @@
             </div>
 
             <div class="mb-4">
-                <label for="student" class="block text-sm font-medium text-gray-700">Estudiante</label>
-                <select  name="student" id="student" class="mt-1 p-2 border border-gray-300 rounded-md w-full text-black" required>
-                    <option value="" >Seleccionar Estudiante</option>
+                <label for="student" class="block text-sm font-medium text-gray-700">Estudiantes</label>
+                <ul  name="student" id="student" class="mt-1 p-2 border border-gray-300 rounded-md w-full text-black bg-white" required>
+                    <span>Seleccionar Estudiante</span>
                     @foreach($studentsWithoutBook as $studentNoBook)
-                        <option value="{{ $studentNoBook->id }}">{{ $studentNoBook->user_name." - ".$studentNoBook->registration_number }}</option>
+                        <li id="{{ $studentNoBook->id }}" class="p-1 cursor-pointer mb-2 hover:text-white hover:bg-slate-400 studentssel" >{{ $studentNoBook->user_name." - ".$studentNoBook->registration_number }}</li>
                     @endforeach
-                </select>
+                </ul>
                 @error('student')
                     <p class="text-red-500">{{ $message }}</p>
                 @enderror
@@ -103,25 +103,22 @@
 
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
-        const studentSelect = document.getElementById('student');
-        const selectedStudentsList = document.getElementById('selectedStudentsList');
         const selectedStudents = []; // Array para almacenar los estudiantes seleccionados
-        const valueStudents=[];
+        const studentSelect = document.getElementById('student');
+        const $studentSelected =Array.from(document.querySelectorAll(".studentssel"));
         const priceInput = document.getElementById('price');
-        const form = document.querySelector('form');
-
-        studentSelect.addEventListener('change', function() {
-            const selectedOption = this.options[this.selectedIndex];
-            const selectedStudent = selectedOption.text;
-            const selectedValue = selectedOption.value;
-            const price = parseFloat(priceInput.value);
-      
-            // Verificar si el estudiante ya ha sido seleccionado
-            
-            if (selectedStudents.includes(selectedValue)) {
+        const selectedStudentsList = document.getElementById('selectedStudentsList');
+        let studentForBackend=document.getElementById('selectedStudents');
+        
+         $studentSelected.forEach(element => {
+            element.addEventListener( "click", function(e){ 
+                const price = parseFloat(priceInput.value);
+                console.log(price);
+                // Verificar si el estudiante ya ha sido seleccionado
+            if (selectedStudents.includes(element.id)) {
                 alert('¡Este estudiante ya ha sido seleccionado!');
                 console.log(selectedStudents);
-            } else if(selectedValue===""){
+            } else if(element===""){
                 alert('selecciona un Usuario Valido');
             }else {
                 // Verificar si ya se seleccionaron 
@@ -129,40 +126,35 @@
                 (price >= 600 && price < 900 && selectedStudents.length < 2 ) ||
                 (price >= 900 && selectedStudents.length < 3)) {
                        // Agregar el estudiante al array de seleccionados y a la lista
-                       selectedStudents.push(selectedValue);
+                       selectedStudents.push(element.id);
+                       element.classList.add('bg-teal-500','text-white');
                        // Después de agregar un estudiante a la lista de seleccionados
-document.getElementById('selectedStudents').value = JSON.stringify(selectedStudents);
+                       studentForBackend.value = JSON.stringify(selectedStudents);
                     const li = document.createElement('li');
-                    li.textContent = selectedStudent;
+                    var newContent = document.createTextNode(element.innerHTML);
+                    li.appendChild(newContent);
+                  /*   li.textContent = selectedStudent;  */
                     selectedStudentsList.appendChild(li);
                     console.log(selectedStudents);
                     console.log(selectedStudentsList);
-                    
+               console.log("entro aqui adicion");
                     
                 } else {
-                    studentSelect.value = "";
+                  
                     alert('No se pueden agregar más estudiantes o el precio del libro no cumple con los requisitos.');
 
                 }
             }
-        });
-
+         
+        }) 
+         });       
         // Listener para el cambio en el valor del precio
-        priceInput.addEventListener('change', function() {
-            const price = parseFloat(priceInput.value);
-            console.log(selectedStudentsList);
-            studentSelect.value = "";
-                selectedStudents.splice(0, selectedStudents.length); // Limpiar completamente el array
-                selectedStudentsList.innerHTML = '';
-
-            // Limpiar la selección de estudiantes si el precio no cumple con los requisitos
-            if ((price < 300) || (price >= 300 && price < 600 && selectedStudents.length > 1) ||
-                (price >= 600 && price < 900 && selectedStudents.length > 2)) {
-                studentSelect.value = "";
-                selectedStudents.splice(0, selectedStudents.length); // Limpiar completamente el array
-                selectedStudentsList.innerHTML = ''; // Limpiar la lista de estudiantes seleccionados
-                console.log(selectedStudents)
-            }
+        priceInput.addEventListener('blur', function() {
+                const price = parseFloat(priceInput.value);
+                  console.log(selectedStudentsList);
+                    selectedStudents.splice(0, selectedStudents.length); // Limpiar completamente el array
+                    selectedStudentsList.innerHTML = '';  
+                   console.log("entro aqui eliminacion");
         });
 
        
