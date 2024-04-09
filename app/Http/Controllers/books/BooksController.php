@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Mail\CommentNotification;
 use App\Http\Controllers\Controller;
+use App\Models\ManagmentAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
@@ -317,8 +318,51 @@ public function imageBooks()
 
 }
 
-function studentsForDivision(){
-    
+function studentsForDivision(Request $request){
+     // Obtener el usuario autenticado
+     $user = Auth::user();
+   $idUser =$user->id;
+     /* $data=$request->data; */
+     $data="fgdiobsdo";
+     // Verificar si el usuario está autenticado y tiene un rol
+     if ($user) {
+         // Obtener el rol del usuario utilizando Spatie Laravel Permission
+         $role = $user->getRoleNames()->first(); // Obtener el primer rol asignado al usuario
+       
+         if ($role === 'Estudiante') {
+             // Lógica para usuarios con rol de administrador
+         } elseif ($role === 'Super Administrador') {
+
+         }elseif ($role === 'Administrador de División') {
+            $divisionId = ManagmentAdmin::where('user_id', $idUser)->select('division_id')->get();
+            $students = Student::join('groups', 'students.group_id', '=', 'groups.id')
+            ->join('programs', 'groups.program_id', '=', 'programs.id')
+            ->join('divisions', 'programs.division_id', '=', 'divisions.id')
+            ->join('users', 'students.user_id', '=', 'users.id') // Relación con la tabla users
+            ->where('divisions.id', $divisionId)
+            ->select('students.*', 'users.email as email') // Selecciona el correo electrónico del usuario
+            ->get();
+            foreach ($students as $student) {
+                Notification::send($student,new ProjectNotification($data,$student)); 
+       }
+
+       return redirect()->route('libros.index');
+        }elseif ($role === 'Asesor Académico') {
+            // Lógica para usuarios con rol de editor
+        }elseif ($role === 'Presidente Académico') {
+            // Lógica para usuarios con rol de editor
+        }elseif ($role === 'Asistente de Dirección') {
+            // Lógica para usuarios con rol de editor
+        }
+          else {
+             // Lógica para otros roles o usuario sin rol específico
+         }
+     } else {
+         // El usuario no está autenticado
+         // Redirigir o mostrar un mensaje de error
+     }
+ 
+  /*   
     $data="Hola esto solo es Data";
     $divisionName="Ingenieria y Tecnologia";
     $students = Student::join('groups', 'students.group_id', '=', 'groups.id')
@@ -331,7 +375,7 @@ function studentsForDivision(){
              foreach ($students as $student) {
                 Notification::send($student,new ProjectNotification($data,$student)); 
        }
-       return "mensajes enviado con éxito";
+       return "mensajes enviado con éxito"; */
 }
 
 

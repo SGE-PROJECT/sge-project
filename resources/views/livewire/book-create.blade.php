@@ -134,8 +134,10 @@
                     var newContent = document.createTextNode(element.innerHTML);
                     li.appendChild(newContent);
                   /*   li.textContent = selectedStudent;  */
-                    selectedStudentsList.appendChild(li);
+                  selectedStudentsList.insertAdjacentElement("beforeend", li);
+                    /* selectedStudentsList.appendChild(li); */
                     console.log(selectedStudents);
+                    console.log(li);
                     console.log(selectedStudentsList);
                console.log("entro aqui adicion");
                     
