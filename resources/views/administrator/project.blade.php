@@ -128,7 +128,7 @@
                 x-on:keydown.escape.window="isActive = false">
                 <div class="p-2">
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Opciones </strong>
-                    <label for="Option1" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="Option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -136,13 +136,24 @@
                             <strong class="font-medium text-gray-900"> PDF </strong>
                         </div>
                     </label>
-                    <label for="Option2" class="flex cursor-pointer items-start gap-4 mb-1">
+
+                    <label for="Option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
 
                         <div>
-                            <strong class="font-medium text-gray-900"> CSV </strong>
+                            <strong class="font-medium text-gray-900"> Excel </strong>
+                        </div>
+                    </label>
+
+                    <label for="Option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
+                        <div class="flex items-center">
+                            &#8203;
+                        </div>
+
+                        <div>
+                            <strong class="font-medium text-gray-900"> Imprimir </strong>
                         </div>
                     </label>
 
@@ -179,6 +190,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="mt-1">
+                {{$Projects->links()}}
+            </div>
         </div>
     </div>
     <!-- SCRIPTS DE JQUERY -->
@@ -202,13 +216,14 @@
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['En desarrollo', 'Reprobados', 'Completados'],
+                    labels: ['Aprobados', 'En curso', 'Reprobados', 'Finalizados'],
                     datasets: [{
                         label: 'Estado del proyecto',
                         data: [
-                            {{ $enDesarrolloCount }},
+                            {{ $aprobadosCount }},
+                            {{ $enCursoCount }},
                             {{ $reprobadosCount }},
-                            {{ $completadosCount }}
+                            {{ $finalizadosCount }}
                         ],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -236,45 +251,51 @@
     <!-- SCRIPT DE LA DATA TABLE -->
     <script>
         $(document).ready(function() {
-            $('#tabla-proyectos').DataTable({
-                pageLength: 25,
-                responsive: true,
-                dom: 'Bfrtip',
-                buttons: [{
-                        extend: 'excelHtml5',
-                        text: '<i class="fas fa-file-excel"></i> ',
-                        titleAttr: 'Exportar a Excel',
-                        className: 'btn btn-success'
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        text: '<i class="fas fa-file-pdf"></i> ',
-                        titleAttr: 'Exportar a PDF',
-                        className: 'btn btn-danger'
-                    },
-                    {
-                        extend: 'print',
-                        text: '<i class="fa fa-print"></i> ',
-                        titleAttr: 'Imprimir',
-                        className: 'btn btn-info'
-                    }
-                ],
-                language: {
-                    "lengthMenu": "Mostrar _MENU_ registros",
-                    "zeroRecords": "No se encontraron resultados",
-                    "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                    "sSearch": "Buscar:",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "sProcessing": "Procesando...",
-                }
-            });
-        });
+    var table = $('#tabla-proyectos').DataTable({
+        pageLength: 25,
+        responsive: true,
+        dom: 't', // Quitamos la 'B' para que no se muestren los botones
+        buttons: [ // Inicializamos los botones manualmente
+            'pdf',
+            'excel',
+            'print'
+        ]
+    });
+
+    // Creamos una nueva instancia de botones para poder usarla después
+    new $.fn.dataTable.Buttons(table, {
+        buttons: [
+            'pdf',
+            'excel',
+            'print'
+        ]
+    });
+
+    // Agregamos la nueva instancia de botones al datatables
+    table.buttons(0, null).containers().appendTo('#buttonContainer');
+
+    $('#option1').on('click', function() {
+        table.button('.buttons-pdf').trigger();
+    });
+
+    $('#option2').on('click', function() {
+        table.button('.buttons-excel').trigger();
+    });
+
+    $('#option3').on('click', function() {
+        table.button('.buttons-print').trigger();
+    });
+
+    //Buscador
+    $('#Search').on('input', function() {
+        table.search(this.value).draw();
+    });
+
+    table.on('draw', function() {
+        if (table.page.info().recordsDisplay === 0) {
+            $('.dataTables_empty').text('No se encontraron resultados');
+        }
+    });
+});
     </script>
 @endsection
