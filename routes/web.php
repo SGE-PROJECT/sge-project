@@ -31,6 +31,7 @@ use App\Http\Controllers\ProjectStudentsTestController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\users\ManagementUserController;
 
 
@@ -199,6 +200,8 @@ Route::middleware(['auth', 'role:Estudiante'])->group(function () {
     Route::get('/asesorias/estudiante/{id}', [AdvisorySessionController::class, 'student'])->name('asesoriasStudent');
     Route::post('/asesorias/solicitar/{id}', [AdvisorySessionController::class, 'enviar'])->name('asesoriasEnviar');
 });
+
+Route::get('/home', [StudentController::class, 'index'])->name('home');
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 
