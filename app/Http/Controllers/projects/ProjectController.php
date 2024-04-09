@@ -35,13 +35,24 @@ class ProjectController extends Controller
 
     public function dashgeneral()
     {
-        $Projects = Project::all();
+        $Projects = Project::where('is_project', 1)->get();
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $completadosCount = $Projects->where('status', 'Completado')->count();
         return view("administrator.project")
             ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
+
+    public function dashAnteprojects()
+    {
+        $Anteprojects = Project::where('is_project', 0)->get();
+        $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
+        $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
+        $rechazadosCount = $Anteprojects->where('status', 'Rechazados')->count();
+        return view("administrator.dashboard.DashboardAnteprojects")
+          ->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount'));
+    }
+
     public function invitation()
     {
         return view("projects.ProjectUser.ProjectUser");
@@ -157,7 +168,7 @@ class ProjectController extends Controller
     public function edit(string $id)
     {
         $proyecto = Project::find($id);
-    
+
         if ($proyecto) {
             if ($proyecto->is_project) {
                 // Redirigir a la vista para proyectos
@@ -193,13 +204,13 @@ class ProjectController extends Controller
             ]
         );
 
-        // Verificar si se está publicando el proyecto  
+        // Verificar si se está publicando el proyecto
         if ($request->status === 'En curso') {
             $proyecto->status = 'En curso'; // Estado "Aprobado"
             $proyecto->is_project = 1; // Marcar como proyecto
             $proyecto->save();
         }
-        
+
 
         return redirect()->route('projects.index')->withInput()->with('success', 'Proyecto actualizado correctamente.');
     }
