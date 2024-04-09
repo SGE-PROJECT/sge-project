@@ -9,7 +9,7 @@ Highcharts.chart('container-projects', {
         plotShadow: false,
     },
     title: {
-        text: '79 <br> Proyectos',
+        text: `${totalProjectsCount} <br> Proyectos`,
         align: 'center',
         verticalAlign: 'middle',
         y: 30,
@@ -51,10 +51,6 @@ Highcharts.chart('container-projects', {
         type: 'pie',
         name: 'Datos',
         innerSize: '60%',
-        data: [
-        { name: 'En curso', y: 54, color: '#22C55E' },
-        { name: 'Finalizado', y: 12, color: '#a1a1a1' },
-        { name: 'Reprobados', y: 21, color: '#f87171' },
-        ]
+        data: projectsData,
     }]
 });

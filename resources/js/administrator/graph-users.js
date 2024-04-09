@@ -9,7 +9,7 @@ Highcharts.chart('container-users', {
         plotShadow: false,
     },
     title: {
-        text: '452 <br> Usuarios',
+        text: `${totalUsers} <br> Usuarios`,
         align: 'center',
         verticalAlign: 'middle',
         y: 30,
