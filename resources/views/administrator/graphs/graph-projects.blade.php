@@ -10,9 +10,10 @@
   <script>
     var totalProjectsCount = {{$totalProjectsCount}};
     var projectsData = [
-        { name: 'Completados', y: {{$enDesarrolloCount}}, color: '#22C55E' },
-        { name: 'En desarrollo', y: {{$reprobadosCount}}, color: '#eab308' },
-        { name: 'Reprobados', y: {{$completadosCount}}, color: '#f87171' },
+        { name: 'Aprobados', y: {{$aprobadosCount}}, color: '#22C55E' },
+        { name: 'En curso', y: {{$enCursoCount}}, color: '#eab308' },
+        { name: 'Finalizados', y: {{$finalizadosCount}}, color: '#a1a1a1' },
+        { name: 'Reprobados', y: {{$reprobadosCount}}, color: '#f87171' },
     ];
 </script>
 @vite('resources/js/administrator/graph-projects.js')

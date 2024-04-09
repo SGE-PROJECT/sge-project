@@ -11,9 +11,8 @@
 /* Tarjeta de administración */
 .project-administrator-card {
     grid-area: project-administrator-card;
-    margin-left: 20px;
-    margin-top: 90px;
-    width: 100%;
+    margin-top: 5%;
+    margin-left: 14px;
 }
 
 /* Tarjeta de sección de proyectos */
@@ -63,7 +62,7 @@
 .project-table td {
     padding: 5px;
     text-align: center;
-    border-bottom: 1px solid #ddd;  
+    border-bottom: 1px solid #ddd;
 }
 
 .project-table th {

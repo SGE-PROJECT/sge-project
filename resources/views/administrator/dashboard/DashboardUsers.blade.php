@@ -7,6 +7,21 @@
         @include('administrator.graphs.graph-users', ['isActive' => Route::is('Dashboard-Usuarios')])
     </div>
 
+    <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- Gráfica de barras a la izquierda -->
+        <div class="flex flex-col lg:flex-row items-stretch w-full lg:w-auto">
+            <div id="barChartContainer"
+                class="seccion-projects p-12 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 w-full shadow-lg rounded-xl font-sans">
+                <canvas id="barChart" class="mt-5"
+                    style="display: block; box-sizing: border-box; height: 300px; width: 400px;"></canvas>
+            </div>
+        </div>
+        <!-- Componente administrator.section-projects a la derecha -->
+        <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
+            @include('administrator.section-users')
+        </div>
+    </div>
+
     <div class="flex items-baseline align-middle">
         <button class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mt-10 mr-5 w-32" onclick="window.location.href = '{{ route('dashboardProjects') }}'">
             Ir a Agregar

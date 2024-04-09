@@ -35,7 +35,7 @@ class ProjectController extends Controller
 
     public function dashgeneral()
     {
-        $Projects = Project::all();
+        $Projects = Project::where('is_project', 1)->get();
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $completadosCount = $Projects->where('status', 'Completado')->count();
@@ -45,7 +45,6 @@ class ProjectController extends Controller
 
     public function dashAnteprojects()
     {
-        $Anteprojects = Project::all();
         $Anteprojects = Project::where('is_project', 0)->get();
         $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
         $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
