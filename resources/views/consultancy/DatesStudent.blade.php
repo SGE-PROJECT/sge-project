@@ -15,7 +15,14 @@
         {{abort(404);}}
     @endif
     <main class="vista_asesorias">
+        @if (!$advisor)
+        <h2 style="color: #293846; font-size: 24px; font-weight: bold; text-align: left; width: 80%; margin-top:50px;">Opss... parece que aun no tienes un asesor designado...</h2>
+        <h2 style="color: #293846; font-size: 24px; font-weight: bold; text-align: left; width: 80%;">Lo sentimos, puedes contactar con servicios estudiantiles para que se te asigne un asesor, numero: 235 103 5581.</h2>
+        @endif
+
+
         @php
+        if ($advisor) {
             $projectsData = $Projects->mapWithKeys(function ($project) {
                 return [
                     $project->id => [
@@ -27,12 +34,18 @@
                     ],
                 ];
             });
+        }
         @endphp
+        @if ($advisor)
         <script>
             var proyectos = @json($projectsData);
         </script>
+        @endif
+
         @php
-            use Carbon\Carbon;
+        use Carbon\Carbon;
+        if ($advisor) {
+
             $sessionsData = collect($sessions)
                 ->map(function ($session) {
                     $sessionDate = Carbon::parse($session->session_date);
@@ -48,8 +61,10 @@
                     ];
                 })
                 ->toJson();
-        @endphp
+        }
 
+        @endphp
+        @if ($advisor)
         <script>
             var sessions = @json($sessionsData);
             var sessions = JSON.parse(sessions);
@@ -65,7 +80,9 @@
                 };
             });
         </script>
+        @endif
 
+        @if ($advisor)
         <header class="asesorias-opciones block md:flex">
             <span class="fechas-asesorias">
                 <select id="student-month" class="select-books-sd bg-teal-500 select-asesorias">
@@ -235,9 +252,12 @@
         </div>
         </span>
         </span>
+        @endif
+
+
 
         @php
-
+        if ($advisor) {
             $sessionsData = $sessions
                 ->map(function ($session) {
                     $sessionDate = Carbon::parse($session->session_date);
@@ -256,10 +276,15 @@
                     ];
                 })
                 ->toArray();
-        @endphp
+        }
 
-        <script>
+        @endphp
+        @if ($advisor)
+<script>
             var sessions = @json($sessionsData, JSON_PRETTY_PRINT);
         </script>
+        @endif
+
+
     </main>
 @endsection

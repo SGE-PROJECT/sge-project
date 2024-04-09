@@ -115,7 +115,7 @@ function llenarHorasConEventos() {
                             <p class="info">${evento.motivo}</p>
                             <p class="hora"> ${evento.hora}</p>`;
                         eventoDiv2.appendChild(eventoDiv);
-                        eventoDiv.classList.add("azul");
+                        eventoDiv.classList.add("verde");
                     });
                 });
                 td.onclick = null;

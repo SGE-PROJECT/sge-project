@@ -157,6 +157,7 @@ class AdvisorySessionController extends Controller
 
     public function student($slug)
     {
+        $advisor = true;
         $user = User::where('slug', $slug)->firstOrFail();
         if (!$user->hasRole('Estudiante')) {
             abort(404);
@@ -167,7 +168,8 @@ class AdvisorySessionController extends Controller
         }
         $academicAdvisor = $student->academicAdvisor;
         if (!$academicAdvisor) {
-            abort(404);
+            $advisor = false;
+            return view('consultancy.DatesStudent', compact('slug', 'advisor'));
         }
         $advisorUserId = $academicAdvisor->user_id;
 
@@ -196,7 +198,7 @@ class AdvisorySessionController extends Controller
             $project->description = $project->general_objective;
         }
 
-        return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects', 'slug'));
+        return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects', 'slug', 'advisor'));
     }
 
     public function enviar(Request $request, $id)
