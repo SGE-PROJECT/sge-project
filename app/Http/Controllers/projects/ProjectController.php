@@ -64,10 +64,16 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
-    public function viewproject()
+    public function viewanteproject()
     {
         $Projects = Project::where('is_project', false)->paginate(3);
         return view('projects.viewsproject.ProjectsView', compact('Projects'));
+    }
+
+    public function viewproject()
+    {
+        $Projects = Project::where('is_project', true)->paginate(3);
+        return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
     }
 
 
