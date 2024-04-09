@@ -145,7 +145,7 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     /*     Route::get('/books/export', 'BooksController@export')->name('books.export');
  */
     Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
-    Route::get('/estudiantesingenieria', [BooksController::class, 'studentsForDivision'])->name('estudaintesengenieria');
+    Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
 
 
 
