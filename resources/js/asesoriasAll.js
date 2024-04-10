@@ -64,6 +64,15 @@ function cambiar() {
 function agregar(){
     document.getElementById("myModal").style.display = "flex";
 }
+function desactivar () {
+    var formularios = document.querySelectorAll("form");
+    formularios.forEach(function(formulario) {
+        var botones = formulario.querySelectorAll("button");
+        botones.forEach(function(boton) {
+            boton.disabled = true;
+        });
+    });
+}
 
 function agregarEvento() {
     document.getElementById("agregarEventoButton").disabled = true;
@@ -137,6 +146,7 @@ function agregarEvento() {
         return;
     }
     form.submit();
+    desactivar();
 }
 
 function eliminarEvento2() {
@@ -146,6 +156,7 @@ function eliminarEvento2() {
     formulario.action = actionUrl;
     document.getElementById("myModal4").style.display = "none";
     formulario.submit();
+    desactivar()
 }
 function eliminarEvento(id) {
     eliminarId = id;
@@ -310,6 +321,7 @@ function editarGuardar() {
     formulario.action = actionUrl;
     document.getElementById("myModal2").style.display = "none";
     formulario.submit();
+    desactivar();
 }
 function editarEvento(id, fecha, hora, motivo) {
     idEvento = id;
