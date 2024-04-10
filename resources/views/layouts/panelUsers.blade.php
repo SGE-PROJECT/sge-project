@@ -231,11 +231,11 @@
                     </ul>
                 </li>
 
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Super Administrador','Estudiante','Asesor Académico']))
+                @if (Auth::check() && Auth::user()->hasAnyRole(['Administrador de División','Asesor Académico']))
                     <span class="text-[#fff] nav-text font-bold">EMPRESAS</span>
 
                     <li class="mb-1 group">
-                        <a href={{ route('empresas.index') }}
+                        <a href={{ route('empresas.showTable') }}
                             class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md">
                             <i class='  bx bx-buildings mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Empresas Afiliadas</span>
