@@ -282,7 +282,7 @@
                     });
                 </script>
 
-                < href={{ route('asesoriasStudent', [Auth()->user()->slug]) }}>
+                <a href={{ route('asesoriasStudent', [Auth()->user()->slug]) }}>
                 <header class="asesorias-opciones block md:flex">
                     <span class="fechas-asesorias">
                         <select id="student-month" class="hidden">
