@@ -7,6 +7,9 @@
 @endsection
 
 @section('contenido')
+    @if ($slug !== auth()->user()->slug)
+        {{abort(404);}}
+    @endif
     <main class="vista_asesorados">
         <div id="myModal" class="modal-background">
             <form action="#" method="POST"

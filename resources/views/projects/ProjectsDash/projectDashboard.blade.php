@@ -8,12 +8,12 @@
         <link rel="stylesheet" href="{{ asset('css/projects/projectDashboardStyle.css') }}">
 
         <div class="project-administrator-card">
-            @include('administrator.graph-projects')
+            @include('administrator.graphs.graph-projects', ['isActive' => Route::is('dashboardProjects')])
         </div>
 
 
         <div class="project-section-projects">
-            @include('administrator.section-projects', ['number' => 12, 'name' => 'Proyectos'])
+            @include('administrator.section-projects')
         </div>
 
         <h1 class="proyect-table-title">Anteproyectos</h1>
@@ -43,7 +43,7 @@
                         <td>
                             <!-- Íconos de acción -->
                             <div class="flex-dash-project">
-                                <a href="{{route('projects.edit', $project-> id)}}" class="bg-[#03A696] hover:bg-blue-600 cursor-pointer text-white py-2 px-4 rounded mr-2 mb-1 ">Editar</a>                                                            
+                                <a href="{{route('projects.edit', $project-> id)}}" class="bg-[#03A696] hover:bg-blue-600 cursor-pointer text-white py-2 px-4 rounded mr-2 mb-1 ">Editar</a>
                             </div>
                         </td>
                     </tr>

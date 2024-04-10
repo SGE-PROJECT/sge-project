@@ -91,7 +91,13 @@ class CrudUserController extends Controller
             $validationRules['group_id'] = 'required|exists:groups,id';
             $validationRules['registration_number'] = 'required|string|unique:students,registration_number';
             $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
-        } elseif ($request->role === 'Asitente de Dirección'){
+        } elseif ($request->role === 'Asistente de Dirección') {
+            $validationRules['payrol'] = 'required|string|min:4|max:6';
+        } elseif ($request->role === 'Presidente Académico') {
+            $validationRules['payrol'] = 'required|string|min:4|max:6';
+        } elseif ($request->role === 'Asesor Académico') {
+            $validationRules['payrol'] = 'required|string|min:4|max:6';
+        } elseif ($request->role === 'Administrador de División') {
             $validationRules['payrol'] = 'required|string|min:4|max:6';
         }
 
@@ -100,7 +106,7 @@ class CrudUserController extends Controller
         $baseSlug = Str::slug($request->name, '-');
         $slug = $baseSlug;
         $counter = 1;
-    
+
         // Busca otros usuarios con el mismo slug y ajusta el slug para evitar duplicados
         while (User::where('slug', $slug)->exists()) {
             $slug = $baseSlug . $counter;
@@ -177,11 +183,34 @@ class CrudUserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::find($id);
+        $user = User::with('roles')->find($id);
         $roles = Role::all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
+        $divisions = \App\Models\management\Division::all();
+        $groups = \App\Models\Group::all();
+        $academicAdvisors = \App\Models\AcademicAdvisor::with('user')->get();
+        $userRole = $user->roles->pluck('name')->first();
 
-        return view('users.edit', ['user' => $user, 'roles' => $roles, 'userRole' => $userRole]);
+        $payrol = null;
+
+        if ($userRole && $user->secretary) {
+            $payrol = $user->secretary->payrol;
+        } else if ($userRole && $user->academicadvisor) {
+            $payrol = $user->academicadvisor->payrol;
+        } else if ($userRole && $user->academicdirector) {
+            $payrol = $user->academicdirector->payrol;
+        } else if ($userRole && $user->managmentadmin) {
+            $payrol = $user->managmentadmin->payrol;
+        } 
+
+        return view('users.edit', [
+            'user' => $user,
+            'roles' => $roles,
+            'divisions' => $divisions,
+            'groups' => $groups,
+            'academicAdvisors' => $academicAdvisors,
+            'userRole' => $userRole,
+            'payrol' => $payrol,
+        ]);
     }
 
     /**
@@ -189,24 +218,93 @@ class CrudUserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
+        $user = User::findOrFail($id);
+
+        $validationRules = [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8',
-            'role' => 'required',
-        ]);
+            'password' => 'required|string|min:8',
+            'role' => 'required|exists:roles,name',
+            'phone_number' => 'nullable|string|max:20',
+            'division_id' => 'required|exists:divisions,id',
+        ];
 
-        $user = User::find($id);
+        if ($request->role === 'Estudiante') {
+            $validationRules['group_id'] = 'required|exists:groups,id';
+            $validationRules['registration_number'] = 'required|string|unique:students,registration_number';
+            $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
+        } elseif ($request->role === 'Asistente de Dirección') {
+            $validationRules['payrol'] = 'required|string|min:4|max:6';
+        } elseif ($request->role === 'Presidente Académico') {
+            $validationRules['payrol'] = 'required|string|min:4|max:6';
+        } elseif ($request->role === 'Asesor Académico') {
+            $validationRules['payrol'] = 'required|string|min:4|max:6';
+        } elseif ($request->role === 'Administrador de División') {
+            $validationRules['payrol'] = 'required|string|min:4|max:6';
+        }
+
+        $request->validate($validationRules);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
+            'phone_number' => $request->phone_number ?? '',
             'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
         ]);
 
         $user->syncRoles($request->role);
 
-        return redirect()->route('users.cruduser.index');
+        switch ($request->role) {
+            case 'Estudiante':
+                Student::updateOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'division_id' => $request->division_id,
+                        'group_id' => $request->group_id,
+                        'registration_number' => $request->registration_number,
+                        'academic_advisor_id' => $request->academic_advisor_id,
+                    ]
+                );
+                break;
+            case 'Asistente de Dirección':
+                Secretary::updateOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'division_id' => $request->division_id,
+                        'payrol' => $request->payrol,
+                    ]
+                );
+                break;
+            case 'Presidente Académico':
+                AcademicDirector::updateOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'division_id' => $request->division_id,
+                        'payrol' => $request->payrol,
+                    ]
+                );
+                break;
+            case 'Asesor Académico':
+                AcademicAdvisor::updateOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'division_id' => $request->division_id,
+                        'payrol' => $request->payrol,
+                    ]
+                );
+                break;
+            case 'Administrador de División':
+                ManagmentAdmin::updateOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'division_id' => $request->division_id,
+                        'payrol' => $request->payrol,
+                    ]
+                );
+                break;
+        }
+
+        return redirect()->route('users.cruduser.index')->with('success', 'Usuario actualizado correctamente.');
     }
 
     /**
@@ -221,4 +319,38 @@ class CrudUserController extends Controller
 
         return redirect()->route('users.cruduser.index');
     }
+
+    //Mapear usuarios en la vista DashboardUsers
+    public function dashboardUsers()
+    {
+    $users = User::with([
+        'student.group.program.division',
+        'secretary.division',
+        'academicDirector.division',
+        'academicAdvisor.division',
+        'managmentAdmin.division',
+        'roles' // Asegúrate de incluir la relación de roles también
+    ])->paginate(10);
+
+    $users->each(function ($user) {
+        $division = null;
+
+        if ($user->student) {
+            $division = $user->student->group->program->division ?? null;
+        } elseif ($user->secretary) {
+            $division = $user->secretary->division ?? null;
+        } elseif ($user->academicDirector) {
+            $division = $user->academicDirector->division ?? null;
+        } elseif ($user->academicAdvisor) {
+            $division = $user->academicAdvisor->division ?? null;
+        } elseif ($user->managmentAdmin) {
+            $division = $user->managmentAdmin->division ?? null;
+        }
+
+        $user->division_name = $division ? $division->name : 'Sin División';
+    });
+
+    return view('administrator.dashboard.DashboardUsers', compact('users'));
+    }
+
 }

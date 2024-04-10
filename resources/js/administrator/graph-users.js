@@ -9,7 +9,7 @@ Highcharts.chart('container-users', {
         plotShadow: false,
     },
     title: {
-        text: '452 <br> Usuarios',
+        text: `${totalUsers} <br> Usuarios`,
         align: 'center',
         verticalAlign: 'middle',
         y: 30,
@@ -39,7 +39,7 @@ Highcharts.chart('container-users', {
                     fontWeight: 'bold',
                     color: '#f0f0f0',
                     fontFamily: 'Poppins, sans-serif',
-                    fontSize: '9.5px',
+                    fontSize: '8px',
                 }
             },
             startAngle: -90,
@@ -52,9 +52,6 @@ Highcharts.chart('container-users', {
         type: 'pie',
         name: 'Datos',
         innerSize: '60%',
-        data: [
-        { name: 'Usuarios totales', y: 452, color: '#03a6a6' },
-        { name: '', y: 59 , color: '#a1a1a1' },
-        ]
+        data: usersData,
     }]
 });

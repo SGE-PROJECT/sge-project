@@ -184,8 +184,20 @@
                     </a>
                     <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
                         <li>
-
                             <a href="{{ route('dashboardProjects') }}"
+                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                    class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                    class="text-sm">Lista Anteproyectos</span></a>
+                        </li>
+                        <li>
+
+                            <a href="{{ route('viewanteproject') }}"
+                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                    class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                    class="text-sm">Anteproyectos</span></a>
+                        </li>
+                        <li>
+                            <a href="{{ route('viewproject') }}"
                                 class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                     class='bx bx-folder-plus mr-3 text-lg'></i><span
                                     class="text-sm">Proyectos</span></a>
@@ -219,11 +231,11 @@
                     </ul>
                 </li>
 
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Super Administrador','Estudiante','Asesor Académico']))
+                @if (Auth::check() && Auth::user()->hasAnyRole(['Administrador de División','Asesor Académico']))
                     <span class="text-[#fff] nav-text font-bold">EMPRESAS</span>
 
                     <li class="mb-1 group">
-                        <a href={{ route('empresas.index') }}
+                        <a href={{ route('empresas.showTable') }}
                             class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md">
                             <i class='  bx bx-buildings mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Empresas Afiliadas</span>

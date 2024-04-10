@@ -9,7 +9,7 @@ Highcharts.chart('container-anteprojects', {
         plotShadow: false,
     },
     title: {
-        text: '79 <br> Anteproyectos',
+        text: `${totalAnteprojectsCount} <br> Anteproyectos`,
         align: 'center',
         verticalAlign: 'middle',
         y: 30,
@@ -51,10 +51,6 @@ Highcharts.chart('container-anteprojects', {
         type: 'pie',
         name: 'Datos',
         innerSize: '60%',
-        data: [
-        { name: 'Registrados', y: 54, color: '#22C55E' },
-        { name: 'En revisión', y: 12, color: '#eab308' },
-        { name: 'Rechazados', y: 21, color: '#f87171' },
-        ]
+        data: anteprojectsData,
     }]
 });

@@ -5,12 +5,13 @@
 
     <h1 class="text-3xl font-bold text-center mt-5">Proyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
-    <div class="flex flex-wrap justify-center gap-5 p-5">
-        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-2 gap-5">
-            @include('administrator.graph-projects')
-            @include('administrator.graph-users')
+
+        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            @include('administrator.graphs.graph-anteprojects', ['isActive' => Route::is('Dashboard-Anteproyectos')])
+            @include('administrator.graphs.graph-projects', ['isActive' => Route::is('Dashboard-Proyectos')])
+            @include('administrator.graphs.graph-users', ['isActive' => Route::is('Dashboard-Usuarios')])
         </div>
-        <div class="grid grid-cols-2 lg:grid-cols-2 gap-5 mb-6">
+        <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
             <!-- Gráfica de barras a la izquierda -->
             <div class="flex flex-col lg:flex-row items-stretch w-full lg:w-auto">
                 <div id="barChartContainer"
@@ -24,7 +25,7 @@
                 @include('administrator.section-projects')
             </div>
         </div>
-    </div>
+
     <!-- SECCIÓN QUE CONTIENE LOS BOTONES -->
     <div class="flex items-end align-middle">
         <!-- BOTÓN QUE DIRIGE AL CRUD -->
@@ -127,7 +128,7 @@
                 x-on:keydown.escape.window="isActive = false">
                 <div class="p-2">
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Opciones </strong>
-                    <label for="Option1" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="Option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -135,13 +136,24 @@
                             <strong class="font-medium text-gray-900"> PDF </strong>
                         </div>
                     </label>
-                    <label for="Option2" class="flex cursor-pointer items-start gap-4 mb-1">
+
+                    <label for="Option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
 
                         <div>
-                            <strong class="font-medium text-gray-900"> CSV </strong>
+                            <strong class="font-medium text-gray-900"> Excel </strong>
+                        </div>
+                    </label>
+
+                    <label for="Option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
+                        <div class="flex items-center">
+                            &#8203;
+                        </div>
+
+                        <div>
+                            <strong class="font-medium text-gray-900"> Imprimir </strong>
                         </div>
                     </label>
 
@@ -152,7 +164,7 @@
     <!-- CONTENEDOR DE LA TABLA -->
     <div id="tabla-container" class="tabla-project rounded-t-lg">
         <div class="tabla-cont-project rounded-t-lg">
-            <table id="tabla-proyectos">
+            <table id="tabla-proyectos" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Proyecto</th>
@@ -178,13 +190,24 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="mt-1">
+                {{$Projects->links()}}
+            </div>
         </div>
-        <!-- CONTENEDOR DE LA PAGINACIÓN -->
     </div>
+    <!-- SCRIPTS DE JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- SCRIPTS DE DATA TABLES Y DATA TABLE BUTTONS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <!-- SCRIPTS PARA HACER FUNCIONAR LOS BOTONES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
     <script>
@@ -193,13 +216,14 @@
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['En desarrollo', 'Reprobados', 'Completados'],
+                    labels: ['Aprobados', 'En curso', 'Reprobados', 'Finalizados'],
                     datasets: [{
                         label: 'Estado del proyecto',
                         data: [
-                            {{ $enDesarrolloCount }},
+                            {{ $aprobadosCount }},
+                            {{ $enCursoCount }},
                             {{ $reprobadosCount }},
-                            {{ $completadosCount }}
+                            {{ $finalizadosCount }}
                         ],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -224,15 +248,54 @@
             });
         });
     </script>
-    <!-- export Scripts -->
+    <!-- SCRIPT DE LA DATA TABLE -->
     <script>
         $(document).ready(function() {
-            $('#tabla-proyectos').DataTable({
-                pageLength: 25,
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
-            });
-        });
+    var table = $('#tabla-proyectos').DataTable({
+        pageLength: 25,
+        responsive: true,
+        dom: 't', // Quitamos la 'B' para que no se muestren los botones
+        buttons: [ // Inicializamos los botones manualmente
+            'pdf',
+            'excel',
+            'print'
+        ]
+    });
+
+    // Creamos una nueva instancia de botones para poder usarla después
+    new $.fn.dataTable.Buttons(table, {
+        buttons: [
+            'pdf',
+            'excel',
+            'print'
+        ]
+    });
+
+    // Agregamos la nueva instancia de botones al datatables
+    table.buttons(0, null).containers().appendTo('#buttonContainer');
+
+    $('#option1').on('click', function() {
+        table.button('.buttons-pdf').trigger();
+    });
+
+    $('#option2').on('click', function() {
+        table.button('.buttons-excel').trigger();
+    });
+
+    $('#option3').on('click', function() {
+        table.button('.buttons-print').trigger();
+    });
+
+    //Buscador
+    $('#Search').on('input', function() {
+        table.search(this.value).draw();
+    });
+
+    table.on('draw', function() {
+        if (table.page.info().recordsDisplay === 0) {
+            $('.dataTables_empty').text('No se encontraron resultados');
+        }
+    });
+});
     </script>
 @endsection

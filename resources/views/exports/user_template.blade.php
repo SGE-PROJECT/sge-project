@@ -1,25 +1,20 @@
 {{-- resources/views/exports/user_template.blade.php --}}
+
 <table>
     <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Correo Electronico</th>
-            <th>Numero De Identificacion</th>
-            <th>Numero De Telefono</th>
-            <th>Contraseña</th> <!-- Asegúrate de comunicar que deben cambiarla después -->
-            <th>Activo</th>
-        </tr>
+            <th>name</th>
+            <th>email</th>
+            <th>password</th>
+            <th>role</th>
+            <th>phone_number</th>
+            <th>division_id</th>
+            <th>group_id</th>
+            <th>registration_number</th>
+            <th>academic_advisor_id</th>
+            </tr>
     </thead>
     <tbody>
-        <!-- No se agregan usuarios aquí, ya que es una plantilla -->
-        <!-- Puedes agregar una fila de ejemplo si lo consideras necesario -->
-        <tr>
-            <td>Ejemplo Nombre</td>
-            <td>ejemplo@correo.com</td>
-            <td>123456789</td>
-            <td>1234567890</td>
-            <td>{{ 'ContraseñaPredeterminada' }}</td>
-            <td>si</td>
-        </tr>
+        <!-- Deja el cuerpo vacío; los usuarios llenarán esta parte con los datos reales -->
     </tbody>
 </table>

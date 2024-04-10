@@ -37,10 +37,10 @@
             <div>
                 <form action="{{ route('libros.index') }}" method="GET">
                     <select name="estado" id="estado" onchange="this.form.submit()"
-                        class="select-books bg-teal-500">
+                        class="select-books bg-teal-500 ">
                         <option value="todos" {{ $estado === 'todos' ? 'selected' : '' }}>Todos</option>
-                        <option value="en-proceso" {{ $estado === 'en-proceso' ? 'selected' : '' }}>En proceso</option>
-                        <option value="finalizado" {{ $estado === 'finalizado' ? 'selected' : '' }}>Finalizado</option>
+                        <option  value="en-proceso" {{ $estado === 'en-proceso' ? 'selected' : '' }}>En proceso</option>
+                        <option  value="finalizado" {{ $estado === 'finalizado' ? 'selected' : '' }}>Finalizado</option>
                     </select>
                 </form>
             </div>
@@ -69,7 +69,7 @@
                                 </div>
                             </a>
                             <div class="shelf"></div>
-                            @if(Auth::check() && Auth::user()->hasAnyRole(['Secretary']))
+                            @if(Auth::check() && Auth::user()->hasAnyRole(['Asistente de Dirección']))
                             <div class="buttons-container"> 
                                 <form action="{{ route('libros.edit', ['libro' => $book->id]) }}" method="GET">
                                     @csrf
@@ -77,13 +77,14 @@
                                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPdJREFUSEvVldERgkAMRLOdYCfSiVaiVqKdSClnJdFlgImR4wLCB/fDMBz7ktzOHmTjhY31ZTWAqt5F5AXgaov+AqjqUUS4sSp0VgNo+j2d+Kl7v1mIBzxFhJCp5cVZDP+zRQ0QD1Aq41NC5GxUtQKQ+HSQM4BHq2WFVDUM6MbCbtmRhbD6VnwxwM089ZCxrmd34MR7zQTg8DcgI07dYeYeEu4gKk6rWwuHAHPE6SbrwiIgKs7RjLkwAmit69bozNcCZA90DUBWfPGIIpFhQu8nCYpnsDtAJK5LTTUA6lzYMR0vgTshB2Hw0QjDZRTK/VLJU9/3D3gDazjBGbL5ohcAAAAASUVORK5CYII="/>
                                     </button>
                                 </form>
-                                <form action="{{ route('libros.destroy', ['libro' => $book->id]) }}" method="POST">
+                                <form id="deleteForm{{ $book->id }}" action="{{ route('libros.destroy', ['libro' => $book->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="delete-button-book">
+                                    <button type="button" onclick="confirmarEliminacion({{ $book->id }})" class="delete-button-book">
                                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAJRJREFUSEvtlcENgCAMRfs301GcRJ1MRnGTag8kSoBaAh6UHhvyX/uBFtQ40FifVAAzD0S0JQpZASy5IrMARVx0dyKaALgU5AZgZq5hGc62vM67gBrVhxrROyi16mpN1CKf/BbAtx12FcsXWdQB6jPtFv3AIssAtHw02WCyySzhAIxPp6mIzwZIcrOpO9nSQuxsc8ABQHeaGbkbfj0AAAAASUVORK5CYII="/>
                                     </button>
                                 </form>
+                                
                             </div>
                             @endif
 
@@ -93,4 +94,15 @@
             </div>
         </div>
     </div>
+    <script>
+        function confirmarEliminacion(libroId) {
+            if (confirm('¿Estás seguro de que quieres eliminar este libro?')) {
+                // Si el usuario confirma, enviar el formulario de eliminación
+                document.getElementById('deleteForm' + libroId).submit();
+            } else {
+                // Si el usuario cancela, no hacer nada
+                console.log('La eliminación del libro ha sido cancelada.');
+            }
+        }
+    </script>
 @endsection

@@ -1,5 +1,5 @@
 
-@extends('layouts.panelUsers')
+@extends('layouts.panel')
 
 
 
