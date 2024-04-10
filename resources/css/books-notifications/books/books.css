@@ -338,6 +338,33 @@
   transform: scale(0.77);
 }
 
+/* CSS del select de filtro */
+
+/* .form-books-select {
+  display: inline-block;
+} */
+
+.select-books {
+  width: 18%;
+  height: 35px;
+  font-size: 16px;
+  color: #555;
+}
+
+.select-books:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.export-books { 
+  position: absolute;
+  width: 18%;
+  height: 35px;
+  font-size: 16px;
+  color: #555;
+  font-weight: bold;
+}
+
 .ctn-bk {
   /* border: black dotted; */
   padding-left: 30px;
