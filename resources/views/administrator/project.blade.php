@@ -128,7 +128,7 @@
                 x-on:keydown.escape.window="isActive = false">
                 <div class="p-2">
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Opciones </strong>
-                    <label for="Option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -137,7 +137,7 @@
                         </div>
                     </label>
 
-                    <label for="Option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -147,7 +147,7 @@
                         </div>
                     </label>
 
-                    <label for="Option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="0ption3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -168,11 +168,11 @@
                 <thead>
                     <tr>
                         <th>Proyecto</th>
-                        <th>Integrantes</th>
-                        <th>Estado</th>
-                        <th>Asesor</th>
+                        <th>Estudiante</th>
+                        <th>Grupo</th>
                         <th>Carrera</th>
                         <th>Empresa</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -181,10 +181,10 @@
                             <tr>
                                 <td>{{ $project->name_project }}</td>
                                 <td>{{ $project->fullname_student }}</td>
-                                <td><span class="project-status">{{ $project->status }}</span></td>
-                                <td>{{ $project->id_academic_advisor_id }}</td>
-                                <td>Software</td>
+                                <td>{{ $project->group_student}}</td>
+                                <td>Example</td>
                                 <td>{{ $project->company_name }}</td>
+                                <td><span class="project-status">{{ $project->status }}</span></td>
                             </tr>
                         @endif
                     @endforeach

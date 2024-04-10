@@ -1,4 +1,5 @@
 @extends('layouts.panel')
+@section('titulo', 'Usuarios')
 @section('contenido')
 
     <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
