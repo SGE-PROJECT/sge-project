@@ -43,10 +43,10 @@ class UserSeeder extends Seeder
         ]);
 
         $StudentUser4 = User::create([
-            'name' => 'Noeli Villegas',
-            'email' => 'noelivillegas@gmail.com',
-            'password' => Hash::make('noeli'),
-            'slug' => Str::slug('Noeli Villegas', '-'),
+            'name' => 'Raúl Díaz',
+            'email' => 'rdzkauil@gmail.com',
+            'password' => Hash::make('Estrella'),
+            'slug' => Str::slug('Raúl Díaz', '-'),
             //'division_id' => 2,
             'created_at' => now()
         ]);

@@ -29,8 +29,10 @@ return new class extends Migration
             $table->json('actividad_realizada')->nullable();
             $table->boolean('amonestacion_academica1')->default(false);
             $table->boolean('amonestacion_academica2')->default(false);
+            $table->boolean('amonestacion_academica3')->default(false);
             $table->boolean('gestion_empresarial1')->default(false);
             $table->boolean('gestion_empresarial2')->default(false);
+            $table->boolean('gestion_empresarial3')->default(false);
             $table->string('nombre_asesor')->nullable();
             $table->string('correo_asesor')->nullable();
             $table->string('titulo_memoria')->nullable();

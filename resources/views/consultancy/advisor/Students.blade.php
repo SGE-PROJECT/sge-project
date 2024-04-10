@@ -22,6 +22,23 @@
                 <textarea id="editMotivo" name="message" maxlength="250" placeholder="Motivo de la sancion"></textarea>
                     <span id="editContador">0/250</span>
                     <p id="error2">Error</p>
+                    <div class="mt-2">
+                        <div id="opcion1">
+                            <label for="tradicional" class="inline-flex items-center">
+                                <input type="radio" id="tradicional" name="tipo" value="asesor" checked
+                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
+                                <span class="ml-2 text-sm text-gray-700">Asesor Academico</span>
+                            </label>
+                        </div>
+
+                        <div id="opcion2">
+                            <label for="excelencia" class="inline-flex items-center">
+                                <input type="radio" id="excelencia" name="tipo" value="empresarial"
+                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
+                                <span class="ml-2 text-sm text-gray-700">Asesor Empresarial</span>
+                            </label>
+                        </div>
+                    </div>
                 <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="button"
                     id="borrarEventoBoton" onclick="eliminarEvento2()">Sancionar</button>
             </form>
@@ -31,13 +48,7 @@
         </script>
         <header class="asesorias-opciones block md:flex">
             <h3 class="titulo">Tus asesorados:</h3>
-            <div class="BtnCrearDivisions botonVereventos" id="contbtnCitas">
-                <a href="{{ route('asesoriasTodas', ['id' => auth()->user()->slug]) }}"
-                    class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors flex items-center"
-                    id="">
-                    <span class="Btntext_divisions">Reporte de asesorias</span>
-                </a>
-            </div>
+
         </header>
         <aside class="proyectos" id="proyecto">
             @forelse($students as $student)
@@ -47,14 +58,30 @@
                         <h3>{{$student->user->name}}</h3>
                         <p class="des">Matricula: {{ $student->registration_number }}</p>
                         <p class="des">Grupo: {{ $student->group->name }}</p>
-                        <p class="des">Proyecto: {{ $student->projects[0]->name_project }} </p>
-                        <p class="des">No. Sanciones: {{ $student->sanction }} </p>
-                        <span class="elem">
-                            @if ($student->sanction < 6)
-                            <button onclick="sancionar({{ $student->id }})" href="" class="rojo" tabindex="1">Sancionar</button>
+                        <p class="des">Proyecto: @if (!empty($student->projects) && count($student->projects) > 0)
+                            {{ $student->projects[0]->name_project }} </p>
+                        @else
+                            Ningun proyecto
+                        @endif
+                        <p class="des">No. Sanciones Academicas: {{ $student->sanction_advisor }} </p>
+                        <p class="des">No. Sanciones Empresariales: {{ $student->sanction_company }} </p>
+                        <span class="elem mb-3">
+                            @if ($student->sanction_advisor < 3 || $student->sanction_company < 3)
+                            <button onclick="sancionar({{ $student->id }}, {{ $student->sanction_advisor }}, {{ $student->sanction_company }})" href="" class="rojo" tabindex="1">Sancionar</button>
                             @endif
                             <a tabindex="1" href={{ route('reporte', ['id' => auth()->user()->slug,'alumno' => $student->user->slug]) }} >Calificar</a>
                         </span>
+                        <a href="{{ route('exportarReporte', ['correo' => auth()->user()->email, 'matricula'=>$student->registration_number]) }}" onclick='() => {
+                            var formularios = document.querySelectorAll("form");
+                            formularios.forEach(function(formulario) {
+                                var botones = formulario.querySelectorAll("button");
+                                botones.forEach(function(boton) {
+                                    boton.disabled = true;
+                                });
+                            });
+                        }'
+                        class="font-bold inline-block w-full h-[37px] text-center bg-[#4ea24e] text-white px-6 py-2 rounded hover:bg-[#389738] transition-colors">Generar reporte</a>
+
                     </article>
                 </div>
             @empty
@@ -65,10 +92,11 @@
         </aside>
         <script>
             var eliminarId = 1;
+            var asesor = 0;
+            var empresarial = 0;
             function llenarContenedor() {
                 var contenedor = document.getElementById('proyecto');
                 var contenedorWidth = contenedor.clientWidth;
-                console.log(contenedorWidth);
                 var hijos = contenedor.children;
                 for (var i = hijos.length - 1; i >= 0; i--) {
                     if (hijos[i].style.opacity === '0') {
@@ -94,8 +122,18 @@
                 let error = document.getElementById("error2");
                 error.style.display = "none";
             }
-            function sancionar(id) {
+            function sancionar(id, sasesor, sempresarial) {
                 eliminarId = id;
+                empresarial = sempresarial;
+                asesor = sasesor;
+                if (asesor > 2) {
+                    document.getElementById("opcion1").style.display = "none";
+                    document.getElementById("excelencia").checked=true;
+                }
+                if (empresarial > 2) {
+                    document.getElementById("opcion2").style.display = "none";
+                    document.getElementById("tradicional").checked=true;
+                }
                 document.getElementById("myModal").style.display = "flex";
             }
 
@@ -113,9 +151,9 @@
                 formulario.action = actionUrl;
                 document.getElementById("myModal").style.display = "none";
                 formulario.submit();
+                desactivarBotones();
             }
 
-            // Llama a la función cuando la página se carga o cuando el tamaño de la ventana cambia
             window.addEventListener('load', ()=>{
                 llenarContenedor();
                 document.getElementById("editContador").textContent = 0 + "/250";
@@ -130,6 +168,15 @@
             });
             });
             window.addEventListener('resize', ()=>llenarContenedor());
+            function desactivarBotones() {
+                var formularios = document.querySelectorAll('form');
+                formularios.forEach(function(formulario) {
+                    var botones = formulario.querySelectorAll('button');
+                    botones.forEach(function(boton) {
+                        boton.disabled = true;
+                    });
+                });
+            }
         </script>
     </main>
 @endsection
