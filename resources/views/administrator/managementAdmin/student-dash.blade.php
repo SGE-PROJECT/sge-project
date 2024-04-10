@@ -1,9 +1,9 @@
 <!-- SECCION PROYECTOS -->
 @extends('layouts.panel')
-@section('titulo', 'Proyectos')
+@section('titulo', 'Estudiantes')
 @section('contenido')
 
-    <h1 class="text-3xl font-bold text-center mt-5">Proyectos</h1>
+    <h1 class="text-3xl font-bold text-center mt-5">Estudiantes</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
 
         <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -165,33 +165,34 @@
     <div id="tabla-container" class="tabla-project rounded-t-lg">
         <div class="tabla-cont-project rounded-t-lg">
             <table id="tabla-proyectos" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Proyecto</th>
-                        <th>Integrantes</th>
-                        <th>Estado</th>
-                        <th>Asesor</th>
-                        <th>Carrera</th>
-                        <th>Empresa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($Projects as $project)
-                        @if ($project->is_project == 1)
-                            <tr>
-                                <td>{{ $project->name_project }}</td>
-                                <td>{{ $project->fullname_student }}</td>
-                                <td><span class="project-status">{{ $project->status }}</span></td>
-                                <td>{{ $project->id_academic_advisor_id }}</td>
-                                <td>Software</td>
-                                <td>{{ $project->company_name }}</td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-            </table>
+                    <thead>
+                        <tr>
+                            <th >Matricula</th>
+                            <th >Nombre</th>
+                            <th >Email</th>
+                            <th >Grupo</th>
+                            <th >Asesor Académico</th>
+                            <th >Carrera</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($students as $student)
+                            
+                                <tr>
+                                    <td class="px-6 py-4">{{ $student->student_matricula }}</td>
+                                    <td class="px-6 py-4">{{ $student->student_name }}</td>
+                                    <td class="px-6 py-4">{{ $student->student_email }}</td>
+                                    <td class="px-6 py-4">{{ $student->group_name }}</td>
+                                    <td class="px-6 py-4">{{ $student->advisor_name }}</td>
+                                    <td class="px-6 py-4">{{ $student->program_name }}</td>
+                                    
+                                </tr>
+                          
+                        @endforeach
+                    </tbody>
+                </table>
             <div class="mt-1">
-                {{$Projects->links()}}
+                {{$students->links()}}
             </div>
         </div>
     </div>
@@ -220,10 +221,7 @@
                     datasets: [{
                         label: 'Estado del proyecto',
                         data: [
-                            {{ $aprobadosCount }},
-                            {{ $enCursoCount }},
-                            {{ $reprobadosCount }},
-                            {{ $finalizadosCount }}
+                          
                         ],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
