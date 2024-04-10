@@ -7,7 +7,7 @@ use App\Http\Controllers\auth\ForgotPasswordController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\StudentController;
+//use App\Http\Controllers\StudentController; Linea duplicada. Favor de revisar.
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\auth\PostController;
 use App\Http\Controllers\MasiveAddController;
@@ -62,7 +62,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/recuperar-contraseña', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/recuperar-contraseña', [ForgotPasswordController::class, 'sendPassword'])->name('password.email');
 
-    
+
 });
 
 Route::middleware(['auth'])->group(function () {
