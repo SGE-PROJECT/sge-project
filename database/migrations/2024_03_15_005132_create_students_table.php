@@ -16,8 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->string('registration_number')->unique();
-            $table->foreignId('academic_advisor_id')->constrained('academic_advisors')->onUpdate('cascade')->onDelete('restrict');
-            $table->bigInteger('sanction')->default(0);
+            $table->foreignId('academic_advisor_id')->nullable()->constrained('academic_advisors')->onUpdate('cascade')->onDelete('restrict');
+            $table->bigInteger('sanction_advisor')->default(0);
+            $table->bigInteger('sanction_company')->default(0);
             $table->foreignId('book_id')->nullable()->constrained('books')->inDelete('cascade');
             $table->timestamps();
         });

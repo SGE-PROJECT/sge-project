@@ -12,6 +12,9 @@
     flex-wrap: wrap;
     padding: 10px 20px 10px 20px;
 }
+.des{
+    text-align: left !important;
+}
 .vista_asesorados .titulo{
     outline: none;
     font-size: 30px;
@@ -155,7 +158,7 @@
 }
 .elem *{
     width: 100%;
-    border-radius: 10px;
+    border-radius: 0.25rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -269,6 +272,15 @@
     border-radius: 2px;
     padding: 0px 5px;
     outline: 0.3px solid #888;
+    transition: all .3s;
+}
+
+.asesorias-formulario input[type="radio"]{
+    width: fit-content !important;
+    margin: 0px !important;
+    border-radius: 2px;
+    padding: 0px 0px !important;
+    outline: none !important;
     transition: all .3s;
 }
 .asesorias-formulario textarea{
