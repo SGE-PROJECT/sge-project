@@ -101,10 +101,12 @@ class AdvisoryReportsController extends Controller
             'actividad_realizada' => json_encode($actividades_realizadas),
             'evaluacion_asesor_empresarial' => $validatedData['evaluacion_asesor_empresarial'],
             'evaluacion_asesor_academico' => $validatedData['evaluacion_asesor_academico'],
-            'amonestacion_academica1' => $request->has('amonestacion_academica1') ? 1 : 0,
-            'amonestacion_academica2' => $request->has('amonestacion_academica2') ? 1 : 0,
-            'gestion_empresarial1' => $request->has('gestion_empresarial1') ? 1 : 0,
-            'gestion_empresarial2' => $request->has('gestion_empresarial2') ? 1 : 0,
+            'amonestacion_academica1' => $estudiante->student->sanction_advisor > 0 ? true : false,
+            'amonestacion_academica2' => $estudiante->student->sanction_advisor > 1 ? true : false,
+            'amonestacion_academica3' => $estudiante->student->sanction_advisor > 2 ? true : false,
+            'gestion_empresarial1' => $estudiante->student->sanction_company > 0 ? true : false,
+            'gestion_empresarial2' => $estudiante->student->sanction_company > 1 ? true : false,
+            'gestion_empresarial3' => $estudiante->student->sanction_company > 2 ? true : false,
             'nombre_asesor' => $validatedData['nombre_asesor'],
             'correo_asesor' => $validatedData['correo_asesor'],
             'titulo_memoria' => $validatedData['titulo_memoria'],
@@ -207,10 +209,12 @@ class AdvisoryReportsController extends Controller
                 'evaluacion_asesor_empresarial' => null,
                 'evaluacion_asesor_academico' => null,
                 'actividad_realizada' => json_encode($actividades_final),
-                'amonestacion_academica1' => false,
-                'amonestacion_academica2' => false,
-                'gestion_empresarial1' => false,
-                'gestion_empresarial2' => false,
+                'amonestacion_academica1' => $estudiante->student->sanction_advisor > 0 ? true : false,
+                'amonestacion_academica2' => $estudiante->student->sanction_advisor > 1 ? true : false,
+                'amonestacion_academica3' => $estudiante->student->sanction_advisor > 2 ? true : false,
+                'gestion_empresarial1' => $estudiante->student->sanction_company > 0 ? true : false,
+                'gestion_empresarial2' => $estudiante->student->sanction_company > 1 ? true : false,
+                'gestion_empresarial3' => $estudiante->student->sanction_company > 2 ? true : false,
                 'nombre_asesor' => $asesor->name,
                 'correo_asesor' => $asesor->email,
                 'titulo_memoria' => $estudiante->student->projects[0]->name_project,
@@ -239,8 +243,14 @@ class AdvisoryReportsController extends Controller
         if (!$user->user->hasRole('Estudiante')) {
             abort(404);
         }
-        $cantidad = $user->sanction + 1;
-        $user->update(['sanction' => $cantidad]);
+        if ($request->tipo =='asesor') {
+            $cantidad = $user->sanction_advisor + 1;
+            $user->update(['sanction_advisor' => $cantidad]);
+        }elseif ($request->tipo =='empresarial') {
+            $cantidad = $user->sanction_company + 1;
+            $user->update(['sanction_company' => $cantidad]);
+        }
+
         Notification::send($user->user,new PetitionDateNotification($user->user, $request));
         Mail::to($user->user->email)->send(new PetitionDateMail($user->user, $request));
         return back()->with('success', 'Se ha sancionado al alumno exitosamente.');
