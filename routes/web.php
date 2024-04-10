@@ -207,6 +207,11 @@ Route::middleware(['auth', 'role:Estudiante'])->group(function () {
     Route::post('/asesorias/solicitar/{id}', [AdvisorySessionController::class, 'enviar'])->name('asesoriasEnviar');
 });
 
+Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])->group(function () {
+    Route::get('/empresas-afiliadas', [CompaniesController::class, 'showTable'])->name('empresas.showTable');
+
+});
+
 Route::get('/principal', [StudentController::class, 'index'])->name('home');
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol

@@ -50,7 +50,7 @@ class RoleSeeder extends Seeder
             ],
             //empresas
             'empresas.index' => [
-                'roles' => ['Administrador de División', 'Super Administrador', 'Estudiante', 'Asistente de Dirección', 'Presidente Académico', 'Asesor Académico'],
+                'roles' => [ 'Super Administrador','Administrador de División'],
                 'description' => 'Consultar la lista de empresas'
             ],
             'empresas.create' => [
@@ -63,6 +63,10 @@ class RoleSeeder extends Seeder
             ],
             'empresas.destroy' => [
                 'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Remover empresas'
+            ],
+            'empresas.showTable' => [
+                'roles' => ['Administrador de División', 'Asesor Académico'],
                 'description' => 'Remover empresas'
             ],
             //divisiones
