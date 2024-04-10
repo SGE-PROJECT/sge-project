@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('registration_number')->unique();
             $table->foreignId('academic_advisor_id')->nullable()->constrained('academic_advisors')->onUpdate('cascade')->onDelete('restrict');
             $table->bigInteger('sanction')->default(0);
-            $table->foreignId('book_id')->nullable()->constrained('books')->inDelete('cascade');
+            $table->foreignId('book_id')->nullable()->constrained('books')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });
     }

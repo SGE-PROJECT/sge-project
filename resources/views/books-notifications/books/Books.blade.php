@@ -6,7 +6,7 @@
 
 @section('contenido')
     <div class="container-bk">
-        <h1 class="title-books"> - Libros -</h1>
+        <h1 class="title-books">- Libros -</h1>
         <div class="flex justify-between py-2">
             <div>
                 <div class="search-scale">
@@ -22,7 +22,7 @@
                         </span>
                     </form>
                 </div>
-                @if(Auth::check() && Auth::user()->hasAnyRole(['Secretary']))
+                @if(Auth::check() && Auth::user()->hasAnyRole(['Asistente de Dirección']))
                 <select id="selectOption" onchange="window.location.href=this.value" class="select-books-sd bg-teal-500">
                     <option disabled selected>Exportar Como</option>
                     <option value="{{ route('books.reports') }}">PDF</option>
@@ -35,14 +35,14 @@
                 </a>
             </div>
             <div>
-                <form action="{{ route('libros.index') }}" method="GET">
+                <form action="{{ route('libros.index') }}" method="GET" class="form-books-select">
                     <select name="estado" id="estado" onchange="this.form.submit()"
-                        class="select-books bg-teal-500 ">
+                        class="select-books bg-white border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 transition duration-150 ease-in-out">
                         <option value="todos" {{ $estado === 'todos' ? 'selected' : '' }}>Todos</option>
-                        <option  value="en-proceso" {{ $estado === 'en-proceso' ? 'selected' : '' }}>En proceso</option>
-                        <option  value="finalizado" {{ $estado === 'finalizado' ? 'selected' : '' }}>Finalizado</option>
+                        <option value="en-proceso" {{ $estado === 'en-proceso' ? 'selected' : '' }}>En proceso</option>
+                        <option value="finalizado" {{ $estado === 'finalizado' ? 'selected' : '' }}>Finalizado</option>
                     </select>
-                </form>
+                </form>                
             </div>
         </div>
 

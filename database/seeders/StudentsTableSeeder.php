@@ -20,6 +20,7 @@ class StudentsTableSeeder extends Seeder
             'group_id' => 1,
             'user_id' => 1,
             'academic_advisor_id' => 1,
+            'book_id' => 1,
             'created_at' => now()
         ]);
 
@@ -28,6 +29,7 @@ class StudentsTableSeeder extends Seeder
             'group_id' => 1,
             'user_id' => 2,
             'academic_advisor_id' => 2,
+            'book_id' => 2,
             'created_at' => now()
         ]);
 
@@ -36,6 +38,7 @@ class StudentsTableSeeder extends Seeder
             'group_id' => 2,
             'user_id' => 3,
             'academic_advisor_id' => 3,
+            'book_id' => 3,
             'created_at' => now()
         ]);
 
@@ -44,6 +47,7 @@ class StudentsTableSeeder extends Seeder
             'group_id' => 2,
             'user_id' => 4,
             'academic_advisor_id' => 4,
+            'book_id' => 4,
             'created_at' => now()
         ]);
 
@@ -52,6 +56,7 @@ class StudentsTableSeeder extends Seeder
             'group_id' => 3,
             'user_id' => 5,
             'academic_advisor_id' => 5,
+            'book_id' => 5,
             'created_at' => now()
         ]);
 
@@ -60,6 +65,7 @@ class StudentsTableSeeder extends Seeder
             'group_id' => 3,
             'user_id' => 6,
             'academic_advisor_id' => 6,
+            'book_id' => 6,
             'created_at' => now()
         ]);
 
@@ -68,6 +74,7 @@ class StudentsTableSeeder extends Seeder
             'group_id' => 4,
             'user_id' => 7,
             'academic_advisor_id' => 7,
+            'book_id' => 7,
             'created_at' => now()
         ]);
 
@@ -76,6 +83,7 @@ class StudentsTableSeeder extends Seeder
             'group_id' => 4,
             'user_id' => 8,
             'academic_advisor_id' => 8,
+            'book_id' => 8,
             'created_at' => now()
         ]);
 
@@ -84,6 +92,7 @@ class StudentsTableSeeder extends Seeder
             'group_id' => 5,
             'user_id' => 9,
             'academic_advisor_id' => 9,
+            'book_id' => 9,
             'created_at' => now()
         ]);
 
@@ -92,6 +101,7 @@ class StudentsTableSeeder extends Seeder
             'group_id' => 5,
             'user_id' => 10,
             'academic_advisor_id' => 10,
+            'book_id' => 10,
             'created_at' => now()
         ]);
 
