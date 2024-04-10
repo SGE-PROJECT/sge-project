@@ -57,8 +57,10 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
             ...$actividades,
             $this->formatBoolean($control->amonestacion_academica1),
             $this->formatBoolean($control->amonestacion_academica2),
+            $this->formatBoolean($control->amonestacion_academica3),
             $this->formatBoolean($control->gestion_empresarial1),
             $this->formatBoolean($control->gestion_empresarial2),
+            $this->formatBoolean($control->gestion_empresarial3),
             $control->nombre_asesor,
             $control->correo_asesor,
             $control->titulo_memoria,
@@ -94,8 +96,10 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
             ...$actividadesHeadings,
             'Amonestación Académica 1',
             'Amonestación Académica 2',
+            'Amonestación Académica 3',
             'Gestión Empresarial 1',
             'Gestión Empresarial 2',
+            'Gestión Empresarial 3',
             'NOMBRE ASESOR EMPRESARIAL',
             'CORREO ASESOR EMPRESARIAL',
             'TÍTULO DE LA MEMORIA',
@@ -119,7 +123,7 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
                 $columnaFinalLetra = Coordinate::stringFromColumnIndex($columnaFinalNumero);
                 $columnaFinal = $columnaFinalLetra . '1';
                 $columnaAmonestacionesInicioNumero = $columnaFinalNumero + 1;
-                $columnaAmonestacionesFinalNumero = $columnaAmonestacionesInicioNumero + 3;
+                $columnaAmonestacionesFinalNumero = $columnaAmonestacionesInicioNumero + 5;
                 $columnasfinalesNumero = $columnaAmonestacionesFinalNumero + 4;
                 $columnasfinalesLetra = Coordinate::stringFromColumnIndex($columnasfinalesNumero);
                 $columnasfinales = $columnasfinalesLetra.'1';
@@ -170,13 +174,16 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
 
                 for ($row = 2; $row <= $totalRows; $row++) {
                     $event->sheet->getDelegate()->getRowDimension($row)->setRowHeight(50);
+                    if ($row == $totalRows) {
+                        $event->sheet->getDelegate()->getRowDimension($row)->setRowHeight(30);
+                    }
                 }
 
                 $totalRows = $this->reports->count();
                 $lastRow = 5 + $totalRows - 2;
 
 
-                $range = "A2:$columnasfinalesLetra" . $lastRow;
+                $range = "A2:$columnasfinalesLetra" . $lastRow - 1;
 
 
                 $borderStyle = [
@@ -193,38 +200,38 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
 
 
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(4.26);
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('B')->setWidth(13.86);
 
 
 
                 $event->sheet->getDelegate()->getColumnDimension('C')->setWidth(35.14);
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('D')->setWidth(4);
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('E')->setWidth(4);
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('F')->setWidth(4);
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('G')->setWidth(4);
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('H')->setWidth(4);
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('I')->setWidth(4);
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
 
                 $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(20);
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(20);
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('L')->setWidth(20);
 
 
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('M')->setWidth(7.71);
-                $event->sheet->getDelegate()->getRowDimension(0)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(0)->setRowHeight(170);
                 $event->sheet->getDelegate()->getColumnDimension('N')->setWidth(7.71);
-                $event->sheet->getDelegate()->getRowDimension(0)->setRowHeight(164.25);
+                $event->sheet->getDelegate()->getRowDimension(0)->setRowHeight(170);
 
 
                 $actividadesData = json_decode($this->reports->first()->actividad_realizada, true);
@@ -235,14 +242,14 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
                 $startColumn = 14; // 'O' es la columna 15
                 $newColumn = $startColumn + $numActividades; // Calculamos la nueva columna basada en el número de actividades
 
-                for ($i = $newColumn; $i <= ($newColumn+8); $i++) {
+                for ($i = $newColumn; $i <= ($newColumn+10); $i++) {
                     $columnLetter = Coordinate::stringFromColumnIndex($i);
-                    if ($i > ($newColumn+4)) {
+                    if ($i > ($newColumn+6)) {
                         $event->sheet->getDelegate()->getColumnDimension($columnLetter)->setWidth(28.71);
-                        $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                        $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                     }else {
                         $event->sheet->getDelegate()->getColumnDimension($columnLetter)->setWidth(5);
-                        $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(164.25);
+                        $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
                     }
                 }
 
@@ -254,7 +261,7 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
                 $columnaFinalLetra = Coordinate::stringFromColumnIndex($columnaFinalNumero);
                 $columnaFinal = $columnaFinalLetra . '1';
                 $columnaAmonestacionesInicioNumero = $columnaFinalNumero + 1;
-                $columnaAmonestacionesFinalNumero = $columnaAmonestacionesInicioNumero + 3;
+                $columnaAmonestacionesFinalNumero = $columnaAmonestacionesInicioNumero + 5;
                 $columnasfinalesNumero = $columnaAmonestacionesFinalNumero + 4;
                 $columnasfinalesLetra = Coordinate::stringFromColumnIndex($columnasfinalesNumero);
                 $columnasfinales = $columnasfinalesLetra.'1';
@@ -354,7 +361,7 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
                 $event->sheet->getStyle("O3:$columnaFinal")->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $event->sheet->getStyle("O3:$columnaFinal")->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 $columnaAmonestacionesInicioNumero = $columnaFinalNumero + 1;
-                $columnaAmonestacionesFinalNumero = $columnaAmonestacionesInicioNumero + 3;
+                $columnaAmonestacionesFinalNumero = $columnaAmonestacionesInicioNumero + 5;
                 $columnaAmonestacionesInicioLetra = Coordinate::stringFromColumnIndex($columnaAmonestacionesInicioNumero);
                 $columnaAmonestacionesFinalLetra = Coordinate::stringFromColumnIndex($columnaAmonestacionesFinalNumero);
                 $columnaAmonestacionesInicio = $columnaAmonestacionesInicioLetra . '3';
