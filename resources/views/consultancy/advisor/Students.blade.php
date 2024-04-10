@@ -7,6 +7,9 @@
 @endsection
 
 @section('contenido')
+    @if ($slug !== auth()->user()->slug)
+        {{abort(404);}}
+    @endif
     <main class="vista_asesorados">
         <div id="myModal" class="modal-background">
             <form action="#" method="POST"
@@ -28,13 +31,7 @@
         </script>
         <header class="asesorias-opciones block md:flex">
             <h3 class="titulo">Tus asesorados:</h3>
-            <div class="BtnCrearDivisions botonVereventos" id="contbtnCitas">
-                <a href="{{ route('asesoriasTodas', ['id' => auth()->user()->slug]) }}"
-                    class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors flex items-center"
-                    id="">
-                    <span class="Btntext_divisions">Reporte de asesorias</span>
-                </a>
-            </div>
+
         </header>
         <aside class="proyectos" id="proyecto">
             @forelse($students as $student)
@@ -44,7 +41,11 @@
                         <h3>{{$student->user->name}}</h3>
                         <p class="des">Matricula: {{ $student->registration_number }}</p>
                         <p class="des">Grupo: {{ $student->group->name }}</p>
-                        <p class="des">Proyecto: {{ $student->projects[0]->name_project }} </p>
+                        <p class="des">Proyecto: @if (!empty($student->projects) && count($student->projects) > 0)
+                            {{ $student->projects[0]->name_project }} </p>
+                        @else
+                            Ningun proyecto
+                        @endif
                         <p class="des">No. Sanciones: {{ $student->sanction }} </p>
                         <span class="elem">
                             @if ($student->sanction < 6)
@@ -65,7 +66,6 @@
             function llenarContenedor() {
                 var contenedor = document.getElementById('proyecto');
                 var contenedorWidth = contenedor.clientWidth;
-                console.log(contenedorWidth);
                 var hijos = contenedor.children;
                 for (var i = hijos.length - 1; i >= 0; i--) {
                     if (hijos[i].style.opacity === '0') {
@@ -110,9 +110,9 @@
                 formulario.action = actionUrl;
                 document.getElementById("myModal").style.display = "none";
                 formulario.submit();
+                desactivarBotones();
             }
 
-            // Llama a la función cuando la página se carga o cuando el tamaño de la ventana cambia
             window.addEventListener('load', ()=>{
                 llenarContenedor();
                 document.getElementById("editContador").textContent = 0 + "/250";
@@ -127,6 +127,15 @@
             });
             });
             window.addEventListener('resize', ()=>llenarContenedor());
+            function desactivarBotones() {
+                var formularios = document.querySelectorAll('form');
+                formularios.forEach(function(formulario) {
+                    var botones = formulario.querySelectorAll('button');
+                    botones.forEach(function(boton) {
+                        boton.disabled = true;
+                    });
+                });
+            }
         </script>
     </main>
 @endsection

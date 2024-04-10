@@ -26,6 +26,42 @@
                         
                         Eliminar todas las notificaciones
                     </button>
+                    @if(Auth::check() && Auth::user()->hasAnyRole(['Administrador de División']))
+                    <button type="button" id="show-button" class="flex-wrap rounded p-1 text-base text-neutral-50 bg-teal-500 hover:border-gray-300 hover:bg-teal-600 border-[1px] border-gray-100 shadow-sm flex gap-1 justify-center items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46" />
+                      </svg>                      
+                     Enviar Aviso
+                  </button>
+                    @endif
+                    <dialog id="alert-dialog" class=" rounded-sm relative font-poppins text-lg">
+                      <button class=" absolute right-1 top-2 hover:bg-gray-200/90 rounded-full" onClick="this.parentElement.close()">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-9">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                      <div class=" p-10">
+                      <h3 class="mb-4">¡Envia un mensaje a toda la comunidad estudiantil!</h3>
+                      <form    action="{{ route('studentsForDivision') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                      <div>
+                        <label class=" mb-2" for="data">Mensaje:</label>
+                        <textarea name="data" id="" cols="30" rows="10" maxlength="100"></textarea>
+                      </div>
+                      
+                      <footer class=" flex justify-between">
+                      <button class=" bg-teal-500 text-white p-1 rounded hover:bg-teal-600" id="btn-send-advise">Cerrar</button>
+                    
+                      <button type="submit" class="flex-wrap rounded p-1 text-base text-neutral-50 bg-teal-500 hover:border-gray-300 hover:bg-teal-600 border-[1px] border-gray-100 shadow-sm flex gap-1 justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                        </svg>
+                       Enviar Aviso
+                    </button>
+                          </form>
+                  </footer>
+                    </div>
+                    </dialog>
                     
                 </ul>
               
@@ -43,7 +79,7 @@
   
             </div>
             @if ($selectedTab === 'today')
-            <ul class="flex flex-col gap-4" id="notifications">
+            <ul class="flex flex-col gap-4" id="notifications"> 
           
                 @forelse ($notificationsToday as $notification )
 
@@ -198,6 +234,9 @@
             @endif
         </section>
         <style>
+          #alert-dialog::backdrop {
+  background: linear-gradient(#000d, #000a);
+}
             .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -235,4 +274,13 @@
   cursor: pointer;
 }
         </style>
+        <script>
+          window.addEventListener('DOMContentLoaded',(event)=>{
+            const showButton = document.querySelector("#show-button");
+showButton.addEventListener("click", function () {
+  const alertDialog = document.querySelector("#alert-dialog");
+  alertDialog.showModal();
+});
+          })
+        </script>
         </section>

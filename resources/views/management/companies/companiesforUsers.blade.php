@@ -1,7 +1,4 @@
-
-@extends('layouts.panel')
-
-
+@extends('layouts.panelUsers')
 
 @section('titulo', 'Empresas')
 
@@ -68,17 +65,7 @@
                     </div>
                 </details>
             </div>
-
-            @if (Auth::check() && Auth::user()->hasAnyRole(['Super Administrador']))
-                <!-- Botón para agregar usuario -->
-                <div class="mr-28 mb-4">
-                    <a href="{{ route('empresas.create') }}"
-                        class="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition-colors">Agregar
-                        Empresa</a>
-                </div>
-            @endif
         </div>
-
 
         <!-- Tabla de empresas -->
         <table id="empresaTable" class="project-table ">
@@ -91,9 +78,6 @@
                     <th>Teléfono</th>
                     <th>Correo Electrónico</th>
                     <th>Fecha de Afiliación</th>
-                    @if (Auth::check() && Auth::user()->hasRole('Super Administrador'))
-                        <th>Acciones</th>
-                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -112,21 +96,6 @@
                         <td>{{ $company->contact_phone }}</td>
                         <td>{{ $company->contact_email }}</td>
                         <td>{{ $company->affiliation_date }}</td>
-                        <td>
-                            @if (Auth::check() && Auth::user()->hasRole('Super Administrador'))
-                                <div class="inline-flex">
-                                    <a href="{{ route('empresas.edit', $company->id) }}"
-                                        class="bg-[#03A696] hover:bg-blue-600 text-white py-2 px-4 rounded mr-2 mb-2 ">Editar</a>
-                                    <form action="{{ route('empresas.destroy', $company->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            onclick="return confirm('¿Estás seguro de que deseas eliminar esta empresa?')"
-                                            class="bg-[#03A696] hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
-                                    </form>
-                                </div>
-                            @endif
-                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -35,6 +35,8 @@ use App\Http\Controllers\ProjectStudentsTestController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
 
 
@@ -154,7 +156,7 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     /*     Route::get('/books/export', 'BooksController@export')->name('books.export');
  */
     Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
-    Route::get('/estudiantesingenieria', [BooksController::class, 'studentsForDivision'])->name('estudaintesengenieria');
+    Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
 
 
 
@@ -169,6 +171,7 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     Route::resource('projects', ProjectController::class);
     Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
     Route::delete('/comentarios/{comment}', [ComentarioController::class, 'destroy'])->name('comentario.destroy');
+    Route::get('vistanteproyectos', [ProjectController::class, 'viewanteproject'])->name('viewanteproject');
     Route::get('vistaproyectos', [ProjectController::class, 'viewproject'])->name('viewproject');
     Route::get('proyectoequipos', [ProjectController::class, 'projectteams'])->name('projectteams');
     Route::post('/proyecto/{project}/comentario', [ComentarioController::class, 'store'])->name('comentario.store');
@@ -202,7 +205,9 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     //asesorados
     Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
     Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
+    Route::post('/asesorados/{id}/reporte/{alumno}/generar', [AdvisoryReportsController::class, 'store'])->name('generarReporte');
     Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
+    Route::get('/reporte/{correo}/exportar/{matricula}', [AdvisoryReportsController::class, 'exportToExcel'])->name('exportarReporte');
 });
 
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
@@ -210,7 +215,16 @@ Route::middleware(['auth', 'role:Estudiante'])->group(function () {
     Route::post('/asesorias/solicitar/{id}', [AdvisorySessionController::class, 'enviar'])->name('asesoriasEnviar');
 });
 
-Route::get('/home', [StudentController::class, 'index'])->name('home');
+Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])->group(function () {
+    Route::get('/empresas-afiliadas', [CompaniesController::class, 'showTable'])->name('empresas.showTable');
+
+});
+
+Route::get('/principal', [StudentController::class, 'index'])->name('home');
+
+Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
+    Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student.dash');
+});
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 
