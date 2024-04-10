@@ -199,7 +199,7 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
     Route::post('/asesorados/{id}/reporte/{alumno}/generar', [AdvisoryReportsController::class, 'store'])->name('generarReporte');
     Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
-    Route::get('/form2/exportar', [AdvisoryReportsController::class, 'exportToExcel'])->name('estadia.export');
+    Route::get('/reporte/{correo}/exportar/{matricula}', [AdvisoryReportsController::class, 'exportToExcel'])->name('exportarReporte');
 });
 
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
