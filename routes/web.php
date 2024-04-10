@@ -62,7 +62,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/recuperar-contraseña', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/recuperar-contraseña', [ForgotPasswordController::class, 'sendPassword'])->name('password.email');
 
-    
+
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -166,7 +166,7 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('/', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
     Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
-    Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
+    Route::get('proyectoinvitacion', [ProjectController::class, 'invitation'])->name('projectinvitation');
     Route::get('formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('formanteproyecto', [ProjectController::class, 'store'])->name('envproyecto');
     Route::resource('projects', ProjectController::class);

@@ -22,7 +22,7 @@
         <div class="flex-icons justify-between">
             <li
                 class="flex items-center font-sans hover:text-teal-500 text-xl antialiased font-semibold leading-normal transition-colors duration-300 cursor-pointer">
-                <a href="/vistaproyectos">⭠ Regresar</a>
+                <a href="/vistanteproyectos">⭠ Regresar</a>
             </li>
             <form method="POST" action="{{ route('project.like', ['user' => $user->id, 'project' => $project->id]) }}">
                 @csrf
