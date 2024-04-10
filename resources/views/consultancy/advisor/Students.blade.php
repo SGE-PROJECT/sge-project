@@ -7,6 +7,9 @@
 @endsection
 
 @section('contenido')
+    @if ($slug !== auth()->user()->slug)
+        {{abort(404);}}
+    @endif
     <main class="vista_asesorados">
         <div id="myModal" class="modal-background">
             <form action="#" method="POST"
@@ -28,13 +31,7 @@
         </script>
         <header class="asesorias-opciones block md:flex">
             <h3 class="titulo">Tus asesorados:</h3>
-            <div class="BtnCrearDivisions botonVereventos" id="contbtnCitas">
-                <a href="{{ route('asesoriasTodas', ['id' => auth()->user()->slug]) }}"
-                    class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors flex items-center"
-                    id="">
-                    <span class="Btntext_divisions">Reporte de asesorias</span>
-                </a>
-            </div>
+            
         </header>
         <aside class="proyectos" id="proyecto">
             @forelse($students as $student)

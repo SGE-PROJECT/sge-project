@@ -16,6 +16,7 @@ class CompaniesController extends Controller
         $this->middleware("can:empresas.edit")->only('edit', 'update');
         $this->middleware("can:empresas.create")->only('create', 'store');
         $this->middleware("can:empresas.destroy")->only('destroy');
+        $this->middleware("can:empresas.showTable")->only('showTable');
     }
     public function index()
     {
@@ -39,7 +40,7 @@ class CompaniesController extends Controller
     $request->validate([
         'company_name' => ['required', 'regex:/^(?![\s\S]0[\s\S]$)[\s\S]*$/'],
         'address' => ['required', 'regex:/^(?!\s+$)[\s\S]*$/'], // No permitir solo espacios en blanco
-        'contact_name' => ['required', 'regex:/^[^\d\s]+$/'], // No permitir números ni espacios
+        'contact_name' => ['required', 'regex:/^(?![\d\s]+$)[\w\d\s]+$/'], // No permitir números ni espacios
         'contact_email' => 'required|email',
         'contact_phone' => ['required', 'regex:/^\d{10,}$/'], // Asumiendo que el número de teléfono debe tener al menos 10 dígitos
         'description' => ['required', 'regex:/^(?!\s+$)[\s\S]*$/'], // No permitir solo espacios en blanco
@@ -85,7 +86,7 @@ class CompaniesController extends Controller
     $request->validate([
         'company_name' => ['required', 'regex:/^(?![\s\S]0[\s\S]$)[\s\S]*$/'],
         'address' => ['required', 'regex:/^(?!\s+$)[\s\S]*$/'], // No permitir solo espacios en blanco
-        'contact_name' => ['required', 'regex:/^[^\d\s]+$/'], // No permitir números ni espacios
+        'contact_name' => ['required', 'regex:/^(?![\d\s]+$)[\w\d\s]+$/'], // No permitir números ni espacios
         'contact_email' => 'required|email',
         'contact_phone' => ['required', 'regex:/^\d{10,}$/'], // Asumiendo que el número de teléfono debe tener al menos 10 dígitos
         'description' => ['required', 'regex:/^(?!\s+$)[\s\S]*$/'], // No permitir solo espacios en blanco
@@ -135,5 +136,10 @@ class CompaniesController extends Controller
         $company->delete();
         return redirect()->route('empresas.index')->with('success', 'Company deleted successfully!');
     }
+    public function showTable()
+{
+    $companies = Affiliated_companie::with('companiesImage')->get();
+    return view("management.companies.companiesforUsers", compact('companies'));
+}
 
 }

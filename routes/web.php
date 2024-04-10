@@ -145,7 +145,7 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     /*     Route::get('/books/export', 'BooksController@export')->name('books.export');
  */
     Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
-    Route::get('/estudiantesingenieria', [BooksController::class, 'studentsForDivision'])->name('estudaintesengenieria');
+    Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
 
 
 
@@ -197,7 +197,9 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     //asesorados
     Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
     Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
+    Route::post('/asesorados/{id}/reporte/{alumno}/generar', [AdvisoryReportsController::class, 'store'])->name('generarReporte');
     Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
+    Route::get('/reporte/{correo}/exportar/{matricula}', [AdvisoryReportsController::class, 'exportToExcel'])->name('exportarReporte');
 });
 
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
@@ -205,7 +207,12 @@ Route::middleware(['auth', 'role:Estudiante'])->group(function () {
     Route::post('/asesorias/solicitar/{id}', [AdvisorySessionController::class, 'enviar'])->name('asesoriasEnviar');
 });
 
-Route::get('/home', [StudentController::class, 'index'])->name('home');
+Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])->group(function () {
+    Route::get('/empresas-afiliadas', [CompaniesController::class, 'showTable'])->name('empresas.showTable');
+
+});
+
+Route::get('/principal', [StudentController::class, 'index'])->name('home');
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 
