@@ -35,7 +35,6 @@ use App\Http\Controllers\ProjectStudentsTestController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
-use App\Http\Controllers\StudentController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
 
@@ -62,7 +61,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/recuperar-contraseña', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/recuperar-contraseña', [ForgotPasswordController::class, 'sendPassword'])->name('password.email');
 
-    
+
 });
 
 Route::middleware(['auth'])->group(function () {
