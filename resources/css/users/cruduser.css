@@ -44,6 +44,24 @@
     text-align: center;
     word-wrap: break-word;
 }
+/*Ajustes para hacer la  pantalla responsiva*/
+/*@media (max-width: 992px) {
+    .card {
+        width: calc(50% - 20px);
+    }
+}
+@media (max-width: 576px) {
+    .card {
+        width: calc(100% - 20px);
+    }
+}   
+@media (max-width: 360px) {
+    .card {
+        width: calc(100% - 20px);
+    }
+}*/
+
+
 
 
 
