@@ -9,6 +9,10 @@ use App\Mail\PetitionDateMail;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\PetitionDateNotification;
 use Illuminate\Support\Facades\Notification;
+use App\Models\Report;
+use App\Models\AdvisorySession;
+use App\Exports\EstadiaControlsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdvisoryReportsController extends Controller
 {
@@ -28,7 +32,7 @@ class AdvisoryReportsController extends Controller
                         })
                         ->get();
 
-        return view('consultancy.advisor.Students', compact('students'));
+        return view('consultancy.advisor.Students', compact('students', 'slug'));
     }
 
     public function create()
@@ -36,14 +40,189 @@ class AdvisoryReportsController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id, $alumno)
     {
+        $validatedData = $request->validate([
+            'matricula' => 'required|string|max:50',
+            'nombre' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\-]+$/'],
+            'contacto_inicial' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
+            'contacto_seguimiento' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
+            'contacto_cierre' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
+            'evaluacion_asesor_empresarial' => 'nullable|numeric|min:0|max:100',
+            'evaluacion_asesor_academico' => 'nullable|numeric|min:0|max:100',
+            'nombre_asesor' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
+            'correo_asesor' => 'nullable|email|max:255',
+            'titulo_memoria' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
+            'observaciones' => ['nullable', 'string', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
+        ]);
+        $asesor = User::where('slug', $id)->firstOrFail();
+        if (!$asesor->hasRole('Asesor Académico')) {
+            abort(404);
+        }
+        $estudiante = User::where('slug', $alumno)->firstOrFail();
+        if (!$estudiante->hasRole('Estudiante')) {
+            abort(404);
+        }
+        $asesorEstudiante = $estudiante->student->academic_advisor_id;
+        if (!($asesorEstudiante==$asesor->academicAdvisor->id)) {
+            abort(404);
+        }
+        $asesorAcademico = $asesor->academicAdvisor;
+        $matricula = $estudiante->student->registration_number;
 
+        $reporte = Report::where('matricula', $matricula)->first();
+        $actividades_realizadas = [];
+
+        $index = 0;
+        while ($request->has('actividadRealizada' . $index)) {
+            $realizada = $request->input('actividadRealizada' . $index);
+            $motivo = $request->input('motivo' . $index);
+            $fecha = $request->input('fecha' . $index);
+            $actividades_realizadas[] = [
+                'motivo' => $motivo,
+                'realizada' => $realizada == 'on' ? true : false,
+                'fecha' => $fecha
+            ];
+
+            $index++;
+        }
+        $reporte->update([
+            'matricula' => $validatedData['matricula'],
+            'nombre' => $validatedData['nombre'],
+            'tradicional' => $request->tipoMemoria == 'tradicional' ? 1 : 0,
+            'excelencia' => $request->tipoMemoria =='excelencia' ? 1 : 0,
+            'proyecto_investigacion' => $request->tipoMemoria =='proyectoInvestigacion' ? 1 : 0,
+            'experiencia_profesional' => $request->tipoMemoria =='experienciaProfesional' ? 1 : 0,
+            'certificacion_profesional' => $request->tipoMemoria =='certificacionProfesional' ? 1 : 0,
+            'movilidad_internacional' => $request->tipoMemoria =='movilidadInternacional' ? 1 : 0,
+            'contacto_inicial' => $validatedData['contacto_inicial'],
+            'contacto_seguimiento' => $validatedData['contacto_seguimiento'],
+            'contacto_cierre' => $validatedData['contacto_cierre'],
+            'actividad_realizada' => json_encode($actividades_realizadas),
+            'evaluacion_asesor_empresarial' => $validatedData['evaluacion_asesor_empresarial'],
+            'evaluacion_asesor_academico' => $validatedData['evaluacion_asesor_academico'],
+            'amonestacion_academica1' => $request->has('amonestacion_academica1') ? 1 : 0,
+            'amonestacion_academica2' => $request->has('amonestacion_academica2') ? 1 : 0,
+            'gestion_empresarial1' => $request->has('gestion_empresarial1') ? 1 : 0,
+            'gestion_empresarial2' => $request->has('gestion_empresarial2') ? 1 : 0,
+            'nombre_asesor' => $validatedData['nombre_asesor'],
+            'correo_asesor' => $validatedData['correo_asesor'],
+            'titulo_memoria' => $validatedData['titulo_memoria'],
+            'observaciones' => $validatedData['observaciones'],
+        ]);
+
+        return redirect()->route('asesorados', ['id' => $id])->with('success', 'Datos almacenados correctamente.');
     }
 
-    public function show(string $id)
-    {
-        return view('consultancy.advisor.AdvisoryReport');
+    public function show($id, $alumno){
+        $asesor = User::where('slug', $id)->firstOrFail();
+        if (!$asesor->hasRole('Asesor Académico')) {
+            abort(404);
+        }
+        $estudiante = User::where('slug', $alumno)->firstOrFail();
+        if (!$estudiante->hasRole('Estudiante')) {
+            abort(404);
+        }
+        $asesorEstudiante = $estudiante->student->academic_advisor_id;
+        if (!($asesorEstudiante==$asesor->academicAdvisor->id)) {
+            abort(404);
+        }
+        $asesorAcademico = $asesor->academicAdvisor;
+        $matricula = $estudiante->student->registration_number;
+
+        $reporte = Report::where('matricula', $matricula)->first();
+        $student = $estudiante->student;
+        $activeStudents = $asesorAcademico->students()->whereHas('user', function ($query) use ($alumno) {
+            $query->where('users.slug', $alumno);
+        })->get();
+        $projectIds = $activeStudents->flatMap(function ($student) {
+            return $student->projects->pluck('id');
+        })->unique();
+        $sessions = AdvisorySession::with(['proyect'])
+            ->whereIn('id_project_id', $projectIds)
+            ->get();
+
+            $actividades_realizadas = [];
+
+            $actividades_reporte = [];
+            if ($reporte) {
+                $actividades_reporte = json_decode($reporte->actividad_realizada, true);
+            }$actividades_realizadas = [];
+
+            $actividades_reporte = [];
+            if ($reporte) {
+                $actividades_reporte = json_decode($reporte->actividad_realizada, true);
+            }
+
+            foreach ($sessions as $session) {
+                $actividad = [
+                    'motivo' => $session->description,
+                    'realizada' => false,
+                    'fecha' => $session->id
+                ];
+
+                $existe = false;
+                foreach ($actividades_reporte as &$act_reporte) {
+                    if ($act_reporte['fecha'] == $actividad['fecha']) {
+                        $existe = true;
+                        if ($act_reporte['motivo'] !== $actividad['motivo']) {
+                            $act_reporte['motivo'] = $actividad['motivo'];
+                        }
+                        break;
+                    }
+                }
+                if (!$existe) {
+                    $actividades_realizadas[] = $actividad;
+                }
+            }
+            $actividades_final = array_merge($actividades_realizadas, $actividades_reporte);
+            foreach ($actividades_final as $key => $actividad) {
+                $fecha_actividad = $actividad['fecha'];
+                $fecha_encontrada = false;
+                foreach ($sessions as $session) {
+                    if ($fecha_actividad == $session->id) {
+                        $fecha_encontrada = true;
+                        break;
+                    }
+                }
+                if (!$fecha_encontrada) {
+                    unset($actividades_final[$key]);
+                }
+            }
+            $actividades_final = array_values($actividades_final);
+
+        if (!$reporte) {
+            $reporte = Report::create([
+                'matricula' => $matricula,
+                'nombre' => $estudiante->name,
+                'tradicional' => false,
+                'excelencia' => false,
+                'proyecto_investigacion' => false,
+                'experiencia_profesional' => false,
+                'certificacion_profesional' => false,
+                'movilidad_internacional' => false,
+                'contacto_inicial' => '',
+                'contacto_seguimiento' => '',
+                'contacto_cierre' => '',
+                'evaluacion_asesor_empresarial' => null,
+                'evaluacion_asesor_academico' => null,
+                'actividad_realizada' => json_encode($actividades_final),
+                'amonestacion_academica1' => false,
+                'amonestacion_academica2' => false,
+                'gestion_empresarial1' => false,
+                'gestion_empresarial2' => false,
+                'nombre_asesor' => $asesor->name,
+                'correo_asesor' => $asesor->email,
+                'titulo_memoria' => $estudiante->student->projects[0]->name_project,
+                'observaciones' => ''
+            ]);
+        }else {
+            $reporte->update([
+                'actividad_realizada' => json_encode($actividades_final),
+            ]);
+        }
+
+        return view('consultancy.advisor.AdvisoryReport', compact('alumno','id', 'reporte'));
     }
 
     public function edit(string $id)
@@ -65,6 +244,11 @@ class AdvisoryReportsController extends Controller
         Notification::send($user->user,new PetitionDateNotification($user->user, $request));
         Mail::to($user->user->email)->send(new PetitionDateMail($user->user, $request));
         return back()->with('success', 'Se ha sancionado al alumno exitosamente.');
+    }
+
+    public function exportToExcel()
+    {
+        return Excel::download(new EstadiaControlsExport, 'control-de-estadia.xlsx');
     }
 
     public function destroy(string $id)

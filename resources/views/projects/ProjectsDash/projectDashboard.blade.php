@@ -8,12 +8,12 @@
         <link rel="stylesheet" href="{{ asset('css/projects/projectDashboardStyle.css') }}">
 
         <div class="project-administrator-card">
-            @include('administrator.graphs.graph-projects')
+            @include('administrator.graphs.graph-projects', ['isActive' => Route::is('dashboardProjects')])
         </div>
 
 
         <div class="project-section-projects">
-            @include('administrator.section-projects', ['number' => 12, 'name' => 'Proyectos'])
+            @include('administrator.section-projects')
         </div>
 
         <h1 class="proyect-table-title">Anteproyectos</h1>

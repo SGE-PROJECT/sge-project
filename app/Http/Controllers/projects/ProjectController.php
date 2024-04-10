@@ -35,13 +35,25 @@ class ProjectController extends Controller
 
     public function dashgeneral()
     {
-        $Projects = Project::all();
-        $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
+        $Projects = Project::where('is_project', 1)->paginate(10);
+        $enCursoCount = $Projects->where('status', 'En curso')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
-        $completadosCount = $Projects->where('status', 'Completado')->count();
+        $finalizadosCount = $Projects->where('status', 'Finalizado')->count();
+        $aprobadosCount = $Projects->where('status', 'Aprobado')->count();
         return view("administrator.project")
-            ->with(compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
+            ->with(compact('Projects', 'enCursoCount', 'reprobadosCount', 'finalizadosCount', 'aprobadosCount'));
     }
+
+    public function dashAnteprojects()
+    {
+        $Anteprojects = Project::where('is_project', 0)->get();
+        $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
+        $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
+        $rechazadosCount = $Anteprojects->where('status', 'Rechazados')->count();
+        return view("administrator.dashboard.DashboardAnteprojects")
+          ->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount'));
+    }
+
     public function invitation()
     {
         return view("projects.ProjectUser.ProjectUser");
@@ -53,10 +65,16 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
-    public function viewproject()
+    public function viewanteproject()
     {
         $Projects = Project::where('is_project', false)->paginate(3);
         return view('projects.viewsproject.ProjectsView', compact('Projects'));
+    }
+
+    public function viewproject()
+    {
+        $Projects = Project::where('is_project', true)->paginate(3);
+        return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
     }
 
 
@@ -157,7 +175,7 @@ class ProjectController extends Controller
     public function edit(string $id)
     {
         $proyecto = Project::find($id);
-    
+
         if ($proyecto) {
             if ($proyecto->is_project) {
                 // Redirigir a la vista para proyectos
@@ -193,13 +211,13 @@ class ProjectController extends Controller
             ]
         );
 
-        // Verificar si se está publicando el proyecto  
+        // Verificar si se está publicando el proyecto
         if ($request->status === 'En curso') {
             $proyecto->status = 'En curso'; // Estado "Aprobado"
             $proyecto->is_project = 1; // Marcar como proyecto
             $proyecto->save();
         }
-        
+
 
         return redirect()->route('projects.index')->withInput()->with('success', 'Proyecto actualizado correctamente.');
     }
