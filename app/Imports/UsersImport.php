@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\User;
+use App\Models\Group;
 use App\Models\Student;
 use App\Models\Secretary;
 use Illuminate\Support\Str;
@@ -20,31 +21,91 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
 {
     public function model(array $row)
     {
-        dd($row);
-        return new User([
-            'name'           => $row['nombre'],
-            'email'          => $row['correo_electronico'],
-            'slug'           => Str::slug($row['nombre'] . '-' . uniqid()), // Asegúrate de que sea único
-            'password'       => Hash::make($row['contrasena'] ?? 'passwordPredeterminada'), // Asume una contraseña predeterminada si no se proporciona
-            'phone_number'   => $row['numero_de_telefono'] ?? '',
-            'isActive'       => strtolower($row['activo']) === 'si',
+
+        $baseSlug = Str::slug($row['name'], '-');
+        $slug = $baseSlug;
+        $counter = 1;
+        while (User::where('slug', $slug)->exists()) {
+            $slug = "{$baseSlug}-{$counter}";
+            $counter++;
+        }
+
+        $user = User::create([
+            'name' => $row['name'],
+            'email' => $row['email'],
+            'password' => Hash::make($row['password']),
+            'role' => $row['role'],
+            'phone_number' => $row['phone_number'],
+            'isActive' => true, 
+            'slug' => $slug,
         ]);
+
+        $role = Role::where('name', $row['role'])->first();
+        if ($role) {
+            $user->assignRole($role->name);
+        }
+
+        switch ($row['role']) {
+            case 'Estudiante':
+                Student::create([
+                    'user_id' => $user->id,
+                    'division_id' => $row['division_id'],
+                    'group_id' => $row['group_id'],
+                    'registration_number' => $row['registration_number'],
+                    'academic_advisor_id' => $row['academic_advisor_id'],
+                ]);
+                break;
+            case 'Asistente de Dirección':
+                Secretary::create([
+                    'user_id' => $user->id,
+                    'division_id' => $row['division_id'],
+                    'payrol' => $row['payrol'],
+                ]);
+                break;
+            case 'Presidente Académico':
+                AcademicDirector::create([
+                    'user_id' => $user->id,
+                    'division_id' => $row['division_id'],
+                    'payrol' => $row['payrol'],
+                ]);
+                break;
+            case 'Asesor Académico':
+                AcademicAdvisor::create([
+                    'user_id' => $user->id,
+                    'division_id' => $row['division_id'],
+                    'payrol' => $row['payrol'],
+                ]);
+                break;
+            case 'Administrador de División':
+                ManagmentAdmin::create([
+                    'user_id' => $user->id,
+                    'division_id' => $row['division_id'],
+                    'payrol' => $row['payrol'],
+                ]);
+                break;
+        }
+
     }
 
     public function headingRow(): int
     {
-        return 1; // Asegura que la fila de encabezados es la primera fila
+        return 1;
     }
 
     public function rules(): array
-    {
+    { 
         return [
-            '*.nombre'             => 'required|string|max:255',
-            '*.correo_electronico' => 'required|email|unique:users,email',
-            '*.numero_de_identificacion' => 'nullable|string',
-            '*.numero_de_telefono' => 'nullable|string|max:20',
-            '*.activo'             => 'required|string|in:si,no',
-            // No se requieren reglas de validación para contraseña ya que se asume una predeterminada
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'role' => 'required|exists:roles,name',
+            'phone_number' => 'nullable|numeric',
+            'division_id' => 'required|exists:divisions,id',
+            'group_id' => 'required|exists:groups,id',
+            'registration_number' => 'required|numeric|unique:students,registration_number',
+            'academic_advisor_id' => 'required|exists:academic_advisors,id',
         ];
+
     }
+
 }
