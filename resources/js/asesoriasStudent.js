@@ -154,7 +154,6 @@ function onDayClick(year, month, dayOfWeek, dayOfMonth) {
     let formattedMonth = String(month + 1).padStart(2, '0');
     let formattedDay = String(dayOfMonth).padStart(2, '0');
     let formattedDate = `${year}-${formattedMonth}-${formattedDay}`;
-    console.log(formattedDate);
     document.getElementById('student-dia').classList.remove('ocultar');
     document.getElementById('student-calendario').classList.add('ocultar');
     document.getElementById('student-hora').innerHTML = `${diaSemana}, ${diaMes} de ${Mes}`;
