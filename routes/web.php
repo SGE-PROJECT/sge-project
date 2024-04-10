@@ -1,29 +1,33 @@
 <?php
 
+
+use App\Http\Controllers\auth\ForgotPasswordController;
+
+
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\auth\PostController;
-
 use App\Http\Controllers\MasiveAddController;
 use App\Http\Controllers\UsersTestController;
+
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\auth\LoginControlller;
-
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\books\BooksController;
 use App\Http\Controllers\ProjectLikeController;
 use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\ProgramController;
-use App\Http\Controllers\AdvisorySessionController;
 use App\Http\Controllers\AdvisoryReportsController;
-use App\Http\Controllers\profile\ProfileController;
-use App\Http\Controllers\projects\ProjectController;
 
 //import test
+use App\Http\Controllers\AdvisorySessionController;
+use App\Http\Controllers\profile\ProfileController;
+use App\Http\Controllers\projects\ProjectController;
 use App\Http\Controllers\divisions\DivisionController;
 use App\Http\Controllers\users\RegisterUserController;
 use App\Http\Controllers\Companies\CompaniesController;
@@ -53,6 +57,12 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/Iniciar-sesion', [LoginControlller::class, 'store']);
     Route::get('/registro', [RegisterController::class, 'index'])->name('register');
     Route::post('/registro', [RegisterController::class, 'store']);
+
+    //Recuperar contraseña
+    Route::get('/recuperar-contraseña', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('/recuperar-contraseña', [ForgotPasswordController::class, 'sendPassword'])->name('password.email');
+
+    
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -168,9 +178,6 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
     Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
 
-    Route::get('/recuperar-contraseña', function () {
-        return view('auth.recoverPassword');
-    });
 });
 
 
