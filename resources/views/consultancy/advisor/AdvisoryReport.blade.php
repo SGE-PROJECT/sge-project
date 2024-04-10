@@ -202,9 +202,27 @@
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">{{ $reporte->observaciones }}</textarea>
                     </div>
 
-                    <div class="mt-8 flex justify-center">
-                        <button type="submit"
-                            class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Guardar</button>
+                    <div class="mt-8 block md:flex justify-center gap-8">
+                        <button type="submit" onclick='() => {
+                            var formularios = document.querySelectorAll("form");
+                            formularios.forEach(function(formulario) {
+                                var botones = formulario.querySelectorAll("button");
+                                botones.forEach(function(boton) {
+                                    boton.disabled = true;
+                                });
+                            });
+                        }'
+                            class="font-bold w-full mb-5 bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Guardar</button>
+                            <a href="{{ route('exportarReporte', ['correo' => auth()->user()->email, 'matricula'=>$reporte->matricula]) }}" onclick='() => {
+                                var formularios = document.querySelectorAll("form");
+                                formularios.forEach(function(formulario) {
+                                    var botones = formulario.querySelectorAll("button");
+                                    botones.forEach(function(boton) {
+                                        boton.disabled = true;
+                                    });
+                                });
+                            }'
+                            class="font-bold inline-block w-full mb-5 text-center bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Generar reporte</a>
                     </div>
                 </form>
             </div>

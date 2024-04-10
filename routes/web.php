@@ -32,6 +32,7 @@ use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
 
 
@@ -199,7 +200,7 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
     Route::post('/asesorados/{id}/reporte/{alumno}/generar', [AdvisoryReportsController::class, 'store'])->name('generarReporte');
     Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
-    Route::get('/form2/exportar', [AdvisoryReportsController::class, 'exportToExcel'])->name('estadia.export');
+    Route::get('/reporte/{correo}/exportar/{matricula}', [AdvisoryReportsController::class, 'exportToExcel'])->name('exportarReporte');
 });
 
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
@@ -213,6 +214,10 @@ Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])
 });
 
 Route::get('/principal', [StudentController::class, 'index'])->name('home');
+
+Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
+    Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student.dash');
+});
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 

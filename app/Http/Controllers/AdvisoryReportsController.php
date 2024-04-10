@@ -246,9 +246,20 @@ class AdvisoryReportsController extends Controller
         return back()->with('success', 'Se ha sancionado al alumno exitosamente.');
     }
 
-    public function exportToExcel()
+    public function exportToExcel($correo, $matricula)
     {
-        return Excel::download(new EstadiaControlsExport, 'control-de-estadia.xlsx');
+        $user = User::where('email', $correo)->first();
+        $estudiante = Student::where('registration_number', $matricula)->first();
+        if (!$user) {
+            return response()->json(['message' => 'Correo electrónico no encontrado'], 404);
+        }
+        $report = Report::where('correo_asesor', $correo)
+                    ->where('matricula', $matricula)
+                    ->get();
+        if ($report->isEmpty()) {
+            return response()->json(['message' => 'No hay reportes para el correo electrónico proporcionado'], 404);
+        }
+        return Excel::download(new EstadiaControlsExport($report), 'control-de-estadia.xlsx');
     }
 
     public function destroy(string $id)
