@@ -217,7 +217,7 @@
 
 
                 <!-- EMPRESAS Section -->
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Super Administrador', 'Estudiante', 'Asesor Académico']))
+                @if (Auth::check() && Auth::user()->hasAnyRole(['Super Administrador', 'Administrador de División', 'Asesor Académico']))
                     <span class="text-[#fff] nav-text font-bold">EMPRESAS</span>
 
                     <li class="mb-1 group">
