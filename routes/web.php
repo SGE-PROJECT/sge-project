@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcademicAdvisorController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
 
@@ -212,7 +213,8 @@ Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])
 
 });
 
-Route::get('/principal', [StudentController::class, 'index'])->name('home');
+Route::get('/estudiante', [StudentController::class, 'index'])->name('home');
+Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.advisor');
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 
