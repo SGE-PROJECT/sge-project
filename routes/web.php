@@ -36,7 +36,6 @@ use App\Http\Controllers\ProjectStudentsTestController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
-use App\Http\Controllers\StudentController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
 
@@ -71,7 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
     /*     Route::middleware(['role:SuperAdmin'])->group(function () {
- */        // Rutas para administradores
+     */        // Rutas para administradores
     Route::get('/projectsdash', function () {
         return view('management.project');
     });
@@ -121,16 +120,20 @@ Route::middleware(['auth'])->group(function () {
         return view('books-notifications.books.test-notifications');
     });
     Route::post('/not', [BooksController::class, 'notifications'])->name('sendNotification');
-Route::get('/scraping',[BooksController::class, 'imageBooks']);
+    Route::get('/scraping', [BooksController::class, 'imageBooks']);
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
     Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
     Route::delete('/configurar-cuenta/{id}/eliminar-foto', [ManagementConfiguration::class, 'destroyProfilePhoto'])->name('configurar_cuenta.remove_photo');
 
 
-    Route::get('/perfil', [ProfileController::class,'index']);
+    Route::get('/perfil', [ProfileController::class, 'index']);
     Route::post('/perfil/actualizar-foto', [ProfileController::class, 'actualizarFoto'])->name('actualizar_foto');
+    Route::get('/estudiante/{userId}', [StudentController::class, 'showProfile'])->name('profile.student');
+    Route::get('/asesor/{id}', [StudentController::class, 'showAdviserProfile'])->name('profile.adviser');
 
-    Route::get('/registrar-usuario', [RegisterUserController::class,'index']);
+
+
+    Route::get('/registrar-usuario', [RegisterUserController::class, 'index']);
 
 
     Route::get('libros/slug/{slug}', [BooksController::class, 'show'])->name('libros.show');
@@ -156,7 +159,7 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     Route::get('/reporte', [BooksController::class, 'listBook'])->name('books.list');
     Route::get('/reporte/pdf', [BooksController::class, 'report'])->name('books.reports');
     /*     Route::get('/books/export', 'BooksController@export')->name('books.export');
- */
+     */
     Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
     Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
 

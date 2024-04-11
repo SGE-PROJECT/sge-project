@@ -175,12 +175,16 @@
                                 <div class="flex flex-col items-center pb-10">
                                     <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
                                         src={{ $AcademicAdvisor->User->photo }} alt="Bonnie image" />
-                                    <h5 class="mb-1 text-xl font-semibold text-[#00ab84]">
-                                        {{ $AcademicAdvisor->User->name }}</h5>
+                                        <a href="{{ route('profile.adviser', ['id' => $AcademicAdvisor->user->id]) }}">
+                                            <h5 class="mb-1 text-xl font-semibold text-[#00ab84]">
+                                                {{ $AcademicAdvisor->user->name }}
+                                            </h5>
+                                        </a>
+                                        
                                     <span class="text-lg text-gray-500">{{ $AcademicAdvisor->User->email }}</span>
                                     <div class="flex mt-4 md:mt-6">
 
-                                        <a href="#"
+                                        <a href="{{ route('profile.adviser', ['id' => $AcademicAdvisor->user->id]) }}"
                                             class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver
                                             perfil</a>
                                     </div>
