@@ -22,7 +22,9 @@
 .container-title-books {
     display: flex;
     justify-content: space-between;
-    background-color: #2F4050;
+    /*background-color: #2F4050;*/
+    background-color: #F3F4F6;
+
     color: rgb(229 231 235 / var(--tw-bg-opacity));
     /*border-top-left-radius: 20px;
     border-top-right-radius: 20px;*/
