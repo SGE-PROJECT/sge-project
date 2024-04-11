@@ -9,5 +9,7 @@
 <body>
   {{--   la url de la imagen encontrada:{{$imageUrl}} --}}
     <img src="{{$imageUrl}}" alt="">
+    <h1> {{$imageUrl}}</h1>
+   
 </body>
 </html>
