@@ -120,7 +120,7 @@ foreach ($selectedStudents as $student) {
     echo $student->name . "<br>";
 }
 
-        
+
 
         return $request;
 
@@ -328,7 +328,7 @@ function studentsForDivision(Request $request){
      if ($user) {
          // Obtener el rol del usuario utilizando Spatie Laravel Permission
          $role = $user->getRoleNames()->first(); // Obtener el primer rol asignado al usuario
-       
+
          if ($role === 'Estudiante') {
              // Lógica para usuarios con rol de administrador
          } elseif ($role === 'Super Administrador') {
@@ -336,7 +336,7 @@ function studentsForDivision(Request $request){
          }elseif ($role === 'Administrador de División') {
             $divId = ManagmentAdmin::where('user_id', $idUser)->select('division_id')->get();
             $divisionId=$divId[0]->division_id;
-            
+
             $students = Student::join('groups', 'students.group_id', '=', 'groups.id')
             ->join('programs', 'groups.program_id', '=', 'programs.id')
             ->join('divisions', 'programs.division_id', '=', 'divisions.id')
@@ -346,7 +346,7 @@ function studentsForDivision(Request $request){
             ->get();
             foreach ($students as $student) {
                 $user = User::find($student->user_id); // Obtener el usuario asociado al estudiante
-                Notification::send($user,new DivisionAdministratorNotification($data,$student)); 
+                Notification::send($user,new DivisionAdministratorNotification($data,$student));
        }
 
        return redirect()->back();
@@ -364,8 +364,8 @@ function studentsForDivision(Request $request){
          // El usuario no está autenticado
          // Redirigir o mostrar un mensaje de error
      }
- 
-  /*   
+
+  /*
     $data="Hola esto solo es Data";
     $divisionName="Ingenieria y Tecnologia";
     $students = Student::join('groups', 'students.group_id', '=', 'groups.id')
@@ -376,7 +376,7 @@ function studentsForDivision(Request $request){
              ->select('students.*', 'users.email as email') // Selecciona el correo electrónico del usuario
              ->get();
              foreach ($students as $student) {
-                Notification::send($student,new ProjectNotification($data,$student)); 
+                Notification::send($student,new ProjectNotification($data,$student));
        }
        return "mensajes enviado con éxito"; */
 }

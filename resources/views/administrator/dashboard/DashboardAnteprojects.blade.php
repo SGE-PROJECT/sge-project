@@ -157,15 +157,6 @@
                             <strong class="font-medium text-gray-900"> Imprimir </strong>
                         </div>
                     </label>
-                    <label for="option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                        </div>
-
-                        <div>
-                            <strong class="font-medium text-gray-900"> Imprimir </strong>
-                        </div>
-                    </label>
                 </div>
             </div>
         </div>
@@ -205,11 +196,8 @@
         <!-- CONTENEDOR DE LA PAGINACIÓN -->
     </div>
     <!-- SCRIPTS DE JQUERY -->
-    <!-- SCRIPTS DE JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- SCRIPTS DE DATA TABLES Y DATA TABLE BUTTONS -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <!-- SCRIPTS DE DATA TABLES Y DATA TABLE BUTTONS -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
@@ -219,6 +207,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
     <script>
@@ -262,91 +251,51 @@
             <!-- SCRIPT DE LA DATA TABLE -->
             <script>
                 $(document).ready(function() {
-                var table = $('#tabla-anteproyectos').DataTable({
-                responsive: true,
-                dom: 't', // Quitamos la 'B' para que no se muestren los botones
-                buttons: [ // Inicializamos los botones manualmente
-                    'pdf',
-                    'excel',
-                    'print'
-                ]
-            });
+                    var table = $('#tabla-anteproyectos').DataTable({
+                        pageLength: 25,
+                        responsive: true,
+                        dom: 't', // Quitamos la 'B' para que no se muestren los botones
+                        buttons: [ // Inicializamos los botones manualmente
+                            'pdf',
+                            'excel',
+                            'print'
+                        ]
+                    });
 
-            // Creamos una nueva instancia de botones para poder usarla después
-            new $.fn.dataTable.Buttons(table, {
-                buttons: [
-                    'pdf',
-                    'excel',
-                    'print'
-                ]
-            });
+                    // Creamos una nueva instancia de botones para poder usarla después
+                    new $.fn.dataTable.Buttons(table, {
+                        buttons: [
+                            'pdf',
+                            'excel',
+                            'print'
+                        ]
+                    });
 
-            // Agregamos la nueva instancia de botones al datatables
-            table.buttons(0, null).containers().appendTo('#buttonContainer');
+                    // Agregamos la nueva instancia de botones al datatables
+                    table.buttons(0, null).containers().appendTo('#buttonContainer');
 
-            $('#option1').on('click', function() {
-                table.button('.buttons-pdf').trigger();
-            });
+                    $('#option1').on('click', function() {
+                        table.button('.buttons-pdf').trigger();
+                    });
 
-            $('#option2').on('click', function() {
-                table.button('.buttons-excel').trigger();
-            });
+                    $('#option2').on('click', function() {
+                        table.button('.buttons-excel').trigger();
+                    });
 
-            $('#option3').on('click', function() {
-                table.button('.buttons-print').trigger();
-            });
+                    $('#option3').on('click', function() {
+                        table.button('.buttons-print').trigger();
+                    });
 
-            //Buscador
-            $('#Search').on('input', function() {
-                table.search(this.value).draw();
-            });
+                    //Buscador
+                    $('#Search').on('input', function() {
+                        table.search(this.value).draw();
+                    });
 
-            table.on('draw', function() {
-                if (table.page.info().recordsDisplay === 0) {
-                    $('.dataTables_empty').text('No se encontraron resultados');
-                }
-                dom: 't', // Quitamos la 'B' para que no se muestren los botones
-                buttons: [ // Inicializamos los botones manualmente
-                    'pdf',
-                    'excel',
-                    'print'
-                ]
-            });
-
-            // Creamos una nueva instancia de botones para poder usarla después
-            new $.fn.dataTable.Buttons(table, {
-                buttons: [
-                    'pdf',
-                    'excel',
-                    'print'
-                ]
-            });
-
-            // Agregamos la nueva instancia de botones al datatables
-            table.buttons(0, null).containers().appendTo('#buttonContainer');
-
-            $('#option1').on('click', function() {
-                table.button('.buttons-pdf').trigger();
-            });
-
-            $('#option2').on('click', function() {
-                table.button('.buttons-excel').trigger();
-            });
-
-            $('#option3').on('click', function() {
-                table.button('.buttons-print').trigger();
-            });
-
-            //Buscador
-            $('#Search').on('input', function() {
-                table.search(this.value).draw();
-            });
-
-            table.on('draw', function() {
-                if (table.page.info().recordsDisplay === 0) {
-                    $('.dataTables_empty').text('No se encontraron resultados');
-                }
-            });
-        });
+                    table.on('draw', function() {
+                        if (table.page.info().recordsDisplay === 0) {
+                            $('.dataTables_empty').text('No se encontraron resultados');
+                        }
+                    });
+                });
             </script>
 @endsection
