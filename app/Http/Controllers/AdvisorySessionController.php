@@ -13,8 +13,8 @@ use App\Mail\AdvisorySesionMail;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\AdvisorySesionNotification;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\DateRequestNotification;
-use App\Mail\DateRequestMail;
+use App\Notifications\SanctionNotification;
+use App\Mail\SanctionMail;
 
 class AdvisorySessionController extends Controller
 {
@@ -210,8 +210,8 @@ class AdvisorySessionController extends Controller
         $validatedData = $request->validate([
             'message' => 'required|max:255'
         ]);
-        Notification::send($user->student->academicAdvisor->user,new DateRequestNotification($user->student->academicAdvisor->user,$user->name, $request));
-        Mail::to($user->student->academicAdvisor->user->email)->send(new DateRequestMail($user->student->academicAdvisor->user,$user->name, $request));
+        Notification::send($user->student->academicAdvisor->user,new SanctionNotification($user->student->academicAdvisor->user,$user->name, $request));
+        Mail::to($user->student->academicAdvisor->user->email)->send(new SanctionMail($user->student->academicAdvisor->user,$user->name, $request));
         return back()->with('success', 'Se ha solicitado al asesor exitosamente.');
     }
 
