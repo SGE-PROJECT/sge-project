@@ -23,7 +23,7 @@ const cancelarBtn = document.getElementById('cancelarBtn');
 const profilePicture = document.getElementById('profilePicture');
 
 // Variable para controlar si el perfil ha sido editado
-let perfilEditado = true;
+let perfilEditado = localStorage.getItem('perfilEditado') === 'true';
 
 // Evitar la propagación del evento clic en el overlay de la imagen
 const profilePictureOverlayLabel = document.querySelector('.profile-picture-overlay label');
@@ -66,16 +66,18 @@ function mostrarBotonGuardar() {
     cancelarBtn.style.display = 'block';
 }
 
-// Almacenar en sessionStorage cuando se haya guardado la foto
+// Almacenar en localStorage cuando se haya guardado la foto
 guardarFotoBtn.addEventListener('click', () => {
-    sessionStorage.setItem('fotoGuardada', true);
+    localStorage.setItem('fotoGuardada', true);
+    localStorage.setItem('perfilEditado', false);
+
     guardarFotoBtn.style.display = 'none'; // Ocultar el botón después de guardar la foto
     cancelarBtn.style.display = 'none'; // Ocultar el botón después de guardar la foto
 });
 
 // Ocultar el botón de guardar foto si la foto ya ha sido guardada
 window.addEventListener('load', () => {
-    const fotoGuardada = sessionStorage.getItem('fotoGuardada');
+    const fotoGuardada = localStorage.getItem('fotoGuardada');
     if (fotoGuardada) {
         guardarFotoBtn.style.display = 'none';
         cancelarBtn.style.display = 'none';
