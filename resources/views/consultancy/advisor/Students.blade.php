@@ -55,7 +55,7 @@
                 <div>
                     <article>
                         <img src={{ "/".$student->user->photo }} class="icono" alt="imagen" />
-                        <h3>{{$student->user->name}}</h3>
+                        <h3><a href="{{ route('profile.student', ['userId' => $student->user->id]) }}">{{ $student->user->name }}</a></h3>
                         <p class="des">Matricula: {{ $student->registration_number }}</p>
                         <p class="des">Grupo: {{ $student->group->name }}</p>
                         <p class="des">Proyecto: @if (!empty($student->projects) && count($student->projects) > 0)
