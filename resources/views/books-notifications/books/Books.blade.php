@@ -60,10 +60,10 @@
                                         @elseif ($book->estate === 1)
                                             <div class="tag-state-finish bg-teal-500">Finalizado</div>
                                         @endif
-                                        <img src="{{ asset('storage/images/books/' . $book->image_book) }}" alt="Imagen del libro">
+                                        <img id="img-book-view"  src="{{$book->image_book}}" alt="Imagen del libro">
                                         <div class="info-alumno">
-                                            <p>Alumno: {{ $book->student }}</p>
-                                            <p>Matrícula: {{ $book->tuition }}</p>
+                                            <p>Alumno: </p>
+                                            <p>Matrícula: </p>
                                         </div>
                                     </div>
                                 </div>
@@ -105,4 +105,16 @@
             }
         }
     </script>
+    <script defer>
+        window.onload = function() {
+            let imagesBooks =Array.from(document.querySelectorAll('#img-book-view'));
+            console.log(imagesBooks);
+            imagesBooks.forEach(function(img) {
+                img.onerror = function() {
+                    // Esta es la ruta de la imagen de respaldo que quieres mostrar
+                    this.src = 'https://educacion2.com/wp-content/uploads/El-mejor-libro.jpg';
+                };
+            });
+        };
+        </script>
 @endsection
