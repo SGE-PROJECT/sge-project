@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class DateRequestMail extends Mailable
+class SanctionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -41,7 +41,7 @@ class DateRequestMail extends Mailable
         return new Content(
             view: 'mails.request',
         );
-    } 
+    }
     /**
      * Get the attachments for the message.
      *

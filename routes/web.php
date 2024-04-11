@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\auth\ForgotPasswordController;
 
 
@@ -36,6 +35,7 @@ use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AcademicAdvisorController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
 
@@ -182,7 +182,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/proyecto/{project}/comentario', [ComentarioController::class, 'store'])->name('comentario.store');
     Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
     Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
-
+    Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
 });
 
 
@@ -225,10 +225,11 @@ Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])
 
 });
 
-Route::get('/principal', [StudentController::class, 'index'])->name('home');
+Route::get('/estudiante', [StudentController::class, 'index'])->name('home');
+Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.advisor');
 
 Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
-    Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student.dash');
+    Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
 });
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
