@@ -1,8 +1,9 @@
 <!-- SECCION PROYECTOS -->
 @extends('layouts.panel')
-@section('titulo', 'Proyectos')
+@section('titulo', 'Anteproyectos')
 @section('contenido')
 
+    <h1 class="text-3xl font-bold text-center mt-5">Anteproyectos</h1>
     <h1 class="text-3xl font-bold text-center mt-5">Anteproyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
 
@@ -157,35 +158,42 @@
                             <strong class="font-medium text-gray-900"> Imprimir </strong>
                         </div>
                     </label>
+                    <label for="option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
+                        <div class="flex items-center">
+                            &#8203;
+                        </div>
 
+                        <div>
+                            <strong class="font-medium text-gray-900"> Imprimir </strong>
+                        </div>
+                    </label>
                 </div>
             </div>
         </div>
     </div>
-    <!-- CONTENEDOR DE LA TABLA -->
     <div id="tabla-container" class="tabla-project rounded-t-lg">
         <div class="tabla-cont-project rounded-t-lg">
             <table id="tabla-anteproyectos">
                 <thead>
                     <tr>
                         <th>Proyecto</th>
-                        <th>Integrantes</th>
-                        <th>Estado</th>
-                        <th>Asesor</th>
+                        <th>Estudiante</th>
+                        <th>Grupo</th>
                         <th>Carrera</th>
                         <th>Empresa</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($Anteprojects as $anteproject)
-                        @if ($anteproject->is_project == 0)
+                        @if ($anteproject->anteproject == 0)
                             <tr>
                                 <td>{{ $anteproject->name_project }}</td>
                                 <td>{{ $anteproject->fullname_student }}</td>
-                                <td><span class="project-status">{{ $anteproject->status }}</span></td>
-                                <td>{{ $anteproject->id_academic_advisor_id }}</td>
-                                <td>Software</td>
+                                <td>{{ $anteproject->group_student}}</td>
+                                <td>Example</td>
                                 <td>{{ $anteproject->company_name }}</td>
+                                <td><span class="project-status">{{ $anteproject->status }}</span></td>
                             </tr>
                         @endif
                     @endforeach
@@ -198,8 +206,11 @@
         <!-- CONTENEDOR DE LA PAGINACIÓN -->
     </div>
     <!-- SCRIPTS DE JQUERY -->
+    <!-- SCRIPTS DE JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- SCRIPTS DE DATA TABLES Y DATA TABLE BUTTONS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <!-- SCRIPTS DE DATA TABLES Y DATA TABLE BUTTONS -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
@@ -254,6 +265,47 @@
                 $(document).ready(function() {
                 var table = $('#tabla-anteproyectos').DataTable({
                 responsive: true,
+                dom: 't', // Quitamos la 'B' para que no se muestren los botones
+                buttons: [ // Inicializamos los botones manualmente
+                    'pdf',
+                    'excel',
+                    'print'
+                ]
+            });
+
+            // Creamos una nueva instancia de botones para poder usarla después
+            new $.fn.dataTable.Buttons(table, {
+                buttons: [
+                    'pdf',
+                    'excel',
+                    'print'
+                ]
+            });
+
+            // Agregamos la nueva instancia de botones al datatables
+            table.buttons(0, null).containers().appendTo('#buttonContainer');
+
+            $('#option1').on('click', function() {
+                table.button('.buttons-pdf').trigger();
+            });
+
+            $('#option2').on('click', function() {
+                table.button('.buttons-excel').trigger();
+            });
+
+            $('#option3').on('click', function() {
+                table.button('.buttons-print').trigger();
+            });
+
+            //Buscador
+            $('#Search').on('input', function() {
+                table.search(this.value).draw();
+            });
+
+            table.on('draw', function() {
+                if (table.page.info().recordsDisplay === 0) {
+                    $('.dataTables_empty').text('No se encontraron resultados');
+                }
                 dom: 't', // Quitamos la 'B' para que no se muestren los botones
                 buttons: [ // Inicializamos los botones manualmente
                     'pdf',

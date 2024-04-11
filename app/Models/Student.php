@@ -14,7 +14,8 @@ class Student extends Model
         'registration_number',
         'user_id',
         'group_id',
-        'sanction',
+        'sanction_advisor',
+        'sanction_company',
         'academic_advisor_id',
         'book_id',
     ];

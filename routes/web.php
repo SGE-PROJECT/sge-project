@@ -1,29 +1,33 @@
 <?php
 
+
+use App\Http\Controllers\auth\ForgotPasswordController;
+
+
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
 
+//use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\auth\PostController;
-
 use App\Http\Controllers\MasiveAddController;
 use App\Http\Controllers\UsersTestController;
+
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\auth\LoginControlller;
-
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\books\BooksController;
 use App\Http\Controllers\ProjectLikeController;
 use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\ProgramController;
-use App\Http\Controllers\AdvisorySessionController;
 use App\Http\Controllers\AdvisoryReportsController;
-use App\Http\Controllers\profile\ProfileController;
-use App\Http\Controllers\projects\ProjectController;
 
 //import test
+use App\Http\Controllers\AdvisorySessionController;
+use App\Http\Controllers\profile\ProfileController;
+use App\Http\Controllers\projects\ProjectController;
 use App\Http\Controllers\divisions\DivisionController;
 use App\Http\Controllers\users\RegisterUserController;
 use App\Http\Controllers\Companies\CompaniesController;
@@ -32,6 +36,7 @@ use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
 
 
@@ -52,6 +57,12 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/Iniciar-sesion', [LoginControlller::class, 'store']);
     Route::get('/registro', [RegisterController::class, 'index'])->name('register');
     Route::post('/registro', [RegisterController::class, 'store']);
+
+    //Recuperar contraseña
+    Route::get('/recuperar-contraseña', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('/recuperar-contraseña', [ForgotPasswordController::class, 'sendPassword'])->name('password.email');
+
+
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -93,7 +104,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Ruta adicional para la exportación de la plantilla de usuarios
     Route::get('/exportar-usuarios', [MasiveAddController::class, 'exportCsv'])->name('users.exportCsv');
-    Route::get('/exportar-usuarios-plantilla', [MasiveAddController::class, 'exportTemplate'])->name('users.exportTemplate');
+    Route::get('/exportar-estudiantes-plantilla', [MasiveAddController::class, 'exportTemplate'])->name('users.exportTemplate');
+    Route::get('/exportar-usuarios-plantilla', [MasiveAddController::class, 'exportTemplateUsers'])->name('users.exportTemplateUsers');
     Route::post('/importar-usuarios', [MasiveAddController::class, 'store'])->name('users.store');
 
     //Inicia Modulo de Divisiones, Empresas y Carreras conjuntas en proyectos por division.
@@ -145,16 +157,16 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     /*     Route::get('/books/export', 'BooksController@export')->name('books.export');
  */
     Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
-    Route::get('/estudiantesingenieria', [BooksController::class, 'studentsForDivision'])->name('estudaintesengenieria');
+    Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
 
 
 
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
-    Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
-    Route::get('/', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
-    Route::get('proyectoinvitacion', [ProjectController::class, 'invitation']);
+    Route::get('/', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
+    Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
+    Route::get('proyectoinvitacion', [ProjectController::class, 'invitation'])->name('projectinvitation');
     Route::get('formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('formanteproyecto', [ProjectController::class, 'store'])->name('envproyecto');
     Route::resource('projects', ProjectController::class);
@@ -167,9 +179,6 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
     Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
 
-    Route::get('/recuperar-contraseña', function () {
-        return view('auth.recoverPassword');
-    });
 });
 
 
@@ -197,7 +206,9 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     //asesorados
     Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
     Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
+    Route::post('/asesorados/{id}/reporte/{alumno}/generar', [AdvisoryReportsController::class, 'store'])->name('generarReporte');
     Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
+    Route::get('/reporte/{correo}/exportar/{matricula}', [AdvisoryReportsController::class, 'exportToExcel'])->name('exportarReporte');
 });
 
 Route::middleware(['auth', 'role:Estudiante'])->group(function () {
@@ -205,7 +216,16 @@ Route::middleware(['auth', 'role:Estudiante'])->group(function () {
     Route::post('/asesorias/solicitar/{id}', [AdvisorySessionController::class, 'enviar'])->name('asesoriasEnviar');
 });
 
-Route::get('/home', [StudentController::class, 'index'])->name('home');
+Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])->group(function () {
+    Route::get('/empresas-afiliadas', [CompaniesController::class, 'showTable'])->name('empresas.showTable');
+
+});
+
+Route::get('/principal', [StudentController::class, 'index'])->name('home');
+
+Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
+    Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student.dash');
+});
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 

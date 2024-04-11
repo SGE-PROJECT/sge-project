@@ -1,9 +1,9 @@
 <!-- SECCION PROYECTOS -->
 @extends('layouts.panel')
-@section('titulo', 'Proyectos')
+@section('titulo', 'Estudiantes')
 @section('contenido')
 
-    <h1 class="text-3xl font-bold text-center mt-5">Proyectos</h1>
+    <h1 class="text-3xl font-bold text-center mt-5">Estudiantes</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
 
         <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -128,7 +128,7 @@
                 x-on:keydown.escape.window="isActive = false">
                 <div class="p-2">
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Opciones </strong>
-                    <label for="option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="Option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -137,7 +137,7 @@
                         </div>
                     </label>
 
-                    <label for="option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="Option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -147,7 +147,7 @@
                         </div>
                     </label>
 
-                    <label for="0ption3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="Option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -165,33 +165,34 @@
     <div id="tabla-container" class="tabla-project rounded-t-lg">
         <div class="tabla-cont-project rounded-t-lg">
             <table id="tabla-proyectos" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Proyecto</th>
-                        <th>Estudiante</th>
-                        <th>Grupo</th>
-                        <th>Carrera</th>
-                        <th>Empresa</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($Projects as $project)
-                        @if ($project->is_project == 1)
-                            <tr>
-                                <td>{{ $project->name_project }}</td>
-                                <td>{{ $project->fullname_student }}</td>
-                                <td>{{ $project->group_student}}</td>
-                                <td>Example</td>
-                                <td>{{ $project->company_name }}</td>
-                                <td><span class="project-status">{{ $project->status }}</span></td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-            </table>
+                    <thead>
+                        <tr>
+                            <th >Matricula</th>
+                            <th >Nombre</th>
+                            <th >Email</th>
+                            <th >Grupo</th>
+                            <th >Asesor Académico</th>
+                            <th >Carrera</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($students as $student)
+                            
+                                <tr>
+                                    <td class="px-6 py-4">{{ $student->student_matricula }}</td>
+                                    <td class="px-6 py-4">{{ $student->student_name }}</td>
+                                    <td class="px-6 py-4">{{ $student->student_email }}</td>
+                                    <td class="px-6 py-4">{{ $student->group_name }}</td>
+                                    <td class="px-6 py-4">{{ $student->advisor_name }}</td>
+                                    <td class="px-6 py-4">{{ $student->program_name }}</td>
+                                    
+                                </tr>
+                          
+                        @endforeach
+                    </tbody>
+                </table>
             <div class="mt-1">
-                {{$Projects->links()}}
+                {{$students->links()}}
             </div>
         </div>
     </div>
@@ -216,23 +217,21 @@
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['En curso', 'Reprobados', 'Finalizados'],
+                    labels: ['Aprobados', 'En curso', 'Reprobados', 'Finalizados'],
                     datasets: [{
                         label: 'Estado del proyecto',
                         data: [
-                            {{ $enCursoCount }},
-                            {{ $reprobadosCount }},
-                            {{ $finalizadosCount }}
+                          
                         ],
                         backgroundColor: [
-                            'rgba(234, 179, 8, 0.5)',
-                            'rgba(248, 113, 113, 0.5)',
-                            'rgba(161, 161, 161, 0.5)'
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
                         ],
                         borderColor: [
-                            'rgba(234, 179, 8, 0.5)',
-                            'rgba(248, 113, 113, 0.5)',
-                            'rgba(161, 161, 161, 0.5)'
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
                         ],
                         borderWidth: 1
                     }]

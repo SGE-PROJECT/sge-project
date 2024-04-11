@@ -1,4 +1,5 @@
 @extends('layouts.panel')
+@section('titulo', 'Usuarios')
 @section('contenido')
 
     <h1 class="text-3xl font-bold text-center mt-5">Usuarios</h1>
