@@ -179,7 +179,7 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     Route::post('/proyecto/{project}/comentario', [ComentarioController::class, 'store'])->name('comentario.store');
     Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
     Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
-
+    Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
 });
 
 

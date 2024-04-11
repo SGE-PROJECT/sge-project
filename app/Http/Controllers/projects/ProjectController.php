@@ -14,6 +14,7 @@ use App\Models\Project_students;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Scores;
+use App\Models\Student;
 
 class ProjectController extends Controller
 {
@@ -140,6 +141,7 @@ class ProjectController extends Controller
     public function store(ProjectFormRequest $request)
     {
 
+
         $business_advisor = BusinessAdvisor::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -178,7 +180,15 @@ class ProjectController extends Controller
 
         $proyecto->save();
 
-        return Redirect::to('/proyectoinvitacion')->withInput()->with('success', 'Proyecto guardado correctamente.');
+        $student = Student::where('user_id', Auth::user()->id)->first();
+        Project_students::create([
+            'student_id' => $student->id,
+            'project_id' => $proyecto->id,
+            'is_main_student' => true,
+        ]);
+
+        return redirect()->route('home');
+        // return Redirect::to('/proyectoinvitacion')->withInput()->with('success', 'Proyecto guardado correctamente.');
     }
 
     /**
@@ -186,12 +196,32 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-
         // Obtener el usuario autenticado
         $user = Auth::user();
 
         // Pasar el proyecto y el usuario a la vista
         return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user]);
+    }
+
+    public function showMyProject()
+    {
+        $user = Auth::user();
+        $student = Student::where('user_id', $user->id)->first();
+        $Project = $student->projects()->first();
+
+
+        $proyecto = Project::find($Project->id);
+
+        if ($proyecto) {
+            if ($proyecto->is_project) {
+                return view('projects.Forms.show-project', compact('proyecto', 'student'));
+            } else {
+                return view('projects.Forms.show-anteproject', compact('proyecto', 'student'));
+            }
+        } else {
+            return redirect()->route('projects.index')->with('error', 'El proyecto no existe.');
+        }
+
     }
 
     /**
