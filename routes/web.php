@@ -229,7 +229,7 @@ Route::get('/estudiante', [StudentController::class, 'index'])->name('home');
 Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.advisor');
 
 Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
-    Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student.dash');
+    Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
 });
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
