@@ -10,14 +10,11 @@ use App\Http\Requests\Projects\ProjectFormRequest;
 use App\Models\AcademicAdvisor;
 use App\Models\BusinessAdvisor;
 use App\Models\Project;
+use App\Models\Project_students;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Scores;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
-
-
-
+use App\Models\Student;
 
 class ProjectController extends Controller
 {
@@ -54,9 +51,17 @@ class ProjectController extends Controller
           ->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount'));
     }
 
+    // Vista del usuario. En esta el usuario puede invitar colaboradores, ver su equipo, crear y editar proyectos.
     public function invitation()
     {
-        return view("projects.ProjectUser.ProjectUser");
+        // Verificar si el usuario tiene el rol de Estudiante
+        if (Auth::user()->roles->contains('name', 'Estudiante')) {
+            // Si el usuario tiene el rol de Estudiante, permitir el acceso a la vista
+            return view("projects.ProjectUser.ProjectUser");
+        } else {
+            // Si el usuario no tiene el rol de Estudiante, redirigir al index con un mensaje de error
+            return redirect()->route('dashboardProjects')->with('error', 'No tienes permiso para acceder a esta página.');
+        }
     }
 
     public function dashboardproject()
@@ -77,10 +82,22 @@ class ProjectController extends Controller
         return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
     }
 
-
+    // Formulario de creación de proyecto. Si el estudiante ya tiene un proyecto, entonces es enviado a la vista de editar.
     public function projectform()
     {
-        return view("projects.Forms.FormStudent");
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Verificar si el usuario ya tiene un proyecto creado
+        $existingProject = project_students::where('student_id', $user->id)->first();
+
+        if ($existingProject) {
+            // Si el usuario ya tiene un proyecto creado, redirigir a la vista de edición
+            return $this->edit($existingProject->id);
+        } else {
+            // Si el usuario no tiene un proyecto creado, redirigir a la ruta para crear un nuevo proyecto
+            return view("projects.Forms.FormStudent");
+        }
     }
 
     public function projectteams()
@@ -91,29 +108,39 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        // Obtener el usuario autenticado
-        $user = Auth::user();
 
-        // Verificar si el usuario ya tiene un proyecto creado
-        $existingProject = Project::where('user_id', $user->id)->first();
+     public function create()
+     {
+         // Obtener el usuario autenticado
+         $user = Auth::user();
 
-        if ($existingProject) {
-            return redirect()->back()->with('error', 'Ya has creado un anteproyecto. No puedes crear otro.');
-        }
+         // Obtener el rol del usuario autenticado
+         $role = $user->roles->first()->name;
 
-        // Si el usuario no tiene ningún proyecto creado, mostrar el formulario de creación
-        return view('projects.Forms.FormStudent');
-       //return view('projects.ProjectsDash.projectDashboard');
+         // Verificar si el usuario ya tiene un proyecto creado
+         $existingProject = Project::where('user_id', $user->id)->first();
 
-    }
+         if ($existingProject) {
+             return redirect()->back()->with('error', 'Ya has creado un anteproyecto. No puedes crear otro.');
+         }
+
+         // Redireccionar según el rol del usuario
+         switch ($role) {
+             case 'Estudiante':
+                 return redirect()->route('projectuser.create'); // Cambia 'projectuser.create' por la ruta correcta
+             case 'Asesor Académico':
+                 return redirect()->route('dashboard'); // Cambia 'dashboard' por la ruta correcta
+             default:
+                 return redirect()->back()->with('error', 'Rol de usuario no válido.');
+         }
+     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(ProjectFormRequest $request)
     {
+
 
         $business_advisor = BusinessAdvisor::create([
             'name' => $request->name,
@@ -153,7 +180,15 @@ class ProjectController extends Controller
 
         $proyecto->save();
 
-        return Redirect::to('/projectdashboard')->withInput()->with('success', 'Proyecto guardado correctamente.');
+        $student = Student::where('user_id', Auth::user()->id)->first();
+        Project_students::create([
+            'student_id' => $student->id,
+            'project_id' => $proyecto->id,
+            'is_main_student' => true,
+        ]);
+
+        return redirect()->route('home');
+        // return Redirect::to('/proyectoinvitacion')->withInput()->with('success', 'Proyecto guardado correctamente.');
     }
 
     /**
@@ -161,7 +196,6 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-
         // Obtener el usuario autenticado
         $user = Auth::user();
 
@@ -169,10 +203,31 @@ class ProjectController extends Controller
         return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user]);
     }
 
+    public function showMyProject()
+    {
+        $user = Auth::user();
+        $student = Student::where('user_id', $user->id)->first();
+        $Project = $student->projects()->first();
+
+
+        $proyecto = Project::find($Project->id);
+
+        if ($proyecto) {
+            if ($proyecto->is_project) {
+                return view('projects.Forms.show-project', compact('proyecto', 'student'));
+            } else {
+                return view('projects.Forms.show-anteproject', compact('proyecto', 'student'));
+            }
+        } else {
+            return redirect()->route('projects.index')->with('error', 'El proyecto no existe.');
+        }
+
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id) //Vista para editar proyecto
     {
         $proyecto = Project::find($id);
 
@@ -218,8 +273,15 @@ class ProjectController extends Controller
             $proyecto->save();
         }
 
+            // Redireccionar según el tipo de usuario
+        if (Auth::user()->roles->contains('name', 'Estudiante')) {
+            return redirect()->route('projectinvitation')->withInput()->with('success', 'Proyecto actualizado correctamente.');
+        } else if (Auth::user()->roles->contains('name', 'Asesor Académico')) {
+            return redirect()->route('dashboardProjects')->withInput()->with('success', 'Proyecto actualizado correctamente.');
+        }
 
-        return redirect()->route('projects.index')->withInput()->with('success', 'Proyecto actualizado correctamente.');
+        // En caso de que el usuario no tenga ningún rol válido, se puede redirigir a una página de error o a una página por defecto
+        return redirect()->route('home')->with('error', 'Rol de usuario no válido.');
     }
 
     /**
@@ -240,7 +302,7 @@ class ProjectController extends Controller
     }
 
 
-
+    // Esta función permite asignar un puntaje a un proyecto. Solo se puede asignar puntaje una vez.
     public function rateProject(Request $request, $projectId)
     {
         // Obtener el usuario actual

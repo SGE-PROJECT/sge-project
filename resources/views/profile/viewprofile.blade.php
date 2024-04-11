@@ -58,11 +58,12 @@
 
                     <div class="profile-picture-overlay">
                         @if (auth()->user()->photo)
-                            <p style="cursor: pointer;">Ver foto de perfil</p>
+                            <p style="cursor: pointer; text-align: center; font-size:1.4rem"><br>Ver foto</br></p>
                         @endif
+                        <div class="vertical-line"></div>
                         <label for="photoInput"
-                            style="color: rgb(168, 255, 217); font-weight: bold; font-size:1.3rem; cursor: pointer;">
-                            Editar foto de perfil
+                            style="color: rgb(168, 255, 217); font-weight: bold; font-size:1.4rem; cursor: pointer; text-align: center;">
+                            <br>Editar foto</br> 
                         </label>
                     </div>
                 </div>
@@ -94,16 +95,13 @@
                     <div class="flex flex-col">
                         <div class="flex items-center text-sm text-blueGray-400 mb-2">
                             <i class="fas fa-map-marker-alt mr-2 text-teal-600"></i>
-                            <span>Quintana Roo, Cancún</span>
+                            <span>Telefono: {{ auth()->user()->phone_number }}</span>
                         </div>
                         <div class="flex items-center text-sm text-blueGray-400 mb-2">
                             <i class="fas fa-envelope mr-2 text-teal-600"></i>
-                            <span style="text-transform: lowercase;">{{ auth()->user()->email }}</span>
+                            <span> Correo: {{ auth()->user()->email }}</span>
                         </div>
-                        <div class="flex items-center text-sm text-blueGray-600 mb-2">
-                            <i class="fas fa-briefcase mr-2 text-teal-600"></i>
-                            <span>Profesor - Programación web</span>
-                        </div>
+                        
                         <div class="flex items-center text-sm text-blueGray-600">
                             <i class="fas fa-university mr-2 text-teal-600"></i>
                             <span>Universidad Tecnológica de Cancún</span>
@@ -149,30 +147,9 @@
 
 
             {{-- PROYECTOS Y EQUIPOS --}}
-            <div class="border-t border-blueGray-200 m-8 pt-8">
-                <div class="grid md:grid-cols-2 gap-10 ml-4">
-                    <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Proyecto</h1>
-                    <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Redes Sociales</h1>
-                </div>
+            <div class="border-blueGray-200 m-8 pt-8">
+               
 
-                <div class="grid md:grid-cols-2 gap-10 ml-4">
-                    <!-- Proyecto -->
-                    <div
-                        class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
-                        <h3 class="text-lg font-semibold text-gray-800">Nombre del Proyecto</h3>
-                        <p class="text-sm text-gray-600 mt-2">Descripción del proyecto.</p>
-                    </div>
-                    <!-- Equipos -->
-                    <div>
-
-                        <!-- Tarjeta de Equipo -->
-                        <div
-                            class="bg-gray-100 rounded-lg p-4 flex flex-col justify-between transition duration-300 ease-in-out transform hover:shadow-lg h-full">
-                            <h3 class="text-lg font-semibold text-gray-800">Nombre del Equipo</h3>
-                            <p class="text-sm text-gray-600 mt-2">Descripción del equipo.</p>
-                        </div>
-                    </div>
-                </div>
 
             </div>
 

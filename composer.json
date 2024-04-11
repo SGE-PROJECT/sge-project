@@ -13,7 +13,11 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
+<<<<<<< HEAD
         "maatwebsite/excel": "~3.1",
+=======
+        "maatwebsite/excel": "^3.1",
+>>>>>>> 2de3501dc317b1b232f3fd9af47d25e743a891e6
         "phpoffice/phpspreadsheet": "^1.18",
         "spatie/laravel-permission": "^6.4",
         "symfony/css-selector": "^5.0",

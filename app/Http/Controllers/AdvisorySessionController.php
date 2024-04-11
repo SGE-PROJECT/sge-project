@@ -13,8 +13,8 @@ use App\Mail\AdvisorySesionMail;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\AdvisorySesionNotification;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\DateRequestNotification;
-use App\Mail\DateRequestMail;
+use App\Notifications\SanctionNotification;
+use App\Mail\SanctionMail;
 
 class AdvisorySessionController extends Controller
 {
@@ -85,7 +85,7 @@ class AdvisorySessionController extends Controller
             return $session;
         });
 
-        return view('consultancy.Dates', compact('sessions', 'sessionsThisWeek', 'Projects', 'allStudents'));
+        return view('consultancy.Dates', compact('sessions', 'sessionsThisWeek', 'Projects', 'allStudents', 'slug'));
     }
 
     public function all($slug)
@@ -152,11 +152,12 @@ class AdvisorySessionController extends Controller
             return $session;
         });
 
-        return view('consultancy.DatesAll', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents']));
+        return view('consultancy.DatesAll', compact(['sessions', 'sessionsThisWeek', 'Projects', 'allStudents', 'slug']));
     }
 
     public function student($slug)
     {
+        $advisor = true;
         $user = User::where('slug', $slug)->firstOrFail();
         if (!$user->hasRole('Estudiante')) {
             abort(404);
@@ -167,7 +168,8 @@ class AdvisorySessionController extends Controller
         }
         $academicAdvisor = $student->academicAdvisor;
         if (!$academicAdvisor) {
-            abort(404);
+            $advisor = false;
+            return view('consultancy.DatesStudent', compact('slug', 'advisor'));
         }
         $advisorUserId = $academicAdvisor->user_id;
 
@@ -196,7 +198,7 @@ class AdvisorySessionController extends Controller
             $project->description = $project->general_objective;
         }
 
-        return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects'));
+        return view('consultancy.DatesStudent', compact('sessions', 'sessionsThisWeek', 'Projects', 'slug', 'advisor'));
     }
 
     public function enviar(Request $request, $id)
@@ -208,8 +210,8 @@ class AdvisorySessionController extends Controller
         $validatedData = $request->validate([
             'message' => 'required|max:255'
         ]);
-        Notification::send($user->student->academicAdvisor->user,new DateRequestNotification($user->student->academicAdvisor->user,$user->name, $request));
-        Mail::to($user->student->academicAdvisor->user->email)->send(new DateRequestMail($user->student->academicAdvisor->user,$user->name, $request));
+        Notification::send($user->student->academicAdvisor->user,new SanctionNotification($user->student->academicAdvisor->user,$user->name, $request));
+        Mail::to($user->student->academicAdvisor->user->email)->send(new SanctionMail($user->student->academicAdvisor->user,$user->name, $request));
         return back()->with('success', 'Se ha solicitado al asesor exitosamente.');
     }
 
