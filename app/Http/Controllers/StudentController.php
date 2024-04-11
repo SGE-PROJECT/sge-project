@@ -9,6 +9,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Student;
+
 
 class StudentController extends Controller
 {
@@ -66,6 +68,32 @@ class StudentController extends Controller
         }
 
 
+        
 
     }
+    public function showProfile($userId)
+    {
+        $user = User::findOrFail($userId);
+        
+        $student = $user->student;
+    
+        return view('profile.student', compact('student'));
+    }
+
+    public function showAdviserProfile($userId)
+{
+    $user = User::findOrFail($userId);
+    
+    $academicAdvisor = $user->academicAdvisor;
+
+    if ($academicAdvisor) {
+        return view('profile.adviser', compact('academicAdvisor'));
+    }
+    
+    abort(404);
 }
+
+    
+}
+
+
