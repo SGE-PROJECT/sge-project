@@ -22,3 +22,47 @@
     width: 190px;
     height: 254px;
 }
+
+/* Contenedor de la tabla */
+.tabla-project {
+    overflow-x: auto; 
+    max-width: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0 5px; 
+    max-width: calc(100% - 20px);
+    width: calc(100% - 20px); 
+    white-space: normal;  
+}
+.tabla-cont-project table {
+    table-layout: fixed;
+    width: 100%;
+}
+.tabla-cont-project th,
+.tabla-cont-project td {
+    padding: 0.5em;
+    text-align: center;
+    word-wrap: break-word;
+}
+/*Ajustes para hacer la  pantalla responsiva*/
+/*@media (max-width: 992px) {
+    .card {
+        width: calc(50% - 20px);
+    }
+}
+@media (max-width: 576px) {
+    .card {
+        width: calc(100% - 20px);
+    }
+}   
+@media (max-width: 360px) {
+    .card {
+        width: calc(100% - 20px);
+    }
+}*/
+
+
+
+
+
+
