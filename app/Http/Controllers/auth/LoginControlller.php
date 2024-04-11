@@ -38,7 +38,9 @@ class LoginControlller extends Controller
 
                 case 'Asesor Académico':
                     $adviserId = $user->slug;
-                    return redirect("/asesorias/{$adviserId}");
+                    return redirect()->route('home.advisor');
+
+                    // return redirect("/asesorias/{$adviserId}");
 
                 case 'Estudiante':
                     $studentId = $user->id;
