@@ -56,7 +56,7 @@
                 <div>
                     <label class="text-sm font-semibold" for="phone">Número Teléfonico:</label>
                     <input name="phone_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu número teléfonico" type="tel" value="{{ $student->user->phone_number }}" />
+                        placeholder="Ingresa tu número teléfonico" type="tel" value="{{ $proyecto->phone_student }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('phone_student')
                             {{ $message }}

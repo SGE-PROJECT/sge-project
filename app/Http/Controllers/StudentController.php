@@ -88,28 +88,7 @@ class StudentController extends Controller
 
 
     }
-    public function showProfile($userId)
-    {
-        $user = User::findOrFail($userId);
-
-        $student = $user->student;
-
-        return view('profile.student', compact('student'));
-    }
-
-    public function showAdviserProfile($userId)
-{
-    $user = User::findOrFail($userId);
-
-    $academicAdvisor = $user->academicAdvisor;
-
-    if ($academicAdvisor) {
-        return view('profile.adviser', compact('academicAdvisor'));
-    }
-
-    abort(404);
-}
-
+   
 
 }
 
