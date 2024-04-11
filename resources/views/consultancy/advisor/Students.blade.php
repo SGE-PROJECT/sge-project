@@ -51,11 +51,14 @@
 
         </header>
         <aside class="proyectos" id="proyecto">
+            @php
+                use App\Models\Report;
+            @endphp
             @forelse($students as $student)
                 <div>
                     <article>
                         <img src={{ "/".$student->user->photo }} class="icono" alt="imagen" />
-                        <h3>{{$student->user->name}}</h3>
+                        <h3><a href="{{ route('profile.student', ['userId' => $student->user->id]) }}">{{ $student->user->name }}</a></h3>
                         <p class="des">Matricula: {{ $student->registration_number }}</p>
                         <p class="des">Grupo: {{ $student->group->name }}</p>
                         <p class="des">Proyecto: @if (!empty($student->projects) && count($student->projects) > 0)
@@ -71,6 +74,12 @@
                             @endif
                             <a tabindex="1" href={{ route('reporte', ['id' => auth()->user()->slug,'alumno' => $student->user->slug]) }} >Calificar</a>
                         </span>
+                        @php
+                            $report = Report::where('correo_asesor', auth()->user()->email)
+                                        ->where('matricula', $student->registration_number)
+                                        ->get();
+                        @endphp
+                        @if (!$report->isEmpty())
                         <a href="{{ route('exportarReporte', ['correo' => auth()->user()->email, 'matricula'=>$student->registration_number]) }}" onclick='() => {
                             var formularios = document.querySelectorAll("form");
                             formularios.forEach(function(formulario) {
@@ -81,7 +90,7 @@
                             });
                         }'
                         class="font-bold inline-block w-full h-[37px] text-center bg-[#4ea24e] text-white px-6 py-2 rounded hover:bg-[#389738] transition-colors">Generar reporte</a>
-
+                        @endif
                     </article>
                 </div>
             @empty
