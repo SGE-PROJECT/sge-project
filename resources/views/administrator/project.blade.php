@@ -164,7 +164,7 @@
     <!-- CONTENEDOR DE LA TABLA -->
     <div id="tabla-container" class="tabla-project rounded-t-lg">
         <div class="tabla-cont-project rounded-t-lg">
-            <table id="tabla-proyectos" class="display" style="width:100%">
+            <table id="tabla-proyectos" style="width:100%">
                 <thead>
                     <tr>
                         <th>Proyecto</th>
@@ -216,24 +216,23 @@
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Aprobados', 'En curso', 'Reprobados', 'Finalizados'],
+                    labels: ['En curso', 'Reprobados', 'Finalizados'],
                     datasets: [{
                         label: 'Estado del proyecto',
                         data: [
-                            {{ $aprobadosCount }},
                             {{ $enCursoCount }},
                             {{ $reprobadosCount }},
                             {{ $finalizadosCount }}
                         ],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)'
+                            'rgba(234, 179, 8, 0.5)',
+                            'rgba(248, 113, 113, 0.5)',
+                            'rgba(161, 161, 161, 0.5)'
                         ],
                         borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)'
+                            'rgba(234, 179, 8, 0.5)',
+                            'rgba(248, 113, 113, 0.5)',
+                            'rgba(161, 161, 161, 0.5)'
                         ],
                         borderWidth: 1
                     }]

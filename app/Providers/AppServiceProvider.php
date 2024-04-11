@@ -28,23 +28,19 @@ class AppServiceProvider extends ServiceProvider
             $enCursoCount = $Projects->where('status', 'En curso')->count();
             $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
             $finalizadosCount = $Projects->where('status', 'Finalizado')->count();
-            $aprobadosCount = $Projects->where('status', 'Aprobado')->count();
             $totalProjectsCount = $Projects->count();
 
             // Calcular porcentajes
             $enCursoPercentage = $totalProjectsCount > 0 ? ($enCursoCount / $totalProjectsCount) * 100 : 0;
             $reprobadosPercentage = $totalProjectsCount > 0 ? ($reprobadosCount / $totalProjectsCount) * 100 : 0;
             $finalizadosPercentage = $totalProjectsCount > 0 ? ($finalizadosCount / $totalProjectsCount) * 100 : 0;
-            $aprobadosPercentage = $totalProjectsCount > 0 ? ($aprobadosCount / $totalProjectsCount) * 100 : 0;
 
             $view->with(compact(
                 'Projects',
                 'totalProjectsCount',
-                'aprobadosCount',
                 'enCursoCount',
                 'reprobadosCount',
                 'finalizadosCount',
-                'aprobadosPercentage',
                 'enCursoPercentage',
                 'reprobadosPercentage',
                 'finalizadosPercentage'
@@ -52,14 +48,28 @@ class AppServiceProvider extends ServiceProvider
     });
 
         //Anteproyectos
-        View::composer('administrator.graphs.graph-anteprojects', function ($view) {
+        View::composer(['administrator.graphs.graph-anteprojects', 'administrator.section-anteprojects'], function ($view) {
             $Anteprojects = Project::where('is_project', 0)->get();
             $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
             $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
             $rechazadosCount = $Anteprojects->where('status', 'Rechazados')->count();
             $totalAnteprojectsCount = $Anteprojects->count();
 
-            $view->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount', 'totalAnteprojectsCount'));
+            // Calcular porcentajes
+            $registradosPercentage = $totalAnteprojectsCount > 0 ? ($registradosCount / $totalAnteprojectsCount) * 100 : 0;
+            $enRevisionPercentage = $totalAnteprojectsCount > 0 ? ($enRevisionCount / $totalAnteprojectsCount) * 100 : 0;
+            $rechazadosPercentage = $totalAnteprojectsCount > 0 ? ($rechazadosCount / $totalAnteprojectsCount) * 100 : 0;
+
+            $view->with(compact(
+                'Anteprojects',
+                'registradosCount',
+                'enRevisionCount',
+                'rechazadosCount',
+                'totalAnteprojectsCount',
+                'registradosPercentage',
+                'enRevisionPercentage',
+                'rechazadosPercentage'
+            ));
         });
 
         //Usuarios
