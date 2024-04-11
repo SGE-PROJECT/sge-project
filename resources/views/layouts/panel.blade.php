@@ -114,7 +114,7 @@
             <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
                 <!-- ADMIN Section -->
                 <li class="mb-1 group">
-                    <a href="/"
+                    <a href="/anteproyectos"
                         class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
                         <i class='bx bxs-dashboard mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Dashboard</span>

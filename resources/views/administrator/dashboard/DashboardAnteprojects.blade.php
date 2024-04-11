@@ -4,7 +4,6 @@
 @section('contenido')
 
     <h1 class="text-3xl font-bold text-center mt-5">Anteproyectos</h1>
-    <h1 class="text-3xl font-bold text-center mt-5">Anteproyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
 
         <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

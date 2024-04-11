@@ -164,7 +164,7 @@ Route::get('/scraping',[BooksController::class, 'imageBooks']);
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
-    Route::get('/', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
+    Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
     Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation'])->name('projectinvitation');
     Route::get('formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
