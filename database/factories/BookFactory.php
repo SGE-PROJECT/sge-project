@@ -23,10 +23,8 @@ class BookFactory extends Factory
             'editorial' => $this->faker->company,
             'year_published' => $this->faker->year,
             'price' => $this->faker->numberBetween(300, 520),
-            'student' => '',
-            'tuition' => '',
             'image_book' => '',
-            'estate' => true,
+            'state' => true,
         ];
         
     }

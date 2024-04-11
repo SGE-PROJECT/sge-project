@@ -52,7 +52,7 @@
                     </p>
                     <p class="text-lg font-bold text-teal-600 mb-4">División:
                         @if ($student->user->division)
-                            {{ auth()->user()->division->name }}
+                            {{ $student->user->division->name }}
                         @else
                             No asignada
                         @endif

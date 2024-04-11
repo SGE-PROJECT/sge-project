@@ -20,10 +20,8 @@ return new class extends Migration
             $table->string('author');
             $table->integer('year_published');
             $table->integer('price');
-            $table->string('student');
-            $table->string('tuition');
             $table->string('image_book');
-            $table->boolean('estate')->default(false);
+            $table->boolean('state')->default(false);
             $table->timestamps();
         });
     }
