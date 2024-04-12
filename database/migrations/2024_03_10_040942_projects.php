@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('fullname_student');
             $table->bigInteger('id_student');
             $table->string('group_student');
-            $table->bigInteger('phone_student');
+            $table->bigInteger('phone_student')->nullable();
             $table->string('email_student');
             $table->date('startproject_date');
             $table->date('endproject_date');

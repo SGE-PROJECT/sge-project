@@ -43,9 +43,9 @@ class ManagementConfiguration extends Controller
     
     
         $validator = Validator::make($request->all(), [
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:min_width=450,min_height=450,ratio=1',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:min_width=450,min_height=450,ratio=1',
         ], [
-            'photo.required' => 'La imagen es requerida.',
+            
             'photo.image' => 'El archivo debe ser una imagen.',
             'photo.mimes' => 'La imagen debe ser de tipo jpeg, png, jpg o gif.',
             'photo.max' => 'La imagen no debe exceder los 2048 kilobytes.',
