@@ -178,40 +178,52 @@
                     </li>
                 @endif
 
+
                 <li class="mb-1 group relative z-2">
                     <a href=""
                         class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
                         <i class='bx bxs-graduation mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Académico</span>
-                        <i class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
+                        <i
+                            class="ri-arrow-right-s-line ml-auto  group-[.selected]:rotate-90 transition-transform  hidden md:block"></i>
                     </a>
                     <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
                         <li>
+
                             <a href="{{ route('dashboardProjects') }}"
-                                class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md">
-                                <i class='bx bx-folder-plus mr-3 text-lg'></i>
-                                <span class="text-sm">Proyectos</span>
-                            </a>
+                                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                    class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                    class="text-sm">Proyectos</span></a>
                         </li>
-                        <li>
-                            @if(Auth::user()->hasRole('Super Administrador'))
-                                <!-- Super Administrador accede a la vista general de carreras -->
+                        <li class="">
+                            @if (Auth::check() &&
+                                    Auth::user()->hasAnyRole([
+                                        'Administrador de División',
+                                        'Asesor Académico',
+                                        'Estudiante',
+                                        'Presidente Académico',
+                                        'Asistente de Dirección',
+                                    ]))
+                            @else
+                                <a href="{{ route('divisiones.index') }}"
+                                    class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class='bx bx-buildings mr-3 text-lg'></i><span
+                                        class=" text-sm">Divisiones</span></a>
+                        </li>
+                        @endif
+                        @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Estudiante']))
+                        @else
+                            <li class="">
+
                                 <a href="{{ route('carreras.index') }}"
-                                    class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md">
-                                    <i class='bx bx-book-open mr-3 text-lg'></i>
-                                    <span class="text-sm">Carreras</span>
-                                </a>
-                            @elseif(Auth::user()->hasAnyRole(['Asesor Académico', 'Administrador de División']))
-                                <!-- Asesor Académico y Administrador de División acceden a sus carreras específicas -->
-                                <a href="{{ route('division.carreras') }}"
-                                    class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md">
-                                    <i class='bx bx-book-open mr-3 text-lg'></i>
-                                    <span class="text-sm">Mis Carreras</span>
-                                </a>
-                            @endif
-                        </li>
+                                    class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class=' bx bx-book-open mr-3 text-lg'></i><span
+                                        class="text-sm">Carreras</span></a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
+
 
                 <!-- EMPRESAS Section -->
                 @if (Auth::check() && Auth::user()->hasAnyRole(['Super Administrador', 'Administrador de División', 'Asesor Académico']))

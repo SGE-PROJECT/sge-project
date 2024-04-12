@@ -69,6 +69,10 @@ class RoleSeeder extends Seeder
                 'roles' => ['Administrador de División', 'Asesor Académico'],
                 'description' => 'Remover empresas'
             ],
+            'empresas.activate' => [
+                'roles' => ['Super Administrador'],
+                'description' => 'Remover empresas'
+            ],
             //divisiones
             'divisiones.index' => [
                 'roles' => ['Administrador de División', 'Super Administrador', 'Presidente Académico', 'Asesor Académico'],
@@ -85,6 +89,10 @@ class RoleSeeder extends Seeder
             'divisiones.destroy' => [
                 'roles' => [ 'Super Administrador'],
                 'description' => 'Remover divisiones'
+            ],
+            'divisiones.activate' => [
+                'roles' => [ 'Super Administrador'],
+                'description' => 'Activar divisiones'
             ],
             //carreras
             'carreras.index' => [

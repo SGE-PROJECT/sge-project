@@ -1,11 +1,11 @@
 
 
-@extends('layouts.panelUsers')
+@extends('layouts.panel')
 
 @section('titulo', 'Editar Empresa')
 
 @section('contenido')
-<div class="container">
+<div class="container">'Super Administrador',
     <div class="max-w-lg mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div class="border-b py-2 rounded mb-4">
             <h2 class="text-2xl text-center font-bold text-aqua-600">Editar Empresa</h2>

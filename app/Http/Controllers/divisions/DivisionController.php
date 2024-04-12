@@ -14,6 +14,7 @@ class DivisionController extends Controller
         $this->middleware("can:divisiones.edit")->only('edit', 'update');
         $this->middleware("can:divisiones.create")->only('create', 'store');
         $this->middleware("can:divisiones.destroy")->only('destroy');
+        $this->middleware("can:divisiones.activate")->only('activate');
     }
 
     public function index()
