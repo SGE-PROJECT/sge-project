@@ -1,36 +1,26 @@
 <?php
 
 use App\Http\Controllers\auth\ForgotPasswordController;
-
-
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
-
-//use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\auth\PostController;
 use App\Http\Controllers\MasiveAddController;
-use App\Http\Controllers\UsersTestController;
-
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\admin\RolesController;
 use App\Http\Controllers\auth\LoginControlller;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\books\BooksController;
 use App\Http\Controllers\ProjectLikeController;
-use App\Http\Controllers\ProjectsTestController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\ProgramController;
 use App\Http\Controllers\AdvisoryReportsController;
-
-//import test
 use App\Http\Controllers\AdvisorySessionController;
 use App\Http\Controllers\profile\ProfileController;
 use App\Http\Controllers\projects\ProjectController;
 use App\Http\Controllers\divisions\DivisionController;
 use App\Http\Controllers\users\RegisterUserController;
 use App\Http\Controllers\Companies\CompaniesController;
-use App\Http\Controllers\ProjectStudentsTestController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
@@ -40,17 +30,6 @@ use App\Http\Controllers\advisorDash\AdvisorDashController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
@@ -70,12 +49,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
-    /*     Route::middleware(['role:SuperAdmin'])->group(function () {
-     */        // Rutas para administradores
+
     Route::get('/projectsdash', function () {
         return view('management.project');
     });
-    /* }); */
 
     //modulo administrativo
     Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
@@ -120,6 +97,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/enviar-notification', function () {
         return view('books-notifications.books.test-notifications');
     });
+
     Route::post('/not', [BooksController::class, 'notifications'])->name('sendNotification');
     Route::get('/scraping', [BooksController::class, 'imageBooks']);
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
@@ -147,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/notificaciones', function () {
         return view('books-notifications.notifications');
     });
+
     Route::get('/notificaciones', function () {
         return view('books-notifications.notificaciones-user');
     });
@@ -159,14 +138,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/reporte', [BooksController::class, 'listBook'])->name('books.list');
     Route::get('/reporte/pdf', [BooksController::class, 'report'])->name('books.reports');
-    /*     Route::get('/books/export', 'BooksController@export')->name('books.export');
-     */
     Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
     Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
 
 
 
-    /*Modulo de proyectos*/
+    /* Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
     Route::get('/', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
@@ -190,20 +167,13 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-
-
-//PRUEBA DE PROTECCIÖN DE RUTAS, NO TOCAR
-// Rutas protegidas por el rol Adviser
-/* Route::middleware(['auth', 'role:Adviser|ManagmentAdmin|SuperAdmin|Secretary'])->group(function () {
- */    // Ruta de prueba para mostrar los proyectos por división
 Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
 
 // Rutas protegidas por el rol Teacher usando resource()
 Route::resource('/empresas', CompaniesController::class);
 Route::resource('/divisiones', DivisionController::class);
 Route::resource('/carreras', ProgramController::class);
-/* });
- */
+
 Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
     Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
@@ -211,7 +181,7 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
     Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
 
-    //asesorados
+    // sesorados
     Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
     Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
     Route::post('/asesorados/{id}/reporte/{alumno}/generar', [AdvisoryReportsController::class, 'store'])->name('generarReporte');
@@ -236,29 +206,3 @@ Route::middleware(['auth', 'role:Administrador de División'])->group(function (
     Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
     Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->name('academic-advisor');
 });
-
-//Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
-
-// Route::middleware(['auth', 'role:Student|ManagmentAdmin|SuperAdmin'])->group(function () {
-//     Route::get('/', [Controller::class, 'get']);
-
-//     Route::resource('/', Controller::class);
-//     Route::resource('/', Controller::class);
-//     Route::resource('/', Controller::class);
-// });
-
-// Route::middleware(['auth', 'role:President|ManagmentAdmin|SuperAdmin'])->group(function () {
-//     Route::get('/', [Controller::class, 'get']);
-
-//     Route::resource('/', Controller::class);
-//     Route::resource('/', Controller::class);
-//     Route::resource('/', Controller::class);
-// });
-
-// Route::middleware(['auth', 'role:Secretary|ManagmentAdmin|SuperAdmin'])->group(function () {
-//     Route::get('/', [Controller::class, 'get']);
-
-//     Route::resource('/', Controller::class);
-//     Route::resource('/', Controller::class);
-//     Route::resource('/', Controller::class);
-// });
