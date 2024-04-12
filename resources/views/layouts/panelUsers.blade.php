@@ -276,15 +276,15 @@
                         @endif
 
                         @if (Auth::check() &&
-                                Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Estudiante', 'Asesor Académico']))
-                        @else
+                                Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección','Asesor Académico']))
                             <li class="">
 
-                                <a href="{{ route('carreras.index') }}"
+                                <a href="/carreras/division"
                                     class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                         class=' bx bx-book-open mr-3 text-lg'></i><span
                                         class="text-sm">Carreras</span></a>
                             </li>
+                        @else
                         @endif
                     </ul>
                 </li>
