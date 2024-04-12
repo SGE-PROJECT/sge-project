@@ -89,6 +89,36 @@
 
 /* new style */
 
+@media only screen and (max-width: 768px) {
+  .responsive-books {
+    transform: scale(0.5);
+  }
+
+  .add-button-book {
+    top: 30px;
+  }
+
+  .space-book {
+    margin-top: 20px;
+  }
+
+  .form-books-select {
+    left: 200px;
+  }
+
+  .form-books-select{
+    left: 10px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .responsive-books {
+    transform: scale(0.7);
+  }
+
+  
+}
+
 .card-book {
   width: 190px;
   height: 254px;
@@ -265,8 +295,8 @@
   position: absolute;
   width: 35px;
   height: 35px;
-  left: 230px;
-  top: 10px;
+  right: 10px;
+  top: 60px;
   padding-left: 4.5px;
   padding-bottom: 0.5px;
   border-radius: 4px;
