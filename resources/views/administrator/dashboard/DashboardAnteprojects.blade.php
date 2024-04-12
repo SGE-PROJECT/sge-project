@@ -176,7 +176,6 @@
                 </thead>
                 <tbody>
                     @foreach ($Anteprojects as $anteproject)
-                        @if ($anteproject->anteproject == 0)
                             <tr>
                                 <td>{{ $anteproject->name_project }}</td>
                                 <td>{{ $anteproject->fullname_student }}</td>
@@ -185,7 +184,6 @@
                                 <td>{{ $anteproject->company_name }}</td>
                                 <td><span class="project-status">{{ $anteproject->status }}</span></td>
                             </tr>
-                        @endif
                     @endforeach
                 </tbody>
             </table>

@@ -7,8 +7,7 @@
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
 
         <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            @include('administrator.graphs.graph-anteprojects', ['isActive' => Route::is('Dashboard-Anteproyectos')])
-            @include('administrator.graphs.graph-projects', ['isActive' => Route::is('Dashboard-Proyectos')])
+            @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
         </div>
         <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
             <!-- Gráfica de barras a la izquierda -->
@@ -175,8 +174,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($Projects as $project)
-                        @if ($project->is_project == 1)
+                    @foreach ($projects as $project)
                             <tr>
                                 <td>{{ $project->name_project }}</td>
                                 <td>{{ $project->fullname_student }}</td>
@@ -185,12 +183,11 @@
                                 <td>{{ $project->company_name }}</td>
                                 <td><span class="project-status">{{ $project->status }}</span></td>
                             </tr>
-                        @endif
                     @endforeach
                 </tbody>
             </table>
             <div class="mt-1">
-                {{$Projects->links()}}
+                {{$projects->links()}}
             </div>
         </div>
     </div>
@@ -209,7 +206,7 @@
     <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             var ctx = document.getElementById('barChart').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -245,7 +242,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
     <!-- SCRIPT DE LA DATA TABLE -->
     <script>
         $(document).ready(function() {
