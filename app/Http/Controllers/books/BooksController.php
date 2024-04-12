@@ -420,21 +420,26 @@ function studentsForDivision(Request $request){
          // El usuario no está autenticado
          // Redirigir o mostrar un mensaje de error
      }
- 
-  /*   
-    $data="Hola esto solo es Data";
-    $divisionName="Ingenieria y Tecnologia";
-    $students = Student::join('groups', 'students.group_id', '=', 'groups.id')
-             ->join('programs', 'groups.program_id', '=', 'programs.id')
-             ->join('divisions', 'programs.division_id', '=', 'divisions.id')
-             ->join('users', 'students.user_id', '=', 'users.id') // Relación con la tabla users
-             ->where('divisions.name', $divisionName)
-             ->select('students.*', 'users.email as email') // Selecciona el correo electrónico del usuario
-             ->get();
-             foreach ($students as $student) {
-                Notification::send($student,new ProjectNotification($data,$student)); 
-       }
-       return "mensajes enviado con éxito"; */
+}
+
+public function studentBook(){
+    // Obtener el usuario autenticado
+    $user = Auth::user();
+    $idUser =$user->id;
+    $studentBook=Student::where('user_id',$idUser)->select('book_id')->get();
+    $idBook= $studentBook[0]->book_id;
+    $book=Book::where('id',$idBook)->get();
+//obtener todos los colaboradores del libro
+if($book){
+    $bookCollaborative=User::join('students','users.id', '=', 'students.user_id')
+    ->join('books','students.book_id', '=', 'books.id')
+    ->where('students.book_id',$idBook)
+    ->select('users.*')
+    ->get();
+}
+
+
+    return view('books-notifications.books.book-student',compact('book','bookCollaborative'));
 }
 
 

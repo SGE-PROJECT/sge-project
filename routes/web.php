@@ -143,6 +143,7 @@ Route::middleware(['auth'])->group(function () {
         return view('books-notifications.books.add-books');
     })->name('añadir.libros');
 
+    Route::get('/libro',[BooksController::class,'studentBook'])->name('libro-student');
     Route::get('/admin/notificaciones', function () {
         return view('books-notifications.notifications');
     });
