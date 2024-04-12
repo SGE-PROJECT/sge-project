@@ -17,7 +17,7 @@
         use Carbon\Carbon;
     @endphp
     <main class="vista_asesorias">
-        <div class="container mx-auto px-4 mt-20">
+        <div class="container mx-auto px-4 mt-10">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <!-- Tarjeta 1 -->
                 <div class="bg-white shadow-md rounded-lg overflow-hidden">
@@ -62,10 +62,26 @@
 
                         </div>
                         <div class="flex justify-center mt-4 md:mt-6">
-
+                            @if(count($getStudents) > 0)
                             <a href={{ route('asesorados', [Auth()->user()->slug]) }}
                                 class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Gestionar
                                 mis asesorados</a>
+                            @else
+                            <div class="flex flex-col items-center mt-8">
+
+                                <i class="text-[100px] bx bx-sad text-[#00ab84]"></i>
+
+                                <div class="flex mt-4 md:mt-6">
+                                    <h1
+                                        class="py-2 px-4 ms-2 text-lg font-bold focus:outline-none bg-white text-[#00ab84]">¡Aún no tienes asesorados!</h1>
+                                </div>
+                            </div>
+
+                            @endif
+
+
+
+
                         </div>
 
                     </div>
@@ -102,10 +118,22 @@
                         @endforeach
 
                         <div class="flex justify-center mt-4 md:mt-6">
-
+                            @if (count($Projects) > 0)
                             <a href={{ route('viewanteproject') }}
-                                class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver
-                                todos los anteproyectos</a>
+                            class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver
+                            todos los anteproyectos</a>
+                            @else
+                            <div class="flex flex-col items-center mt-8">
+
+                                <i class="text-[100px] bx bx-notepad text-[#00ab84]"></i>
+
+                                <div class="flex mt-4 md:mt-6">
+                                    <h1
+                                        class="py-2 px-4 ms-2 text-lg font-bold focus:outline-none bg-white text-[#00ab84]">¡Sin anteproyectos!</h1>
+                                </div>
+                            </div>
+                            @endif
+
                         </div>
                     </div>
                 </div>

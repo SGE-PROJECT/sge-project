@@ -276,15 +276,15 @@
                         @endif
 
                         @if (Auth::check() &&
-                                Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Estudiante', 'Asesor Académico']))
-                        @else
+                                Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección','Asesor Académico']))
                             <li class="">
 
-                                <a href="{{ route('carreras.index') }}"
+                                <a href="/carreras/division"
                                     class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                         class=' bx bx-book-open mr-3 text-lg'></i><span
                                         class="text-sm">Carreras</span></a>
                             </li>
+                        @else
                         @endif
                     </ul>
                 </li>
@@ -314,15 +314,14 @@
                 @endif
 
                 @if (Auth::check() &&
-                        Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Presidente Académico']))
-                @else
+                        Auth::user()->hasAnyRole(['Estudiante']))
                     <!-- RECURSOS Section -->
                     <span class="text-[#fff] nav-text font-bold">RECURSOS</span>
                     <li class="mb-1 group">
-                        <a href="/libros"
+                        <a href="{{ route('libro-student') }}"
                             class="flex font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md hover:text-[#d0d3d4]">
                             <i class='bx bx-book mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Libros</span>
+                            <span class="nav-text text-sm">Libro</span>
                         </a>
                     </li>
                 @endif
