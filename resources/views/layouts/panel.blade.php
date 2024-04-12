@@ -230,8 +230,7 @@
                 @endif
 
                 @if (Auth::check() &&
-                        Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Presidente Académico']))
-                @else
+                        Auth::user()->hasAnyRole(['Super Administrador', 'Asistente de Dirección']))
                     <!-- RECURSOS Section -->
                     <span class="text-gray-400 nav-text font-bold">RECURSOS</span>
                     <li class="mb-1 group">

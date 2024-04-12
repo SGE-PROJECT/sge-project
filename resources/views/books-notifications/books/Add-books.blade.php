@@ -1,7 +1,6 @@
-@extends('layouts.panel')
-
+@extends('layouts.panelUsers')
 @section('titulo')
-    Agregar libros
+    Agregar libro
 @endsection
 
 @section('contenido')
@@ -12,7 +11,7 @@
                 <!-- <h1 class="title-books">Agrega tu libro</h1> -->
                 <h1 class="text-3xl font-bold text-teal-600">Agrega tu libro</h1>
 
-                <a class="a-container-return" href="{{ route('libros.index') }}">
+                <a class="a-container-return" href="{{ route('libro-student') }}">
                     <button id="button-return-books" type="submit"
                         class=" bg-teal-500 text-white px-6 py-2  hover:bg-teal-600 transition-colors">
                         <svg id="svg-add-books" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
