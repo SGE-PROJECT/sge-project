@@ -22,7 +22,7 @@
             </div>
             <!-- Componente administrator.section-projects a la derecha -->
             <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
-                @include('administrator.section-anteprojects')
+                @include('administrator.sections.section-anteprojects')
             </div>
         </div>
 

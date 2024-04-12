@@ -45,7 +45,7 @@ class ProjectController extends Controller
         $Anteprojects = Project::where('is_project', 0)->paginate(10);
         $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
         $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
-        $rechazadosCount = $Anteprojects->where('status', 'Rechazados')->count();
+        $rechazadosCount = $Anteprojects->where('status', 'Rechazado')->count();
         return view("administrator.dashboard.DashboardAnteprojects")
           ->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount'));
     }

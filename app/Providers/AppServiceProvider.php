@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['administrator.graphs.graph-projects', 'administrator.section-projects'], function ($view) {
+        View::composer(['administrator.graphs.graph-projects', 'administrator.sections.section-projects'], function ($view) {
             $Projects = Project::where('is_project', 1)->get();
             $enCursoCount = $Projects->where('status', 'En curso')->count();
             $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
     });
 
         //Anteproyectos
-        View::composer(['administrator.graphs.graph-anteprojects', 'administrator.section-anteprojects'], function ($view) {
+        View::composer(['administrator.graphs.graph-anteprojects', 'administrator.sections.section-anteprojects'], function ($view) {
             $Anteprojects = Project::where('is_project', 0)->get();
             $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
             $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
@@ -79,7 +79,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         //Usuarios
-        View::composer(['administrator.graphs.graph-users', 'administrator.section-users'], function ($view) {
+        View::composer(['administrator.graphs.graph-users', 'administrator.sections.section-users'], function ($view) {
             $activeUsersCount = User::where('isActive', true)->count();
 
             // Obtener los roles por nombre y contar los usuarios
@@ -116,7 +116,7 @@ class AppServiceProvider extends ServiceProvider
             ));
         });
 
-        View::composer(['administrator.graphs.graph-students-dash', 'administrator.section-students', 'administrator.managementAdmin.student-dash'], function ($view) {
+        View::composer(['administrator.graphs.graph-students-dash', 'administrator.sections.section-students', 'administrator.managementAdmin.student-dash'], function ($view) {
             // Obtener el usuario autenticado
             $user = Auth::user();
 
