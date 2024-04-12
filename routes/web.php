@@ -183,6 +183,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
     Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
     Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
+
+    Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
+
 });
 
 
