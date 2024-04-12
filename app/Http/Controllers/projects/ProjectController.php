@@ -204,9 +204,11 @@ class ProjectController extends Controller
     {
         // Obtener el usuario autenticado
         $user = Auth::user();
+        $getAcademicAdvisorId = AcademicAdvisor::where('user_id', $user->id)->first();
 
         // Pasar el proyecto y el usuario a la vista
-        return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user]);
+
+        return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user, 'getAcademicAdvisorId' => $getAcademicAdvisorId]);
     }
 
     public function showMyProject()

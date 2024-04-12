@@ -206,19 +206,26 @@
                             class="ri-arrow-right-s-line ml-auto  group-[.selected]:rotate-90 transition-transform  hidden md:block"></i>
                     </a>
                     <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
-                        <li>
-                            <a href="{{ route('dashboardProjects') }}"
-                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                    class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Lista
-                                    Anteproyectos</span></a>
-                        </li>
-                        <li>
+                        @if (!Auth::user()->hasAnyRole(['Asesor Académico', 'Estudiante']))
+                            <li>
+                                <a href="{{ route('dashboardProjects') }}"
+                                    class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Lista
+                                        Anteproyectos</span></a>
+                            </li>
+                        @endif
 
-                            <a href="{{ route('viewanteproject') }}"
-                                class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                    class='bx bx-folder-plus mr-3 text-lg'></i><span
-                                    class="text-sm">Anteproyectos</span></a>
-                        </li>
+                        @if (Auth::check() && Auth::user()->hasAnyRole(['Estudiante']))
+                        @else
+                            <li>
+
+                                <a href="{{ route('viewanteproject') }}"
+                                    class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                        class="text-sm">Anteproyectos</span></a>
+                            </li>
+                        @endif
+
                         <li>
                             <a href="{{ route('viewproject') }}"
                                 class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
@@ -241,7 +248,9 @@
                                         class=" text-sm">Divisiones</span></a>
                         </li>
                         @endif
-                        @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Estudiante']))
+
+                        @if (Auth::check() &&
+                                Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Estudiante', 'Asesor Académico']))
                         @else
                             <li class="">
 
@@ -578,7 +587,8 @@
                             </li>
                             <li>
                                 <a href="{{ url('/Configurar_Cuenta') }}"
-                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Configurar Cuenta</a>
+                                    class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Configurar
+                                    Cuenta</a>
                             </li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}" class="">
