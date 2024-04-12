@@ -18,6 +18,11 @@
     @endphp
     <main class="vista_asesorias">
         <div class="container mx-auto px-4 mt-10">
+            <div class="relative w-full ">
+                <p class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-600 font-bold text-3xl uppercase">
+                    Bienvenido {{ Auth()->user()->name }}
+                </p>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <!-- Tarjeta 1 -->
                 <div class="bg-white shadow-md rounded-lg overflow-hidden">
@@ -193,7 +198,7 @@
 
             <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 my-4">
                 <a href="{{ route('asesorias', [Auth()->user()->slug]) }}" class="block w-full col-span-1 lg:col-span-2">
-                    <header class="block hidden md:flex">
+                    <header class="hidden md:flex">
                         <span class="fechas-asesorias">
                             <select id="student-month" class="hidden">
                                 <option value="0">Enero</option>
@@ -238,6 +243,19 @@
                         <h2 class="text-xl font-semibold text-white">Sanciones</h2>
                     </div>
                     <div class="p-4 sanciones">
+                        @if ($students->isEmpty())
+                        <div class="flex flex-col items-center mt-8">
+
+                            <i class="text-[100px] bx bx-sad text-[#00ab84]"></i>
+
+                            <div class="flex mt-4 md:mt-6">
+                                <h1
+                                    class="py-2 px-4 ms-2 text-lg font-bold focus:outline-none bg-white text-[#00ab84]">¡Aún no tienes asesorados!</h1>
+                            </div>
+                        </div>
+
+                        @else
+
                         @foreach ($students as $student)
                             @php
                                 $color = 'bg-lime-100 ';
@@ -321,6 +339,7 @@
                             </div>
                         @endforeach
 
+                        @endif
 
                     </div>
                 </div>

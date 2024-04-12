@@ -20,8 +20,15 @@
 
     @endphp
     <main>
+
         @if ($advisor)
-            <div class="container mx-auto px-4 mt-20">
+
+            <div class="container mx-auto px-4 mt-10">
+                <div class="relative w-full ">
+                    <p class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-600 font-bold text-3xl uppercase">
+                        Bienvenido {{ Auth()->user()->name }}
+                    </p>
+                </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <!-- Tarjeta 1 -->
                     <div class="bg-white shadow-md rounded-lg overflow-hidden">
@@ -414,8 +421,6 @@
                             <h2 class="text-xl font-semibold text-white mb-2">Sanciones</h2>
                         </div>
                         <div class="p-4">
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                            <canvas id="myChart"></canvas>
 
                             <div id="toast-default"
                                 class="flex items-center w-full  p-4 text-gray-500 {{ $color }} rounded-lg shadow mb-2"
