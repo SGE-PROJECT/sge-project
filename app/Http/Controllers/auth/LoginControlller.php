@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 use Spatie\Permission\Models\Role;
 
 class LoginControlller extends Controller
@@ -34,7 +36,7 @@ class LoginControlller extends Controller
                     return redirect()->route('Dashboard-Anteproyectos'); // Nos redirecciona al dashboard general
 
                 case 'Administrador de División':
-                    return redirect('/estudiantes-dash'); //Ese slash es provisional, solo hay que poner la ruta verdadera
+                    return redirect()->route('Dashboard-Anteproyectos'); // Nos redirecciona al dashboard general
 
                 case 'Asesor Académico':
                     $adviserId = $user->slug;
@@ -44,11 +46,25 @@ class LoginControlller extends Controller
 
                 case 'Estudiante':
                     $studentId = $user->id;
+                    $advisor = $user->student->sanction_advisor;
+                    $company = $user->student->sanction_company;
+                    $advisorNumber = intval($advisor);
+                    $companyNumber = intval($company);
+                    if($advisorNumber > 2 && $companyNumber > 2){
+                        Auth::logout();
+                        $request->session()->invalidate();
+                        $request->session()->regenerateToken();
+                        Cookie::forget('laravel_session');
+                        Session::flush();
+                        $rememberMeCookie = Auth::getRecallerName();
+                        $cookie = Cookie::forget($rememberMeCookie);
+                        return redirect("/Iniciar-sesion")->with('success', 'Haz alcanzado el limite de sanciones lamentablemente ya no se te permite ingresar al sistema.');
+                    }
                     return redirect()->route('home');
 
 
                 case 'Presidente Académico':
-                    return redirect('/projects');
+                    return redirect()->route('Dashboard-Anteproyectos'); // Nos redirecciona al dashboard general
 
                 case 'Asistente de Dirección':
                     return redirect('/libros');

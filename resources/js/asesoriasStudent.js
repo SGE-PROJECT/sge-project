@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         contador.textContent = document.getElementById('student-solitMensaje').value.length + "/250";
     });
+    
 });
 function solicitar() {
     document.getElementById("editContador").textContent="0/250"
