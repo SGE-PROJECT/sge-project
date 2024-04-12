@@ -39,6 +39,27 @@
 
 <body class="text-gray-800 font-inter">
     <!--sidenav-->
+    @php
+        use Illuminate\Support\Facades\Auth;
+        use Illuminate\Support\Facades\Session;
+        use Illuminate\Support\Facades\Cookie;
+        use Illuminate\Support\Facades\Request; // Añadir esto
+
+        if (auth()->user()->student->sanction_advisor > 2 && auth()->user()->student->sanction_company > 2) {
+            Auth::logout();
+
+            Request::session()->invalidate();
+            Request::session()->regenerateToken();
+            Cookie::forget('laravel_session');
+            Session::flush();
+
+            $rememberMeCookie = Auth::getRecallerName();
+            $cookie = Cookie::forget($rememberMeCookie);
+
+            return redirect("/Iniciar-sesion")->with('success', 'Haz alcanzado el limite de sanciones lamentablemente ya no se te permite ingresar al sistema.');
+        }
+    @endphp
+
     <div class="container-loader" id="loader">
         <div class="loader">
             <div class="box box0">
