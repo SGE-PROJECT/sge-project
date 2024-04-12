@@ -30,7 +30,7 @@
                     <span
                         class="w-30 bg-teal-600 text-white cursor-pointer font-semibold px-4 py-2 rounded-lg hover:bg-teal-800 focus:outline-none relative">
                         <i class='bx bxs-like'></i>
-                        @if ($project->likes->where('user_id', Auth::id())->count() > 0)
+                        @if ($project->likes->where('academic_advisor_id', $getAcademicAdvisorId->id)->count() > 0)
                             Ya has dado like
                         @else
                             Dar Like
