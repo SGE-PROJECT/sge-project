@@ -85,9 +85,9 @@ class BooksController extends Controller
         $idUser =$user->id;
         $divId = Secretary::where('user_id', $idUser)->select('division_id')->get();
         $role = $user->getRoleNames()->first();
-    
-        if($role==="Asistente de Dirección"){ 
-         $divisionId=$divId[0]->division_id;   
+
+        if($role==="Asistente de Dirección"){
+         $divisionId=$divId[0]->division_id;
         $studentsWithoutBook = Student::join('groups', 'students.group_id', '=', 'groups.id')
         ->join('programs', 'groups.program_id', '=', 'programs.id')
         ->join('divisions', 'programs.division_id', '=', 'divisions.id')
@@ -97,7 +97,7 @@ class BooksController extends Controller
         ->select('students.*', 'students.registration_number as registration_number', 'users.email as email','users.name as user_name','users.id as user_id') // Selecciona el correo electrónico del usuario
         ->get();
         }else return redirect()->back();
-      
+
 
 
         return view('books-notifications.books.create-book',compact('studentsWithoutBook'));
@@ -125,7 +125,7 @@ class BooksController extends Controller
                 ->back()
                 ->withErrors($validator)
                 ->withInput();
-        }  
+        }
 
         // Después de pasar la validación
 $selectedStudentsIds = json_decode($request->selected_students);
@@ -154,7 +154,7 @@ $selectedStudentsIds = json_decode($request->selected_students);
 
   /* // Obtener el enlace de la primera imagen de búsqueda
   $firstImageLink = $crawler->filter('li.ld > a.img > noscript > img')->first()->attr('src'); */
-  
+
 // Intentar obtener el enlace de la primera imagen de búsqueda
 $images = $crawler->filter('li.ld > a.img > noscript > img');
 $firstImageLink = $images->count() > 0 ? $images->first()->attr('src') : null;
@@ -384,7 +384,7 @@ function studentsForDivision(Request $request){
      if ($user) {
          // Obtener el rol del usuario utilizando Spatie Laravel Permission
          $role = $user->getRoleNames()->first(); // Obtener el primer rol asignado al usuario
-       
+
          if ($role === 'Estudiante') {
              // Lógica para usuarios con rol de administrador
          } elseif ($role === 'Super Administrador') {
@@ -392,7 +392,7 @@ function studentsForDivision(Request $request){
          }elseif ($role === 'Administrador de División') {
             $divId = ManagmentAdmin::where('user_id', $idUser)->select('division_id')->get();
             $divisionId=$divId[0]->division_id;
-            
+
             $students = Student::join('groups', 'students.group_id', '=', 'groups.id')
             ->join('programs', 'groups.program_id', '=', 'programs.id')
             ->join('divisions', 'programs.division_id', '=', 'divisions.id')
@@ -402,7 +402,7 @@ function studentsForDivision(Request $request){
             ->get();
             foreach ($students as $student) {
                 $user = User::find($student->user_id); // Obtener el usuario asociado al estudiante
-                Notification::send($user,new DivisionAdministratorNotification($data,$student)); 
+                Notification::send($user,new DivisionAdministratorNotification($data,$student));
        }
 
        return redirect()->back();

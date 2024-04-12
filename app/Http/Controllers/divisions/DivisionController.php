@@ -117,12 +117,20 @@ class DivisionController extends Controller
 
     public function destroy(string $id)
     {
-        $division = Division::findOrFail($id);
+    $division = Division::findOrFail($id);
 
-        $division->divisionImage()->delete();
+    $division->isActive = false;
+    $division->save();
 
-        $division->delete();
-
-        return redirect()->route('divisiones.index')->with('success', 'División eliminada correctamente.');
+    return redirect()->route('divisiones.index')->with('success', 'División desactivada correctamente.');
     }
+    public function activate(string $id)
+{
+    $division = Division::findOrFail($id);
+
+    $division->isActive = true;
+    $division->save();
+
+    return redirect()->route('divisiones.index')->with('success', 'División activada correctamente.');
+}
 }

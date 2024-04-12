@@ -114,12 +114,21 @@
             <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
                 <!-- ADMIN Section -->
                 <li class="mb-1 group">
-                    <a href="/"
-                        class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
-                        <i class='bx bxs-dashboard mr-3 text-lg'></i>
-                        <span class="nav-text text-sm">Dashboard</span>
-                    </a>
+                    @role('Super Administrador') <!-- Directiva de Blade proporcionada por Spatie Permission -->
+                        <a href="{{ route('Dashboard-Anteproyectos') }}"
+                            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
+                            <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                            <span class="nav-text text-sm">Dashboard</span>
+                        </a>
+                    @else
+                        <a href="{{ route('Division-Anteproyectos') }}"
+                            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
+                            <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                            <span class="nav-text text-sm">Dashboard</span>
+                        </a>
+                    @endrole
                 </li>
+
 
                 @if (Auth::check() &&
                         Auth::user()->hasAnyRole(['Asesor Académico', 'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
