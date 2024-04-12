@@ -114,7 +114,7 @@
             <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
                 <!-- ADMIN Section -->
                 <li class="mb-1 group">
-                    @role('Super Administrador') <!-- Directiva de Blade proporcionada por Spatie Permission -->
+                    @role(['Super Administrador','Administrador de División']) <!-- Directiva de Blade proporcionada por Spatie Permission -->
                         <a href="{{ route('Dashboard-Anteproyectos') }}"
                             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
                             <i class='bx bxs-dashboard mr-3 text-lg'></i>
@@ -175,7 +175,7 @@
 
 
                 <li class="mb-1 group relative z-2">
-                    @if (auth()->user()->hasRole('Super Administrador'))
+                    @if (auth()->user()->hasRole(['Super Administrador','Administrador de División']))
                     <a href=""
                         class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
                         <i class='bx bxs-graduation mr-3 text-lg'></i>
@@ -186,7 +186,7 @@
                 @endif
 
                     <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
-                        @if (auth()->user()->hasRole('Super Administrador'))
+                        @if (auth()->user()->hasRole(['Super Administrador','Administrador de División']))
                         <li>
 
                             <a href="{{ route('dashboardProjects') }}"
