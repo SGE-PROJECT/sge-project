@@ -33,8 +33,7 @@
                             class="block text-gray-700 text-sm font-bold">Descripción:</label>
                         <textarea name="description" id="description"
                             class="appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder="Ingrese la descripción de la división" rows="3">
-                        </textarea>
+                            placeholder="Ingrese la descripción de la división" rows="3"></textarea>
                         @error('description')
                         <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror

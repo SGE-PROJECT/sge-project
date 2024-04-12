@@ -16,6 +16,12 @@
     animation: animate 25s linear infinite;
     bottom: -150px;
 }
+.noti{
+    transition: all 1s;
+}
+.ocultarNoti{
+    opacity: 0;
+}
 .circles li:nth-child(1){
     left: 25%;
     width: 80px;

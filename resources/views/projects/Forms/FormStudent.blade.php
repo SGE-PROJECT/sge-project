@@ -264,10 +264,6 @@
             <div class="mt-8 flex justify-center text-center space-x-6">
                 <button type="submit" action value="guardar"
                     class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Guardar</button>
-
-                <button type="submit" name="action" value="publicar" id="publishButton"
-                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Publicar</button>
-
             </div>
             <input type="hidden" name="is_project" value="0">
         </form>

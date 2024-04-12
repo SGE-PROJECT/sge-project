@@ -777,8 +777,9 @@
     <br>
 
     <div class="custom-button-container">
-        <button class="custom-button">Volver a inicio</button>
+        <button class="custom-button" onclick="window.history.back()">Volver a inicio</button>
     </div>
+
 
 </body>
 

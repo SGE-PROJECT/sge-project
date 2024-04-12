@@ -1,4 +1,3 @@
-
 @extends('layouts.panel')
 
 
@@ -78,7 +77,22 @@
                 </div>
             @endif
         </div>
-
+        @if (session('success'))
+        <div id="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 ml-6 mr-4 mb-4 rounded relative" role="alert">
+            <strong class="font-bold">Éxito:</strong>
+            <span class="block sm:inline">{{ session('success') }}</span>
+            <button type="button" class="absolute top-0 bottom-0 right-0 px-3 py-3"
+                onclick="this.parentElement.style.display='none';">
+                <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20">
+                    <title>Cerrar</title>
+                    <path
+                        d="M14.354 5.646a.5.5 0 0 0-.708 0L10 9.293 5.354 4.646a.5.5 0 1 0-.708.708L9.293 10l-4.647 4.646a.5.5 0 1 0 .708.708L10 10.707l4.646 4.647a.5.5 0 0 0 .708-.708L10.707 10l4.647-4.646a.5.5 0 0 0 0-.708z" />
+                </svg>
+            </button>
+        </div>
+        @endif
+        <h2 class="text-2xl font-bold mt-8 mb-8 ml-5 uppercase">Empresas Vinculadas</h2>
 
         <!-- Tabla de empresas -->
         <table id="empresaTable" class="project-table ">
@@ -97,7 +111,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($companies as $company)
+                @foreach ($companies->where('is_active', true) as $company)
                     <tr>
                         <td>
                             @if ($company->companiesImage)
@@ -122,7 +136,55 @@
                                         @method('DELETE')
                                         <button type="submit"
                                             onclick="return confirm('¿Estás seguro de que deseas eliminar esta empresa?')"
-                                            class="bg-[#03A696] hover:bg-red-600 text-white py-2 px-4 rounded">Eliminar</button>
+                                            class="bg-[#03A696] hover:bg-red-600 text-white py-2 px-4 rounded">Desactivar</button>
+                                    </form>
+                                </div>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <h2 class="text-2xl font-bold mt-8 mb-8 ml-5 uppercase">Empresas Inactivas</h2>
+        <table id="empresaTable" class="project-table ">
+            <thead>
+                <tr>
+                    <th>Logotipo</th>
+                    <th>Empresa</th>
+                    <th>Descripción</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Correo Electrónico</th>
+                    <th>Fecha de Afiliación</th>
+                    @if (Auth::check() && Auth::user()->hasRole('Super Administrador'))
+                        <th>Acciones</th>
+                    @endif
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($companies->where('is_active', false) as $company)
+                    <tr>
+                        <td>
+                            @if ($company->companiesImage)
+                                <img src="{{ $company->companiesImage->image_path }}" alt="Logotipo"
+                                    class="h-16 w-16 inline-block mr-2 rounded-full">
+                            @else
+                            @endif
+                        </td>
+                        <td>{{ $company->company_name }}</td>
+                        <td>{{ $company->description }}</td>
+                        <td>{{ $company->address }}</td>
+                        <td>{{ $company->contact_phone }}</td>
+                        <td>{{ $company->contact_email }}</td>
+                        <td>{{ $company->affiliation_date }}</td>
+                        <td>
+                            @if (Auth::check() && Auth::user()->hasRole('Super Administrador'))
+                                <div class="inline-flex">
+                                    <form action="{{ route('empresas.activate', $company->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit"
+                                            class="bg-[#03A696] hover:bg-blue-600 text-white py-2 px-4 rounded mr-2 mb-2">Activar</button>
                                     </form>
                                 </div>
                             @endif
