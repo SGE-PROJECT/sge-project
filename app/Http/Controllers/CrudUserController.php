@@ -322,7 +322,7 @@ class CrudUserController extends Controller
 
     //Mapear usuarios en la vista DashboardUsers
     public function dashboardUsers()
-    {
+{
     $users = User::with([
         'student.group.program.division',
         'secretary.division',
@@ -350,7 +350,16 @@ class CrudUserController extends Controller
         $user->division_name = $division ? $division->name : 'Sin División';
     });
 
-    return view('administrator.dashboard.DashboardUsers', compact('users'));
-    }
+    // Contar el total de usuarios por cada rol
+    $superAdminCount = Role::findByName('Super Administrador')->users()->count();
+    $managmentAdminCount = Role::findByName('Administrador de División')->users()->count();
+    $adviserCount = Role::findByName('Asesor Académico')->users()->count();
+    $studentCount = Role::findByName('Estudiante')->users()->count();
+    $presidentCount = Role::findByName('Presidente Académico')->users()->count();
+    $secretaryCount = Role::findByName('Asistente de Dirección')->users()->count();
+
+    return view('administrator.dashboard.DashboardUsers', compact('users', 'superAdminCount', 'managmentAdminCount', 'adviserCount', 'studentCount', 'presidentCount', 'secretaryCount'));
+}
+
 
 }

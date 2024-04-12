@@ -1,0 +1,230 @@
+.card-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.number {
+    font-size: 30px;
+    font-weight: 700;
+    color: #30B5B5;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.label {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+.divisions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background: #F6F5F2;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra debajo de la tabla */
+    padding: 20px;
+    width: 100%;
+    max-width: 750px;
+    height: 200px;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos internos en una columna */
+    align-items: flex-start; /* Centra los elementos en el eje cruzado (horizontalmente) */
+    margin-left: auto; /* Empuja todo el contenedor hacia la derecha, manteniendo el margen izquierdo */
+    margin-right: 32px; /* Espacio a la derecha igual que la tarjeta de carreras */
+    overflow: hidden;
+    width: calc(100% - 64px); /* Ajusta el ancho si es necesario para mantener el espaciado uniforme */
+    margin-left:30px;
+    margin-right: 80px;
+    overflow: hidden; /* Oculta los bordes de los elementos internos que sobresalen */
+    margin-top: 35px;
+    border-radius:20px;
+}
+
+.divisions h2 {
+    font-weight: 700;
+    margin-bottom: 9px;
+    padding-bottom: 8px;
+    color: #333;
+}
+
+.division-item {
+    margin-bottom: 8px;
+}
+
+.division-item:last-child {
+    margin-bottom: 0;
+}
+
+.division-item .dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.add-button {
+    display: block;
+    padding: 10px 20px;
+    background-color: #394C5F;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+table {
+    width: 99%;
+    color: #000000;
+    border-spacing: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra debajo de la tabla */
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #FCF7EE;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #DCDAD4;
+}
+
+td {
+  padding: 15px;
+  font-size: 16px;
+  color: #090909;
+  text-align: center;
+  font-weight: 500;
+}
+
+th {
+    background-color: #293846;
+    font-weight: bold;
+    color: #fff;
+    padding: 8px;
+    text-align: center;
+    height: 60px;
+}
+
+.carta-payment-careers {
+    grid-area: carta-payment;
+    margin: 20px;
+    margin-left: 100px;
+    background: #F6F5F2;
+    border-radius: 10px;
+    padding: 1.2rem;
+    width: 300px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    box-shadow: 2px 2px 5px 5px rgba(0.6, 0.9, 0.5, 0.2);
+  }
+
+  /* Cambio de color y elevación al hacer hover sobre la tarjeta */
+  .carta-payment-careers:hover {
+    transform: translateY(-5px);
+  }
+
+  /* Estilos para el encabezado de la tarjeta */
+  .carta-header-careers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  /* Estilos para los textos dentro de la tarjeta */
+  .ctitulo-careers {
+    color: #000;
+    font-size: 25px;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 6px;
+    transition: color 0.3s ease;
+  }
+
+  .amount-valor-careers {
+    color: #003E61;
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  /* Estilos para el medidor */
+  .gauge-careers {
+    position: relative;
+    width: 200px; /* Ajusta el tamaño de tu medidor aquí */
+    height: 100px; /* La mitad del ancho para una semi-circunferencia */
+    overflow: hidden;
+  }
+
+  .gauge__body-careers {
+    width: 100%;
+    height: 0;
+    padding-bottom: 50%; /* Para que sea un círculo perfecto */
+    background: #eee;
+    position: relative;
+    border-top-left-radius: 200px; /* El doble del ancho de .gauge */
+    border-top-right-radius: 200px; /* El doble del ancho de .gauge */
+    overflow: hidden;
+  }
+
+  .gauge__fill-careers {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 200%; /* El doble del ancho de .gauge */
+    height: 200%; /* El doble del ancho de .gauge */
+    background: #03A6A6; /* Color de relleno */
+    transform-origin: center top;
+    transform: rotate(0.25turn); /* Ajusta este valor para cambiar el llenado */
+    transition: transform 0.2s ease-out;
+  }
+
+  .gauge__cover-careers {
+    width: 75%; /* Tamaño del círculo central */
+    height: 150%; /* Debe ser suficiente para cubrir completamente la parte inferior */
+    background: #F6F5F2; /* Color del centro */
+    border-radius: 50%;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Estilos para centrar el texto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25%; /* Ajuste para centrar el texto */
+    box-sizing: border-box;
+  }
+
+  /* Estilos para el texto */
+  .gauge__cover-careers::after {
+    content: "10";
+    display: block;
+    font-size: 25px; /* Ajusta el tamaño de fuente según sea necesario */
+  }

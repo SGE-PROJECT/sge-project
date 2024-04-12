@@ -31,46 +31,21 @@
                 <div class="flex items-center">
                     <i class='bx bxs-group mt-[-12px] mr-2 text-[#03A696]'></i>
                     <h2 class="mb-2 mr-4 text-gray-500 dark:text-gray-600 font-bold">Integrantes:</h2>
+
+
+                    @foreach($project->students as $student)
                     <div class="group hs-tooltip inline-block">
                         <img class="hs-tooltip-toggle relative inline-block size-[41px] rounded-full ring-2 ring-white hover:z-10 small-img"
-                            src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+                            src={{ $student->user->photo }}
                             alt="Image Description">
                         <span
                             class="opacity-0 invisible group-hover:opacity-100 group-hover:visible hs-tooltip-content absolute z-10 py-1.5 px-2.5 bg-gray-900 text-xs text-white rounded-lg dark:bg-neutral-700 transition-opacity duration-300"
                             role="tooltip">
-                            {{ $project->fullname_student }}
+                            {{ $student->user->name }}
                         </span>
                     </div>
-                    <div class="group hs-tooltip inline-block">
-                        <img class="hs-tooltip-toggle relative inline-block size-[41px] rounded-full ring-2 ring-white hover:z-10 small-img "
-                            src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                            alt="Image Description">
-                        <span
-                            class="opacity-0 invisible group-hover:opacity-100 group-hover:visible hs-tooltip-content absolute z-10 py-1.5 px-2.5 bg-gray-900 text-xs text-white rounded-lg dark:bg-neutral-700 transition-opacity duration-300"
-                            role="tooltip">
-                            María
-                        </span>
-                    </div>
-                    <div class="group hs-tooltip inline-block">
-                        <img class="hs-tooltip-toggle relative inline-block size-[41px] rounded-full ring-2 ring-white hover:z-10 small-img "
-                            src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80"
-                            alt="Image Description">
-                        <span
-                            class="opacity-0 invisible group-hover:opacity-100 group-hover:visible hs-tooltip-content absolute z-10 py-1.5 px-2.5 bg-gray-900 text-xs text-white rounded-lg dark:bg-neutral-700 transition-opacity duration-300"
-                            role="tooltip">
-                            Anna
-                        </span>
-                    </div>
-                    <div class="group hs-tooltip inline-block">
-                        <img class="hs-tooltip-toggle relative inline-block size-[41px] rounded-full ring-2 ring-white hover:z-10 small-img "
-                            src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                            alt="Image Description">
-                        <span
-                            class="opacity-0 invisible group-hover:opacity-100 group-hover:visible hs-tooltip-content absolute z-10 py-1.5 px-2.5 bg-gray-900 text-xs text-white rounded-lg dark:bg-neutral-700 transition-opacity duration-300"
-                            role="tooltip">
-                            Brian
-                        </span>
-                    </div>
+                @endforeach
+
                 </div>
 
                 <div>

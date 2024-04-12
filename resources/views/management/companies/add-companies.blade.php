@@ -1,4 +1,4 @@
-@extends('layouts.panelUsers')
+@extends('layouts.panel')
 @section('titulo', 'Empresas')
 @section('contenido')
 <div class="container">
