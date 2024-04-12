@@ -258,14 +258,44 @@
                 </div>
             </div>
 
-            <div class="mt-8 flex justify-center text-center space-x-6">
-                <button
-                    class=" font-bold bg-teal-500 text-white  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
+            <!-- Sección de comentarios -->
+            <div class="mt-8">
+                <h3 class="text-xl font-semibold mb-4">Comentarios</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Iterar sobre los comentarios -->
+                    @foreach ($project->comments as $comment)
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <!-- Información del autor del comentario -->
+                            <p class="text-sm font-semibold">{{ $comment->academic_advisor->user->name }}</p>
+                            <!-- Contenido del comentario -->
+                            <p class="mt-2">{{ $comment->content_message }}</p>
+                            <!-- Formulario para responder al comentario -->
+                            <form method="POST"
+                                action="{{ route('comentario.responder', ['comment' => $comment->id]) }}">
+                                @csrf
+                                <!-- Campo de texto para la respuesta -->
+                                <div class="mt-2">
+                                    <textarea name="reply_content" rows="2" class="w-full border rounded-md p-2"
+                                        placeholder="Responder al comentario"></textarea>
+                                </div>
+                                <!-- Botón para enviar la respuesta -->
+                                <div class="mt-2">
+                                    <button type="submit"
+                                        class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600">Responder</button>
+                                </div>
+                            </form>
+                        </div>
+                    @endforeach
 
-                <button type="submit" name="action" value="publicar" id="publishButton"
-                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Publicar</button>
 
-            </div>
+                    <div class="mt-8 flex justify-center text-center space-x-6">
+                        <button
+                            class=" font-bold bg-teal-500 text-white  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
+
+                        <button type="submit" name="action" value="publicar" id="publishButton"
+                            class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Publicar</button>
+
+                    </div>
         </form>
     </div>
 

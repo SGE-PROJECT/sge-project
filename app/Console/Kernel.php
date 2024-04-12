@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command("Hola")->everyMinute();
         $schedule->call(function () {
             $today = Carbon::today();
             $sessions = AdvisorySession::whereDate('session_date', $today)->get();

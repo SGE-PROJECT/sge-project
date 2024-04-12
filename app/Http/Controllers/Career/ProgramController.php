@@ -21,7 +21,8 @@ class ProgramController extends Controller
         $programs = Program::with('programImage', 'division')->get();
         $divisions = Division::all();
         $totalCarreras = Program::count();
-        return view('management.careers.Careers', compact('programs', 'divisions','totalCarreras'));
+        $totalDivisiones = Division::count();
+        return view('management.careers.Careers', compact('programs', 'divisions','totalCarreras', 'totalDivisiones'));
     }
 
     /**
@@ -44,21 +45,21 @@ class ProgramController extends Controller
                 'division_id' => 'required|exists:divisions,id',
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-    
+
             $program = Program::create($request->all());
-    
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->move(public_path('images/program'), $imageName);
-    
+
                 $programImage = new ProgramImage([
                     'program_id' => $program->id,
                     'image_path' => 'images/program/' . $imageName,
                 ]);
                 $programImage->save();
             }
-    
+
             return redirect()->route('carreras.index')->with('success', 'Carrera creada exitosamente.');
     }
 
@@ -81,7 +82,7 @@ class ProgramController extends Controller
         return view('management.careers.edit-career', compact('program', 'divisions')); // Asegúrate de que la vista se llama edit-program.blade.php
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      */
