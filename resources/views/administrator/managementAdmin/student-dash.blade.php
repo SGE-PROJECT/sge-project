@@ -3,14 +3,13 @@
 @section('titulo', 'Estudiantes')
 @section('contenido')
 
-    <h1 class="text-3xl font-bold text-center mt-5">Estudiantes</h1>
+    <h1 class="text-3xl font-bold text-center mt-5">Estudiantes de la división</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
-
-        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            @include('administrator.graphs.graph-anteprojects', ['isActive' => Route::is('Dashboard-Anteproyectos')])
-            @include('administrator.graphs.graph-projects', ['isActive' => Route::is('Dashboard-Proyectos')])
-            @include('administrator.graphs.graph-users', ['isActive' => Route::is('Dashboard-Usuarios')])
-        </div>
+    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
+        @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])
+        
+    </div>
         <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
             <!-- Gráfica de barras a la izquierda -->
             <div class="flex flex-col lg:flex-row items-stretch w-full lg:w-auto">
@@ -22,7 +21,7 @@
             </div>
             <!-- Componente administrator.section-projects a la derecha -->
             <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
-                @include('administrator.section-projects')
+                @include('administrator.section-students')
             </div>
         </div>
 
@@ -31,7 +30,7 @@
         <!-- BOTÓN QUE DIRIGE AL CRUD -->
         <button type="submit"
             class="relative bg-teal-500 text-white px-4 py-2 ml-8 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
-            onclick="window.location.href = '{{ route('dashboardProjects') }}'">Ir a Agregar</button>
+            onclick="window.location.href = '{{ route('student-dash') }}'">Ir a Agregar</button>
         <!-- SE AGREGA EL FILTRO -->
         <div x-data="{ isActive: false }" class="relative">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
@@ -211,27 +210,36 @@
     <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
+    <script type="text/javascript">
+        var programsData = @json($programsData);
+    </script>
     <script>
         $(document).ready(function() {
             var ctx = document.getElementById('barChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Aprobados', 'En curso', 'Reprobados', 'Finalizados'],
+                    labels: programsData.map(function(program) {
+                        return program.program_name.slice(0, 15);
+                    }),
                     datasets: [{
-                        label: 'Estado del proyecto',
-                        data: [
-                          
-                        ],
+                        label: 'Número de estudiantes',
+                        data: programsData.map(function(program) {
+                            return program.student_count;
+                        }),
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)'
+                            'rgba(239, 68, 68, 0.2)', // bg-red-500
+                            'rgba(59, 130, 246, 0.2)', // bg-blue-500
+                            'rgba(16, 185, 129, 0.2)', // bg-green-500
+                            'rgba(234, 179, 8, 0.2)', // bg-yellow-500
+                            'rgba(139, 92, 246, 0.2)'  // bg-purple-500
                         ],
                         borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)'
+                            'rgba(239, 68, 68, 1)', // bg-red-500
+                            'rgba(59, 130, 246, 1)', // bg-blue-500
+                            'rgba(16, 185, 129, 1)', // bg-green-500
+                            'rgba(234, 179, 8, 1)', // bg-yellow-500
+                            'rgba(139, 92, 246, 1)'  // bg-purple-500
                         ],
                         borderWidth: 1
                     }]
@@ -246,6 +254,8 @@
             });
         });
     </script>
+    
+    
     <!-- SCRIPT DE LA DATA TABLE -->
     <script>
         $(document).ready(function() {

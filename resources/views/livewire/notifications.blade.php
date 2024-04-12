@@ -7,7 +7,7 @@
                 <h1 class=" uppercase font-semibold text-2xl text-[#293846] ">Notificaciones</h1>
                 <ul class=" flex gap-8 my-4">
                     <button wire:click="selectTab('today')" class="{{ $selectedTab === 'today' ? ' border-b-2   text-xl shadow-sm  hover:bg-gray-100 hover:text-teal-500 text-slate-600 border-teal-500/90 bg-white/80        rounded   px-2 py-1' : 'hover:shadow-sm border-b-2 border-slate-500 rounded text-xl  bg-slate-400 text-white/85 px-2 py-1 hover:bg-slate-400/80 hover:text-white/85 hover:border-slate-500' }}">Hoy</button>
-                    <button wire:click="selectTab('all')" class="{{ $selectedTab === 'all' ? ' border-b-2   text-xl  hover:bg-white/85 hover:text-slate-700 text-slate-600 border-teal-500/90 bg-white/70  rounded   px-2 py-1 hover:shadow-sm shadow-sm' : 'hover:shadow-sm border-b-2 border-slate-500 rounded text-xl  bg-slate-400 text-white/85 px-2 py-1 hover:bg-slate-400/80 hover:text-white/85 hover:border-slate-500' }}">Todos</button>
+                    <button wire:click="selectTab('all')" class="{{ $selectedTab === 'all' ? ' border-b-2   text-xl  hover:bg-white/85 hover:text-slate-700 text-slate-600 border-teal-500/90 bg-white/70  rounded   px-2 py-1 hover:shadow-sm shadow-sm' : 'hover:shadow-sm border-b-2 border-slate-500 rounded text-xl  bg-slate-400 text-white/85 px-2 py-1 hover:bg-slate-400/80 hover:text-white/85 hover:border-slate-500' }}">Todas</button>
                     <button type="button" wire:click="markAsReadAll()"   wire:confirm="¿Esta seguro que quieres marcar todas tus notificaciones como leídas?" class=" rounded p-1 text-base text-neutral-50 bg-teal-500 hover:border-gray-300 hover:bg-teal-600 border-[1px] border-gray-100 shadow-sm flex gap-1 justify-center items-center flex-wrap "
                   
                     >     
@@ -41,16 +41,17 @@
                         </svg>
                       </button>
                       <div class=" p-10">
-                      <h3 class="mb-4">¡Envia un mensaje a toda la comunidad estudiantil!</h3>
+                      <h3 class="mb-4 text-xl">¡Envia un mensaje a toda la comunidad estudiantil!</h3>
                       <form    action="{{ route('studentsForDivision') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                      <div>
-                        <label class=" mb-2" for="data">Mensaje:</label>
-                        <textarea name="data" id="" cols="30" rows="10" maxlength="100"></textarea>
+                      <div class=" mb-3">
+                        <label class=" " for="data">Mensaje:</label>
+                        <textarea class=" m-0 p-0 focus:outline-none focus:ring focus:ring-blue-300 border-blue-300 border-[2px] max-h-[200px] min-h-[200px]" name="data" id="contador-text-not" onkeyup="contarLetras()" cols="30" rows="20" maxlength="200"></textarea>
+                        <span class=" flex">Caracteres:&ensp;<div class="resultado-text-not"></div>/200</span>
                       </div>
                       
                       <footer class=" flex justify-between">
-                      <button class=" bg-teal-500 text-white p-1 rounded hover:bg-teal-600" id="btn-send-advise">Cerrar</button>
+                      <button type="button"  class=" bg-teal-500 text-white p-1 rounded hover:bg-teal-600"    onclick="closeDialog()" >Cerrar</button>
                     
                       <button type="submit" class="flex-wrap rounded p-1 text-base text-neutral-50 bg-teal-500 hover:border-gray-300 hover:bg-teal-600 border-[1px] border-gray-100 shadow-sm flex gap-1 justify-center items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -85,9 +86,19 @@
 
                 <li wire:key="{{ $notification->id }}" class=" flex  items-center  rounded bg-white p-4 shadow-sm   duration-[330ms] ">
                     <div class=" flex justify-center ml-2 border-teal-300 border-[1px] rounded-full p-1 bg-teal-100/40">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-                          </svg>
+                      @if ($notification->type === 'App\Notifications\DivisionAdministratorNotification')
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 10.5h.375c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125H21M3.75 18h15A2.25 2.25 0 0 0 21 15.75v-6a2.25 2.25 0 0 0-2.25-2.25h-15A2.25 2.25 0 0 0 1.5 9.75v6A2.25 2.25 0 0 0 3.75 18Z" />
+                      </svg>
+                       
+                      @elseif ($notification->type ===  'App\\Notifications\\ProjectNotificatio')
+                      <!-- SVG para ProjectNotification -->
+                      @else
+                      <!-- SVG por defecto -->
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                        </svg>
+                      @endif
                           
                           
                     </div>
@@ -99,7 +110,7 @@
                         </div> 
                        
                             <div >
-                                <h1 class=" text-indigo-700 font-medium   decoration-slate-50 capitalize">
+                                <h1 class=" text-blue-700 font-medium   decoration-slate-50 capitalize">
     
                                     {{$notification->created_at->diffForHumans()}}
                                 </h1>
@@ -159,11 +170,21 @@
             <ul class="flex flex-col gap-4" id="notifications">
                 @forelse ($notificationsToday as $notification )
 
-                <li wire:key="{{ $notification->id }}" class=" flex  items-center  rounded bg-white p-4 shadow-sm   duration-[330ms] ">
+                <li wire:key="{{ $notification->id }}" class=" flex  items-center  rounded bg-white p-4 shadow-sm    duration-[330ms] ">
                     <div class=" flex justify-center ml-2 border-teal-300 border-[1px] rounded-full p-1 bg-teal-100/40">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-5 h-5 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-                          </svg>
+                      @if ($notification->type === 'App\Notifications\DivisionAdministratorNotification')
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46" />
+                      </svg>
+                      
+                      @elseif ($notification->type ===  'App\\Notifications\\ProjectNotificatio')
+                      <!-- SVG para ProjectNotification -->
+                      @else
+                      <!-- SVG por defecto -->
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                        </svg>
+                      @endif
                           
                           
                     </div>
@@ -210,11 +231,10 @@
                 @empty
                 <li class=" flex  items-center  rounded bg-white p-4 shadow-sm  duration-[330ms] ">
                     <div class=" flex justify-center ml-2 border-teal-300 border-[1px] rounded-full p-1 bg-teal-100/40">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
-                          </svg>
-                          
-                          
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-6 h-6 text-teal-400 hover:scale-[1.005] duration-[350ms]  hover:-translate-y-[1px] ">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
+                        </svg>
+                            
                     </div>
                       <div class="  flex flex-1 justify-between mx-3 gap-2 pr-2 pl-1">  
                         <div class=" flex flex-col text-pretty cursor-pointer ">
@@ -281,6 +301,17 @@ showButton.addEventListener("click", function () {
   const alertDialog = document.querySelector("#alert-dialog");
   alertDialog.showModal();
 });
+
+/*  const closeButton = document.querySelector("#btn-close-advise");
+closeButton.addEventListener("click", ()=>{
+  closeDialog();
+
+}); */ 
           })
+
+          function closeDialog() {
+  const alertDialog = document.querySelector("#alert-dialog");
+  alertDialog.close();
+}
         </script>
         </section>

@@ -1,7 +1,7 @@
 @extends('layouts.panelUsers')
 
 @section('titulo')
-    Estudiantes
+    Estudiante
 @endsection
 
 @section('js')
@@ -26,16 +26,24 @@
                     <!-- Tarjeta 1 -->
                     <div class="bg-white shadow-md rounded-lg overflow-hidden">
                         <div class="bg-gradient-to-r from-[#00ab84] to-[#00e7b1]  py-2 px-4">
+                            @if($existProject)
                             <h2 class="text-xl font-semibold text-white mb-2">
                                 @if (!$Project->is_project)
                                     Mi anteproyecto
                                 @else
                                     Mi proyecto
                                 @endif
+
                             </h2>
+                            @else
+                            <h2 class="text-xl font-semibold text-white mb-2">
+                                Sin anteproyecto
+                            </h2>
+                            @endif
+
                         </div>
                         <div class="p-4">
-
+                            @if($existProject)
                             <div class="w-full max-w-sm bg-white">
 
                                 <div class="flex flex-col items-center pb-10">
@@ -79,34 +87,21 @@
                                     <h2 class="mb-2 mr-4 text-gray-500 dark:text-gray-600 font-bold">Integrantes</h2>
                                     <div class="flex items-center">
 
+                                        @foreach ($getAllMembersForProject as $student)
                                         <div class="group hs-tooltip inline-block">
                                             <img class="hs-tooltip-toggle relative inline-block size-[41px] rounded-full ring-2 ring-white hover:z-10 small-img"
-                                                src={{ Auth()->user()->photo }} alt="Image Description">
+                                                src={{ $student->user->photo }} alt="Image Description">
                                             <span
                                                 class="opacity-0 invisible group-hover:opacity-100 group-hover:visible hs-tooltip-content absolute z-10 py-1.5 px-2.5 bg-gray-900 text-xs text-white rounded-lg dark:bg-neutral-700 transition-opacity duration-300"
                                                 role="tooltip">
-                                                {{ Auth()->user()->name }}
-                                            </span>
-                                        </div>
-                                        <div class="group hs-tooltip inline-block">
-                                            <img class="hs-tooltip-toggle relative inline-block size-[41px] rounded-full ring-2 ring-white hover:z-10 small-img "
-                                                src="fotos/gabo.jpg" alt="Image Description">
-                                            <span
-                                                class="opacity-0 invisible group-hover:opacity-100 group-hover:visible hs-tooltip-content absolute z-10 py-1.5 px-2.5 bg-gray-900 text-xs text-white rounded-lg dark:bg-neutral-700 transition-opacity duration-300"
-                                                role="tooltip">
-                                                Gabriel
+                                                {{ $student->user->name }}
                                             </span>
                                         </div>
 
-                                        <div class="group hs-tooltip inline-block">
-                                            <img class="hs-tooltip-toggle relative inline-block size-[41px] rounded-full ring-2 ring-white hover:z-10 small-img "
-                                                src="fotos/alonso.jpg" alt="Image Description">
-                                            <span
-                                                class="opacity-0 invisible group-hover:opacity-100 group-hover:visible hs-tooltip-content absolute z-10 py-1.5 px-2.5 bg-gray-900 text-xs text-white rounded-lg dark:bg-neutral-700 transition-opacity duration-300"
-                                                role="tooltip">
-                                                Alonso
-                                            </span>
-                                        </div>
+
+                                        @endforeach
+
+
                                     </div>
 
                                     <div class="flex flex-wrap mt-3 mb-[-10px]">
@@ -133,7 +128,7 @@
                                     <div class="flex mt-4 md:mt-6">
 
 
-                                        <a href="#"
+                                        <a href={{ route('viewMyProject') }}
                                             class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver
                                             más información</a>
                                     </div>
@@ -141,11 +136,26 @@
 
                             </div>
 
-                            <span
+                             <span
                                 class="inline-flex items-center {{ $bgColor }}-100 {{ $textColor }}-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
                                 <span class="w-2 h-2 me-1 {{ $bgColor }}-500 rounded-full"></span>
                                 {{ $status }}
                             </span>
+
+                            @else
+                            <div class="flex flex-col items-center mt-16">
+
+                                <i class="text-[100px] bx bx-sad text-[#00ab84]"></i>
+
+                                <div class="flex mt-4 md:mt-6">
+
+
+                                    <a href={{ route('projectform') }}
+                                        class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Crear anteproyecto</a>
+                                </div>
+                            </div>
+
+                            @endif
 
 
 
@@ -165,12 +175,16 @@
                                 <div class="flex flex-col items-center pb-10">
                                     <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
                                         src={{ $AcademicAdvisor->User->photo }} alt="Bonnie image" />
-                                    <h5 class="mb-1 text-xl font-semibold text-[#00ab84]">
-                                        {{ $AcademicAdvisor->User->name }}</h5>
+                                        <a href="{{ route('profile.adviser', ['id' => $AcademicAdvisor->user->id]) }}">
+                                            <h5 class="mb-1 text-xl font-semibold text-[#00ab84]">
+                                                {{ $AcademicAdvisor->user->name }}
+                                            </h5>
+                                        </a>
+
                                     <span class="text-lg text-gray-500">{{ $AcademicAdvisor->User->email }}</span>
                                     <div class="flex mt-4 md:mt-6">
 
-                                        <a href="#"
+                                        <a href="{{ route('profile.adviser', ['id' => $AcademicAdvisor->user->slug]) }}"
                                             class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver
                                             perfil</a>
                                     </div>

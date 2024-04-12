@@ -49,7 +49,13 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'Foto de perfil actualizada exitosamente.');
     }
     
-     
+
+    public function showUserProfile($userId) {
+    // Recuperar el usuario seleccionado desde la base de datos
+    $user = User::findOrFail($userId);
+    // Pasar los datos del usuario a la vista
+    return view('user.profile', ['user' => $user]);
+}
     public function create()
     {
         //

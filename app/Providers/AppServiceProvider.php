@@ -2,11 +2,16 @@
 
 namespace App\Providers;
 
+use App\Models\AcademicAdvisor;
+use App\Models\management\Program;
+use App\Models\ManagmentAdmin;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Spatie\Permission\Models\Role;
 use App\Models\Project;
+use App\Models\Student;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -99,5 +104,88 @@ class AppServiceProvider extends ServiceProvider
                 'secretaryPercentage'
             ));
         });
+
+        View::composer(['administrator.graphs.graph-students-dash', 'administrator.section-students', 'administrator.managementAdmin.student-dash'], function ($view) {
+            // Obtener el usuario autenticado
+            $user = Auth::user();
+        
+            // Inicializar variables para almacenar la información de los programas y el conteo total de estudiantes
+            $programsData = [];
+            $totalStudentsInDivision = 0;
+        
+            if ($user && $user->hasRole('Administrador de División')) {
+                // Obtener el ID de la división del administrador de división
+                $divisionId = ManagmentAdmin::where('user_id', $user->id)->select('division_id')->first();
+        
+                $programs = Program::where('division_id', $divisionId->division_id)
+                ->with(['groups' => function ($query) {
+                    $query->withCount('students');
+                }])
+                ->get()
+                ->map(function ($program) {
+                    // Suma el conteo de estudiantes de todos los grupos asociados a cada programa
+                    $program->students_count = $program->groups->sum('students_count');
+                    return $program;
+                });
+
+        
+                foreach ($programs as $program) {
+                    // El conteo de estudiantes ya se obtuvo mediante 'withCount'
+                    $studentCount = $program->students_count;
+        
+                    // Sumar al total de estudiantes en la división
+                    $totalStudentsInDivision += $studentCount;
+        
+                    // Añadir la información del programa y el conteo de estudiantes al array
+                    $programsData[] = [
+                        'program_name' => $program->name,
+                        'student_count' => $studentCount,
+                        // El porcentaje se inicializa en 0 y se calculará después de conocer el total de estudiantes
+                        'percentage' => 0
+                    ];
+                }
+        
+                // Calcular y asignar el porcentaje de estudiantes por programa respecto al total de la división
+                foreach ($programsData as $key => $programData) {
+                    if ($totalStudentsInDivision > 0) {
+                        $programsData[$key]['percentage'] = number_format(($programData['student_count'] / $totalStudentsInDivision) * 100, 2);
+                    }
+                }
+            }
+        
+            // Pasar la información de los programas, el total de estudiantes y los porcentajes a la vista
+            $view->with('programsData', $programsData)->with('totalStudentsInDivision', $totalStudentsInDivision);
+        });
+
+        //Asesores
+      View::composer(['administrator.graphs.graph-advisor', 'administrator.managementAdmin.advisor-dash'], function ($view) {
+    // Obtener el usuario autenticado
+    $user = Auth::user();
+
+    // Inicializar datos de asesores
+    $advisorData = [
+        'totalAdvisorsInDivision' => 0,
+        'divisionName' => null,
+    ];
+
+    if ($user && $user->hasRole('Administrador de División')) {
+        // Obtener la información de la división del administrador de división
+        $division = ManagmentAdmin::where('user_id', $user->id)
+                      ->with('division') // Asegúrese de tener una relación 'division' en el modelo ManagmentAdmin
+                      ->first();
+
+        if ($division && $division->division) {
+            // Obtener el total de asesores académicos para la división
+            $advisorData['totalAdvisorsInDivision'] = AcademicAdvisor::where('division_id', $division->division_id)->count();
+            // Asignar el nombre de la división
+            $advisorData['divisionName'] = $division->division->name;
+        }
+    }
+
+    // Pasar los datos de asesores a la vista
+    $view->with('advisorData', $advisorData);
+});
+        
+        
     }
 }
