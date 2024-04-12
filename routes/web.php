@@ -6,7 +6,6 @@ use App\Http\Controllers\auth\ForgotPasswordController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
 
-//use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\auth\PostController;
 use App\Http\Controllers\MasiveAddController;
