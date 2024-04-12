@@ -26,6 +26,7 @@ use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AcademicAdvisorController;
+use App\Http\Controllers\advisorDash\AdvisorDashController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
 
@@ -160,6 +161,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
     Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
     Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
+
+    Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
+
 });
 
 
@@ -200,4 +204,5 @@ Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.a
 
 Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
     Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
+    Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->name('academic-advisor');
 });
