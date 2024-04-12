@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\AcademicAdvisor;
 use App\Models\management\Program;
 use App\Models\ManagmentAdmin;
 use Illuminate\Support\ServiceProvider;
@@ -165,6 +166,35 @@ class AppServiceProvider extends ServiceProvider
             // Pasar la información de los programas, el total de estudiantes y los porcentajes a la vista
             $view->with('programsData', $programsData)->with('totalStudentsInDivision', $totalStudentsInDivision);
         });
+
+        //Asesores
+      View::composer(['administrator.graphs.graph-advisor', 'administrator.managementAdmin.advisor-dash'], function ($view) {
+    // Obtener el usuario autenticado
+    $user = Auth::user();
+
+    // Inicializar datos de asesores
+    $advisorData = [
+        'totalAdvisorsInDivision' => 0,
+        'divisionName' => null,
+    ];
+
+    if ($user && $user->hasRole('Administrador de División')) {
+        // Obtener la información de la división del administrador de división
+        $division = ManagmentAdmin::where('user_id', $user->id)
+                      ->with('division') // Asegúrese de tener una relación 'division' en el modelo ManagmentAdmin
+                      ->first();
+
+        if ($division && $division->division) {
+            // Obtener el total de asesores académicos para la división
+            $advisorData['totalAdvisorsInDivision'] = AcademicAdvisor::where('division_id', $division->division_id)->count();
+            // Asignar el nombre de la división
+            $advisorData['divisionName'] = $division->division->name;
+        }
+    }
+
+    // Pasar los datos de asesores a la vista
+    $view->with('advisorData', $advisorData);
+});
         
         
     }

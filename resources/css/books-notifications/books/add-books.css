@@ -22,8 +22,12 @@
 .container-title-books {
     display: flex;
     justify-content: space-between;
-    background-color: #2F4050;
-    color: rgb(229 231 235 / var(--tw-bg-opacity));
+    /*background-color: #2F4050;*/
+    background-color: #F3F4F6;
+
+    --tw-text-opacity: 1;
+    color: rgb(13 148 136 / var(--tw-text-opacity));
+    /*color: rgb(229 231 235 / var(--tw-bg-opacity));*/
     /*border-top-left-radius: 20px;
     border-top-right-radius: 20px;*/
     border-top-left-radius: 0.75rem;
@@ -53,8 +57,10 @@
 .inputs-add-books {
     border-style: solid;
     border-width: 2px;
-    border-color: #03A6A6;
-    border-radius: 5px;
+    /*border-color: #03A6A6;*/
+    /*border-radius: 5px;*/
+    border-color: #F3F4F6;
+    border-radius: 0.375rem;
     padding: 10px;
     max-width: 400px;
     width: 100%;
@@ -62,19 +68,19 @@
     transition: transform 0.3s ease;
 }
 
-.inputs-add-books:hover,
+/* .inputs-add-books:hover,
 .inputs-add-books:focus {
     outline: none;
-    /*transform: scale(1.05);*/
     transform: translateX(5px);
-}
+} */
 
 input[type='date'] {
     color: lightslategrey
 }
 
 .inputs-add-books::placeholder {
-    color: #03A6A6;
+    /*color: #03A6A6;*/
+    color: lightslategrey;
 }
 
 .container-inputs {

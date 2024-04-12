@@ -1,16 +1,19 @@
 <!-- SECCION PROYECTOS -->
 @extends('layouts.panel')
-@section('titulo', 'Estudiantes')
+@section('titulo', 'Asesores Académicos')
 @section('contenido')
 
-    <h1 class="text-3xl font-bold text-center mt-5">Estudiantes de la división</h1>
+    <h1 class="text-3xl font-bold text-center mt-5">Asesores Académicos de la división</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
-    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
-        @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])
 
+        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
+            @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])  
+        </div>
+     
+       
     </div>
-        <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
+      {{--   <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
             <!-- Gráfica de barras a la izquierda -->
             <div class="flex flex-col lg:flex-row items-stretch w-full lg:w-auto">
                 <div id="barChartContainer"
@@ -23,7 +26,7 @@
             <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
                 @include('administrator.section-students')
             </div>
-        </div>
+        </div> --}}
 
     <!-- SECCIÓN QUE CONTIENE LOS BOTONES -->
     <div class="flex items-end align-middle">
@@ -166,32 +169,27 @@
             <table id="tabla-proyectos" style="width:100%">
                     <thead>
                         <tr>
-                            <th >Matricula</th>
+                            <th >Nomina</th>
                             <th >Nombre</th>
                             <th >Email</th>
-                            <th >Grupo</th>
-                            <th >Asesor Académico</th>
-                            <th >Carrera</th>
+                            <th >Telefono</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($students as $student)
-
+                        @foreach ($advisors as $advisor)
+                            
                                 <tr>
-                                    <td class="px-6 py-4">{{ $student->student_matricula }}</td>
-                                    <td class="px-6 py-4">{{ $student->student_name }}</td>
-                                    <td class="px-6 py-4">{{ $student->student_email }}</td>
-                                    <td class="px-6 py-4">{{ $student->group_name }}</td>
-                                    <td class="px-6 py-4">{{ $student->advisor_name }}</td>
-                                    <td class="px-6 py-4">{{ $student->program_name }}</td>
-
+                                    <td class="px-6 py-4">{{ $advisor->advisor_nomina }}</td>
+                                    <td class="px-6 py-4">{{ $advisor->advisor_name }}</td>
+                                    <td class="px-6 py-4">{{ $advisor->advisor_email }}</td>
+                                    <td class="px-6 py-4">{{ $advisor->advisor_phone}}</td>                                    
                                 </tr>
-
+                          
                         @endforeach
                     </tbody>
                 </table>
             <div class="mt-1">
-                {{$students->links()}}
+                {{$advisors->links()}}
             </div>
         </div>
     </div>
@@ -210,52 +208,7 @@
     <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
-    <script type="text/javascript">
-        var programsData = @json($programsData);
-    </script>
-    <script>
-        $(document).ready(function() {
-            var ctx = document.getElementById('barChart').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: programsData.map(function(program) {
-                        return program.program_name.slice(0, 15);
-                    }),
-                    datasets: [{
-                        label: 'Número de estudiantes',
-                        data: programsData.map(function(program) {
-                            return program.student_count;
-                        }),
-                        backgroundColor: [
-                            'rgba(239, 68, 68, 0.2)', // bg-red-500
-                            'rgba(59, 130, 246, 0.2)', // bg-blue-500
-                            'rgba(16, 185, 129, 0.2)', // bg-green-500
-                            'rgba(234, 179, 8, 0.2)', // bg-yellow-500
-                            'rgba(139, 92, 246, 0.2)'  // bg-purple-500
-                        ],
-                        borderColor: [
-                            'rgba(239, 68, 68, 1)', // bg-red-500
-                            'rgba(59, 130, 246, 1)', // bg-blue-500
-                            'rgba(16, 185, 129, 1)', // bg-green-500
-                            'rgba(234, 179, 8, 1)', // bg-yellow-500
-                            'rgba(139, 92, 246, 1)'  // bg-purple-500
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-
-
+    
     <!-- SCRIPT DE LA DATA TABLE -->
     <script>
         $(document).ready(function() {
