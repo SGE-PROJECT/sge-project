@@ -69,10 +69,6 @@ class RoleSeeder extends Seeder
                 'roles' => ['Administrador de División', 'Asesor Académico'],
                 'description' => 'Remover empresas'
             ],
-            'empresas.activate' => [
-                'roles' => ['Super Administrador','Administrador de División'],
-                'description' => 'Remover empresas'
-            ],
             //divisiones
             'divisiones.index' => [
                 'roles' => ['Administrador de División', 'Super Administrador', 'Presidente Académico', 'Asesor Académico'],
@@ -92,19 +88,19 @@ class RoleSeeder extends Seeder
             ],
             //carreras
             'carreras.index' => [
-                'roles' => ['Administrador de División', 'Super Administrador', 'Presidente Académico', 'Asesor Académico'],
+                'roles' => ['Super Administrador'], // Solo Super Administrador
                 'description' => 'Consultar las carreras'
             ],
             'carreras.create' => [
-                'roles' => ['Administrador de División', 'Super Administrador'],
+                'roles' => ['Super Administrador'], // Solo Super Administrador
                 'description' => 'Agregar nuevas carreras'
             ],
             'carreras.edit' => [
-                'roles' => ['Administrador de División', 'Super Administrador'],
+                'roles' => ['Super Administrador'], // Solo Super Administrador
                 'description' => 'Modificación de carreras'
             ],
             'carreras.destroy' => [
-                'roles' => ['Administrador de División', 'Super Administrador'],
+                'roles' => ['Super Administrador'], // Solo Super Administrador
                 'description' => 'Remover carreras'
             ],
 
