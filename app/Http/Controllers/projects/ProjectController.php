@@ -12,9 +12,9 @@ use App\Models\BusinessAdvisor;
 use App\Models\Project;
 use App\Models\Project_students;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 use App\Models\Scores;
 use App\Models\Student;
+
 
 class ProjectController extends Controller
 {
@@ -70,6 +70,7 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
+    // Vista para contenido de antreproyectos relacionado a las vistas de Listado de Anteproyecto
     public function viewanteproject()
     {
         $Projects = Project::where('is_project', false)->paginate(3);
@@ -169,14 +170,9 @@ class ProjectController extends Controller
         $proyecto->activities = $request->activities;
 
 
-        // Verificar qué botón se presionó
-        if ($request->action == 'publicar') {
-            $proyecto->status = 'En revision'; // Estado "Publicado"
-            $proyecto->is_project = 1; // Marcar como proyecto
-        } else {
-            $proyecto->status = 'Registrado'; // Estado "Registrado" por defecto
-            $proyecto->is_project = 0; // No marcar como proyecto
-        }
+        // Estados asignados prod efecto al guardar una cédula nueva.
+        $proyecto->status = 'Registrado'; // Estado "Registrado" por defecto
+        $proyecto->is_project = 0; // No marcar como proyecto
 
         $proyecto->save();
 
@@ -194,6 +190,8 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
+
+    //En esta función se el asesor es donde puede asignar likes, comentarios y calificar
     public function show(Project $project)
     {
         // Obtener el usuario autenticado
@@ -275,9 +273,9 @@ class ProjectController extends Controller
 
             // Redireccionar según el tipo de usuario
         if (Auth::user()->roles->contains('name', 'Estudiante')) {
-            return redirect()->route('projectinvitation')->withInput()->with('success', 'Proyecto actualizado correctamente.');
+            return redirect()->route('home')->withInput()->with('success', 'Proyecto actualizado correctamente.');
         } else if (Auth::user()->roles->contains('name', 'Asesor Académico')) {
-            return redirect()->route('dashboardProjects')->withInput()->with('success', 'Proyecto actualizado correctamente.');
+            return redirect()->route('home')->withInput()->with('success', 'Proyecto actualizado correctamente.');
         }
 
         // En caso de que el usuario no tenga ningún rol válido, se puede redirigir a una página de error o a una página por defecto
@@ -345,5 +343,4 @@ class ProjectController extends Controller
 
         return redirect()->back()->with('success', 'Calificación asignada exitosamente al proyecto.');
     }
-
 }

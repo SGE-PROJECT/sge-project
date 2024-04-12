@@ -20,5 +20,8 @@ class Project_likes extends Model
         return $this->belongsTo(AcademicAdvisor::class, 'academic_advisor_id');
     }
 
-
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id');
+    }
 }
