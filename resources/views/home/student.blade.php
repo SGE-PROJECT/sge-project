@@ -21,7 +21,7 @@
     @endphp
     <main>
         @if ($advisor)
-            <div class="container mx-auto px-4 mt-20">
+            <div class="container mx-auto px-4 mt-10">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <!-- Tarjeta 1 -->
                     <div class="bg-white shadow-md rounded-lg overflow-hidden">
