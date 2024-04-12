@@ -20,8 +20,15 @@
 
     @endphp
     <main>
+
         @if ($advisor)
+
             <div class="container mx-auto px-4 mt-10">
+                <div class="relative w-full ">
+                    <p class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-600 font-bold text-3xl uppercase">
+                        Bienvenido {{ Auth()->user()->name }}
+                    </p>
+                </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <!-- Tarjeta 1 -->
                     <div class="bg-white shadow-md rounded-lg overflow-hidden">
@@ -135,11 +142,10 @@
                                 </div>
 
                                 <div class=" w-full "><span
-                                    class="inline-flex items-center {{ $bgColor }}-100 {{ $textColor }}-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                                    <span class="w-2 h-2 me-1 {{ $bgColor }}-500 rounded-full"></span>
-                                    {{ $status }}
-                                </span></div>
-
+                                        class="inline-flex items-center {{ $bgColor }}-100 {{ $textColor }}-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                        <span class="w-2 h-2 me-1 {{ $bgColor }}-500 rounded-full"></span>
+                                        {{ $status }}
+                                    </span></div>
                             @else
                                 <div class="flex flex-col items-center mt-16">
 
@@ -292,9 +298,44 @@
                             motivo: cita.motivo
                         };
                     });
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Red', 'Blue', 'Yellow'], // Etiquetas de las categorías
+                            datasets: [{
+                                label: 'My First Dataset',
+                                data: [300, 50, 100], // Los datos para cada categoría
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)'
+                                ],
+                                borderWidth: 2 // Ancho del borde de la gráfica
+                            }]
+                        },
+                        options: {
+                            cutout: '90%', // Aumenta el valor para hacer el anillo más delgado
+                            plugins: {
+                                legend: {
+                                    display: false // Oculta la leyenda
+                                },
+                                tooltip: {
+                                    enabled: false // Desactiva las tooltips al pasar el mouse
+                                }
+                            },
+                            maintainAspectRatio: false // Añade esto si necesitas que el gráfico no mantenga el aspecto cuando cambies el tamaño de la ventana
+                        }
+                    });
                 </script>
                 <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 my-4">
-                    <a href={{ route('asesoriasStudent', [Auth()->user()->slug]) }} class="block w-full col-span-1 lg:col-span-2">
+                    <a href={{ route('asesoriasStudent', [Auth()->user()->slug]) }}
+                        class="block w-full col-span-1 lg:col-span-2">
                         <header class=" block md:flex">
                             <span class="fechas-asesorias">
                                 <select id="student-month" class="hidden">
@@ -333,47 +374,47 @@
 
                     <div class="bg-white shadow-md rounded-lg overflow-hidden w-full">
                         @php
-                            $color = "bg-teal-50 ";
-                            $colorLetra = "text-[#444]";
-                            $colorFondo = "bg-teal-100";
-                            $colorIcono = "text-teal-400 nf-fa-check_circle";
-                            $color2 = "bg-teal-50 ";
-                            $colorLetra2 = "text-[#444]";
-                            $colorFondo2 = "bg-teal-100";
-                            $colorIcono2 = "text-teal-400 nf-fa-check_circle";
+                            $color = 'bg-lime-100 ';
+                            $colorLetra = 'text-[#444]';
+                            $colorFondo = 'bg-lime-200';
+                            $colorIcono = 'text-lime-500 nf-fa-check_circle';
+                            $color2 = 'bg-lime-100 ';
+                            $colorLetra2 = 'text-[#444]';
+                            $colorFondo2 = 'bg-lime-200';
+                            $colorIcono2 = 'text-lime-500 nf-fa-check_circle';
                             $academic = Auth()->user()->student->sanction_advisor;
                             $company = Auth()->user()->student->sanction_company;
                             if ($academic > 0) {
-                                $color = "bg-yellow-100";
-                                $colorFondo = "bg-yellow-200";
-                                $colorIcono = "text-yellow-500 nf-fa-warning girar";
+                                $color = 'bg-yellow-100';
+                                $colorFondo = 'bg-yellow-200';
+                                $colorIcono = 'text-yellow-500 nf-fa-warning girar';
                             }
                             if ($academic > 1) {
-                                $color = "bg-red-100";
-                                $colorFondo = "bg-red-200";
-                                $colorIcono = "text-red-500 nf-fa-warning girar";
+                                $color = 'bg-red-100';
+                                $colorFondo = 'bg-red-200';
+                                $colorIcono = 'text-red-500 nf-fa-warning girar';
                             }
                             if ($academic > 2) {
-                                $color = "bg-gray-100";
-                                $colorFondo = "bg-gray-200";
-                                $colorIcono = "text-gray-500 nf-fa-skull";
-                                $colorLetra = "text-gray-800" ;
+                                $color = 'bg-gray-100';
+                                $colorFondo = 'bg-gray-200';
+                                $colorIcono = 'text-gray-500 nf-fa-skull';
+                                $colorLetra = 'text-gray-800';
                             }
                             if ($company > 0) {
-                                $color2 = "bg-yellow-100";
-                                $colorFondo2 = "bg-yellow-200";
-                                $colorIcono2 = "text-yellow-500 nf-fa-warning girar";
+                                $color2 = 'bg-yellow-100';
+                                $colorFondo2 = 'bg-yellow-200';
+                                $colorIcono2 = 'text-yellow-500 nf-fa-warning girar';
                             }
                             if ($company > 1) {
-                                $color2 = "bg-red-100";
-                                $colorFondo2 = "bg-red-200";
-                                $colorIcono2 = "text-red-500 nf-fa-warning girar";
+                                $color2 = 'bg-red-100';
+                                $colorFondo2 = 'bg-red-200';
+                                $colorIcono2 = 'text-red-500 nf-fa-warning girar';
                             }
                             if ($company > 2) {
-                                $color2 = "bg-gray-100";
-                                $colorFondo2 = "bg-gray-200";
-                                $colorIcono2 = "text-gray-500 nf-fa-skull";
-                                $colorLetra2 = "text-gray-800";
+                                $color2 = 'bg-gray-100';
+                                $colorFondo2 = 'bg-gray-200';
+                                $colorIcono2 = 'text-gray-500 nf-fa-skull';
+                                $colorLetra2 = 'text-gray-800';
                             }
                         @endphp
                         <div class="bg-gradient-to-r from-[#00ab84] to-[#00e7b1] py-2 px-4">
@@ -382,26 +423,32 @@
                         <div class="p-4">
 
                             <div id="toast-default"
-                                class="flex items-center w-full  p-4 text-gray-500 {{$color}} rounded-lg shadow mb-2"
+                                class="flex items-center w-full  p-4 text-gray-500 {{ $color }} rounded-lg shadow mb-2"
                                 role="alert">
                                 <div
-                                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 {{$colorFondo}} rounded-lg ">
-                                    <i class='nf {{$colorIcono}}' id="asesor"></i>
+                                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 {{ $colorFondo }} rounded-lg ">
+                                    <i class='nf {{ $colorIcono }}' id="asesor"></i>
                                     <span class="sr-only">Fire icon</span>
                                 </div>
-                                <div class="ms-3 text-sm font-normal {{$colorLetra}}">Tienes {{Auth()->user()->student->sanction_advisor}} {{Auth()->user()->student->sanction_advisor == 1 ? "sancion academica.":"sanciones academicas."}}</div>
+                                <div class="ms-3 text-sm font-normal {{ $colorLetra }}">Tienes
+                                    {{ Auth()->user()->student->sanction_advisor }}
+                                    {{ Auth()->user()->student->sanction_advisor == 1 ? 'sancion academica.' : 'sanciones academicas.' }}
+                                </div>
 
                             </div>
 
                             <div id="toast-default"
-                                class="flex items-center w-full mb-2 p-4 text-gray-500 {{$color2}} rounded-lg shadow "
+                                class="flex items-center w-full mb-2 p-4 text-gray-500 {{ $color2 }} rounded-lg shadow "
                                 role="alert">
                                 <div
-                                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 {{$colorFondo2}} rounded-lg ">
-                                    <i class='nf {{$colorIcono2}} ' id="empresa"></i>
+                                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 {{ $colorFondo2 }} rounded-lg ">
+                                    <i class='nf {{ $colorIcono2 }} ' id="empresa"></i>
                                     <span class="sr-only">Icon</span>
                                 </div>
-                                <div class="ms-3 text-sm font-normal {{$colorLetra2}}">Tienes {{Auth()->user()->student->sanction_company}} {{Auth()->user()->student->sanction_company == 1 ? "sancion empresarial.":"sanciones empresariales."}}</div>
+                                <div class="ms-3 text-sm font-normal {{ $colorLetra2 }}">Tienes
+                                    {{ Auth()->user()->student->sanction_company }}
+                                    {{ Auth()->user()->student->sanction_company == 1 ? 'sancion empresarial.' : 'sanciones empresariales.' }}
+                                </div>
                             </div>
 
 
@@ -462,31 +509,31 @@
         @endif
         <script>
             function tareaRepetitiva() {
-            let empresa = document.getElementById("empresa");
-            let asesor = document.getElementById("asesor");
+                let empresa = document.getElementById("empresa");
+                let asesor = document.getElementById("asesor");
 
-            if (empresa.classList.contains('girar') && empresa.classList.contains('text-red-500')) {
-                empresa.classList.contains('nf-fa-warning') ? (() => {
-                    empresa.classList.remove('nf-fa-warning');
-                    empresa.classList.add('nf-cod-warning');
-                })() : (() => {
-                    empresa.classList.remove('nf-cod-warning');
-                    empresa.classList.add('nf-fa-warning');
-                })();
+                if (empresa.classList.contains('girar') && empresa.classList.contains('text-red-500')) {
+                    empresa.classList.contains('nf-fa-warning') ? (() => {
+                        empresa.classList.remove('nf-fa-warning');
+                        empresa.classList.add('nf-oct-alert');
+                    })() : (() => {
+                        empresa.classList.remove('nf-oct-alert');
+                        empresa.classList.add('nf-fa-warning');
+                    })();
+                }
+                if (asesor.classList.contains('girar') && asesor.classList.contains('text-red-500')) {
+                    asesor.classList.contains('nf-fa-warning') ? (() => {
+                        console.log("hola");
+                        asesor.classList.remove('nf-fa-warning');
+                        asesor.classList.add('nf-oct-alert');
+                    })() : (() => {
+                        console.log("hola2");
+                        asesor.classList.remove('nf-oct-alert');
+                        asesor.classList.add('nf-fa-warning');
+                    })();
+                }
             }
-            if (asesor.classList.contains('girar') && asesor.classList.contains('text-red-500')) {
-                asesor.classList.contains('nf-fa-warning') ? (() => {
-                    console.log("hola");
-                    asesor.classList.remove('nf-fa-warning');
-                    asesor.classList.add('nf-cod-warning');
-                })() : (() => {
-                    console.log("hola2");
-                    asesor.classList.remove('nf-cod-warning');
-                    asesor.classList.add('nf-fa-warning');
-                })();
-            }
-        }
-        setInterval(tareaRepetitiva, 500);
+            setInterval(tareaRepetitiva, 500);
         </script>
     </main>
 @endsection

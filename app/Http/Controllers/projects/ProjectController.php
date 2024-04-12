@@ -25,6 +25,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
+
         $Projects = Project::paginate();
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
@@ -84,6 +85,7 @@ class ProjectController extends Controller
 
     public function viewproject()
     {
+
         $Projects = Project::where('is_project', true)->paginate(3);
         $Projects->load('students');
         return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
@@ -200,6 +202,7 @@ class ProjectController extends Controller
     //En esta función se el asesor es donde puede asignar likes, comentarios y calificar
     public function show(Project $project)
     {
+
         // Obtener el usuario autenticado
         $user = Auth::user();
         $getAcademicAdvisorId = AcademicAdvisor::where('user_id', $user->id)->first();
@@ -211,6 +214,7 @@ class ProjectController extends Controller
 
     public function showMyProject()
     {
+        
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
         $Project = $student->projects()->first();
