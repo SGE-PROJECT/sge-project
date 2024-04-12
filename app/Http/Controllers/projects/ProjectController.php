@@ -11,10 +11,12 @@ use App\Models\AcademicAdvisor;
 use App\Models\BusinessAdvisor;
 use App\Models\Project;
 use App\Models\Project_students;
+use App\Models\ProjectStudent;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 use App\Models\Scores;
+use Illuminate\Support\Facades\DB;
 use App\Models\Student;
+
 
 class ProjectController extends Controller
 {
@@ -48,7 +50,7 @@ class ProjectController extends Controller
         $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
         $rechazadosCount = $Anteprojects->where('status', 'Rechazados')->count();
         return view("administrator.dashboard.DashboardAnteprojects")
-          ->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount'));
+            ->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount'));
     }
 
     // Vista del usuario. En esta el usuario puede invitar colaboradores, ver su equipo, crear y editar proyectos.
@@ -70,9 +72,14 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
+    // Vista para contenido de antreproyectos relacionado a las vistas de Listado de Anteproyecto
     public function viewanteproject()
     {
+
+        // Aqui quiero la logica
         $Projects = Project::where('is_project', false)->paginate(3);
+        $Projects->load('students');
+
         return view('projects.viewsproject.ProjectsView', compact('Projects'));
     }
 
@@ -109,31 +116,31 @@ class ProjectController extends Controller
      * Show the form for creating a new resource.
      */
 
-     public function create()
-     {
-         // Obtener el usuario autenticado
-         $user = Auth::user();
+    public function create()
+    {
+        // Obtener el usuario autenticado
+        $user = Auth::user();
 
-         // Obtener el rol del usuario autenticado
-         $role = $user->roles->first()->name;
+        // Obtener el rol del usuario autenticado
+        $role = $user->roles->first()->name;
 
-         // Verificar si el usuario ya tiene un proyecto creado
-         $existingProject = Project::where('user_id', $user->id)->first();
+        // Verificar si el usuario ya tiene un proyecto creado
+        $existingProject = Project::where('user_id', $user->id)->first();
 
-         if ($existingProject) {
-             return redirect()->back()->with('error', 'Ya has creado un anteproyecto. No puedes crear otro.');
-         }
+        if ($existingProject) {
+            return redirect()->back()->with('error', 'Ya has creado un anteproyecto. No puedes crear otro.');
+        }
 
-         // Redireccionar según el rol del usuario
-         switch ($role) {
-             case 'Estudiante':
-                 return redirect()->route('projectuser.create'); // Cambia 'projectuser.create' por la ruta correcta
-             case 'Asesor Académico':
-                 return redirect()->route('dashboard'); // Cambia 'dashboard' por la ruta correcta
-             default:
-                 return redirect()->back()->with('error', 'Rol de usuario no válido.');
-         }
-     }
+        // Redireccionar según el rol del usuario
+        switch ($role) {
+            case 'Estudiante':
+                return redirect()->route('projectuser.create'); // Cambia 'projectuser.create' por la ruta correcta
+            case 'Asesor Académico':
+                return redirect()->route('dashboard'); // Cambia 'dashboard' por la ruta correcta
+            default:
+                return redirect()->back()->with('error', 'Rol de usuario no válido.');
+        }
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -169,14 +176,9 @@ class ProjectController extends Controller
         $proyecto->activities = $request->activities;
 
 
-        // Verificar qué botón se presionó
-        if ($request->action == 'publicar') {
-            $proyecto->status = 'En revision'; // Estado "Publicado"
-            $proyecto->is_project = 1; // Marcar como proyecto
-        } else {
-            $proyecto->status = 'Registrado'; // Estado "Registrado" por defecto
-            $proyecto->is_project = 0; // No marcar como proyecto
-        }
+        // Estados asignados prod efecto al guardar una cédula nueva.
+        $proyecto->status = 'Registrado'; // Estado "Registrado" por defecto
+        $proyecto->is_project = 0; // No marcar como proyecto
 
         $proyecto->save();
 
@@ -194,13 +196,17 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
+
+    //En esta función se el asesor es donde puede asignar likes, comentarios y calificar
     public function show(Project $project)
     {
         // Obtener el usuario autenticado
         $user = Auth::user();
+        $getAcademicAdvisorId = AcademicAdvisor::where('user_id', $user->id)->first();
 
         // Pasar el proyecto y el usuario a la vista
-        return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user]);
+
+        return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user, 'getAcademicAdvisorId' => $getAcademicAdvisorId]);
     }
 
     public function showMyProject()
@@ -221,7 +227,6 @@ class ProjectController extends Controller
         } else {
             return redirect()->route('projects.index')->with('error', 'El proyecto no existe.');
         }
-
     }
 
     /**
@@ -273,11 +278,11 @@ class ProjectController extends Controller
             $proyecto->save();
         }
 
-            // Redireccionar según el tipo de usuario
+        // Redireccionar según el tipo de usuario
         if (Auth::user()->roles->contains('name', 'Estudiante')) {
-            return redirect()->route('projectinvitation')->withInput()->with('success', 'Proyecto actualizado correctamente.');
+            return redirect()->route('home')->withInput()->with('success', 'Proyecto actualizado correctamente.');
         } else if (Auth::user()->roles->contains('name', 'Asesor Académico')) {
-            return redirect()->route('dashboardProjects')->withInput()->with('success', 'Proyecto actualizado correctamente.');
+            return redirect()->route('home')->withInput()->with('success', 'Proyecto actualizado correctamente.');
         }
 
         // En caso de que el usuario no tenga ningún rol válido, se puede redirigir a una página de error o a una página por defecto
@@ -345,5 +350,4 @@ class ProjectController extends Controller
 
         return redirect()->back()->with('success', 'Calificación asignada exitosamente al proyecto.');
     }
-
 }

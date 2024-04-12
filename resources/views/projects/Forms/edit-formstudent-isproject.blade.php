@@ -91,7 +91,8 @@
                 <label class="text-sm font-semibold">Estado del Proyecto:</label>
                 <select name="status" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm">
                     <option value="En curso" {{ $proyecto->status === 'En curso' ? 'selected' : '' }}>En curso</option>
-                    <option value="Finalizado" {{ $proyecto->status === 'Finalizado' ? 'selected' : '' }}>Finalizado</option>
+                    <option value="Finalizado" {{ $proyecto->status === 'Finalizado' ? 'selected' : '' }}>Finalizado
+                    </option>
                     <option value="Reprobado" {{ $proyecto->status === 'Reprobado' ? 'selected' : '' }}>Reprobado</option>
                     <option value="Aprobado" {{ $proyecto->status === 'Aprobado' ? 'selected' : '' }}>Aprobado</option>
                 </select>
@@ -255,6 +256,39 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Sección de comentarios -->
+            <div class="mt-8">
+                <h3 class="text-xl font-semibold mb-4">Comentarios</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Iterar sobre los comentarios -->
+                    @foreach ($project->comments as $comment)
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <!-- Información del autor del comentario -->
+                            <p class="text-sm font-semibold">{{ $comment->academic_advisor->user->name }}</p>
+                            <!-- Contenido del comentario -->
+                            <p class="mt-2">{{ $comment->content_message }}</p>
+                            <!-- Formulario para responder al comentario -->
+                            <form method="POST"
+                                action="{{ route('comentario.responder', ['comment' => $comment->id]) }}">
+                                @csrf
+                                <!-- Campo de texto para la respuesta -->
+                                <div class="mt-2">
+                                    <textarea name="reply_content" rows="2" class="w-full border rounded-md p-2"
+                                        placeholder="Responder al comentario"></textarea>
+                                </div>
+                                <!-- Botón para enviar la respuesta -->
+                                <div class="mt-2">
+                                    <button type="submit"
+                                        class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600">Responder</button>
+                                </div>
+                            </form>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+
 
             <div class="mt-8 flex justify-center text-center space-x-6">
                 <button

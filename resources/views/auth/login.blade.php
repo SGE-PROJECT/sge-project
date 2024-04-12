@@ -5,18 +5,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Iniciar sesión</title>
     <link rel="icon" href="{{ asset('images/logo_sge.svg') }}">
     <link href="{{ asset('css/Login.css') }}" rel="stylesheet">
 </head>
 <body>
+
     <div class="relative min-h-screen flex">
+        @if (session('success'))
+            <div class="bg-red-500 text-white text-center p-4 fixed top-0 left-0 right-0 z-50 shadow-md noti" id="noti">
+                {{ session('success') }}
+            </div>
+        @endif
+        <script>
+            setTimeout(() => {
+                document.getElementById("noti").classList.add("ocultarNoti");
+            }, 4000);
+        </script>
         <div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
             <div class="sm:w-1/2 xl:w-2/5 h-full hidden md:flex flex-auto items-center justify-start p-8 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative" style="background-image: url(http://www.utcancun.edu.mx/wp-content/uploads/2016/07/e75f02ac-c4da-4162-a1a7-5e8ef604e830.jpg)">
                 <div class="absolute bg-gradient-to-b from-sky-800 to-green-900 opacity-80 inset-0 z-0"></div>
                 <div class="absolute triangle  min-h-screen right-0 w-16"></div>
                 <img src="{{ asset('images/empresarios.png') }}" class="h-90 absolute right-0 ml-32 bottom-0" style="z-index: 1" />
-                <div class="w-full  max-w-md z-10">
+                 <div class="w-full  max-w-md z-10">
                     <div class="sm:text-5xl xl:text-4xl font-bold leading-tight mb-48 custom-font text-center">BIENVENIDO AL SISTEMA DE GESTIÓN DE ESTADÍAS</div>
                 </div>
                 <ul class="circles">

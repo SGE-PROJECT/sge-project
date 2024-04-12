@@ -30,15 +30,13 @@
                     <span
                         class="w-30 bg-teal-600 text-white cursor-pointer font-semibold px-4 py-2 rounded-lg hover:bg-teal-800 focus:outline-none relative">
                         <i class='bx bxs-like'></i>
-                        @if ($project->likes->where('user_id', Auth::id())->count() > 0)
+                        @if ($project->likes->where('academic_advisor_id', $getAcademicAdvisorId->id)->count() > 0)
                             Ya has dado like
                         @else
                             Dar Like
                         @endif
-
                     </span>
                 </button>
-
             </form>
         </div>
 
@@ -88,12 +86,26 @@
                     {{ $project->name_project }}
                 </div>
             </div>
-            <div>
-                <label class="text-sm font-bold text-teal-800">Estado del Proyecto:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->status }}
-                </div>
-            </div>
+
+<!-- El asesor puede cambiar de estado -->
+<div>
+    <label class="text-sm font-bold text-teal-800">Estado del Proyecto:</label>
+    <form method="POST" action="{{ route('project.updateStatus', ['project' => $project->id]) }}">
+
+        @csrf
+        @method('PUT')
+        <div class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm">
+            <select name="status" class="w-full font-semibold text-black">
+                <option value="Registrado" {{ $project->status === 'Registrado' ? 'selected' : '' }}>Registrado</option>
+                <option value="En revisión" {{ $project->status === 'En revisión' ? 'selected' : '' }}>En revisión</option>
+                <option value="Rechazado" {{ $project->status === 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
+            </select>
+        </div>
+        <button type="submit" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar Estado</button>
+    </form>
+</div>
+
+
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
             <div>
@@ -208,9 +220,8 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <div class="flex items-center">
-                                        <img src="{{ asset($like->academicAdvisor->user->photo) }}"
-
-                                            alt="Avatar" class="w-8 h-8 rounded-full mr-2">
+                                        <img src="{{ asset($like->academicAdvisor->user->photo) }}" alt="Avatar"
+                                            class="w-8 h-8 rounded-full mr-2">
                                         <p class="text-white font-bold">{{ $like->academicAdvisor->user->name }}</p>
 
                                     </div>
@@ -251,8 +262,7 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <div class="flex items-center">
-                                        <img src="{{ asset($comment->academic_advisor->user->photo) }}"
-                                            alt="Avatar"
+                                        <img src="{{ asset($comment->academic_advisor->user->photo) }}" alt="Avatar"
                                             class="w-8 h-8 rounded-full mr-2">
                                         <p class="text-gray-800 font-bold">{{ $comment->academic_advisor->user->name }} <i
                                                 class='bx bxs-badge-check text-[#03A696] text-2xl'></i>
@@ -316,8 +326,8 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <div class="flex items-center">
-                                            <img src="{{ asset($score->AcademicAdvisor->user->photo) }}"
-                                                alt="Avatar" class="w-8 h-8 rounded-full mr-2">
+                                            <img src="{{ asset($score->AcademicAdvisor->user->photo) }}" alt="Avatar"
+                                                class="w-8 h-8 rounded-full mr-2">
                                             <p class="text-white font-bold">{{ $score->AcademicAdvisor->user->name }}</p>
                                         </div>
                                     </div>
