@@ -7,7 +7,7 @@
 @section('contenido')
     <div class="container-bk">
         <h1 class="title-books">- Libros -</h1>
-        <div class="flex justify-between py-2">
+        <div class="flex justify-between py-2 responsive-books">
             <div>
                 <div class="search-scale">
                     <form action="{{ route('libros.index') }}" method="GET">
@@ -34,6 +34,7 @@
                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAALZJREFUSEvdlesNwyAMhO82aTZJR+kkHSWjhFGyiSsiJUoQGOy8pPIX7M8+zEFcvHhxfhQBItIDGAC8jEVMAD4kQ4zTACOACPGsiWRXA8h8gDTJKCK7OK2D5wBplVsNT+nABUiDLEmaOqgBlv3SSC3DUJTocYAmwykS/RdA8w73JbcakgVwxOwCyffO7DJjGp3063DUvF1rL7dVnty51U3vALg0r/0X2w5cmjcDjuisxZq+Q08RP2kHzhnqPM52AAAAAElFTkSuQmCC"/>                    </button>
                 </a>
             </div>
+            {{-- Filtrar --}}
             <div>
                 <form action="{{ route('libros.index') }}" method="GET" class="form-books-select">
                     <select name="estado" id="estado" onchange="this.form.submit()"
@@ -45,6 +46,8 @@
                 </form>                
             </div>
         </div>
+
+        
 
         <div class="flex flex-wrap mx-10 gap-10 ctn-bk">
             <div class=" w-full">
