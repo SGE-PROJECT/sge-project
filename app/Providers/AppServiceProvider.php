@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 use App\Models\Project;
 use App\Models\Student;
 use App\Models\User;
+use App\Models\Group;
 use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
@@ -118,15 +119,15 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['administrator.graphs.graph-students-dash', 'administrator.section-students', 'administrator.managementAdmin.student-dash'], function ($view) {
             // Obtener el usuario autenticado
             $user = Auth::user();
-        
+
             // Inicializar variables para almacenar la información de los programas y el conteo total de estudiantes
             $programsData = [];
             $totalStudentsInDivision = 0;
-        
+
             if ($user && $user->hasRole('Administrador de División')) {
                 // Obtener el ID de la división del administrador de división
                 $divisionId = ManagmentAdmin::where('user_id', $user->id)->select('division_id')->first();
-        
+
                 $programs = Program::where('division_id', $divisionId->division_id)
                 ->with(['groups' => function ($query) {
                     $query->withCount('students');
@@ -138,14 +139,14 @@ class AppServiceProvider extends ServiceProvider
                     return $program;
                 });
 
-        
+
                 foreach ($programs as $program) {
                     // El conteo de estudiantes ya se obtuvo mediante 'withCount'
                     $studentCount = $program->students_count;
-        
+
                     // Sumar al total de estudiantes en la división
                     $totalStudentsInDivision += $studentCount;
-        
+
                     // Añadir la información del programa y el conteo de estudiantes al array
                     $programsData[] = [
                         'program_name' => $program->name,
@@ -154,7 +155,7 @@ class AppServiceProvider extends ServiceProvider
                         'percentage' => 0
                     ];
                 }
-        
+
                 // Calcular y asignar el porcentaje de estudiantes por programa respecto al total de la división
                 foreach ($programsData as $key => $programData) {
                     if ($totalStudentsInDivision > 0) {
@@ -162,7 +163,7 @@ class AppServiceProvider extends ServiceProvider
                     }
                 }
             }
-        
+
             // Pasar la información de los programas, el total de estudiantes y los porcentajes a la vista
             $view->with('programsData', $programsData)->with('totalStudentsInDivision', $totalStudentsInDivision);
         });
@@ -194,8 +195,55 @@ class AppServiceProvider extends ServiceProvider
 
     // Pasar los datos de asesores a la vista
     $view->with('advisorData', $advisorData);
-});
-        
-        
+    });
+
+
+    //Proyectos por division
+    View::composer(['administrator.graphs.graph-projectsDivision',
+    'administrator.sections.section-projectsDivision', 'administrator.managementAdmin.projects-dash'], function ($view) {
+        $user = Auth::user();
+
+        if (!$user || !$user->hasRole('Administrador de División')) {
+            $view->with('error', 'Acceso no autorizado o sin rol adecuado');
+            return;
+        }
+
+        $managementAdmin = ManagmentAdmin::where('user_id', $user->id)->with('division')->first();
+
+        if (!$managementAdmin || !$managementAdmin->division) {
+            $view->with('error', 'No se encontró la división asociada al usuario');
+            return;
+        }
+
+        $divisionId = $managementAdmin->division->id;
+        $Projects = Project::where('is_project', 1)
+                            ->whereHas('students.group.program', function ($query) use ($divisionId) {
+                                $query->where('division_id', $divisionId);
+                            })
+                            ->get();
+
+        $enCursoCount = $Projects->where('status', 'En curso')->count();
+        $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
+        $finalizadosCount = $Projects->where('status', 'Finalizado')->count();
+        $totalProjectsCount = $Projects->count();
+
+        $enCursoPercentage = $totalProjectsCount > 0 ? ($enCursoCount / $totalProjectsCount) * 100 : 0;
+        $reprobadosPercentage = $totalProjectsCount > 0 ? ($reprobadosCount / $totalProjectsCount) * 100 : 0;
+        $finalizadosPercentage = $totalProjectsCount > 0 ? ($finalizadosCount / $totalProjectsCount) * 100 : 0;
+
+        $view->with(compact(
+            'Projects',
+            'totalProjectsCount',
+            'enCursoCount',
+            'reprobadosCount',
+            'finalizadosCount',
+            'enCursoPercentage',
+            'reprobadosPercentage',
+            'finalizadosPercentage'
+        ));
+    });
+
+
+
     }
 }

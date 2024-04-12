@@ -7,8 +7,11 @@
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
 
         <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            @include('administrator.graphs.graph-projectsDivision', ['isActive' => Route::is('Division-Proyectos')])
             @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
+            @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])
         </div>
+
         <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
             <!-- Gráfica de barras a la izquierda -->
             <div class="flex flex-col lg:flex-row items-stretch w-full lg:w-auto">
@@ -20,7 +23,7 @@
             </div>
             <!-- Componente administrator.section-projects a la derecha -->
             <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
-                @include('administrator.section-projects')
+                @include('administrator.sections.section-projectsDivision')
             </div>
         </div>
 
@@ -206,7 +209,7 @@
     <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
-    {{-- <script>
+    <script>
         $(document).ready(function() {
             var ctx = document.getElementById('barChart').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -242,7 +245,7 @@
                 }
             });
         });
-    </script> --}}
+    </script>
     <!-- SCRIPT DE LA DATA TABLE -->
     <script>
         $(document).ready(function() {

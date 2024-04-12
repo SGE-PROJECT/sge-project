@@ -233,12 +233,8 @@ Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.a
 Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
     Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
     Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->name('academic-advisor');
+    Route::get('/division-projects', [projectsDivisionController::class, 'projectsForDivision'])->name('Division-Proyectos');
 
-});
-
-// Asegúrate de que el usuario esté autenticado y tenga el rol adecuado
-Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
-    Route::get('/division-projects', [projectsDivisionController::class, 'projectsForDivision'])->name('division-projects');
 });
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol

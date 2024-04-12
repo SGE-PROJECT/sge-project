@@ -7,11 +7,12 @@
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
 
         <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            @include('administrator.graphs.graph-projectsDivision', ['isActive' => Route::is('Division-Proyectos')])
             @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
-            @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])  
+            @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])
         </div>
-     
-       
+
+
     </div>
       {{--   <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
             <!-- Gráfica de barras a la izquierda -->
@@ -177,14 +178,14 @@
                     </thead>
                     <tbody>
                         @foreach ($advisors as $advisor)
-                            
+
                                 <tr>
                                     <td class="px-6 py-4">{{ $advisor->advisor_nomina }}</td>
                                     <td class="px-6 py-4">{{ $advisor->advisor_name }}</td>
                                     <td class="px-6 py-4">{{ $advisor->advisor_email }}</td>
-                                    <td class="px-6 py-4">{{ $advisor->advisor_phone}}</td>                                    
+                                    <td class="px-6 py-4">{{ $advisor->advisor_phone}}</td>
                                 </tr>
-                          
+
                         @endforeach
                     </tbody>
                 </table>
@@ -208,7 +209,7 @@
     <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
-    
+
     <!-- SCRIPT DE LA DATA TABLE -->
     <script>
         $(document).ready(function() {

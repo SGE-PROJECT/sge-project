@@ -6,6 +6,7 @@
     <h1 class="text-3xl font-bold text-center mt-5">Estudiantes de la división</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
     <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        @include('administrator.graphs.graph-projectsDivision', ['isActive' => Route::is('Division-Proyectos')])
         @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
         @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])
 
