@@ -121,11 +121,6 @@
                             <span class="nav-text text-sm">Dashboard</span>
                         </a>
                     @else
-                        <a href="{{ route('Division-Anteproyectos') }}"
-                            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
-                            <i class='bx bxs-dashboard mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Dashboard</span>
-                        </a>
                     @endrole
                 </li>
 
@@ -180,6 +175,7 @@
 
 
                 <li class="mb-1 group relative z-2">
+                    @if (auth()->user()->hasRole('Super Administrador'))
                     <a href=""
                         class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
                         <i class='bx bxs-graduation mr-3 text-lg'></i>
@@ -187,7 +183,10 @@
                         <i
                             class="ri-arrow-right-s-line ml-auto  group-[.selected]:rotate-90 transition-transform  hidden md:block"></i>
                     </a>
+                @endif
+
                     <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
+                        @if (auth()->user()->hasRole('Super Administrador'))
                         <li>
 
                             <a href="{{ route('dashboardProjects') }}"
@@ -195,6 +194,10 @@
                                     class='bx bx-folder-plus mr-3 text-lg'></i><span
                                     class="text-sm">Proyectos</span></a>
                         </li>
+                    @endif
+                        
+                        
+            
                         <li class="">
                             @if (Auth::check() &&
                                     Auth::user()->hasAnyRole([
