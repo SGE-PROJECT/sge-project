@@ -6,27 +6,25 @@
     <h1 class="text-3xl font-bold text-center mt-5">Anteproyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
 
-    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        @include('administrator.graphs.graph-anteprojects', [
-            'isActive' => Route::is('Dashboard-Anteproyectos'),
-        ])
-        @include('administrator.graphs.graph-projects', ['isActive' => Route::is('Dashboard-Proyectos')])
-        @include('administrator.graphs.graph-users', ['isActive' => Route::is('Dashboard-Usuarios')])
-    </div>
-    <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
-        <!-- Gráfica de barras a la izquierda -->
-        <div class="flex flex-col lg:flex-row items-stretch w-full lg:w-auto">
-            <div id="barChartContainer"
-                class="seccion-projects p-12 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 w-full shadow-lg rounded-xl font-sans">
-                <canvas id="barChart" class="mt-5"
-                    style="display: block; box-sizing: border-box; height: 300px; width: 400px;"></canvas>
+        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            @include('administrator.graphs.graph-anteprojects', ['isActive' => Route::is('Dashboard-Anteproyectos')])
+            @include('administrator.graphs.graph-projects', ['isActive' => Route::is('Dashboard-Proyectos')])
+            @include('administrator.graphs.graph-users', ['isActive' => Route::is('Dashboard-Usuarios')])
+        </div>
+        <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
+            <!-- Gráfica de barras a la izquierda -->
+            <div class="flex flex-col lg:flex-row items-stretch w-full lg:w-auto">
+                <div id="barChartContainer"
+                    class="seccion-projects p-12 relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 w-full shadow-lg rounded-xl font-sans">
+                    <canvas id="barChart" class="mt-5"
+                        style="display: block; box-sizing: border-box; height: 300px; width: 400px;"></canvas>
+                </div>
+            </div>
+            <!-- Componente administrator.section-projects a la derecha -->
+            <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
+                @include('administrator.sections.section-anteprojects')
             </div>
         </div>
-        <!-- Componente administrator.section-projects a la derecha -->
-        <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
-            @include('administrator.section-projects')
-        </div>
-    </div>
 
     <!-- SECCIÓN QUE CONTIENE LOS BOTONES -->
     <div class="flex items-end align-middle">
@@ -34,8 +32,9 @@
         <button type="submit"
             class="relative bg-teal-500 text-white px-4 py-2 ml-8 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
             onclick="window.location.href = '{{ route('dashboardProjects') }}'">Ir a Agregar</button>
+
         <!-- SE AGREGA EL FILTRO -->
-        <div x-data="{ isActive: false }" class="relative">
+        {{-- <div x-data="{ isActive: false }" class="relative">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
                 <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                     Filtrar
@@ -91,7 +90,8 @@
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Carrera </strong>
                 </div>
             </div>
-        </div>
+        </div> --}}
+
         <!-- SE AÑADE EL BÚSCADOR -->
         <div class="relative ml-5 w-55 z-10 flex items-center">
             <label for="Search" class="sr-only">Search</label>
@@ -108,6 +108,7 @@
                 </button>
             </span>
         </div>
+
         <!-- BOTÓN QUE NOS SIRVE PARA EXPORTAR LOS ARCHIVOS -->
         <div x-data="{ isActive: false }" class="relative ml-auto mr-8">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
@@ -130,7 +131,7 @@
                 x-on:keydown.escape.window="isActive = false">
                 <div class="p-2">
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Opciones </strong>
-                    <label for="option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="Option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -138,7 +139,8 @@
                             <strong class="font-medium text-gray-900"> PDF </strong>
                         </div>
                     </label>
-                    <label for="option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
+
+                    <label for="Option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -147,7 +149,8 @@
                             <strong class="font-medium text-gray-900"> Excel </strong>
                         </div>
                     </label>
-                    <label for="option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
+
+                    <label for="Option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -162,7 +165,7 @@
     </div>
     <div id="tabla-container" class="tabla-project rounded-t-lg">
         <div class="tabla-cont-project rounded-t-lg">
-            <table id="tabla-proyectos" class="display" style="width:100%">
+            <table id="tabla-anteproyectos">
                 <thead>
                     <tr>
                         <th>Proyecto</th>
@@ -175,7 +178,6 @@
                 </thead>
                 <tbody>
                     @foreach ($Anteprojects as $anteproject)
-                        @if ($anteproject->anteproject == 0)
                             <tr>
                                 <td>{{ $anteproject->name_project }}</td>
                                 <td>{{ $anteproject->fullname_student }}</td>
@@ -184,12 +186,13 @@
                                 <td>{{ $anteproject->company_name }}</td>
                                 <td><span class="project-status">{{ $anteproject->status }}</span></td>
                             </tr>
-                        @endif
                     @endforeach
                 </tbody>
             </table>
+            <div class="mt-1">
+                {{$Anteprojects->links()}}
+            </div>
         </div>
-    </div>
         <!-- CONTENEDOR DE LA PAGINACIÓN -->
     </div>
     <!-- SCRIPTS DE JQUERY -->
@@ -222,12 +225,12 @@
                             {{ $rechazadosCount }}
                         ],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(16, 185, 129, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)'
                         ],
                         borderColor: [
-                            'rgba(255, 99, 132, 1)',
+                            'rgba(16, 185, 129, 1)',
                             'rgba(54, 162, 235, 1)',
                             'rgba(255, 206, 86, 1)'
                         ],
@@ -237,61 +240,62 @@
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            stepSize: 5
                         }
                     }
                 }
             });
         });
     </script>
-    <!-- SCRIPT DE LA DATA TABLE -->
-    <script>
-        $(document).ready(function() {
-            var table = $('#tabla-proyectos').DataTable({
-                pageLength: 25,
-                responsive: true,
-                dom: 't', // Quitamos la 'B' para que no se muestren los botones
-                buttons: [ // Inicializamos los botones manualmente
-                    'pdf',
-                    'excel',
-                    'print'
-                ]
-            });
+            <!-- SCRIPT DE LA DATA TABLE -->
+            <script>
+                $(document).ready(function() {
+                    var table = $('#tabla-anteproyectos').DataTable({
+                        pageLength: 25,
+                        responsive: true,
+                        dom: 't', // Quitamos la 'B' para que no se muestren los botones
+                        buttons: [ // Inicializamos los botones manualmente
+                            'pdf',
+                            'excel',
+                            'print'
+                        ]
+                    });
 
-            // Creamos una nueva instancia de botones para poder usarla después
-            new $.fn.dataTable.Buttons(table, {
-                buttons: [
-                    'pdf',
-                    'excel',
-                    'print'
-                ]
-            });
+                    // Creamos una nueva instancia de botones para poder usarla después
+                    new $.fn.dataTable.Buttons(table, {
+                        buttons: [
+                            'pdf',
+                            'excel',
+                            'print'
+                        ]
+                    });
 
-            // Agregamos la nueva instancia de botones al datatables
-            table.buttons(0, null).containers().appendTo('#buttonContainer');
+                    // Agregamos la nueva instancia de botones al datatables
+                    table.buttons(0, null).containers().appendTo('#buttonContainer');
 
-            $('#option1').on('click', function() {
-                table.button('.buttons-pdf').trigger();
-            });
+                    $('#option1').on('click', function() {
+                        table.button('.buttons-pdf').trigger();
+                    });
 
-            $('#option2').on('click', function() {
-                table.button('.buttons-excel').trigger();
-            });
+                    $('#option2').on('click', function() {
+                        table.button('.buttons-excel').trigger();
+                    });
 
-            $('#option3').on('click', function() {
-                table.button('.buttons-print').trigger();
-            });
+                    $('#option3').on('click', function() {
+                        table.button('.buttons-print').trigger();
+                    });
 
-            //Buscador
-            $('#Search').on('input', function() {
-                table.search(this.value).draw();
-            });
+                    //Buscador
+                    $('#Search').on('input', function() {
+                        table.search(this.value).draw();
+                    });
 
-            table.on('draw', function() {
-                if (table.page.info().recordsDisplay === 0) {
-                    $('.dataTables_empty').text('No se encontraron resultados');
-                }
-            });
-        });
-    </script>
+                    table.on('draw', function() {
+                        if (table.page.info().recordsDisplay === 0) {
+                            $('.dataTables_empty').text('No se encontraron resultados');
+                        }
+                    });
+                });
+            </script>
 @endsection

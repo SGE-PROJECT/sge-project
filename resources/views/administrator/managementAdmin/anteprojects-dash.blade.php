@@ -1,17 +1,17 @@
 <!-- SECCION PROYECTOS -->
 @extends('layouts.panel')
-@section('titulo', 'Estudiantes')
+@section('titulo', 'Anteproyectos')
 @section('contenido')
 
-    <h1 class="text-3xl font-bold text-center mt-5">Estudiantes de la división</h1>
+    <h1 class="text-3xl font-bold text-center mt-5">Anteproyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
-    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        @include('administrator.graphs.graph-anteprojectsDivision', ['isActive' => Route::is('Division-Anteproyectos')])
-        @include('administrator.graphs.graph-projectsDivision', ['isActive' => Route::is('Division-Proyectos')])
-        @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
-        @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])
-    </div>
 
+        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            @include('administrator.graphs.graph-anteprojectsDivision', ['isActive' => Route::is('Division-Anteproyectos')])
+            @include('administrator.graphs.graph-projectsDivision', ['isActive' => Route::is('Division-Proyectos')])
+            @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
+            @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])
+        </div>
         <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
             <!-- Gráfica de barras a la izquierda -->
             <div class="flex flex-col lg:flex-row items-stretch w-full lg:w-auto">
@@ -23,7 +23,7 @@
             </div>
             <!-- Componente administrator.section-projects a la derecha -->
             <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
-                @include('administrator.sections.section-students')
+                @include('administrator.sections.section-anteprojectsDivision')
             </div>
         </div>
 
@@ -32,9 +32,9 @@
         <!-- BOTÓN QUE DIRIGE AL CRUD -->
         <button type="submit"
             class="relative bg-teal-500 text-white px-4 py-2 ml-8 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
-            onclick="window.location.href = '{{ route('student-dash') }}'">Ir a Agregar</button>
+            onclick="window.location.href = '{{ route('dashboardProjects') }}'">Ir a Agregar</button>
 
-            <!-- SE AGREGA EL FILTRO -->
+        <!-- SE AGREGA EL FILTRO -->
         {{-- <div x-data="{ isActive: false }" class="relative">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
                 <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
@@ -91,6 +91,7 @@
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Carrera </strong>
                 </div>
             </div>
+
         </div> --}}
 
         <!-- SE AÑADE EL BÚSCADOR -->
@@ -109,6 +110,7 @@
                 </button>
             </span>
         </div>
+
         <!-- BOTÓN QUE NOS SIRVE PARA EXPORTAR LOS ARCHIVOS -->
         <div x-data="{ isActive: false }" class="relative ml-auto mr-8">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
@@ -159,45 +161,41 @@
                             <strong class="font-medium text-gray-900"> Imprimir </strong>
                         </div>
                     </label>
-
                 </div>
             </div>
         </div>
     </div>
-    <!-- CONTENEDOR DE LA TABLA -->
     <div id="tabla-container" class="tabla-project rounded-t-lg">
         <div class="tabla-cont-project rounded-t-lg">
-            <table id="tabla-proyectos" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th >Matricula</th>
-                            <th >Nombre</th>
-                            <th >Email</th>
-                            <th >Grupo</th>
-                            <th >Asesor Académico</th>
-                            <th >Carrera</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($students as $student)
-
-                                <tr>
-                                    <td class="px-6 py-4">{{ $student->student_matricula }}</td>
-                                    <td class="px-6 py-4">{{ $student->student_name }}</td>
-                                    <td class="px-6 py-4">{{ $student->student_email }}</td>
-                                    <td class="px-6 py-4">{{ $student->group_name }}</td>
-                                    <td class="px-6 py-4">{{ $student->advisor_name }}</td>
-                                    <td class="px-6 py-4">{{ $student->program_name }}</td>
-
-                                </tr>
-
-                        @endforeach
-                    </tbody>
-                </table>
+            <table id="tabla-anteproyectos">
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Estudiante</th>
+                        <th>Grupo</th>
+                        <th>Carrera</th>
+                        <th>Empresa</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($anteprojects as $anteproject)
+                            <tr>
+                                <td>{{ $anteproject->name_project }}</td>
+                                <td>{{ $anteproject->fullname_student }}</td>
+                                <td>{{ $anteproject->group_student}}</td>
+                                <td>Example</td>
+                                <td>{{ $anteproject->company_name }}</td>
+                                <td><span class="project-status">{{ $anteproject->status }}</span></td>
+                            </tr>
+                    @endforeach
+                </tbody>
+            </table>
             <div class="mt-1">
-                {{$students->links()}}
+                {{$anteprojects->links()}}
             </div>
         </div>
+        <!-- CONTENEDOR DE LA PAGINACIÓN -->
     </div>
     <!-- SCRIPTS DE JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -214,36 +212,29 @@
     <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
-    <script type="text/javascript">
-        var programsData = @json($programsData);
-    </script>
     <script>
         $(document).ready(function() {
             var ctx = document.getElementById('barChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: programsData.map(function(program) {
-                        return program.program_name.slice(0, 15);
-                    }),
+                    labels: ['Registrados', 'En revision', 'Rechazados'],
                     datasets: [{
-                        label: 'Número de estudiantes',
-                        data: programsData.map(function(program) {
-                            return program.student_count;
-                        }),
+                        label: 'Estado del proyecto',
+                        data: [
+                            {{ $registradosCount }},
+                            {{ $enRevisionCount }},
+                            {{ $rechazadosCount }}
+                        ],
                         backgroundColor: [
-                            'rgba(239, 68, 68, 0.2)', // bg-red-500
-                            'rgba(59, 130, 246, 0.2)', // bg-blue-500
-                            'rgba(16, 185, 129, 0.2)', // bg-green-500
-                            'rgba(234, 179, 8, 0.2)', // bg-yellow-500
-                            'rgba(139, 92, 246, 0.2)'  // bg-purple-500
+                            'rgba(16, 185, 129, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
                         ],
                         borderColor: [
-                            'rgba(239, 68, 68, 1)', // bg-red-500
-                            'rgba(59, 130, 246, 1)', // bg-blue-500
-                            'rgba(16, 185, 129, 1)', // bg-green-500
-                            'rgba(234, 179, 8, 1)', // bg-yellow-500
-                            'rgba(139, 92, 246, 1)'  // bg-purple-500
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
                         ],
                         borderWidth: 1
                     }]
@@ -251,63 +242,62 @@
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            stepSize: 5
                         }
                     }
                 }
             });
         });
     </script>
+            <!-- SCRIPT DE LA DATA TABLE -->
+            <script>
+                $(document).ready(function() {
+                    var table = $('#tabla-anteproyectos').DataTable({
+                        pageLength: 25,
+                        responsive: true,
+                        dom: 't', // Quitamos la 'B' para que no se muestren los botones
+                        buttons: [ // Inicializamos los botones manualmente
+                            'pdf',
+                            'excel',
+                            'print'
+                        ]
+                    });
 
+                    // Creamos una nueva instancia de botones para poder usarla después
+                    new $.fn.dataTable.Buttons(table, {
+                        buttons: [
+                            'pdf',
+                            'excel',
+                            'print'
+                        ]
+                    });
 
-    <!-- SCRIPT DE LA DATA TABLE -->
-    <script>
-        $(document).ready(function() {
-    var table = $('#tabla-proyectos').DataTable({
-        pageLength: 25,
-        responsive: true,
-        dom: 't', // Quitamos la 'B' para que no se muestren los botones
-        buttons: [ // Inicializamos los botones manualmente
-            'pdf',
-            'excel',
-            'print'
-        ]
-    });
+                    // Agregamos la nueva instancia de botones al datatables
+                    table.buttons(0, null).containers().appendTo('#buttonContainer');
 
-    // Creamos una nueva instancia de botones para poder usarla después
-    new $.fn.dataTable.Buttons(table, {
-        buttons: [
-            'pdf',
-            'excel',
-            'print'
-        ]
-    });
+                    $('#option1').on('click', function() {
+                        table.button('.buttons-pdf').trigger();
+                    });
 
-    // Agregamos la nueva instancia de botones al datatables
-    table.buttons(0, null).containers().appendTo('#buttonContainer');
+                    $('#option2').on('click', function() {
+                        table.button('.buttons-excel').trigger();
+                    });
 
-    $('#option1').on('click', function() {
-        table.button('.buttons-pdf').trigger();
-    });
+                    $('#option3').on('click', function() {
+                        table.button('.buttons-print').trigger();
+                    });
 
-    $('#option2').on('click', function() {
-        table.button('.buttons-excel').trigger();
-    });
+                    //Buscador
+                    $('#Search').on('input', function() {
+                        table.search(this.value).draw();
+                    });
 
-    $('#option3').on('click', function() {
-        table.button('.buttons-print').trigger();
-    });
-
-    //Buscador
-    $('#Search').on('input', function() {
-        table.search(this.value).draw();
-    });
-
-    table.on('draw', function() {
-        if (table.page.info().recordsDisplay === 0) {
-            $('.dataTables_empty').text('No se encontraron resultados');
-        }
-    });
-});
-    </script>
+                    table.on('draw', function() {
+                        if (table.page.info().recordsDisplay === 0) {
+                            $('.dataTables_empty').text('No se encontraron resultados');
+                        }
+                    });
+                });
+            </script>
 @endsection

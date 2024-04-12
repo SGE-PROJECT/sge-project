@@ -1,10 +1,11 @@
 <!-- SECCION PROYECTOS -->
 @extends('layouts.panel')
-@section('titulo', 'Estudiantes')
+@section('titulo', 'Proyectos')
 @section('contenido')
 
-    <h1 class="text-3xl font-bold text-center mt-5">Estudiantes de la división</h1>
+    <h1 class="text-3xl font-bold text-center mt-5">Proyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
+
     <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         @include('administrator.graphs.graph-anteprojectsDivision', ['isActive' => Route::is('Division-Anteproyectos')])
         @include('administrator.graphs.graph-projectsDivision', ['isActive' => Route::is('Division-Proyectos')])
@@ -23,7 +24,7 @@
             </div>
             <!-- Componente administrator.section-projects a la derecha -->
             <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
-                @include('administrator.sections.section-students')
+                @include('administrator.sections.section-projectsDivision')
             </div>
         </div>
 
@@ -32,9 +33,9 @@
         <!-- BOTÓN QUE DIRIGE AL CRUD -->
         <button type="submit"
             class="relative bg-teal-500 text-white px-4 py-2 ml-8 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
-            onclick="window.location.href = '{{ route('student-dash') }}'">Ir a Agregar</button>
+            onclick="window.location.href = '{{ route('dashboardProjects') }}'">Ir a Agregar</button>
 
-            <!-- SE AGREGA EL FILTRO -->
+        <!-- SE AGREGA EL FILTRO -->
         {{-- <div x-data="{ isActive: false }" class="relative">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
                 <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
@@ -131,7 +132,7 @@
                 x-on:keydown.escape.window="isActive = false">
                 <div class="p-2">
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Opciones </strong>
-                    <label for="Option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -140,7 +141,7 @@
                         </div>
                     </label>
 
-                    <label for="Option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -150,7 +151,7 @@
                         </div>
                     </label>
 
-                    <label for="Option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
+                    <label for="0ption3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
                         <div class="flex items-center">
                             &#8203;
                         </div>
@@ -168,34 +169,31 @@
     <div id="tabla-container" class="tabla-project rounded-t-lg">
         <div class="tabla-cont-project rounded-t-lg">
             <table id="tabla-proyectos" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th >Matricula</th>
-                            <th >Nombre</th>
-                            <th >Email</th>
-                            <th >Grupo</th>
-                            <th >Asesor Académico</th>
-                            <th >Carrera</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($students as $student)
-
-                                <tr>
-                                    <td class="px-6 py-4">{{ $student->student_matricula }}</td>
-                                    <td class="px-6 py-4">{{ $student->student_name }}</td>
-                                    <td class="px-6 py-4">{{ $student->student_email }}</td>
-                                    <td class="px-6 py-4">{{ $student->group_name }}</td>
-                                    <td class="px-6 py-4">{{ $student->advisor_name }}</td>
-                                    <td class="px-6 py-4">{{ $student->program_name }}</td>
-
-                                </tr>
-
-                        @endforeach
-                    </tbody>
-                </table>
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Estudiante</th>
+                        <th>Grupo</th>
+                        <th>Carrera</th>
+                        <th>Empresa</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($projects as $project)
+                            <tr>
+                                <td>{{ $project->name_project }}</td>
+                                <td>{{ $project->fullname_student }}</td>
+                                <td>{{ $project->group_student}}</td>
+                                <td>Example</td>
+                                <td>{{ $project->company_name }}</td>
+                                <td><span class="project-status">{{ $project->status }}</span></td>
+                            </tr>
+                    @endforeach
+                </tbody>
+            </table>
             <div class="mt-1">
-                {{$students->links()}}
+                {{$projects->links()}}
             </div>
         </div>
     </div>
@@ -214,36 +212,29 @@
     <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
-    <script type="text/javascript">
-        var programsData = @json($programsData);
-    </script>
     <script>
         $(document).ready(function() {
             var ctx = document.getElementById('barChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: programsData.map(function(program) {
-                        return program.program_name.slice(0, 15);
-                    }),
+                    labels: ['En curso', 'Reprobados', 'Finalizados'],
                     datasets: [{
-                        label: 'Número de estudiantes',
-                        data: programsData.map(function(program) {
-                            return program.student_count;
-                        }),
+                        label: 'Estado del proyecto',
+                        data: [
+                            {{ $enCursoCount }},
+                            {{ $reprobadosCount }},
+                            {{ $finalizadosCount }}
+                        ],
                         backgroundColor: [
-                            'rgba(239, 68, 68, 0.2)', // bg-red-500
-                            'rgba(59, 130, 246, 0.2)', // bg-blue-500
-                            'rgba(16, 185, 129, 0.2)', // bg-green-500
-                            'rgba(234, 179, 8, 0.2)', // bg-yellow-500
-                            'rgba(139, 92, 246, 0.2)'  // bg-purple-500
+                            'rgba(234, 179, 8, 0.5)',
+                            'rgba(248, 113, 113, 0.5)',
+                            'rgba(161, 161, 161, 0.5)'
                         ],
                         borderColor: [
-                            'rgba(239, 68, 68, 1)', // bg-red-500
-                            'rgba(59, 130, 246, 1)', // bg-blue-500
-                            'rgba(16, 185, 129, 1)', // bg-green-500
-                            'rgba(234, 179, 8, 1)', // bg-yellow-500
-                            'rgba(139, 92, 246, 1)'  // bg-purple-500
+                            'rgba(234, 179, 8, 0.5)',
+                            'rgba(248, 113, 113, 0.5)',
+                            'rgba(161, 161, 161, 0.5)'
                         ],
                         borderWidth: 1
                     }]
@@ -258,8 +249,6 @@
             });
         });
     </script>
-
-
     <!-- SCRIPT DE LA DATA TABLE -->
     <script>
         $(document).ready(function() {
