@@ -46,9 +46,9 @@ class BooksController extends Controller
 
         // Aplicar filtro por estado si se proporciona
         if ($estado === 'finalizado') {
-            $books->where('estate', 1);
+            $books->where('state', 1);
         } elseif ($estado === 'en-proceso') {
-            $books->where('estate', 0);
+            $books->where('state', 0);
         }
 
         // Aplicar filtro por nombre si se proporciona
