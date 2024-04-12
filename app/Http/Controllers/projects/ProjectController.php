@@ -85,6 +85,7 @@ class ProjectController extends Controller
     public function viewproject()
     {
         $Projects = Project::where('is_project', true)->paginate(3);
+        $Projects->load('students');
         return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
     }
 
