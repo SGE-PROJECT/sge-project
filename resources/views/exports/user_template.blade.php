@@ -6,10 +6,8 @@
             <th>name</th>
             <th>email</th>
             <th>password</th>
-            <th>role</th>
             <th>phone_number</th>
             <th>division_id</th>
-            <th>group_id</th>
             <th>registration_number</th>
             <th>academic_advisor_id</th>
             </tr>

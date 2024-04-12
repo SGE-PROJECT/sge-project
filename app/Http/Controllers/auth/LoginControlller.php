@@ -36,7 +36,7 @@ class LoginControlller extends Controller
                     return redirect()->route('Dashboard-Anteproyectos'); // Nos redirecciona al dashboard general
 
                 case 'Administrador de División':
-                    return redirect('/estudiantes-dash'); //Ese slash es provisional, solo hay que poner la ruta verdadera
+                    return redirect()->route('Dashboard-Anteproyectos'); // Nos redirecciona al dashboard general
 
                 case 'Asesor Académico':
                     $adviserId = $user->slug;
@@ -64,7 +64,7 @@ class LoginControlller extends Controller
 
 
                 case 'Presidente Académico':
-                    return redirect('/projects');
+                    return redirect()->route('Dashboard-Anteproyectos'); // Nos redirecciona al dashboard general
 
                 case 'Asistente de Dirección':
                     return redirect('/libros');

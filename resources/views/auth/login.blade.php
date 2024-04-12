@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Iniciar sesión</title>
     <link rel="icon" href="{{ asset('images/logo_sge.svg') }}">
     <link href="{{ asset('css/Login.css') }}" rel="stylesheet">
 </head>
@@ -27,7 +27,7 @@
                 <div class="absolute bg-gradient-to-b from-sky-800 to-green-900 opacity-80 inset-0 z-0"></div>
                 <div class="absolute triangle  min-h-screen right-0 w-16"></div>
                 <img src="{{ asset('images/empresarios.png') }}" class="h-90 absolute right-0 ml-32 bottom-0" style="z-index: 1" />
-                <div class="w-full  max-w-md z-10">
+                 <div class="w-full  max-w-md z-10">
                     <div class="sm:text-5xl xl:text-4xl font-bold leading-tight mb-48 custom-font text-center">BIENVENIDO AL SISTEMA DE GESTIÓN DE ESTADÍAS</div>
                 </div>
                 <ul class="circles">
