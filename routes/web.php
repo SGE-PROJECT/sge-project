@@ -173,7 +173,9 @@ Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivi
 Route::resource('/empresas', CompaniesController::class);
 Route::resource('/divisiones', DivisionController::class);
 Route::resource('/carreras', ProgramController::class);
-
+ Route::put('//empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
+/* });
+ */
 Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     Route::post('/asesorias', [AdvisorySessionController::class, 'store'])->name('asesorias.store');
     Route::get('/asesorias/{id}', [AdvisorySessionController::class, 'index'])->name('asesorias');
@@ -196,6 +198,7 @@ Route::middleware(['auth', 'role:Estudiante'])->group(function () {
 
 Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])->group(function () {
     Route::get('/empresas-afiliadas', [CompaniesController::class, 'showTable'])->name('empresas.showTable');
+
 
 });
 

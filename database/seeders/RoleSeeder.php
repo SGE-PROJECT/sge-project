@@ -69,6 +69,10 @@ class RoleSeeder extends Seeder
                 'roles' => ['Administrador de División', 'Asesor Académico'],
                 'description' => 'Remover empresas'
             ],
+            'empresas.activate' => [
+                'roles' => ['Super Administrador','Administrador de División'],
+                'description' => 'Remover empresas'
+            ],
             //divisiones
             'divisiones.index' => [
                 'roles' => ['Administrador de División', 'Super Administrador', 'Presidente Académico', 'Asesor Académico'],

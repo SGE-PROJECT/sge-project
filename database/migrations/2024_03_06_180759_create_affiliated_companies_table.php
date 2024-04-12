@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('contact_phone');
             $table->text('description');
             $table->date('affiliation_date');
+            $table->boolean('is_active')->default(true); // Columna para el borrado lógico
             $table->timestamps();
         });
     }
@@ -30,7 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
         Schema::dropIfExists('affiliated_companies');
     }
 };
