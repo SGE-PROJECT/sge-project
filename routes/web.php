@@ -173,6 +173,7 @@ Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivi
 // Rutas protegidas por el rol Teacher usando resource()
 Route::resource('/empresas', CompaniesController::class);
 Route::resource('/divisiones', DivisionController::class);
+Route::post('/divisiones/{id}/activate', [DivisionController::class, 'activate'])->name('divisiones.activate');
 Route::resource('/carreras', ProgramController::class);
  Route::put('//empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
 /* });
