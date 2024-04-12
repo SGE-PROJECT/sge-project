@@ -1,32 +1,30 @@
-@extends('layouts.panelUsers')
+@extends('layouts.panel')
 
-@section('titulo', 'Carreras')
+@section('titulo', 'Carreras por divisiones')
 
 @section('contenido')
-<div class="relative w-full h-40 bg-green-400">
-    <p class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white font-bold text-3xl uppercase">
-        Carreras de la División {{ $division->name }}
-    </p>
-</div>
-        <!-- Listado de carreras -->
-        <ul role="list" class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:gap-y-16 mb-10">
-            @foreach ($programs as $program)
-            <div class="max-w-sm w-full mx-auto mt-5">
-                <div class="animate-pulse flex space-x-4 border border-gray-300 shadow-lg p-4 rounded-lg">
-                    <div class="rounded-full bg-gray-300 h-10 w-10 flex items-center justify-center">
-                        <img src="{{ asset($program->programImage->image_path ?? 'path_to_default_image') }}" alt="{{ $program->name }}" class="h-full w-full object-cover rounded-full">
-                    </div>
+<div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <!-- Titulo y descripción de la división -->
+        <div class="mb-10 max-w-2xl">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Carreras de la División {{ $division->name }}</h2>
+            <p class="mt-4 text-lg leading-8 text-gray-600">{{ $division->description }}</p>
+        </div>
 
-                  <div class="flex-1 space-y-6 py-1">
-                    <h3 class="text-base font-semibold tracking-tight text-gray-900">{{ $program->name }}</h3>
-                    <div class="space-y-3">
+        <!-- Listado de carreras -->
+        <ul role="list" class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:gap-y-16">
+            @foreach ($programs as $program)
+            <li>
+                <div class="flex items-center gap-x-6">
+                    <img class="h-16 w-16 rounded-full" src="{{ asset($program->programImage->image_path ?? 'path_to_default_image') }}" alt="{{ $program->name }}">
+                    <div>
+                        <h3 class="text-base font-semibold tracking-tight text-gray-900">{{ $program->name }}</h3>
                         <p class="text-sm text-gray-500">{{ $program->description }}</p>
                     </div>
-                  </div>
                 </div>
-              </div>
-
+            </li>
             @endforeach
         </ul>
     </div>
+</div>
 @endsection
