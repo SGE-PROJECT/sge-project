@@ -6,10 +6,11 @@
     <h1 class="text-3xl font-bold text-center mt-5">Anteproyectos</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
 
-        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            @include('administrator.graphs.graph-anteprojects', ['isActive' => Route::is('Dashboard-Anteproyectos')])
-            @include('administrator.graphs.graph-projects', ['isActive' => Route::is('Dashboard-Proyectos')])
-            @include('administrator.graphs.graph-users', ['isActive' => Route::is('Dashboard-Usuarios')])
+        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            @include('administrator.graphs.graph-anteprojectsDivision', ['isActive' => Route::is('Division-Anteproyectos')])
+            @include('administrator.graphs.graph-projectsDivision', ['isActive' => Route::is('Division-Proyectos')])
+            @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
+            @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])
         </div>
         <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
             <!-- Gráfica de barras a la izquierda -->
@@ -22,7 +23,7 @@
             </div>
             <!-- Componente administrator.section-projects a la derecha -->
             <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
-                @include('administrator.section-anteprojects')
+                @include('administrator.sections.section-anteprojectsDivision')
             </div>
         </div>
 
@@ -90,6 +91,7 @@
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Carrera </strong>
                 </div>
             </div>
+
         </div> --}}
 
         <!-- SE AÑADE EL BÚSCADOR -->
@@ -177,7 +179,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($Anteprojects as $anteproject)
+                    @foreach ($anteprojects as $anteproject)
                             <tr>
                                 <td>{{ $anteproject->name_project }}</td>
                                 <td>{{ $anteproject->fullname_student }}</td>
@@ -190,7 +192,7 @@
                 </tbody>
             </table>
             <div class="mt-1">
-                {{$Anteprojects->links()}}
+                {{$anteprojects->links()}}
             </div>
         </div>
         <!-- CONTENEDOR DE LA PAGINACIÓN -->

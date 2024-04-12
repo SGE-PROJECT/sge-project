@@ -198,6 +198,52 @@ class AppServiceProvider extends ServiceProvider
     });
 
 
+    //Anteproyectos por division
+    View::composer(['administrator.graphs.graph-anteprojectsDivision',
+    'administrator.sections.section-anteprojectsDivision', 'administrator.managementAdmin.anteprojects-dash'], function ($view) {
+        $user = Auth::user();
+
+        if (!$user || !$user->hasRole('Administrador de División')) {
+            $view->with('error', 'Acceso no autorizado o sin rol adecuado');
+            return;
+        }
+
+        $managementAdmin = ManagmentAdmin::where('user_id', $user->id)->with('division')->first();
+
+        if (!$managementAdmin || !$managementAdmin->division) {
+            $view->with('error', 'No se encontró la división asociada al usuario');
+            return;
+        }
+
+        $divisionId = $managementAdmin->division->id;
+        $Anteprojects = Project::where('is_project', 0)
+                            ->whereHas('students.group.program', function ($query) use ($divisionId) {
+                                $query->where('division_id', $divisionId);
+                            })
+                            ->get();
+
+        $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
+        $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
+        $rechazadosCount = $Anteprojects->where('status', 'Rechazados')->count();
+        $totalAnteprojectsCount = $Anteprojects->count();
+
+        $registradosPercentage = $totalAnteprojectsCount > 0 ? ($registradosCount / $totalAnteprojectsCount) * 100 : 0;
+        $enRevisionPercentage = $totalAnteprojectsCount > 0 ? ($enRevisionCount / $totalAnteprojectsCount) * 100 : 0;
+        $rechazadosPercentage = $totalAnteprojectsCount > 0 ? ($rechazadosCount / $totalAnteprojectsCount) * 100 : 0;
+
+        $view->with(compact(
+            'Anteprojects',
+            'registradosCount',
+            'enRevisionCount',
+            'rechazadosCount',
+            'totalAnteprojectsCount',
+            'registradosPercentage',
+            'enRevisionPercentage',
+            'rechazadosPercentage'
+        ));
+    });
+
+
     //Proyectos por division
     View::composer(['administrator.graphs.graph-projectsDivision',
     'administrator.sections.section-projectsDivision', 'administrator.managementAdmin.projects-dash'], function ($view) {
@@ -227,6 +273,7 @@ class AppServiceProvider extends ServiceProvider
         $finalizadosCount = $Projects->where('status', 'Finalizado')->count();
         $totalProjectsCount = $Projects->count();
 
+        // Calcular porcentajes
         $enCursoPercentage = $totalProjectsCount > 0 ? ($enCursoCount / $totalProjectsCount) * 100 : 0;
         $reprobadosPercentage = $totalProjectsCount > 0 ? ($reprobadosCount / $totalProjectsCount) * 100 : 0;
         $finalizadosPercentage = $totalProjectsCount > 0 ? ($finalizadosCount / $totalProjectsCount) * 100 : 0;

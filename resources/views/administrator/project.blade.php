@@ -32,8 +32,9 @@
         <button type="submit"
             class="relative bg-teal-500 text-white px-4 py-2 ml-8 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
             onclick="window.location.href = '{{ route('dashboardProjects') }}'">Ir a Agregar</button>
+
         <!-- SE AGREGA EL FILTRO -->
-        <div x-data="{ isActive: false }" class="relative">
+        {{-- <div x-data="{ isActive: false }" class="relative">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
                 <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                     Filtrar
@@ -89,7 +90,8 @@
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Carrera </strong>
                 </div>
             </div>
-        </div>
+        </div> --}}
+
         <!-- SE AÑADE EL BÚSCADOR -->
         <div class="relative ml-5 w-55 z-10 flex items-center">
             <label for="Search" class="sr-only">Search</label>

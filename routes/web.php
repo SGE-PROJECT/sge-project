@@ -40,7 +40,7 @@ use App\Http\Controllers\advisorDash\AdvisorDashController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
 use App\Http\Controllers\studentDash\projectsDivisionController;
-
+use App\Http\Controllers\studentDash\anteprojectsDivisionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -234,7 +234,7 @@ Route::middleware(['auth', 'role:Administrador de División'])->group(function (
     Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
     Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->name('academic-advisor');
     Route::get('/division-projects', [projectsDivisionController::class, 'projectsForDivision'])->name('Division-Proyectos');
-
+    Route::get('/division-anteprojects', [anteprojectsDivisionController::class, 'anteprojectsForDivision'])->name('Division-Anteproyectos');
 });
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol

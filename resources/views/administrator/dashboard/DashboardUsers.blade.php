@@ -29,7 +29,7 @@
         <button class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mt-10 mr-5 w-32" onclick="window.location.href = '{{ route('dashboardProjects') }}'">
             Ir a Agregar
         </button>
-        @include('administrator.filter')
+        {{-- @include('administrator.filter') --}}
 
         <!--Buscador-->
         <div class="relative ml-5 w-55 z-10 flex items-center">
