@@ -35,6 +35,7 @@ use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AcademicAdvisorController;
+use App\Http\Controllers\advisorDash\AdvisorDashController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
 
@@ -229,6 +230,7 @@ Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.a
 
 Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
     Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
+    Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->name('academic-advisor');
 });
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol

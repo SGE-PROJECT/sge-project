@@ -83,13 +83,28 @@ class StudentController extends Controller
 
             return view('home.student', compact('existProject', 'sessions', 'sessionsThisWeek', 'Projects', 'Project', 'AcademicAdvisor', 'advisor', 'getAllMembersForProject'));
         }
-
-
-
-
     }
-   
+    public function showProfile($userId)
+    {
 
+        $user = User::findOrFail($userId);
+
+        $student = $user->student;
+
+        return view('profile.student', compact('student'));
+    }
+
+    public function showAdviserProfile($slug)
+    {
+
+        $user = User::where('slug', $slug)->firstOrFail();
+
+        $academicAdvisor = $user->academicAdvisor;
+
+        if ($academicAdvisor) {
+            return view('profile.adviser', compact('academicAdvisor'));
+        }
+
+        abort(404);
+    }
 }
-
-

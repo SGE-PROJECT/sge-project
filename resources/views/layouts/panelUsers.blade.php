@@ -87,13 +87,13 @@
                         <a href={{ route('home') }}
                             class="left-0 relative flex font-semibold items-center py-1 px-4 text-white hover:text-[#d0d3d4] rounded-md">
                             <i class='bx bxs-dashboard mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Dashboard</span>
+                            <span class="nav-text text-sm">Inicio</span>
                         </a>
                     @elseif (Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']))
                         <a href={{ route('home.advisor') }}
                             class="left-0 relative flex font-semibold items-center py-1 px-4 text-white hover:text-[#d0d3d4] rounded-md">
                             <i class='bx bxs-dashboard mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Dashboard</span>
+                            <span class="nav-text text-sm">Inicio</span>
                         </a>
                     @else
                         <a href="/"

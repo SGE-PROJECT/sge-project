@@ -180,11 +180,11 @@
                                                 {{ $AcademicAdvisor->user->name }}
                                             </h5>
                                         </a>
-                                        
+
                                     <span class="text-lg text-gray-500">{{ $AcademicAdvisor->User->email }}</span>
                                     <div class="flex mt-4 md:mt-6">
 
-                                        <a href="{{ route('profile.adviser', ['id' => $AcademicAdvisor->user->id]) }}"
+                                        <a href="{{ route('profile.adviser', ['id' => $AcademicAdvisor->user->slug]) }}"
                                             class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver
                                             perfil</a>
                                     </div>

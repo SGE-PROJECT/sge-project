@@ -17,10 +17,8 @@ class Book extends Model
         'editorial',
         'year_published',
         'price',
-        'student',
-        'tuition',
         'image_book',
-        'estate',
+        'state',
     ];
     protected static function boot()
     {
