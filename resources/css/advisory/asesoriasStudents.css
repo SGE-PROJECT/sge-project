@@ -679,6 +679,14 @@ input[type=number]::-webkit-outer-spin-button {
 .graficas{
     max-height: 200px;
 }
+.sanciones{
+    max-height: calc(380px - 2.25rem);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    &&::-webkit-scrollbar{
+        display: none;
+    }
+}
 
 @media (min-width: 768px){
     .tamaño-dia{
