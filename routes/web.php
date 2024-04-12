@@ -170,6 +170,10 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
 
+Route::get('/carreras/division', [ProgramController::class, 'divisionCarreras'])
+    ->middleware(['auth', 'role:Administrador de División|Asesor Académico'])
+    ->name('division.carreras');
+
 // Rutas protegidas por el rol Teacher usando resource()
 Route::resource('/empresas', CompaniesController::class);
 Route::resource('/divisiones', DivisionController::class);
