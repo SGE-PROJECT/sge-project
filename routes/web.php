@@ -152,8 +152,6 @@ Route::middleware(['auth'])->group(function () {
         return view('books-notifications.notificaciones-user');
     });
 
-    Route::get('/usuarios', [CrudUserController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
-
     Route::get('/equipos', function () {
         return view('administrator.dashboard.dashboardTeam');
     });
@@ -170,8 +168,6 @@ Route::middleware(['auth'])->group(function () {
     /*Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
     Route::get('/proyectos', [ProjectController::class, 'list'])->name('Proyectos');
-    Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
-    Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
     Route::get('proyectoinvitacion', [ProjectController::class, 'invitation'])->name('projectinvitation');
     Route::get('formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
     Route::post('formanteproyecto', [ProjectController::class, 'store'])->name('envproyecto');
@@ -230,12 +226,22 @@ Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])
 Route::get('/estudiante', [StudentController::class, 'index'])->name('home');
 Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.advisor');
 
+//Proteccion de rutas para el super admin
+Route::middleware(['auth', 'role:Super Administrador'])->group(function () {
+Route::get('/usuarios', [CrudUserController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
+Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
+Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
+});
+
+//Proteccion de rutas para el admin por division
 Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
     Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
     Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->name('academic-advisor');
     Route::get('/division-projects', [projectsDivisionController::class, 'projectsForDivision'])->name('Division-Proyectos');
     Route::get('/division-anteprojects', [anteprojectsDivisionController::class, 'anteprojectsForDivision'])->name('Division-Anteproyectos');
 });
+
+
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol
 
