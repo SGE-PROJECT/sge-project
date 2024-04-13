@@ -218,12 +218,14 @@ Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])
 
 Route::get('/estudiante', [StudentController::class, 'index'])->name('home');
 Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.advisor');
+Route::get('/exportar', [StudentController::class, 'export'])->name('student.export');
 
 //Proteccion de rutas para el super admin
 Route::middleware(['auth', 'role:Super Administrador'])->group(function () {
 Route::get('/usuarios', [CrudUserController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
 Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
 Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
+Route::get('vistanteproyectosadmin', [ProjectController::class, 'viewanteprojectAdmin'])->name('viewanteprojectAdmin');
 });
 
 //Proteccion de rutas para el admin por division
