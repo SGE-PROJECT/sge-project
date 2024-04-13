@@ -49,7 +49,7 @@
                             @endif
 
                         </div>
-                        <div class="p-4 flex flex-wrap justify-center items-center sanciones">
+                        <div class="p-4 flex flex-wrap justify-center items-center ">
                             @if ($existProject)
                                 <div class="w-full max-w-sm bg-white">
 
@@ -173,7 +173,7 @@
                         <div class="bg-gradient-to-r from-[#00ab84] to-[#00e7b1] py-2 px-4">
                             <h2 class="text-xl font-semibold text-white mb-2">Mi asesor académico</h2>
                         </div>
-                        <div class="p-4 flex wrap justify-center items-center sanciones sanciones">
+                        <div class="p-4 flex wrap justify-center items-center ">
 
 
                             <div class="w-full max-w-sm bg-white">
@@ -335,7 +335,7 @@
                         </header>
 
 
-                        <div class="calendar-container w-full relative z-20 ocultar-pading" id="student-calendario">
+                        <div class="calendar-container w-full h-full relative z-20 ocultar-pading" id="student-calendario">
                             <div id="student-calendar" class="ocultar-pading"></div>
                         </div>
                     </a>

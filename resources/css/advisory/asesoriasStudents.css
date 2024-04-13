@@ -59,6 +59,7 @@
 }
 #student-calendar table, #student-dia2 table , #student-dia2 table{
     width: 100%;
+    height: 100%;
     border-collapse: collapse;
     animation: aparecer2 .3s ease;
 }
