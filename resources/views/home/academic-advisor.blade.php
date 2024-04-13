@@ -26,7 +26,7 @@
                             Mis asesorados
                         </h2>
                     </div>
-                    <div class="p-4">
+                    <div class="p-4 sanciones">
 
 
                         <div class="max-w-2xl mx-auto">
@@ -94,7 +94,7 @@
                     <div class="bg-gradient-to-r from-[#00ab84] to-[#00e7b1] py-2 px-4">
                         <h2 class="text-xl font-semibold text-white mb-2">Anteproyectos</h2>
                     </div>
-                    <div class="p-4">
+                    <div class="p-4 sanciones">
 
 
                         @foreach ($Projects as $project)
@@ -143,7 +143,7 @@
                     <div class="bg-gradient-to-r from-[#00ab84] to-[#00e7b1] py-2 px-4">
                         <h2 class="text-xl font-semibold text-white mb-2">Avisos importantes</h2>
                     </div>
-                    <div class="p-4">
+                    <div class="p-4 sanciones">
 
 
                         <div id="toast-default"
