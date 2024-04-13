@@ -274,7 +274,7 @@
                             $sessionDate = Carbon::parse($session->session_date);
                             $fecha = $sessionDate->format('Y-m-d');
                             $hora = $sessionDate->format('H:i');
-
+ 
                             return [
                                 'id' => $session->id,
                                 'fecha' => $fecha,
