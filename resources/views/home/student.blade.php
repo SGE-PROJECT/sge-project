@@ -25,7 +25,12 @@
 
             <div class="container mx-auto px-4 mt-10">
                 <div class="relative w-full ">
+<<<<<<< HEAD
                     <p class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-600 font-bold text-3xl uppercase">
+=======
+                    <p
+                        class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-600 font-bold text-3xl uppercase">
+>>>>>>> asesorias
                         Bienvenido {{ Auth()->user()->name }}
                     </p>
                 </div>
@@ -49,7 +54,7 @@
                             @endif
 
                         </div>
-                        <div class="p-4 flex flex-wrap justify-center items-center">
+                        <div class="p-4 flex flex-wrap justify-center items-center sanciones">
                             @if ($existProject)
                                 <div class="w-full max-w-sm bg-white">
 
@@ -171,7 +176,7 @@
                         <div class="bg-gradient-to-r from-[#00ab84] to-[#00e7b1] py-2 px-4">
                             <h2 class="text-xl font-semibold text-white mb-2">Mi asesor académico</h2>
                         </div>
-                        <div class="p-4 flex wrap justify-center items-center">
+                        <div class="p-4 flex wrap justify-center items-center sanciones sanciones">
 
 
                             <div class="w-full max-w-sm bg-white">
@@ -199,11 +204,11 @@
                     </div>
 
                     <!-- Tarjeta 3 -->
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden ">
                         <div class="bg-gradient-to-r from-[#00ab84] to-[#00e7b1] py-2 px-4">
                             <h2 class="text-xl font-semibold text-white mb-2">Avisos importantes</h2>
                         </div>
-                        <div class="p-4">
+                        <div class="p-4 sanciones">
 
 
                             <div id="toast-default"
@@ -298,40 +303,6 @@
                             motivo: cita.motivo
                         };
                     });
-                    const ctx = document.getElementById('myChart').getContext('2d');
-                    const myChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: ['Red', 'Blue', 'Yellow'], // Etiquetas de las categorías
-                            datasets: [{
-                                label: 'My First Dataset',
-                                data: [300, 50, 100], // Los datos para cada categoría
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)'
-                                ],
-                                borderWidth: 2 // Ancho del borde de la gráfica
-                            }]
-                        },
-                        options: {
-                            cutout: '90%', // Aumenta el valor para hacer el anillo más delgado
-                            plugins: {
-                                legend: {
-                                    display: false // Oculta la leyenda
-                                },
-                                tooltip: {
-                                    enabled: false // Desactiva las tooltips al pasar el mouse
-                                }
-                            },
-                            maintainAspectRatio: false // Añade esto si necesitas que el gráfico no mantenga el aspecto cuando cambies el tamaño de la ventana
-                        }
-                    });
                 </script>
                 <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 my-4">
                     <a href={{ route('asesoriasStudent', [Auth()->user()->slug]) }}
@@ -421,21 +392,42 @@
                             <h2 class="text-xl font-semibold text-white mb-2">Sanciones</h2>
                         </div>
                         <div class="p-4">
+                            <span class="flex justify-center mb-5">
+                                <div class="pie-chart flex justify-center items-center shadow">
+                                    <div
+                                        class="w-[70%] h-[70%] bg-[#fff] rounded-full flex flex-wrap justify-center content-center">
+                                        <div>
+                                            <p class="w-full text-center h-5 flex items-center"><span
+                                            class="w-3 h-3 mr-2 flex rounded bg-lime-400"></span>Sin sancion</p>
+                                            <p class="w-full text-center h-5 flex items-center"><span
+                                                    class="w-3 h-3 mr-2 flex rounded bg-yellow-400"></span>Empresarial</p>
+                                                    <p class="w-full text-center h-5 flex items-center"><span
+                                                            class="w-3 h-3 mr-2 flex rounded bg-red-500"></span>Academica</p>
 
-                            <div id="toast-default"
-                                class="flex items-center w-full  p-4 text-gray-500 {{ $color }} rounded-lg shadow mb-2"
-                                role="alert">
-                                <div
-                                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 {{ $colorFondo }} rounded-lg ">
-                                    <i class='nf {{ $colorIcono }}' id="asesor"></i>
-                                    <span class="sr-only">Fire icon</span>
-                                </div>
-                                <div class="ms-3 text-sm font-normal {{ $colorLetra }}">Tienes
-                                    {{ Auth()->user()->student->sanction_advisor }}
-                                    {{ Auth()->user()->student->sanction_advisor == 1 ? 'sancion academica.' : 'sanciones academicas.' }}
-                                </div>
+                                        </div>
+                                    </div>
 
-                            </div>
+                                </div>
+                            </span>
+
+
+                            <input class="hidden" type="number" id="academico" value="{{Auth()->user()->student->sanction_advisor}}" min="0" max="3">
+                            <input class="hidden" type="number" id="empresarial" value="{{Auth()->user()->student->sanction_company}}" min="0" max="3">
+
+                            <script>
+                                function actualizarGrafica() {
+                                    const academico = parseInt(document.getElementById('academico').value);
+                                    const empresarial = parseInt(document.getElementById('empresarial').value);
+                                    const nada = 6 - academico - empresarial;
+                                    const pieChart = document.querySelector('.pie-chart');
+                                    pieChart.style.background = `conic-gradient(
+                                        rgb(253 224 71) 0% ${empresarial * 100 / 6}%,
+                                        rgb(239 68 68) ${empresarial * 100 / 6}% ${100 - nada * 100 / 6}%,
+                                        rgb(163 230 53) ${100 - nada * 100 / 6}% 100%
+                                    )`;
+                                }
+                                actualizarGrafica();
+                            </script>
 
                             <div id="toast-default"
                                 class="flex items-center w-full mb-2 p-4 text-gray-500 {{ $color2 }} rounded-lg shadow "
@@ -451,6 +443,20 @@
                                 </div>
                             </div>
 
+                            <div id="toast-default"
+                                class="flex items-center w-full  p-4 text-gray-500 {{ $color }} rounded-lg shadow mb-2"
+                                role="alert">
+                                <div
+                                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 {{ $colorFondo }} rounded-lg ">
+                                    <i class='nf {{ $colorIcono }}' id="asesor"></i>
+                                    <span class="sr-only">Fire icon</span>
+                                </div>
+                                <div class="ms-3 text-sm font-normal {{ $colorLetra }}">Tienes
+                                    {{ Auth()->user()->student->sanction_advisor }}
+                                    {{ Auth()->user()->student->sanction_advisor == 1 ? 'sancion academica.' : 'sanciones academicas.' }}
+                                </div>
+
+                            </div>
 
                         </div>
                     </div>
@@ -507,6 +513,7 @@
                 </div>
             </div>
         @endif
+
         <script>
             function tareaRepetitiva() {
                 let empresa = document.getElementById("empresa");
