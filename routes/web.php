@@ -224,6 +224,7 @@ Route::middleware(['auth', 'role:Super Administrador'])->group(function () {
 Route::get('/usuarios', [CrudUserController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
 Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
 Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
+Route::get('vistanteproyectosadmin', [ProjectController::class, 'viewanteprojectAdmin'])->name('viewanteprojectAdmin');
 });
 
 //Proteccion de rutas para el admin por division

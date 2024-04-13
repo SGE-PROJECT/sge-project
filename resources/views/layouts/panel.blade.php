@@ -189,7 +189,7 @@
                         @if (auth()->user()->hasRole(['Super Administrador','Administrador de División']))
                         <li>
 
-                            <a href="{{ route('dashboardProjects') }}"
+                            <a href="{{ route('viewanteprojectAdmin') }}"
                                 class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                     class='bx bx-folder-plus mr-3 text-lg'></i><span
                                     class="text-sm">Proyectos</span></a>
