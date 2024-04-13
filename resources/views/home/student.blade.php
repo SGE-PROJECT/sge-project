@@ -274,7 +274,7 @@
                             $sessionDate = Carbon::parse($session->session_date);
                             $fecha = $sessionDate->format('Y-m-d');
                             $hora = $sessionDate->format('H:i');
- 
+
                             return [
                                 'id' => $session->id,
                                 'fecha' => $fecha,
@@ -389,6 +389,8 @@
                             <h2 class="text-xl font-semibold text-white mb-2">Sanciones</h2>
                         </div>
                         <div class="p-4">
+                            <input class="hidden" type="number" id="academico" value="{{Auth()->user()->student->sanction_advisor}}" min="0" max="3">
+                            <input class="hidden" type="number" id="empresarial" value="{{Auth()->user()->student->sanction_company}}" min="0" max="3">
                             <span class="flex justify-center mb-5">
                                 <div class="pie-chart flex justify-center items-center shadow">
                                     <div
@@ -408,8 +410,7 @@
                             </span>
 
 
-                            <input class="hidden" type="number" id="academico" value="{{Auth()->user()->student->sanction_advisor}}" min="0" max="3">
-                            <input class="hidden" type="number" id="empresarial" value="{{Auth()->user()->student->sanction_company}}" min="0" max="3">
+
 
                             <script>
                                 function actualizarGrafica() {
