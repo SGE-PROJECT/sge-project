@@ -25,8 +25,13 @@ jobs:
       - name: Get last commit message and author
         id: last-commit
         run: |
-          echo "commit_message=$(git log -1 --pretty=%B | sed "s/'/'\\\\''/g")" >> $GITHUB_ENV
-          echo "commit_author=$(git log -1 --pretty=%an | sed "s/'/'\\\\''/g")" >> $GITHUB_ENV
+          commit_message=$(git log -1 --pretty=%B)
+          commit_message_escaped=$(echo "$commit_message" | sed "s/'/'\\\\''/g")
+          echo "commit_message=$commit_message_escaped" >> $GITHUB_ENV
+          
+          commit_author=$(git log -1 --pretty=%an)
+          commit_author_escaped=$(echo "$commit_author" | sed "s/'/'\\\\''/g")
+          echo "commit_author=$commit_author_escaped" >> $GITHUB_ENV
 
       - name: Create Pull Request
         uses: repo-sync/pull-request@v2
@@ -36,3 +41,4 @@ jobs:
           pr_title: "${{ env.commit_author }}: ${{ env.commit_message }}"
           pr_body: "This is an automated pull request to merge changes from the new branch to the develop branch."
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
