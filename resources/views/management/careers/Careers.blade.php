@@ -44,7 +44,9 @@
                     <th>Nombre carrera</th>
                     <th>División</th>
                     <th>Descripción</th>
+                    @if (auth()->user()->hasRole(['Super Administrador']))
                     <th>Acción</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +64,8 @@
                         <td>{{ $program->division->name }}</td>
                         <td>{{ $program->description }}</td>
                         <td>
+
+                            @if (auth()->user()->hasRole(['Super Administrador']))
                             <div class="flex">
                                 <a href="{{ route('carreras.edit', $program->id) }}"
                                     class="bg-[#03A696] hover:bg-blue-600 text-white py-2 px-4 rounded mr-2 mb-2 ">Editar</a>
@@ -74,6 +78,8 @@
                                 </form>
 
                             </div>
+                            @endif
+
                         </td>
                     </tr>
                 @endforeach
