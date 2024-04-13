@@ -218,6 +218,7 @@ Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])
 
 Route::get('/estudiante', [StudentController::class, 'index'])->name('home');
 Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.advisor');
+Route::get('/exportar', [StudentController::class, 'export'])->name('student.export');
 
 //Proteccion de rutas para el super admin
 Route::middleware(['auth', 'role:Super Administrador'])->group(function () {
