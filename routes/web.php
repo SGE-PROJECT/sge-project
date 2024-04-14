@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\auth\ForgotPasswordController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApprovementLetter;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CrudUserController;
 use App\Http\Controllers\auth\PostController;
 use App\Http\Controllers\MasiveAddController;
@@ -14,21 +15,22 @@ use App\Http\Controllers\books\BooksController;
 use App\Http\Controllers\ProjectLikeController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\ProgramController;
+use App\Http\Controllers\AcademicAdvisorController;
 use App\Http\Controllers\AdvisoryReportsController;
 use App\Http\Controllers\AdvisorySessionController;
 use App\Http\Controllers\profile\ProfileController;
 use App\Http\Controllers\projects\ProjectController;
 use App\Http\Controllers\divisions\DivisionController;
 use App\Http\Controllers\users\RegisterUserController;
+use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\Companies\CompaniesController;
 use App\Http\Controllers\users\ManagementConfiguration;
 use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\AcademicAdvisorController;
-use App\Http\Controllers\advisorDash\AdvisorDashController;
-use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\users\ManagementUserController;
+use App\Http\Controllers\advisorDash\AdvisorDashController;
+use App\Http\Controllers\CedulaController;
+use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\studentDash\projectsDivisionController;
 use App\Http\Controllers\studentDash\anteprojectsDivisionController;
 
@@ -152,7 +154,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
     Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
 
-
+    Route::get('generar-cedula', [CedulaController::class, 'cedula'])->name('cedula.anteproyecto');
 
     /* Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
