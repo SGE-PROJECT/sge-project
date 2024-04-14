@@ -245,6 +245,7 @@ class UserSeeder extends Seeder
             'created_at' => now()
         ]);
 
+        
         $AdviserUser7 = User::create([
             'name' => 'Lobato Roano',
             'email' => 'lobatoroano@gmail.com',

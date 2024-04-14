@@ -22,7 +22,7 @@
             </div>
             <!-- Componente administrator.section-projects a la derecha -->
             <div class="flex flex-col lg:flex-row items-stretch gap-5 w-full">
-                @include('administrator.section-projects')
+                @include('administrator.sections.section-projects')
             </div>
         </div>
 
@@ -32,8 +32,9 @@
         <button type="submit"
             class="relative bg-teal-500 text-white px-4 py-2 ml-8 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
             onclick="window.location.href = '{{ route('dashboardProjects') }}'">Ir a Agregar</button>
+
         <!-- SE AGREGA EL FILTRO -->
-        <div x-data="{ isActive: false }" class="relative">
+        {{-- <div x-data="{ isActive: false }" class="relative">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
                 <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                     Filtrar
@@ -89,7 +90,8 @@
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Carrera </strong>
                 </div>
             </div>
-        </div>
+        </div> --}}
+
         <!-- SE AÑADE EL BÚSCADOR -->
         <div class="relative ml-5 w-55 z-10 flex items-center">
             <label for="Search" class="sr-only">Search</label>
@@ -216,24 +218,23 @@
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Aprobados', 'En curso', 'Reprobados', 'Finalizados'],
+                    labels: ['En curso', 'Reprobados', 'Finalizados'],
                     datasets: [{
                         label: 'Estado del proyecto',
                         data: [
-                            {{ $aprobadosCount }},
                             {{ $enCursoCount }},
                             {{ $reprobadosCount }},
                             {{ $finalizadosCount }}
                         ],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)'
+                            'rgba(234, 179, 8, 0.5)',
+                            'rgba(248, 113, 113, 0.5)',
+                            'rgba(161, 161, 161, 0.5)'
                         ],
                         borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)'
+                            'rgba(234, 179, 8, 0.5)',
+                            'rgba(248, 113, 113, 0.5)',
+                            'rgba(161, 161, 161, 0.5)'
                         ],
                         borderWidth: 1
                     }]

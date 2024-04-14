@@ -18,6 +18,7 @@ class Student extends Model
         'sanction_company',
         'academic_advisor_id',
         'book_id',
+        'isReEntry'
     ];
 
     public function user()

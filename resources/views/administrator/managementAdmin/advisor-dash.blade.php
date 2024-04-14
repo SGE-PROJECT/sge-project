@@ -6,12 +6,14 @@
     <h1 class="text-3xl font-bold text-center mt-5">Asesores Académicos de la división</h1>
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
 
-        <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
-            @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])  
-        </div>
-     
-       
+    <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        @include('administrator.graphs.graph-anteprojectsDivision', ['isActive' => Route::is('Division-Anteproyectos')])
+        @include('administrator.graphs.graph-projectsDivision', ['isActive' => Route::is('Division-Proyectos')])
+        @include('administrator.graphs.graph-students-dash', ['isActive' => Route::is('student-dash')])
+        @include('administrator.graphs.graph-advisor', ['isActive' => Route::is('academic-advisor')])
+    </div>
+
+
     </div>
       {{--   <div class="p-6 grid sm:grid-cols-1 lg:grid-cols-2 gap-5">
             <!-- Gráfica de barras a la izquierda -->
@@ -34,8 +36,9 @@
         <button type="submit"
             class="relative bg-teal-500 text-white px-4 py-2 ml-8 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
             onclick="window.location.href = '{{ route('student-dash') }}'">Ir a Agregar</button>
+
         <!-- SE AGREGA EL FILTRO -->
-        <div x-data="{ isActive: false }" class="relative">
+        {{-- <div x-data="{ isActive: false }" class="relative">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
                 <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                     Filtrar
@@ -91,7 +94,8 @@
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Carrera </strong>
                 </div>
             </div>
-        </div>
+        </div> --}}
+
         <!-- SE AÑADE EL BÚSCADOR -->
         <div class="relative ml-5 w-55 z-10 flex items-center">
             <label for="Search" class="sr-only">Search</label>
@@ -177,14 +181,14 @@
                     </thead>
                     <tbody>
                         @foreach ($advisors as $advisor)
-                            
+
                                 <tr>
                                     <td class="px-6 py-4">{{ $advisor->advisor_nomina }}</td>
                                     <td class="px-6 py-4">{{ $advisor->advisor_name }}</td>
                                     <td class="px-6 py-4">{{ $advisor->advisor_email }}</td>
-                                    <td class="px-6 py-4">{{ $advisor->advisor_phone}}</td>                                    
+                                    <td class="px-6 py-4">{{ $advisor->advisor_phone}}</td>
                                 </tr>
-                          
+
                         @endforeach
                     </tbody>
                 </table>
@@ -208,7 +212,7 @@
     <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('js/tableproject.js') }}"></script>
-    
+
     <!-- SCRIPT DE LA DATA TABLE -->
     <script>
         $(document).ready(function() {

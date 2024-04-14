@@ -107,4 +107,9 @@ class StudentController extends Controller
 
         abort(404);
     }
+
+    public function export()
+     {
+        return view('home.view-exports');
+     }
 }

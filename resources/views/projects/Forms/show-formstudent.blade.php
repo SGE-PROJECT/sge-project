@@ -88,7 +88,7 @@
             </div>
 
 <!-- El asesor puede cambiar de estado -->
-<div>
+{{-- <div>
     <label class="text-sm font-bold text-teal-800">Estado del Proyecto:</label>
     <form method="POST" action="{{ route('project.updateStatus', ['project' => $project->id]) }}">
 
@@ -103,6 +103,12 @@
         </div>
         <button type="submit" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar Estado</button>
     </form>
+</div> --}}
+<div>
+    <label class="text-sm font-bold text-teal-800">Estado del Proyecto:</label>
+    <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
+        {{ $project->status }}
+    </div>
 </div>
 
 

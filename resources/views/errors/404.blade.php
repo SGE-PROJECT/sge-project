@@ -613,6 +613,22 @@
         .custom-button:hover {
             background-color: #1c2938;
         }
+
+        @media (max-width: 768px) {
+            .scaled-div{
+                transform: none; /* Reiniciar el escalado para pantallas pequeñas */
+                margin: 10px auto; /* Centrar el div sin escalado */
+            }
+
+            .scaled-div-mac {
+                transform: scale(0.6); /* Reiniciar el escalado para pantallas pequeñas */
+                margin: -230px 170px auto; /* Centrar el div sin escalado */
+            }
+
+            .custom-button-container {
+                margin-top: 240px; /* Reducir el margen superior en pantallas pequeñas */
+            }
+        }
     </style>
 </head>
 
@@ -645,12 +661,12 @@
     <br>
 
     <div style="color: #293846; font-size: 24px; font-weight: bold; text-align: left; width: 100%;">
+        <br>
         ¡Oops! Parece que te has perdido.
         <br><br>
         Lo sentimos, la página que estás buscando no se encuentra disponible en este momento. <br>
         Pero no te preocupes, puedes volver a la página de inicio haciendo clic en el botón de abajo.
     </div>
-
     <div class="scaled-div-mac">
         <div class="macbook">
             <div class="inner">
@@ -757,9 +773,13 @@
         </div>
     </div>
 
+    <br>
+    <br>
+
     <div class="custom-button-container">
-        <button class="custom-button">Volver a inicio</button>
+        <button class="custom-button" onclick="window.history.back()">Volver a inicio</button>
     </div>
+
 
 </body>
 

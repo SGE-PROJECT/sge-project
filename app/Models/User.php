@@ -29,8 +29,11 @@ class User extends Authenticatable
         'avatar',
         'photo',
         'isActive',
-        //'division_id',
         'password',
+        'curp',
+        'birthdate',
+        'sex',
+        'nss'
     ];
 
 

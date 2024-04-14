@@ -114,12 +114,16 @@
             <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
                 <!-- ADMIN Section -->
                 <li class="mb-1 group">
-                    <a href="/"
-                        class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
-                        <i class='bx bxs-dashboard mr-3 text-lg'></i>
-                        <span class="nav-text text-sm">Dashboard</span>
-                    </a>
+                    @role(['Super Administrador','Administrador de División']) <!-- Directiva de Blade proporcionada por Spatie Permission -->
+                        <a href="{{ route('Dashboard-Anteproyectos') }}"
+                            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
+                            <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                            <span class="nav-text text-sm">Dashboard</span>
+                        </a>
+                    @else
+                    @endrole
                 </li>
+
 
                 @if (Auth::check() &&
                         Auth::user()->hasAnyRole(['Asesor Académico', 'Estudiante', 'Presidente Académico', 'Asistente de Dirección']))
@@ -171,6 +175,7 @@
 
 
                 <li class="mb-1 group relative z-2">
+                    @if (auth()->user()->hasRole(['Super Administrador','Administrador de División']))
                     <a href=""
                         class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
                         <i class='bx bxs-graduation mr-3 text-lg'></i>
@@ -178,14 +183,21 @@
                         <i
                             class="ri-arrow-right-s-line ml-auto  group-[.selected]:rotate-90 transition-transform  hidden md:block"></i>
                     </a>
+                @endif
+
                     <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
+                        @if (auth()->user()->hasRole(['Super Administrador','Administrador de División']))
                         <li>
 
-                            <a href="{{ route('dashboardProjects') }}"
+                            <a href="{{ route('viewanteprojectAdmin') }}"
                                 class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                     class='bx bx-folder-plus mr-3 text-lg'></i><span
                                     class="text-sm">Proyectos</span></a>
                         </li>
+                    @endif
+                        
+                        
+            
                         <li class="">
                             @if (Auth::check() &&
                                     Auth::user()->hasAnyRole([
@@ -230,8 +242,7 @@
                 @endif
 
                 @if (Auth::check() &&
-                        Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico', 'Presidente Académico']))
-                @else
+                        Auth::user()->hasAnyRole(['Super Administrador', 'Asistente de Dirección']))
                     <!-- RECURSOS Section -->
                     <span class="text-gray-400 nav-text font-bold">RECURSOS</span>
                     <li class="mb-1 group">
