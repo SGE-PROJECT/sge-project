@@ -53,13 +53,13 @@
                 </div>
             </div>
         </div>
-   
+
         <div class="mt-3 bg-white rounded-lg overflow-hidden md:flex border-solid border-l-8 border-gray-400">
             <div class="w-full">
                 <div class="p-4 md:p-5 bg-white">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="font-bold text-xl">Carta de presentación</p>
+                            <p class="font-bold text-xl">Ejemplo de cuando no esté disponible un formato</p>
                             <div class="flex items-start">
                                 <span class="text-gray-700">No disponible</span>
                             </div>
