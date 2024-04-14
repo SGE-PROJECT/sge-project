@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApprovementLetter;
@@ -51,14 +52,8 @@ use App\Http\Controllers\InvitacionEstudianteController;
 Route::middleware(['guest'])->group(function () {
     Route::get('/Iniciar-sesion', [LoginControlller::class, 'index'])->name('login');
     Route::post('/Iniciar-sesion', [LoginControlller::class, 'store']);
-    Route::get('/registro', [RegisterController::class, 'index'])->name('register');
-    Route::post('/registro', [RegisterController::class, 'store']);
-
-    //Recuperar contraseña
     Route::get('/recuperar-contraseña', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/recuperar-contraseña', [ForgotPasswordController::class, 'sendPassword'])->name('password.email');
-
-
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -192,6 +187,7 @@ Route::resource('/empresas', CompaniesController::class);
 Route::resource('/divisiones', DivisionController::class);
 Route::post('/divisiones/{id}/activate', [DivisionController::class, 'activate'])->name('divisiones.activate');
 Route::resource('/carreras', ProgramController::class);
+Route::resource('/grupos', GroupController::class);
  Route::put('//empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
 /* });
  */

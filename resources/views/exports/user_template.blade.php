@@ -7,9 +7,15 @@
             <th>email</th>
             <th>password</th>
             <th>phone_number</th>
-            <th>division_id</th>
+            <th>division_name</th>
+            <th>group_name</th>
             <th>registration_number</th>
-            <th>academic_advisor_id</th>
+            <th>advisor_name</th>
+            <th>curp</th>
+            <th>birthdate</th>
+            <th>sex</th>
+            <th>nss</th>
+            <th>isReEntry</th>
             </tr>
     </thead>
     <tbody>

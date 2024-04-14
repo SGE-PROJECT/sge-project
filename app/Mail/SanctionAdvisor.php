@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class PetitionDateMail extends Mailable
+class SanctionAdvisor extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -27,7 +27,7 @@ class PetitionDateMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Te han aplicado una sancion.',
+            subject: 'Haz aplicado una sancion.',
         );
     }
 
@@ -36,9 +36,10 @@ class PetitionDateMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.sanction')
+        return $this->view('mails.sactionAdvisor')
                     ->attach($this->documentPath);
     }
+
     /**
      * Get the attachments for the message.
      *

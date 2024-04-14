@@ -126,7 +126,7 @@
                             class="block text-sm font-medium text-gray-700">Evaluación
                             Asesor Empresarial:</label>
                         <input type="number" id="evaluacionAsesorEmpresarial" name="evaluacion_asesor_empresarial"
-                            placeholder="Ingrese la calificación" value="{{$reporte->evaluacion_asesor_empresarial}}"
+                            placeholder="Ingrese la calificación" value="{{$reporte->evaluacion_asesor_empresarial}}" min="1" max="100"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
                     </div>
 
@@ -134,7 +134,7 @@
                         <label for="evaluacionAsesorAcademico" class="block text-sm font-medium text-gray-700">Evaluación
                             Asesor Académico:</label>
                         <input type="number" id="evaluacionAsesorAcademico" name="evaluacion_asesor_academico"
-                            placeholder="Ingrese la calificación" value="{{$reporte->evaluacion_asesor_academico}}"
+                            placeholder="Ingrese la calificación" value="{{$reporte->evaluacion_asesor_academico}}" min="1" max="100"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
                     </div>
 
