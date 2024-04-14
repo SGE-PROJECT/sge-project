@@ -362,4 +362,45 @@ class ProjectController extends Controller
 
         return redirect()->back()->with('success', 'Calificación asignada exitosamente al proyecto.');
     }
+
+    //Invitar colaboradores
+    public function enviarInvitacion(Request $request)
+    {
+        // Validar los datos del formulario de invitación
+        $request->validate([
+            'nombre_estudiante' => 'required|string',
+            'email_estudiante' => 'required|email',
+        ]);
+
+        // Obtener el proyecto actual
+        $proyecto = Project::find($request->input('project_id'));
+
+        // Verificar si el proyecto existe
+        if (!$proyecto) {
+            return redirect()->back()->with('error', 'El proyecto no existe.');
+        }
+
+        // Verificar si el estudiante ya está asociado al proyecto
+        $estudiante = Student::where('nombre', $request->input('nombre_estudiante'))
+                     ->orWhere('email', $request->input('email_estudiante'))
+                     ->first();
+
+        if ($estudiante && $proyecto->students->contains($estudiante)) {
+            return redirect()->back()->with('error', 'El estudiante ya está asociado al proyecto.');
+        }
+
+        // Si el estudiante no existe, crearlo
+        if (!$estudiante) {
+            $estudiante = new Student();
+            $estudiante->nombre = $request->input('nombre_estudiante');
+            $estudiante->email = $request->input('email_estudiante');
+            $estudiante->save();
+        }
+
+        // Asociar el estudiante al proyecto
+        $proyecto->students()->attach($estudiante->id);
+
+        // Redireccionar de vuelta a la vista del proyecto con un mensaje de éxito
+        return redirect()->back()->with('success', 'Estudiante invitado al proyecto exitosamente.');
+    }
 }
