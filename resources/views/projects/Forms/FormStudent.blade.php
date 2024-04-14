@@ -16,7 +16,7 @@
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label class="text-sm font-semibold">Nombre Completo:</label>
-                    <input name="fullname_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                    <input name="fullname_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm bg-gray-100"
                         type="text" value="{{ Auth::user()->name }}" readonly>
                     <div class="text-red-400 font-bold text-lg">
                         @error('fullname_student')
@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     <label class="text-sm font-semibold">Matricula:</label>
-                    <input name="id_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm" type="text"
+                    <input name="id_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm bg-gray-100" type="text"
                         value="{{ Auth::user()->student->registration_number }}"readonly></input>
                     <div class="text-red-400 font-bold text-lg">
                         @error('id_student')
@@ -39,7 +39,7 @@
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div>
                     <label class="text-sm font-semibold">Grupo:</label>
-                    <input name="group_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                    <input name="group_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm bg-gray-100"
                         value="{{ Auth::user()->student->group->name }}" readonly>
                     </input>
                     <div class="text-red-400 font-bold text-lg">
@@ -50,7 +50,7 @@
                 </div>
                 <div>
                     <label class="text-sm font-semibold" for="email">Correo Electrónico:</label>
-                    <input name="email_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                    <input name="email_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm bg-gray-100"
                         type="email" value="{{ Auth::user()->email }}" readonly></input>
                     <div class="text-red-400 font-bold text-lg">
                         @error('email_student')
