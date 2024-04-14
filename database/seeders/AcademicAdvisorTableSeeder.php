@@ -30,37 +30,37 @@ class AcademicAdvisorTableSeeder extends Seeder
         $AdviserUser2 = AcademicAdvisor::create([
             'user_id' => 23,
             'payrol' => '3333',
-            'division_id' => 1,
+            'division_id' => 2,
         ]);
 
         $AdviserUser3 = AcademicAdvisor::create([
             'user_id' => 24,
             'payrol' => '4444',
-            'division_id' => 1,
+            'division_id' => 2,
         ]);
 
         $AdviserUser4 = AcademicAdvisor::create([
             'user_id' => 25,
             'payrol' => '5555',
-            'division_id' => 1,
+            'division_id' => 3,
         ]);
 
         $AdviserUser5 = AcademicAdvisor::create([
             'user_id' => 26,
             'payrol' => '6666',
-            'division_id' => 1,
+            'division_id' => 3,
         ]);
 
         $AdviserUser6 = AcademicAdvisor::create([
             'user_id' => 27,
             'payrol' => '7777',
-            'division_id' => 1,
+            'division_id' => 4,
         ]);
 
         $AdviserUser7 = AcademicAdvisor::create([
             'user_id' => 28,
             'payrol' => '8888',
-            'division_id' => 1,
+            'division_id' => 4,
         ]);
 
         $AdviserUser8 = AcademicAdvisor::create([
