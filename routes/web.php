@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApprovementLetter;
@@ -183,6 +184,7 @@ Route::resource('/empresas', CompaniesController::class);
 Route::resource('/divisiones', DivisionController::class);
 Route::post('/divisiones/{id}/activate', [DivisionController::class, 'activate'])->name('divisiones.activate');
 Route::resource('/carreras', ProgramController::class);
+Route::resource('/grupos', GroupController::class);
  Route::put('//empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
 /* });
  */
