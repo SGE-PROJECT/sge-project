@@ -33,6 +33,8 @@ use App\Http\Controllers\CedulaController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\studentDash\projectsDivisionController;
 use App\Http\Controllers\studentDash\anteprojectsDivisionController;
+use App\Http\Controllers\InvitacionEstudianteController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -174,7 +176,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
 
     Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
-
+    //Invitar a colaboradores
+    Route::post('/invitar/estudiante', [InvitacionEstudianteController::class, 'enviarInvitacion'])->name('invitar.estudiante');
 });
 
 
