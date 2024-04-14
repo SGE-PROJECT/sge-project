@@ -212,6 +212,14 @@
     line-height: 1.4;
 }
 
+.card__description2 {
+    margin: 0px 0 10px;
+    font-size: 10px;
+    color: white;
+    line-height: 1.4;
+}
+
+
 .card__division:hover img {
     filter: blur(4px); /* Agrega el desenfoque al hacer hover */
 }
