@@ -18,7 +18,6 @@
             </div>
         @endif
 
-
         <div class="flex-icons justify-between">
             <li
                 class="flex items-center font-sans hover:text-teal-500 text-xl antialiased font-semibold leading-normal transition-colors duration-300 cursor-pointer">
@@ -40,173 +39,9 @@
             </form>
         </div>
 
-
         <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
 
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
-            <div>
-                <label class="text-sm font-bold text-teal-800">Nombre Completo:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->fullname_student }}
-                </div>
-            </div>
-            <div>
-                <label class="text-sm font-bold text-teal-800">Matricula:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->id_student }}
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-4">
-            <div>
-                <label class="text-sm font-bold text-teal-800">Grupo:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->group_student }}
-                </div>
-            </div>
-
-            <div>
-                <label class="text-sm font-bold text-teal-800" for="phone">Número Teléfonico:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->phone_student }}
-                </div>
-            </div>
-            <div>
-                <label class="text-sm font-bold text-teal-800" for="email">Correo Electrónico:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->email_student }}
-                </div>
-            </div>
-        </div>
-        <div class="grid grid-cols-2 gap-4 mb-4">
-            <div>
-                <label class="text-sm font-bold text-teal-800">Nombre del Proyecto:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->name_project }}
-                </div>
-            </div>
-
-<!-- El asesor puede cambiar de estado -->
-<div>
-    <label class="text-sm font-bold text-teal-800">Estado del Proyecto:</label>
-    <form method="POST" action="{{ route('project.updateStatus', ['project' => $project->id]) }}">
-
-        @csrf
-        @method('PUT')
-        <div class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm">
-            <select name="status" class="w-full font-semibold text-black">
-                <option value="Registrado" {{ $project->status === 'Registrado' ? 'selected' : '' }}>Registrado</option>
-                <option value="En revisión" {{ $project->status === 'En revisión' ? 'selected' : '' }}>En revisión</option>
-                <option value="Rechazado" {{ $project->status === 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
-            </select>
-        </div>
-        <button type="submit" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar Estado</button>
-    </form>
-</div>
-
-
-        </div>
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
-            <div>
-                <label class="text-sm font-bold text-teal-800">Empresa:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->company_name }}
-                </div>
-            </div>
-
-            <div>
-                <label class="text-sm font-bold text-teal-800">Dirreción de la Empresa:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->company_address }}
-                </div>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
-            <div>
-                <label class="text-sm font-bold text-teal-800">Nombre del Asesor Empresarial:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->businessAdvisor->name }}
-                </div>
-            </div>
-
-            <div>
-                <label class="text-sm font-bold text-teal-800">Cargo del Asesor:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->businessAdvisor->position }}
-                </div>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
-            <div>
-                <label class="text-sm font-bold text-teal-800">Número Teléfonico del Asesor:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->businessAdvisor->phone }}
-                </div>
-            </div>
-
-            <div>
-                <label class="text-sm font-bold text-teal-800">Correo Electrónico:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->businessAdvisor->email }}
-                </div>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 gap-4 mb-4">
-            <div>
-                <label class="text-sm font-bold text-teal-800">Área donde se realizara el proyecto:</label>
-                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->project_area }}
-                </div>
-            </div>
-        </div>
-        <div class="mb-4">
-            <label class="text-sm font-bold text-teal-800" for="message">Objetivo General (Utiliza un verbo en infinitivo
-                para
-                indicar claramente qué acción deseas lograr. Evita términos confusos y sé específico, mantén el objetivo
-                breve y enfocado en la acción necesaria del proyecto) :</label>
-
-            <div class="relative">
-                <div class="w-full rounded-lg border-2 text-justify font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->general_objective }}
-                </div>
-            </div>
-
-        </div>
-        <div class="mb-4">
-            <label class="text-teal-800 text-sm font-bold" for="message">Planteamiento del problema: Exponer los aspectos,
-                elementos y relaciones del problema:</label>
-
-            <div class="relative">
-                <div class="w-full rounded-lg text-justify  border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->problem_statement }}
-                </div>
-            </div>
-        </div>
-        <div class="mb-4">
-            <label class="text-sm font-bold text-teal-800 text-justify" for="message">Justificacion: Debe manifestarse de
-                manera
-                clara y
-                precisa del por qué y para qué se va a llevar a cabo el estudio. Causas y propositos que motivan la
-                investigación:</label>
-
-            <div class="relative">
-                <div class="w-full rounded-lg border-2 text-justify font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->justification }}
-                </div>
-            </div>
-        </div>
-        <div class="mb-4">
-            <label class="text-sm font-bold text-teal-800" for="message">Actividades para realizar: Listar las actividades
-                a
-                llevar a cabo en orden:</label>
-
-            <div class="relative">
-                <div class="w-full rounded-lg border-2 text-justify font-semibold text-black border-gray-300 p-3 text-sm">
-                    {{ $project->activities }}
-                </div>
-            </div>
-        </div>
+        <!-- Tooltip de Likes -->
         <div class="tooltip">
             <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
                 Personas que han dado like
@@ -231,11 +66,167 @@
                     @endforeach
                 @endif
             </span>
+        </div>
+
+        <!-- Vista del contenido de la cédula -->
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4 mt-5">
+            <div class="mb-4">
+                <label class="text-sm font-bold text-teal-800">Nombre Completo:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->fullname_student }}
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="text-sm font-bold text-teal-800">Matricula:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->id_student }}
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-4">
+            <div>
+                <label class="text-sm font-bold text-teal-800">Grupo:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->group_student }}
+                </div>
+            </div>
+
+            <div>
+                <label class="text-sm font-bold text-teal-800" for="phone">Número Teléfonico:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->phone_student }}
+                </div>
+            </div>
+            <div>
+                <label class="text-sm font-bold text-teal-800" for="email">Correo Electrónico:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->email_student }}
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+                <label class="text-sm font-bold text-teal-800">Nombre del Proyecto:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->name_project }}
+                </div>
+            </div>
 
         </div>
 
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
+            <div>
+                <label class="text-sm font-bold text-teal-800">Empresa:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->company_name }}
+                </div>
+            </div>
+
+            <div>
+                <label class="text-sm font-bold text-teal-800">Dirreción de la Empresa:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->company_address }}
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
+            <div>
+                <label class="text-sm font-bold text-teal-800">Nombre del Asesor Empresarial:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->businessAdvisor->name }}
+                </div>
+            </div>
+
+            <div>
+                <label class="text-sm font-bold text-teal-800">Cargo del Asesor:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->businessAdvisor->position }}
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
+            <div>
+                <label class="text-sm font-bold text-teal-800">Número Teléfonico del Asesor:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->businessAdvisor->phone }}
+                </div>
+            </div>
+
+            <div>
+                <label class="text-sm font-bold text-teal-800">Correo Electrónico:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->businessAdvisor->email }}
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 mb-4">
+            <div>
+                <label class="text-sm font-bold text-teal-800">Área donde se realizara el proyecto:</label>
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->project_area }}
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="text-sm font-bold text-teal-800" for="message">Objetivo General (Utiliza un verbo en infinitivo
+                para
+                indicar claramente qué acción deseas lograr. Evita términos confusos y sé específico, mantén el objetivo
+                breve y enfocado en la acción necesaria del proyecto) :</label>
+
+            <div class="relative">
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->general_objective }}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mb-4">
+            <label class="text-teal-800 text-sm font-bold" for="message">Planteamiento del problema: Exponer los aspectos,
+                elementos y relaciones del problema:</label>
+
+            <div class="relative">
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->problem_statement }}
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="text-sm font-bold text-teal-800 text-justify" for="message">Justificacion: Debe manifestarse de
+                manera
+                clara y
+                precisa del por qué y para qué se va a llevar a cabo el estudio. Causas y propositos que motivan la
+                investigación:</label>
+
+            <div class="relative">
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->justification }}
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label class="text-sm font-bold text-teal-800" for="message">Actividades para realizar: Listar las actividades
+                a
+                llevar a cabo en orden:</label>
+
+            <div class="relative">
+                <div class="mt-2 font-semibold text-black text-sm">
+                    {{ $project->activities }}
+                </div>
+            </div>
+        </div>
 
         <div class=" bg-white shadow-lg p-5 pb-12 mb-5 rounded-lg">
+            <!-- Apartado de Comentarios -->
             <label class="block text-2xl text-center font-bold mb-4 text-teal-800">Agregar un nuevo comentario</label>
             <form method="POST"
                 action="{{ route('comentario.store', ['user' => $user->id, 'project' => $project->id]) }}">
@@ -291,11 +282,10 @@
                 @endif
             </div>
 
+            <!-- Formulario de calificación -->
             <label class="block text-2xl text-center font-bold mb-8 text-teal-800">Asigna una calificación este
                 proyecto</label>
-
             <div class="rating mr-5 mt-4 ">
-                <!-- Formulario de calificación -->
                 <form method="POST" action="{{ route('rateProject', $project->id) }}">
                     @csrf
                     <div class="flex items-center">
@@ -353,6 +343,4 @@
                 });
             });
         </script>
-
-
     @endsection

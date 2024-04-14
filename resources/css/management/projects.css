@@ -10,7 +10,7 @@
 
 .tabla-titulo-project {
     font-size: 20px;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
     font-family: 'Signika', sans-serif;
     margin-bottom: 20px;
 }
@@ -48,4 +48,43 @@
 
 .prevnext {
     left: 100%;
+}
+
+
+/* Botón y modal para eliminar una cédula*/
+.ProjectDeleteButton {
+    position: absolute;
+    bottom: 320px;
+    left: 410px;
+    background-color: #dc2626;
+    /* Color de fondo rojo */
+    color: #fff;
+    /* Color de texto blanco */
+    font-weight: 700;
+    /* Texto en negrita */
+    padding-top: 0.5rem;
+    /* Espaciado superior */
+    padding-bottom: 0.5rem;
+    /* Espaciado inferior */
+    padding-left: 1rem;
+    /* Espaciado izquierdo */
+    padding-right: 1rem;
+    /* Espaciado derecho */
+    border-radius: 0.375rem;
+    /* Borde redondeado */
+}
+
+.ProjectDeleteButton:hover {
+    background-color: #c53030;
+    /* Color de fondo rojo oscuro al pasar el cursor */
+}
+
+.ProjectDeleteButton:hover {
+    background-color: #b91c1c;
+    /* Color de fondo rojo más oscuro al pasar el cursor */
+}
+
+.ProjectDeleteModal {
+    padding-top: 60px;
+    margin-top: 50px;
 }

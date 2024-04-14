@@ -56,7 +56,8 @@
                 <div>
                     <label class="text-sm font-semibold" for="phone">Número Teléfonico:</label>
                     <input name="phone_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                        placeholder="Ingresa tu número teléfonico" type="tel" value="{{ $student->user->phone_number }}" />
+                        placeholder="Ingresa tu número teléfonico" type="tel"
+                        value="{{ $student->user->phone_number }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('phone_student')
                             {{ $message }}
@@ -247,13 +248,63 @@
                     class=" font-bold bg-teal-500 text-white  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
             </div>
         </form>
+
+        <form action="{{ route('projects.destroy', $proyecto->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button id="btnEliminarProyecto"
+                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Eliminar Proyecto</button>
+        </form>
+
     </div>
 
-    @include('layouts.modal', [
-        'title' => 'Publicar Proyecto',
-        'message' =>
-            '¿Estás seguro de que deseas publicar tu proyecto? Una vez subido ya no se pueden hacer cambios. Esta acción no se puede deshacer.',
-        'cancelButton' => 'Cancelar',
-        'confirmButton' => 'Publicar',
-    ])
+
+    <!-- Modal de confirmación de eliminación -->
+    <div id="modalEliminar" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity hidden" aria-hidden="true">
+        <div class="bg-white rounded p-8 max-w-md mx-auto z-50">
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold text-gray-800">¿Seguro que quieres eliminar?</h2>
+            </div>
+            <div class="flex justify-end">
+                <button id="btnCancelar"
+                    class="mr-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancelar</button>
+                <button id="btnConfirmarEliminar"
+                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Eliminar</button>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Obtener el botón de eliminar proyecto y el modal de confirmación
+    const btnEliminarProyecto = document.getElementById('btnEliminarProyecto');
+    const modalEliminar = document.getElementById('modalEliminar');
+
+    // Obtener los botones de cancelar y confirmar eliminar
+    const btnCancelar = document.getElementById('btnCancelar');
+    const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
+
+    // Agregar un listener para abrir el modal al hacer clic en el botón de eliminar proyecto
+    btnEliminarProyecto.addEventListener('click', function() {
+        modalEliminar.classList.remove('hidden');
+    });
+
+    // Agregar un listener para cerrar el modal al hacer clic en el botón de cancelar
+    btnCancelar.addEventListener('click', function() {
+        modalEliminar.classList.add('hidden');
+    });
+
+    // Agregar un listener para eliminar el proyecto al hacer clic en el botón de confirmar eliminar
+    btnConfirmarEliminar.addEventListener('click', function() {
+        // Aquí puedes agregar la lógica para enviar una solicitud al servidor para eliminar el proyecto
+        // Por ejemplo, podrías hacer una petición AJAX
+        // Una vez que recibas la confirmación del servidor de que el proyecto ha sido eliminado, puedes redirigir al usuario o mostrar un mensaje de éxito
+        // Por ahora, simplemente ocultaremos el modal
+        modalEliminar.classList.add('hidden');
+        alert('Proyecto eliminado exitosamente.'); // Esto es solo para fines de demostración
+    });
+});
+    </script>
 @endsection

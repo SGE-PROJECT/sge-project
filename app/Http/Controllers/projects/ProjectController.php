@@ -18,9 +18,7 @@ use App\Models\Student;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Vista del dashboard
     public function index()
     {
         $Projects = Project::paginate();
@@ -29,6 +27,7 @@ class ProjectController extends Controller
         $completadosCount = $Projects->where('status', 'Completado')->count();
         return view("projects.ProjectsDash.projectDashboard", compact('Projects', 'enDesarrolloCount', 'reprobadosCount', 'completadosCount'));
     }
+
 
     public function dashgeneral()
     {
@@ -41,6 +40,7 @@ class ProjectController extends Controller
             ->with(compact('Projects', 'enCursoCount', 'reprobadosCount', 'finalizadosCount', 'aprobadosCount'));
     }
 
+
     public function dashAnteprojects()
     {
         $Anteprojects = Project::where('is_project', 0)->get();
@@ -50,6 +50,7 @@ class ProjectController extends Controller
         return view("administrator.dashboard.DashboardAnteprojects")
           ->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount'));
     }
+
 
     // Vista del usuario. En esta el usuario puede invitar colaboradores, ver su equipo, crear y editar proyectos.
     public function invitation()
@@ -64,11 +65,14 @@ class ProjectController extends Controller
         }
     }
 
+
+    // Dashboard de proyectos y anteproyectos con las gráficas
     public function dashboardproject()
     {
         $Projects = Project::with(['student.academicAdvisor'])->get();
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
+
 
     // Vista para contenido de antreproyectos relacionado a las vistas de Listado de Anteproyecto
     public function viewanteproject()
@@ -77,11 +81,14 @@ class ProjectController extends Controller
         return view('projects.viewsproject.ProjectsView', compact('Projects'));
     }
 
+
+    // Vista para contenido de proyectos relacionado con la vista de Listado de Proyectos
     public function viewproject()
     {
         $Projects = Project::where('is_project', true)->paginate(3);
         return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
     }
+
 
     // Formulario de creación de proyecto. Si el estudiante ya tiene un proyecto, entonces es enviado a la vista de editar.
     public function projectform()
@@ -94,51 +101,21 @@ class ProjectController extends Controller
 
         if ($existingProject) {
             // Si el usuario ya tiene un proyecto creado, redirigir a la vista de edición
-            return $this->edit($existingProject->id);
+            return $this->edit($existingProject->id); //showMyProject
         } else {
             // Si el usuario no tiene un proyecto creado, redirigir a la ruta para crear un nuevo proyecto
             return view("projects.Forms.FormStudent");
         }
     }
 
+
     public function projectteams()
     {
         return view('projects.ProjectUser.projectteams');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
 
-     public function create()
-     {
-         // Obtener el usuario autenticado
-         $user = Auth::user();
-
-         // Obtener el rol del usuario autenticado
-         $role = $user->roles->first()->name;
-
-         // Verificar si el usuario ya tiene un proyecto creado
-         $existingProject = Project::where('user_id', $user->id)->first();
-
-         if ($existingProject) {
-             return redirect()->back()->with('error', 'Ya has creado un anteproyecto. No puedes crear otro.');
-         }
-
-         // Redireccionar según el rol del usuario
-         switch ($role) {
-             case 'Estudiante':
-                 return redirect()->route('projectuser.create'); // Cambia 'projectuser.create' por la ruta correcta
-             case 'Asesor Académico':
-                 return redirect()->route('dashboard'); // Cambia 'dashboard' por la ruta correcta
-             default:
-                 return redirect()->back()->with('error', 'Rol de usuario no válido.');
-         }
-     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    //Store del controlador
     public function store(ProjectFormRequest $request)
     {
 
@@ -187,11 +164,8 @@ class ProjectController extends Controller
         // return Redirect::to('/proyectoinvitacion')->withInput()->with('success', 'Proyecto guardado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
 
-    //En esta función se el asesor es donde puede asignar likes, comentarios y calificar
+    //Vista del Asesor para asignar Likes, Comentarios y Calificar
     public function show(Project $project)
     {
         // Obtener el usuario autenticado
@@ -201,6 +175,8 @@ class ProjectController extends Controller
         return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user]);
     }
 
+
+    // Vista del estudiante para editar su cédula
     public function showMyProject()
     {
         $user = Auth::user();
@@ -222,10 +198,9 @@ class ProjectController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id) //Vista para editar proyecto
+
+    //Vista para editar proyecto por parte del estudiante??? El edit es la función ShowMyProject
+    public function edit(string $id)
     {
         $proyecto = Project::find($id);
 
@@ -244,9 +219,7 @@ class ProjectController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Update de una cédula
     public function update(ProjectEdit $request, $id): RedirectResponse
     {
 
@@ -282,21 +255,16 @@ class ProjectController extends Controller
         return redirect()->route('home')->with('error', 'Rol de usuario no válido.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    // Eliminar una cédula
+    public function destroy(Project $project)
     {
-        $project = Project::find($id);
-        if (!$project) {
-            return back()->with('error', '¡No se pudo encontrar el proyecto para eliminar!');
-        }
-        $deleted = $project->delete();
-        if ($deleted) {
-            return redirect()->route('dashboardProjects')->with('success', '¡El proyecto ha sido eliminado exitosamente!');
-        } else {
-            return back()->with('error', '¡Se produjo un error al eliminar el proyecto!');
-        }
+        // Eliminar los registros relacionados en la tabla project_students
+        $project->students()->detach();
+
+        // Eliminar el proyecto
+        $project->delete();
+
+        return redirect()->route('home')->with('success', 'Proyecto eliminado correctamente.');
     }
 
 
