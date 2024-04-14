@@ -42,16 +42,24 @@
 }
 #student-calendar, #student-dia2, #student-dia2{
     width: 100%;
+    height: 100%;
     padding: 10px 20px 10px 20px;
     &&::-webkit-scrollbar{
         display: none;
     }
+}
+.pie-chart {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }
 .ocultar-pading{
     padding: 0px !important;
 }
 #student-calendar table, #student-dia2 table , #student-dia2 table{
     width: 100%;
+    height: 100%;
     border-collapse: collapse;
     animation: aparecer2 .3s ease;
 }
