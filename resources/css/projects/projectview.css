@@ -494,6 +494,11 @@
 .ProjectDeleteButton:hover {
     background-color: #b91c1c; /* Color de fondo rojo más oscuro al pasar el cursor */
 }
+
+.ProjectDeleteModal{
+    padding-top: 400px;
+}
+
 /* Estilos para el modal de invitación de estudiante */
 .modalInvitar {
     display: none;
