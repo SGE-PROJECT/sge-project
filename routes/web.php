@@ -49,14 +49,8 @@ use App\Http\Controllers\studentDash\anteprojectsDivisionController;
 Route::middleware(['guest'])->group(function () {
     Route::get('/Iniciar-sesion', [LoginControlller::class, 'index'])->name('login');
     Route::post('/Iniciar-sesion', [LoginControlller::class, 'store']);
-    Route::get('/registro', [RegisterController::class, 'index'])->name('register');
-    Route::post('/registro', [RegisterController::class, 'store']);
-
-    //Recuperar contraseña
     Route::get('/recuperar-contraseña', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/recuperar-contraseña', [ForgotPasswordController::class, 'sendPassword'])->name('password.email');
-
-
 });
 
 Route::middleware(['auth'])->group(function () {

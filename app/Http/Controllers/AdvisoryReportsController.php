@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
 use App\Mail\PetitionDateMail;
+use App\Mail\SanctionAdvisor;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\PetitionDateNotification;
 use Illuminate\Support\Facades\Notification;
@@ -13,6 +14,8 @@ use App\Models\Report;
 use App\Models\AdvisorySession;
 use App\Exports\EstadiaControlsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpWord\TemplateProcessor;
+use Carbon\Carbon;
 
 class AdvisoryReportsController extends Controller
 {
@@ -243,6 +246,35 @@ class AdvisoryReportsController extends Controller
         if (!$user->user->hasRole('Estudiante')) {
             abort(404);
         }
+        $fechaActual = Carbon::now();
+        $diaNumero = $fechaActual->day;
+        $mes = $fechaActual->monthName;
+        $año = $fechaActual->year;
+        $template = public_path('word/sanciones.docx');
+        $templateProcessor = new TemplateProcessor($template);
+        $variables = [
+            'dia' => $diaNumero,
+            'mes' => $mes,
+            'año' => $año,
+            'nombre' => $user->user->name,
+            'matricula' => $user->registration_number,
+            'programa' => $user->group->program->name,
+            'aca1' => $request->tipo =='asesor' ? $user->sanction_advisor == 0 ? 'X' : ' ' : ' ',
+            'aca2' => $request->tipo =='asesor' ? $user->sanction_advisor == 1 ? 'X' : ' ' : ' ',
+            'aca3' => $request->tipo =='asesor' ? $user->sanction_advisor == 2 ? 'X' : ' ' : ' ',
+            'emp1' => $request->tipo =='empresarial' ? $user->sanction_company == 0 ? 'X' : ' ' : ' ',
+            'emp2' => $request->tipo =='empresarial' ? $user->sanction_company == 1 ? 'X' : ' ' : ' ',
+            'emp3' => $request->tipo =='empresarial' ? $user->sanction_company == 2 ? 'X' : ' ' : ' ',
+            'acah' => $request->tipo =='asesor' ? $request->horas : '___',
+            'emph' => $request->tipo =='empresarial' ? $request->horas : '___',
+            'sancion' => $user->sanction_advisor + $user->sanction_company,
+        ];
+        foreach ($variables as $key => $value) {
+            $templateProcessor->setValue($key, $value);
+        }
+        $outputFile = 'Sancion_por_incumplimiento.docx';
+        $templateProcessor->saveAs($outputFile);
+
         if ($request->tipo =='asesor') {
             $cantidad = $user->sanction_advisor + 1;
             $user->update(['sanction_advisor' => $cantidad]);
@@ -252,7 +284,9 @@ class AdvisoryReportsController extends Controller
         }
 
         Notification::send($user->user,new PetitionDateNotification($user->user, $request));
-        Mail::to($user->user->email)->send(new PetitionDateMail($user->user, $request));
+        Mail::to($user->user->email)->send(new PetitionDateMail($user->user, $request, $outputFile));
+        Mail::to($user->academicAdvisor->user->email)->send(new SanctionAdvisor($user->academicAdvisor->user, $request, $outputFile));
+        unlink($outputFile);
         return back()->with('success', 'Se ha sancionado al alumno exitosamente.');
     }
 
