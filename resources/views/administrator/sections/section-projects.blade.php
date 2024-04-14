@@ -26,28 +26,6 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex items-center justify-center">
-                            <div class="rounded-lg bg-green-500 w-2.5 h-2.5 mr-3"></div>
-                            <span class="font-bold text-base text-gray-600">Aprobados</span>
-                        </th>
-                        <td class="border-t-0 px-4 text-center font-bold text-gray-600 border-l-0 border-r-0 text-base whitespace-nowrap p-4">
-                            {{$aprobadosCount}}
-                        </td>
-                        <td
-                            class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <div class="flex items-center">
-                                <span class="mr-2 font-bold text-gray-600">{{$aprobadosPercentage}}%</span>
-                                <div class="relative w-full">
-                                    <div class="overflow-hidden h-2 text-xs flex rounded bg-green-200">
-                                        <div style="width: {{$aprobadosPercentage}}%"
-                                            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
 
                     <tr class="">
                         <th class="border-t-0 px-4 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 flex items-center justify-center">

@@ -64,7 +64,7 @@
             innerSize: '60%',
             data: [
             { name: 'Carreras totales', y: 452, color: '#03a6a6' },
-            { name: '', y: 59 , color: '#a1a1a1' },
+            { name: 'hola', y: 59 , color: '#a1a1a1' },
             ]
         }]
     });

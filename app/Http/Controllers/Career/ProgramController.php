@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\management\Division;
 use App\Models\management\Program;
 use App\Models\management\ProgramImage;
+use App\Models\User;
 
 
 class ProgramController extends Controller
@@ -130,4 +131,26 @@ class ProgramController extends Controller
         $program->delete();
         return redirect()->route('carreras.index')->with('success', 'Carrera eliminada con éxito.');
     }
+
+    public function divisionCarreras()
+    {
+        $user = auth()->user();
+    
+    if ($user->hasRole('Administrador de División')) {
+        $divisionId = $user->managmentAdmin->division_id;
+    } elseif ($user->hasRole('Asesor Académico')) {
+        $divisionId = $user->academicAdvisor->division_id;
+    } else {
+        abort(403, 'Acceso no autorizado');
+    }
+
+    $division = Division::find($divisionId);
+    if (!$division) {
+        abort(404, 'División no encontrada');
+    }
+
+    $programs = Program::where('division_id', $divisionId)->with(['programImage', 'division'])->get();
+    return view('management.careers.division-careers', compact('programs', 'division'));
+    }
+
 }

@@ -43,4 +43,14 @@ class Division extends Model
     {
         return $this->hasMany(ManagmentAdmin::class);
     }
+
+    public function activate()
+    {
+        $this->update(['isActive' => true]);
+    }
+
+    public function deactivate()
+    {
+        $this->update(['isActive' => false]);
+    }
 }

@@ -25,6 +25,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
+
         $Projects = Project::paginate();
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
@@ -38,17 +39,16 @@ class ProjectController extends Controller
         $enCursoCount = $Projects->where('status', 'En curso')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $finalizadosCount = $Projects->where('status', 'Finalizado')->count();
-        $aprobadosCount = $Projects->where('status', 'Aprobado')->count();
         return view("administrator.project")
-            ->with(compact('Projects', 'enCursoCount', 'reprobadosCount', 'finalizadosCount', 'aprobadosCount'));
+            ->with(compact('Projects', 'enCursoCount', 'reprobadosCount', 'finalizadosCount'));
     }
 
     public function dashAnteprojects()
     {
-        $Anteprojects = Project::where('is_project', 0)->get();
+        $Anteprojects = Project::where('is_project', 0)->paginate(10);
         $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
         $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
-        $rechazadosCount = $Anteprojects->where('status', 'Rechazados')->count();
+        $rechazadosCount = $Anteprojects->where('status', 'Rechazado')->count();
         return view("administrator.dashboard.DashboardAnteprojects")
             ->with(compact('Anteprojects', 'registradosCount', 'enRevisionCount', 'rechazadosCount'));
     }
@@ -83,9 +83,21 @@ class ProjectController extends Controller
         return view('projects.viewsproject.ProjectsView', compact('Projects'));
     }
 
+    public function viewanteprojectAdmin()
+    {
+
+        // Aqui quiero la logica
+        $Projects = Project::where('is_project', false)->paginate(3);
+        $Projects->load('students');
+
+        return view('projects.viewsproject.AnteproyectosAdmin', compact('Projects'));
+    }
+
     public function viewproject()
     {
+
         $Projects = Project::where('is_project', true)->paginate(3);
+        $Projects->load('students');
         return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
     }
 
@@ -200,6 +212,7 @@ class ProjectController extends Controller
     //En esta función se el asesor es donde puede asignar likes, comentarios y calificar
     public function show(Project $project)
     {
+
         // Obtener el usuario autenticado
         $user = Auth::user();
         $getAcademicAdvisorId = AcademicAdvisor::where('user_id', $user->id)->first();
@@ -211,6 +224,7 @@ class ProjectController extends Controller
 
     public function showMyProject()
     {
+        
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
         $Project = $student->projects()->first();
