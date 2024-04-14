@@ -9,6 +9,7 @@ use App\Models\ManagmentAdmin;
 use App\Models\AcademicAdvisor;
 use App\Models\AcademicDirector;
 use Spatie\Permission\Models\Role;
+use App\Models\management\Division;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -19,6 +20,9 @@ class RolesImport implements ToModel, WithHeadingRow, WithValidation
 
     public function model(array $row)
     {
+        $division = Division::where('name', $row['division_name'])->first();
+
+
         $baseSlug = Str::slug($row['name'], '-');
         $slug = $baseSlug;
         $counter = 1;

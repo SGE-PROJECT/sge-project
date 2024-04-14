@@ -224,7 +224,7 @@ class ProjectController extends Controller
 
     public function showMyProject()
     {
-        
+
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
         $Project = $student->projects()->first();
@@ -306,18 +306,16 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    // Eliminar una cédula
+    public function destroy(Project $project)
     {
-        $project = Project::find($id);
-        if (!$project) {
-            return back()->with('error', '¡No se pudo encontrar el proyecto para eliminar!');
-        }
-        $deleted = $project->delete();
-        if ($deleted) {
-            return redirect()->route('dashboardProjects')->with('success', '¡El proyecto ha sido eliminado exitosamente!');
-        } else {
-            return back()->with('error', '¡Se produjo un error al eliminar el proyecto!');
-        }
+        // Eliminar los registros relacionados en la tabla project_students
+        $project->students()->detach();
+
+        // Eliminar el proyecto
+        $project->delete();
+
+        return redirect()->route('home')->with('success', 'Proyecto eliminado correctamente.');
     }
 
 
