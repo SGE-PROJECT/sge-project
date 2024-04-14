@@ -54,9 +54,10 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    //Redirije a la ruta segun su rol
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
-    Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
+    Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 
     Route::get('/projectsdash', function () {
         return view('management.project');
@@ -102,9 +103,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::resource('/sanciones', ManagementUserController::class);
-    Route::get('/enviar-notification', function () {
-        return view('books-notifications.books.test-notifications');
-    });
+    Route::get('/enviar-notification', function () {return view('books-notifications.books.test-notifications');})->name("enviarNotifications");
 
     Route::post('/not', [BooksController::class, 'notifications'])->name('sendNotification');
     Route::get('/scraping', [BooksController::class, 'imageBooks']);
@@ -169,7 +168,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
 
-});
 
 
 Route::get('/division/proyecto', [DivisionController::class, 'getProjectsPerDivision']);
@@ -193,7 +191,7 @@ Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
     Route::put('/asesorias/{id}', [AdvisorySessionController::class, 'update'])->name('asesorias.update');
     Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
 
-    // sesorados
+    // asesorados
     Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
     Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
     Route::post('/asesorados/{id}/reporte/{alumno}/generar', [AdvisoryReportsController::class, 'store'])->name('generarReporte');
@@ -225,13 +223,14 @@ Route::get('vistanteproyectosadmin', [ProjectController::class, 'viewanteproject
 });
 
 //Proteccion de rutas para el admin por division
-Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
+Route::middleware(['role:Administrador de División'])->group(function () {
     Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
     Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->name('academic-advisor');
     Route::get('/division-projects', [projectsDivisionController::class, 'projectsForDivision'])->name('Division-Proyectos');
     Route::get('/division-anteprojects', [anteprojectsDivisionController::class, 'anteprojectsForDivision'])->name('Division-Anteproyectos');
 });
 
+});
 
 
 //Middlewares por rol, pongan sus vistas según como lógicamente deba verlas cierto rol

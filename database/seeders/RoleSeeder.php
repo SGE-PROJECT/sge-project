@@ -97,7 +97,7 @@ class RoleSeeder extends Seeder
             //carreras
             'carreras.index' => [
                 'roles' => ['Super Administrador','Administrador de División'], // Solo Super Administrador
-                'description' => 'Consultar las carreras'
+                'description' => 'Consultar las carreras' 
             ],
             'carreras.create' => [
                 'roles' => ['Super Administrador'], // Solo Super Administrador
