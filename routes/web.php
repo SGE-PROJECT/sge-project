@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\auth\ForgotPasswordController;
+use App\Http\Controllers\GroupController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CrudUserController;
@@ -187,6 +188,7 @@ Route::resource('/empresas', CompaniesController::class);
 Route::resource('/divisiones', DivisionController::class);
 Route::post('/divisiones/{id}/activate', [DivisionController::class, 'activate'])->name('divisiones.activate');
 Route::resource('/carreras', ProgramController::class);
+Route::resource('/grupos', GroupController::class);
  Route::put('//empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
 /* });
  */
