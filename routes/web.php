@@ -30,7 +30,8 @@
     use App\Http\Controllers\projects\ViewProjectController;
     use App\Http\Controllers\users\ManagementUserController;
     use App\Http\Controllers\advisorDash\AdvisorDashController;
-    use App\Http\Controllers\CartaDigitalizacionController;
+use App\Http\Controllers\AprobacionController;
+use App\Http\Controllers\CartaDigitalizacionController;
     use App\Http\Controllers\CedulaController;
     use App\Http\Controllers\studentDash\StudentDashController;
     use App\Http\Controllers\studentDash\projectsDivisionController;
@@ -96,6 +97,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
         Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
         Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
+      
+
     });
     //Acciones que puede hacer un estudante
     Route::middleware(['auth', 'role:Estudiante'])->group(function () {
@@ -121,6 +124,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/invitar/estudiante', [InvitacionEstudianteController::class, 'enviarInvitacion'])->name('invitar.estudiante');
         Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
         Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+        Route::get('carta-aprobacion', [AprobacionController::class, 'aprobar'])->name('aprobacion');
+        Route::put('/projects/{id}/updateIsPublic', [ProjectController::class, 'updateIsPublic'])->name('projects.updateIsPublic');
     });
     //Vusualizacion de elementos para quienes no sean estudiantes o secretarias
     Route::middleware(['auth', 'role:Administrador de División|Asesor Académico|Super Administrador'])->group(function () {

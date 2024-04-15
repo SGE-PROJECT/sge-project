@@ -1,6 +1,6 @@
 @extends('layouts.panelUsers')
 
-@section('titulo', 'Ver Anteproyecto')
+@section('titulo', 'Ver Proyecto')
 
 @section('contenido')
 <div class="p-8 mt-8 mr-8 ml-8 mb-8 bg-white rounded-lg shadow-lg">
@@ -8,12 +8,7 @@
         <li class="flex items-center font-sans hover:text-teal-500 font-semibold transition-colors duration-300 cursor-pointer">
             <a class="text-xl" href={{ route('home') }}>⭠ Regresar</a>
         </li>
-        <h2 class="text-3xl font-bold sm:text-4xl text-center mt-4">CÉDULA DE
-            @if (!$proyecto->is_project)
-                                        ANTEPROYECTO
-                                    @else
-                                        PROYECTO
-                                    @endif
+        <h2 class="text-3xl font-bold sm:text-4xl text-center mt-4">CÉDULA DE PROYECTO
         </h2>
     </div>
     <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6">
