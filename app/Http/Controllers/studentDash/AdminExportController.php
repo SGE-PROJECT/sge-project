@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\UsersExport;
 use App\Exports\ProjectsExport;
+use App\Exports\AnteprojectsExport;
 use App\Models\Project;
 use App\Models\ProjectStudent;
 
@@ -124,6 +125,30 @@ class AdminExportController extends Controller
     public function exportProjectsExcel()
     {
         return Excel::download(new ProjectsExport, 'projects.xlsx');
+    }
+
+    //Exportar anteproyectos a PDF
+    public function exportAnteprojectsPdf()
+    {
+        $anteprojects = Project::where('is_project', 0)
+            ->with(['students' => function($query) {
+                $query->wherePivot('is_main_student', 1)
+                    ->with([
+                        'user',
+                        'group.program.division',
+                        'academicAdvisor.user'
+                    ]);
+            }])->get();
+
+        $pdf = PDF::loadView('exports.anteprojects_pdf', compact('anteprojects'));
+        $pdf->setPaper('letter', 'landscape'); // Ajusta el tamaño del papel a Carta en orientación horizontal
+        return $pdf->download('anteproyectos.pdf');
+    }
+
+    //Exportar anteproyectos a Excel
+    public function exportAnteprojectsExcel()
+    {
+        return Excel::download(new AnteprojectsExport, 'anteproyectos.xlsx');
     }
 
 }
