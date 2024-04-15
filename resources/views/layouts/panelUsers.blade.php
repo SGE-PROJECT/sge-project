@@ -154,49 +154,6 @@
                                     ]))
                             @else
                                 <li class=" ">
-                                    <a href="/gestion-usuarios"
-                                        class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#00755e] p-1 rounded-md ">
-                                        <i class='bx bx-user mr-3 text-lg'></i>
-                                        <span>Usuarios</span>
-                                    </a>
-                                </li>
-                            @endif
-                            <li class="">
-                                <a href="/roles-permisos"
-                                    class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#00755e] p-1 rounded-md">
-                                    <i class='bx bx-lock-open mr-3 text-lg'></i>
-                                    <span>Roles y Permisos</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="sanciones"
-                                    class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
-                                    <i class='bx bx-no-entry mr-3 text-lg'></i>
-                                    <span>Sanciones</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="mb-1 group relative z-2">
-                        <a href=""
-                            class="flex font-semibold items-center py-2 px-4 text-white sidebar-dropdown-toggle rounded-md">
-                            <i class='bx bx-building-house mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Administración</span>
-                            <i
-                                class="ri-arrow-right-s-line ml-auto group-[.selected]:rotate-90 transition-transform hidden md:block"></i>
-                        </a>
-                        <ul
-                            class="hidden transition duration-300 ease-in-out absolute z-20 left-full top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
-                            @if (Auth::check() &&
-                                    Auth::user()->hasAnyRole([
-                                        'Administrador de División',
-                                        'Asesor Académico',
-                                        'Estudiante',
-                                        'Presidente Académico',
-                                        'Asistente de Dirección',
-                                    ]))
-                            @else
-                                <li class=" ">
                                     <a href="/"
                                         class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#00755e] p-1 rounded-md ">
                                         <i class='bx bx-user mr-3 text-lg'></i>
@@ -211,18 +168,13 @@
                                     <span>Roles y Permisos</span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a href="sanciones"
-                                    class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
-                                    <i class='bx bx-no-entry mr-3 text-lg'></i>
-                                    <span>Sanciones</span>
-                                </a>
-                            </li>
                         </ul>
                     </li>
                 @endif
 
 
+                @if (Auth::check() && Auth::user()->hasAnyRole(['Estudiante']))
+                @else
                 <li class="mb-1 group relative z-2">
                     <a href=""
                         class="flex font-semibold items-center py-2 px-4 text-white  sidebar-dropdown-toggle rounded-md ">
@@ -232,7 +184,7 @@
                             class="ri-arrow-right-s-line ml-auto  group-[.selected]:rotate-90 transition-transform  hidden md:block"></i>
                     </a>
                     <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
-                        @if (!Auth::user()->hasAnyRole(['Asesor Académico', 'Estudiante']))
+                        @if (!Auth::user()->hasAnyRole(['Asesor Académico']))
                             <li>
                                 <a href="{{ route('dashboardProjects') }}"
                                     class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
@@ -251,13 +203,14 @@
                                         class="text-sm">Anteproyectos</span></a>
                             </li>
                         @endif
-
+                        @if (Auth::user()->hasAnyRole(['Asesor Académico']))
                         <li>
                             <a href="{{ route('viewproject') }}"
                                 class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                     class='bx bx-folder-plus mr-3 text-lg'></i><span
                                     class="text-sm">Proyectos</span></a>
                         </li>
+                        @endif
                         <li class="">
                             @if (Auth::check() &&
                                     Auth::user()->hasAnyRole([
@@ -288,6 +241,7 @@
                         @endif
                     </ul>
                 </li>
+                @endif
 
                 @if (Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico']))
                     <span class="text-[#fff] nav-text font-bold">EMPRESAS</span>
@@ -357,7 +311,7 @@
                     </li>
                 @else
                 @endif
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Estudiante']))
+                @role(['Estudiante'])
                     <!-- ACTIVIDADES Section -->
                     <span class="text-[#fff] nav-text font-bold">ACTIVIDADES</span>
                     <li class="mb-1 group">
@@ -367,8 +321,7 @@
                             <span class="nav-text text-sm">Sesiones de Asesoría</span>
                         </a>
                     </li>
-                @else
-                @endif
+                @endrole
 
                 <!-- PERSONAL Section -->
                 <span class="text-[#fff] font-bold nav-text">PERSONAL</span>
@@ -403,30 +356,7 @@
                 <img class="left-[-1000px] h-[40px] hidden md:block absolute transition duration-1000 ease-in-out "
                     id="imagen2" src="{{ asset('images/letras.png') }}" alt="">
                 <ul class="ml-auto flex items-center ">
-                    <li class="mr-1 dropdown">
-                        <button type="button"
-                            class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24"
-                                style="fill: gray;transform: ;msFilter:;">
-                                <path
-                                    d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z">
-                                </path>
-                            </svg>
-                        </button>
-                        <div
-                            class="dropdown-menu shadow-md shadow-black/5 z-30 hidden max-w-xs w-full bg-white rounded-md border border-gray-100">
-                            <form action="" class="p-4 border-b border-b-gray-100">
-                                <div class="relative w-full">
-                                    <input type="text"
-                                        class="py-2 pr-4 pl-10 bg-gray-50 w-full outline-none border border-gray-100 rounded-md text-sm focus:border-blue-500"
-                                        placeholder="Search...">
-                                    <i
-                                        class="ri-search-line absolute top-1/2 left-4 -translate-y-1/2 text-gray-900"></i>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
+                    
                     <li class="dropdown  hidden md:block">
                         <button type="button"
                             class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600">
@@ -623,7 +553,7 @@
                                     Ver Perfil</a>
                             </li>
                             <li>
-                                <a href="{{ url('/Configurar_Cuenta') }}"
+                                <a href="{{ route('users.configuration') }}"
                                     class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Configurar
                                     Cuenta</a>
                             </li>
