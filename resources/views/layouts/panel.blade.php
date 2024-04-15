@@ -162,13 +162,7 @@
                                     <span>Roles y Permisos</span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a href="sanciones"
-                                    class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
-                                    <i class='bx bx-no-entry mr-3 text-lg'></i>
-                                    <span>Sanciones</span>
-                                </a>
-                            </li>
+                        
                         </ul>
                     </li>
                 @endif
