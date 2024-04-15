@@ -10,6 +10,10 @@
             <a class="text-xl" href={{ route('home') }}>⭠ Regresar</a>
         </li>
         <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
+        <!-- BOTON DE INVITAR -->
+        <button id="btnInvitarEstudiante"
+            class="font-bold bg-teal-500 text-white  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Invitar a
+            colaborador</button>
         <form action="{{ route('projects.update', $proyecto->id) }}" method="POST" class="space-y-4">
             @csrf
             @method('put')
@@ -373,6 +377,25 @@
         @method('DELETE')
     </form>
 
+
+    <!-- Formulario de invitación -->
+    <div id="modalInvitarEstudiante" class="modalInvitar">
+        <form id="formInvitarEstudiante" action="{{ route('invitar.estudiante') }}" method="POST"
+            class="modal-content-invite">
+            @csrf
+            <div class="container">
+                <h2>Invitar Estudiante</h2>
+                <label for="nombre_estudiante">Nombre del Estudiante:</label>
+                <input type="text" id="nombre_estudiante" name="nombre_estudiante" required>
+                <label for="email_estudiante">Correo Electrónico:</label>
+                <input type="email" id="email_estudiante" name="email_estudiante" required>
+                <input type="hidden" id="project_id" name="project_id" value="{{ $proyecto->id }}">
+                <button type="submit">Enviar Invitación</button>
+            </div>
+        </form>
+    </div>
+
+
 @endsection
 
 @section('scripts')
@@ -403,6 +426,22 @@
                 // Enviar el formulario
                 formEliminar.submit();
             });
+        });
+    </script>
+
+    <!--- Script para invitar a colaborador ---->
+    <script>
+        const btnInvitarEstudiante = document.getElementById('btnInvitarEstudiante');
+        const modalInvitarEstudiante = document.getElementById('modalInvitarEstudiante');
+
+        btnInvitarEstudiante.addEventListener('click', () => {
+            modalInvitarEstudiante.style.display = 'block';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modalInvitarEstudiante) {
+                modalInvitarEstudiante.style.display = 'none';
+            }
         });
     </script>
 @endsection

@@ -195,9 +195,9 @@
                                     class="text-sm">Proyectos</span></a>
                         </li>
                     @endif
-                        
-                        
-            
+
+
+
                         <li class="">
                             @if (Auth::check() &&
                                     Auth::user()->hasAnyRole([
@@ -214,7 +214,7 @@
                                         class=" text-sm">Divisiones</span></a>
                         </li>
                         @endif
-                        @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Estudiante']))
+                        @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección']))
                         @else
                             <li class="">
 
@@ -222,6 +222,13 @@
                                     class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                         class=' bx bx-book-open mr-3 text-lg'></i><span
                                         class="text-sm">Carreras</span></a>
+                            </li>
+                            <li class="">
+
+                                <a href="{{ route('grupos.index') }}"
+                                    class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class=' bx bx-group mr-3 text-lg'></i><span
+                                        class="text-sm">Grupos</span></a>
                             </li>
                         @endif
                     </ul>
