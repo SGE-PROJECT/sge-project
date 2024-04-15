@@ -34,24 +34,8 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-300">
-<<<<<<< HEAD
                             @foreach ($groups as $group)
                                 <tr>
-=======
-                            @php
-                            $groups = [
-                                ['name' => 'SM53', 'division' => 'Ingeniería y Tecnología', 'career' => 'Desarrollo de software multiplataforma'],
-                                ['name' => 'LV84', 'division' => 'Ciencias Sociales', 'career' => 'Psicología'],
-                                ['name' => 'LV84', 'division' => 'Ciencias Sociales', 'career' => 'Psicología'],
-                                ['name' => 'LV84', 'division' => 'Ciencias Sociales', 'career' => 'Psicología'],
-                                ['name' => 'LV84', 'division' => 'Ciencias Sociales', 'career' => 'Psicología'],
-                                ['name' => 'LV84', 'division' => 'Ciencias Sociales', 'career' => 'Psicología'],
-                                // Añade más grupos según sea necesario
-                            ];
-                            @endphp
-                            @foreach ($groups as $index => $group)
-                                <tr class="{{ $index % 2 === 0 ? 'bg-white' : 'bg-gray-100' }}">
->>>>>>> develop
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-black">
                                         {{ $group->name }}
                                     </td>
