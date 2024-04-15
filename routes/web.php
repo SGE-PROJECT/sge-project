@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApprovementLetter;
@@ -29,10 +30,13 @@ use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\users\ManagementUserController;
 use App\Http\Controllers\advisorDash\AdvisorDashController;
+use App\Http\Controllers\CartaDigitalizacionController;
 use App\Http\Controllers\CedulaController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\studentDash\projectsDivisionController;
 use App\Http\Controllers\studentDash\anteprojectsDivisionController;
+use App\Http\Controllers\InvitacionEstudianteController;
+
 use App\Http\Controllers\studentDash\AdminExportController;
 
 /*
@@ -150,6 +154,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
 
     Route::get('generar-cedula', [CedulaController::class, 'cedula'])->name('cedula.anteproyecto');
+    Route::get('generar-carta-digitalizacion', [CartaDigitalizacionController::class, 'digitalizacion'])->name('carta-digitalizacion');
 
     /* Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
@@ -169,7 +174,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
 
     Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
-
+    //Invitar a colaboradores
+    Route::post('/invitar/estudiante', [InvitacionEstudianteController::class, 'enviarInvitacion'])->name('invitar.estudiante');
 });
 
 
@@ -184,6 +190,7 @@ Route::resource('/empresas', CompaniesController::class);
 Route::resource('/divisiones', DivisionController::class);
 Route::post('/divisiones/{id}/activate', [DivisionController::class, 'activate'])->name('divisiones.activate');
 Route::resource('/carreras', ProgramController::class);
+Route::resource('/grupos', GroupController::class);
  Route::put('//empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
 /* });
  */

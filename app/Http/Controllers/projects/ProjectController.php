@@ -321,6 +321,33 @@ class ProjectController extends Controller
         return redirect()->route('home')->with('error', 'Rol de usuario no válido.');
     }
 
+    public function updateStatus(ProjectEdit $request, $id): RedirectResponse
+    {
+
+        $proyecto = Project::find($id);
+        $proyecto->update($request->all());
+
+        $getBusinessAdvisor = BusinessAdvisor::find($proyecto->business_advisor_id);
+
+
+        // Verificar si se está publicando el proyecto
+        if ($request->status === 'En curso') {
+            $proyecto->status = 'En curso'; // Estado "Aprobado"
+            $proyecto->is_project = 1; // Marcar como proyecto
+            $proyecto->save();
+        }
+
+        // Redireccionar según el tipo de usuario
+        if (Auth::user()->roles->contains('name', 'Estudiante')) {
+            return redirect()->back()->with('change', 'Proyecto actualizado correctamente.');
+        } else if (Auth::user()->roles->contains('name', 'Asesor Académico')) {
+            return redirect()->back()->with('change', 'Proyecto actualizado correctamente.');
+        }
+
+        // En caso de que el usuario no tenga ningún rol válido, se puede redirigir a una página de error o a una página por defecto
+        return redirect()->route('home')->with('err', 'Rol de usuario no válido.');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -379,5 +406,46 @@ class ProjectController extends Controller
         }
 
         return redirect()->back()->with('success', 'Calificación asignada exitosamente al proyecto.');
+    }
+
+    //Invitar colaboradores
+    public function enviarInvitacion(Request $request)
+    {
+        // Validar los datos del formulario de invitación
+        $request->validate([
+            'nombre_estudiante' => 'required|string',
+            'email_estudiante' => 'required|email',
+        ]);
+
+        // Obtener el proyecto actual
+        $proyecto = Project::find($request->input('project_id'));
+
+        // Verificar si el proyecto existe
+        if (!$proyecto) {
+            return redirect()->back()->with('error', 'El proyecto no existe.');
+        }
+
+        // Verificar si el estudiante ya está asociado al proyecto
+        $estudiante = Student::where('nombre', $request->input('nombre_estudiante'))
+                     ->orWhere('email', $request->input('email_estudiante'))
+                     ->first();
+
+        if ($estudiante && $proyecto->students->contains($estudiante)) {
+            return redirect()->back()->with('error', 'El estudiante ya está asociado al proyecto.');
+        }
+
+        // Si el estudiante no existe, crearlo
+        if (!$estudiante) {
+            $estudiante = new Student();
+            $estudiante->nombre = $request->input('nombre_estudiante');
+            $estudiante->email = $request->input('email_estudiante');
+            $estudiante->save();
+        }
+
+        // Asociar el estudiante al proyecto
+        $proyecto->students()->attach($estudiante->id);
+
+        // Redireccionar de vuelta a la vista del proyecto con un mensaje de éxito
+        return redirect()->back()->with('success', 'Estudiante invitado al proyecto exitosamente.');
     }
 }
