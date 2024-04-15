@@ -30,6 +30,7 @@ use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\users\ManagementUserController;
 use App\Http\Controllers\advisorDash\AdvisorDashController;
+use App\Http\Controllers\CartaDigitalizacionController;
 use App\Http\Controllers\CedulaController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\studentDash\projectsDivisionController;
@@ -152,6 +153,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
 
     Route::get('generar-cedula', [CedulaController::class, 'cedula'])->name('cedula.anteproyecto');
+    Route::get('generar-carta-digitalizacion', [CartaDigitalizacionController::class, 'digitalizacion'])->name('carta-digitalizacion');
 
     /* Modulo de proyectos*/
     Route::get('projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
