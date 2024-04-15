@@ -15,8 +15,8 @@
                     class="mb-4 bg-[#03A696] text-white font-medium w-32 h-10 rounded-md flex justify-center items-center">Crear
                     usuario</a>
                 <a href="{{ route('users.masiveadd.index') }}"
-                    class="ml-2 mb-4 bg-[#03A696] text-white font-medium w-32 h-10 rounded-md flex justify-center items-center">Crear
-                    usuarios</a>
+                    class="ml-2 mb-4 bg-[#03A696] text-white font-medium w-72 h-10 rounded-md flex justify-center items-center">Crear
+                    usuarios masivamente</a>
 
             </div>
 
