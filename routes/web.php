@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApprovementLetter;
@@ -29,10 +30,13 @@ use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\users\ManagementUserController;
 use App\Http\Controllers\advisorDash\AdvisorDashController;
+use App\Http\Controllers\CartaDigitalizacionController;
 use App\Http\Controllers\CedulaController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\studentDash\projectsDivisionController;
 use App\Http\Controllers\studentDash\anteprojectsDivisionController;
+use App\Http\Controllers\InvitacionEstudianteController;
+
 
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
@@ -100,6 +104,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/estudiante/{userId}', [StudentController::class, 'showProfile'])->name('profile.student');
         Route::get('/asesor/{id}', [StudentController::class, 'showAdviserProfile'])->name('profile.adviser');
 
+    //Notificaciones para los usuarios
+    Route::get('/notificaciones', function () {
+        return view('books-notifications.notificaciones-user');
+    });
+
     // Modulo de gestion de libros
         Route::middleware(['auth', 'role:Asistente de Dirección'])->group(function () {
             Route::get('libros/slug/{slug}', [BooksController::class, 'show'])->name('libros.show');
@@ -109,9 +118,6 @@ Route::middleware(['auth'])->group(function () {
             });
             Route::post('/not', [BooksController::class, 'notifications'])->name('sendNotification');
             Route::get('/scraping', [BooksController::class, 'imageBooks']);
-            Route::get('/notificaciones', function () {
-                return view('books-notifications.notificaciones-user');
-            });
             Route::get('/reporte', [BooksController::class, 'listBook'])->name('books.list');
             Route::get('/reporte/pdf', [BooksController::class, 'report'])->name('books.reports');
             Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
@@ -140,6 +146,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/divisiones', DivisionController::class);
     Route::post('/divisiones/{id}/activate', [DivisionController::class, 'activate'])->name('divisiones.activate');
     Route::resource('/carreras', ProgramController::class);
+    Route::resource('/grupos', GroupController::class);
     Route::put('/empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
 
     Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
@@ -166,6 +173,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/generar-cedula', [CedulaController::class, 'cedula'])->name('cedula.anteproyecto');
         Route::get('/estudiante', [StudentController::class, 'index'])->name('home');
         Route::get('/exportar', [StudentController::class, 'export'])->name('student.export');
+        Route::get('generar-carta-digitalizacion', [CartaDigitalizacionController::class, 'digitalizacion'])->name('carta-digitalizacion');
 
         Route::get('/libro',[BooksController::class,'studentBook'])->name('libro-student');
         Route::get('/añadir.libros', function () {
@@ -174,7 +182,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/proyectoinvitacion', [ProjectController::class, 'invitation'])->name('projectinvitation');
         Route::get('/formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
         Route::post('/formanteproyecto', [ProjectController::class, 'store'])->name('envproyecto');
-    });
+
+        //Invitar a colaboradores
+            Route::post('/invitar/estudiante', [InvitacionEstudianteController::class, 'enviarInvitacion'])->name('invitar.estudiante');
+        });
 
     Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])->group(function () {
         Route::get('/empresas-afiliadas', [CompaniesController::class, 'showTable'])->name('empresas.showTable');
