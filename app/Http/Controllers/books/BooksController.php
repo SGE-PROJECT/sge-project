@@ -40,26 +40,61 @@ class BooksController extends Controller
     {
         $estado = $request->estado;
         $query = $request->query('query'); // Obtener el parámetro de búsqueda del request
+        $user = Auth::user();
+        $idUser =$user->id;
+        $divId = Secretary::where('user_id', $idUser)->select('division_id')->get();
+        $divisionId=$divId[0]->division_id;
 
-        // Obtener todos los libros
-        $books = Book::query();
+
+        $booksOfStudents = Student::join('groups', 'students.group_id', '=', 'groups.id')
+        ->join('programs', 'groups.program_id', '=', 'programs.id')
+        ->join('divisions', 'programs.division_id', '=', 'divisions.id')
+        ->join('users', 'students.user_id', '=', 'users.id')
+        ->join('books','students.book_id','=','books.id')
+        ->where('divisions.id', $divisionId)
+        ->whereNotNull('students.book_id')
+        ->select('books.*') 
+        ->get();
+
+       
+
+        
+        $oneBookforStudent = collect([]);
+        foreach($booksOfStudents as $book){
+           // Verificar si el libro ya existe en $oneBookforStudent
+    if (!$oneBookforStudent->contains('id', $book->id)) {
+        // Si no existe se agrega a $oneBookforStudent
+        $oneBookforStudent->push($book);
+    }
+
+    }
 
         // Aplicar filtro por estado si se proporciona
+        $filteredBooks = $oneBookforStudent;
         if ($estado === 'finalizado') {
-            $books->where('state', 1);
+        $filteredBooks=$filteredBooks->where('state', 1);
         } elseif ($estado === 'en-proceso') {
-            $books->where('state', 0);
+            $filteredBooks = $filteredBooks->where('state', 0);
         }
 
         // Aplicar filtro por nombre si se proporciona
         if ($query) {
-            $books->where('title', 'LIKE', "%$query%");
+            $filteredBooks = $filteredBooks->where('title', 'LIKE', "%$query%");
         }
+        $studentBook=[];
 
         // Obtener los libros filtrados
-        $books = $books->get();
+        
+        foreach($filteredBooks as $book){
+            $students=Student::join('users', 'students.user_id', '=', 'users.id')->where('students.book_id',$book->id)->select('users.name as name','students.registration_number as tuition')->get();
+            $studentBook[] = [
+                'book' => $book,
+                'students' => $students
+            ];
+        }
+       
 
-        return view('books-notifications.books.Books', compact('books', 'estado'));
+        return view('books-notifications.books.Books', compact('studentBook', 'estado'));
     }
 
 
@@ -72,7 +107,23 @@ class BooksController extends Controller
     {
         $image = 'images/utcbis-logo.jpg';
         $books = Book::all();
-        $pdf = Pdf::loadView('books-notifications.books.reports', compact('books', 'image'));
+
+        $user = Auth::user();
+        $idUser =$user->id;
+        $divId = Secretary::where('user_id', $idUser)->select('division_id')->get();
+        $nDivision=DB::table('divisions')->where('id',$divId[0]->division_id)->select('name')->get();
+        $nameDivision=$nDivision[0]->name;
+        $divisionId=$divId[0]->division_id;
+        $booksOfStudents = Student::join('groups', 'students.group_id', '=', 'groups.id')
+        ->join('programs', 'groups.program_id', '=', 'programs.id')
+        ->join('divisions', 'programs.division_id', '=', 'divisions.id')
+        ->join('users', 'students.user_id', '=', 'users.id')
+        ->join('books','students.book_id','=','books.id')
+        ->where('divisions.id', $divisionId)
+        ->whereNotNull('students.book_id')
+        ->select('students.id as student_id','books.id as book_id','users.name as user_name','students.registration_number as tuition','books.created_at as book_created','books.price as book_price','books.title as book_title','books.author as book_author','programs.name as program_name') 
+        ->get();
+        $pdf = Pdf::loadView('books-notifications.books.reports', compact('booksOfStudents', 'image','nameDivision'))->setPaper('a4', 'landscape');
         return $pdf->stream('books_reports.pdf');
     }
 
@@ -298,7 +349,23 @@ if($book->exists) {
 
 public function export()
 {
-    return Excel::download(new BooksExport, 'libros.xlsx');
+    $user = Auth::user();
+    $idUser =$user->id;
+    $divId = Secretary::where('user_id', $idUser)->select('division_id')->get();
+    $divisionId=$divId[0]->division_id;
+
+
+    $booksOfStudents = Student::join('groups', 'students.group_id', '=', 'groups.id')
+    ->join('programs', 'groups.program_id', '=', 'programs.id')
+    ->join('divisions', 'programs.division_id', '=', 'divisions.id')
+    ->join('users', 'students.user_id', '=', 'users.id')
+    ->join('books','students.book_id','=','books.id')
+    ->where('divisions.id', $divisionId)
+    ->whereNotNull('students.book_id')
+    ->select('students.id as student_id','books.id as book_id','users.name as user_name','students.registration_number as tuition','books.created_at as book_created','books.price as book_price','books.title as book_title','books.author as book_author','programs.name as program_name') 
+    ->get();
+
+    return Excel::download(new BooksExport($booksOfStudents), 'libros.xlsx');
 }
 
 public function notifications (Request $request){
