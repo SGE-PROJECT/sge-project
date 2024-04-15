@@ -14,16 +14,16 @@ class AdvisorDashController extends Controller
     public function advisorsForDivision(Request $request){
         // Obtener el usuario autenticado
         $user = Auth::user();
-    
+
         // Verificar si el usuario está autenticado y tiene un rol
         if (!$user) {
             // Redirigir o mostrar un mensaje de error si el usuario no está autenticado
             return redirect()->route('login')->with('error', 'Debe estar autenticado para realizar esta acción');
         }
-    
+
         // Obtener el rol del usuario utilizando Spatie Laravel Permission
         $role = $user->getRoleNames()->first(); // Obtener el primer rol asignado al usuario
-    
+
         if ($role === 'Administrador de División') {
             $divId = ManagmentAdmin::where('user_id', $user->id)->select('division_id')->first();
             if (!$divId) {
@@ -31,7 +31,7 @@ class AdvisorDashController extends Controller
                 return redirect()->back()->with('error', 'No se encontró la división asociada al usuario');
             }
             $divisionId = $divId->division_id;
-            
+
             // Asegúrate de que la consulta utilice 'paginate()' para la paginación
             $advisors = AcademicAdvisor::where('academic_advisors.division_id', $divisionId)
             ->join('users', 'academic_advisors.user_id', '=', 'users.id')
@@ -45,7 +45,7 @@ class AdvisorDashController extends Controller
             )
             ->paginate(10);
 
-return view('administrator.managementAdmin.advisor-dash', compact('advisors'));
+        return view('administrator.managementAdmin.advisor-dash', compact('advisors'));
 
         }
         // Considera manejar el caso en el que el usuario no sea 'Administrador de División'
@@ -53,5 +53,5 @@ return view('administrator.managementAdmin.advisor-dash', compact('advisors'));
             // Redirigir o manejar otros roles aquí
         }
     }
-    
+
 }

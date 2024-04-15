@@ -20,7 +20,11 @@ use App\Models\Student;
 
 class ProjectController extends Controller
 {
-    
+    //rateProject, invitation, projectform, store, showMyProject, destroy, projectteams, viewanteproject, updateStatus, viewproject
+    public function __construct(){
+        $this->middleware("can:project.index")->only('index', 'dashgeneral', 'dashAnteprojects', 'dashboardproject', 'viewanteprojectAdmin');
+        $this->middleware(['auth', 'role:Estudiante'])->only('edit', 'update');
+    }
     public function index()
     {
         $Projects = Project::paginate();
@@ -121,10 +125,6 @@ class ProjectController extends Controller
         return view('projects.ProjectUser.projectteams');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-
     public function create()
     {
         // Obtener el usuario autenticado
@@ -151,9 +151,6 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ProjectFormRequest $request)
     {
 
@@ -235,9 +232,6 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id) //Vista para editar proyecto
     {
         $proyecto = Project::find($id);
@@ -256,10 +250,6 @@ class ProjectController extends Controller
         }
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ProjectEdit $request, $id): RedirectResponse
     {
 
@@ -322,9 +312,6 @@ class ProjectController extends Controller
         return redirect()->route('home')->with('err', 'Rol de usuario no válido.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     // Eliminar una cédula
     public function destroy(Project $project)
     {
@@ -336,7 +323,6 @@ class ProjectController extends Controller
 
         return redirect()->route('home')->with('success', 'Proyecto eliminado correctamente.');
     }
-
 
     // Esta función permite asignar un puntaje a un proyecto. Solo se puede asignar puntaje una vez.
     public function rateProject(Request $request, $projectId)
