@@ -5,20 +5,19 @@ Gestión Masiva De Usuarios
 @endsection
 
 @section('contenido')
-@vite('resources/css/users/masiveadd.css')
 <h1 class="fondo text-center font-bold text-4xl py-4 text-black">Registro de usuarios</h1>
 
 <a  href="{{ route('users.exportCsv')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Descargar Todos Los Usuarios</a>
 <a  href="{{ route('users.exportTemplate')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Descargar Estudiantes</a>
 <a  href="{{ route('users.exportTemplateUsers')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Descargar Usuarios</a>
 <a  href="{{ route('users.store')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Subir Excell</a>
-<button type="submit" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Importar Usuarios</button>
 
 <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <label for="user_file" class="ml-8 p-2.5 bg-blue-gray-900 font-bold py-4 text-base">Archivo de Usuarios:</label>
     <input type="file" id="user_file" name="file" required>
-    
+    <button type="submit" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Importar Usuarios</button>
+
 </form>
 
 
