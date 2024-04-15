@@ -53,12 +53,12 @@ class BooksController extends Controller
         ->join('books','students.book_id','=','books.id')
         ->where('divisions.id', $divisionId)
         ->whereNotNull('students.book_id')
-        ->select('books.*') 
+        ->select('books.*')
         ->get();
 
-       
 
-        
+
+
         $oneBookforStudent = collect([]);
         foreach($booksOfStudents as $book){
            // Verificar si el libro ya existe en $oneBookforStudent
@@ -84,7 +84,7 @@ class BooksController extends Controller
         $studentBook=[];
 
         // Obtener los libros filtrados
-        
+
         foreach($filteredBooks as $book){
             $students=Student::join('users', 'students.user_id', '=', 'users.id')->where('students.book_id',$book->id)->select('users.name as name','students.registration_number as tuition')->get();
             $studentBook[] = [
@@ -92,7 +92,7 @@ class BooksController extends Controller
                 'students' => $students
             ];
         }
-       
+
 
         return view('books-notifications.books.Books', compact('studentBook', 'estado'));
     }
@@ -121,7 +121,7 @@ class BooksController extends Controller
         ->join('books','students.book_id','=','books.id')
         ->where('divisions.id', $divisionId)
         ->whereNotNull('students.book_id')
-        ->select('students.id as student_id','books.id as book_id','users.name as user_name','students.registration_number as tuition','books.created_at as book_created','books.price as book_price','books.title as book_title','books.author as book_author','programs.name as program_name') 
+        ->select('students.id as student_id','books.id as book_id','users.name as user_name','students.registration_number as tuition','books.created_at as book_created','books.price as book_price','books.title as book_title','books.author as book_author','programs.name as program_name')
         ->get();
         $pdf = Pdf::loadView('books-notifications.books.reports', compact('booksOfStudents', 'image','nameDivision'))->setPaper('a4', 'landscape');
         return $pdf->stream('books_reports.pdf');
@@ -457,7 +457,7 @@ public function export()
     ->join('books','students.book_id','=','books.id')
     ->where('divisions.id', $divisionId)
     ->whereNotNull('students.book_id')
-    ->select('students.id as student_id','books.id as book_id','users.name as user_name','students.registration_number as tuition','books.created_at as book_created','books.price as book_price','books.title as book_title','books.author as book_author','programs.name as program_name') 
+    ->select('students.id as student_id','books.id as book_id','users.name as user_name','students.registration_number as tuition','books.created_at as book_created','books.price as book_price','books.title as book_title','books.author as book_author','programs.name as program_name')
     ->get();
 
     return Excel::download(new BooksExport($booksOfStudents), 'libros.xlsx');
