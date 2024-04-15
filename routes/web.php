@@ -190,6 +190,7 @@ Route::resource('/divisiones', DivisionController::class);
 Route::post('/divisiones/{id}/activate', [DivisionController::class, 'activate'])->name('divisiones.activate');
 Route::resource('/carreras', ProgramController::class);
 Route::resource('/grupos', GroupController::class);
+Route::get('/grupos/programs/{divisionId}', [GroupController::class, 'getProgramsByDivision'])->name('grupos.programs');
  Route::put('//empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
 /* });
  */
