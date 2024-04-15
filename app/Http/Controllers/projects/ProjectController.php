@@ -75,19 +75,21 @@ class ProjectController extends Controller
     // Vista para contenido de antreproyectos relacionado a las vistas de Listado de Anteproyecto
     public function viewanteproject()
     {
-
-        // Aqui quiero la logica
-        $Projects = Project::where('is_project', false)->paginate(3);
+        $Projects = Project::where('is_project', false)->where('is_public', true)->paginate(3);
         $Projects->load('students');
 
-        return view('projects.viewsproject.ProjectsView', compact('Projects'));
+        // Pasar una variable indicando si hay anteproyectos
+        $noProjects = $Projects->isEmpty();
+
+        return view('projects.viewsproject.ProjectsView', compact('Projects', 'noProjects'));
     }
+
 
     public function viewanteprojectAdmin()
     {
 
         // Aqui quiero la logica
-        $Projects = Project::where('is_project', false)->paginate(3);
+        $Projects = Project::where('is_project', false)->paginate(5);
         $Projects->load('students');
 
         return view('projects.viewsproject.AnteproyectosAdmin', compact('Projects'));
@@ -96,7 +98,7 @@ class ProjectController extends Controller
     public function viewproject()
     {
 
-        $Projects = Project::where('is_project', true)->paginate(3);
+        $Projects = Project::where('is_project', true)->paginate(5);
         $Projects->load('students');
         return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
     }
@@ -118,6 +120,25 @@ class ProjectController extends Controller
             return view("projects.Forms.FormStudent");
         }
     }
+
+    public function updateIsPublic($id)
+    {
+        try {
+            // Buscar el proyecto por su ID
+            $project = Project::findOrFail($id);
+
+            // Actualizar el campo 'is_public' del proyecto a 1
+            $project->is_public = 1;
+            $project->save();
+
+            return redirect()->back()->with('success', 'Campo is_public actualizado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al actualizar el campo is_public: ' . $e->getMessage());
+        }
+    }
+
+
+
 
     public function projectteams()
     {
@@ -202,7 +223,6 @@ class ProjectController extends Controller
         ]);
 
         return redirect()->route('home');
-        // return Redirect::to('/proyectoinvitacion')->withInput()->with('success', 'Proyecto guardado correctamente.');
     }
 
     /**

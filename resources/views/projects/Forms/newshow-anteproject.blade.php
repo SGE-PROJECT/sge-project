@@ -9,7 +9,7 @@
             class="flex items-center  font-sans hover:text-teal-500 font-semibold  transition-colors duration-300 cursor-pointer">
             <a class="text-xl" href={{ route('home') }}>⭠ Regresar</a>
         </li>
-        <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
+        <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6 mt-2">INFORMACIÓN DE MI CEDULA DE ANTEPROYECTO</h2>
         <form action="{{ route('projects.update', $proyecto->id) }}" method="POST" class="space-y-4">
             @csrf
             @method('put')
@@ -245,164 +245,12 @@
 
             <div class="mt-8 flex justify-center text-center space-x-2">
                 <button
-                    class="font-bold bg-teal-500 text-white ml-24 px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
-                @if ($proyecto->is_public != 1)
-                    <form action="{{ route('projects.updateIsPublic', $proyecto->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit"
-                            class="font-bold bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors">Publicar</button>
-                    </form>
-                @endif
-            </div>
+                    class=" font-bold bg-teal-500 text-white ml-24  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
+                <button
+                    class=" font-bold bg-blue-500 text-white  px-6 py-2 rounded hover:bg-blue-700 transition-colors">Publicar</button>
 
+
+            </div>
         </form>
-        <div class="bg-white shadow mb-5 max-h-96 overflow-y-scroll mt-10">
-            @if ($proyecto->comments->count())
-                @foreach ($proyecto->comments as $comment)
-                    <div class="p-4 border-b border-gray-300 relative">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <div class="flex items-center">
-                                    <img src="{{ asset($comment->academic_advisor->user->photo) }}" alt="Avatar"
-                                        class="w-8 h-8 rounded-full mr-2">
-                                    <p class="text-gray-800 font-bold">{{ $comment->academic_advisor->user->name }} <i
-                                            class='bx bxs-badge-check text-[#03A696] text-2xl'></i>
-                                    </p>
-                                </div>
-
-                                <p class="mt-1">{{ $comment->content_message }}</p>
-                                <p class="text-gray-600 text-sm">{{ $comment->created_at->diffForHumans() }}</p>
-                            </div>
-
-                            @if (Auth::check() && Auth::user()->id === $comment->academic_advisor->user->id)
-                                <form method="POST"
-                                    action="{{ route('comentario.destroy', ['comment' => $comment->id]) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" value="Resolver"
-                                        class="w-30 bg-teal-500 text-white cursor-pointer font-semibold px-4 py-2 rounded-lg hover:bg-teal-700 focus:outline-none">
-                                </form>
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
-            @else
-                <p class="p-10 font-semibold text-xl text-center font-poppins">No hay comentarios aún.</p>
-
-            @endif
-        </div>
-        <div class="tooltip">
-            <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
-                Personas que han dado like
-            </button>
-            <span class="tooltip-text">
-                @if ($proyecto->likes->isEmpty())
-                    <p>Nadie ha dado like</p>
-                @else
-                    @foreach ($proyecto->likes as $like)
-                        <div class="p-4 border-b border-gray-300 relative">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <div class="flex items-center">
-                                        <img src="{{ asset($like->academicAdvisor->user->photo) }}" alt="Avatar"
-                                            class="w-8 h-8 rounded-full mr-2">
-                                        <p class="text-white font-bold">{{ $like->academicAdvisor->user->name }}</p>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-            </span>
-
-        </div>
-        <div class="tooltip mb-12 mt-4">
-            <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
-                Personas que han calificado
-            </button>
-            <span class="tooltip-text">
-                @if ($proyecto->scores->isEmpty())
-                    <p>Nadie ha calificado este proyecto</p>
-                @else
-                    @foreach ($proyecto->scores as $score)
-                        <div class="p-4 border-b border-gray-300 relative">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <div class="flex items-center">
-                                        <img src="{{ asset($score->AcademicAdvisor->user->photo) }}" alt="Avatar"
-                                            class="w-8 h-8 rounded-full mr-2">
-                                        <p class="text-white font-bold">{{ $score->AcademicAdvisor->user->name }}</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-white font-bold">{{ $score->score }} estrellas</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-            </span>
-        </div>
     </div>
-
-
-    <!-- Botón de eliminar proyecto -->
-    <button id="btnEliminarProyecto" class="ProjectDeleteButton">Eliminar</button>
-
-    <!-- Modal de confirmación de eliminación -->
-    <div id="modalEliminar" class="ProjectDeleteModal fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity hidden">
-        <div class="bg-white rounded p-8 max-w-md mx-auto z-50">
-            <div class="mb-6">
-                <h2 class="text-lg font-semibold text-gray-800">¿Seguro que quieres eliminar?</h2>
-            </div>
-            <div class="flex justify-end">
-                <button id="btnCancelar"
-                    class="mr-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancelar</button>
-                <button id="btnConfirmarEliminar"
-                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Eliminar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Formulario de eliminación -->
-    <form id="formEliminar" action="{{ route('projects.destroy', $proyecto->id) }}" method="POST"
-        style="display: none;">
-        @csrf
-        @method('DELETE')
-    </form>
-
-@endsection
-
-@section('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Obtener el botón de eliminar proyecto y el modal de confirmación
-            const btnEliminarProyecto = document.getElementById('btnEliminarProyecto');
-            const modalEliminar = document.getElementById('modalEliminar');
-
-            // Obtener los botones de cancelar y confirmar eliminar
-            const btnCancelar = document.getElementById('btnCancelar');
-            const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
-
-            // Agregar un listener para abrir el modal al hacer clic en el botón de eliminar proyecto
-            btnEliminarProyecto.addEventListener('click', function() {
-                modalEliminar.classList.remove('hidden');
-            });
-
-            // Agregar un listener para cerrar el modal al hacer clic en el botón de cancelar
-            btnCancelar.addEventListener('click', function() {
-                modalEliminar.classList.add('hidden');
-            });
-
-            // Agregar un listener para enviar el formulario de eliminación al hacer clic en el botón de confirmar eliminar
-            btnConfirmarEliminar.addEventListener('click', function() {
-                // Obtener el formulario de eliminación
-                const formEliminar = document.getElementById('formEliminar');
-                // Enviar el formulario
-                formEliminar.submit();
-            });
-        });
-    </script>
 @endsection

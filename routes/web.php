@@ -29,6 +29,7 @@ use App\Http\Controllers\projects\ProjectFormController;
 use App\Http\Controllers\projects\ViewProjectController;
 use App\Http\Controllers\users\ManagementUserController;
 use App\Http\Controllers\advisorDash\AdvisorDashController;
+use App\Http\Controllers\AprobacionController;
 use App\Http\Controllers\CedulaController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\studentDash\projectsDivisionController;
@@ -168,6 +169,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
 
     Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
+    Route::put('/projects/{id}/updateIsPublic', [ProjectController::class, 'updateIsPublic'])->name('projects.updateIsPublic');
+
 
 });
 
@@ -215,6 +218,7 @@ Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])
 Route::get('/estudiante', [StudentController::class, 'index'])->name('home');
 Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.advisor');
 Route::get('/exportar', [StudentController::class, 'export'])->name('student.export');
+Route::get('/carta-aprobacion', [AprobacionController::class, 'aprobar'])->name('aprobacion');
 
 //Proteccion de rutas para el super admin
 Route::middleware(['auth', 'role:Super Administrador'])->group(function () {

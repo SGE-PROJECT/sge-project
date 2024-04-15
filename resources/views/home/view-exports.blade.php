@@ -18,7 +18,7 @@
                                 <span class="text-gray-700">Disponible</span>
                             </div>
                         </div>
-                        <button class="mt-3 sm:mt-0 py-2 px-5 md:py-3 md:px-6 bg-[#00ab84] hover:bg-teal-600 font-bold text-white rounded-lg">Generar</button>
+                        <a href="{{ route('aprobacion') }}" class="mt-3 sm:mt-0 py-2 px-5 md:py-3 md:px-6 bg-[#00ab84] hover:bg-teal-600 font-bold text-white rounded-lg">Generar</a>
                     </div>
                 </div>
             </div>
