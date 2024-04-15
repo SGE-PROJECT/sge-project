@@ -20,12 +20,9 @@ use App\Models\Student;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-
         $Projects = Project::paginate();
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
@@ -202,12 +199,7 @@ class ProjectController extends Controller
         ]);
 
         return redirect()->route('home');
-        // return Redirect::to('/proyectoinvitacion')->withInput()->with('success', 'Proyecto guardado correctamente.');
     }
-
-    /**
-     * Display the specified resource.
-     */
 
     //En esta función se el asesor es donde puede asignar likes, comentarios y calificar
     public function show(Project $project)

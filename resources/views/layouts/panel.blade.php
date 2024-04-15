@@ -195,9 +195,9 @@
                                     class="text-sm">Proyectos</span></a>
                         </li>
                     @endif
-                        
-                        
-            
+
+
+
                         <li class="">
                             @if (Auth::check() &&
                                     Auth::user()->hasAnyRole([
@@ -543,7 +543,7 @@
                                     Perfil</a>
                             </li>
                             <li>
-                                <a href="{{ url('/Configurar_Cuenta') }}"
+                                <a href="{{ route('users.configuration') }}"
                                     class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Configurar
                                     Cuenta</a>
                             </li>

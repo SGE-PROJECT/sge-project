@@ -97,7 +97,7 @@ class RoleSeeder extends Seeder
             //carreras
             'carreras.index' => [
                 'roles' => ['Super Administrador','Administrador de División'], // Solo Super Administrador
-                'description' => 'Consultar las carreras' 
+                'description' => 'Consultar las carreras'
             ],
             'carreras.create' => [
                 'roles' => ['Super Administrador'], // Solo Super Administrador
@@ -110,6 +110,64 @@ class RoleSeeder extends Seeder
             'carreras.destroy' => [
                 'roles' => ['Super Administrador'], // Solo Super Administrador
                 'description' => 'Remover carreras'
+            ],
+            //usuarios
+            'user.index' => [
+                'roles' => [ 'Super Administrador','Administrador de División'],
+                'description' => 'Consultar la lista de usuarios'
+            ],
+            'user.create' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Agregar nuevos usuarios'
+            ],
+            'user.store' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Agregar nuevos usuarios'
+            ],
+            'user.edit' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Moficicación de usuarios'
+            ],
+            'user.update' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Moficicación de usuarios'
+            ],
+            'user.destroy' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Remover usuarios'
+            ],
+            'user.dashboardUsers' => [
+                'roles' => ['Administrador de División', 'Asesor Académico'],
+                'description' => 'Ver el dashboard de los usuarios'
+            ],
+            //Masivo
+            'masive.index' => [
+                'roles' => ['Administrador de División', 'Asesor Académico'],
+                'description' => 'Ver el index de masivo'
+            ],
+            'masive.create' => [
+                'roles' => ['Administrador de División', 'Asesor Académico'],
+                'description' => 'Crear masivo'
+            ],
+            'masive.store' => [
+                'roles' => ['Administrador de División', 'Asesor Académico'],
+                'description' => 'Crear masivo'
+            ],
+            'masive.determineImportClass' => [
+                'roles' => ['Administrador de División', 'Asesor Académico'],
+                'description' => 'Importa los roles'
+            ],
+            'masive.exportCsv' => [
+                'roles' => ['Administrador de División', 'Asesor Académico'],
+                'description' => 'Importa los cvs'
+            ],
+            'masive.exportTemplate' => [
+                'roles' => ['Administrador de División', 'Asesor Académico'],
+                'description' => 'Exportar la plantilla'
+            ],
+            'masive.exportTemplateUsers' => [
+                'roles' => ['Administrador de División', 'Asesor Académico'],
+                'description' => 'Exportar la plantilla de usuarios'
             ],
 
         ];
