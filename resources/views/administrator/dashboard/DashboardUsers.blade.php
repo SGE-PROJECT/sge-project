@@ -84,9 +84,9 @@
                             &#8203;
                         </div>
 
-                        <div>
+                        <a href="{{ route('export.users.excel') }}">
                             <strong class="font-medium text-gray-900"> Excel </strong>
-                        </div>
+                        </a>
                     </label>
 
                     <label for="Option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">

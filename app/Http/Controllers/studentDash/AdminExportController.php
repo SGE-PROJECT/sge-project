@@ -13,6 +13,7 @@ use App\Models\AcademicDirector;
 use Spatie\Permission\Models\Role;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\UsersExport;
 
 class AdminExportController extends Controller
 {
@@ -63,7 +64,7 @@ class AdminExportController extends Controller
         return Excel::download(new UsersExport, 'users.xlsx');
     }
 
-    //Exportr usuarios en PDF
+    //Exportar usuarios en PDF
     public function exportPdf()
     {
         $users = User::with([

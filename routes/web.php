@@ -213,27 +213,29 @@ Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])
 
 });
 
-Route::get('/estudiante', [StudentController::class, 'index'])->name('home');
-Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.advisor');
-Route::get('/exportar', [StudentController::class, 'export'])->name('student.export');
+    Route::get('/estudiante', [StudentController::class, 'index'])->name('home');
+    Route::get('/asesor', [AcademicAdvisorController::class, 'index'])->name('home.advisor');
+    Route::get('/exportar', [StudentController::class, 'export'])->name('student.export');
 
-//Proteccion de rutas para el super admin
-Route::middleware(['auth', 'role:Super Administrador'])->group(function () {
-Route::get('/usuarios', [AdminExportController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
-Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
-Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
-Route::get('vistanteproyectosadmin', [ProjectController::class, 'viewanteprojectAdmin'])->name('viewanteprojectAdmin');
-// Ruta para exportar usuarios a PDF
-Route::get('/export-users/pdf', [AdminExportController::class, 'exportPdf'])->name('export.users.pdf');
-});
+    //Proteccion de rutas para el super admin
+    Route::middleware(['auth', 'role:Super Administrador'])->group(function () {
+    Route::get('/usuarios', [AdminExportController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
+    Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
+    Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
+    Route::get('vistanteproyectosadmin', [ProjectController::class, 'viewanteprojectAdmin'])->name('viewanteprojectAdmin');
+    // Ruta para exportar usuarios a PDF
+    Route::get('/export-users/pdf', [AdminExportController::class, 'exportPdf'])->name('export.users.pdf');
+    //Ruta para exportar usuarios a Excel
+    Route::get('/export-users/excel', [AdminExportController::class, 'exportExcel'])->name('export.users.excel');
+    });
 
-//Proteccion de rutas para el admin por division
-Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
-    Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
-    Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->name('academic-advisor');
-    Route::get('/division-projects', [projectsDivisionController::class, 'projectsForDivision'])->name('Division-Proyectos');
-    Route::get('/division-anteprojects', [anteprojectsDivisionController::class, 'anteprojectsForDivision'])->name('Division-Anteproyectos');
-});
+    //Proteccion de rutas para el admin por division
+    Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
+        Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->name('student-dash');
+        Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->name('academic-advisor');
+        Route::get('/division-projects', [projectsDivisionController::class, 'projectsForDivision'])->name('Division-Proyectos');
+        Route::get('/division-anteprojects', [anteprojectsDivisionController::class, 'anteprojectsForDivision'])->name('Division-Anteproyectos');
+    });
 
 
 
