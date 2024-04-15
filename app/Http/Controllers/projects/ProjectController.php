@@ -303,6 +303,33 @@ class ProjectController extends Controller
         return redirect()->route('home')->with('error', 'Rol de usuario no válido.');
     }
 
+    public function updateStatus(ProjectEdit $request, $id): RedirectResponse
+    {
+
+        $proyecto = Project::find($id);
+        $proyecto->update($request->all());
+
+        $getBusinessAdvisor = BusinessAdvisor::find($proyecto->business_advisor_id);
+
+
+        // Verificar si se está publicando el proyecto
+        if ($request->status === 'En curso') {
+            $proyecto->status = 'En curso'; // Estado "Aprobado"
+            $proyecto->is_project = 1; // Marcar como proyecto
+            $proyecto->save();
+        }
+
+        // Redireccionar según el tipo de usuario
+        if (Auth::user()->roles->contains('name', 'Estudiante')) {
+            return redirect()->back()->with('change', 'Proyecto actualizado correctamente.');
+        } else if (Auth::user()->roles->contains('name', 'Asesor Académico')) {
+            return redirect()->back()->with('change', 'Proyecto actualizado correctamente.');
+        }
+
+        // En caso de que el usuario no tenga ningún rol válido, se puede redirigir a una página de error o a una página por defecto
+        return redirect()->route('home')->with('err', 'Rol de usuario no válido.');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
