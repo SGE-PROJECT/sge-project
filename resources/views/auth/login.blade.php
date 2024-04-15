@@ -12,8 +12,14 @@
 </head>
 
 <body>
-
+    
     <div class="relative min-h-screen flex">
+        @if (session('error'))
+    <div class="bg-red-500 text-white text-center p-4 fixed top-0 left-0 right-0 z-50 shadow-md noti" id="noti">
+        {{ session('error') }}
+    </div>
+    @endif
+
         @if (session('success'))
             <div class="bg-red-500 text-white text-center p-4 fixed top-0 left-0 right-0 z-50 shadow-md noti"
                 id="noti">
@@ -98,7 +104,7 @@
                         </div>
 
                         <div>
-                            <button type="button" onclick="submitForm()"
+                            <button type="button" onclick="submitForm(event)"
                                 class="w-full mt-4 flex justify-center bg-blue-950 hover:bg-teal-800 text-gray-100 md:p-3 rounded-full tracking-wide font-black shadow-lg cursor-pointer transition ease-in duration-600 font-sans">Iniciar
                                 Sesión</button>
                         </div>
@@ -115,7 +121,7 @@
         function togglePasswordVisibility() {
             var passwordInput = document.getElementById('password');
             var passwordVisibilityIcon = document.getElementById('password-visibility-icon');
-
+    
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 passwordVisibilityIcon.innerHTML =
@@ -126,20 +132,32 @@
                     '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/></svg>';
             }
         }
-
-
-        function submitForm() {
+    
+        function submitForm(event) {
+            if (event) {
+                event.preventDefault(); // Prevents the default form submission
+            }
+    
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
-
+    
             // Assign values to hidden inputs if necessary
             document.getElementById('email').value = email;
             document.getElementById('password').value = password;
-
+    
             // Submit the form
             document.getElementById('loginForm').submit();
         }
+    
+        // Add event listener for key press (Enter)
+        document.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                submitForm(event);
+            }
+        });
     </script>
+    
+    
 </body>
 
 </html>
