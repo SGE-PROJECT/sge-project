@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/notificaciones', function () {return view('books-notifications.notificaciones-user');});
         Route::get('/admin/notificaciones', function () {
             return view('books-notifications.notifications');
-        })->middleware(['auth', 'role:Asistente de Dirección|Super Administrador']);
+        })->middleware(['auth', 'role:Asistente de Dirección|Super Administrador|Administrador de División|Presidente Académico|Asesor Académico']);
     // Perfil del usuario general
         Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
         Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
@@ -71,7 +71,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/reporte', [BooksController::class, 'listBook'])->name('books.list');
         Route::get('/reporte/pdf', [BooksController::class, 'report'])->name('books.reports');
         Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
-        Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
     });
     //Acciones que puede hacer un Asesor academico
     Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
@@ -141,6 +140,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->middleware("can:advisorsForDivision")->name('academic-advisor');
         Route::get('/division-projects', [projectsDivisionController::class, 'projectsForDivision'])->middleware("can:projectsForDivision")->name('Division-Proyectos');
         Route::get('/division-anteprojects', [anteprojectsDivisionController::class, 'anteprojectsForDivision'])->middleware("can:anteprojectsForDivision")->name('Division-Anteproyectos');
+        Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision')->middleware(['auth', 'role:Administrador de División']);
     //Permisos unicamente para el administrador
         // Gestion de roles y permisos
             Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');

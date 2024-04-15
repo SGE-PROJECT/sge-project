@@ -604,5 +604,97 @@ if($book){
     return view('books-notifications.books.book-student',compact('book','bookCollaborative'));
 }
 
+public function storeStudentBook(Request $request)
+{
+      $validator = Validator::make($request->all(), [
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'author' => 'required|string|max:255',
+        'editorial' => 'required|string|max:255',
+        'year_published' => 'required|integer|min:1900|max:' . date('Y'),
+        'price' => 'required|numeric|min:300',
+        'selected_students' => 'required',
+        'state' => 'required|boolean',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()
+            ->back()
+            ->withErrors($validator)
+            ->withInput();
+    }
+
+    // Después de pasar la validación
+$selectedStudentsIds = json_decode($request->selected_students);
+
+//buscar imagen del libro
+
+try {
+// Crear una instancia de cliente Goutte
+$client = new Client();
+$searchTerm ="libro ".$request->title." ".$request->author;
+
+// Realizar la solicitud GET para cargar la página de búsqueda de Yahoo
+$crawler = $client->request('GET', 'https://mx.search.yahoo.com/');
+
+// Obtener el formulario de búsqueda
+$form = $crawler->filter('#sf')->form();
+
+// Establecer el valor del campo de entrada de búsqueda
+$form['p'] = $searchTerm;
+
+// Enviar el formulario
+$crawler = $client->submit($form);
+
+// Acceder a la sección de "Imágenes"
+$linkImagenes = $crawler->selectLink('Imágenes')->link();
+$crawler = $client->click($linkImagenes);
+
+/* // Obtener el enlace de la primera imagen de búsqueda
+$firstImageLink = $crawler->filter('li.ld > a.img > noscript > img')->first()->attr('src'); */
+
+// Intentar obtener el enlace de la primera imagen de búsqueda
+$images = $crawler->filter('li.ld > a.img > noscript > img');
+$firstImageLink = $images->count() > 0 ? $images->first()->attr('src') : null;
+
+// Si no se encontró la primera imagen, intentar con la segunda
+if (!$firstImageLink && $images->count() > 1) {
+$firstImageLink = $images->eq(1)->attr('src'); // 'eq(1)' obtiene el segundo elemento
+}
+
+// Comprobar si aún no se ha encontrado ninguna imagen
+if (!$firstImageLink) {
+// Manejar la situación, tal vez establecer una imagen predeterminada o lanzar un error
+$firstImageLink="https://educacion2.com/wp-content/uploads/El-mejor-libro.jpg";
+}
+}catch (\Exception $e) {
+// Manejar la excepción si algo sale mal
+$firstImageLink = "https://educacion2.com/wp-content/uploads/El-mejor-libro.jpg"; // Imagen por defecto en caso de error
+// Puedes registrar el error o manejarlo según sea necesario
+error_log('Error en la búsqueda de la imagen: ' . $e->getMessage());
+}
+
+
+    // Guardar el libro en la base de datos
+    $book = new Book();
+    $book->title = $request->title;
+    $book->description = $request->description;
+    $book->author = $request->author;
+    $book->editorial = $request->editorial;
+    $book->year_published = $request->year_published;
+    $book->price = $request->price;
+    $book->image_book = $firstImageLink;
+    $book->state = $request->state;
+    $book->save();
+    // Asegúrate de que el libro se haya guardado antes de continuar
+if($book->exists) {
+// Actualizar el book_id para cada estudiante seleccionado
+Student::whereIn('id', $selectedStudentsIds)->update(['book_id' => $book->id]);
+}
+
+    return redirect()->route('libros.index')->with('success', 'Libro creado exitosamente.');
+}
+
+
 
 }
