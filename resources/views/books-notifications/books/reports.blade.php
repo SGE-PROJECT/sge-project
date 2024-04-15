@@ -34,7 +34,7 @@
 <body>
     <img src="{{ public_path('images/utcbis-logo.jpg')}}" alt="Logo" height="75px">
     <div class=" header-report-books">
-        <h1 class="title-report-books">RELACIÓN DE DONACION DE LIBRO</h1>
+        <h1 class="title-report-books">RELACIÓN DE DONACIÓN DE LIBRO</h1>
         <h1 class=" title-report-books">DIVISIÓN DE {{$nameDivision}}</h1>
     </div>
 
