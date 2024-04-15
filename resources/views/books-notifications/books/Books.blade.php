@@ -28,7 +28,7 @@
                 <div class="export-book">
                     @if (Auth::check() && Auth::user()->hasAnyRole(['Asistente de Dirección']))
                         <select id="selectOption" onchange="window.location.href=this.value"
-                            class="select-books-sd bg-teal-500">
+                            class="select-books-sd bg-teal-500 focus:outline-double outline-white focus:ring focus:ring-slate-400">
                             <option disabled selected>Exportar Como</option>
                             <option value="{{ route('books.reports') }}">PDF</option>
                             <option value="{{ route('books.export') }}">EXCEL</option>
@@ -62,21 +62,27 @@
         <div class="flex flex-wrap mx-10 gap-10 ctn-bk space-book">
             <div class=" w-full">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center">
-                    @foreach ($books as $book)
+                    @foreach ($studentBook as $bookData)
                         <div class="container-card-book">
 
-                            <a href="{{ route('libros.show', ['libro' => $book->slug]) }}">
+                            <a href="{{ route('libros.show', ['libro' => $bookData['book']->slug]) }}">
                                 <div class="card-book">
                                     <div class="card__content-book">
-                                        @if ($book->estate === 0)
+                                        @if ($bookData['book']->state === 0)
                                             <div class="tag-state-process bg-teal-500">En proceso</div>
-                                        @elseif ($book->estate === 1)
+                                        @elseif ($bookData['book']->state === 1)
                                             <div class="tag-state-finish bg-teal-500">Finalizado</div>
                                         @endif
-                                        <img id="img-book-view" src="{{ $book->image_book }}" alt="Imagen del libro">
+                                        <img id="img-book-view" src="{{ $bookData['book']->image_book }}" alt="Imagen del libro" title="">
                                         <div class="info-alumno">
-                                            <p>Alumno: </p>
-                                            <p>Matrícula: </p>
+                                            @forelse ($bookData['students'] as $student )
+                                        
+                                        <p>Alumno:  {{$student->name}} </p>
+                                        <p>Matrícula:  {{$student->tuition}}</p>
+                                            
+                                        @empty
+                                            
+                                        @endforelse
                                         </div>
                                     </div>
                                 </div>
@@ -84,18 +90,19 @@
                             <div class="shelf"></div>
                             @if (Auth::check() && Auth::user()->hasAnyRole(['Asistente de Dirección']))
                                 <div class="buttons-container">
-                                    <form action="{{ route('libros.edit', ['libro' => $book->id]) }}" method="GET">
+                                    
+                                    <form action="{{ route('libros.edit', ['libro' => $bookData['book']->id]) }}" method="GET">
                                         @csrf
                                         <button type="submit" class="edit-button-book">
                                             <img
                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAPdJREFUSEvVldERgkAMRLOdYCfSiVaiVqKdSClnJdFlgImR4wLCB/fDMBz7ktzOHmTjhY31ZTWAqt5F5AXgaov+AqjqUUS4sSp0VgNo+j2d+Kl7v1mIBzxFhJCp5cVZDP+zRQ0QD1Aq41NC5GxUtQKQ+HSQM4BHq2WFVDUM6MbCbtmRhbD6VnwxwM089ZCxrmd34MR7zQTg8DcgI07dYeYeEu4gKk6rWwuHAHPE6SbrwiIgKs7RjLkwAmit69bozNcCZA90DUBWfPGIIpFhQu8nCYpnsDtAJK5LTTUA6lzYMR0vgTshB2Hw0QjDZRTK/VLJU9/3D3gDazjBGbL5ohcAAAAASUVORK5CYII=" />
                                         </button>
                                     </form>
-                                    <form id="deleteForm{{ $book->id }}"
-                                        action="{{ route('libros.destroy', ['libro' => $book->id]) }}" method="POST">
+                                    <form id="deleteForm{{ $bookData['book']->id }}"
+                                        action="{{ route('libros.destroy', ['libro' => $bookData['book']->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" onclick="confirmarEliminacion({{ $book->id }})"
+                                        <button type="button" onclick="confirmarEliminacion({{$bookData['book']->id }})"
                                             class="delete-button-book">
                                             <img
                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAJRJREFUSEvtlcENgCAMRfs301GcRJ1MRnGTag8kSoBaAh6UHhvyX/uBFtQ40FifVAAzD0S0JQpZASy5IrMARVx0dyKaALgU5AZgZq5hGc62vM67gBrVhxrROyi16mpN1CKf/BbAtx12FcsXWdQB6jPtFv3AIssAtHw02WCyySzhAIxPp6mIzwZIcrOpO9nSQuxsc8ABQHeaGbkbfj0AAAAASUVORK5CYII=" />

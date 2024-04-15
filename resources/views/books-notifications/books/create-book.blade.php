@@ -1,7 +1,7 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo')
-    Crear Libro
+Crear Libro
 @endsection
 
 @section('contenido')

@@ -29,7 +29,7 @@
 
         <h1 class=" h1-book-student  font-semibold flex items-center  mb-2 gap-2 "><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" ><path fill="currentColor" d="M6.75 22q-1.125 0-1.937-.763T4 19.35V5.4q0-.95.588-1.7t1.537-.95L16 .8v16l-9.475 1.9q-.225.05-.375.238T6 19.35q0 .275.225.463T6.75 20H18V4h2v18zM7 16.575l2-.4V4.225l-2 .4z"/></svg> Libro<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M6.75 22q-1.125 0-1.937-.763T4 19.35V5.4q0-.95.588-1.7t1.537-.95L16 .8v16l-9.475 1.9q-.225.05-.375.238T6 19.35q0 .275.225.463T6.75 20H18V4h2v18zM7 16.575l2-.4V4.225l-2 .4z"/></svg></h1>
         <div class=" bg-gray-200 p-2  flex flex-col items-center justify-center py-5  rounded">   
-            <h1 id="title-book-student" class="title-book-student text-clip mb-4 font-bold  text-balance text-center bg-gradient-to-r from-blue-600  to-indigo-400 inline-block text-transparent bg-clip-text">{{$bk->title}}</h1>
+            <h1 id="title-book-student" class="title-book-student text-clip mb-4 font-bold  text-balance text-center bg-gradient-to-r from-slate-600  to-slate-500 inline-block text-transparent bg-clip-text">{{$bk->title}}</h1>
             <div class=" sm:flex gap-6 px-3 flex-wrap">
                 <div class="  min-h-[300px] min-w-[260px] hover:scale-[1.02] duration-300">
                     <img  class="img-book-student  h-full w-full rounded"  src="{{$bk->image_book}}" alt="Imagen del libro">
@@ -45,21 +45,21 @@
                         </span>
                         @endforeach
                         @else
-                        <h1 class="subtitle-book font-medium">Colaborador:</h1>
+                        <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Colaborador:</h1>
                         @foreach ($bookCollaborative as $bkcol )
-                        <p class=" font-medium  ">{{$bkcol->name}}</p>   
+                        <p class=" font-medium text-slate-700  ">{{$bkcol->name}}</p>   
                         @endforeach
                         @endif
                     </div>
                     <div class=" mt-3 flex flex-col">
 
                         <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Descripción:</h1>
-                        <p class=" font-medium  ">{{$bk->description}}</p>
+                        <p class=" font-medium text-slate-700  ">{{$bk->description}}</p>
                     </div>
                     <div class=" mt-3 flex flex-col">
 
                         <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Autor:</h1>
-                        <p class=" font-medium  ">{{$bk->author}}</p>
+                        <p class=" font-medium text-slate-700 ">{{$bk->author}}</p>
                     </div>
                 </div>
             </div>

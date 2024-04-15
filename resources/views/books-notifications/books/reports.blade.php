@@ -20,29 +20,53 @@
         th {
             background-color: #f2f2f2;
         }
+        .title-report-books{
+            text-transform: uppercase   ;
+        }
+        .header-report-books{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            font-size: 10px
+        }
     </style>
 </head>
 <body>
     <img src="{{ public_path('images/utcbis-logo.jpg')}}" alt="Logo" height="75px">
-    <h1>Listado de Libros</h1>
+    <div class=" header-report-books">
+        <h1 class="title-report-books">RELACIÓN DE DONACION DE LIBRO</h1>
+        <h1 class=" title-report-books">DIVISIÓN DE {{$nameDivision}}</h1>
+    </div>
+
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Título</th>
+                <th>No. Estudiante</th>
+                <th>No. Libro</th>
+                <th>Nombre del estudiante</th>
+                <th>Matrícula</th>
+                <th>Fecha de la donación</th>
+                <th>Precio del libro</th>
+                <th>Titulo</th>
                 <th>Autor</th>
-                <th>Descripción</th>
-                <th>Año de Publicación</th>
+                <th>Pertenece a la División Académica</th>
+                <th>Carrera</th>
+
             </tr>
         </thead>
         <tbody>
-            @forelse ($books as $book)
+            @forelse ($booksOfStudents as $book)
                 <tr>
-                    <td>{{ $book->id }}</td>
-                    <td>{{ $book->title }}</td>
-                    <td>{{ $book->author }}</td>
-                    <td>{{ $book->description }}</td>
-                    <td>{{ $book->year_published }}</td>
+                    <td>{{ $book->student_id }}</td>
+                    <td>{{ $book->book_id }}</td>
+                    <td>{{ $book->user_name }}</td>
+                    <td>{{ $book->tuition }}</td>
+                    <td>{{ $book->book_created }}</td>
+                    <td>{{ $book->book_price }}</td>
+                    <td>{{ $book->book_title }}</td>
+                    <td>{{ $book->book_author}}</td>
+                    <td>DIT</td>
+                    <td>{{ $book->program_name}}</td>
                 </tr>
             @empty
                 <tr>
