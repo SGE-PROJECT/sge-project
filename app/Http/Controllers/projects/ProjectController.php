@@ -20,12 +20,13 @@ use App\Models\Student;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //rateProject, invitation, projectform, store, showMyProject, destroy, projectteams, viewanteproject, updateStatus, viewproject
+    public function __construct(){
+        $this->middleware("can:project.index")->only('index', 'dashgeneral', 'dashAnteprojects', 'dashboardproject', 'viewanteprojectAdmin');
+        $this->middleware(['auth', 'role:Estudiante'])->only('edit', 'update');
+    }
     public function index()
     {
-
         $Projects = Project::paginate();
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
@@ -142,10 +143,6 @@ class ProjectController extends Controller
         return view('projects.ProjectUser.projectteams');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-
     public function create()
     {
         // Obtener el usuario autenticado
@@ -172,9 +169,6 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ProjectFormRequest $request)
     {
 
@@ -222,10 +216,6 @@ class ProjectController extends Controller
         return redirect()->route('home');
     }
 
-    /**
-     * Display the specified resource.
-     */
-
     //En esta función se el asesor es donde puede asignar likes, comentarios y calificar
     public function show(Project $project)
     {
@@ -260,9 +250,6 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id) //Vista para editar proyecto
     {
         $proyecto = Project::find($id);
@@ -281,10 +268,6 @@ class ProjectController extends Controller
         }
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ProjectEdit $request, $id): RedirectResponse
     {
 
@@ -320,9 +303,33 @@ class ProjectController extends Controller
         return redirect()->route('home')->with('error', 'Rol de usuario no válido.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function updateStatus(ProjectEdit $request, $id): RedirectResponse
+    {
+
+        $proyecto = Project::find($id);
+        $proyecto->update($request->all());
+
+        $getBusinessAdvisor = BusinessAdvisor::find($proyecto->business_advisor_id);
+
+
+        // Verificar si se está publicando el proyecto
+        if ($request->status === 'En curso') {
+            $proyecto->status = 'En curso'; // Estado "Aprobado"
+            $proyecto->is_project = 1; // Marcar como proyecto
+            $proyecto->save();
+        }
+
+        // Redireccionar según el tipo de usuario
+        if (Auth::user()->roles->contains('name', 'Estudiante')) {
+            return redirect()->back()->with('change', 'Proyecto actualizado correctamente.');
+        } else if (Auth::user()->roles->contains('name', 'Asesor Académico')) {
+            return redirect()->back()->with('change', 'Proyecto actualizado correctamente.');
+        }
+
+        // En caso de que el usuario no tenga ningún rol válido, se puede redirigir a una página de error o a una página por defecto
+        return redirect()->route('home')->with('err', 'Rol de usuario no válido.');
+    }
+
     // Eliminar una cédula
     public function destroy(Project $project)
     {
@@ -334,7 +341,6 @@ class ProjectController extends Controller
 
         return redirect()->route('home')->with('success', 'Proyecto eliminado correctamente.');
     }
-
 
     // Esta función permite asignar un puntaje a un proyecto. Solo se puede asignar puntaje una vez.
     public function rateProject(Request $request, $projectId)

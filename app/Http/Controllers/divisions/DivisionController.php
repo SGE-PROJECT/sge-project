@@ -127,7 +127,7 @@ class DivisionController extends Controller
 
         return redirect()->route('divisiones.index')->with('success', 'División actualizada correctamente.');
     }
-
+ 
     public function destroy(string $id)
     {
     $division = Division::findOrFail($id);
