@@ -173,8 +173,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
     Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
 
+    Route::put('/projects/{project}/updateIsPublic', [ProjectController::class, 'updateIsPublic'])->name('projects.updateIsPublic');
     Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
-
+    Route::post('/invitar/estudiante', [InvitacionEstudianteController::class, 'enviarInvitacion'])->name('invitar.estudiante');
 });
 
 

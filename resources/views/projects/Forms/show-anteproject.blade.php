@@ -249,7 +249,7 @@
 
             <div class="mt-8 flex justify-center text-center space-x-2">
                 <button
-                    class="font-bold bg-teal-500 text-white ml-24 px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
+                    class="font-bold bg-teal-500 text-white ml-16 px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
                 @if ($proyecto->is_public != 1)
                     <form action="{{ route('projects.updateIsPublic', $proyecto->id) }}" method="POST">
                         @csrf
