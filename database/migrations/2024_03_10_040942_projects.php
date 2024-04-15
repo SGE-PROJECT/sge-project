@@ -36,11 +36,9 @@ return new class extends Migration
             $table->text('problem_statement');
             $table->text('justification');
             $table->text('activities');
-            $table->foreignId('project_students_id')->nullable()->constrained('project_students')
-                ->onUpdate('restrict')
-                ->onDelete('restrict');
             $table->string('status')->default('Registrado');
             $table->boolean('is_project')->default(false);
+            $table->boolean('is_public')->default(false);
             $table->timestamps();
         });
     }

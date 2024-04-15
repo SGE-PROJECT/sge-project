@@ -111,6 +111,84 @@ class RoleSeeder extends Seeder
                 'roles' => ['Super Administrador'], // Solo Super Administrador
                 'description' => 'Remover carreras'
             ],
+            //usuarios
+            'user.index' => [
+                'roles' => [ 'Super Administrador','Administrador de División'],
+                'description' => 'Consultar la lista de usuarios'
+            ],
+            'user.create' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Agregar nuevos usuarios'
+            ],
+            'user.store' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Agregar nuevos usuarios'
+            ],
+            'user.edit' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Moficicación de usuarios'
+            ],
+            'user.update' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Moficicación de usuarios'
+            ],
+            'user.destroy' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Remover usuarios'
+            ],
+            'user.dashboardUsers' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Ver el dashboard de los usuarios'
+            ],
+            //Masivo
+            'masive.index' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Ver el index de masivo'
+            ],
+            'masive.create' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Crear masivo'
+            ],
+            'masive.store' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Crear masivo'
+            ],
+            'masive.determineImportClass' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Importa los roles'
+            ],
+            'masive.exportCsv' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Importa los cvs'
+            ],
+            'masive.exportTemplate' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Exportar la plantilla'
+            ],
+            'masive.exportTemplateUsers' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Exportar la plantilla de usuarios'
+            ],
+            'project.index' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Visualizar los dashboards de proyectos'
+            ],
+            'studentsForDivision' => [
+                'roles' => ['Administrador de División'],
+                'description' => 'Visualizar los estudiantes por division'
+            ],
+            'advisorsForDivision' => [
+                'roles' => ['Administrador de División'],
+                'description' => 'Visualizar los los asesores por division'
+            ],
+            'projectsForDivision' => [
+                'roles' => ['Administrador de División'],
+                'description' => 'Visualizar los los proyectos por division'
+            ],
+            'anteprojectsForDivision' => [
+                'roles' => ['Administrador de División'],
+                'description' => 'Visualizar los los anteproyectos por division'
+            ],
 
         ];
 
