@@ -33,6 +33,7 @@ use App\Http\Controllers\CedulaController;
 use App\Http\Controllers\studentDash\StudentDashController;
 use App\Http\Controllers\studentDash\projectsDivisionController;
 use App\Http\Controllers\studentDash\anteprojectsDivisionController;
+use App\Http\Controllers\studentDash\AdminExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -218,10 +219,12 @@ Route::get('/exportar', [StudentController::class, 'export'])->name('student.exp
 
 //Proteccion de rutas para el super admin
 Route::middleware(['auth', 'role:Super Administrador'])->group(function () {
-Route::get('/usuarios', [CrudUserController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
+Route::get('/usuarios', [AdminExportController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
 Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
 Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
 Route::get('vistanteproyectosadmin', [ProjectController::class, 'viewanteprojectAdmin'])->name('viewanteprojectAdmin');
+// Ruta para exportar usuarios a PDF
+Route::get('/export-users/pdf', [AdminExportController::class, 'exportPdf'])->name('export.users.pdf');
 });
 
 //Proteccion de rutas para el admin por division

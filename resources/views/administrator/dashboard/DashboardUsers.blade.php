@@ -74,9 +74,9 @@
                         <div class="flex items-center">
                             &#8203;
                         </div>
-                        <div>
+                        <a href="{{ route('export.users.pdf') }}">
                             <strong class="font-medium text-gray-900"> PDF </strong>
-                        </div>
+                        </a>
                     </label>
 
                     <label for="Option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
@@ -142,67 +142,7 @@
 
     <!-- SCRIPTS DE JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- SCRIPTS DE DATA TABLES Y DATA TABLE BUTTONS -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
-    <!-- SCRIPTS PARA HACER FUNCIONAR LOS BOTONES -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        <!-- SCRIPT DE LA DATA TABLE -->
-        <script>
-            $(document).ready(function() {
-        var table = $('#tabla-usuarios').DataTable({
-            responsive: true,
-            dom: 't', // Quitamos la 'B' para que no se muestren los botones
-            buttons: [ // Inicializamos los botones manualmente
-                'pdf',
-                'excel',
-                'print'
-            ]
-        });
-
-        // Creamos una nueva instancia de botones para poder usarla después
-        new $.fn.dataTable.Buttons(table, {
-            buttons: [
-                'pdf',
-                'excel',
-                'print'
-            ]
-        });
-
-        // Agregamos la nueva instancia de botones al datatables
-        table.buttons(0, null).containers().appendTo('#buttonContainer');
-
-        $('#option1').on('click', function() {
-            table.button('.buttons-pdf').trigger();
-        });
-
-        $('#option2').on('click', function() {
-            table.button('.buttons-excel').trigger();
-        });
-
-        $('#option3').on('click', function() {
-            table.button('.buttons-print').trigger();
-        });
-
-        //Buscador
-        $('#Search').on('input', function() {
-            table.search(this.value).draw();
-        });
-
-        table.on('draw', function() {
-            if (table.page.info().recordsDisplay === 0) {
-                $('.dataTables_empty').text('No se encontraron resultados');
-            }
-        });
-    });
-        </script>
 
     <!--SCRIPT DE LA GRAFICA-->
     <script>
