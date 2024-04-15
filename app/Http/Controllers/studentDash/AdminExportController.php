@@ -14,6 +14,9 @@ use Spatie\Permission\Models\Role;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\UsersExport;
+use App\Exports\ProjectsExport;
+use App\Models\Project;
+use App\Models\ProjectStudent;
 
 class AdminExportController extends Controller
 {
@@ -98,4 +101,29 @@ class AdminExportController extends Controller
         $pdf->setPaper('letter', 'landscape'); // Setea el papel a Carta en horizontal
         return $pdf->download('users.pdf');
     }
+
+    //Exportar proyectos a PDF
+    public function exportProjectsPdf()
+    {
+        $projects = Project::where('is_project', 1)
+            ->with(['students' => function($query) {
+                $query->wherePivot('is_main_student', 1)
+                    ->with([
+                        'user',
+                        'group.program.division',
+                        'academicAdvisor.user'
+                    ]);
+            }])->get();
+
+        $pdf = PDF::loadView('exports.projects_pdf', compact('projects'));
+        $pdf->setPaper('letter', 'landscape'); // Ajusta el tamaño del papel a Carta en orientación horizontal
+        return $pdf->download('projects.pdf');
+    }
+
+    //Exportar proyectos a Excel
+    public function exportProjectsExcel()
+    {
+        return Excel::download(new ProjectsExport, 'projects.xlsx');
+    }
+
 }

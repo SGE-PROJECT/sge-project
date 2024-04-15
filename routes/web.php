@@ -223,10 +223,16 @@ Route::middleware(['auth', 'role:Administrador de División|Asesor Académico'])
     Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
     Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
     Route::get('vistanteproyectosadmin', [ProjectController::class, 'viewanteprojectAdmin'])->name('viewanteprojectAdmin');
+
     // Ruta para exportar usuarios a PDF
     Route::get('/export-users/pdf', [AdminExportController::class, 'exportPdf'])->name('export.users.pdf');
     //Ruta para exportar usuarios a Excel
     Route::get('/export-users/excel', [AdminExportController::class, 'exportExcel'])->name('export.users.excel');
+
+    // Ruta para exportar proyectos en PDF
+    Route::get('/export-projects/pdf', [AdminExportController::class, 'exportProjectsPdf'])->name('export.projects.pdf');
+    // Ruta para exportar proyectos en Excel (si es necesario)
+    Route::get('/export-projects/excel', [AdminExportController::class, 'exportProjectsExcel'])->name('export.projects.excel');
     });
 
     //Proteccion de rutas para el admin por division

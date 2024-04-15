@@ -35,13 +35,24 @@ class ProjectController extends Controller
 
     public function dashgeneral()
     {
-        $Projects = Project::where('is_project', 1)->paginate(10);
+        // Carga los proyectos y los estudiantes principales relacionados con su grupo, programa y división
+        $Projects = Project::where('is_project', 1)
+            ->with(['students' => function($query) {
+                // Filtra solo los estudiantes principales del proyecto
+                $query->wherePivot('is_main_student', 1)
+                    ->with('group.program.division');
+            }])
+            ->paginate(10);
+
+        // Conteos de estado del proyecto
         $enCursoCount = $Projects->where('status', 'En curso')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $finalizadosCount = $Projects->where('status', 'Finalizado')->count();
+
         return view("administrator.project")
             ->with(compact('Projects', 'enCursoCount', 'reprobadosCount', 'finalizadosCount'));
     }
+
 
     public function dashAnteprojects()
     {
