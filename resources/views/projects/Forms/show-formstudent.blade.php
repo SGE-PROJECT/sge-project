@@ -18,6 +18,19 @@
             </div>
         @endif
 
+        @if (session('change'))
+            <div class="bg-green-100 border mb-2 border-green-400 text-green-700 px-4 py-3 rounded relative alert-dismissible"
+                role="alert">
+                <span class="block sm:inline">{{ session('change') }}</span>
+            </div>
+        @endif
+        @if (session('err'))
+            <div class="bg-red-100 border mb-2 border-red-400 text-red-700 px-4 py-3 rounded relative alert-dismissible"
+                role="alert">
+                <span class="block sm:inline">{{ session('err') }}</span>
+            </div>
+        @endif
+
 
         <div class="flex-icons justify-between">
             <li
@@ -88,22 +101,6 @@
             </div>
 
 <!-- El asesor puede cambiar de estado -->
-{{-- <div>
-    <label class="text-sm font-bold text-teal-800">Estado del Proyecto:</label>
-    <form method="POST" action="{{ route('project.updateStatus', ['project' => $project->id]) }}">
-
-        @csrf
-        @method('PUT')
-        <div class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm">
-            <select name="status" class="w-full font-semibold text-black">
-                <option value="Registrado" {{ $project->status === 'Registrado' ? 'selected' : '' }}>Registrado</option>
-                <option value="En revisión" {{ $project->status === 'En revisión' ? 'selected' : '' }}>En revisión</option>
-                <option value="Rechazado" {{ $project->status === 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
-            </select>
-        </div>
-        <button type="submit" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar Estado</button>
-    </form>
-</div> --}}
 <div>
     <label class="text-sm font-bold text-teal-800">Estado del Proyecto:</label>
     <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
@@ -318,6 +315,22 @@
                     </div>
                 </form>
             </div>
+
+            <label class="block text-2xl text-center font-bold mb-8 text-teal-800">Estado del Proyecto</label>
+            <div class="rating mr-5 mt-4 ">
+                <form method="POST" action="{{ route('project.updateStatus', ['project' => $project->id]) }}">
+                    @csrf
+                    @method('PUT')
+                    <div class="flex items-center">
+                        <select name="status" class="border rounded-md py-1 px-2">
+                            <option value="Registrado" {{ $project->status === 'Registrado' ? 'selected' : '' }}>Registrado</option>
+                            <option value="En revisión" {{ $project->status === 'En revisión' ? 'selected' : '' }}>En revisión</option>
+                            <option value="Rechazado" {{ $project->status === 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
+                         </select>
+                     <button type="submit" class="relative bg-teal-500 text-white ml-2 px-4 py-2 rounded hover:bg-teal-600 transition-colors">Guardar Estado</button>
+                     </div>
+                </form>
+            </div> 
 
             <div class="tooltip mb-12 mt-4">
                 <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">
