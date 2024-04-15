@@ -29,9 +29,8 @@ class Project extends Model
         'justification',
         'activities',
         'business_advisor_id',
-        'id_academic_advisor_id',
-        'id_program_id',
-        'id_company_id',
+        'is_project',
+        'is_public',
         'status',
     ];
 

@@ -100,13 +100,13 @@
                 </div>
             </div>
 
-<!-- El asesor puede cambiar de estado -->
-<div>
-    <label class="text-sm font-bold text-teal-800">Estado del Proyecto:</label>
-    <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
-        {{ $project->status }}
-    </div>
-</div>
+            <!-- El asesor puede cambiar de estado -->
+            <div>
+                <label class="text-sm font-bold text-teal-800">Estado del Proyecto:</label>
+                <div class="w-full rounded-lg border-2 font-semibold text-black border-gray-300 p-3 text-sm">
+                    {{ $project->status }}
+                </div>
+            </div>
 
 
         </div>
@@ -323,14 +323,19 @@
                     @method('PUT')
                     <div class="flex items-center">
                         <select name="status" class="border rounded-md py-1 px-2">
-                            <option value="Registrado" {{ $project->status === 'Registrado' ? 'selected' : '' }}>Registrado</option>
-                            <option value="En revisión" {{ $project->status === 'En revisión' ? 'selected' : '' }}>En revisión</option>
-                            <option value="Rechazado" {{ $project->status === 'Rechazado' ? 'selected' : '' }}>Rechazado</option>
-                         </select>
-                     <button type="submit" class="relative bg-teal-500 text-white ml-2 px-4 py-2 rounded hover:bg-teal-600 transition-colors">Guardar Estado</button>
-                     </div>
+                            <option value="Registrado" {{ $project->status === 'Registrado' ? 'selected' : '' }}>
+                                Registrado</option>
+                            <option value="En revisión" {{ $project->status === 'En revisión' ? 'selected' : '' }}>En
+                                revisión</option>
+                            <option value="Rechazado" {{ $project->status === 'Rechazado' ? 'selected' : '' }}>Rechazado
+                            </option>
+                        </select>
+                        <button type="submit"
+                            class="relative bg-teal-500 text-white ml-2 px-4 py-2 rounded hover:bg-teal-600 transition-colors">Guardar
+                            Estado</button>
+                    </div>
                 </form>
-            </div> 
+            </div>
 
             <div class="tooltip mb-12 mt-4">
                 <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">

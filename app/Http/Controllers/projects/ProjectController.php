@@ -76,19 +76,21 @@ class ProjectController extends Controller
     // Vista para contenido de antreproyectos relacionado a las vistas de Listado de Anteproyecto
     public function viewanteproject()
     {
-
-        // Aqui quiero la logica
-        $Projects = Project::where('is_project', false)->paginate(3);
+        $Projects = Project::where('is_project', false)->where('is_public', true)->paginate(3);
         $Projects->load('students');
 
-        return view('projects.viewsproject.ProjectsView', compact('Projects'));
+        // Pasar una variable indicando si hay anteproyectos
+        $noProjects = $Projects->isEmpty();
+
+        return view('projects.viewsproject.ProjectsView', compact('Projects', 'noProjects'));
     }
+
 
     public function viewanteprojectAdmin()
     {
 
         // Aqui quiero la logica
-        $Projects = Project::where('is_project', false)->paginate(3);
+        $Projects = Project::where('is_project', false)->paginate(5);
         $Projects->load('students');
 
         return view('projects.viewsproject.AnteproyectosAdmin', compact('Projects'));
@@ -97,7 +99,7 @@ class ProjectController extends Controller
     public function viewproject()
     {
 
-        $Projects = Project::where('is_project', true)->paginate(3);
+        $Projects = Project::where('is_project', true)->paginate(5);
         $Projects->load('students');
         return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
     }
@@ -119,6 +121,22 @@ class ProjectController extends Controller
             return view("projects.Forms.FormStudent");
         }
     }
+
+    public function updateIsPublic($id)
+    {
+        
+        $proyecto = Project::find($id);
+        if (!$proyecto) {
+            return redirect()->back()->with('error', 'El proyecto no existe.');
+        }
+
+        $proyecto->is_public = 1;
+        $proyecto->save();
+
+        return redirect()->back()->with('success', 'Campo is_public actualizado correctamente.');
+    }
+
+
 
     public function projectteams()
     {
@@ -366,46 +384,5 @@ class ProjectController extends Controller
         }
 
         return redirect()->back()->with('success', 'Calificación asignada exitosamente al proyecto.');
-    }
-
-    //Invitar colaboradores
-    public function enviarInvitacion(Request $request)
-    {
-        // Validar los datos del formulario de invitación
-        $request->validate([
-            'nombre_estudiante' => 'required|string',
-            'email_estudiante' => 'required|email',
-        ]);
-
-        // Obtener el proyecto actual
-        $proyecto = Project::find($request->input('project_id'));
-
-        // Verificar si el proyecto existe
-        if (!$proyecto) {
-            return redirect()->back()->with('error', 'El proyecto no existe.');
-        }
-
-        // Verificar si el estudiante ya está asociado al proyecto
-        $estudiante = Student::where('nombre', $request->input('nombre_estudiante'))
-                     ->orWhere('email', $request->input('email_estudiante'))
-                     ->first();
-
-        if ($estudiante && $proyecto->students->contains($estudiante)) {
-            return redirect()->back()->with('error', 'El estudiante ya está asociado al proyecto.');
-        }
-
-        // Si el estudiante no existe, crearlo
-        if (!$estudiante) {
-            $estudiante = new Student();
-            $estudiante->nombre = $request->input('nombre_estudiante');
-            $estudiante->email = $request->input('email_estudiante');
-            $estudiante->save();
-        }
-
-        // Asociar el estudiante al proyecto
-        $proyecto->students()->attach($estudiante->id);
-
-        // Redireccionar de vuelta a la vista del proyecto con un mensaje de éxito
-        return redirect()->back()->with('success', 'Estudiante invitado al proyecto exitosamente.');
     }
 }
