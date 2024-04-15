@@ -65,9 +65,9 @@ Route::middleware(['auth'])->group(function () {
     //Acciones que puede hacer una secretaria
     Route::middleware(['auth', 'role:Asistente de Dirección'])->group(function () {
         Route::get('libros/slug/{slug}', [BooksController::class, 'show'])->name('libros.show');
-        Route::resource('libros', BooksController::class);
         Route::post('/not', [BooksController::class, 'notifications'])->name('sendNotification');
         Route::get('/scraping', [BooksController::class, 'imageBooks']);
+        Route::resource('libros', BooksController::class);
         Route::get('/reporte', [BooksController::class, 'listBook'])->name('books.list');
         Route::get('/reporte/pdf', [BooksController::class, 'report'])->name('books.reports');
         Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');

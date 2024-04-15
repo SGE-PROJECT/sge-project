@@ -265,7 +265,7 @@ class AdvisorySessionController extends Controller
 
         $session->update($validator->validated());
 
-        return back()->with('success', 'La sesión de asesoría ha sido editada exitosamente.');
+        return back()->with('edit', 'La sesión de asesoría ha sido editada exitosamente.');
     }
 
     public function destroy($id)
@@ -278,7 +278,7 @@ class AdvisorySessionController extends Controller
 
         $session->delete();
 
-        return back()->with('success', 'La sesión de asesoría ha sido editada exitosamente.');
+        return back()->with('delete', 'La sesión de asesoría ha sido eliminada exitosamente.');
     }
 
 }

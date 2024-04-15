@@ -14,7 +14,31 @@
     @if ($slug !== auth()->user()->slug)
         {{abort(404);}}
     @endif
+    @php
+        $icono = 'nf-fa-check_circle';
+        $color = 'bg-[#3b82f6cc]';
+        if (session('succes')) {
+
+            $color = 'bg-[#84cc16cc]';
+        }
+    @endphp
+    <div class="bg-[#84cc16cc] block md:inline text-white text-center p-2 fixed bottom-10 rounded right-10 z-50 shadow-lg noti"
+        id="not">
+        <i class="nf {{$icono}} mr-2"></i>
+        hola como estas fhrbhrfbh erb ri erhjf b
+    </div>
     <main class="vista_asesorias">
+        @if (session('success'))
+            <div class="bg-blue-500 text-white text-center p-4 fixed top-0 left-0 right-0 z-50 shadow-md noti"
+                id="noti">
+                {{ session('success') }}
+            </div>
+        @endif
+        <script>
+            setTimeout(() => {
+                document.getElementById("noti").classList.add("ocultarNoti");
+            }, 4000);
+        </script>
 
         @php
             $projectsData = $Projects->mapWithKeys(function ($project) {
