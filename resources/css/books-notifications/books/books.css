@@ -211,7 +211,31 @@
   bottom: 0px;
   left: 0px;
   text-align: center;
+  overflow-y: hidden;
+  transition-duration: 300ms;
+
 }
+.info-alumno:hover{
+  height: 70px;
+  transition-duration: 300ms;
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+}
+
+/* Estilizar la barra de desplazamiento */
+.info-alumno::-webkit-scrollbar {
+  width: 4px; /* Grosor de la barra de desplazamiento */
+}
+
+.info-alumno::-webkit-scrollbar-track {
+  background: #293846; /* Color de fondo de la pista */
+}
+
+.info-alumno::-webkit-scrollbar-thumb {
+  background: white; /* Color de la barra de desplazamiento */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
 
 .tag-state-finish {
   position: absolute;

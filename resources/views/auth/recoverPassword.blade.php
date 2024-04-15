@@ -10,12 +10,26 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
                 </svg>
-
             </a>
         </div>
 
         <h2 class="text-xl font-bold text-white">¿Olvidaste tu contraseña?</h2>
         <p class="text-white my-4">No te preocupes, podemos ayudarte.</p>
+
+        @if (session('status'))
+            <div class="bg-green-500 text-white text-center p-4 fixed top-0 left-0 right-0 z-50 shadow-md noti" id="noti">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="bg-red-500 text-white text-center p-4 fixed top-0 left-0 right-0 z-50 shadow-md noti" id="noti">
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
+            </div>
+        @endif
+
         <form class="w-full max-w-md" method="POST" action="{{ route('password.email') }}">
             @csrf
             <div class="flex flex-wrap -mx-3 mb-6">
@@ -29,7 +43,6 @@
                     <button class="bg-white text-blue-500 hover:text-white font-bold py-2 px-4 border border-blue-500 hover:bg-blue-500 rounded focus:outline-none focus:shadow-outline" type="submit">
                         Enviar contraseña
                     </button>
-                    
                 </div>
             </div>
         </form>
@@ -40,8 +53,6 @@
             <div class="mt-4">
                 <ul class="list-disc ml-8">
                     <li class="mb-1">No revele su contraseña.</li>
-                    <li class="mb-1">No reutilice contraseñas.</li>
-                    <li class="mb-1">Utilice contraseñas alfanuméricas.</li>
                     <li class="mb-1">Una vez completando los datos solicitados, revise su correo.</li>
                 </ul>
             </div>
