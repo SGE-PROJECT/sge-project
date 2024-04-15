@@ -30,8 +30,7 @@
     use App\Http\Controllers\projects\ViewProjectController;
     use App\Http\Controllers\users\ManagementUserController;
     use App\Http\Controllers\advisorDash\AdvisorDashController;
-use App\Http\Controllers\AprobacionController;
-use App\Http\Controllers\CartaDigitalizacionController;
+    use App\Http\Controllers\CartaDigitalizacionController;
     use App\Http\Controllers\CedulaController;
     use App\Http\Controllers\studentDash\StudentDashController;
     use App\Http\Controllers\studentDash\projectsDivisionController;
@@ -54,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
     //Notificaciones para los usuarios en general
         Route::get('/notificaciones', function () {return view('books-notifications.notificaciones-user');});
+        Route::get('/admin/notificaciones', function () {
+            return view('books-notifications.notifications');
+        })->middleware(['auth', 'role:Asistente de Dirección|Super Administrador']);
     // Perfil del usuario general
         Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
         Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
@@ -64,9 +66,6 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['auth', 'role:Asistente de Dirección'])->group(function () {
         Route::get('libros/slug/{slug}', [BooksController::class, 'show'])->name('libros.show');
         Route::resource('libros', BooksController::class);
-        Route::get('/admin/notificaciones', function () {
-            return view('books-notifications.notifications');
-        });
         Route::post('/not', [BooksController::class, 'notifications'])->name('sendNotification');
         Route::get('/scraping', [BooksController::class, 'imageBooks']);
         Route::get('/reporte', [BooksController::class, 'listBook'])->name('books.list');
@@ -97,8 +96,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
         Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
         Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
-      
-
     });
     //Acciones que puede hacer un estudante
     Route::middleware(['auth', 'role:Estudiante'])->group(function () {
@@ -124,8 +121,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/invitar/estudiante', [InvitacionEstudianteController::class, 'enviarInvitacion'])->name('invitar.estudiante');
         Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
         Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
-        Route::get('carta-aprobacion', [AprobacionController::class, 'aprobar'])->name('aprobacion');
-        Route::put('/projects/{id}/updateIsPublic', [ProjectController::class, 'updateIsPublic'])->name('projects.updateIsPublic');
     });
     //Vusualizacion de elementos para quienes no sean estudiantes o secretarias
     Route::middleware(['auth', 'role:Administrador de División|Asesor Académico|Super Administrador'])->group(function () {
