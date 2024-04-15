@@ -5,6 +5,15 @@
 
 @section('contenido')
     <h2 class="text-3xl font-bold sm:text-4xl mt-4 text-center ">LISTA DE ANTEPROYECTOS</h2>
+    @if ($noProjects)
+    <div class="flex justify-center items-center">
+        <h3 class="text-3xl font-bold mt-16 text-center text-teal-700">AUN NO HAY ANTEPROYECTOS PUBLICADOS</h3>
+    </div>
+    <div class="flex justify-center items-center mt-4">
+        <img class="w-96" src="Icons/graduacion.png" />
+    </div>
+    
+    @else
     @foreach ($Projects as $project)
         @php
             $commentCount = $project->comments()->count();
@@ -44,12 +53,6 @@
                         </span>
                     </div>
                 @endforeach
-
-
-
-
-
-
 
                 </div>
 
@@ -111,5 +114,7 @@
     @endforeach
 
     {{ $Projects->links() }}
+    @endif
+
 
 @endsection

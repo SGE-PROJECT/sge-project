@@ -16,9 +16,16 @@ use Illuminate\Support\Facades\Hash;
 
 class CrudUserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(){
+        $this->middleware("can:user.index")->only('index');
+        $this->middleware("can:user.create")->only('create');
+        $this->middleware("can:user.store")->only('store');
+        $this->middleware("can:user.show")->only('show');
+        $this->middleware("can:user.edit")->only('edit');
+        $this->middleware("can:user.update")->only('update');
+        $this->middleware("can:user.destroy")->only('destroy');
+        $this->middleware("can:user.dashboardUsers")->only('dashboardUsers');
+    }
     public function index()
     {
         $users = User::with([
@@ -54,10 +61,6 @@ class CrudUserController extends Controller
         return view('users.cruduser', ['users' => $users]);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $roles = Role::all(); // Obtener todos los roles para el formulario
@@ -73,9 +76,6 @@ class CrudUserController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validationRules = [
@@ -169,18 +169,11 @@ class CrudUserController extends Controller
         return redirect()->route('users.cruduser.index')->with('success', 'Usuario creado correctamente.');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         // Este método podría usarse para mostrar detalles de un usuario específico si es necesario.
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $user = User::with('roles')->find($id);
@@ -213,9 +206,6 @@ class CrudUserController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
@@ -307,9 +297,6 @@ class CrudUserController extends Controller
         return redirect()->route('users.cruduser.index')->with('success', 'Usuario actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $user = User::find($id);

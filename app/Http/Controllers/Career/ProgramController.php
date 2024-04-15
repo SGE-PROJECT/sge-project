@@ -45,21 +45,21 @@ class ProgramController extends Controller
                 'division_id' => 'required|exists:divisions,id',
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
-    
+
             $program = Program::create($request->all());
-    
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->move(public_path('images/program'), $imageName);
-    
+
                 $programImage = new ProgramImage([
                     'program_id' => $program->id,
                     'image_path' => 'images/program/' . $imageName,
                 ]);
                 $programImage->save();
             }
-    
+
             return redirect()->route('carreras.index')->with('success', 'Carrera creada exitosamente.');
     }
 
@@ -82,7 +82,7 @@ class ProgramController extends Controller
         return view('management.careers.edit-career', compact('program', 'divisions')); // Asegúrate de que la vista se llama edit-program.blade.php
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      */
@@ -135,7 +135,7 @@ class ProgramController extends Controller
     public function divisionCarreras()
     {
         $user = auth()->user();
-    
+
     if ($user->hasRole('Administrador de División')) {
         $divisionId = $user->managmentAdmin->division_id;
     } elseif ($user->hasRole('Asesor Académico')) {
