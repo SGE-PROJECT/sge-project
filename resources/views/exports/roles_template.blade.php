@@ -8,8 +8,12 @@
             <th>password</th>
             <th>role</th>
             <th>phone_number</th>
-            <th>division_id</th>
+            <th>division_name</th>
             <th>payrol</th>
+            <th>curp</th>
+            <th>birthdate</th>
+            <th>sex</th>
+            <th>nss</th>
             </tr>
     </thead>
     <tbody>

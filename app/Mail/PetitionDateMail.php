@@ -15,13 +15,13 @@ class PetitionDateMail extends Mailable
 
     public $users;
     public $mensaje;
+    public $documentPath;
 
-    public function __construct($users,$mensaje)
+    public function __construct($users, $mensaje, $documentPath)
     {
-
-        $this->users=$users;
-        $this->mensaje=$mensaje->message;
-
+        $this->users = $users;
+        $this->mensaje = $mensaje->message;
+        $this->documentPath = $documentPath;
     }
 
     public function envelope(): Envelope
@@ -34,13 +34,11 @@ class PetitionDateMail extends Mailable
     /**
      * Get the message content definition.
      */
-    public function content(): Content
+    public function build()
     {
-        return new Content(
-            view: 'mails.sanction',
-        );
+        return $this->view('mails.sanction')
+                    ->attach($this->documentPath);
     }
-
     /**
      * Get the attachments for the message.
      *

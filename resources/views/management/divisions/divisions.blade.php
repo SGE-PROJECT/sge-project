@@ -72,7 +72,15 @@
                     @endif
                     <div class="card__content">
                         <p class="card__title">{{ $division->name }}</p>
-                        <p class="card__description">{{ $division->description }}</p>
+                        <p class="card__description">Descripción: {{ $division->description }}</p>
+                        @if (isset($academicDirectors[$division->id]) && !$academicDirectors[$division->id]->isEmpty())
+                            <p class="card__description">Presidente(s) Académico(s):</p>
+                            @foreach ($academicDirectors[$division->id] as $academicDirector)
+                                <p class="card__description2">{{ $academicDirector->user->name }}</p>
+                            @endforeach
+                        @else
+                            <p class="card__description2">No hay presidente académico asignado</p>
+                        @endif
                         <div class="inline-flex ">
                             <!-- <button class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600" >Ver más</button> -->
                             <form action="{{ route('divisiones.edit', $division->id) }}" method="GET">
@@ -114,7 +122,15 @@
                     @endif
                     <div class="card__content">
                         <p class="card__title">{{ $division->name }}</p>
-                        <p class="card__description">{{ $division->description }}</p>
+                        <p class="card__description">Descripción: {{ $division->description }}</p>
+                        @if (isset($academicDirectors[$division->id]) && !$academicDirectors[$division->id]->isEmpty())
+                            <p class="card__description">Presidente(s) Académico(s):</p>
+                            @foreach ($academicDirectors[$division->id] as $academicDirector)
+                                <p class="card__description2">{{ $academicDirector->user->name }}</p>
+                            @endforeach
+                        @else
+                            <p class="card__description2">No hay presidente académico asignado</p>
+                        @endif
                         <div class="inline-flex ">
                             <!-- <button class="bg-[#03A696] hover:bg-gray-200   rounded text-white mr-2 h-7 w-20" >Ver más</button> -->
                             <form action="{{ route('divisiones.activate', $division->id) }}" method="POST">

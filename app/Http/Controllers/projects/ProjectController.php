@@ -20,12 +20,13 @@ use App\Models\Student;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //rateProject, invitation, projectform, store, showMyProject, destroy, projectteams, viewanteproject, updateStatus, viewproject
+    public function __construct(){
+        $this->middleware("can:project.index")->only('index', 'dashgeneral', 'dashAnteprojects', 'dashboardproject', 'viewanteprojectAdmin');
+        $this->middleware(['auth', 'role:Estudiante'])->only('edit', 'update');
+    }
     public function index()
     {
-
         $Projects = Project::paginate();
         $enDesarrolloCount = $Projects->where('status', 'En desarrollo')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
@@ -75,19 +76,21 @@ class ProjectController extends Controller
     // Vista para contenido de antreproyectos relacionado a las vistas de Listado de Anteproyecto
     public function viewanteproject()
     {
-
-        // Aqui quiero la logica
-        $Projects = Project::where('is_project', false)->paginate(3);
+        $Projects = Project::where('is_project', false)->where('is_public', true)->paginate(3);
         $Projects->load('students');
 
-        return view('projects.viewsproject.ProjectsView', compact('Projects'));
+        // Pasar una variable indicando si hay anteproyectos
+        $noProjects = $Projects->isEmpty();
+
+        return view('projects.viewsproject.ProjectsView', compact('Projects', 'noProjects'));
     }
+
 
     public function viewanteprojectAdmin()
     {
 
         // Aqui quiero la logica
-        $Projects = Project::where('is_project', false)->paginate(3);
+        $Projects = Project::where('is_project', false)->paginate(5);
         $Projects->load('students');
 
         return view('projects.viewsproject.AnteproyectosAdmin', compact('Projects'));
@@ -96,7 +99,7 @@ class ProjectController extends Controller
     public function viewproject()
     {
 
-        $Projects = Project::where('is_project', true)->paginate(3);
+        $Projects = Project::where('is_project', true)->paginate(5);
         $Projects->load('students');
         return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
     }
@@ -119,14 +122,26 @@ class ProjectController extends Controller
         }
     }
 
+    public function updateIsPublic($id)
+    {
+        
+        $proyecto = Project::find($id);
+        if (!$proyecto) {
+            return redirect()->back()->with('error', 'El proyecto no existe.');
+        }
+
+        $proyecto->is_public = 1;
+        $proyecto->save();
+
+        return redirect()->back()->with('success', 'Campo is_public actualizado correctamente.');
+    }
+
+
+
     public function projectteams()
     {
         return view('projects.ProjectUser.projectteams');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
 
     public function create()
     {
@@ -154,9 +169,6 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ProjectFormRequest $request)
     {
 
@@ -202,12 +214,7 @@ class ProjectController extends Controller
         ]);
 
         return redirect()->route('home');
-        // return Redirect::to('/proyectoinvitacion')->withInput()->with('success', 'Proyecto guardado correctamente.');
     }
-
-    /**
-     * Display the specified resource.
-     */
 
     //En esta función se el asesor es donde puede asignar likes, comentarios y calificar
     public function show(Project $project)
@@ -224,7 +231,7 @@ class ProjectController extends Controller
 
     public function showMyProject()
     {
-        
+
         $user = Auth::user();
         $student = Student::where('user_id', $user->id)->first();
         $Project = $student->projects()->first();
@@ -243,9 +250,6 @@ class ProjectController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id) //Vista para editar proyecto
     {
         $proyecto = Project::find($id);
@@ -264,10 +268,6 @@ class ProjectController extends Controller
         }
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ProjectEdit $request, $id): RedirectResponse
     {
 
@@ -303,23 +303,44 @@ class ProjectController extends Controller
         return redirect()->route('home')->with('error', 'Rol de usuario no válido.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function updateStatus(ProjectEdit $request, $id): RedirectResponse
     {
-        $project = Project::find($id);
-        if (!$project) {
-            return back()->with('error', '¡No se pudo encontrar el proyecto para eliminar!');
+
+        $proyecto = Project::find($id);
+        $proyecto->update($request->all());
+
+        $getBusinessAdvisor = BusinessAdvisor::find($proyecto->business_advisor_id);
+
+
+        // Verificar si se está publicando el proyecto
+        if ($request->status === 'En curso') {
+            $proyecto->status = 'En curso'; // Estado "Aprobado"
+            $proyecto->is_project = 1; // Marcar como proyecto
+            $proyecto->save();
         }
-        $deleted = $project->delete();
-        if ($deleted) {
-            return redirect()->route('dashboardProjects')->with('success', '¡El proyecto ha sido eliminado exitosamente!');
-        } else {
-            return back()->with('error', '¡Se produjo un error al eliminar el proyecto!');
+
+        // Redireccionar según el tipo de usuario
+        if (Auth::user()->roles->contains('name', 'Estudiante')) {
+            return redirect()->back()->with('change', 'Proyecto actualizado correctamente.');
+        } else if (Auth::user()->roles->contains('name', 'Asesor Académico')) {
+            return redirect()->back()->with('change', 'Proyecto actualizado correctamente.');
         }
+
+        // En caso de que el usuario no tenga ningún rol válido, se puede redirigir a una página de error o a una página por defecto
+        return redirect()->route('home')->with('err', 'Rol de usuario no válido.');
     }
 
+    // Eliminar una cédula
+    public function destroy(Project $project)
+    {
+        // Eliminar los registros relacionados en la tabla project_students
+        $project->students()->detach();
+
+        // Eliminar el proyecto
+        $project->delete();
+
+        return redirect()->route('home')->with('success', 'Proyecto eliminado correctamente.');
+    }
 
     // Esta función permite asignar un puntaje a un proyecto. Solo se puede asignar puntaje una vez.
     public function rateProject(Request $request, $projectId)

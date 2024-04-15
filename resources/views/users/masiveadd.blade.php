@@ -5,17 +5,19 @@ Gestión Masiva De Usuarios
 @endsection
 
 @section('contenido')
-<h1 class="text-center font-bold text-4xl py-4 text-black">Registro de usuarios</h1>
+<h1 class="fondo text-center font-bold text-4xl py-4 text-black">Registro de usuarios</h1>
 
-<a  href="{{ route('users.exportCsv')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Descargar Todos Los Usuarios</a>
-<a  href="{{ route('users.exportTemplate')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Descargar Plantilla Estudiante</a>
-<a  href="{{ route('users.exportTemplateUsers')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Descargar Plantilla Usuarios</a>
-<a  href="{{ route('users.store')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white  rounded hover:bg-teal-600 transition-colors">Subir Excell</a>
+<a  href="{{ route('users.exportCsv')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Descargar Todos Los Usuarios</a>
+<a  href="{{ route('users.exportTemplate')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Descargar Estudiantes</a>
+<a  href="{{ route('users.exportTemplateUsers')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Descargar Usuarios</a>
+<a  href="{{ route('users.store')}}" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Subir Excell</a>
+
 <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <label for="user_file">Archivo de Usuarios:</label>
+    <label for="user_file" class="ml-8 p-2.5 bg-blue-gray-900 font-bold py-4 text-base">Archivo de Usuarios:</label>
     <input type="file" id="user_file" name="file" required>
-    <button type="submit">Importar Usuarios</button>
+    <button type="submit" class="Btn_divisions modal-button ml-8 p-2.5 bg-teal-500 text-white">Importar Usuarios</button>
+
 </form>
 
 
@@ -57,11 +59,11 @@ Gestión Masiva De Usuarios
                         {{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}
                     </td>
                     <td class="py-4 px-6">
-                        <a href="{{ route('users.cruduser.edit', $user->id) }}" class="modal-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 sm:mb-0">Editar</a>
+                        <a href="{{ route('users.cruduser.edit', $user->id) }}" class="modal-button bg-teal-500 text-white font-bold py-2 px-4 mb-2 sm:mb-0 md:mb-2 lg:mb-0">Editar</a>
                         <form action="{{ route('users.cruduser.destroy', $user->id) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="modal-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 sm:mb-0 hover:underline" onclick="return confirm('¿Estás seguro de querer eliminar este usuario?');">Eliminar</button>
+                            <button type="submit" class="modal-button bg-teal-500 text-white font-bold py-2 px-4 mb-2 sm:mb-0 md:mb-2 lg:mb-0 hover:underline" onclick="return confirm('¿Estás seguro de querer eliminar este usuario?');">Eliminar</button>
                         </form>
                     </td>
                 </tr>

@@ -9,6 +9,7 @@ use App\Models\ManagmentAdmin;
 use App\Models\AcademicAdvisor;
 use App\Models\AcademicDirector;
 use Spatie\Permission\Models\Role;
+use App\Models\management\Division;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -19,6 +20,9 @@ class RolesImport implements ToModel, WithHeadingRow, WithValidation
 
     public function model(array $row)
     {
+        $division = Division::where('name', $row['division_name'])->first();
+
+
         $baseSlug = Str::slug($row['name'], '-');
         $slug = $baseSlug;
         $counter = 1;
@@ -35,6 +39,10 @@ class RolesImport implements ToModel, WithHeadingRow, WithValidation
             'phone_number' => $row['phone_number'],
             'isActive' => true,
             'slug' => $slug,
+            'curp' => $row['curp'],
+            'birthdate' => $row['birthdate'],
+            'sex' => $row['sex'],
+            'nss' => $row['nss'],
         ]);
 
         $role = Role::where('name', $row['role'])->first();
@@ -46,28 +54,28 @@ class RolesImport implements ToModel, WithHeadingRow, WithValidation
             case 'Asistente de Dirección':
                 Secretary::create([
                     'user_id' => $user->id,
-                    'division_id' => $row['division_id'],
+                    'division_id' => $division->id,
                     'payrol' => $row['payrol'],
                 ]);
                 break;
             case 'Presidente Académico':
                 AcademicDirector::create([
                     'user_id' => $user->id,
-                    'division_id' => $row['division_id'],
+                    'division_id' => $division->id,
                     'payrol' => $row['payrol'],
                 ]);
                 break;
             case 'Asesor Académico':
                 AcademicAdvisor::create([
                     'user_id' => $user->id,
-                    'division_id' => $row['division_id'],
+                    'division_id' => $division->id,
                     'payrol' => $row['payrol'],
                 ]);
                 break;
             case 'Administrador de División':
                 ManagmentAdmin::create([
                     'user_id' => $user->id,
-                    'division_id' => $row['division_id'],
+                    'division_id' => $division->id,
                     'payrol' => $row['payrol'],
                 ]);
                 break;
@@ -87,8 +95,12 @@ class RolesImport implements ToModel, WithHeadingRow, WithValidation
             'password' => 'required|string|min:8',
             'role' => 'required|exists:roles,name',
             'phone_number' => 'nullable|numeric',
-            'division_id' => 'required|exists:divisions,id',
+            'division_name' => 'required|string|exists:divisions,name',
             'payrol' => 'required|numeric',
+            'curp' => 'required|alpha_num|size:18',
+            'birthdate' => 'nullable|string',
+            'sex' => 'required|in:M,F',
+            'nss' => 'nullable|numeric',
         ];
 
     }

@@ -114,13 +114,13 @@
             <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
                 <!-- ADMIN Section -->
                 <li class="mb-1 group">
-                    @role(['Super Administrador','Administrador de División']) <!-- Directiva de Blade proporcionada por Spatie Permission -->
+                    @role(['Super Administrador', 'Administrador de División'])
+                        <!-- Directiva de Blade proporcionada por Spatie Permission -->
                         <a href="{{ route('Dashboard-Anteproyectos') }}"
                             class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
                             <i class='bx bxs-dashboard mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Dashboard</span>
                         </a>
-                    @else
                     @endrole
                 </li>
 
@@ -162,42 +162,36 @@
                                     <span>Roles y Permisos</span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a href="sanciones"
-                                    class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md ">
-                                    <i class='bx bx-no-entry mr-3 text-lg'></i>
-                                    <span>Sanciones</span>
-                                </a>
-                            </li>
+                        
                         </ul>
                     </li>
                 @endif
 
 
                 <li class="mb-1 group relative z-2">
-                    @if (auth()->user()->hasRole(['Super Administrador','Administrador de División']))
-                    <a href=""
-                        class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
-                        <i class='bx bxs-graduation mr-3 text-lg'></i>
-                        <span class="nav-text text-sm">Académico</span>
-                        <i
-                            class="ri-arrow-right-s-line ml-auto  group-[.selected]:rotate-90 transition-transform  hidden md:block"></i>
-                    </a>
-                @endif
+                    @if (auth()->user()->hasRole(['Super Administrador', 'Administrador de División']))
+                        <a href=""
+                            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] sidebar-dropdown-toggle rounded-md">
+                            <i class='bx bxs-graduation mr-3 text-lg'></i>
+                            <span class="nav-text text-sm">Académico</span>
+                            <i
+                                class="ri-arrow-right-s-line ml-auto  group-[.selected]:rotate-90 transition-transform  hidden md:block"></i>
+                        </a>
+                    @endif
 
                     <ul class="hidden absolute right-2 top-0 w-48 bg-[#394C5F] text-white submenu rounded-md">
-                        @if (auth()->user()->hasRole(['Super Administrador','Administrador de División']))
-                        <li>
+                        @if (auth()->user()->hasRole(['Super Administrador', 'Administrador de División']))
+                            <li>
 
-                            <a href="{{ route('viewanteprojectAdmin') }}"
-                                class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                    class='bx bx-folder-plus mr-3 text-lg'></i><span
-                                    class="text-sm">Proyectos</span></a>
-                        </li>
-                    @endif
-                        
-                        
-            
+                                <a href="{{ route('viewanteprojectAdmin') }}"
+                                    class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                        class="text-sm">Proyectos</span></a>
+                            </li>
+                        @endif
+
+
+
                         <li class="">
                             @if (Auth::check() &&
                                     Auth::user()->hasAnyRole([
@@ -214,7 +208,7 @@
                                         class=" text-sm">Divisiones</span></a>
                         </li>
                         @endif
-                        @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Estudiante']))
+                        @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección']))
                         @else
                             <li class="">
 
@@ -223,13 +217,19 @@
                                         class=' bx bx-book-open mr-3 text-lg'></i><span
                                         class="text-sm">Carreras</span></a>
                             </li>
+                            <li class="">
+
+                                <a href="{{ route('grupos.index') }}"
+                                    class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class=' bx bx-group mr-3 text-lg'></i><span class="text-sm">Grupos</span></a>
+                            </li>
                         @endif
                     </ul>
                 </li>
 
 
                 <!-- EMPRESAS Section -->
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Super Administrador', 'Administrador de División', 'Asesor Académico']))
+                @role(['Super Administrador', 'Administrador de División', 'Asesor Académico'])
                     <span class="text-[#fff] nav-text font-bold">EMPRESAS</span>
 
                     <li class="mb-1 group">
@@ -239,10 +239,9 @@
                             <span class="nav-text text-sm">Empresas Afiliadas</span>
                         </a>
                     </li>
-                @endif
+                @endrole
 
-                @if (Auth::check() &&
-                        Auth::user()->hasAnyRole(['Super Administrador', 'Asistente de Dirección']))
+                @role(['Super Administrador', 'Asistente de Dirección'])
                     <!-- RECURSOS Section -->
                     <span class="text-gray-400 nav-text font-bold">RECURSOS</span>
                     <li class="mb-1 group">
@@ -252,33 +251,8 @@
                             <span class="nav-text text-sm">Libros</span>
                         </a>
                     </li>
-                @endif
+                @endrole
 
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']))
-                    <!-- ACTIVIDADES Section -->
-                    <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
-
-                    <li class="mb-1 group">
-                        <a href="{{ route('asesorias', ['id' => auth()->user()->slug]) }}"
-                            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
-                            <i class='bx bx-calendar-event mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Sesiones de Asesoría</span>
-                        </a>
-                    </li>
-                @else
-                @endif
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Estudiante']))
-                    <!-- ACTIVIDADES Section -->
-                    <span class="text-gray-400 nav-text font-bold">ACTIVIDADES</span>
-                    <li class="mb-1 group">
-                        <a href="{{ route('asesoriasStudent', ['id' => auth()->user()->slug]) }}"
-                            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
-                            <i class='bx bx-calendar-event mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Sesiones de Asesoría</span>
-                        </a>
-                    </li>
-                @else
-                @endif
 
                 <!-- PERSONAL Section -->
                 <span class="text-gray-400 font-bold nav-text">PERSONAL</span>
@@ -316,30 +290,6 @@
                 </button>
 
                 <ul class="ml-auto flex items-center ">
-                    <li class="mr-1 dropdown">
-                        <button type="button"
-                            class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24"
-                                style="fill: gray;transform: ;msFilter:;">
-                                <path
-                                    d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z">
-                                </path>
-                            </svg>
-                        </button>
-                        <div
-                            class="dropdown-menu shadow-md shadow-black/5 z-30 hidden max-w-xs w-full bg-white rounded-md border border-gray-100">
-                            <form action="" class="p-4 border-b border-b-gray-100">
-                                <div class="relative w-full">
-                                    <input type="text"
-                                        class="py-2 pr-4 pl-10 bg-gray-50 w-full outline-none border border-gray-100 rounded-md text-sm focus:border-blue-500"
-                                        placeholder="Search...">
-                                    <i
-                                        class="ri-search-line absolute top-1/2 left-4 -translate-y-1/2 text-gray-900"></i>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
                     <li class="dropdown  hidden md:block">
                         <button type="button"
                             class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600 relative">
@@ -543,7 +493,7 @@
                                     Perfil</a>
                             </li>
                             <li>
-                                <a href="{{ url('/Configurar_Cuenta') }}"
+                                <a href="{{ route('users.configuration') }}"
                                     class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-[#f84525] hover:bg-gray-50">Configurar
                                     Cuenta</a>
                             </li>

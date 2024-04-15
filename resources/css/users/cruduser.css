@@ -1,14 +1,14 @@
 /* Estilos CSS */
-.modal-button {
+/*.modal-button {
     padding: 1.0em 1.0em;
     font-size: 14px;
     text-transform: uppercase;
     font-weight: bold;
     color: #ffffff;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     display: inline-block;
-}
+}*/
 .fondo{
     text-align: center;
     font-size: 30px;
@@ -23,7 +23,7 @@
     height: 254px;
 }
 
-/* Contenedor de la tabla */
+/* Contenedor de la tabla
 .tabla-project {
     overflow-x: auto; 
     max-width: 100%;
@@ -43,9 +43,9 @@
     padding: 0.5em;
     text-align: center;
     word-wrap: break-word;
-}
-/*Ajustes para hacer la  pantalla responsiva*/
-/*@media (max-width: 992px) {
+}*/
+
+@media (max-width: 992px) {
     .card {
         width: calc(50% - 20px);
     }
@@ -59,7 +59,7 @@
     .card {
         width: calc(100% - 20px);
     }
-}*/
+}
 
 
 

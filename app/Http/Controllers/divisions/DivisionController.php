@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\management\Division;
 use App\Models\management\Division_image;
+use App\Models\AcademicDirector;
+use App\Models\User;
 
 class DivisionController extends Controller
 {
@@ -19,13 +21,11 @@ class DivisionController extends Controller
 
     public function index()
     {
-        $divisions = Division::with('divisionImage')->get();
-        return view('management.divisions.divisions', compact('divisions'));
-    }
+    $divisions = Division::with('divisionImage')->get();
 
-    public function getProjectsPerDivision()
-    {
-        return view("management.divisions.projects-per-division");
+    $academicDirectors = AcademicDirector::with('user')->whereIn('division_id', $divisions->pluck('id'))->get()->groupBy('division_id');
+
+    return view('management.divisions.divisions', compact('divisions', 'academicDirectors'));
     }
 
     public function create()
@@ -77,17 +77,29 @@ class DivisionController extends Controller
     }
 
     public function edit(string $id)
-    {
-        $division = Division::findOrFail($id);
-        return view('management.divisions.edit-division', compact('division'));
-    }
+{
+    $divisions = Division::with('divisionImage')->get();
+    $division = Division::findOrFail($id);
+
+    // Obtener los presidentes académicos de cada división con sus nombres
+    $academicDirectors = AcademicDirector::with('user')
+        ->whereIn('division_id', $divisions->pluck('id'))
+        ->get()
+        ->groupBy('division_id')
+        ->map(function ($academicDirectors) {
+            return $academicDirectors->pluck('user.name')->implode(', ');
+        });
+
+    return view('management.divisions.edit-division', compact('division', 'divisions', 'academicDirectors'));
+}
+
 
     public function update(Request $request, string $id)
     {
 
         $request->validate([
-            'name' => 'required|string|regex:/^[a-zA-Z0-9]+$/',
-            'description' => 'required|string|regex:/^[a-zA-Z0-9]+$/',
+            'name' => 'required|string',
+            'description' => 'required|string',
             'image' => 'image|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -115,7 +127,7 @@ class DivisionController extends Controller
 
         return redirect()->route('divisiones.index')->with('success', 'División actualizada correctamente.');
     }
-
+ 
     public function destroy(string $id)
     {
     $division = Division::findOrFail($id);

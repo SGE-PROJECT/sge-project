@@ -13,7 +13,8 @@ class Group extends Model
     protected $fillable = [
         'name',
         'description',
-        'program_id'
+        'program_id',
+        'four-month-period'
     ];
 
     public function program()

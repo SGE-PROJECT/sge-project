@@ -10,6 +10,10 @@
             <a class="text-xl" href={{ route('home') }}>⭠ Regresar</a>
         </li>
         <h2 class="text-3xl font-bold sm:text-4xl text-center mb-6">CÉDULA DE ANTEPROYECTO </h2>
+        <!-- BOTON DE INVITAR -->
+        <button id="btnInvitarEstudiante"
+            class="font-bold bg-teal-500 text-white  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Invitar a
+            colaborador</button>
         <form action="{{ route('projects.update', $proyecto->id) }}" method="POST" class="space-y-4">
             @csrf
             @method('put')
@@ -243,14 +247,19 @@
                 </div>
             </div>
 
-            <div class="mt-8 flex justify-center text-center space-x-6">
+            <div class="mt-8 flex justify-center text-center space-x-2">
                 <button
-                    class=" font-bold bg-teal-500 text-white  px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
-
-                {{-- <button type="submit" name="action" value="publicar" id="publishButton"
-                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Publicar</button> --}}
-
+                    class="font-bold bg-teal-500 text-white ml-16 px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
+                @if ($proyecto->is_public != 1)
+                    <form action="{{ route('projects.updateIsPublic', $proyecto->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit"
+                            class="font-bold bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors">Publicar</button>
+                    </form>
+                @endif
             </div>
+
         </form>
         <div class="bg-white shadow mb-5 max-h-96 overflow-y-scroll mt-10">
             @if ($proyecto->comments->count())
@@ -259,8 +268,7 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <div class="flex items-center">
-                                    <img src="{{ asset($comment->academic_advisor->user->photo) }}"
-                                        alt="Avatar"
+                                    <img src="{{ asset($comment->academic_advisor->user->photo) }}" alt="Avatar"
                                         class="w-8 h-8 rounded-full mr-2">
                                     <p class="text-gray-800 font-bold">{{ $comment->academic_advisor->user->name }} <i
                                             class='bx bxs-badge-check text-[#03A696] text-2xl'></i>
@@ -301,9 +309,8 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <div class="flex items-center">
-                                        <img src="{{ asset($like->academicAdvisor->user->photo) }}"
-
-                                            alt="Avatar" class="w-8 h-8 rounded-full mr-2">
+                                        <img src="{{ asset($like->academicAdvisor->user->photo) }}" alt="Avatar"
+                                            class="w-8 h-8 rounded-full mr-2">
                                         <p class="text-white font-bold">{{ $like->academicAdvisor->user->name }}</p>
 
                                     </div>
@@ -328,8 +335,8 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <div class="flex items-center">
-                                        <img src="{{ asset($score->AcademicAdvisor->user->photo) }}"
-                                            alt="Avatar" class="w-8 h-8 rounded-full mr-2">
+                                        <img src="{{ asset($score->AcademicAdvisor->user->photo) }}" alt="Avatar"
+                                            class="w-8 h-8 rounded-full mr-2">
                                         <p class="text-white font-bold">{{ $score->AcademicAdvisor->user->name }}</p>
                                     </div>
                                 </div>
@@ -344,11 +351,97 @@
         </div>
     </div>
 
-    @include('layouts.modal', [
-        'title' => 'Publicar Proyecto',
-        'message' =>
-            '¿Estás seguro de que deseas publicar tu proyecto? Una vez subido ya no se pueden hacer cambios. Esta acción no se puede deshacer.',
-        'cancelButton' => 'Cancelar',
-        'confirmButton' => 'Publicar',
-    ])
+
+    <!-- Botón de eliminar proyecto -->
+    <button id="btnEliminarProyecto" class="ProjectDeleteButton">Eliminar</button>
+
+    <!-- Modal de confirmación de eliminación -->
+    <div id="modalEliminar" class="ProjectDeleteModal fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity hidden">
+        <div class="bg-white rounded p-8 max-w-md mx-auto z-50">
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold text-gray-800">¿Seguro que quieres eliminar?</h2>
+            </div>
+            <div class="flex justify-end">
+                <button id="btnCancelar"
+                    class="mr-4 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancelar</button>
+                <button id="btnConfirmarEliminar"
+                    class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario de eliminación -->
+    <form id="formEliminar" action="{{ route('projects.destroy', $proyecto->id) }}" method="POST"
+        style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
+
+
+    <!-- Formulario de invitación -->
+    <div id="modalInvitarEstudiante" class="modalInvitar">
+        <form id="formInvitarEstudiante" action="{{ route('invitar.estudiante') }}" method="POST"
+            class="modal-content-invite">
+            @csrf
+            <div class="container">
+                <h2>Invitar Estudiante</h2>
+                <label for="nombre_estudiante">Nombre del Estudiante:</label>
+                <input type="text" id="nombre_estudiante" name="nombre_estudiante" required>
+                <label for="email_estudiante">Correo Electrónico:</label>
+                <input type="email" id="email_estudiante" name="email_estudiante" required>
+                <input type="hidden" id="project_id" name="project_id" value="{{ $proyecto->id }}">
+                <button type="submit">Enviar Invitación</button>
+            </div>
+        </form>
+    </div>
+
+
+@endsection
+
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener el botón de eliminar proyecto y el modal de confirmación
+            const btnEliminarProyecto = document.getElementById('btnEliminarProyecto');
+            const modalEliminar = document.getElementById('modalEliminar');
+
+            // Obtener los botones de cancelar y confirmar eliminar
+            const btnCancelar = document.getElementById('btnCancelar');
+            const btnConfirmarEliminar = document.getElementById('btnConfirmarEliminar');
+
+            // Agregar un listener para abrir el modal al hacer clic en el botón de eliminar proyecto
+            btnEliminarProyecto.addEventListener('click', function() {
+                modalEliminar.classList.remove('hidden');
+            });
+
+            // Agregar un listener para cerrar el modal al hacer clic en el botón de cancelar
+            btnCancelar.addEventListener('click', function() {
+                modalEliminar.classList.add('hidden');
+            });
+
+            // Agregar un listener para enviar el formulario de eliminación al hacer clic en el botón de confirmar eliminar
+            btnConfirmarEliminar.addEventListener('click', function() {
+                // Obtener el formulario de eliminación
+                const formEliminar = document.getElementById('formEliminar');
+                // Enviar el formulario
+                formEliminar.submit();
+            });
+        });
+    </script>
+
+    <!--- Script para invitar a colaborador ---->
+    <script>
+        const btnInvitarEstudiante = document.getElementById('btnInvitarEstudiante');
+        const modalInvitarEstudiante = document.getElementById('modalInvitarEstudiante');
+
+        btnInvitarEstudiante.addEventListener('click', () => {
+            modalInvitarEstudiante.style.display = 'block';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modalInvitarEstudiante) {
+                modalInvitarEstudiante.style.display = 'none';
+            }
+        });
+    </script>
 @endsection
