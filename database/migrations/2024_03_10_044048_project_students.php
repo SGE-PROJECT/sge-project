@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId("student_id")->constrained()
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
-            $table->tinyInteger('is_main_student');
+            $table->tinyInteger('is_main_student')->default(0);
             $table->timestamps();
         });
     }
