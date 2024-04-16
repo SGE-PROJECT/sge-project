@@ -293,11 +293,14 @@
                     <li class="dropdown  hidden md:block">
                         <button type="button"
                             class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600 relative">
+                             
+                            @if ((auth()->user()->notifications()->whereDate('created_at', today())->get())->count()>0)
                             <div
-                                class="top-0 left-5 absolute w-3 h-3 bg-teal-400 border-2 border-slate-400 rounded-full animate-ping">
-                            </div>
-                            <div class="top-0 left-5 absolute w-3 h-3 bg-teal-500 border-2 border-white rounded-full">
-                            </div>
+                            class="top-0 left-5 absolute w-3 h-3 bg-teal-400 border-2 border-slate-400 rounded-full animate-ping">
+                        </div>
+                        <div class="top-0 left-5 absolute w-3 h-3 bg-teal-500 border-2 border-white rounded-full">
+                        </div>    
+                            @endif
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 class=" rounded-full relative" viewBox="0 0 24 24"

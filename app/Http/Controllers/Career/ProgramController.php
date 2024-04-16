@@ -11,6 +11,13 @@ use App\Models\User;
 
 class ProgramController extends Controller
 {
+
+    public function getProgramsByDivision($divisionId)
+    {
+        $programs = Program::where('division_id', $divisionId)->get(['id', 'name']);
+        return response()->json($programs);
+    }
+
     public function __construct(){
         $this->middleware("can:carreras.index")->only('index');
         $this->middleware("can:carreras.edit")->only('edit', 'update');
