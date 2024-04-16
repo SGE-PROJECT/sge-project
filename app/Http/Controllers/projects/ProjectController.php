@@ -108,20 +108,21 @@ class ProjectController extends Controller
     // Formulario de creación de proyecto. Si el estudiante ya tiene un proyecto, entonces es enviado a la vista de editar.
     public function projectform()
     {
-        // Obtener el usuario autenticado
-        $user = Auth::user();
-
+        // Obtener todos los asesores empresariales
+        $businessAdvisors = BusinessAdvisor::all();
+    
         // Verificar si el usuario ya tiene un proyecto creado
-        $existingProject = project_students::where('student_id', $user->id)->first();
-
+        $existingProject = Project_students::where('student_id', Auth::user()->id)->first();
+    
         if ($existingProject) {
             // Si el usuario ya tiene un proyecto creado, redirigir a la vista de edición
             return $this->edit($existingProject->id);
         } else {
-            // Si el usuario no tiene un proyecto creado, redirigir a la ruta para crear un nuevo proyecto
-            return view("projects.Forms.FormStudent");
+            // Si el usuario no tiene un proyecto creado, pasar los asesores empresariales a la vista
+            return view("projects.Forms.FormStudent", compact('businessAdvisors'));
         }
     }
+    
 
     public function updateIsPublic($id)
     {
