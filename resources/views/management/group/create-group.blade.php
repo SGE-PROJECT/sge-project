@@ -51,9 +51,14 @@
         </div>
 
         <div class="mb-4">
-            <label for="four-month-period" class="block text-gray-700 text-sm font-bold mb-2">Cuatrimestre: (Por escrito)</label>
-            <input type="text" name="four-month-period" id="four-month-period" value="{{ old('four-month-period') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
+            <label for="four-month-period" class="block text-gray-700 text-sm font-bold mb-2">Cuatrimestre:</label>
+            <select name="four-month-period" id="four-month-period" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                <option value="" disabled selected>Seleccione un cuatrimestre</option>
+                <option value="5" {{ old('four-month-period') == '5' ? 'selected' : '' }}>Quinto</option>
+                <option value="6" {{ old('four-month-period') == '6' ? 'selected' : '' }}>Sexto</option>
+            </select>
         </div>
+        
 
         <div class="flex flex-col sm:flex-row items-center justify-center">
             <button type="submit" class="modal-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
@@ -64,28 +69,31 @@
 </div>
 
 <script>
-function fetchPrograms() {
-    let divisionId = document.getElementById('division_id').value;
-    let programSelect = document.getElementById('program_id');
-    programSelect.disabled = true;  // Disable the select
-    if (divisionId) {
-        fetch(`/grupos/programs/${divisionId}`)
-            .then(response => response.json())
-            .then(data => {
-                programSelect.innerHTML = '';  // Clear existing options
-                if (data.length) {
-                    data.forEach(program => {
-                        let option = new Option(program.name, program.id);
-                        programSelect.add(option);
-                    });
-                    programSelect.disabled = false;  // Enable the select
-                } else {
-                    programSelect.add(new Option('No hay carreras disponibles', ''));
-                }
-            })
-            .catch(error => console.error('Error loading the programs:', error));
+    function fetchPrograms() {
+        const divisionId = document.getElementById('division_id').value;
+        const programSelect = document.getElementById('program_id');
+        programSelect.disabled = true; // Disable the select
+        if (divisionId) {
+            fetch(`/grupos/programs/${divisionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    programSelect.innerHTML = '<option value="">Seleccione una carrera</option>'; // Clear existing options
+                    if (data.length) {
+                        data.forEach(program => {
+                            const option = new Option(program.name, program.id);
+                            programSelect.add(option);
+                        });
+                        programSelect.disabled = false; // Enable the select
+                    } else {
+                        programSelect.add(new Option('No hay carreras disponibles', ''));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading the programs:', error);
+                    programSelect.add(new Option('Error al cargar las carreras', ''));
+                });
+        }
     }
-}
-</script>
+    </script>    
 
 @endsection

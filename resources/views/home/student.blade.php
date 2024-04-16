@@ -131,14 +131,13 @@
 
 
                                         <div class="flex mt-4 md:mt-6">
-
-
-                                            <a href={{ route('viewMyProject') }}
-                                                class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver
-                                                más información</a>
-                                                <a href={{ route('student.export') }}
-                                                class="py-2 px-3 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Generar reportes</a>
+                                            <a href="{{ route('viewMyProject') }}" class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver más información</a>
+                                        
+                                            @if($Project->status === 'Finalizado' && $Project->is_project)
+                                                <a href="{{ route('student.export') }}" class="py-2 px-3 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Generar reportes</a>
+                                            @endif
                                         </div>
+                                        
                                     </div>
 
                                 </div>

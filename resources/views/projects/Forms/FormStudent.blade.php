@@ -76,7 +76,7 @@
                     <div class="relative">
                         <div class="mt-6 pb-6 p-3">
                             <input name="phone_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa tu nombre completo" type="text"
+                                placeholder="Ingresa tu numero teléfonico" type="text"
                                 value="{{ old('phone_student') }}" />
                             <div class="text-red-400 font-bold text-lg">
                                 @error('phone_student')
@@ -170,77 +170,103 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Nombre del Asesor Empresarial:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="name" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa el nombre del asesor" type="text" value="{{ old('name') }}" />
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('name')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
+            <div class="grid grid-cols-1 gap-4">
+    <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
+        <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
+            <h2 class="text-xl font-semibold text-white mb-0">Asesor Empresarial:</h2>
+        </div>
+        <div class="relative">
+            <div class="mt-6 pb-6 p-3">
+                    <select name="project_status_area" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm" onchange="showHideFields(this.value)">
+                        <option value="">Selecciona un asesor</option>
+                        @foreach($businessAdvisors as $advisor)
+                        <option value="{{ $advisor->id }}" data-name="{{ $advisor->name }}" data-position="{{ $advisor->position }}" data-phone="{{ $advisor->phone }}" data-email="{{ $advisor->email }}">{{ $advisor->name }}</option>
+                        @endforeach
+                        <option value="Otro">Otro</option>
+                    </select>
+                <div class="text-red-400 font-bold text-lg">
+                    @error('project_area')
+                    {{ $message }}
+                    @enderror
                 </div>
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Cargo del Asesor Empresarial:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="position" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa el cargo del asesor" type="text"
-                                value="{{ old('position') }}" />
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('position')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="otrosCampos" style="display: none;">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
+            <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
+                <h2 class="text-xl font-semibold text-white mb-0">Nombre del Asesor Empresarial:</h2>
+            </div>
+            <div class="relative">
+                <div class="mt-6 pb-6 p-3">
+                    <input id="nombreAsesor" name="name" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                        placeholder="Ingresa el nombre del asesor" type="text" value="{{ old('name') }}" readonly />
+                    <div class="text-red-400 font-bold text-lg">
+                        @error('name')
+                        {{ $message }}
+                        @enderror
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Número Teléfonico del Asesor Empresarial:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="phone" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa el número teléfonico del asesor" type="tel"
-                                value="{{ old('phone') }}" />
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('phone')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Correo Electrónico del Asesor Empresarial:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="email" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa el correo electrónico del asesor" type="email"
-                                value="{{ old('email') }}" />
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('email')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
+        </div>
+        <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
+            <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
+                <h2 class="text-xl font-semibold text-white mb-0">Cargo del Asesor Empresarial:</h2>
+            </div>
+            <div class="relative">
+                <div class="mt-6 pb-6 p-3">
+                    <input id="cargoAsesor" name="position" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                        placeholder="Ingresa el cargo del asesor" type="text"
+                        value="{{ old('position') }}" readonly/>
+                    <div class="text-red-400 font-bold text-lg">
+                        @error('position')
+                        {{ $message }}
+                        @enderror
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
+            <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
+                <h2 class="text-xl font-semibold text-white mb-0">Número Teléfonico del Asesor Empresarial:</h2>
+            </div>
+            <div class="relative">
+                <div class="mt-6 pb-6 p-3">
+                    <input id="telefonoAsesor" name="phone" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                        placeholder="Ingresa el número teléfonico del asesor" type="tel"
+                        value="{{ old('phone') }}" readonly />
+                    <div class="text-red-400 font-bold text-lg">
+                        @error('phone')
+                        {{ $message }}
+                        @enderror
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
+            <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
+                <h2 class="text-xl font-semibold text-white mb-0">Correo Electrónico del Asesor Empresarial:</h2>
+            </div>
+            <div class="relative">
+                <div class="mt-6 pb-6 p-3">
+                    <input id="emailAsesor" name="email" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                        placeholder="Ingresa el correo electrónico del asesor" type="email"
+                        value="{{ old('email') }}" readonly/>
+                    <div class="text-red-400 font-bold text-lg">
+                        @error('email')
+                        {{ $message }}
+                        @enderror
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
             <div class="grid grid-cols-1 gap-4">
                 <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
                     <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
@@ -350,6 +376,38 @@
             <input type="hidden" name="is_project" value="0">
         </form>
     </div>
+    <script>
+    function showHideFields(value) {
+        if (value === 'Otro') {
+            document.getElementById('otrosCampos').style.display = 'block';
+            document.getElementById('nombreAsesor').value = ''; // Vaciar el campo
+            document.getElementById('cargoAsesor').value = ''; // Vaciar el campo
+            document.getElementById('telefonoAsesor').value = ''; // Vaciar el campo
+            document.getElementById('emailAsesor').value = ''; // Vaciar el campo
+            document.getElementById('nombreAsesor').removeAttribute('readonly');
+            document.getElementById('cargoAsesor').removeAttribute('readonly');
+            document.getElementById('telefonoAsesor').removeAttribute('readonly');
+            document.getElementById('emailAsesor').removeAttribute('readonly');
+        } else {
+            document.getElementById('otrosCampos').style.display = 'block';
+            document.getElementById('nombreAsesor').setAttribute('readonly', 'true');
+            document.getElementById('cargoAsesor').setAttribute('readonly', 'true');
+            document.getElementById('telefonoAsesor').setAttribute('readonly', 'true');
+            document.getElementById('emailAsesor').setAttribute('readonly', 'true');
+
+            // Obtener la opción seleccionada
+            var selectedOption = document.querySelector('select[name="project_status_area"] option[value="' + value + '"]');
+
+            // Llenar los campos con la información del asesor seleccionado
+            document.getElementById('nombreAsesor').value = selectedOption.dataset.name;
+            document.getElementById('cargoAsesor').value = selectedOption.dataset.position;
+            document.getElementById('telefonoAsesor').value = selectedOption.dataset.phone;
+            document.getElementById('emailAsesor').value = selectedOption.dataset.email;
+        }
+    }
+</script>
+
+
 
     @include('layouts.modal', [
         'title' => 'Publicar Proyecto',
