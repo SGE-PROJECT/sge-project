@@ -5,6 +5,12 @@
 
 @section('contenido')
     <div class="p-8 mt-8 mr-8 ml-8 mb-8 bg-white rounded-lg shadow-lg">
+        @if (session('success'))
+            <div class="bg-green-100 border mb-2 border-green-400 text-green-700 px-4 py-3 rounded relative alert-dismissible"
+                role="alert">
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        @endif
         <div class="">
             <div class="flex justify-between items-center">
                 <li
@@ -451,6 +457,16 @@
                     const formEliminar = document.getElementById('formEliminar');
                     formEliminar.submit();
                     modalEliminar.classList.add('hidden'); // Oculta el modal después de enviar el formulario
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var alerts = document.querySelectorAll('.alert-dismissible');
+
+                alerts.forEach(function(alert) {
+                    setTimeout(function() {
+                        alert.style.display = 'none';
+                    }, 2500);
                 });
             });
         </script>

@@ -30,7 +30,8 @@
     use App\Http\Controllers\projects\ViewProjectController;
     use App\Http\Controllers\users\ManagementUserController;
     use App\Http\Controllers\advisorDash\AdvisorDashController;
-    use App\Http\Controllers\CartaDigitalizacionController;
+use App\Http\Controllers\AprobacionController;
+use App\Http\Controllers\CartaDigitalizacionController;
     use App\Http\Controllers\CedulaController;
     use App\Http\Controllers\studentDash\StudentDashController;
     use App\Http\Controllers\studentDash\projectsDivisionController;
@@ -120,6 +121,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/invitar/estudiante', [InvitacionEstudianteController::class, 'enviarInvitacion'])->name('invitar.estudiante');
         Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
         Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+        Route::get('carta-aprobacion', [AprobacionController::class, 'aprobar'])->name('aprobacion');
+        Route::put('/projects/{id}/updateIsPublic', [ProjectController::class, 'updateIsPublic'])->name('projects.updateIsPublic');
+
     });
     //Vusualizacion de elementos para quienes no sean estudiantes o secretarias
     Route::middleware(['auth', 'role:Administrador de División|Asesor Académico|Super Administrador'])->group(function () {

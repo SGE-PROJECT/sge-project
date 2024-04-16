@@ -134,7 +134,7 @@ class ProjectController extends Controller
         $proyecto->is_public = 1;
         $proyecto->save();
 
-        return redirect()->back()->with('success', 'Campo is_public actualizado correctamente.');
+        return redirect()->back()->with('success', 'Proyecto publicado correctamente.');
     }
 
 
