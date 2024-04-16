@@ -603,7 +603,13 @@ public function studentBook(){
     $student=Student::where('user_id',$idUser)->get();
     $idStudent= $student[0]->id;
     $studentProject=Project::where('projects.id_student',$idStudent)->select('is_project')->get();
-    $studentProject= $studentProject[0]->is_project;
+   
+ 
+    if($studentProject->count()<1){
+        $studentProject=0; 
+    }else{
+        $studentProject= $studentProject[0]->is_project;
+    }
     $bookComplete=null;
     $permiso=null;
     $bookCollaborative=null;
