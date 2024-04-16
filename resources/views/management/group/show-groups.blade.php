@@ -34,8 +34,9 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-300">
-                            @foreach ($groups as $group)
-                                <tr>
+
+                            @foreach ($groups as $index => $group)
+                                <tr class="{{ $index % 2 === 0 ? 'bg-white' : 'bg-gray-100' }}">
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-black">
                                         {{ $group->name }}
                                     </td>
@@ -43,25 +44,27 @@
                                         {{ $group->program->division->name ?? 'Sin división'}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
-                                        {{ $group->program->name ?? 'Sin programa' }}
+                                        {{ $group->program->name ?? 'Sin programa'}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-bold">
-                                        
-                                        <a href="{{ route('grupos.edit', $group->id) }}" type="button"
-                                            class="bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
-                                            <i class='bx bx-edit-alt'></i>
-                                            Editar
-                                        </a>
-                                        
-                                        <form action="{{ route('grupos.destroy', $group->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de querer eliminar este grupo?');">
-                                            @csrf
-                                            @method('DELETE') <!-- Directiva Blade para incluir un campo oculto con el método DELETE -->
-                                            <button type="submit" class="ml-1 bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
-                                                <i class='bx bx-trash'></i>
-                                                Eliminar
-                                            </button>
-                                        </form>
+                                        <div class="flex gap-4"> <!-- Contenedor flex con espacio entre elementos -->
+                                            <a href="{{ route('grupos.edit', $group->id) }}"
+                                                class="bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
+                                                <i class='bx bx-edit-alt'></i>
+                                                Editar
+                                            </a>
+
+                                            <form action="{{ route('grupos.destroy', $group->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de querer eliminar este grupo?');">
+                                                @csrf
+                                                @method('DELETE') <!-- Directiva Blade para incluir un campo oculto con el método DELETE -->
+                                                <button type="submit" class="bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
+                                                    <i class='bx bx-trash'></i>
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        </div>
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>
