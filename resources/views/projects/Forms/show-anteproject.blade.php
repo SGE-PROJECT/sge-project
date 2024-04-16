@@ -339,16 +339,20 @@
                 <form id="formEliminar" action="{{ route('projects.destroy', $proyecto->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button id="btnEliminarProyecto" type="button" class="ProjectDeleteButton">Eliminar</button>
-                </form>
+                    <button id="btnEliminarProyecto" type="button" class="ProjectDeleteButton">
+                        <i class='bx bx-trash'></i> Eliminar
+                    </button>
+                                    </form>
                 <a href="editanteproyecto"
-                    class="font-bold bg-teal-500 text-white ml-16 px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</a>
+                    class="font-bold bg-blue-500 hover:bg-blue-600 text-white ml-16 px-6 py-2 rounded transition-colors"><i class='bx bx-edit-alt'></i>Editar</a>
                 @if ($proyecto->is_public != 1 && $proyecto->status == "En revisión")
                     <form action="{{ route('projects.updateIsPublic', $proyecto->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <button type="submit"
-                            class="font-bold bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors">Publicar</button>
+                            class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">
+                            <i class='bx bx-archive-out'></i>  Publicar
+                        </button>
                     </form>
                 @endif
             </div>
