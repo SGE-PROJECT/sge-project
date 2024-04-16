@@ -1,4 +1,4 @@
-@extends('layouts.panelUsers')
+@extends(Auth::check() && Auth::user()->hasRole('Super Administrador') ? 'layouts.panel' : 'layouts.panelUsers')
 
 @section('titulo', 'Roles y permisos')
 
@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <div class="container">
-        <h1 class="mb-4">Gestión de Roles con Permisos</h1>
+        <h1 class="mt-8 mb-4 uppercase">Gestión de Roles con Permisos</h1>
         <div class="botonagregar">
-            <a href="{{ route('roles.permissions.create') }}" class="add-btn">Agregar Nuevo Rol</a>
+            <a href="{{ route('roles.permissions.create') }}" class="mb-4 bg-[#03A696] text-white font-medium w-32 h-10 rounded-md flex justify-center items-center">Agregar Rol</a>
         </div>
         <div class="cards-container">
             @foreach ($roles as $role)
@@ -48,20 +48,26 @@
                             @endswitch
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer flex justify-between">
                         <div class="button-container">
-                            <a href="{{ route('roles.permissions.show', $role->id) }}" class="btn btn-info">Ver</a>
+                            <a href="{{ route('roles.permissions.show', $role->id) }}" class="px-5 py-2 bg-[#03A696] text-white font-medium w-auto h-11 rounded-md flex justify-center items-center">
+                                <i class="bx bx-show text-lg"></i>Ver
+                            </a>
                         </div>
+
                         <div class="button-container">
-                            <a href="{{ route('roles.permissions.edit', $role->id) }}" class="btn btn-primary">Editar</a>
+                            <a href="{{ route('roles.permissions.edit', $role->id) }}" class=" bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none mb-2">
+                                <i class='bx bx-edit-alt text-lg'></i>Editar
+                            </a>
                         </div>
+
                         <div class="button-container">
-
-                                <button type="button" class="btn btn-danger"
-                                onclick="showConfirmModal({{ $role->id }})">Eliminar</button>
-
+                            <button type="button" class="bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none mb-2" onclick="showConfirmModal({{ $role->id }})">
+                                <i class='bx bx-trash text-lg'></i>Eliminar
+                            </button>
                         </div>
                     </div>
+
                 </div>
             @endforeach
         </div>
