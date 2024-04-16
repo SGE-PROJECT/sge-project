@@ -97,7 +97,7 @@
         </div>
     </div>
     <section class="flex">
-        <div class="relative sidebar fixed left-0 top-0 h-full bg-[#00ab84] z-50 transition-transform">
+        <div class="relative sidebar left-0 top-0 h-full bg-[#00ab84] z-50 transition-transform">
             <div class="header-sidebar" id="hs">
                 <a class="flex justify-center items-center">
                     <img class="h-[40px]" id="imagen" src="{{ asset('images/letras2.png') }}" alt="">
@@ -246,7 +246,7 @@
 
                 <li class="mb-1 group">
                     <a href={{ route('empresas.showTable') }}
-                        class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md">
+                        class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  rounded-md">
                         <i class='  bx bx-buildings mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Empresas Afiliadas</span>
                     </a>
@@ -258,7 +258,7 @@
                 <span class="text-[#fff] nav-text font-bold">EMPRESAS</span>
                 <li class="mb-1 group">
                     <a href={{ route('empresas.index') }}
-                        class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md">
+                        class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white   rounded-md">
                         <i class='  bx bx-buildings mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Empresas Afiliadas</span>
                     </a>
@@ -270,7 +270,7 @@
                 <span class="text-[#fff] nav-text font-bold">RECURSOS</span>
                 <li class="mb-1 group">
                     <a href="{{ route('libro-student') }}"
-                        class="flex font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md hover:text-[#d0d3d4]">
+                        class="flex font-semibold items-center py-2 px-4 text-white  rounded-md hover:text-[#d0d3d4]">
                         <i class='bx bx-book mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Libro</span>
                     </a>
@@ -281,7 +281,7 @@
                 <span class="text-[#fff] nav-text font-bold">RECURSOS</span>
                 <li class="mb-1 group">
                     <a href="{{ route('libros.index') }}"
-                        class="flex font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md hover:text-[#d0d3d4]">
+                        class="flex font-semibold items-center py-2 px-4 text-white   rounded-md hover:text-[#d0d3d4]">
                         <i class='bx bx-book mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Libros</span>
                     </a>
@@ -314,7 +314,7 @@
                 <span class="text-[#fff] nav-text font-bold">ACTIVIDADES</span>
                 <li class="mb-1 group">
                     <a href="{{ route('asesoriasStudent', ['id' => auth()->user()->slug]) }}"
-                        class="flex font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md hover:text-[#d0d3d4]">
+                        class="flex font-semibold items-center py-2 px-4 text-white  rounded-md hover:text-[#d0d3d4]">
                         <i class='bx bx-calendar-event mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Sesiones de Asesoría</span>
                     </a>
@@ -325,7 +325,7 @@
             <span class="text-[#fff] font-bold nav-text">PERSONAL</span>
             <li class="mb-1 group">
                 <a href="/notificaciones"
-                    class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md">
+                    class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  rounded-md">
                     <i class='bx bx-bell mr-3 text-lg'></i>
                     <span class="nav-text text-sm">Notificaciones</span>
                 </a>
@@ -333,7 +333,7 @@
             <form action="{{ route('logout') }}" method="post">
                 @csrf
                 <button href="{{ route('logout') }}"
-                    class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md w-full">
+                    class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  rounded-md w-full">
                     <i class='bx bx-log-out mr-3 text-xl'></i>
                     <span class="nav-text text-sm">Cerrar sesion</span>
                 </button>
