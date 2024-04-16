@@ -307,45 +307,4 @@ class CrudUserController extends Controller
         return redirect()->route('users.cruduser.index');
     }
 
-    public function dashboardUsers()
-    {
-        $users = User::with([
-            'student.group.program.division',
-            'secretary.division',
-            'academicDirector.division',
-            'academicAdvisor.division',
-            'managmentAdmin.division',
-            'roles' // Asegúrate de incluir la relación de roles también
-        ])->paginate(10);
-
-        $users->each(function ($user) {
-            $division = null;
-
-            if ($user->student) {
-                $division = $user->student->group->program->division ?? null;
-            } elseif ($user->secretary) {
-                $division = $user->secretary->division ?? null;
-            } elseif ($user->academicDirector) {
-                $division = $user->academicDirector->division ?? null;
-            } elseif ($user->academicAdvisor) {
-                $division = $user->academicAdvisor->division ?? null;
-            } elseif ($user->managmentAdmin) {
-                $division = $user->managmentAdmin->division ?? null;
-            }
-
-            $user->division_name = $division ? $division->name : 'Sin División';
-        });
-
-        // Contar el total de usuarios por cada rol
-        $superAdminCount = Role::findByName('Super Administrador')->users()->count();
-        $managmentAdminCount = Role::findByName('Administrador de División')->users()->count();
-        $adviserCount = Role::findByName('Asesor Académico')->users()->count();
-        $studentCount = Role::findByName('Estudiante')->users()->count();
-        $presidentCount = Role::findByName('Presidente Académico')->users()->count();
-        $secretaryCount = Role::findByName('Asistente de Dirección')->users()->count();
-
-        return view('administrator.dashboard.DashboardUsers', compact('users', 'superAdminCount', 'managmentAdminCount', 'adviserCount', 'studentCount', 'presidentCount', 'secretaryCount'));
-    }
-
-
 }
