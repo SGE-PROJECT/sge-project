@@ -45,6 +45,9 @@ class BooksController extends Controller
         $idUser =$user->id;
         $divId = Secretary::where('user_id', $idUser)->select('division_id')->get();
         $divisionId=$divId[0]->division_id;
+   
+
+        
 
 
         $booksOfStudents = Student::join('groups', 'students.group_id', '=', 'groups.id')
@@ -56,6 +59,10 @@ class BooksController extends Controller
         ->whereNotNull('students.book_id')
         ->select('books.*')
         ->get();
+
+        
+        
+        
 
 
 

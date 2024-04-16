@@ -287,12 +287,7 @@
                     </a>
                 </li>
             @endif
-            @php
-                if (Auth::user()->hasAnyRole(['Asesor Académico']) ){
-                    $countStudents = Auth::user()->academicAdvisor->students->count();
-                }
-            @endphp
-            @if (Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']) && $countStudents > 0)
+            @if (Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']))
                 <!-- ACTIVIDADES Section -->
                 <span class="text-[#fff] nav-text font-bold">ACTIVIDADES</span>
                 <li class="mb-1 group">
@@ -311,12 +306,8 @@
                 </li>
             @else
             @endif
-            @php
-                if (Auth::user()->hasAnyRole(['Estudiante']) ){
-                    $countStudents = Auth::user()->student->academic_advisor_id;
-                }
-            @endphp
-            @if ($countStudents !== null)
+        
+            
             @role(['Estudiante'])
                 <!-- ACTIVIDADES Section -->
                 <span class="text-[#fff] nav-text font-bold">ACTIVIDADES</span>
@@ -328,7 +319,7 @@
                     </a>
                 </li>
             @endrole
-            @endif
+
 
 
             <!-- PERSONAL Section -->
