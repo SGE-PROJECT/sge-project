@@ -15,6 +15,7 @@ class GroupController extends Controller
         $programs = Program::where('division_id', $divisionId)->get();
         return response()->json($programs);
     }
+    
         
     /**
      * Display a listing of the resource.
