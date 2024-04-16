@@ -41,8 +41,10 @@ class AdvisorySessionController extends Controller
         $Projects = $Projects->unique('id');
 
         foreach ($Projects as $project) {
+            $estudiantes = $project->students()->whereIn('students.id', $studentIds)->get();
+            $estudiante = $estudiantes->first();
             $project->students = $project->students()->pluck('students.id')->toArray();
-            $project->image = 'avatar.jpg';
+            $project->image = $estudiante->user->photo;
             $project->name = $project->name_project;
             $project->description = $project->general_objective;
             // Filtrar los estudiantes para asegurarse de que solo se incluyan aquellos que están asociados a este proyecto
@@ -193,7 +195,7 @@ class AdvisorySessionController extends Controller
         });
         $Projects = $student->projects()->get();
         foreach ($Projects as $project) {
-            $project->image = 'avatar.jpg';
+            $project->image = $academicAdvisor->user->photo;
             $project->name = $project->name_project;
             $project->description = $project->general_objective;
         }
@@ -265,7 +267,7 @@ class AdvisorySessionController extends Controller
 
         $session->update($validator->validated());
 
-        return back()->with('success', 'La sesión de asesoría ha sido editada exitosamente.');
+        return back()->with('edit', 'La sesión de asesoría ha sido editada exitosamente.');
     }
 
     public function destroy($id)
@@ -278,7 +280,7 @@ class AdvisorySessionController extends Controller
 
         $session->delete();
 
-        return back()->with('success', 'La sesión de asesoría ha sido editada exitosamente.');
+        return back()->with('delete', 'La sesión de asesoría ha sido eliminada exitosamente.');
     }
 
 }

@@ -1,4 +1,4 @@
-@extends('layouts.panelUsers')
+@extends(Auth::check() && Auth::user()->hasRole('Super Administrador') ? 'layouts.panel' : 'layouts.panelUsers')
 
 @section('titulo', 'Editar Rol')
 
@@ -20,11 +20,11 @@
                     <label class="names" for="name">Nombre del rol</label>
                 </div>
             </div>
-            
+
 
             <div class="form-group">
                 <label class="permission-label">{{ __('Permisos') }}</label>
-               
+
                 <div class="checkbox-group">
                     @foreach ($permissions as $permission)
                         <div class="checkbox">
@@ -45,5 +45,5 @@
         </form>
     </div>
 </div>
-    
+
 @endsection

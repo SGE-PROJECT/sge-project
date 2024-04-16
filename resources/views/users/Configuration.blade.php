@@ -1,4 +1,4 @@
-@extends('layouts.panelUsers')
+@extends(Auth::check() && Auth::user()->hasRole('Super Administrador') ? 'layouts.panel' : 'layouts.panelUsers')
 
 @section('titulo')
     Configuración de la Cuenta
@@ -67,7 +67,7 @@
                     @if (session('success'))
                         <div class="text-green-500 mb-4 auto-hide-message">{{ session('success') }}</div>
                     @endif
-                   
+
 
 
 
@@ -151,7 +151,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div>
                         <div class="form-control">
                             <input type="password" name="password">

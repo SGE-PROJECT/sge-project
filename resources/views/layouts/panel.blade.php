@@ -162,7 +162,7 @@
                                     <span>Roles y Permisos</span>
                                 </a>
                             </li>
-                        
+
                         </ul>
                     </li>
                 @endif
@@ -206,10 +206,16 @@
                                     class=" text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                         class='bx bx-buildings mr-3 text-lg'></i><span
                                         class=" text-sm">Divisiones</span></a>
+
                         </li>
                         @endif
                         @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección']))
                         @else
+                        <li class="">
+                            <a href="{{ route('academias.index') }}"
+                                class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                    class=' bx bxs-school mr-3 text-lg'></i><span class="text-sm">Academia</span></a>
+                        </li>
                             <li class="">
 
                                 <a href="{{ route('carreras.index') }}"
@@ -223,6 +229,7 @@
                                     class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                         class=' bx bx-group mr-3 text-lg'></i><span class="text-sm">Grupos</span></a>
                             </li>
+
                         @endif
                     </ul>
                 </li>
@@ -234,7 +241,7 @@
 
                     <li class="mb-1 group">
                         <a href={{ route('empresas.index') }}
-                            class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md">
+                            class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
                             <i class='  bx bx-buildings mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Empresas Afiliadas</span>
                         </a>
@@ -293,13 +300,13 @@
                     <li class="dropdown  hidden md:block">
                         <button type="button"
                             class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600 relative">
-                             
+
                             @if ((auth()->user()->notifications()->whereDate('created_at', today())->get())->count()>0)
                             <div
                             class="top-0 left-5 absolute w-3 h-3 bg-teal-400 border-2 border-slate-400 rounded-full animate-ping">
                         </div>
                         <div class="top-0 left-5 absolute w-3 h-3 bg-teal-500 border-2 border-white rounded-full">
-                        </div>    
+                        </div>
                             @endif
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

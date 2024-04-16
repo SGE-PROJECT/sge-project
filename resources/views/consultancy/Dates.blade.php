@@ -3,18 +3,45 @@
 @section('titulo', 'Asesorias')
 
 @section('js')
-@vite('resources/js/asesorias.js')
+    @vite('resources/js/asesorias.js')
 @endsection
 
 @section('css')
-@vite('resources/css/advisory/asesorias.css')
+    @vite('resources/css/advisory/asesorias.css')
 @endsection
 
 @section('contenido')
     @if ($slug !== auth()->user()->slug)
-        {{abort(404);}}
+        {{ abort(404) }}
+    @endif
+    @if (session('success'))
+        <div class="bg-[#84cc16c0] block md:inline text-white text-center p-2 fixed bottom-10 rounded right-0 md:right-10 z-50 shadow-lg noti"
+            id="noti">
+            <i class="nf nf-fa-check_circle mr-2"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('edit'))
+        <div class="bg-[#14B8A6c0] block md:inline text-white text-center p-2 fixed bottom-10 rounded right-0 md:right-10 z-50 shadow-lg noti"
+            id="noti">
+            <i class="nf nf-md-clock_edit mr-2"></i>
+            {{ session('edit') }}
+        </div>
+    @endif
+    @if (session('delete'))
+        <div class="bg-[#EF4444f0] block md:inline text-white text-center p-2 fixed bottom-10 rounded right-0 md:right-10 z-50 shadow-lg noti"
+            id="noti">
+            <i class="nf nf-md-delete_circle mr-2"></i>
+            {{ session('delete') }}
+        </div>
     @endif
     <main class="vista_asesorias">
+
+        <script>
+            setTimeout(() => {
+                document.getElementById("noti").classList.add("ocultarNoti");
+            }, 4000);
+        </script>
 
         @php
             $projectsData = $Projects->mapWithKeys(function ($project) {
@@ -22,7 +49,7 @@
                     $project->id => [
                         'id' => $project->id,
                         'nombre' => $project->name,
-                        'descripcion' =>$project->description,
+                        'descripcion' => $project->description,
                         'alumnos' => $project->students,
                         'imagen' => $project->image,
                     ],
@@ -97,13 +124,14 @@
                 </select>
             </span>
             <span class="hora-asesorias ocultar">
-                <button class="top-0 md:top-[0px] bg-teal-500 rounded px-2 text-[#fff] font-bold text-[20px] md:text-[25px] hover:bg-teal-600 transition-colors flex items-center"
-                id="volverButton"><i class="nf nf-cod-arrow_left text-[20px]"></i></button>
-            <h3 class="w-full select-mes text-center text-[30px]" id="hora"></h3>
+                <button
+                    class="top-0 md:top-[0px] bg-teal-500 rounded px-2 text-[#fff] font-bold text-[20px] md:text-[25px] hover:bg-teal-600 transition-colors flex items-center"
+                    id="volverButton"><i class="nf nf-cod-arrow_left text-[20px]"></i></button>
+                <h3 class="w-full select-mes text-center text-[30px]" id="hora"></h3>
             </span>
 
             <div class="BtnCrearDivisions botonVereventos" id="contbtnCitas">
-                <a href="{{ route('asesoriasTodas', ['id' => auth()->user()->slug ]) }}"
+                <a href="{{ route('asesoriasTodas', ['id' => auth()->user()->slug]) }}"
                     class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors flex items-center"
                     id="">
                     <span class="Btntext_divisions">Citas</span>
@@ -265,8 +293,7 @@
             <button type="button" id="agregarEventoButton"
                 class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors">Crear cita</button>
         </form>
-        <div id="eventosContainer"
-            class="w-full lg:w-[20%] ">
+        <div id="eventosContainer" class="w-full lg:w-[20%] ">
             <h2>Citas próximas</h2>
             <table>
                 <thead>
