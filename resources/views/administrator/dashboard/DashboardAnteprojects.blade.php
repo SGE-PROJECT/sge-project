@@ -150,15 +150,6 @@
                         </a>
                     </label>
 
-                    <label for="Option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                        </div>
-
-                        <div>
-                            <strong class="font-medium text-gray-900"> Imprimir </strong>
-                        </div>
-                    </label>
                 </div>
             </div>
         </div>
@@ -229,6 +220,9 @@
 
                 </tbody>
             </table>
+            <div id="no-results" class="alert alert-warning" style="display: none; text-align: center;">
+                No se encontraron resultados.
+            </div>
             <div class="mt-1">
                 {{$Anteprojects->links()}}
             </div>
