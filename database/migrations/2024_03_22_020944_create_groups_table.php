@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('program_id')->constrained('programs')
                 ->onUpdate('restrict')
                 ->onDelete('restrict');
+            $table->string('four-month-period')->nullable();
             $table->timestamps();
         });
     }
