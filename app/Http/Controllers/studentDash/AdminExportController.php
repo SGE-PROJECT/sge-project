@@ -65,7 +65,7 @@ class AdminExportController extends Controller
     //Exportar usuarios en Excel
     public function exportExcel()
     {
-        return Excel::download(new UsersExport, 'users.xlsx');
+        return Excel::download(new UsersExport, 'usuarios.xlsx');
     }
 
     //Exportar usuarios en PDF
@@ -100,7 +100,7 @@ class AdminExportController extends Controller
 
         $pdf = Pdf::loadView('exports.users_pdf', compact('users'));
         $pdf->setPaper('letter', 'landscape'); // Setea el papel a Carta en horizontal
-        return $pdf->download('users.pdf');
+        return $pdf->download('usuarios.pdf');
     }
 
     //Exportar proyectos a PDF
@@ -118,13 +118,13 @@ class AdminExportController extends Controller
 
         $pdf = PDF::loadView('exports.projects_pdf', compact('projects'));
         $pdf->setPaper('letter', 'landscape'); // Ajusta el tamaño del papel a Carta en orientación horizontal
-        return $pdf->download('projects.pdf');
+        return $pdf->download('proyectos.pdf');
     }
 
     //Exportar proyectos a Excel
     public function exportProjectsExcel()
     {
-        return Excel::download(new ProjectsExport, 'projects.xlsx');
+        return Excel::download(new ProjectsExport, 'proyectos.xlsx');
     }
 
     //Exportar anteproyectos a PDF

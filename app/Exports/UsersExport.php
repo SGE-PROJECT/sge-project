@@ -6,9 +6,11 @@ use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize; // Importa la interfaz
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
+class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize,  WithStyles
 {
     public function collection()
     {
@@ -63,6 +65,26 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, ShouldAu
             $user->division_name,
             $user->phone_number,
             $user->isActive ? 'Activo' : 'Inactivo'
+        ];
+    }
+
+    public function styles(Worksheet $sheet) {
+        return [
+            'A:F' => [
+                'font' => [
+                    'name' => 'Arial',
+                    'size' => 10
+                ],
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                ]
+            ],
+            1 => [
+                'font' => [
+                    'bold' => true
+                ]
+            ]
         ];
     }
 }

@@ -11,8 +11,10 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ProjectsExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
+class ProjectsExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, WithStyles
 {
     public function collection()
     {
@@ -58,6 +60,26 @@ class ProjectsExport implements FromCollection, WithHeadings, WithMapping, Shoul
             $student && $student->academicAdvisor ? $student->academicAdvisor->user->name : 'N/A',
             $student && $student->academicAdvisor ? $student->academicAdvisor->payrol : 'N/A',
             $project->startproject_date,
+        ];
+    }
+
+    public function styles(Worksheet $sheet) {
+        return [
+            'A:I' => [
+                'font' => [
+                    'name' => 'Arial',
+                    'size' => 10
+                ],
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+                ]
+            ],
+            1 => [
+                'font' => [
+                    'bold' => true
+                ]
+            ]
         ];
     }
 }

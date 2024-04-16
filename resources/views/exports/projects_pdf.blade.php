@@ -5,8 +5,10 @@
     }
     th, td {
         border: 1px solid black;
-        padding: 8px;
-        text-align: left;
+        padding: 4px; /* Reduce el padding para hacerlo más compacto */
+        text-align: center; /* Centra el texto */
+        font-size: 10px; /* Reduce el tamaño de la fuente */
+        word-wrap: break-word; /* Asegura que el texto no salga de la celda */
     }
     th {
         background-color: #f2f2f2;

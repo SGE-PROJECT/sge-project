@@ -155,7 +155,7 @@ Route::middleware(['auth'])->group(function () {
                 'update' => 'users.cruduser.update',
                 'destroy' => 'users.cruduser.destroy',
             ]);
-            Route::get('/usuarios', [CrudUserController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
+            Route::get('/usuarios', [AdminExportController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
             // Actualización de usuarios
                 Route::put('gestion-usuarios/{user}', [CrudUserController::class, 'update'])->name('users.cruduser.update');
             // Gestion de usuarios masiva
