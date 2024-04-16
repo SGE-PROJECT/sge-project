@@ -354,7 +354,12 @@ tbody th{
     color: #fff;
     font-weight: bold;
 }
-
+.noti{
+    transition: all 1s;
+}
+.ocultarNoti{
+    right: -1000px;
+}
 #student-calendar table, #student-dia2 table, #student-dia2 table {
     border-radius: 5px;
 }

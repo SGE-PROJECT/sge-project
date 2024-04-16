@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\management\Division;
 use App\Models\management\Division_image;
 use App\Models\AcademicDirector;
+use App\Models\ManagmentAdmin;
 use App\Models\User;
 
 class DivisionController extends Controller
@@ -24,8 +25,9 @@ class DivisionController extends Controller
     $divisions = Division::with('divisionImage')->get();
 
     $academicDirectors = AcademicDirector::with('user')->whereIn('division_id', $divisions->pluck('id'))->get()->groupBy('division_id');
+    $managementAdmin = ManagmentAdmin::with('user')->whereIn('division_id', $divisions->pluck('id'))->get()->groupBy('division_id');
 
-    return view('management.divisions.divisions', compact('divisions', 'academicDirectors'));
+    return view('management.divisions.divisions', compact('divisions', 'academicDirectors', 'managementAdmin'));
     }
 
     public function create()
@@ -81,7 +83,6 @@ class DivisionController extends Controller
     $divisions = Division::with('divisionImage')->get();
     $division = Division::findOrFail($id);
 
-    // Obtener los presidentes académicos de cada división con sus nombres
     $academicDirectors = AcademicDirector::with('user')
         ->whereIn('division_id', $divisions->pluck('id'))
         ->get()
@@ -90,7 +91,15 @@ class DivisionController extends Controller
             return $academicDirectors->pluck('user.name')->implode(', ');
         });
 
-    return view('management.divisions.edit-division', compact('division', 'divisions', 'academicDirectors'));
+    $managementAdmin = ManagmentAdmin::with('user')
+        ->whereIn('division_id', $divisions->pluck('id'))
+        ->get()
+        ->groupBy('division_id')
+        ->map(function ($managementAdmin) {
+            return $managementAdmin->pluck('user.name')->implode(', ');
+        });
+
+    return view('management.divisions.edit-division', compact('division', 'divisions', 'academicDirectors', 'managementAdmin'));
 }
 
 
@@ -127,7 +136,7 @@ class DivisionController extends Controller
 
         return redirect()->route('divisiones.index')->with('success', 'División actualizada correctamente.');
     }
- 
+
     public function destroy(string $id)
     {
     $division = Division::findOrFail($id);

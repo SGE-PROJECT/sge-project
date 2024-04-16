@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         contador.textContent = document.getElementById('student-solitMensaje').value.length + "/250";
     });
-    
+
 });
 function solicitar() {
     document.getElementById("editContador").textContent="0/250"
@@ -72,8 +72,7 @@ function mostrarEventos(cell, date) {
             let eventoDiv = document.createElement('div');
             eventoDiv.classList.add("etiqueta2");
             eventoDiv.innerHTML = `
-                <img src="/images/${proyecto.imagen}" alt="${proyecto.nombre}" class="img_estudiante img_proyecto">
-                <p class="nombre">${proyecto.nombre}</p>`;
+                <img src="/${proyecto.imagen}" alt="${proyecto.nombre}" class="img_estudiante img_proyecto">`;
             eventoDiv2.appendChild(eventoDiv);
         }
     });
@@ -113,6 +112,7 @@ function llenarHorasConEventos() {
                         let eventoDiv = document.createElement('div');
                         eventoDiv.classList.add("etiqueta");
                         eventoDiv.innerHTML = `
+                            <img src="/${proyecto.imagen}" alt="${proyecto.nombre}" class="img_estudiante img_proyecto">
                             <p class="info">${evento.motivo}</p>
                             <p class="hora"> ${evento.hora}</p>`;
                         eventoDiv2.appendChild(eventoDiv);

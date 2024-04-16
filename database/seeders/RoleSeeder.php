@@ -63,15 +63,15 @@ class RoleSeeder extends Seeder
             ],
             'empresas.destroy' => [
                 'roles' => ['Administrador de División', 'Super Administrador'],
-                'description' => 'Remover empresas'
+                'description' => 'Desactivar empresas'
             ],
             'empresas.showTable' => [
                 'roles' => ['Administrador de División', 'Asesor Académico'],
-                'description' => 'Remover empresas'
+                'description' => 'Ver empresas'
             ],
             'empresas.activate' => [
                 'roles' => ['Super Administrador'],
-                'description' => 'Remover empresas'
+                'description' => 'Activar empresas'
             ],
             //divisiones
             'divisiones.index' => [
@@ -88,7 +88,7 @@ class RoleSeeder extends Seeder
             ],
             'divisiones.destroy' => [
                 'roles' => [ 'Super Administrador'],
-                'description' => 'Remover divisiones'
+                'description' => 'Desactivar divisiones'
             ],
             'divisiones.activate' => [
                 'roles' => [ 'Super Administrador'],
@@ -109,7 +109,11 @@ class RoleSeeder extends Seeder
             ],
             'carreras.destroy' => [
                 'roles' => ['Super Administrador'], // Solo Super Administrador
-                'description' => 'Remover carreras'
+                'description' => 'Desactivar carreras'
+            ],
+            'carreras.activate' => [
+                'roles' => ['Super Administrador'], // Solo Super Administrador
+                'description' => 'Activar carreras'
             ],
             //usuarios
             'user.index' => [
