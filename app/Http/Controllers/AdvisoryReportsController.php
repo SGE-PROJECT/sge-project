@@ -284,10 +284,15 @@ class AdvisoryReportsController extends Controller
         }
 
         Notification::send($user->user,new PetitionDateNotification($user->user, $request));
-        Mail::to($user->user->email)->send(new PetitionDateMail($user->user, $request, $outputFile));
-        Mail::to($user->academicAdvisor->user->email)->send(new SanctionAdvisor($user->academicAdvisor->user, $request, $outputFile));
+        try {
+            Mail::to($user->user->email)->send(new PetitionDateMail($user->user, $request, $outputFile));
+            Mail::to($user->academicAdvisor->user->email)->send(new SanctionAdvisor($user->academicAdvisor->user, $request, $outputFile));
+        } catch (\Throwable $th) {
+            
+        }
+
         unlink($outputFile);
-        return back()->with('success', 'Se ha sancionado al alumno exitosamente.');
+        return back()->with('delete', 'Se ha sancionado al alumno exitosamente.');
     }
 
     public function exportToExcel($correo, $matricula)

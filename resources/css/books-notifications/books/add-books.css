@@ -84,11 +84,11 @@ input[type='date'] {
 }
 
 .container-inputs {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
 }
 
-.inputs-group-1 {
+/* .inputs-group-1 {
     max-width: 450px;
     width: 400px;
 
@@ -97,7 +97,7 @@ input[type='date'] {
 .inputs-group-2 {
     max-width: 450px;
     width: 400px;
-}
+} */
 
 .container-label-input{
     margin: 3% 0;

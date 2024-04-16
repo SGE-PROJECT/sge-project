@@ -41,8 +41,10 @@ class AdvisorySessionController extends Controller
         $Projects = $Projects->unique('id');
 
         foreach ($Projects as $project) {
+            $estudiantes = $project->students()->whereIn('students.id', $studentIds)->get();
+            $estudiante = $estudiantes->first();
             $project->students = $project->students()->pluck('students.id')->toArray();
-            $project->image = 'avatar.jpg';
+            $project->image = $estudiante->user->photo;
             $project->name = $project->name_project;
             $project->description = $project->general_objective;
             // Filtrar los estudiantes para asegurarse de que solo se incluyan aquellos que están asociados a este proyecto
@@ -193,7 +195,7 @@ class AdvisorySessionController extends Controller
         });
         $Projects = $student->projects()->get();
         foreach ($Projects as $project) {
-            $project->image = 'avatar.jpg';
+            $project->image = $academicAdvisor->user->photo;
             $project->name = $project->name_project;
             $project->description = $project->general_objective;
         }
@@ -211,7 +213,11 @@ class AdvisorySessionController extends Controller
             'message' => 'required|max:255'
         ]);
         Notification::send($user->student->academicAdvisor->user,new SanctionNotification($user->student->academicAdvisor->user,$user->name, $request));
-        Mail::to($user->student->academicAdvisor->user->email)->send(new SanctionMail($user->student->academicAdvisor->user,$user->name, $request));
+        try {
+            Mail::to($user->student->academicAdvisor->user->email)->send(new SanctionMail($user->student->academicAdvisor->user,$user->name, $request));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         return back()->with('success', 'Se ha solicitado al asesor exitosamente.');
     }
 
@@ -239,7 +245,11 @@ class AdvisorySessionController extends Controller
             Notification::send($user,new AdvisorySesionNotification($user, $date));
         }
         foreach ($users as $user) {
-            Mail::to($user->email)->send(new AdvisorySesionMail($user, $date));
+            try {
+                Mail::to($user->email)->send(new AdvisorySesionMail($user, $date));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
 
         return back()->with('success', 'La sesión de asesoría ha sido creada exitosamente.');
@@ -265,7 +275,7 @@ class AdvisorySessionController extends Controller
 
         $session->update($validator->validated());
 
-        return back()->with('success', 'La sesión de asesoría ha sido editada exitosamente.');
+        return back()->with('edit', 'La sesión de asesoría ha sido editada exitosamente.');
     }
 
     public function destroy($id)
@@ -278,7 +288,7 @@ class AdvisorySessionController extends Controller
 
         $session->delete();
 
-        return back()->with('success', 'La sesión de asesoría ha sido editada exitosamente.');
+        return back()->with('delete', 'La sesión de asesoría ha sido eliminada exitosamente.');
     }
 
 }

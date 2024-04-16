@@ -42,7 +42,7 @@ function mostrarFotoSeleccionada() {
         const reader = new FileReader();
 
         reader.onload = function(e) {
-            profilePicture.src = e.target.result; 
+            profilePicture.src = e.target.result;
         }
 
         reader.readAsDataURL(file);
@@ -72,11 +72,11 @@ window.addEventListener('load', () => {
 });
 
 document.getElementById('editarPerfilBtn').addEventListener('click', () => {
-    perfilEditado = true; 
-    openModal(); 
+    perfilEditado = true;
+    openModal();
 });
 
 
 function cancelUpdate() {
-    window.location.reload();
+    window.history.back();
 }

@@ -17,6 +17,7 @@ class StudentController extends Controller
     public function index()
     {
         $slug = Auth::user()->slug;
+        $slug = Auth::user()->slug;
         $user = User::where('slug', $slug)->firstOrFail();
         if (!$user->hasRole('Estudiante')) {
             abort(404);
@@ -55,7 +56,7 @@ class StudentController extends Controller
             });
             $Projects = $student->projects()->get();
             foreach ($Projects as $project) {
-                $project->image = 'avatar.jpg';
+                $project->image = $academicAdvisor->user->photo;
                 $project->name = $project->name_project;
                 $project->description = $project->general_objective;
             }

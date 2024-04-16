@@ -16,8 +16,8 @@ class Program extends Model
         'division_id',
         'start_date',
         'end_date',
+        'isActive',
         'academy_id',
-
     ];
 
     protected $dates = [

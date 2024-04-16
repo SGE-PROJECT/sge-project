@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Academy;
 use Illuminate\Database\Seeder;
 use App\Models\Category;
 
@@ -15,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(DivisionSeeder::class);
         $this->call(BooksTableSeeder::class);
+        $this->call(AcademyTableSeeder::class);
         $this->call(ProgramsSeeder::class);
         $this->call(CompaniesSeeder::class);
         $this->call(GroupsTableSeeder::class);
