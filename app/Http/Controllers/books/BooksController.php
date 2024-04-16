@@ -53,12 +53,12 @@ class BooksController extends Controller
         ->join('books','students.book_id','=','books.id')
         ->where('divisions.id', $divisionId)
         ->whereNotNull('students.book_id')
-        ->select('books.*') 
+        ->select('books.*')
         ->get();
 
-       
 
-        
+
+
         $oneBookforStudent = collect([]);
         foreach($booksOfStudents as $book){
            // Verificar si el libro ya existe en $oneBookforStudent
@@ -84,7 +84,7 @@ class BooksController extends Controller
         $studentBook=[];
 
         // Obtener los libros filtrados
-        
+
         foreach($filteredBooks as $book){
             $students=Student::join('users', 'students.user_id', '=', 'users.id')->where('students.book_id',$book->id)->select('users.name as name','students.registration_number as tuition')->get();
             $studentBook[] = [
@@ -92,7 +92,7 @@ class BooksController extends Controller
                 'students' => $students
             ];
         }
-       
+
 
         return view('books-notifications.books.Books', compact('studentBook', 'estado'));
     }
@@ -121,7 +121,7 @@ class BooksController extends Controller
         ->join('books','students.book_id','=','books.id')
         ->where('divisions.id', $divisionId)
         ->whereNotNull('students.book_id')
-        ->select('students.id as student_id','books.id as book_id','users.name as user_name','students.registration_number as tuition','books.created_at as book_created','books.price as book_price','books.title as book_title','books.author as book_author','programs.name as program_name') 
+        ->select('students.id as student_id','books.id as book_id','users.name as user_name','students.registration_number as tuition','books.created_at as book_created','books.price as book_price','books.title as book_title','books.author as book_author','programs.name as program_name')
         ->get();
         $pdf = Pdf::loadView('books-notifications.books.reports', compact('booksOfStudents', 'image','nameDivision'))->setPaper('a4', 'landscape');
         return $pdf->stream('books_reports.pdf');
@@ -183,6 +183,7 @@ $selectedStudentsIds = json_decode($request->selected_students);
 
 //buscar imagen del libro
 
+try {
   // Crear una instancia de cliente Goutte
   $client = new Client();
   $searchTerm ="libro ".$request->title." ".$request->author;
@@ -219,6 +220,12 @@ if (!$firstImageLink && $images->count() > 1) {
 if (!$firstImageLink) {
     // Manejar la situación, tal vez establecer una imagen predeterminada o lanzar un error
     $firstImageLink="https://educacion2.com/wp-content/uploads/El-mejor-libro.jpg";
+}
+}catch (\Exception $e) {
+    // Manejar la excepción si algo sale mal
+    $firstImageLink = "https://educacion2.com/wp-content/uploads/El-mejor-libro.jpg"; // Imagen por defecto en caso de error
+    // Puedes registrar el error o manejarlo según sea necesario
+    error_log('Error en la búsqueda de la imagen: ' . $e->getMessage());
 }
 
 
@@ -265,8 +272,28 @@ if($book->exists) {
         // Obtener el libro por su ID
         $book = Book::findOrFail($id);
 
+        $user = Auth::user();
+        $idUser =$user->id;
+        $divId = Secretary::where('user_id', $idUser)->select('division_id')->get();
+        $role = $user->getRoleNames()->first();
+
+        if($role==="Asistente de Dirección"){
+         $divisionId=$divId[0]->division_id;
+        $studentsWithoutBook = Student::join('groups', 'students.group_id', '=', 'groups.id')
+        ->join('programs', 'groups.program_id', '=', 'programs.id')
+        ->join('divisions', 'programs.division_id', '=', 'divisions.id')
+        ->join('users', 'students.user_id', '=', 'users.id') // Relación con la tabla users
+        ->where('divisions.id', $divisionId)
+        ->whereNull('students.book_id')
+        ->select('students.*', 'students.registration_number as registration_number', 'users.email as email','users.name as user_name','users.id as user_id') // Selecciona el correo electrónico del usuario
+        ->get();
+        $selectedStudents = Student::join('users','students.user_id','=','users.id')->where('book_id', $id)->select('users.name as user_name','students.registration_number as registration_number','students.id')->get();
+
+        }else return redirect()->back();
+
+
         // Retornar la vista de edición con el libro
-        return view('books-notifications.books.edit-book', compact('book'));
+        return view('books-notifications.books.edit-book', compact('book','studentsWithoutBook','selectedStudents'));
     }
 
     /**
@@ -274,18 +301,19 @@ if($book->exists) {
      */
     public function update(Request $request, $id)
     {
+
+     /*    return $request->selected_students; */
         // Validar los datos del formulario
+        
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'author' => 'required|string|max:255',
             'editorial' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
             'year_published' => 'required|integer|min:1900|max:' . date('Y'),
             'price' => 'required|numeric|min:300',
-            'student' => 'required|string|max:255',
-            'tuition' => 'required|string|max:255',
-            'image_book' => 'nullable|image|mimes:jpeg,png,jpg',
-            'estate' => 'required|boolean',
+            'state' => 'required|boolean',
+            'selected_students' => 'required',
         ]);
 
         // Si la validación falla, redireccionar de nuevo al formulario de edición con los errores
@@ -299,20 +327,87 @@ if($book->exists) {
         // Obtener el libro por su ID
         $book = Book::findOrFail($id);
 
+           // Verificar si el título o el autor han cambiado
+    $titleChanged = $request->title !== $book->title;
+    $authorChanged = $request->author !== $book->author;
+
+    $firstImageLink = $book->image_book; // Usar la imagen actual como predeterminada
+
+if ($titleChanged || $authorChanged) {
+//buscar imagen del libro
+try {
+  // Crear una instancia de cliente Goutte
+  $client = new Client();
+  $searchTerm ="libro ".$request->title." ".$request->author;
+
+  // Realizar la solicitud GET para cargar la página de búsqueda de Yahoo
+  $crawler = $client->request('GET', 'https://mx.search.yahoo.com/');
+
+ // Obtener el formulario de búsqueda
+ $form = $crawler->filter('#sf')->form();
+
+  // Establecer el valor del campo de entrada de búsqueda
+  $form['p'] = $searchTerm;
+
+  // Enviar el formulario
+  $crawler = $client->submit($form);
+
+   // Acceder a la sección de "Imágenes"
+   $linkImagenes = $crawler->selectLink('Imágenes')->link();
+   $crawler = $client->click($linkImagenes);
+
+  /* // Obtener el enlace de la primera imagen de búsqueda
+  $firstImageLink = $crawler->filter('li.ld > a.img > noscript > img')->first()->attr('src'); */
+
+// Intentar obtener el enlace de la primera imagen de búsqueda
+$images = $crawler->filter('li.ld > a.img > noscript > img');
+$firstImageLink = $images->count() > 0 ? $images->first()->attr('src') : null;
+
+// Si no se encontró la primera imagen, intentar con la segunda
+if (!$firstImageLink && $images->count() > 1) {
+    $firstImageLink = $images->eq(1)->attr('src'); // 'eq(1)' obtiene el segundo elemento
+}
+
+// Comprobar si aún no se ha encontrado ninguna imagen
+if (!$firstImageLink) {
+    // Manejar la situación, tal vez establecer una imagen predeterminada o lanzar un error
+    $firstImageLink="https://educacion2.com/wp-content/uploads/El-mejor-libro.jpg";
+}
+} catch (\Exception $e) {
+    // Manejar la excepción si algo sale mal
+    $firstImageLink = "https://educacion2.com/wp-content/uploads/El-mejor-libro.jpg"; // Imagen por defecto en caso de error
+    // Puedes registrar el error o manejarlo según sea necesario
+    error_log('Error en la búsqueda de la imagen: ' . $e->getMessage());
+}
+}
+
+   //poner en nulo los estudiantes antiguos
+   $studentsOlds=Student::where('book_id', $id)->update(['book_id' => null]);
+
+
+   // Después de pasar la validación
+$selectedStudentsIds = json_decode($request->selected_students);
+
+
         // Actualizar los campos del libro con los datos del formulario
         $book->update([
             'title' => $request->title,
             'description' => $request->description,
-            'author' => $request->author,
             'editorial' => $request->editorial,
+            'author' => $request->author,
             'year_published' => $request->year_published,
             'price' => $request->price,
-            'student' => $request->student,
-            'tuition' => $request->tuition,
-            'estate' => $request->estate,
+            'image_book' => $firstImageLink,
+            'state' => $request->state,
         ]);
 
-        // Si se proporcionó una nueva imagen, actualizarla
+        if($book->exists) {
+            // Actualizar el book_id para cada estudiante seleccionado
+            Student::whereIn('id', $selectedStudentsIds)->update(['book_id' => $book->id]);
+        }
+
+
+      /*   // Si se proporcionó una nueva imagen, actualizarla
         if ($request->hasFile('image_book')) {
             $image = $request->file('image_book');
             $imageName = $image->getClientOriginalName();
@@ -320,7 +415,7 @@ if($book->exists) {
 
             // Actualizar el campo de imagen en la base de datos
             $book->update(['image_book' => $imageName]);
-        }
+        } */
 
         // Redireccionar al usuario de nuevo a la lista de libros con un mensaje de éxito
         return redirect()->route('libros.index')->with('success', 'Libro actualizado exitosamente.');
@@ -362,7 +457,7 @@ public function export()
     ->join('books','students.book_id','=','books.id')
     ->where('divisions.id', $divisionId)
     ->whereNotNull('students.book_id')
-    ->select('students.id as student_id','books.id as book_id','users.name as user_name','students.registration_number as tuition','books.created_at as book_created','books.price as book_price','books.title as book_title','books.author as book_author','programs.name as program_name') 
+    ->select('students.id as student_id','books.id as book_id','users.name as user_name','students.registration_number as tuition','books.created_at as book_created','books.price as book_price','books.title as book_title','books.author as book_author','programs.name as program_name')
     ->get();
 
     return Excel::download(new BooksExport($booksOfStudents), 'libros.xlsx');
@@ -508,6 +603,98 @@ if($book){
 
     return view('books-notifications.books.book-student',compact('book','bookCollaborative'));
 }
+
+public function storeStudentBook(Request $request)
+{
+      $validator = Validator::make($request->all(), [
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'author' => 'required|string|max:255',
+        'editorial' => 'required|string|max:255',
+        'year_published' => 'required|integer|min:1900|max:' . date('Y'),
+        'price' => 'required|numeric|min:300',
+        'selected_students' => 'required',
+        'state' => 'required|boolean',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()
+            ->back()
+            ->withErrors($validator)
+            ->withInput();
+    }
+
+    // Después de pasar la validación
+$selectedStudentsIds = json_decode($request->selected_students);
+
+//buscar imagen del libro
+
+try {
+// Crear una instancia de cliente Goutte
+$client = new Client();
+$searchTerm ="libro ".$request->title." ".$request->author;
+
+// Realizar la solicitud GET para cargar la página de búsqueda de Yahoo
+$crawler = $client->request('GET', 'https://mx.search.yahoo.com/');
+
+// Obtener el formulario de búsqueda
+$form = $crawler->filter('#sf')->form();
+
+// Establecer el valor del campo de entrada de búsqueda
+$form['p'] = $searchTerm;
+
+// Enviar el formulario
+$crawler = $client->submit($form);
+
+// Acceder a la sección de "Imágenes"
+$linkImagenes = $crawler->selectLink('Imágenes')->link();
+$crawler = $client->click($linkImagenes);
+
+/* // Obtener el enlace de la primera imagen de búsqueda
+$firstImageLink = $crawler->filter('li.ld > a.img > noscript > img')->first()->attr('src'); */
+
+// Intentar obtener el enlace de la primera imagen de búsqueda
+$images = $crawler->filter('li.ld > a.img > noscript > img');
+$firstImageLink = $images->count() > 0 ? $images->first()->attr('src') : null;
+
+// Si no se encontró la primera imagen, intentar con la segunda
+if (!$firstImageLink && $images->count() > 1) {
+$firstImageLink = $images->eq(1)->attr('src'); // 'eq(1)' obtiene el segundo elemento
+}
+
+// Comprobar si aún no se ha encontrado ninguna imagen
+if (!$firstImageLink) {
+// Manejar la situación, tal vez establecer una imagen predeterminada o lanzar un error
+$firstImageLink="https://educacion2.com/wp-content/uploads/El-mejor-libro.jpg";
+}
+}catch (\Exception $e) {
+// Manejar la excepción si algo sale mal
+$firstImageLink = "https://educacion2.com/wp-content/uploads/El-mejor-libro.jpg"; // Imagen por defecto en caso de error
+// Puedes registrar el error o manejarlo según sea necesario
+error_log('Error en la búsqueda de la imagen: ' . $e->getMessage());
+}
+
+
+    // Guardar el libro en la base de datos
+    $book = new Book();
+    $book->title = $request->title;
+    $book->description = $request->description;
+    $book->author = $request->author;
+    $book->editorial = $request->editorial;
+    $book->year_published = $request->year_published;
+    $book->price = $request->price;
+    $book->image_book = $firstImageLink;
+    $book->state = $request->state;
+    $book->save();
+    // Asegúrate de que el libro se haya guardado antes de continuar
+if($book->exists) {
+// Actualizar el book_id para cada estudiante seleccionado
+Student::whereIn('id', $selectedStudentsIds)->update(['book_id' => $book->id]);
+}
+
+    return redirect()->route('libros.index')->with('success', 'Libro creado exitosamente.');
+}
+
 
 
 }

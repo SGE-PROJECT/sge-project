@@ -55,7 +55,7 @@ class StudentController extends Controller
             });
             $Projects = $student->projects()->get();
             foreach ($Projects as $project) {
-                $project->image = 'avatar.jpg';
+                $project->image = $academicAdvisor->user->photo;
                 $project->name = $project->name_project;
                 $project->description = $project->general_objective;
             }

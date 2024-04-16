@@ -21,41 +21,44 @@
         </div>
     @endif
 
-    <form action="{{ route('users.cruduser.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('grupos.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-4">
             <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
             <input type="text" name="name" id="name" value="{{ old('name') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
         </div>
 
+        <div class="mb-4">
+            <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
+            <input type="text" name="description" id="description" value="{{ old('description') }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
+        </div>
+
         <div id="divisionField" class="mb-4">
             <label for="division_id" class="block text-gray-700 text-sm font-bold mb-2">División:</label>
-            <select name="division_id" id="division_id" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onchange="unlockNextSelect('program_id')">
+            <select name="division_id" id="division_id" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onchange="fetchPrograms()">
                 <option value="">Seleccione una división</option>
-                <option value="A">A</option>
-
+                @foreach ($divisions as $division)
+                    <option value="{{ $division->id }}">{{ $division->name }}</option>
+                @endforeach
             </select>
         </div>
 
         <div id="programField" class="mb-4">
             <label for="program_id" class="block text-gray-700 text-sm font-bold mb-2">Carrera:</label>
-            <select name="program_id" id="program_id" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" disabled onchange="unlockNextSelect('quarter_id')">
+            <select name="program_id" id="program_id" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" disabled>
                 <option value="">Seleccione una carrera</option>
-                <option value="B">B</option>
-
-                <!-- Añadir opciones aquí -->
             </select>
         </div>
 
-        <div id="quarterField" class="mb-4">
-            <label for="quarter_id" class="block text-gray-700 text-sm font-bold mb-2">Cuatrimestre:</label>
-            <select name="quarter_id" id="quarter_id" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" disabled>
-                <option value="">Seleccione un cuatrimestre</option>
-                <option value="C">C</option>
-
-                <!-- Añadir opciones aquí -->
+        <div class="mb-4">
+            <label for="four-month-period" class="block text-gray-700 text-sm font-bold mb-2">Cuatrimestre:</label>
+            <select name="four-month-period" id="four-month-period" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                <option value="" disabled selected>Seleccione un cuatrimestre</option>
+                <option value="5" {{ old('four-month-period') == '5' ? 'selected' : '' }}>Quinto</option>
+                <option value="6" {{ old('four-month-period') == '6' ? 'selected' : '' }}>Sexto</option>
             </select>
         </div>
+        
 
         <div class="flex flex-col sm:flex-row items-center justify-center">
             <button type="submit" class="modal-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
@@ -64,27 +67,33 @@
         </div>
     </form>
 </div>
+
 <script>
-function unlockNextSelect(nextSelectId) {
-    const nextSelect = document.getElementById(nextSelectId);
-    nextSelect.disabled = false; // Enable the next select element
-}
-
-document.getElementById('division_id').addEventListener('change', function() {
-    if (this.value !== "") {
-        unlockNextSelect('program_id');
-    } else {
-        document.getElementById('program_id').disabled = true;
-        document.getElementById('quarter_id').disabled = true;
+    function fetchPrograms() {
+        const divisionId = document.getElementById('division_id').value;
+        const programSelect = document.getElementById('program_id');
+        programSelect.disabled = true; // Disable the select
+        if (divisionId) {
+            fetch(`/grupos/programs/${divisionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    programSelect.innerHTML = '<option value="">Seleccione una carrera</option>'; // Clear existing options
+                    if (data.length) {
+                        data.forEach(program => {
+                            const option = new Option(program.name, program.id);
+                            programSelect.add(option);
+                        });
+                        programSelect.disabled = false; // Enable the select
+                    } else {
+                        programSelect.add(new Option('No hay carreras disponibles', ''));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading the programs:', error);
+                    programSelect.add(new Option('Error al cargar las carreras', ''));
+                });
+        }
     }
-});
+    </script>    
 
-document.getElementById('program_id').addEventListener('change', function() {
-    if (this.value !== "") {
-        unlockNextSelect('quarter_id');
-    } else {
-        document.getElementById('quarter_id').disabled = true;
-    }
-});
-</script>
 @endsection

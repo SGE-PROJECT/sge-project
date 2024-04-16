@@ -17,7 +17,8 @@
     use App\Http\Controllers\auth\RegisterController;
     use App\Http\Controllers\Career\ProgramController;
     use App\Http\Controllers\AcademicAdvisorController;
-    use App\Http\Controllers\AdvisoryReportsController;
+use App\Http\Controllers\AcademyController;
+use App\Http\Controllers\AdvisoryReportsController;
     use App\Http\Controllers\AdvisorySessionController;
     use App\Http\Controllers\profile\ProfileController;
     use App\Http\Controllers\projects\ProjectController;
@@ -30,7 +31,8 @@
     use App\Http\Controllers\projects\ViewProjectController;
     use App\Http\Controllers\users\ManagementUserController;
     use App\Http\Controllers\advisorDash\AdvisorDashController;
-    use App\Http\Controllers\CartaDigitalizacionController;
+use App\Http\Controllers\AprobacionController;
+use App\Http\Controllers\CartaDigitalizacionController;
     use App\Http\Controllers\CedulaController;
     use App\Http\Controllers\studentDash\StudentDashController;
     use App\Http\Controllers\studentDash\projectsDivisionController;
@@ -49,30 +51,38 @@ Route::middleware(['guest'])->group(function () {
 //Comprueba que el usuario este loggeado
 Route::middleware(['auth'])->group(function () {
     //Redirije a la ruta segun su rol
-        Route::get('/', [PostController::class, 'index'])->name('posts.index');
+    Route::get('/', [PostController::class, 'index'])->name('posts.index');
+    Route::get('/', [PostController::class, 'index'])->name('posts.index');
     //Cierra la sesion
-        Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
+    Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
+    Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
     //Notificaciones para los usuarios en general
-        Route::get('/notificaciones', function () {return view('books-notifications.notificaciones-user');});
-        Route::get('/admin/notificaciones', function () {
-            return view('books-notifications.notifications');
-        })->middleware(['auth', 'role:Asistente de Dirección|Super Administrador']);
+    Route::get('/notificaciones', function () {
+        return view('books-notifications.notificaciones-user');
+    });
+    Route::get('/admin/notificaciones', function () {
+        return view('books-notifications.notifications');
+    })->middleware(['auth', 'role:Asistente de Dirección|Super Administrador|Administrador de División|Presidente Académico|Asesor Académico']);
     // Perfil del usuario general
-        Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
-        Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
-        Route::delete('/configurar-cuenta/{id}/eliminar-foto', [ManagementConfiguration::class, 'destroyProfilePhoto'])->name('configurar_cuenta.remove_photo');
-        Route::get('/perfil', [ProfileController::class, 'index']);
-        Route::post('/perfil/actualizar-foto', [ProfileController::class, 'actualizarFoto'])->name('actualizar_foto');
+    Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
+    Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
+    Route::delete('/configurar-cuenta/{id}/eliminar-foto', [ManagementConfiguration::class, 'destroyProfilePhoto'])->name('configurar_cuenta.remove_photo');
+    Route::get('/perfil', [ProfileController::class, 'index']);
+    Route::post('/perfil/actualizar-foto', [ProfileController::class, 'actualizarFoto'])->name('actualizar_foto');
+    Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
+    Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
+    Route::delete('/configurar-cuenta/{id}/eliminar-foto', [ManagementConfiguration::class, 'destroyProfilePhoto'])->name('configurar_cuenta.remove_photo');
+    Route::get('/perfil', [ProfileController::class, 'index']);
+    Route::post('/perfil/actualizar-foto', [ProfileController::class, 'actualizarFoto'])->name('actualizar_foto');
     //Acciones que puede hacer una secretaria
     Route::middleware(['auth', 'role:Asistente de Dirección'])->group(function () {
         Route::get('libros/slug/{slug}', [BooksController::class, 'show'])->name('libros.show');
-        Route::resource('libros', BooksController::class);
         Route::post('/not', [BooksController::class, 'notifications'])->name('sendNotification');
         Route::get('/scraping', [BooksController::class, 'imageBooks']);
+        Route::resource('libros', BooksController::class);
         Route::get('/reporte', [BooksController::class, 'listBook'])->name('books.list');
         Route::get('/reporte/pdf', [BooksController::class, 'report'])->name('books.reports');
         Route::get('/books/export', [BooksController::class, 'export'])->name('books.export');
-        Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision');
     });
     //Acciones que puede hacer un Asesor academico
     Route::middleware(['auth', 'role:Asesor Académico'])->group(function () {
@@ -111,7 +121,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/exportar', [StudentController::class, 'export'])->name('student.export');
         Route::get('generar-carta-digitalizacion', [CartaDigitalizacionController::class, 'digitalizacion'])->name('carta-digitalizacion');
         //libros
-        Route::get('/libro',[BooksController::class,'studentBook'])->name('libro-student');
+        Route::get('/libro', [BooksController::class, 'studentBook'])->name('libro-student');
+        Route::get('/libro', [BooksController::class, 'studentBook'])->name('libro-student');
         Route::get('/añadir.libros', function () {
             return view('books-notifications.books.Add-books');
         })->name('añadir.libros');
@@ -122,14 +133,22 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/invitar/estudiante', [InvitacionEstudianteController::class, 'enviarInvitacion'])->name('invitar.estudiante');
         Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
         Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+        Route::get('carta-aprobacion', [AprobacionController::class, 'aprobar'])->name('aprobacion');
+        Route::put('/projects/{id}/updateIsPublic', [ProjectController::class, 'updateIsPublic'])->name('projects.updateIsPublic');
+        Route::get('/projects/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
+
+
     });
     //Vusualizacion de elementos para quienes no sean estudiantes o secretarias
     Route::middleware(['auth', 'role:Administrador de División|Asesor Académico|Super Administrador'])->group(function () {
+        Route::resource('/academias', AcademyController::class);
         Route::resource('/empresas', CompaniesController::class);
         Route::resource('/divisiones', DivisionController::class);
         Route::post('/divisiones/{id}/activate', [DivisionController::class, 'activate'])->name('divisiones.activate');
         Route::resource('/carreras', ProgramController::class);
+        Route::put('carreras/{id}/activate', [ProgramController::class, 'activate'])->name('carreras.activate');
         Route::resource('/grupos', GroupController::class);
+        Route::get('/grupos/programs/{divisionId}', [GroupController::class, 'getProgramsByDivision'])->name('grupos.programs');
         Route::put('/empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
         Route::get('/proyectoequipos', [ProjectController::class, 'projectteams'])->name('projectteams');
         Route::get('/vistanteproyectos', [ProjectController::class, 'viewanteproject'])->name('viewanteproject');
@@ -138,10 +157,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/empresas-afiliadas', [CompaniesController::class, 'showTable'])->name('empresas.showTable');
     });
     //Permisos unicamente para el director de division
-        Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->middleware("can:studentsForDivision")->name('student-dash');
-        Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->middleware("can:advisorsForDivision")->name('academic-advisor');
-        Route::get('/division-projects', [projectsDivisionController::class, 'projectsForDivision'])->middleware("can:projectsForDivision")->name('Division-Proyectos');
-        Route::get('/division-anteprojects', [anteprojectsDivisionController::class, 'anteprojectsForDivision'])->middleware("can:anteprojectsForDivision")->name('Division-Anteproyectos');
+    Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->middleware("can:studentsForDivision")->name('student-dash');
+    Route::get('/asesores-dash', [AdvisorDashController::class, 'advisorsForDivision'])->middleware("can:advisorsForDivision")->name('academic-advisor');
+    Route::get('/division-projects', [projectsDivisionController::class, 'projectsForDivision'])->middleware("can:projectsForDivision")->name('Division-Proyectos');
+    Route::get('/division-anteprojects', [anteprojectsDivisionController::class, 'anteprojectsForDivision'])->middleware("can:anteprojectsForDivision")->name('Division-Anteproyectos');
+    Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision')->middleware(['auth', 'role:Administrador de División']);
     //Permisos unicamente para el administrador
         // Gestion de roles y permisos
             Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');

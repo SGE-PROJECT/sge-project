@@ -15,6 +15,12 @@
 .des{
     text-align: left !important;
 }
+.noti{
+    transition: all 1s;
+}
+.ocultarNoti{
+    right: -1000px;
+}
 .vista_asesorados .titulo{
     outline: none;
     font-size: 30px;
@@ -28,7 +34,7 @@
     padding: 0 !important;
     display: flex;
     justify-content: center;
-    height: 35px;
+    height: fit-content;
     margin: 0 !important;
     transition: all .3s;
 }

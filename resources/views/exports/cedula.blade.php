@@ -87,7 +87,7 @@
                 </tr>
                 <tr>
                     <th>Teléfono:</th>
-                    <td>{{ $student->user->phone_number }}</td>
+                    <td>{{ $project->phone_student}}</td>
                     <th>Correo Electrónico</th>
                     <td>{{ $student->user->email }}</td>
                 </tr>
@@ -117,7 +117,7 @@
                 </tr>
                 <tr>
                     <th style="width: 30%;">Cargo:</th>
-                    <td></td>
+                    <td>{{ $project->businessAdvisor->position }}</td>
                 </tr>
 
             </table>
@@ -125,9 +125,9 @@
             <table>
                 <tr>
                     <th style="width: 20%;">Teléfono:</th>
-                    <td></td>
+                    <td>{{ $project->businessAdvisor->phone }}</td>
                     <th style="width: 20%;">Correo:</th>
-                    <td></td>
+                    <td>{{ $project->businessAdvisor->email }}</td>
                 </tr>
             </table>
             <table>
