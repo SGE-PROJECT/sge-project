@@ -133,6 +133,8 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
         Route::get('carta-aprobacion', [AprobacionController::class, 'aprobar'])->name('aprobacion');
         Route::put('/projects/{id}/updateIsPublic', [ProjectController::class, 'updateIsPublic'])->name('projects.updateIsPublic');
+        Route::get('/projects/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
+
 
     });
     //Vusualizacion de elementos para quienes no sean estudiantes o secretarias
