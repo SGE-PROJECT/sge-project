@@ -121,7 +121,7 @@
                             <i class='bx bxs-dashboard mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Inicio</span>
                         </a>
-                    @else
+                    @elseif(!Auth::check() && Auth::user()->hasAnyRole(['Asistente de Dirección']))
                         <a href="/"
                             class="left-0 relative flex font-semibold items-center py-1 px-4 text-white hover:text-[#d0d3d4] rounded-md">
                             <i class='bx bxs-dashboard mr-3 text-lg'></i>
@@ -173,7 +173,7 @@
                 @endif
 
 
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Estudiante']))
+                @if (Auth::check() && Auth::user()->hasAnyRole(['Estudiante','Asistente de Dirección']))
                 @else
                 <li class="mb-1 group relative z-2">
                     <a href=""
@@ -218,7 +218,6 @@
                                         'Asesor Académico',
                                         'Estudiante',
                                         'Presidente Académico',
-                                        'Asistente de Dirección',
                                     ]))
                             @else
                                 <a href="{{ route('divisiones.index') }}"
@@ -229,7 +228,7 @@
                         @endif
 
                         @if (Auth::check() &&
-                                Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección','Asesor Académico']))
+                                Auth::user()->hasAnyRole(['Presidente Académico','Asesor Académico']))
                             <li class="">
 
                                 <a href="/carreras/division"
@@ -255,7 +254,7 @@
                     </li>
                 @endif
 
-                <!-- EMPRESAS Section -->
+               {{--  <!-- EMPRESAS Section -->
                 @if (Auth::check() && Auth::user()->hasAnyRole(['Asistente de Dirección']))
                     <span class="text-[#fff] nav-text font-bold">EMPRESAS</span>
                     <li class="mb-1 group">
@@ -265,7 +264,7 @@
                             <span class="nav-text text-sm">Empresas Afiliadas</span>
                         </a>
                     </li>
-                @endif
+                @endif --}}
 
                 @if (Auth::check() &&
                         Auth::user()->hasAnyRole(['Estudiante']))
