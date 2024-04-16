@@ -1,4 +1,4 @@
-@extends('layouts.panelUsers')
+@extends(Auth::check() && Auth::user()->hasRole('Super Administrador') ? 'layouts.panel' : 'layouts.panelUsers')
 
 @section('titulo')
     Crear Roles
