@@ -1,15 +1,15 @@
 @vite('resources/css/app.css')
 @extends('layouts.panelUsers')
 
-@section('titulo', 'Ver mi Anteproyecto')
+@section('titulo', 'Editar mi Anteproyecto')
 
 @section('contenido')
     <div class="rounded-lg bg-white  p-8 shadow-lg lg:col-span-3 lg:p-12">
         <li
             class="flex items-center  font-sans hover:text-teal-500 font-semibold  transition-colors duration-300 cursor-pointer">
-            <a class="text-xl" href={{ route('home') }}>⭠ Regresar</a>
+            <a class="text-2xl" href="/anteproyecto">⭠ Regresar</a>
         </li>
-        <h2 class="text-3xl font-bold sm:text-4xl text-center mt-2">INFORMACIÓN DE MI CEDULA DE ANTEPROYECTO</h2>
+        <h2 class="text-3xl font-bold sm:text-4xl text-center mt-2 mb-10">EDITAR MI CEDULA DE ANTEPROYECTO</h2>
         <form action="{{ route('projects.update', $proyecto->id) }}" method="POST" class="space-y-4">
             @csrf
             @method('put')
@@ -25,7 +25,7 @@
                         <div class="mt-6 pb-6 p-3">
                             <input name="fullname_student"
                                 class="w-full rounded-lg border-2 bg-gray-100 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa tu nombre completo" type="text" value="{{ $student->user->name }}"/>
+                                placeholder="Ingresa tu nombre completo" type="text" value="{{ $proyecto->fullname_student }}"/>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                             <input name="id_student" 
                                 class="w-full rounded-lg border-2 bg-gray-100 border-gray-300 p-3 text-sm"
                                 placeholder="Ingresa tu nombre completo" type="text"
-                                value="{{ $student->registration_number }}" />
+                                value="{{ $proyecto->id_student }}" />
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                             <input name="group_student"
                                 class="w-full rounded-lg border-2 bg-gray-100 border-gray-300 p-3 text-sm"
                                 placeholder="Ingresa tu nombre completo" type="text"
-                                value="{{ $student->group->name }}"/>
+                                value="{{ $proyecto->group_student }}"/>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                         <div class="mt-6 pb-6 p-3">
                             <input name="email_student"
                                 class="w-full rounded-lg border-2 bg-gray-100 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa tu nombre completo" type="text"value="{{ $student->user->email }}"
+                                placeholder="Ingresa tu nombre completo" type="text"value="{{ $proyecto->email_student }}"
                                 readonly />
                         </div>
                     </div>
@@ -321,15 +321,8 @@
             </div>
             <div class="mt-8 flex justify-center text-center space-x-2">
                 <button
-                    class="font-bold bg-teal-500 text-white ml-16 px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</button>
-                @if ($proyecto->is_public != 1)
-                    <form action="{{ route('projects.updateIsPublic', $proyecto->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit"
-                            class="font-bold bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors">Publicar</button>
-                    </form>
-                @endif
+                class=" font-bold bg-blue-500 text-white  px-6 py-2 rounded hover:bg-blue-700 transition-colors">
+                <i class='bx bx-edit-alt'></i>Editar</button>
             </div>
         </form>
     </div>

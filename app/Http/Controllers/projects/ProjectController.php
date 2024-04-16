@@ -110,10 +110,10 @@ class ProjectController extends Controller
     {
         // Obtener todos los asesores empresariales
         $businessAdvisors = BusinessAdvisor::all();
-    
+
         // Verificar si el usuario ya tiene un proyecto creado
         $existingProject = Project_students::where('student_id', Auth::user()->id)->first();
-    
+
         if ($existingProject) {
             // Si el usuario ya tiene un proyecto creado, redirigir a la vista de edición
             return $this->edit($existingProject->id);
@@ -122,7 +122,7 @@ class ProjectController extends Controller
             return view("projects.Forms.FormStudent", compact('businessAdvisors'));
         }
     }
-    
+
 
     public function updateIsPublic($id)
     {
@@ -274,7 +274,7 @@ class ProjectController extends Controller
                 return view('projects.Forms.edit-formstudent-isproject', compact('proyecto'));
             } else {
                 // Redirigir a la vista para no proyectos
-                return view('projects.Forms.edit-formstudent', compact('proyecto'));
+                return view('projects.Forms.newshow-anteproject', compact('proyecto'));
             }
         } else {
             // Manejar el caso en que el proyecto no existe
@@ -289,23 +289,23 @@ class ProjectController extends Controller
 
         $getBusinessAdvisor = BusinessAdvisor::find($proyecto->business_advisor_id);
 
-if ($getBusinessAdvisor) {
-    $updateData = [
-        'email' => $request->advisor_business_email,
-        'phone' => $request->advisor_business_phone,
-        'position' => $request->advisor_business_position,
-    ];
+        if ($getBusinessAdvisor) {
+            $updateData = [
+                'email' => $request->advisor_business_email,
+                'phone' => $request->advisor_business_phone,
+                'position' => $request->advisor_business_position,
+            ];
 
-    // Verificar si el nombre del asesor de negocios está presente en la solicitud antes de agregarlo a los datos de actualización
-    if ($request->has('advisor_business_name')) {
-        $updateData['name'] = $request->advisor_business_name;
-    }
+            // Verificar si el nombre del asesor de negocios está presente en la solicitud antes de agregarlo a los datos de actualización
+            if ($request->has('advisor_business_name')) {
+                $updateData['name'] = $request->advisor_business_name;
+            }
 
-    // Verificar si al menos uno de los campos está presente en los datos de actualización antes de intentar actualizar
-    if (!empty(array_filter($updateData))) {
-        $getBusinessAdvisor->update($updateData);
-    }
-}
+            // Verificar si al menos uno de los campos está presente en los datos de actualización antes de intentar actualizar
+            if (!empty(array_filter($updateData))) {
+                $getBusinessAdvisor->update($updateData);
+            }
+        }
 
 
 
@@ -318,7 +318,7 @@ if ($getBusinessAdvisor) {
 
         // Redireccionar según el tipo de usuario
         if (Auth::user()->roles->contains('name', 'Estudiante')) {
-            return redirect()->route('home')->withInput()->with('success', 'Proyecto actualizado correctamente.');
+            return redirect()->route('viewMyProject')->withInput()->with('success', 'Proyecto actualizado correctamente.');
         } else if (Auth::user()->roles->contains('name', 'Asesor Académico')) {
             return redirect()->route('home')->withInput()->with('success', 'Proyecto actualizado correctamente.');
         }
