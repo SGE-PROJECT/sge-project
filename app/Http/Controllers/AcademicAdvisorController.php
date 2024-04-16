@@ -43,8 +43,10 @@ class AcademicAdvisorController extends Controller
         $Projects = $Projects->unique('id');
 
         foreach ($Projects as $project) {
+            $estudiantes = $project->students()->whereIn('students.id', $studentIds)->get();
+            $estudiante = $estudiantes->first();
             $project->students = $project->students()->pluck('students.id')->toArray();
-            $project->image = 'avatar.jpg';
+            $project->image = $estudiante->user->photo;
             $project->name = $project->name_project;
             $project->description = $project->general_objective;
             $project->students = $project->students()->whereIn('students.id', $studentIds)->pluck('students.id')->toArray();

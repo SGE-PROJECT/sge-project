@@ -14,6 +14,18 @@
     @if ($slug !== auth()->user()->slug)
         {{ abort(404) }}
     @endif
+    @if (session('success'))
+        <div class="bg-[#14B8A6c0] block md:inline text-white text-center p-2 fixed bottom-10 rounded right-0 md:right-10 z-50 shadow-lg noti"
+            id="noti">
+            <i class="nf nf-fa-check_circle mr-2"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+    <script>
+        setTimeout(() => {
+            document.getElementById("noti").classList.add("ocultarNoti");
+        }, 4000);
+    </script>
     <main class="vista_asesorias">
         @if (!$advisor)
         <div
