@@ -2,6 +2,7 @@
 
 namespace App\Models\management;
 
+use App\Models\Academy;
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,7 @@ class Program extends Model
         'division_id',
         'start_date',
         'end_date',
+        'academy_id',
 
     ];
 
@@ -35,5 +37,10 @@ class Program extends Model
     public function programImage()
     {
         return $this->hasOne(ProgramImage::class, 'program_id');
+    }
+
+    public function academy()
+    {
+        return $this->belongsTo(Academy::class, 'academy_id');
     }
 }
