@@ -12,7 +12,7 @@ class AcademyController extends Controller
      */
     public function index()
     {
-        //
+        return view('academy.show-academies');
     }
 
     /**
