@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log; // Importación correcta para Laravel
 use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Models\management\Program;
@@ -106,11 +107,14 @@ class GroupController extends Controller
     public function destroy($id)
     {
         try {
-            $group = Group::findOrFail($id);  
-            $group->delete(); 
+            $group = Group::findOrFail($id);
+            Log::info("Deleting group: " . $group->id);
+            $group->delete();
             return redirect()->route('grupos.index')->with('success', 'Grupo eliminado correctamente.');
         } catch (\Exception $e) {
-            return redirect()->route('grupos.index')->with('error', 'Error al eliminar el grupo.');
+            Log::error("Error deleting group: " . $e->getMessage());
+            return redirect()->route('grupos.index')->with('error', 'Error al eliminar el grupo: ' . $e->getMessage());
         }
     }
+    
 }
