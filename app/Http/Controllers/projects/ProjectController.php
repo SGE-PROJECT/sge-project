@@ -21,7 +21,8 @@ use App\Models\Student;
 class ProjectController extends Controller
 {
     //rateProject, invitation, projectform, store, showMyProject, destroy, projectteams, viewanteproject, updateStatus, viewproject
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware("can:project.index")->only('index', 'dashgeneral', 'dashAnteprojects', 'dashboardproject', 'viewanteprojectAdmin');
         $this->middleware(['auth', 'role:Estudiante'])->only('edit', 'update');
     }
@@ -124,7 +125,7 @@ class ProjectController extends Controller
 
     public function updateIsPublic($id)
     {
-        
+
         $proyecto = Project::find($id);
         if (!$proyecto) {
             return redirect()->back()->with('error', 'El proyecto no existe.');
@@ -229,6 +230,18 @@ class ProjectController extends Controller
         return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user, 'getAcademicAdvisorId' => $getAcademicAdvisorId]);
     }
 
+    public function showanteproyecto(Project $project)
+    {
+
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+        $getAcademicAdvisorId = AcademicAdvisor::where('user_id', $user->id)->first();
+
+        // Pasar el proyecto y el usuario a la vista
+
+        return view('projects.Forms.show-formstudent', ['project' => $project, 'user' => $user, 'getAcademicAdvisorId' => $getAcademicAdvisorId]);
+    }
+
     public function showMyProject()
     {
 
@@ -270,20 +283,30 @@ class ProjectController extends Controller
 
     public function update(ProjectEdit $request, $id): RedirectResponse
     {
-
         $proyecto = Project::find($id);
         $proyecto->update($request->all());
 
         $getBusinessAdvisor = BusinessAdvisor::find($proyecto->business_advisor_id);
 
-        $getBusinessAdvisor->update(
-            [
-                'name' => $request->advisor_business_name,
-                'email' => $request->advisor_business_email,
-                'phone' => $request->advisor_business_phone,
-                'position' => $request->advisor_business_position,
-            ]
-        );
+if ($getBusinessAdvisor) {
+    $updateData = [
+        'email' => $request->advisor_business_email,
+        'phone' => $request->advisor_business_phone,
+        'position' => $request->advisor_business_position,
+    ];
+
+    // Verificar si el nombre del asesor de negocios está presente en la solicitud antes de agregarlo a los datos de actualización
+    if ($request->has('advisor_business_name')) {
+        $updateData['name'] = $request->advisor_business_name;
+    }
+
+    // Verificar si al menos uno de los campos está presente en los datos de actualización antes de intentar actualizar
+    if (!empty(array_filter($updateData))) {
+        $getBusinessAdvisor->update($updateData);
+    }
+}
+
+
 
         // Verificar si se está publicando el proyecto
         if ($request->status === 'En curso') {
