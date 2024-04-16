@@ -21,7 +21,6 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //Obtenemos los grupos por su programa 
         $groups = Group::with('program.division')->get();
 
         return view('management.group.show-groups', compact('groups'));
@@ -55,7 +54,6 @@ class GroupController extends Controller
             'description' => $validatedData['description'],
             'program_id' => $validatedData['program_id'],
             'four-month-period' => $validatedData['four-month-period'],
-            // Asignar más atributos si son necesarios
         ]);
 
         return redirect()->route('grupos.index')->with('success', 'Grupo creado correctamente.');
@@ -72,24 +70,46 @@ class GroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $group = Group::with('program.division')->findOrFail($id);
+        $divisions = Division::all();
+        $programs = Program::where('division_id', $group->program->division_id)->get();
+    
+        return view('management.group.edit-group', compact('group', 'divisions', 'programs'));
     }
+    
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
+    {    //management.group.edit-group
+        $group = Group::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable',
+            'program_id' => 'required|exists:programs,id',
+            'four-month-period' => 'nullable|integer|min:1|max:18', 
+        ]);
+    
+        $group->update($validatedData);
+    
+        return redirect()->route('grupos.index')->with('success', 'Grupo actualizado correctamente.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        try {
+            $group = Group::findOrFail($id);  
+            $group->delete(); 
+            return redirect()->route('grupos.index')->with('success', 'Grupo eliminado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('grupos.index')->with('error', 'Error al eliminar el grupo.');
+        }
     }
 }
