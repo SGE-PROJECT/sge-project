@@ -42,9 +42,13 @@
                 <button type="submit" class="relative flex items-center">
                     <span
                         class="w-30 bg-teal-600 text-white cursor-pointer font-semibold px-4 py-2 rounded-lg hover:bg-teal-800 focus:outline-none relative">
-                        <i class='bx bxs-like'></i>
                         @if ($project->likes->where('academic_advisor_id', $getAcademicAdvisorId->id)->count() > 0)
-                            Ya has dado like
+                            <i class='bx bxs-dislike'></i>
+                        @else
+                            <i class='bx bxs-like'></i>
+                        @endif
+                        @if ($project->likes->where('academic_advisor_id', $getAcademicAdvisorId->id)->count() > 0)
+                            Eliminar Like
                         @else
                             Dar Like
                         @endif

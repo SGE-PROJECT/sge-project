@@ -1,41 +1,42 @@
 <?php
 //importaciones de controladores
-use App\Http\Controllers\GroupController;
-use Spatie\Permission\Middlewares;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ApprovementLetter;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\CrudUserController;
-use App\Http\Controllers\auth\PostController;
-use App\Http\Controllers\MasiveAddController;
-use App\Http\Controllers\ComentarioController;
-use App\Http\Controllers\admin\RolesController;
-use App\Http\Controllers\auth\LoginControlller;
-use App\Http\Controllers\auth\LogoutController;
-use App\Http\Controllers\books\BooksController;
-use App\Http\Controllers\ProjectLikeController;
-use App\Http\Controllers\auth\RegisterController;
-use App\Http\Controllers\Career\ProgramController;
-use App\Http\Controllers\AcademicAdvisorController;
-use App\Http\Controllers\AdvisoryReportsController;
-use App\Http\Controllers\AdvisorySessionController;
-use App\Http\Controllers\profile\ProfileController;
-use App\Http\Controllers\projects\ProjectController;
-use App\Http\Controllers\divisions\DivisionController;
-use App\Http\Controllers\users\RegisterUserController;
-use App\Http\Controllers\auth\ForgotPasswordController;
-use App\Http\Controllers\Companies\CompaniesController;
-use App\Http\Controllers\users\ManagementConfiguration;
-use App\Http\Controllers\projects\ProjectFormController;
-use App\Http\Controllers\projects\ViewProjectController;
-use App\Http\Controllers\users\ManagementUserController;
-use App\Http\Controllers\advisorDash\AdvisorDashController;
+    use App\Http\Controllers\GroupController;
+    use Spatie\Permission\Middlewares;
+    use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\ApprovementLetter;
+    use App\Http\Controllers\StudentController;
+    use App\Http\Controllers\CrudUserController;
+    use App\Http\Controllers\auth\PostController;
+    use App\Http\Controllers\MasiveAddController;
+    use App\Http\Controllers\ComentarioController;
+    use App\Http\Controllers\admin\RolesController;
+    use App\Http\Controllers\auth\LoginControlller;
+    use App\Http\Controllers\auth\LogoutController;
+    use App\Http\Controllers\books\BooksController;
+    use App\Http\Controllers\ProjectLikeController;
+    use App\Http\Controllers\auth\RegisterController;
+    use App\Http\Controllers\Career\ProgramController;
+    use App\Http\Controllers\AcademicAdvisorController;
+    use App\Http\Controllers\AdvisoryReportsController;
+    use App\Http\Controllers\AdvisorySessionController;
+    use App\Http\Controllers\profile\ProfileController;
+    use App\Http\Controllers\projects\ProjectController;
+    use App\Http\Controllers\divisions\DivisionController;
+    use App\Http\Controllers\users\RegisterUserController;
+    use App\Http\Controllers\auth\ForgotPasswordController;
+    use App\Http\Controllers\Companies\CompaniesController;
+    use App\Http\Controllers\users\ManagementConfiguration;
+    use App\Http\Controllers\projects\ProjectFormController;
+    use App\Http\Controllers\projects\ViewProjectController;
+    use App\Http\Controllers\users\ManagementUserController;
+    use App\Http\Controllers\advisorDash\AdvisorDashController;
+use App\Http\Controllers\AprobacionController;
 use App\Http\Controllers\CartaDigitalizacionController;
-use App\Http\Controllers\CedulaController;
-use App\Http\Controllers\studentDash\StudentDashController;
-use App\Http\Controllers\studentDash\projectsDivisionController;
-use App\Http\Controllers\studentDash\anteprojectsDivisionController;
-use App\Http\Controllers\InvitacionEstudianteController;
+    use App\Http\Controllers\CedulaController;
+    use App\Http\Controllers\studentDash\StudentDashController;
+    use App\Http\Controllers\studentDash\projectsDivisionController;
+    use App\Http\Controllers\studentDash\anteprojectsDivisionController;
+    use App\Http\Controllers\InvitacionEstudianteController;
 
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
@@ -49,7 +50,9 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     //Redirije a la ruta segun su rol
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
+    Route::get('/', [PostController::class, 'index'])->name('posts.index');
     //Cierra la sesion
+    Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
     Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
     //Notificaciones para los usuarios en general
     Route::get('/notificaciones', function () {
@@ -59,6 +62,11 @@ Route::middleware(['auth'])->group(function () {
         return view('books-notifications.notifications');
     })->middleware(['auth', 'role:Asistente de Dirección|Super Administrador|Administrador de División|Presidente Académico|Asesor Académico']);
     // Perfil del usuario general
+    Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
+    Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
+    Route::delete('/configurar-cuenta/{id}/eliminar-foto', [ManagementConfiguration::class, 'destroyProfilePhoto'])->name('configurar_cuenta.remove_photo');
+    Route::get('/perfil', [ProfileController::class, 'index']);
+    Route::post('/perfil/actualizar-foto', [ProfileController::class, 'actualizarFoto'])->name('actualizar_foto');
     Route::get('/Configurar_Cuenta', [ManagementConfiguration::class, 'index'])->name('users.configuration');
     Route::put('/configurar_cuenta/{id}', [ManagementConfiguration::class, 'update'])->name('configurar_cuenta.update');
     Route::delete('/configurar-cuenta/{id}/eliminar-foto', [ManagementConfiguration::class, 'destroyProfilePhoto'])->name('configurar_cuenta.remove_photo');
@@ -112,6 +120,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('generar-carta-digitalizacion', [CartaDigitalizacionController::class, 'digitalizacion'])->name('carta-digitalizacion');
         //libros
         Route::get('/libro', [BooksController::class, 'studentBook'])->name('libro-student');
+        Route::get('/libro', [BooksController::class, 'studentBook'])->name('libro-student');
         Route::get('/añadir.libros', function () {
             return view('books-notifications.books.Add-books');
         })->name('añadir.libros');
@@ -122,6 +131,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/invitar/estudiante', [InvitacionEstudianteController::class, 'enviarInvitacion'])->name('invitar.estudiante');
         Route::get('/anteproyecto', [ProjectController::class, 'showMyProject'])->name('viewMyProject');
         Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+        Route::get('carta-aprobacion', [AprobacionController::class, 'aprobar'])->name('aprobacion');
+        Route::put('/projects/{id}/updateIsPublic', [ProjectController::class, 'updateIsPublic'])->name('projects.updateIsPublic');
+
     });
     //Vusualizacion de elementos para quienes no sean estudiantes o secretarias
     Route::middleware(['auth', 'role:Administrador de División|Asesor Académico|Super Administrador'])->group(function () {
@@ -145,6 +157,47 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/division-anteprojects', [anteprojectsDivisionController::class, 'anteprojectsForDivision'])->middleware("can:anteprojectsForDivision")->name('Division-Anteproyectos');
     Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision')->middleware(['auth', 'role:Administrador de División']);
     //Permisos unicamente para el administrador
+    // Gestion de roles y permisos
+    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
+    //Gestion de usuarios
+    Route::resource('gestion-usuarios', CrudUserController::class)->names([
+        'index' => 'users.cruduser.index',
+        'create' => 'users.cruduser.create',
+        'store' => 'users.cruduser.store',
+        'show' => 'users.cruduser.show',
+        'edit' => 'users.cruduser.edit',
+        'update' => 'users.cruduser.update',
+        'destroy' => 'users.cruduser.destroy',
+    ]);
+    Route::get('/usuarios', [CrudUserController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
+    // Actualización de usuarios
+    Route::put('gestion-usuarios/{user}', [CrudUserController::class, 'update'])->name('users.cruduser.update');
+    // Gestion de usuarios masiva
+    Route::resource('gestion-usuarios-masiva', MasiveAddController::class)->names([
+        'index' => 'users.masiveadd.index',
+        'create' => 'users.masiveadd.create',
+        'store' => 'users.masiveadd.store',
+        'show' => 'users.masiveadd.show',
+        'edit' => 'users.masiveadd.edit',
+        'update' => 'users.masiveadd.update',
+        'destroy' => 'users.masiveadd.destroy',
+    ]);
+    // Ruta adicional para la importación de usuarios
+    Route::post('gestion-usuarios-masiva/import', [MasiveAddController::class, 'import'])->name('users.masiveadd.import');
+    // Ruta adicional para la exportación de la plantilla de usuarios
+    Route::get('/exportar-usuarios', [MasiveAddController::class, 'exportCsv'])->name('users.exportCsv');
+    Route::get('/exportar-estudiantes-plantilla', [MasiveAddController::class, 'exportTemplate'])->name('users.exportTemplate');
+    Route::get('/exportar-usuarios-plantilla', [MasiveAddController::class, 'exportTemplateUsers'])->name('users.exportTemplateUsers');
+    Route::post('/importar-usuarios', [MasiveAddController::class, 'store'])->name('users.store');
+    // Proyectos
+    Route::resource('/projects', ProjectController::class);
+    Route::get('/projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
+    Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
+    Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
+    Route::get('vistanteproyectosadmin', [ProjectController::class, 'viewanteprojectAdmin'])->name('viewanteprojectAdmin');
+    Route::get('/projectsdash', function () {
+        return view('management.project');
+    });
     // Gestion de roles y permisos
     Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
     //Gestion de usuarios
