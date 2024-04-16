@@ -17,7 +17,8 @@
     use App\Http\Controllers\auth\RegisterController;
     use App\Http\Controllers\Career\ProgramController;
     use App\Http\Controllers\AcademicAdvisorController;
-    use App\Http\Controllers\AdvisoryReportsController;
+use App\Http\Controllers\AcademyController;
+use App\Http\Controllers\AdvisoryReportsController;
     use App\Http\Controllers\AdvisorySessionController;
     use App\Http\Controllers\profile\ProfileController;
     use App\Http\Controllers\projects\ProjectController;
@@ -139,6 +140,7 @@ Route::middleware(['auth'])->group(function () {
     });
     //Vusualizacion de elementos para quienes no sean estudiantes o secretarias
     Route::middleware(['auth', 'role:Administrador de División|Asesor Académico|Super Administrador'])->group(function () {
+        Route::resource('/academias', AcademyController::class);
         Route::resource('/empresas', CompaniesController::class);
         Route::resource('/divisiones', DivisionController::class);
         Route::post('/divisiones/{id}/activate', [DivisionController::class, 'activate'])->name('divisiones.activate');

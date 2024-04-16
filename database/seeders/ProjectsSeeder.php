@@ -37,7 +37,7 @@ class ProjectsSeeder extends Seeder
                 'status' => 'Registrado',
                 'is_project' => false,
             ]);
-        } 
+        }
 
         $statuses = ['En curso', 'Finalizado', 'Reprobado', 'Aprobado'];
 
@@ -69,7 +69,7 @@ class ProjectsSeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             $is_project = (bool)rand(0, 1);
             $status = (!$is_project) ? 'Registrado' : collect(['En curso', 'Finalizado', 'Reprobado', 'Aprobado'])->random();
-        
+
             Project::create([
                 'fullname_student' => 'Nombre completo estudiante ' . ($i + 1),
                 'id_student' => ($i + 1),
@@ -91,6 +91,6 @@ class ProjectsSeeder extends Seeder
                 'is_project' => $is_project,
             ]);
         }
-        
+
     }
 }
