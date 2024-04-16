@@ -211,6 +211,14 @@
                                             class="text-sm">Proyectos</span></a>
                                 </li>
                             @endif
+                            @can('Academic Director')
+                            <li>
+                                <a href="{{ route('asignar-asesorados') }}"
+                                    class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                        class="text-sm">Asignar asesorados</span></a>
+                            </li>
+                            @endcan
                             <li class="">
                                 @if (Auth::check() &&
                                         Auth::user()->hasAnyRole([

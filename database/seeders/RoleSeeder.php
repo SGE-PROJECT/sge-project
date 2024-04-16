@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\User;
 
 class RoleSeeder extends Seeder
 {
@@ -193,6 +194,10 @@ class RoleSeeder extends Seeder
                 'roles' => ['Administrador de División'],
                 'description' => 'Visualizar los los anteproyectos por division'
             ],
+            'Academic Director' => [
+                'roles' => ['Administrador de División', 'Super Administrador'],
+                'description' => 'Asignar profesores a estudiantes'
+            ],
 
         ];
 
@@ -208,6 +213,7 @@ class RoleSeeder extends Seeder
                 $role->givePermissionTo($permission);
             }
         }
+
 
         // Se crea un permiso especial que actúa como wildcard para todos los permisos posibles.
         // Se crea un permiso especial que actúa como wildcard para todos los permisos posibles.
