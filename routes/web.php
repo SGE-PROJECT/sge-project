@@ -110,9 +110,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('generar-carta-digitalizacion', [CartaDigitalizacionController::class, 'digitalizacion'])->name('carta-digitalizacion');
         //libros
         Route::get('/libro',[BooksController::class,'studentBook'])->name('libro-student');
-        Route::get('/añadir.libros', function () {
-            return view('books-notifications.books.Add-books');
-        })->name('añadir.libros');
+        Route::get('/añadir.libros',[BooksController::class, 'formCreateStudent'])->name('añadir.libros');
+        Route::post('/crear/libros/estudiante',[BooksController::class, 'studentAddBook'])->name('crear.libro.estudiante');
+
         //proyectos
         Route::get('/proyectoinvitacion', [ProjectController::class, 'invitation'])->name('projectinvitation');
         Route::get('/formanteproyecto', [ProjectController::class, 'projectform'])->name('projectform');
