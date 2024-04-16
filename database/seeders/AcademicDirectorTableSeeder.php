@@ -18,6 +18,7 @@ class AcademicDirectorTableSeeder extends Seeder
             'user_id' => 42,
             'payrol' => '1111',
             'division_id' => 1,
+            'academy_id' => 1,
             'created_at' => now()
         ]);
 

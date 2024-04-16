@@ -21,9 +21,11 @@ return new class extends Migration
             ->constrained()
             ->onUpdate('restrict')
             ->onDelete('restrict');
+        $table->boolean('isActive')->default(true);
+        $table->foreignId('academy_id')->nullable();
         $table->date('start_date');
         $table->date('end_date');
-        $table->boolean('isActive')->default(true);
+
         $table->timestamps();
     });
     }
