@@ -24,21 +24,21 @@ class SecretariesTableSeeder extends Seeder
         $SecretaryUser1 = Secretary::create([
             'user_id' => 32,
             'payrol' => '2222',
-            'division_id' => 1,
+            'division_id' => 2,
             'created_at' => now()
         ]);
 
         $SecretaryUser2 = Secretary::create([
             'user_id' => 33,
             'payrol' => '3333',
-            'division_id' => 1,
+            'division_id' => 3,
             'created_at' => now()
         ]);
 
         $SecretaryUser3 = Secretary::create([
             'user_id' => 34,
             'payrol' => '4444',
-            'division_id' => 1,
+            'division_id' => 4,
             'created_at' => now()
         ]);
 
@@ -52,21 +52,21 @@ class SecretariesTableSeeder extends Seeder
         $SecretaryUser5 = Secretary::create([
             'user_id' => 36,
             'payrol' => '6666',
-            'division_id' => 1,
+            'division_id' => 2,
             'created_at' => now()
         ]);
 
         $SecretaryUser6 = Secretary::create([
             'user_id' => 37,
             'payrol' => '7777',
-            'division_id' => 1,
+            'division_id' => 3,
             'created_at' => now()
         ]);
 
         $SecretaryUser7 = Secretary::create([
             'user_id' => 38,
             'payrol' => '8888',
-            'division_id' => 1,
+            'division_id' => 4,
             'created_at' => now()
         ]);
 
@@ -80,7 +80,7 @@ class SecretariesTableSeeder extends Seeder
         $SecretaryUser9 = Secretary::create([
             'user_id' => 40,
             'payrol' => '0000',
-            'division_id' => 1,
+            'division_id' => 2,
             'created_at' => now()
         ]);
 

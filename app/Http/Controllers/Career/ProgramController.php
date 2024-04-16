@@ -16,6 +16,7 @@ class ProgramController extends Controller
         $this->middleware("can:carreras.edit")->only('edit', 'update');
         $this->middleware("can:carreras.create")->only('create', 'store');
         $this->middleware("can:carreras.destroy")->only('destroy');
+        $this->middleware("can:carreras.activate")->only('activate');
     }
     public function index()
     {
@@ -43,7 +44,7 @@ class ProgramController extends Controller
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
                 'division_id' => 'required|exists:divisions,id',
-                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
 
             $program = Program::create($request->all());
@@ -116,21 +117,23 @@ class ProgramController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        $program = Program::findOrFail($id);
+{
+    $program = Program::findOrFail($id);
+    $program->isActive = false;
+    $program->save();
 
-        // Elimina la imagen asociada si existe
-        if ($program->programImage) {
-            $path = public_path($program->programImage->image_path);
-            if (file_exists($path)) {
-                @unlink($path);
-            }
-            $program->programImage()->delete();
-        }
+    return redirect()->route('carreras.index')->with('success', 'Carrera desactivada con éxito.');
+}
 
-        $program->delete();
-        return redirect()->route('carreras.index')->with('success', 'Carrera eliminada con éxito.');
-    }
+public function activate(string $id)
+{
+    $program = Program::findOrFail($id);
+    $program->isActive = true;
+    $program->save();
+
+    return redirect()->route('carreras.index')->with('success', 'Carrera activada con éxito.');
+}
+
 
     public function divisionCarreras()
     {

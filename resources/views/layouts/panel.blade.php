@@ -162,7 +162,7 @@
                                     <span>Roles y Permisos</span>
                                 </a>
                             </li>
-                        
+
                         </ul>
                     </li>
                 @endif
@@ -234,7 +234,7 @@
 
                     <li class="mb-1 group">
                         <a href={{ route('empresas.index') }}
-                            class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  hover:text-gray-100 rounded-md">
+                            class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
                             <i class='  bx bx-buildings mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Empresas Afiliadas</span>
                         </a>

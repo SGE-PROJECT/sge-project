@@ -128,6 +128,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/divisiones', DivisionController::class);
         Route::post('/divisiones/{id}/activate', [DivisionController::class, 'activate'])->name('divisiones.activate');
         Route::resource('/carreras', ProgramController::class);
+        Route::put('carreras/{id}/activate', [ProgramController::class, 'activate'])->name('carreras.activate');
         Route::resource('/grupos', GroupController::class);
         Route::put('/empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
         Route::get('/proyectoequipos', [ProjectController::class, 'projectteams'])->name('projectteams');
