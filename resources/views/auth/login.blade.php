@@ -50,7 +50,7 @@
                 </ul>
             </div>
             <div
-                class="mt-40 md:flex md:items-center w-full md:justify-center sm:w-auto xl:w-2/5 sm:rounded-lg md:rounded-none bg-white">
+                class="mt-10 md:flex md:items-center w-full md:justify-center sm:w-auto xl:w-2/5 sm:rounded-lg md:rounded-none bg-white">
                 <div class="max-w-md w-full mr-14">
                     <img src="{{ asset('images/logo_sge_login.svg') }}" class="w-60 h-24 ml-24 "
                         style="width: 60%; height: 60%;">
