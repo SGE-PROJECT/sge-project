@@ -25,4 +25,13 @@ class AcademicDirector extends Model
     {
         return $this->belongsTo(Division::class, 'division_id');
     }
+
+    public function academy()
+    {
+        return $this->belongsTo(Academy::class, 'academy_id');
+    }
+
+
+
+
 }

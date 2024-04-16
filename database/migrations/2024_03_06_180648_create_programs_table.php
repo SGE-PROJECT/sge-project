@@ -16,9 +16,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->foreignId('division_id')->constrained() // Especificar el nombre de la columna primaria
+            $table->foreignId('division_id')->constrained()
             ->onUpdate('restrict')
             ->onDelete('restrict');
+            $table->foreignId('academy_id')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();
