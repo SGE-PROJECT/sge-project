@@ -288,7 +288,9 @@
                 </li>
             @endif
             @php
-                $countStudents = Auth::user()->academicAdvisor->students->count();
+                if (Auth::user()->hasAnyRole(['Asesor Académico']) ){
+                    $countStudents = Auth::user()->academicAdvisor->students->count();
+                }
             @endphp
             @if (Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']) && $countStudents > 0)
                 <!-- ACTIVIDADES Section -->
@@ -333,7 +335,7 @@
             <form action="{{ route('logout') }}" method="post">
                 @csrf
                 <button href="{{ route('logout') }}"
-                    class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  rounded-md w-full">
+                    class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white   rounded-md w-full">
                     <i class='bx bx-log-out mr-3 text-xl'></i>
                     <span class="nav-text text-sm">Cerrar sesion</span>
                 </button>
