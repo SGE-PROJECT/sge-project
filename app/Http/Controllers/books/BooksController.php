@@ -266,8 +266,15 @@ if($book->exists) {
         /*    $book = Book::findOrFail($id); */
         $book = Book::where('slug', $slug)->firstOrFail();
 
+         // Obtener los IDs de los estudiantes relacionados con este libro
+    $studentIds = Student::where('book_id', $book->id)->pluck('user_id');
+
+    // Obtener los nombres de los usuarios basados en los IDs de los estudiantes
+    $students = User::whereIn('id', $studentIds)->pluck('name');
+    
+
         // Luego, pasamos el libro a la vista de detalle del libro junto con el índice
-        return view('books-notifications.books.book-detail', compact('book'));
+        return view('books-notifications.books.book-detail', compact('book','students'));
     }
 
 

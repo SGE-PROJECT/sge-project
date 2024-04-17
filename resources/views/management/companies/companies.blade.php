@@ -6,7 +6,7 @@
 
 @section('contenido')
     {{-- tabla de empresas --}}
-    <div class="flex flex-col mt-10 justify-center items-center">
+    <div class="flex flex-col mt-4 justify-center items-center">
 
         <h1 class="text-2xl font-bold mb-4 uppercase">Empresas afiliadas</h1>
 
@@ -14,7 +14,7 @@
         <div class="px-5 flex w-full">
             <a href="{{ route('empresas.create') }}" class="mb-4 bg-[#03A696] text-white font-medium w-32 h-10 rounded-md flex justify-center items-center">Crear Empresa</a>
 
-            <div class="mb-4 flex flex-col md:flex-row items-start md:items-center rounded-md ml-auto mr-5">
+            <div class="mb-4 flex flex-col md:flex-row items-start md:items-center rounded-md ml-auto mr-3">
                 <span class="flex">
                     <input id="searchInput" class="search_divisions px-3 outline-none border-l-5 rounded-md" type="text"
                         placeholder="Buscar Empresa...">
@@ -52,7 +52,7 @@
 
         <!-- Tabla de empresas -->
         <table id="empresaTable" class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
-            <thead>
+            <thead class="bg-gray-700">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Logotipo</th>
                     <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Empresa</th>
@@ -108,9 +108,9 @@
                 @endforeach
             </tbody>
         </table>
-        <h2 class="text-2xl font-bold mt-8 mb-8 ml-5 uppercase">Empresas Inactivas</h2>
+        <h2 class="text-lg font-bold text-gray-800 mt-5 mb-2 uppercase ml-5">Empresas Inactivas:</h2>
         <table id="empresaTable" class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
-            <thead>
+            <thead class="bg-gray-700">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Logotipo</th>
                     <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Empresa</th>

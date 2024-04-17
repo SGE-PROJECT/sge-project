@@ -68,7 +68,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
-                                                onclick="return confirm('¿Estás seguro de que deseas eliminar esta carrera?')"
+                                                onclick="return confirm('¿Estás seguro de que deseas eliminar esta academia?')"
                                                 class="bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
                                                 <i class='bx bx-trash'></i>
                                                 Eliminar

@@ -87,27 +87,27 @@
     transform: translateY(15px);
     transition: all 0.35s ease;
   }
-  
+
 
 
 
 .checkbox-group {
     margin-top: 20px;
-    max-height: 350px; 
-    max-width: 1250px; 
-    overflow-y: auto; 
+    max-height: 350px;
+    max-width: 1250px;
+    overflow-y: auto;
 }
 
 
 .checkbox {
-    display: flex; 
-    align-items: flex-end; 
+    display: flex;
+    align-items: flex-end;
     margin-left: 300px;
     margin-top: 15px;
     margin-bottom: 50px;
 }
 .input-checkbox {
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .checkbox-label {

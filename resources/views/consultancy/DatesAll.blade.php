@@ -108,7 +108,7 @@
                 <span class="gap-5 flex w-full">
 
                     <button
-                        class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
+                        class="Btn_divisions bg-[#00ab84] text-white px-2 py-1 rounded transition-colors"
                         id="botonCitas3">
                         <span class="Btntext_divisions">Agregar cita</span>
                         <span class="svgIcon_divisions">
@@ -116,7 +116,7 @@
                         </span>
                     </button>
                     <a href="{{ route('asesorias', ['id' => auth()->user()->slug]) }}"
-                        class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
+                        class="Btn_divisions bg-[#00ab84] text-white px-2 py-1 rounded transition-colors"
                         id="botonCitas2">
                         <span class="Btntext_divisions">Calendario</span>
                         <span class="svgIcon_divisions">
@@ -153,7 +153,7 @@
                 </span>
                 <p id="error">Error</p>
                 <button type="button" id="agregarEventoButton"
-                    class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors">Crear cita</button>
+                    class="bg-[#00ab84] text-white px-2 py-1 rounded transition-colors">Crear cita</button>
             </form>
         </div>
 
@@ -178,7 +178,7 @@
                     <span id="editContador">0/250</span>
                 </div>
                 <p id="error2">Error</p>
-                <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="button"
+                <button class="bg-[#00ab84] text-white px-2 py-1 rounded transition-colors" type="button"
                     id="guardarEventoButton">Guardar Cambios</button>
             </form>
         </div>
@@ -192,7 +192,7 @@
                 @csrf
                 @method('DELETE')
                 <h2 class="pb-[20px]">¿Esta seguro?</h2>
-                <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="button"
+                <button class="bg-[#00ab84] text-white px-2 py-1 rounded transition-colors" type="button"
                     id="borrarEventoBoton">Borrar cita</button>
             </form>
         </div>
@@ -265,6 +265,6 @@
         <script>
             var sessions = @json($sessionsData, JSON_PRETTY_PRINT);
         </script>
-        
+
     </main>
 @endsection
