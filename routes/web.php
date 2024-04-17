@@ -18,7 +18,7 @@ use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Career\ProgramController;
 use App\Http\Controllers\AcademicAdvisorController;
 use App\Http\Controllers\AcademyController;
-use App\Http\Controllers\AdminDivisionExportController;
+use App\Http\Controllers\studentDash\AdminDivisionExportController;
 use App\Http\Controllers\AdvisoryReportsController;
 use App\Http\Controllers\AdvisorySessionController;
 use App\Http\Controllers\profile\ProfileController;
@@ -206,15 +206,19 @@ Route::middleware(['auth'])->group(function () {
         return view('management.project');
     });
 
+    //Protección de rutas para el Administrador por división
+    Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
+        //Ruta para exportar usuarios por division a Excel
+        Route::get('/export-usersDivision/excel', [AdminDivisionExportController::class, 'exportExcelD'])->name('export.usersDivision.excel');
+        Route::get('/export-usersDivision/pdf', [AdminDivisionExportController::class, 'exportPdfD'])->name('export.usersDivision.pdf');
+    });
+
     //Proteccion de rutas para el super admin
     Route::middleware(['auth', 'role:Super Administrador'])->group(function () {
         // Ruta para exportar usuarios a PDF
         Route::get('/export-users/pdf', [AdminExportController::class, 'exportPdf'])->name('export.users.pdf');
         //Ruta para exportar usuarios a Excel
         Route::get('/export-users/excel', [AdminExportController::class, 'exportExcel'])->name('export.users.excel');
-
-        //Ruta para exportar usuarios por division a Excel
-        Route::get('/export-usersDivision/excel', [AdminDivisionExportController::class, 'exportExcelD'])->name('export.usersDivision.excel');
 
         // Ruta para exportar proyectos en PDF
         Route::get('/export-projects/pdf', [AdminExportController::class, 'exportProjectsPdf'])->name('export.projects.pdf');
