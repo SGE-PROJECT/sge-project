@@ -114,14 +114,22 @@
             <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
                 <!-- ADMIN Section -->
                 <li class="mb-1 group">
-                    @role(['Super Administrador', 'Administrador de División'])
-                        <!-- Directiva de Blade proporcionada por Spatie Permission -->
-                        <a href="{{ route('Dashboard-Anteproyectos') }}"
-                            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
-                            <i class='bx bxs-dashboard mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Dashboard</span>
-                        </a>
-                    @endrole
+                    @if (Auth::check())
+                        @if (Auth::user()->hasRole('Super Administrador'))
+                            <a href="{{ route('Dashboard-Anteproyectos') }}"
+                                class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
+                                <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                                <span class="nav-text text-sm">Dashboard</span>
+                            </a>
+                        @elseif (Auth::user()->hasRole('Administrador de División'))
+                            <a href="{{ route('Division-Anteproyectos') }}"
+                                class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
+                                <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                                <span class="nav-text text-sm">Dashboard</span>
+                            </a>
+                        @endif
+                    @endif
+
                 </li>
 
 
@@ -211,11 +219,12 @@
                         @endif
                         @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección']))
                         @else
-                        <li class="">
-                            <a href="{{ route('academias.index') }}"
-                                class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                    class=' bx bxs-school mr-3 text-lg'></i><span class="text-sm">Academia</span></a>
-                        </li>
+                            <li class="">
+                                <a href="{{ route('academias.index') }}"
+                                    class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class=' bx bxs-school mr-3 text-lg'></i><span
+                                        class="text-sm">Academia</span></a>
+                            </li>
                             <li class="">
 
                                 <a href="{{ route('carreras.index') }}"
@@ -229,7 +238,6 @@
                                     class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                         class=' bx bx-group mr-3 text-lg'></i><span class="text-sm">Grupos</span></a>
                             </li>
-
                         @endif
                     </ul>
                 </li>

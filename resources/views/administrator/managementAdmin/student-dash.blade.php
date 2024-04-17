@@ -166,16 +166,16 @@
     </div>
     <!-- CONTENEDOR DE LA TABLA -->
     <div id="tabla-container" class="tabla-project rounded-t-lg">
-        <div class="tabla-cont-project rounded-t-lg">
-            <table id="tabla-proyectos" style="width:100%">
+        <div class="tabla-cont-project ml-5 rounded-t-lg">
+            <table id="tabla-proyectos" class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
                     <thead>
                         <tr>
-                            <th >Matricula</th>
-                            <th >Nombre</th>
-                            <th >Email</th>
-                            <th >Grupo</th>
-                            <th >Asesor Académico</th>
-                            <th >Carrera</th>
+                            <th class="uppercase">Matricula</th>
+                            <th class="uppercase">Nombre</th>
+                            <th class="uppercase">Email</th>
+                            <th class="uppercase">Grupo</th>
+                            <th class="uppercase">Asesor Académico</th>
+                            <th class="uppercase">Carrera</th>
                         </tr>
                     </thead>
                     <tbody>

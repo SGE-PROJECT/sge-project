@@ -1,4 +1,4 @@
-@extends('layouts.panelUsers')
+@extends(Auth::check() && Auth::user()->hasRole('Super Administrador') ? 'layouts.panel' : 'layouts.panelUsers')
 
 @section('titulo', 'Perfil de estudiante')
 
@@ -21,16 +21,16 @@
                     src="{{ $student->user->photo ? asset($student->user->photo) : asset('images/profileconfiguration/avatar.jpg') }}"
                     class="w-48 h-48 rounded-full border-4 border-white shadow-xl {{ $student->user->photo ? 'cursor-pointer' : '' }}"
                     {{ $student->user->photo ? 'onclick="openModal()"' : '' }}>
-        
+
                 <div class="profile-picture-overlay">
                     @if ($student->user->photo)
                         <p style="cursor: pointer; text-align: center; font-size:1.4rem"><br>Ver foto</br></p>
                     @endif
-                    
+
                 </div>
 
 
-            
+
             </div>
 
 
@@ -83,7 +83,7 @@
             </div>
 
 
-            
+
 
 
 
@@ -96,7 +96,7 @@
                     <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Proyecto</h1>
                     <h1 class="text-2xl font-bold text-teal-600 mb-4 ml-4 md:ml-10">Grupo</h1>
                 </div>
-            
+
                 <div class="grid md:grid-cols-2 gap-10 ml-4">
                     <!-- Proyectos -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 m-8">
@@ -115,14 +115,14 @@
                         </div>
                     </div>
                 </div>
-                
-                
-                
-                
-                
-                
-                
-            
+
+
+
+
+
+
+
+
 
 
 
