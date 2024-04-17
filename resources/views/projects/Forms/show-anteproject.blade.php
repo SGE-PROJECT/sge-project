@@ -407,7 +407,7 @@
         <!-- Modal de confirmación de eliminación -->
         <div id="modalEliminar"
             class="ProjectDeleteModal fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity hidden">
-            <div class="bg-white rounded p-8 max-w-md mx-auto z-50">
+            <div class="bg-white rounded p-8 max-w-md mx-auto z-50 ">
                 <div class="mb-6">
                     <h2 class="text-lg font-semibold text-gray-800">¿Seguro que quieres eliminar?</h2>
                 </div>
