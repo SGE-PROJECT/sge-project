@@ -132,40 +132,54 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <br>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            
+            <div class="grid grid-cols-1 gap-4">
                 <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
                     <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
                         <h2 class="text-xl font-semibold text-white mb-0">Empresa:</h2>
                     </div>
                     <div class="relative">
                         <div class="mt-6 pb-6 p-3">
-                            <input name="company_name" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa el nombre de la empresa" type="text"
-                                value="{{ old('company_name') }}" />
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('company_name')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                            <select name="company_id" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm" onchange="updateCompanyFields(this)">
+                                <option value="" disabled selected>Selecciona una empresa</option>
+                                @foreach($companies as $company)
+                                    <option value="{{ $company->id }}" data-name="{{ $company->company_name }}" data-address="{{ $company->address }}">{{ $company->company_name }}</option>
+                                @endforeach
+                                <option value="Otro">Otro</option>
+                            </select>
+                            @error('company_id')
+                                <div class="text-red-400 font-bold text-lg">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div id="Campos" class="grid grid-cols-1 gap-4" style="display: none;">
                 <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
                     <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Dirreción de la Empresa:</h2>
+                        <h2 class="text-xl font-semibold text-white mb-0">Nombre de la empresa:</h2>
                     </div>
                     <div class="relative">
                         <div class="mt-6 pb-6 p-3">
-                            <input name="company_address" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa la dirección de la empresa" type="text"
-                                value="{{ old('company_address') }}" />
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('company_address')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                            <input name="company_name" id="company_name" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm" placeholder="Nombre de la empresa" type="text" value="{{ old('company_name') }}" />
+                            @error('company_name')
+                                <div class="text-red-400 font-bold text-lg">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
+                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
+                        <h2 class="text-xl font-semibold text-white mb-0">Dirección de la Empresa:</h2>
+                    </div>
+                    <div class="relative">
+                        <div class="mt-6 pb-6 p-3">
+                            <input name="company_address" id="company_address" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm" placeholder="Dirección de la empresa" type="text" value="{{ old('company_address') }}" />
+                            @error('company_address')
+                                <div class="text-red-400 font-bold text-lg">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -178,7 +192,7 @@
         <div class="relative">
             <div class="mt-6 pb-6 p-3">
                     <select name="project_status_area" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm" onchange="showHideFields(this.value)">
-                        <option value="">Selecciona un asesor</option>
+                        <option value="" disabled selected>Selecciona un asesor</option>
                         @foreach($businessAdvisors as $advisor)
                         <option value="{{ $advisor->id }}" data-name="{{ $advisor->name }}" data-position="{{ $advisor->position }}" data-phone="{{ $advisor->phone }}" data-email="{{ $advisor->email }}">{{ $advisor->name }}</option>
                         @endforeach
@@ -230,6 +244,7 @@
             </div>
         </div>
     </div>
+    <br>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
             <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
@@ -405,6 +420,40 @@
             document.getElementById('emailAsesor').value = selectedOption.dataset.email;
         }
     }
+
+    function updateCompanyFields(select) {
+    var selectedIndex = select.selectedIndex;
+    var selectedOption = select.options[selectedIndex];
+    var companyNameInput = document.getElementById('company_name');
+    var companyAddressInput = document.getElementById('company_address');
+    var camposDiv = document.getElementById('Campos');
+
+    if (selectedOption) { // Verificar si se ha seleccionado una opción
+        var companyName = selectedOption.getAttribute('data-name');
+        var companyAddress = selectedOption.getAttribute('data-address');
+
+        if (selectedOption.value === 'Otro') {
+            // Si se selecciona "Otro", los campos deben estar vacíos y editables
+            companyNameInput.value = '';
+            companyAddressInput.value = '';
+            companyNameInput.removeAttribute('readonly');
+            companyAddressInput.removeAttribute('readonly');
+            camposDiv.style.display = 'block'; // Mostrar los campos
+        } else {
+            // Si se selecciona una empresa existente, los campos deben estar llenos pero no editables
+            companyNameInput.value = companyName;
+            companyAddressInput.value = companyAddress;
+            companyNameInput.setAttribute('readonly', true);
+            companyAddressInput.setAttribute('readonly', true);
+            camposDiv.style.display = 'block'; // Mostrar los campos
+        }
+    } else {
+        // Si no se ha seleccionado ninguna opción, ocultar los campos
+        camposDiv.style.display = 'none';
+    }
+}
+
+
 </script>
 
 
