@@ -30,6 +30,7 @@
     @vite('resources/css/Dashboard/DashboardUsers.css')
     @vite('resources/css/projects/projectview.css')
     @vite('resources/css/management/projects.css')
+    @vite('resources/css/icons.css')
     @yield('js')
     @yield('css')
 
@@ -112,19 +113,19 @@
                     @if (Auth()->user()->hasAnyRole(['Estudiante']))
                         <a href={{ route('home') }}
                             class="left-0 relative flex font-semibold items-center py-1 px-4 text-white hover:text-[#d0d3d4] rounded-md">
-                            <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                            <i class='nf nf-md-view_dashboard mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Inicio</span>
                         </a>
                     @elseif (Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']))
                         <a href={{ route('home.advisor') }}
                             class="left-0 relative flex font-semibold items-center py-1 px-4 text-white hover:text-[#d0d3d4] rounded-md">
-                            <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                            <i class='nf nf-md-view_dashboard mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Inicio</span>
                         </a>
                     @else
                         <a href="/"
                             class="left-0 relative flex font-semibold items-center py-1 px-4 text-white hover:text-[#d0d3d4] rounded-md">
-                            <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                            <i class='nf nf-md-view_dashboard mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Dashboard</span>
                         </a>
                     @endif
@@ -178,7 +179,7 @@
                     <li class="mb-1 group relative z-2">
                         <a href=""
                             class="flex font-semibold items-center py-2 px-4 text-white  sidebar-dropdown-toggle rounded-md ">
-                            <i class='bx bxs-graduation mr-3 text-lg'></i>
+                            <i class='nf nf-fa-graduation_cap mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Académico</span>
                             <i
                                 class="ri-arrow-right-s-line ml-auto  group-[.selected]:rotate-90 transition-transform  hidden md:block"></i>
@@ -188,7 +189,7 @@
                                 <li>
                                     <a href="{{ route('dashboardProjects') }}"
                                         class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                            class='bx bx-folder-plus mr-3 text-lg'></i><span class="text-sm">Lista
+                                            class='nf nf-oct-project_roadmap mr-3 text-lg'></i><span class="text-sm">Lista
                                             Anteproyectos</span></a>
                                 </li>
                             @endif
@@ -199,7 +200,7 @@
 
                                     <a href="{{ route('viewanteproject') }}"
                                         class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                            class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                            class='nf nf-oct-project_roadmap mr-3 text-lg'></i><span
                                             class="text-sm">Anteproyectos</span></a>
                                 </li>
                             @endif
@@ -207,7 +208,7 @@
                                 <li>
                                     <a href="{{ route('viewproject') }}"
                                         class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                            class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                            class='nf nf-oct-project mr-3 text-lg'></i><span
                                             class="text-sm">Proyectos</span></a>
                                 </li>
                             @endif
@@ -215,7 +216,7 @@
                             <li>
                                 <a href="{{ route('asignar-asesorados') }}"
                                     class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                        class='bx bx-folder-plus mr-3 text-lg'></i><span
+                                        class='nf nf-oct-project_roadmap mr-3 text-lg'></i><span
                                         class="text-sm">Asignar asesorados</span></a>
                             </li>
                             @endcan
@@ -231,7 +232,7 @@
                                 @else
                                     <a href="{{ route('divisiones.index') }}"
                                         class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                            class='bx bx-buildings mr-3 text-lg'></i><span
+                                            class='nf nf-fa-building mr-3 text-lg'></i><span
                                             class=" text-sm">Divisiones</span></a>
                             </li>
                 @endif
@@ -241,7 +242,7 @@
 
                         <a href="/carreras/division"
                             class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                class=' bx bx-book-open mr-3 text-lg'></i><span class="text-sm">Carreras</span></a>
+                                class=' nf nf-fa-book_open_reader mr-3 text-lg'></i><span class="text-sm">Carreras</span></a>
                     </li>
                 @else
                 @endif
@@ -255,7 +256,7 @@
                 <li class="mb-1 group">
                     <a href={{ route('empresas.showTable') }}
                         class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  rounded-md">
-                        <i class='  bx bx-buildings mr-3 text-lg'></i>
+                        <i class='nf nf-fa-building mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Empresas Afiliadas</span>
                     </a>
                 </li>
@@ -267,7 +268,7 @@
                 <li class="mb-1 group">
                     <a href={{ route('empresas.index') }}
                         class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white   rounded-md">
-                        <i class='  bx bx-buildings mr-3 text-lg'></i>
+                        <i class='  nf nf-fa-building mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Empresas Afiliadas</span>
                     </a>
                 </li>
@@ -279,7 +280,7 @@
                 <li class="mb-1 group">
                     <a href="{{ route('libro-student') }}"
                         class="flex font-semibold items-center py-2 px-4 text-white  rounded-md hover:text-[#d0d3d4]">
-                        <i class='bx bx-book mr-3 text-lg'></i>
+                        <i class='nf nf-md-book_open_page_variant_outline mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Libro</span>
                     </a>
                 </li>
@@ -290,7 +291,7 @@
                 <li class="mb-1 group">
                     <a href="{{ route('libros.index') }}"
                         class="flex font-semibold items-center py-2 px-4 text-white   rounded-md hover:text-[#d0d3d4]">
-                        <i class='bx bx-book mr-3 text-lg'></i>
+                        <i class='nf nf-md-book_open_page_variant_outline mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Libros</span>
                     </a>
                 </li>
@@ -308,21 +309,21 @@
                 <li class="mb-1 group">
                     <a href="{{ route('asesorias', ['id' => auth()->user()->slug]) }}"
                         class="flex font-semibold items-center py-1 px-4 text-white rounded-md hover:text-[#d0d3d4]">
-                        <i class='bx bx-calendar-event mr-3 text-lg'></i>
+                        <i class='nf nf-md-calendar mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Sesiones de Asesoría</span>
                     </a>
                 </li>
             @else
             @endif
-        
-            
+
+
             @role(['Estudiante'])
                 <!-- ACTIVIDADES Section -->
                 <span class="text-[#fff] nav-text font-bold">ACTIVIDADES</span>
                 <li class="mb-1 group">
                     <a href="{{ route('asesoriasStudent', ['id' => auth()->user()->slug]) }}"
                         class="flex font-semibold items-center py-2 px-4 text-white  rounded-md hover:text-[#d0d3d4]">
-                        <i class='bx bx-calendar-event mr-3 text-lg'></i>
+                        <i class='nf nf-md-calendar mr-3 text-lg'></i>
                         <span class="nav-text text-sm">Sesiones de Asesoría</span>
                     </a>
                 </li>
@@ -335,7 +336,7 @@
             <li class="mb-1 group">
                 <a href="/notificaciones"
                     class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white  rounded-md">
-                    <i class='bx bx-bell mr-3 text-lg'></i>
+                    <i class='nf nf-md-bell mr-3 text-lg'></i>
                     <span class="nav-text text-sm">Notificaciones</span>
                 </a>
             </li>
@@ -343,7 +344,7 @@
                 @csrf
                 <button href="{{ route('logout') }}"
                     class="flex hover:text-[#d0d3d4] font-semibold items-center py-2 px-4 text-white   rounded-md w-full">
-                    <i class='bx bx-log-out mr-3 text-xl'></i>
+                    <i class='nf nf-md-logout mr-3 text-xl'></i>
                     <span class="nav-text text-sm">Cerrar sesion</span>
                 </button>
             </form>
