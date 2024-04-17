@@ -15,40 +15,40 @@
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0 mb-4">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
+                    <div class="bg-gray-400 py-1 px-4">
                         <h2 class="text-xl font-semibold text-white mb-0">Nombre completo:</h2>
                     </div>
                     <input name="fullname_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
-                        placeholder="Ingresa tu nombre completo" type="text" value="{{ Auth::user()->name }}" readonly />
+                        placeholder="Ingresa tu nombre completo" type="text" value="{{ Auth::user()->name }}" readonly onfocus="this.blur()"/>
                 </div>
                 <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0 mb-4">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
+                    <div class="bg-gray-400 py-1 px-4">
                         <h2 class="text-xl font-semibold text-white mb-0">Matricula:</h2>
                     </div>
 
                     <input name="id_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
                         placeholder="Ingresa tu nombre completo" type="text"
-                        value="{{ Auth::user()->student->registration_number }}"readonly />
+                        value="{{ Auth::user()->student->registration_number }}"readonly onfocus="this.blur()"/>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
+                    <div class="bg-gray-400 py-1 px-4">
                         <h2 class="text-xl font-semibold text-white mb-0">Grupo:</h2>
                     </div>
                     <input name="group_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
                         placeholder="Ingresa tu nombre completo" type="text"
-                        value="{{ Auth::user()->student->group->name }}" readonly />
+                        value="{{ Auth::user()->student->group->name }}" readonly onfocus="this.blur()"/>
                 </div>
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
+                    <div class="bg-gray-400 py-1 px-4">
                         <h2 class="text-xl font-semibold text-white mb-0">Correo Electrónico:</h2>
                     </div>
 
                     <input name="email_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
                         placeholder="Ingresa tu nombre completo" type="text" value="{{ Auth::user()->email }}"
-                        readonly />
+                        readonly onfocus="this.blur()"/>
                 </div>
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
                     <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
@@ -157,7 +157,7 @@
                         </div>
                         <input id="nombreAsesor" name="name" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm"
                             placeholder="Ingresa el nombre del asesor" type="text" value="{{ old('name') }}"
-                            readonly />
+                            />
                         <div class="text-red-400 font-bold text-lg">
                             @error('name')
                                 {{ $message }}
@@ -171,7 +171,7 @@
                         </div>
                         <input id="cargoAsesor" name="position" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm"
                             placeholder="Ingresa el cargo del asesor" type="text" value="{{ old('position') }}"
-                            readonly />
+                            />
                         <div class="text-red-400 font-bold text-lg">
                             @error('position')
                                 {{ $message }}
@@ -187,7 +187,7 @@
                         </div>
                         <input id="telefonoAsesor" name="phone" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm"
                             placeholder="Ingresa el número teléfonico del asesor" type="tel"
-                            value="{{ old('phone') }}" readonly />
+                            value="{{ old('phone') }}" />
                         <div class="text-red-400 font-bold text-lg">
                             @error('phone')
                                 {{ $message }}
@@ -202,7 +202,7 @@
                                 <input id="emailAsesor" name="email"
                                     class="w-full  border-2 bg-gray-100 border-gray-300 p-3 text-sm"
                                     placeholder="Ingresa el correo electrónico del asesor" type="email"
-                                    value="{{ old('email') }}" readonly />
+                                    value="{{ old('email') }}" />
                                 <div class="text-red-400 font-bold text-lg">
                                     @error('email')
                                         {{ $message }}
@@ -269,7 +269,7 @@
                             investigación:</h2>
                     </div>
                             <textarea name="justification" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
-                                placeholder="Redacta aqui..." rows="8">{{ old('justification') }}</textarea>
+                                placeholder="Redacta aqui..." rows="13">{{ old('justification') }}</textarea>
                             <div class="absolute bottom-[-4px] text-red-400 font-bold text-lg">
                                 @error('justification')
                                     {{ $message }}
@@ -296,7 +296,7 @@
             </div>
             <div class="mt-8 flex justify-center text-center space-x-6">
                 <button type="submit" action value="guardar"
-                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Guardar</button>
+                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">    <i class='bx bx-archive-out'></i> Guardar</button>
             </div>
             <input type="hidden" name="is_project" value="0">
         </form>
