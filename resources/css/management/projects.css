@@ -3,7 +3,8 @@
 
 .tabla-project {
     border-radius: 40px;
-    padding: 2rem;
+    padding: 50px;
+    margin-left: -40px;
     grid-column: auto;
     overflow: hidden; /* Asegura que todo dentro del contenedor se ajuste al tamaño */
 }
