@@ -96,15 +96,15 @@
 
     <div class="tabla-project">
         <div class="tabla-cont-project ">
-            <table id="tabla-usuarios" class="rounded-lg">
-                <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
+            <table id="tabla-usuarios" class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
+                <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Correo electrónico</th>
-                        <th>No. Teléfono</th>
-                        <th>Rol</th>
-                        <th>División</th>
-                        <th>Estado</th>
+                        <th class="uppercase">Nombre</th>
+                        <th class="uppercase">Correo electrónico</th>
+                        <th class="uppercase">No. Teléfono</th>
+                        <th class="uppercase">Rol</th>
+                        <th class="uppercase">División</th>
+                        <th class="uppercase">Estado</th>
 
                     </tr>
                 </thead>

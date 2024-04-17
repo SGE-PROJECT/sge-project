@@ -108,7 +108,7 @@
                                 role="alert">
                                 <div
                                     class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-teal-500 bg-green-50 rounded-lg">
-                                    <i class='bx bxs-briefcase'></i>
+                                    <i class='nf nf-oct-project_roadmap'></i>
                                     <span class="sr-only">Fire icon</span>
                                 </div>
                                 <div class="ms-3 text-sm font-normal">{{ $project->name_project }}</div>
@@ -263,7 +263,7 @@
                                 $colorFondo = 'bg-lime-200';
                                 $colorIcono = 'text-lime-500 nf-fa-check_circle';
                                 $color2 = 'bg-lime-100 ';
-                                $colorLetra2 = 'text-[#444]';
+                                $colorLetra2 = 'text-[#pb444]';
                                 $colorFondo2 = 'bg-lime-200';
                                 $colorIcono2 = 'text-lime-500 nf-fa-check_circle';
                                 $academic = $student->sanction_advisor;

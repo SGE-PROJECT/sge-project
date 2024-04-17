@@ -61,7 +61,7 @@
     height: fit-content;
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-    gap: 40px;
+    gap: 20px;
     justify-items: start;
     align-content: start;
 
@@ -71,62 +71,7 @@
         display: none;
     }
 }
-.proyectos div {
-    border-radius: 10px;
-    width: 100%;
-    min-height: 300px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
-    padding: 30px 35px;
-    display: flex;
-    flex-wrap: wrap;
-    transition: all .3s;
-    animation: iniciar .5s;
-    background-color: #fff;;
-    position: relative;
-}
-.proyectos div::before{
-    content: "";
-    left: 0px;
-    top: 0px;
-    position: absolute;
-    background-image: linear-gradient(to right, #00ab84, #00e7b1);
-    height: 60%;
-    border-radius: 10px 10px 50% 50%;
-    width: 100%;
-}
-.proyectos div article{
-    padding: 60px 10px 10px 10px;
-    border-radius: 10px;
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    height: 100%;
-    align-content: space-between;
-    z-index: 20;
-    background-color: #f5f5f5;
-    animation: iniciar .5s;
-    box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.6);
-}
-.proyectos div article h3{
-    text-transform: uppercase;
-    width: 100%;
-    font-size: 20px;
-    text-align: center;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
-.proyectos div article p{
-    font-size: 16px;
-    text-align: justify;
-    width: 100%;
-    margin-bottom: 5px;
-}
 
-.proyectos div:hover {
-    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.4);
-    translate:0 2px;
-    transform: scale(1.01);
-}
 .icono {
     width:fit-content;
     height: 65px;

@@ -54,13 +54,45 @@
         height: 6rem;
         border: 2px solid var(--primary);
             }
+
+/* Estilizar la barra de desplazamiento */
+#student::-webkit-scrollbar {
+  width: 5px; /* Grosor de la barra de desplazamiento */
+}
+
+#student::-webkit-scrollbar-track {
+  background: white; /* Color de fondo de la pista */
+}
+
+#student::-webkit-scrollbar-thumb {
+    --tw-bg-opacity: 1;
+    background-color: rgb(20 184 166 / var(--tw-bg-opacity));
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Estilizar la barra de desplazamiento */
+#description::-webkit-scrollbar {
+  width: 5px; /* Grosor de la barra de desplazamiento */
+}
+
+#descirption::-webkit-scrollbar-track {
+  background: white; /* Color de fondo de la pista */
+}
+
+#description::-webkit-scrollbar-thumb {
+    --tw-bg-opacity: 1;
+    background-color: rgb(20 184 166 / var(--tw-bg-opacity));
+  border-radius: 4px; /* Bordes redondeados */
+}
+
             </style>
-    <div class="container p-10">
+    <div class="container p-10 ">
         <h1 class="text-3xl font-semibold mb-4">Editar Libro</h1>
-        <form id="formichido" action="{{ route('libros.update', $book->id) }}" method="POST" enctype="multipart/form-data">
+        <form id="formichido" action="{{ route('libros.update', $book->id) }}" method="POST" enctype="multipart/form-data" class="relative">
             @csrf
             @method('PUT')
-
+            <div class=" grid  grid-cols-1 gap-3">
+                <div>   
             <div class="mb-4">
                 <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
                 <input type="text" name="title" id="title" class="mt-1 p-2 border border-gray-300 rounded-md w-full" value="{{ old('title', $book->title) }}" required>
@@ -100,6 +132,8 @@
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
+        </div>
+<div>
 
             <div class="mb-4">
                 <label for="price" class="block text-sm font-medium text-gray-700">Precio</label>
@@ -110,29 +144,39 @@
             </div>
             <div class="mb-4">
                 <label for="search" class="block text-sm font-medium text-gray-700">Buscar Estudiante</label>
-                <input type="text" id="search" class="mt-1 p-2 border border-gray-300 rounded-md w-full" placeholder="Escribe para buscar...">
+                <div class=" flex  gap-1 items-center  w-[400px] relative">
+                    <input type="text" id="search" class="mt-1 p-2 border  border-gray-300 w-full rounded-md " placeholder="Escribe para buscar..."
+                  
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 absolute right-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </div>
+                  
             </div>
             <div class="mb-4">
                 <label for="student" class="block text-sm font-medium text-gray-700">Estudiantes</label>
                 <ul name="student" id="student" class="mt-1 p-2 border border-gray-300 rounded-md w-full text-black bg-white overflow-y-auto max-h-[150px] overscroll-none">
-                    @foreach($studentsWithoutBook as $studentNoBook)
-                        <li id="{{ $studentNoBook->id }}" class="p-1 cursor-pointer mb-2 hover:text-white hover:bg-slate-400 studentssel">
+                        <div class=" grid grid-cols-1 text-balance">
+                        @foreach($studentsWithoutBook as $studentNoBook)
+                        <li id="{{ $studentNoBook->id }}" class="p-1 cursor-pointer mb-2 rounded w-fit hover:text-white hover:bg-slate-400 studentssel">
                             {{ $studentNoBook->user_name." - ".$studentNoBook->registration_number }}
                         </li>
-                    @endforeach
-                    @foreach($selectedStudents as $student)
-                        <li id="{{ $student->id }}" class="p-1 cursor-pointer mb-2 hover:text-white hover:bg-slate-400 studentssel bg-teal-500 text-white selected-student">
+                        @endforeach
+                        @foreach($selectedStudents as $student)
+                        <li id="{{ $student->id }}" class="p-1 cursor-pointer mb-2 hover:text-white rounded w-fit hover:bg-slate-400 studentssel bg-teal-500 text-white selected-student">
                             {{ $student->user_name." - ".$student->registration_number }}
                         </li>
-                    @endforeach
-                </ul>
+                        @endforeach
+                    </div>
+                    </ul>
                 @error('student')
                     <p class="text-red-500">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-4">
-                <label for="selected_students" class="block text-sm font-medium text-gray-700">Estudiantes Seleccionados</label>
-                <ul class=" bg-white" id="selectedStudentsList"></ul>
+                <label for="selected_students" class="block text-sm font-medium text-gray-700  p-2">Estudiantes Seleccionados</label>
+                <ul class="   flex flex-col gap-1  " id="selectedStudentsList"></ul>
             </div>
 
             <input type="hidden" name="selected_students" id="selectedStudents" >
@@ -151,14 +195,19 @@
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
-            
-            <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md button-books">Actualizar Libro</button>
+</div>
+
+        </div>
+            <div class=" flex justify-end items-end">
+
+                <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md button-books">Actualizar Libro</button>
+            </div>
             
 
+            <a href="{{ route('libros.index') }}" class="absolute bottom-0 left-0">
+                <button type="button" class=" bg-teal-500 text-white px-4 py-2 rounded-md font-bold">Volver a la lista de libros</button>
+            </a>
         </form>
-        <a href="{{ route('libros.index') }}" class="block">
-            <button class="button-books create-book-position bg-teal-500">Volver a la lista de libros</button>
-        </a>
     </div>
     <script defer>
 
@@ -179,6 +228,7 @@
                                studentForBackend.value = JSON.stringify(selectedStudents);
                        // Al agregar un estudiante a la lista de seleccionados
 const liAdd = document.createElement('li');
+liAdd.classList.add('mb-2','bg-white','w-fit','p-1','rounded');
 liAdd.innerHTML = `${element.textContent} <span class="remove-student" style="cursor:pointer;color:red;">X</span>`;
 liAdd.setAttribute('data-student-id', element.id); // Asegúrate de asignar un identificador al elemento LI
 console.log(liAdd);
@@ -212,6 +262,7 @@ element.classList.add('selected-student', 'bg-teal-500', 'text-white');
                        studentForBackend.value = JSON.stringify(selectedStudents);
                        // Al agregar un estudiante a la lista de seleccionados
 const liAdd = document.createElement('li');
+liAdd.classList.add('mb-2','bg-white','w-fit','p-1','rounded');
 liAdd.innerHTML = `${element.textContent} <span class="remove-student" style="cursor:pointer;color:red;">X</span>`;
 liAdd.setAttribute('data-student-id', element.id); // Asegúrate de asignar un identificador al elemento LI
 selectedStudentsList.appendChild(liAdd);
