@@ -14,6 +14,7 @@
             <img class="w-96" src="Icons/graduacion.png" />
         </div>
     @else
+    <h3 class="text-3xl font-bold mt-4 mb-2 text-center text-black">LISTA DE ANTEPROYECTOS</h3>
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4">
             @foreach ($Projects as $project)
                 @php
