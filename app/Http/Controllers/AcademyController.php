@@ -155,10 +155,25 @@ class AcademyController extends Controller
 
     public function asignarView()
     {
-        $academicDirector = AcademicAdvisor::where('user_id', auth()->user()->id)->first();
+        $user_id = auth()->user()->id;
+        $academicDirector = AcademicAdvisor::where('user_id', $user_id)->first();
         $divisionId = $academicDirector->division_id;
+        $programs = Program::where('division_id', $divisionId)->get();
+        $studentData = collect();
+        foreach ($programs as $program) {
+            $groups = $program->groups;
+            foreach ($groups as $group) {
+                $studentsInGroup = $group->students()->with('user')->get();
+                foreach ($studentsInGroup as $student) {
+                    $studentData->push([
+                        'name' => $student->user->name,
+                        'registration_number' => $student->registration_number
+                    ]);
+                }
+            }
+        }
         $advisors = AcademicAdvisor::where('division_id', $divisionId)->get();
-        return view('academy.AdvisorStudent', compact('advisors'));
+        return view('academy.AdvisorStudent', compact('studentData', 'advisors'));
     }
 
     public function asignar(Request $request)

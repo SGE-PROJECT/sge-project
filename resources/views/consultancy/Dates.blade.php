@@ -104,7 +104,7 @@
         </script>
         <header class="asesorias-opciones block md:flex">
             <span class="fechas-asesorias">
-                <select id="month" class="select-books-sd bg-teal-500 select-asesorias">
+                <select id="month" class="select-books-sd bg-[#00ab84]  select-asesorias">
                     <option value="0">Enero</option>
                     <option value="1">Febrero</option>
                     <option value="2">Marzo</option>
@@ -119,20 +119,20 @@
                     <option value="11">Diciembre</option>
                 </select>
 
-                <select id="year" class="select-books-sd bg-teal-500  select-asesorias">
+                <select id="year" class="select-books-sd bg-[#00ab84]   select-asesorias">
                     <!-- Los años se generarán dinámicamente -->
                 </select>
             </span>
             <span class="hora-asesorias ocultar">
                 <button
-                    class="top-0 md:top-[0px] bg-teal-500 rounded px-2 text-[#fff] font-bold text-[20px] md:text-[25px] hover:bg-teal-600 transition-colors flex items-center"
+                    class="top-0 md:top-[0px] bg-[#00ab84]  rounded px-2 text-[#fff] font-bold text-[20px] md:text-[25px]  transition-colors flex items-center"
                     id="volverButton"><i class="nf nf-cod-arrow_left text-[20px]"></i></button>
                 <h3 class="w-full select-mes text-center text-[30px]" id="hora"></h3>
             </span>
 
             <div class="BtnCrearDivisions botonVereventos" id="contbtnCitas">
                 <a href="{{ route('asesoriasTodas', ['id' => auth()->user()->slug]) }}"
-                    class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors flex items-center"
+                    class="Btn_divisions bg-[#00ab84]  text-white px-2 py-1 rounded transition-colors flex items-center"
                     id="">
                     <span class="Btntext_divisions">Citas</span>
                     <span class="svgIcon_divisions">
@@ -163,7 +163,7 @@
                     <span id="editContador">0/250</span>
                 </div>
                 <p id="error2">Error</p>
-                <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="button"
+                <button class="bg-[#00ab84]  text-white px-2 py-1 rounded  transition-colors" type="button"
                     id="guardarEventoButton">Guardar Cambios</button>
             </form>
         </div>
@@ -177,7 +177,7 @@
                 @csrf
                 @method('DELETE')
                 <h2 class="pb-[20px]">¿Esta seguro?</h2>
-                <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="button"
+                <button class="bg-[#00ab84]  text-white px-2 py-1 rounded transition-colors" type="button"
                     id="borrarEventoBoton">Borrar cita</button>
             </form>
         </div>
@@ -291,7 +291,7 @@
             </span>
             <p id="error">Error</p>
             <button type="button" id="agregarEventoButton"
-                class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors">Crear cita</button>
+                class="bg-[#00ab84]  text-white px-2 py-1 rounded  transition-colors">Crear cita</button>
         </form>
         <div id="eventosContainer" class="w-full lg:w-[20%] ">
             <h2>Citas próximas</h2>
