@@ -35,7 +35,7 @@
 </style>
     <div class="container-bk">
         <h1 class="title-books">- Libros -</h1>
-        <div class="flex justify-between py-2 responsive-books">
+        <div class="flex justify-between responsive-books">
                 <div class="search-scale search-book">
                     <form action="{{ route('libros.index') }}" method="GET">
                         <input type="hidden" name="estado" value="{{ $estado }}">
@@ -84,9 +84,10 @@
                     </select>
                 </form>
             </div>
-        </div>
 
-        <br>
+            <br>
+
+        </div>
 
         <div class="flex flex-wrap mx-10 gap-10 ctn-bk space-book">
             <div class=" w-full">
