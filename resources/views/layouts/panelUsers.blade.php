@@ -366,7 +366,14 @@
 
                     <li class="dropdown  hidden md:block">
                         <button type="button"
-                            class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600">
+                            class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600 relative">
+                            @if ((auth()->user()->notifications()->whereDate('created_at', today())->whereNull('read_at')->get())->count()>0)
+                            <div
+                            class="top-0 left-5 absolute w-3 h-3 bg-teal-400 border-2 border-slate-400 rounded-full animate-ping">
+                        </div>
+                        <div class="top-0 left-5 absolute w-3 h-3 bg-teal-500 border-2 border-white rounded-full">
+                        </div>
+                            @endif
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 class="hover:bg-gray-100 rounded-full" viewBox="0 0 24 24"
                                 style="fill: gray;transform: ;msFilter:;">
@@ -387,7 +394,7 @@
                             <div class="my-2">
                                 <ul class="max-h-64 overflow-y-auto" data-tab-for="notification"
                                     data-page="notifications">
-                                    @forelse (auth()->user()->notifications()->whereDate('created_at', today())->get() as $notification)
+                                    @forelse (auth()->user()->notifications()->whereDate('created_at', today())->whereNull('read_at')->get() as $notification)
                                         <li>
                                             <a href="/notificaciones"
                                                 class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
@@ -530,11 +537,11 @@
                                             alt="Ícono de usuario predeterminado">
                                     @endif
                                     <div
-                                        class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping">
-                                    </div>
-                                    <div
-                                        class="top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full">
-                                    </div>
+                                    class="connection-status-dot top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full animate-ping">
+                                </div>
+                                <div
+                                    class="connection-status-dot top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full">
+                                </div>
                                 </div>
                             </div>
                             <div class="p-2 hidden md:block text-left">
@@ -591,6 +598,32 @@
     @yield('scripts')
     <link href="{{ asset('css/projectstyle.css') }}" rel="stylesheet">
     @livewireScripts
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+          function updateConnectionStatus() {
+            const connectionStatusDots = document.querySelectorAll('.connection-status-dot');
+            if (navigator.onLine) {
+              connectionStatusDots.forEach(function(dot) {
+                dot.classList.remove('bg-red-500');
+                dot.classList.add('bg-lime-500');
+              });
+            } else {
+              connectionStatusDots.forEach(function(dot) {
+                dot.classList.remove('bg-lime-500');
+                dot.classList.add('bg-red-500');
+              });
+            }
+
+            console.log('The connection status has changed:', navigator.onLine ? 'Online' : 'Offline');
+          }
+      
+          window.addEventListener('online', updateConnectionStatus);
+          window.addEventListener('offline', updateConnectionStatus);
+      
+          // Ejecutar inmediatamente al cargar
+          updateConnectionStatus();
+        });
+      </script>
 </body>
 
 </html>

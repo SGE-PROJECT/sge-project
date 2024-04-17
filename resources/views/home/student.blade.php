@@ -203,7 +203,7 @@
                         </div>
                         <div class="p-4 sanciones"> 
 
-
+                            @forelse ($importantNotifications as $notification )
                             <div id="toast-default"
                                 class="flex bg-blue-50 items-center w-full  p-4 text-gray-500  rounded-lg shadow mb-2"
                                 role="alert">
@@ -212,11 +212,12 @@
                                     <i class='bx bxs-megaphone'></i>
                                     <span class="sr-only">Fire icon</span>
                                 </div>
-                                <div class="ms-3 text-sm font-normal">Fecha de finalización de las estadías será el 10 de
-                                    septiembre. Favor de enviar la documentación correcta.</div>
+                                <div class="ms-3 text-sm font-normal">{{$notification->data['data']}}</div>
 
                             </div>
-
+                                
+                            @empty
+                                
                             <div id="toast-default"
                                 class="flex items-center w-full  p-4 text-gray-500 bg-white rounded-lg shadow mb-2"
                                 role="alert">
@@ -225,24 +226,10 @@
                                     <i class='bx bxs-megaphone'></i>
                                     <span class="sr-only">Fire icon</span>
                                 </div>
-                                <div class="ms-3 text-sm font-normal">Fecha de finalización de las estadías será el 10 de
-                                    septiembre. Favor de enviar la documentación correcta.</div>
+                                <div class="ms-3 text-sm font-normal">¡Por el momento no tienes notificaciones importantes! <strong>Bandeja Vacía</strong></div>
 
                             </div>
-
-                            <div id="toast-default"
-                                class="flex items-center w-full mb-2 p-4 text-gray-500 bg-white rounded-lg shadow "
-                                role="alert">
-                                <div
-                                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-200 rounded-lg ">
-                                    <i class='bx bxs-megaphone'></i>
-                                    <span class="sr-only">Icon</span>
-                                </div>
-                                <div class="ms-3 text-sm font-normal">Fecha de finalización de las estadías será el 10 de
-                                    septiembre. Favor de enviar la documentación correcta.</div>
-                            </div>
-
-
+                            @endforelse
                         </div>
                     </div>
 
