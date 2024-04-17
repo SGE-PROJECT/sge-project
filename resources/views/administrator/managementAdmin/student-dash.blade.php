@@ -35,67 +35,9 @@
     <div class="flex items-end align-middle">
         <!-- BOTÓN QUE DIRIGE AL CRUD -->
         <button type="submit"
-            class="relative bg-teal-500 text-white px-4 py-2 ml-8 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
+            class="relative bg-teal-500 text-white px-4 py-2 ml-5 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
             onclick="window.location.href = '{{ route('student-dash') }}'">Ir a Agregar</button>
 
-        <!-- SE AGREGA EL FILTRO -->
-        {{-- <div x-data="{ isActive: false }" class="relative">
-            <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
-                <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
-                    Filtrar
-                </a>
-                <button x-on:click="isActive = !isActive"
-                    class="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700">
-                    <span class="sr-only">Menu</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg" role="menu"
-                x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
-                x-on:keydown.escape.window="isActive = false">
-                <div class="p-2" id="">
-                    <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Estado </strong>
-                    <label for="Option1" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="enDesarrollo"
-                                value="En desarrollo" />
-                        </div>
-                        <div>
-                            <strong class="font-medium text-gray-900">En desarrollo</strong>
-                        </div>
-                    </label>
-                    <label for="Option2" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="completado"
-                                value="Completado" />
-                        </div>
-
-                        <div>
-                            <strong class="font-medium text-gray-900">Completado</strong>
-                        </div>
-                    </label>
-                    <label for="Option3" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="reprobado"
-                                value="Reprobado" />
-                        </div>
-
-                        <div>
-                            <strong class="font-medium text-gray-900">Reprobado</strong>
-                        </div>
-                    </label>
-                    <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Carrera </strong>
-                </div>
-            </div>
-        </div> --}}
 
         <!-- SE AÑADE EL BÚSCADOR -->
         <div class="relative ml-5 w-55 z-10 flex items-center">
@@ -114,7 +56,7 @@
             </span>
         </div>
         <!-- BOTÓN QUE NOS SIRVE PARA EXPORTAR LOS ARCHIVOS -->
-        <div x-data="{ isActive: false }" class="relative ml-auto mr-8">
+        <div x-data="{ isActive: false }" class="relative ml-auto mr-6">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
                 <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                     Exportar
@@ -160,29 +102,28 @@
         </div>
     </div>
     <!-- CONTENEDOR DE LA TABLA -->
-    <div id="tabla-container" class="tabla-project rounded-t-lg">
-        <div class="tabla-cont-project ml-5 rounded-t-lg">
-            <table id="tabla-proyectos"
-                class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
-                <thead>
-                    <tr>
-                        <th class="uppercase">Matricula</th>
-                        <th class="uppercase">Nombre</th>
-                        <th class="uppercase">Email</th>
-                        <th class="uppercase">Grupo</th>
-                        <th class="uppercase">Asesor Académico</th>
-                        <th class="uppercase">Carrera</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($students as $student)
+    <div id="tabla-container" class=" ">
+        <div class="mt-5 mr-3 mb-5 overflow-x-auto ">
+            <table
+                class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table">
                         <tr>
-                            <td class="px-6 py-4">{{ $student->student_matricula }}</td>
-                            <td class="px-6 py-4">{{ $student->student_name }}</td>
-                            <td class="px-6 py-4">{{ $student->student_email }}</td>
-                            <td class="px-6 py-4">{{ $student->group_name }}</td>
-                            <td class="px-6 py-4">{{ $student->advisor_name }}</td>
-                            <td class="px-6 py-4">{{ $student->program_name }}</td>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Matricula</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Nombre</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Email</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Grupo</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Asesor Académico</th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Carrera</th>
+                        </tr>
+                    <tbody>
+                        @foreach ($students as $student)
+
+                                <tr>
+                                    <td class="py-4 text-sm text-black">{{ $student->student_matricula }}</td>
+                                    <td class="py-4 text-sm text-black">{{ $student->student_name }}</td>
+                                    <td class="py-4 text-sm text-black">{{ $student->student_email }}</td>
+                                    <td class="py-4 text-sm text-black">{{ $student->group_name }}</td>
+                                    <td class="py-4 text-sm text-black">{{ $student->advisor_name }}</td>
+                                    <td class="py-4 text-sm text-black">{{ $student->program_name }}</td>
 
                         </tr>
                     @endforeach

@@ -130,12 +130,13 @@ Crear Usuario
         </div>
 
         <div class="flex flex-col sm:flex-row items-center justify-between">
-            <button type="submit" class="modal-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Crear Usuario
-            </button>
             <a href="{{ route('users.cruduser.index') }}" class="modal-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Volver
             </a>
+            <button type="submit" class="modal-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Crear Usuario
+            </button>
+            
         </div>
     </form>
 </div>
