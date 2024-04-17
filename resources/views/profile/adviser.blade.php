@@ -1,4 +1,4 @@
-@extends('layouts.panelUsers')
+@extends(Auth::check() && Auth::user()->hasRole('Super Administrador') ? 'layouts.panel' : 'layouts.panelUsers')
 
 @section('titulo', 'Perfil de asesor')
 
@@ -91,7 +91,7 @@
 
 
             <div class="border-t border-blueGray-200 m-8 pt-8">
-               
+
 
                 <!-- Modal para ver foto-->
                 <div id="myModal" class="modal absolute bottom-0 left-0 right-0 top-0 bg-black bg-opacity-50 hidden ">

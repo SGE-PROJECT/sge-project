@@ -263,7 +263,7 @@
                                 $colorFondo = 'bg-lime-200';
                                 $colorIcono = 'text-lime-500 nf-fa-check_circle';
                                 $color2 = 'bg-lime-100 ';
-                                $colorLetra2 = 'text-[#444]';
+                                $colorLetra2 = 'text-[#pb444]';
                                 $colorFondo2 = 'bg-lime-200';
                                 $colorIcono2 = 'text-lime-500 nf-fa-check_circle';
                                 $academic = $student->sanction_advisor;

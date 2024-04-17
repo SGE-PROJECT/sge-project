@@ -114,14 +114,22 @@
             <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
                 <!-- ADMIN Section -->
                 <li class="mb-1 group">
-                    @role(['Super Administrador', 'Administrador de División'])
-                        <!-- Directiva de Blade proporcionada por Spatie Permission -->
-                        <a href="{{ route('Dashboard-Anteproyectos') }}"
-                            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
-                            <i class='bx bxs-dashboard mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Dashboard</span>
-                        </a>
-                    @endrole
+                    @if (Auth::check())
+                        @if (Auth::user()->hasRole('Super Administrador'))
+                            <a href="{{ route('Dashboard-Anteproyectos') }}"
+                                class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
+                                <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                                <span class="nav-text text-sm">Dashboard</span>
+                            </a>
+                        @elseif (Auth::user()->hasRole('Administrador de División'))
+                            <a href="{{ route('Division-Anteproyectos') }}"
+                                class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
+                                <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                                <span class="nav-text text-sm">Dashboard</span>
+                            </a>
+                        @endif
+                    @endif
+
                 </li>
 
 
@@ -211,11 +219,12 @@
                         @endif
                         @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección']))
                         @else
-                        <li class="">
-                            <a href="{{ route('academias.index') }}"
-                                class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                    class=' bx bxs-school mr-3 text-lg'></i><span class="text-sm">Academia</span></a>
-                        </li>
+                            <li class="">
+                                <a href="{{ route('academias.index') }}"
+                                    class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class=' bx bxs-school mr-3 text-lg'></i><span
+                                        class="text-sm">Academia</span></a>
+                            </li>
                             <li class="">
 
                                 <a href="{{ route('carreras.index') }}"
@@ -229,7 +238,6 @@
                                     class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                         class=' bx bx-group mr-3 text-lg'></i><span class="text-sm">Grupos</span></a>
                             </li>
-
                         @endif
                     </ul>
                 </li>
@@ -301,12 +309,13 @@
                         <button type="button"
                             class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600 relative">
 
-                            @if ((auth()->user()->notifications()->whereDate('created_at', today())->get())->count()>0)
-                            <div
-                            class="top-0 left-5 absolute w-3 h-3 bg-teal-400 border-2 border-slate-400 rounded-full animate-ping">
-                        </div>
-                        <div class="top-0 left-5 absolute w-3 h-3 bg-teal-500 border-2 border-white rounded-full">
-                        </div>
+                            @if (auth()->user()->notifications()->whereDate('created_at', today())->get()->count() > 0)
+                                <div
+                                    class="top-0 left-5 absolute w-3 h-3 bg-teal-400 border-2 border-slate-400 rounded-full animate-ping">
+                                </div>
+                                <div
+                                    class="top-0 left-5 absolute w-3 h-3 bg-teal-500 border-2 border-white rounded-full">
+                                </div>
                             @endif
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
