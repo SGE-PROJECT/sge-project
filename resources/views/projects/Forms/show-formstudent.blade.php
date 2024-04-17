@@ -37,7 +37,7 @@
                 class="flex items-center font-sans hover:text-teal-500 text-xl antialiased font-semibold leading-normal transition-colors duration-300 cursor-pointer">
                 <a href="/vistanteproyectos">⭠ Regresar</a>
             </li>
-            
+
             <form method="POST" action="{{ route('project.like', ['user' => $user->id, 'project' => $project->id]) }}">
                 @csrf
                 <button type="submit" class="relative flex items-center">
@@ -66,158 +66,158 @@
                 <h1 class="text-xl font-bold sm:text-2xl text-white text-center">DATOS GENERALES</h1>
             </div>
             <div class="px-8 py-6">
-                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        <div class="mb-4">
-                            <label class=" font-semibold">Nombre Completo:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span class="mt-6">{{ $project->fullname_student }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('fullname_student')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div class="mb-4">
+                        <label class=" font-semibold">Nombre Completo:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span class="mt-6">{{ $project->fullname_student }}</span>
                         </div>
-                        <div class="mb-4">
-                            <label class=" font-semibold">Matrícula:</label>
-                            <div class="w-full rounded-lg  bg-white">
-                                <span>{{ $project->id_student }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('id_student')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('fullname_student')
+                                {{ $message }}
+                            @enderror
                         </div>
-
                     </div>
-
-                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        <div class="mb-4">
-                            <label class=" font-semibold">Grupo:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span>{{ $project->group_student }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('group_student')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                    <div class="mb-4">
+                        <label class=" font-semibold">Matrícula:</label>
+                        <div class="w-full rounded-lg  bg-white">
+                            <span>{{ $project->id_student }}</span>
                         </div>
-
-                        <div class="mb-4">
-                            <label class=" font-semibold" for="phone">Número Teléfonico:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span>{{ $project->phone_student }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('phone_student')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('id_student')
+                                {{ $message }}
+                            @enderror
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        <div class="mb-4">
-                            <label class=" font-semibold" for="email">Correo Electrónico:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span>{{ $project->email_student }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('email_student')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div class="mb-4">
+                        <label class=" font-semibold">Grupo:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span>{{ $project->group_student }}</span>
                         </div>
-                        <div class="mb-4">
-                            <label class="font-semibold">Nombre del Proyecto:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span>{{ $project->name_project }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('name_project')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('group_student')
+                                {{ $message }}
+                            @enderror
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        <div class="mb-4">
-                            <label class=" font-semibold">Empresa:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span>{{ $project->company_name }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('company_name')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                    <div class="mb-4">
+                        <label class=" font-semibold" for="phone">Número Teléfonico:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span>{{ $project->phone_student }}</span>
                         </div>
-                        <div class="mb-4">
-                            <label class=" font-semibold">Dirección de la Empresa:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span>{{ $project->company_address }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('company_address')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        <div class="mb-4">
-                            <label class=" font-semibold">Nombre del Asesor Empresarial:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span>{{ $project->BusinessAdvisor->name }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('advisor_business_name')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <label class=" font-semibold">Cargo del Asesor:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span>{{ $project->BusinessAdvisor->position }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('advisor_business_position')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('phone_student')
+                                {{ $message }}
+                            @enderror
                         </div>
                     </div>
+                </div>
 
-                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        <div class="mb-4">
-                            <label class=" font-semibold">Número Teléfonico del Asesor:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span>{{ $project->BusinessAdvisor->phone }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('advisor_business_phone')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div class="mb-4">
+                        <label class=" font-semibold" for="email">Correo Electrónico:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span>{{ $project->email_student }}</span>
                         </div>
-                        <div class="mb-4">
-                            <label class=" font-semibold">Correo Electrónico:</label>
-                            <div class="w-full rounded-lg bg-white">
-                                <span>{{ $project->BusinessAdvisor->email }}</span>
-                            </div>
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('advisor_business_email')
-                                    {{ $message }}
-                                @enderror
-                            </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('email_student')
+                                {{ $message }}
+                            @enderror
                         </div>
                     </div>
+                    <div class="mb-4">
+                        <label class="font-semibold">Nombre del Proyecto:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span>{{ $project->name_project }}</span>
+                        </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('name_project')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div class="mb-4">
+                        <label class=" font-semibold">Empresa:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span>{{ $project->company_name }}</span>
+                        </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('company_name')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class=" font-semibold">Dirección de la Empresa:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span>{{ $project->company_address }}</span>
+                        </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('company_address')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div class="mb-4">
+                        <label class=" font-semibold">Nombre del Asesor Empresarial:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span>{{ $project->BusinessAdvisor->name }}</span>
+                        </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('advisor_business_name')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class=" font-semibold">Cargo del Asesor:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span>{{ $project->BusinessAdvisor->position }}</span>
+                        </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('advisor_business_position')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div class="mb-4">
+                        <label class=" font-semibold">Número Teléfonico del Asesor:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span>{{ $project->BusinessAdvisor->phone }}</span>
+                        </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('advisor_business_phone')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class=" font-semibold">Correo Electrónico:</label>
+                        <div class="w-full rounded-lg bg-white">
+                            <span>{{ $project->BusinessAdvisor->email }}</span>
+                        </div>
+                        <div class="text-red-400 font-bold text-lg">
+                            @error('advisor_business_email')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
@@ -306,25 +306,25 @@
             </div>
         </div>
         <label class="block text-2xl text-center font-bold mb-8 mt-5 text-teal-800">Estado del Proyecto</label>
-            <div class="rating mr-5 mt-4 ">
-                <form method="POST" action="{{ route('project.updateStatus', ['project' => $project->id]) }}">
-                    @csrf
-                    @method('PUT')
-                    <div class="flex items-center">
-                        <select name="status" class="border rounded-md py-1 px-2">
-                            <option value="Registrado" {{ $project->status === 'Registrado' ? 'selected' : '' }}>
-                                Registrado</option>
-                            <option value="En revisión" {{ $project->status === 'En revisión' ? 'selected' : '' }}>En
-                                revisión</option>
-                            <option value="Rechazado" {{ $project->status === 'Rechazado' ? 'selected' : '' }}>Rechazado
-                            </option>
-                        </select>
-                        <button type="submit"
-                            class="relative bg-teal-500 text-white ml-2 px-4 py-2 rounded hover:bg-teal-600 transition-colors">Guardar
-                            Estado</button>
-                    </div>
-                </form>
-            </div>
+        <div class="rating mr-5 mt-4 ">
+            <form method="POST" action="{{ route('project.updateStatus', ['project' => $project->id]) }}">
+                @csrf
+                @method('PUT')
+                <div class="flex items-center">
+                    <select name="status" class="border rounded-md py-1 px-2">
+                        <option value="Registrado" {{ $project->status === 'Registrado' ? 'selected' : '' }}>
+                            Registrado</option>
+                        <option value="En revisión" {{ $project->status === 'En revisión' ? 'selected' : '' }}>En
+                            revisión</option>
+                        <option value="Rechazado" {{ $project->status === 'Rechazado' ? 'selected' : '' }}>Rechazado
+                        </option>
+                    </select>
+                    <button type="submit"
+                        class="relative bg-teal-500 text-white ml-2 px-4 py-2 rounded hover:bg-teal-600 transition-colors">Guardar
+                        Estado</button>
+                </div>
+            </form>
+        </div>
         <div class="tooltip">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Personas que han dado like
@@ -385,7 +385,8 @@
             <form method="POST"
                 action="{{ route('comentario.store', ['user' => $user->id, 'project' => $project->id]) }}">
                 @csrf
-                <label for="content_message" class="block text-lg font-bold mb-1 text-teal-800">Añade un comentario:</label>
+                <label for="content_message" class="block text-lg font-bold mb-1 text-teal-800">Añade un
+                    comentario:</label>
                 <div class="mt-1 flex">
                     <img src="{{ asset(auth()->user()->photo) }}" alt="Imagen" class="h-8 w-8 mr-1 rounded-full">
                     <textarea id="content_message" name="content_message"
@@ -457,7 +458,7 @@
                     </div>
                 </form>
             </div>
-            
+
         </div>
 
         <script>

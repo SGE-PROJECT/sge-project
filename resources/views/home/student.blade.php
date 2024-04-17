@@ -70,7 +70,7 @@
                                                     $bgColor = 'bg-blue';
                                                     $textColor = 'text-blue';
                                                     break;
-                                                case 'En Revisión':
+                                                case 'En revisión':
                                                     $bgColor = 'bg-yellow';
                                                     $textColor = 'text-yellow';
                                                     break;
