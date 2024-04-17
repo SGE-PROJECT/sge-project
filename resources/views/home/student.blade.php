@@ -54,7 +54,7 @@
                                 <div class="w-full max-w-sm bg-white">
 
                                     <div class="flex flex-col items-center pb-10">
-                                        <i class='bx bxs-briefcase mb-3 text-[30px] text-[#00ab84]'></i>
+                                        <i class='nf nf-md-book_education mb-3 text-[30px] text-[#00ab84]'></i>
 
                                         <h5 class="mb-1 text-xl font-semibold text-[#00ab84]">
 
@@ -113,7 +113,7 @@
                                             <div class="w-full md:w-1/2 lg:w-auto">
                                                 <span
                                                     class="mr-2 inline-flex items-center bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                                                    <span class="me-1 text-orange-900"> <i class='bx bxs-comment'></i>
+                                                    <span class="me-1 text-orange-900"> <i class='nf nf-fa-comment'></i>
                                                         Comentarios: {{ $Project->comments()->count() }}
                                                     </span>
                                                 </span>
@@ -121,7 +121,7 @@
                                             <div class="w-full md:w-1/2 lg:w-auto">
                                                 <span
                                                     class="inline-flex items-center bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                                                    <span class="me-1 text-yellow-900"> <i class='bx bxs-like'></i>
+                                                    <span class="me-1 text-yellow-900"> <i class='nf nf-md-thumb_up'></i>
                                                         Me gusta: {{ $Project->likes->count() }}
                                                     </span>
                                                 </span>
@@ -147,7 +147,7 @@
                             @else
                                 <div class="flex flex-col items-center mt-16">
 
-                                    <i class="text-[100px] bx bx-sad text-[#00ab84]"></i>
+                                    <i class="text-[100px] nf nf-md-emoticon_sad_outline text-[#00ab84]"></i>
 
                                     <div class="flex mt-4 md:mt-6">
 

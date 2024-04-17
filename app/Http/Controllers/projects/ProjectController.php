@@ -95,8 +95,10 @@ class ProjectController extends Controller
     // Vista para contenido de antreproyectos relacionado a las vistas de Listado de Anteproyecto
     public function viewanteproject()
     {
-        $Projects = Project::where('is_project', false)->where('is_public', true)->paginate(3);
+        $Projects = Project::where('is_project', false)->where('is_public', true)->paginate(9);
         $Projects->load('students');
+
+        
 
         // Pasar una variable indicando si hay anteproyectos
         $noProjects = $Projects->isEmpty();
