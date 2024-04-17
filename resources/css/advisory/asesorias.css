@@ -8,7 +8,7 @@
     src: url('../fonts/Roboto.ttf') format('ttf');
 }
 @font-face {
-    font-family: 'lato';
+    font-family: 'lato'; 
     src: url('../fonts/Lato.ttf') format('ttf');
 }
 

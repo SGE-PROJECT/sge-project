@@ -68,12 +68,14 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="flex flex-col justify-center ">
                     <div class="grid grid-cols-1 gap-4 h-full w-full  justify-items-center">
                         <img src="{{$book->image_book}}" alt="" class=" min-h-[450px] min-w-[320px]">
                     </div>
                    
                 </div>
+                
                 <div class="mt-8 text-center">
                     <a href="{{ route('libros.index') }}" class="block">
                         <button class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">
