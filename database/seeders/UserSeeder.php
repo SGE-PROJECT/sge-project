@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Str;
 
@@ -245,7 +246,7 @@ class UserSeeder extends Seeder
             'created_at' => now()
         ]);
 
-        
+
         $AdviserUser7 = User::create([
             'name' => 'Lobato Roano',
             'email' => 'lobatoroano@gmail.com',
@@ -523,9 +524,11 @@ class UserSeeder extends Seeder
         $SecretaryUser8->assignRole($SecretaryRole);
         $SecretaryUser9->assignRole($SecretaryRole);
 
-
-
-
+        $userId = 21;
+        $user = User::findOrFail($userId);
+        $permissionName = 'Academic Director';
+        $permission = Permission::findByName($permissionName);
+        $user->givePermissionTo($permission);
 
 
     }

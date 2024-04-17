@@ -213,7 +213,11 @@ class AdvisorySessionController extends Controller
             'message' => 'required|max:255'
         ]);
         Notification::send($user->student->academicAdvisor->user,new SanctionNotification($user->student->academicAdvisor->user,$user->name, $request));
-        Mail::to($user->student->academicAdvisor->user->email)->send(new SanctionMail($user->student->academicAdvisor->user,$user->name, $request));
+        try {
+            Mail::to($user->student->academicAdvisor->user->email)->send(new SanctionMail($user->student->academicAdvisor->user,$user->name, $request));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         return back()->with('success', 'Se ha solicitado al asesor exitosamente.');
     }
 
@@ -241,7 +245,11 @@ class AdvisorySessionController extends Controller
             Notification::send($user,new AdvisorySesionNotification($user, $date));
         }
         foreach ($users as $user) {
-            Mail::to($user->email)->send(new AdvisorySesionMail($user, $date));
+            try {
+                Mail::to($user->email)->send(new AdvisorySesionMail($user, $date));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
 
         return back()->with('success', 'La sesión de asesoría ha sido creada exitosamente.');

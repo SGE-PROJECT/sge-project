@@ -107,6 +107,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/project/{project}/like', [ProjectLikeController::class, 'store'])->name('project.like');
         Route::post('/project/{projectId}/rate', [ProjectController::class, 'rateProject'])->name('rateProject');
         Route::put('/projects/{project}/update-status', [ProjectController::class, 'updateStatus'])->name('project.updateStatus');
+        //Academia
+        Route::get('/asignar-asesorados', [AcademyController::class, 'asignarView'])->middleware("can:Academic Director")->name('asignar-asesorados');
+        Route::post('/asignar-asesorados', [AcademyController::class, 'asignar'])->middleware("can:Academic Director")->name('asignar');
     });
     //Acciones que puede hacer un estudante
     Route::middleware(['auth', 'role:Estudiante'])->group(function () {

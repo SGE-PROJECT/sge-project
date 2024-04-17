@@ -45,6 +45,9 @@ class BooksController extends Controller
         $idUser =$user->id;
         $divId = Secretary::where('user_id', $idUser)->select('division_id')->get();
         $divisionId=$divId[0]->division_id;
+   
+
+        
 
 
         $booksOfStudents = Student::join('groups', 'students.group_id', '=', 'groups.id')
@@ -56,6 +59,10 @@ class BooksController extends Controller
         ->whereNotNull('students.book_id')
         ->select('books.*')
         ->get();
+
+        
+        
+        
 
 
 
@@ -596,7 +603,13 @@ public function studentBook(){
     $student=Student::where('user_id',$idUser)->get();
     $idStudent= $student[0]->id;
     $studentProject=Project::where('projects.id_student',$idStudent)->select('is_project')->get();
-    $studentProject= $studentProject[0]->is_project;
+   
+ 
+    if($studentProject->count()<1){
+        $studentProject=0; 
+    }else{
+        $studentProject= $studentProject[0]->is_project;
+    }
     $bookComplete=null;
     $permiso=null;
     $bookCollaborative=null;

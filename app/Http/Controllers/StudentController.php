@@ -17,6 +17,7 @@ class StudentController extends Controller
     public function index()
     {
         $slug = Auth::user()->slug;
+        $slug = Auth::user()->slug;
         $user = User::where('slug', $slug)->firstOrFail();
         if (!$user->hasRole('Estudiante')) {
             abort(404);
