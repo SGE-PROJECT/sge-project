@@ -24,9 +24,14 @@
         <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full relative z-10">
 
             @if (session('error'))
-                <div class="bg-red-500 text-white text-center p-4 mb-4 rounded-md shadow-md">
+                <div id="error-msg" class="bg-red-500 text-white text-center p-4 mb-4 rounded-md shadow-md">
                     {{ session('error') }}
                 </div>
+                <script>
+                    setTimeout(function() {
+                        document.getElementById('error-msg').style.display = 'none';
+                    }, 2000);
+                </script>
             @endif
 
             @if (session('success'))
