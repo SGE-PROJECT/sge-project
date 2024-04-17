@@ -40,7 +40,7 @@
                 </div>
             @endif
             <div class="text-center">
-                <img src="{{ asset('images/logo_sge_login.svg') }}" class="w-60 h-24 mx-auto ">
+                <img src="{{ asset('images/logo_sge_login.svg') }}" class="w-60 h-40 mx-auto ">
             </div>
 
             <form id="loginForm" method="POST" action="{{ route('login') }}" class="space-y-4">
