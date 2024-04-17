@@ -596,6 +596,7 @@ public function studentBook(){
     $student=Student::where('user_id',$idUser)->get();
     $idStudent= $student[0]->id;
     $studentProject=Project::where('projects.id_student',$idStudent)->select('is_project')->get();
+    return $studentProject;
     $studentProject= $studentProject[0]->is_project;
     $bookComplete=null;
     $permiso=null;
