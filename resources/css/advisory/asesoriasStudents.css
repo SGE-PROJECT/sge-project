@@ -695,6 +695,15 @@ input[type=number]::-webkit-outer-spin-button {
 .graficas{
     max-height: 200px;
 }
+.close5 {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 30px;
+    width: -moz-fit-content;
+    width: fit-content;
+    cursor: pointer;
+}
 .sanciones{
     max-height: calc(380px - 2.25rem);
     overflow-y: scroll;

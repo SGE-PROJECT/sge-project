@@ -96,11 +96,15 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
         // asesorados
         Route::get('/estudiante/{userId}', [StudentController::class, 'showProfile'])->name('profile.student');
+        Route::get('/actividades', [AdvisoryReportsController::class, 'activities'])->name('activities');
+        Route::post('/actividades', [AdvisoryReportsController::class, 'addActivitie'])->name('activitiesCreate');
+        Route::post('/actividadesEditar/{id}', [AdvisoryReportsController::class, 'editActivitie'])->name('activitiesEdit');
+        Route::post('/actividadesBorrar/{id}', [AdvisoryReportsController::class, 'deleteActivitie'])->name('activitiesDelete');
         Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
         Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
         Route::post('/asesorados/{id}/reporte/{alumno}/generar', [AdvisoryReportsController::class, 'store'])->name('generarReporte');
         Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
-        Route::get('/reporte/{correo}/exportar/{matricula}', [AdvisoryReportsController::class, 'exportToExcel'])->name('exportarReporte');
+        Route::get('/reporte/{correo}/exportar', [AdvisoryReportsController::class, 'exportToExcel'])->name('exportarReporte');
         //Proyectos
         Route::delete('/comentarios/{comment}', [ComentarioController::class, 'destroy'])->name('comentario.destroy');
         Route::post('/proyecto/{project}/comentario', [ComentarioController::class, 'store'])->name('comentario.store');

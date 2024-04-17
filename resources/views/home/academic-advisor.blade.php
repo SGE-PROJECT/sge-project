@@ -16,7 +16,7 @@
     @php
         use Carbon\Carbon;
     @endphp
-    <main class="vista_asesorias">
+    <main class="vista_asesorias overflow-hidden">
         <div class="container mx-auto px-4 mt-10">
             <div class="relative w-full ">
                 <p class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-600 font-bold text-3xl uppercase">
