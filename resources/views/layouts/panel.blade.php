@@ -217,7 +217,7 @@
 
                         </li>
                         @endif
-                        @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección']))
+                        @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Super Administrador']))
                         @else
                             <li class="">
                                 <a href="{{ route('academias.index') }}"
@@ -256,7 +256,7 @@
                     </li>
                 @endrole
 
-                @role(['Super Administrador', 'Asistente de Dirección'])
+                @role(['Asistente de Dirección'])
                     <!-- RECURSOS Section -->
                     <span class="text-gray-400 nav-text font-bold">RECURSOS</span>
                     <li class="mb-1 group">
@@ -560,15 +560,15 @@
 
             console.log('The connection status has changed:', navigator.onLine ? 'Online' : 'Offline');
           }
-      
+
           window.addEventListener('online', updateConnectionStatus);
           window.addEventListener('offline', updateConnectionStatus);
-      
+
           // Ejecutar inmediatamente al cargar
           updateConnectionStatus();
         });
       </script>
-      
+
 </body>
 
 </html>
