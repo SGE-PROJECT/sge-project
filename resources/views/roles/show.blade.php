@@ -1,4 +1,6 @@
-@extends(Auth::check() && Auth::user()->hasRole('Super Administrador') ? 'layouts.panel' : 'layouts.panelUsers')
+@extends((Auth::check() && (Auth::user()->hasRole('Super Administrador') || Auth::user()->hasRole('Administrador de División'))) ? 'layouts.panel' : 'layouts.panelUsers')
+
+
 
 @section('titulo', 'Detalles del Rol')
 

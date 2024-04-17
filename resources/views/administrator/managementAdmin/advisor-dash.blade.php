@@ -169,14 +169,14 @@
     </div>
     <!-- CONTENEDOR DE LA TABLA -->
     <div id="tabla-container" class="tabla-project rounded-t-lg">
-        <div class="tabla-cont-project rounded-t-lg">
-            <table id="tabla-proyectos" style="width:100%">
+        <div class="tabla-cont-project ml-5 rounded-t-lg">
+            <table id="tabla-proyectos" class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
                     <thead>
                         <tr>
-                            <th >Nomina</th>
-                            <th >Nombre</th>
-                            <th >Email</th>
-                            <th >Telefono</th>
+                            <th class="uppercase" >Nomina</th>
+                            <th class="uppercase">Nombre</th>
+                            <th class="uppercase">Email</th>
+                            <th class="uppercase">Telefono</th>
                         </tr>
                     </thead>
                     <tbody>

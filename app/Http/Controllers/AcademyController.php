@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\AcademicDirector;
+use App\Models\AcademicAdvisor;
 use App\Models\Academy;
+use App\Models\Student;
 use App\Models\management\Program;
 use App\Models\ManagmentAdmin;
 use Illuminate\Http\Request;
@@ -150,4 +152,45 @@ class AcademyController extends Controller
 
         return redirect()->route('academias.index')->with('success', 'Academia eliminada correctamente');
     }
+
+    public function asignarView()
+    {
+        $user_id = auth()->user()->id;
+        $academicDirector = AcademicAdvisor::where('user_id', $user_id)->first();
+        $divisionId = $academicDirector->division_id;
+        $programs = Program::where('division_id', $divisionId)->get();
+        $studentData = collect();
+        foreach ($programs as $program) {
+            $groups = $program->groups;
+            foreach ($groups as $group) {
+                $studentsInGroup = $group->students()->with('user')->get();
+                foreach ($studentsInGroup as $student) {
+                    $studentData->push([
+                        'name' => $student->user->name,
+                        'registration_number' => $student->registration_number
+                    ]);
+                }
+            }
+        }
+        $advisors = AcademicAdvisor::where('division_id', $divisionId)->get();
+        return view('academy.AdvisorStudent', compact('studentData', 'advisors'));
+    }
+
+    public function asignar(Request $request)
+    {
+        $request->validate([
+            'advisor' => 'required',
+            'students' => 'required|string',
+        ]);
+        $textoLimpio = str_replace(' ', '', $request->students);
+        $arrayDeNumeros = explode(',', $textoLimpio);
+        foreach ($arrayDeNumeros as $estudiante) {
+            $user = Student::where('registration_number', $estudiante)->firstOrFail();
+            $user->update([
+                'academic_advisor_id' => $request->advisor,
+            ]);
+        }
+        return redirect("/")->with('success', 'Asesorados asignados correctamente');
+    }
+
 }

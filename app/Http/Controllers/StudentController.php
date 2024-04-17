@@ -17,6 +17,7 @@ class StudentController extends Controller
     public function index()
     {
         $slug = Auth::user()->slug;
+        $slug = Auth::user()->slug;
         $user = User::where('slug', $slug)->firstOrFail();
         if (!$user->hasRole('Estudiante')) {
             abort(404);
@@ -25,6 +26,10 @@ class StudentController extends Controller
         if (!$student) {
             abort(404);
         }
+
+        $importantNotifications=$user->notifications;
+        $importantNotifications=$importantNotifications->where('type','App\Notifications\DivisionAdministratorNotification');
+        
 
         $academicAdvisor = $student->academicAdvisor;
 
@@ -81,7 +86,7 @@ class StudentController extends Controller
 
             $AcademicAdvisor = $student->academicAdvisor()->first();
 
-            return view('home.student', compact('existProject', 'sessions', 'sessionsThisWeek', 'Projects', 'Project', 'AcademicAdvisor', 'advisor', 'getAllMembersForProject'));
+            return view('home.student', compact('existProject', 'sessions', 'sessionsThisWeek', 'Projects', 'Project', 'AcademicAdvisor', 'advisor', 'getAllMembersForProject','importantNotifications'));
         }
     }
     public function showProfile($userId)

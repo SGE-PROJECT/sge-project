@@ -3,11 +3,11 @@
 @section('titulo', 'Carreras')
 
 @section('contenido')
-    <div class="flex flex-col mt-10 justify-center items-center">
-        <h1 class="text-2xl font-bold mb-2 uppercase">Carreras</h1>
+    <div class="flex flex-col mt-4 justify-center items-center">
+        <h1 class="text-2xl font-bold mb-4 uppercase">Carreras</h1>
 
-        <div class="-m-1.5 overflow-x-auto">
-            <div class="px-1.5 flex justify-start w-full">
+
+            <div class="px-5 flex w-full">
                 <a href="{{ route('carreras.create') }}"
                     class="mb-4 bg-[#03A696] text-white font-medium w-32 h-10 rounded-md flex justify-center items-center">Crear
                     carrera</a>
@@ -26,15 +26,14 @@
                     </span>
                 </div>
             </div>
+    </div>
 
             @php
                 $activas = $programs->where('isActive', true);
             @endphp
             @if ($activas->isNotEmpty())
-                <h2 class="text-2xl font-bold mt-8 ml-2 uppercase">Carreras Activas:</h2>
-                <div class="p-1.5 min-w-full inline-block align-middle">
-                    <div class="border rounded-lg overflow-hidden border-gray-300 bg-white">
-                        <table id="empresaTable" class="w-11/12 divide-y divide-gray-700">
+                <h2 class="text-lg font-bold text-gray-800 mt-8 mb-2 uppercase ml-5">Carreras Activas:</h2>
+                        <table id="empresaTable" class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
                             <thead class="bg-gray-700">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">
@@ -49,8 +48,8 @@
 
                                     <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">
                                         Acciones
-                                        <!-- Intentionally left empty for layout -->
                                     </th>
+
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-300">
@@ -76,7 +75,7 @@
                                             </td>
 
                                             <td
-                                                class="px-6 py-4 whitespace-nowrap text-end text-sm font-bold flex items-center">
+                                                class="px-6 py-4 text-center whitespace-nowrap text-sm font-bold flex items-center justify-center">
                                                 <a href="{{ route('carreras.edit', $program->id) }}"
                                                     class="bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
                                                     <i class='bx bx-edit-alt'></i>
@@ -110,9 +109,8 @@
             @endphp
 
             @if ($activas->isNotEmpty())
-                <h2 class="text-2xl font-bold mt-8 uppercase">Carreras Inactivas:</h2>
-                <div class="border rounded-lg overflow-hidden border-gray-300 bg-white">
-                    <table class="w-full divide-y divide-gray-700">
+                <h2 class="text-lg font-bold text-gray-800 mt-8 mb-2 uppercase ml-5">Carreras Inactivas:</h2>
+                    <table class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
                         <thead class="bg-gray-700">
                             <tr>
                                 <th scope="col" class="px-2 py-1 text-center text-xs font-bold text-white uppercase">

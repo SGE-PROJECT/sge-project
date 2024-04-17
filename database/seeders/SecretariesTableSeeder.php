@@ -31,7 +31,7 @@ class SecretariesTableSeeder extends Seeder
         $SecretaryUser2 = Secretary::create([
             'user_id' => 33,
             'payrol' => '3333',
-            'division_id' => 3,
+            'division_id' => 1,
             'created_at' => now()
         ]);
 

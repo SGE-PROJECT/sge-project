@@ -45,6 +45,9 @@ class BooksController extends Controller
         $idUser =$user->id;
         $divId = Secretary::where('user_id', $idUser)->select('division_id')->get();
         $divisionId=$divId[0]->division_id;
+   
+
+        
 
 
         $booksOfStudents = Student::join('groups', 'students.group_id', '=', 'groups.id')
@@ -56,6 +59,10 @@ class BooksController extends Controller
         ->whereNotNull('students.book_id')
         ->select('books.*')
         ->get();
+
+        
+        
+        
 
 
 
@@ -259,8 +266,15 @@ if($book->exists) {
         /*    $book = Book::findOrFail($id); */
         $book = Book::where('slug', $slug)->firstOrFail();
 
+         // Obtener los IDs de los estudiantes relacionados con este libro
+    $studentIds = Student::where('book_id', $book->id)->pluck('user_id');
+
+    // Obtener los nombres de los usuarios basados en los IDs de los estudiantes
+    $students = User::whereIn('id', $studentIds)->pluck('name');
+    
+
         // Luego, pasamos el libro a la vista de detalle del libro junto con el índice
-        return view('books-notifications.books.book-detail', compact('book'));
+        return view('books-notifications.books.book-detail', compact('book','students'));
     }
 
 
@@ -596,8 +610,13 @@ public function studentBook(){
     $student=Student::where('user_id',$idUser)->get();
     $idStudent= $student[0]->id;
     $studentProject=Project::where('projects.id_student',$idStudent)->select('is_project')->get();
-    return $studentProject;
-    $studentProject= $studentProject[0]->is_project;
+   
+ 
+    if($studentProject->count()<1){
+        $studentProject=0; 
+    }else{
+        $studentProject= $studentProject[0]->is_project;
+    }
     $bookComplete=null;
     $permiso=null;
     $bookCollaborative=null;
