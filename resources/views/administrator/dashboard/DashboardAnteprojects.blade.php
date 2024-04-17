@@ -156,17 +156,17 @@
     </div>
     <div id="tabla-container" class="tabla-project rounded-t-lg">
         <div class="tabla-cont-project rounded-t-lg">
-            <table id="tabla-proyectos" style="width:100%">
+            <table id="tabla-proyectos" class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table">
                 <thead>
                     <tr>
-                        <th>Proyecto</th>
-                        <th>Estudiante</th>
-                        <th>División</th>
-                        <th>Grupo</th>
-                        <th>Carrera</th>
-                        <th>Asesor Académico</th>
-                        <th>Empresa</th>
-                        <th>Estado</th>
+                        <th class="uppercase">Proyecto</th>
+                        <th class="uppercase">Estudiante</th>
+                        <th class="uppercase">División</th>
+                        <th class="uppercase">Grupo</th>
+                        <th class="uppercase">Carrera</th>
+                        <th class="uppercase">Asesor Académico</th>
+                        <th class="uppercase">Empresa</th>
+                        <th class="uppercase">Estado</th>
                     </tr>
                 </thead>
                 <tbody>

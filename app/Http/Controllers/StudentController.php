@@ -27,6 +27,10 @@ class StudentController extends Controller
             abort(404);
         }
 
+        $importantNotifications=$user->notifications;
+        $importantNotifications=$importantNotifications->where('type','App\Notifications\DivisionAdministratorNotification');
+        
+
         $academicAdvisor = $student->academicAdvisor;
 
         if (!$academicAdvisor) {
@@ -82,7 +86,7 @@ class StudentController extends Controller
 
             $AcademicAdvisor = $student->academicAdvisor()->first();
 
-            return view('home.student', compact('existProject', 'sessions', 'sessionsThisWeek', 'Projects', 'Project', 'AcademicAdvisor', 'advisor', 'getAllMembersForProject'));
+            return view('home.student', compact('existProject', 'sessions', 'sessionsThisWeek', 'Projects', 'Project', 'AcademicAdvisor', 'advisor', 'getAllMembersForProject','importantNotifications'));
         }
     }
     public function showProfile($userId)

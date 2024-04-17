@@ -114,14 +114,22 @@
             <ul class="mt-4 scroll2 overflow-y-scroll" id="lista-side">
                 <!-- ADMIN Section -->
                 <li class="mb-1 group">
-                    @role(['Super Administrador', 'Administrador de División'])
-                        <!-- Directiva de Blade proporcionada por Spatie Permission -->
-                        <a href="{{ route('Dashboard-Anteproyectos') }}"
-                            class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
-                            <i class='bx bxs-dashboard mr-3 text-lg'></i>
-                            <span class="nav-text text-sm">Dashboard</span>
-                        </a>
-                    @endrole
+                    @if (Auth::check())
+                        @if (Auth::user()->hasRole('Super Administrador'))
+                            <a href="{{ route('Dashboard-Anteproyectos') }}"
+                                class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
+                                <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                                <span class="nav-text text-sm">Dashboard</span>
+                            </a>
+                        @elseif (Auth::user()->hasRole('Administrador de División'))
+                            <a href="{{ route('Division-Anteproyectos') }}"
+                                class="flex font-semibold items-center py-2 px-4 text-white hover:bg-[#394C5F] hover:text-gray-100 rounded-md">
+                                <i class='bx bxs-dashboard mr-3 text-lg'></i>
+                                <span class="nav-text text-sm">Dashboard</span>
+                            </a>
+                        @endif
+                    @endif
+
                 </li>
 
 
@@ -209,13 +217,14 @@
 
                         </li>
                         @endif
-                        @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección']))
+                        @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Super Administrador']))
                         @else
-                        <li class="">
-                            <a href="{{ route('academias.index') }}"
-                                class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
-                                    class=' bx bxs-school mr-3 text-lg'></i><span class="text-sm">Academia</span></a>
-                        </li>
+                            <li class="">
+                                <a href="{{ route('academias.index') }}"
+                                    class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
+                                        class=' bx bxs-school mr-3 text-lg'></i><span
+                                        class="text-sm">Academia</span></a>
+                            </li>
                             <li class="">
 
                                 <a href="{{ route('carreras.index') }}"
@@ -229,7 +238,6 @@
                                     class="text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                         class=' bx bx-group mr-3 text-lg'></i><span class="text-sm">Grupos</span></a>
                             </li>
-
                         @endif
                     </ul>
                 </li>
@@ -248,7 +256,7 @@
                     </li>
                 @endrole
 
-                @role(['Super Administrador', 'Asistente de Dirección'])
+                @role(['Asistente de Dirección'])
                     <!-- RECURSOS Section -->
                     <span class="text-gray-400 nav-text font-bold">RECURSOS</span>
                     <li class="mb-1 group">
@@ -301,7 +309,7 @@
                         <button type="button"
                             class="dropdown-toggle text-gray-400 mr-4 w-8 h-8 rounded flex items-center justify-center  hover:text-gray-600 relative">
 
-                            @if ((auth()->user()->notifications()->whereDate('created_at', today())->get())->count()>0)
+                            @if ((auth()->user()->notifications()->whereDate('created_at', today())->whereNull('read_at')->get())->count()>0)
                             <div
                             class="top-0 left-5 absolute w-3 h-3 bg-teal-400 border-2 border-slate-400 rounded-full animate-ping">
                         </div>
@@ -329,7 +337,7 @@
                             <div class="my-2">
                                 <ul class="max-h-64 overflow-y-auto" data-tab-for="notification"
                                     data-page="notifications">
-                                    @forelse (auth()->user()->notifications()->whereDate('created_at', today())->get() as $notification)
+                                    @forelse (auth()->user()->notifications()->whereDate('created_at', today())->whereNull('read_at')->get() as $notification)
                                         <li>
                                             <a href="/admin/notificaciones"
                                                 class="py-2 px-4 flex items-center hover:bg-slate-100/80 group">
@@ -473,11 +481,11 @@
                                             alt="Ícono de usuario predeterminado">
                                     @endif
                                     <div
-                                        class="top-0 left-7 absolute w-3 h-3 bg-lime-400 border-2 border-white rounded-full animate-ping">
-                                    </div>
-                                    <div
-                                        class="top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full">
-                                    </div>
+                                    class="connection-status-dot top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full animate-ping">
+                                </div>
+                                <div
+                                    class="connection-status-dot top-0 left-7 absolute w-3 h-3 bg-lime-500 border-2 border-white rounded-full">
+                                </div>
                                 </div>
                             </div>
                             <div class="p-2 hidden md:block text-left">
@@ -534,6 +542,33 @@
     @yield('scripts')
     <link href="{{ asset('css/projectstyle.css') }}" rel="stylesheet">
     @livewireScripts
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+          function updateConnectionStatus() {
+            const connectionStatusDots = document.querySelectorAll('.connection-status-dot');
+            if (navigator.onLine) {
+              connectionStatusDots.forEach(function(dot) {
+                dot.classList.remove('bg-red-500');
+                dot.classList.add('bg-lime-500');
+              });
+            } else {
+              connectionStatusDots.forEach(function(dot) {
+                dot.classList.remove('bg-lime-500');
+                dot.classList.add('bg-red-500');
+              });
+            }
+
+            console.log('The connection status has changed:', navigator.onLine ? 'Online' : 'Offline');
+          }
+
+          window.addEventListener('online', updateConnectionStatus);
+          window.addEventListener('offline', updateConnectionStatus);
+
+          // Ejecutar inmediatamente al cargar
+          updateConnectionStatus();
+        });
+      </script>
+
 </body>
 
 </html>

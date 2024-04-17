@@ -11,7 +11,7 @@
                 class="mb-4 bg-[#03A696] text-white font-medium w-32 h-10 rounded-md flex justify-center items-center">Crear
                 División</a>
 
-                <div class="mb-4 flex flex-col md:flex-row items-start md:items-center rounded-md ml-auto mr-5">
+                <div class="mb-4 flex flex-col md:flex-row items-start md:items-center rounded-md ml-auto mr-3">
                     <span class="flex">
                         <input id="searchInput" class="search_divisions px-3 outline-none border-l-5 rounded-md" type="text"
                             placeholder="Buscar División...">
@@ -192,7 +192,16 @@
                                     No hay presidente académico asignado
                                 @endif
                             </td>
-                            <td class="py-4 text-sm text-black">Sin probar</td>
+                            <td class="py-4 text-sm text-black">
+                                @if (isset($managementAdmin[$division->id]) && !$managementAdmin[$division->id]->isEmpty())
+                                    @foreach ($managementAdmin[$division->id] as $admin)
+                                        {{ $admin->user->name }}
+                                        <br>
+                                    @endforeach
+                                @else
+                                    No hay director de división asignado
+                                @endif
+                            </td>
                             <td class="py-4 text-sm text-black">
                                 @if (Auth::check() && Auth::user()->hasRole('Super Administrador'))
                                     <div class="inline-flex">
