@@ -398,7 +398,7 @@
                 @enderror
                 <div class="flex justify-end">
                     <input type="submit" value="Enviar comentario"
-                        class="w-30 bg-teal-500 text-white cursor-pointer font-semibold px-4 py-2 rounded-lg hover:bg-teal-700 focus:outline-none">
+                        class="w-30 mt-2 bg-teal-500 text-white cursor-pointer font-semibold px-4 py-2 rounded-lg hover:bg-teal-700 focus:outline-none">
                 </div>
             </form>
             <div class="bg-white shadow mb-5 max-h-96 overflow-y-scroll mt-10">
