@@ -26,7 +26,7 @@
     </div>
 
     <div class="flex items-baseline align-middle">
-        <button class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mt-10 mr-5 w-32" onclick="window.location.href = '{{ route('dashboardProjects') }}'">
+        <button class="relative bg-teal-500 text-white px-4 py-2 ml-5 mr-6 rounded hover:bg-teal-600 transition-colors h-full" onclick="window.location.href = '{{ route('dashboardProjects') }}'">
             Ir a Agregar
         </button>
         {{-- @include('administrator.filter') --}}
@@ -49,7 +49,7 @@
         </div>
 
         <!-- BOTÓN QUE NOS SIRVE PARA EXPORTAR LOS ARCHIVOS -->
-        <div x-data="{ isActive: false }" class="relative ml-auto mr-8">
+        <div x-data="{ isActive: false }" class="relative ml-auto mr-6">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
                 <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                     Exportar
@@ -94,31 +94,31 @@
         </div>
     </div>
 
-    <div class="tabla-project">
-        <div class="tabla-cont-project ">
-            <table id="tabla-usuarios" class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
+    <div class="">
+        <div class="mt-5 mr-3 mb-5 overflow-x-auto  ">
+            <table id="tabla-usuarios" class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table">
                 <thead>
                     <tr>
-                        <th class="uppercase">Nombre</th>
-                        <th class="uppercase">Correo electrónico</th>
-                        <th class="uppercase">No. Teléfono</th>
-                        <th class="uppercase">Rol</th>
-                        <th class="uppercase">División</th>
-                        <th class="uppercase">Estado</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Nombre</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Correo electrónico</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">No. Teléfono</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Rol</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">División</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Estado</th>
 
                     </tr>
                 </thead>
                 @foreach ($users as $user)
                 <tr>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->phone_number}}</td>
-                    <td>
+                    <td class="py-4 text-sm text-black">{{$user->name}}</td>
+                    <td class="py-4 text-sm text-black">{{$user->email}}</td>
+                    <td class="py-4 text-sm text-black">{{$user->phone_number}}</td>
+                    <td class="py-4 text-sm text-black">
                     @foreach ($user->roles as $role)
                         <span>{{ $role->name }}</span>
                     @endforeach</td>
-                    <td>{{$user->division_name}}</td>
-                    <td>{{$user->isActive == 1 ? 'Activo' : 'Inactivo'}}</td>
+                    <td class="py-4 text-sm text-black">{{$user->division_name}}</td>
+                    <td class="py-4 text-sm text-black">{{$user->isActive == 1 ? 'Activo' : 'Inactivo'}}</td>
                 </tr>
                 @endforeach
                 </tbody>
