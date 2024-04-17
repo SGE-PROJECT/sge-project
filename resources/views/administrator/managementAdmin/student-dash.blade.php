@@ -136,6 +136,7 @@
                             &#8203;
                         </div>
                         <div>
+                            <a href="{{ route('export.usersDivision.excel') }}">
                             <strong class="font-medium text-gray-900"> PDF </strong>
                         </div>
                     </label>
