@@ -7,13 +7,41 @@
 @section('contenido')
 
     @if ($noProjects)
+    <form class="max-w-md mx-auto mt-10" action="{{ route('search.project') }}" method="GET">
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <!-- Icono de búsqueda -->
+            </div>
+            <input type="search" id="default-search" name="search"
+                class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-[#00ab84] focus:border-[#00ab84]"
+                placeholder="Buscar anteproyectos..." required />
+            <button type="submit"
+                class="font-semibold text-white absolute end-2.5 bottom-2.5 bg-[#00ab84] hover:bg-[#00ab84] focus:ring-4 focus:outline-none focus:ring-[#00ab84]  rounded-lg text-sm px-4 py-2 ">Buscar</button>
+        </div>
+    </form>
         <div class="flex justify-center items-center">
-            <h3 class="text-3xl font-bold mt-16 text-center text-teal-700">AUN NO HAY ANTEPROYECTOS PUBLICADOS</h3>
+            <h3 class="text-3xl font-bold mt-16 text-center text-gray-700">¡No se han encontrado anteproyectos!</h3>
         </div>
         <div class="flex justify-center items-center mt-4">
-            <img class="w-96" src="Icons/graduacion.png" />
+            <img class="w-48" src="Icons/graduacion.png" />
         </div>
     @else
+        <form class="max-w-screen-md mx-auto mt-10" action="{{ route('search.project') }}" method="GET">
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <!-- Icono de búsqueda -->
+                </div>
+                <input type="search" id="default-search" name="search"
+                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-[#00ab84] focus:border-[#00ab84]"
+                    placeholder="Buscar anteproyectos..." required />
+                <button type="submit"
+                    class="font-semibold text-white absolute end-2.5 bottom-2.5 bg-[#00ab84] hover:bg-[#00ab84] focus:ring-4 focus:outline-none focus:ring-[#00ab84]  rounded-lg text-sm px-4 py-2 ">Buscar</button>
+            </div>
+        </form>
+
+
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4">
             @foreach ($Projects as $project)
                 @php
@@ -21,9 +49,6 @@
                 @endphp
 
                 <div class="block rounded-lg bg-white text-center text-surface shadow-secondary-1 ">
-                    {{-- <div class="text-gray-600 text-sm border-b-2 border-neutral-100 px-6 py-3 ">
-                        Publicado por Juan Diego Mendoza {{ $project->created_at->diffForHumans() }}
-                    </div> --}}
 
                     <div class="p-6">
                         <h5 class="mb-2 text-xl text-[#00ab84] font-semibold leading-tight ">
@@ -57,10 +82,12 @@
                             Ver anteproyecto
                         </a>
                         <div class="mt-1 text-gray-500 text-[13px] mb-[-20px] px-3.5 py-1.5 ">
-                            Publicado por <span class="font-bold">{{ $project->students->first()->user->name }}</span> {{ $project->created_at->diffForHumans() }}
+                            Publicado por <span class="font-bold">{{ $project->students->first()->user->name }}</span>
+                            {{ $project->created_at->diffForHumans() }}
                         </div>
                     </div>
-                    <div class="border-t-2 border-neutral-100 px-6 py-3 text-surface/75 flex items-center justify-center space-x-4">
+                    <div
+                        class="border-t-2 border-neutral-100 px-6 py-3 text-surface/75 flex items-center justify-center space-x-4">
                         <button class="flex items-center space-x-2 Btn font-semibold leading-tight text-[13px] text-white">
                             <span class="leftContainer flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="#fff">
@@ -111,8 +138,10 @@
 
                 </div>
             @endforeach
-            {{ $Projects->links() }}
 
         </div>
-    @endif
+        @endif
+        <div class="flex items-center justify-center">
+            {{ $Projects->appends(['search' => request()->query('search')])->links() }}
+        </div>
 @endsection
