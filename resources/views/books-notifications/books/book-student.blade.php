@@ -103,17 +103,16 @@
   border-radius: 4px; /* Bordes redondeados */
 }
 
-.notification {
-    margin-top:100px; 
+.notification { 
   display: flex;
   flex-direction: column;
   isolation: isolate;
   position: relative;
-  background-image: url('https://images.unsplash.com/photo-1513001900722-370f803f498d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Ym9va3xlbnwwfHwwfHx8MA%3D%3D');
   background-size: cover;
-  z-index: 1;
   background-position: center;
   background-repeat: no-repeat;
+  z-index: 1;
+  background-color: white;
   border-radius: 1rem;
   overflow: hidden;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -126,9 +125,9 @@
   height: 100%;
   width: 100%;
   text-align: center;
-  color: #fff;
+/*   color: #fff;
   box-shadow: 0px 0px 25px #222;
-  backdrop-filter: contrast(47%)  brightness(80%);
+  backdrop-filter: contrast(47%)  brightness(80%); */
 }
 
 .notification:hover .notititle{
@@ -136,29 +135,18 @@
 }
 
 
-.notification:after {
-  position: absolute;
-  content: "";
-  width: 0.25rem;
-  inset: 0.65rem auto 0.65rem 0.5rem;
-  border-radius: 0.125rem;
-  background: var(--gradient);
-  transition: transform 300ms ease;
-  z-index: 4;
-}
 
 .notification:hover:after {
   transform: translateX(0.15rem)
 }
 
 .notititle {
-  color: white; 
   padding: 0.65rem 0.25rem 0.4rem 1.25rem;
   font-weight: 500;
   font-size: 2.5rem;
   transition: transform 300ms ease;
   z-index: 5;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+/*   text-shadow: 2px 2px 8px rgba(0,0,0,0.7); */
 }
 
 .notification:hover .notititle {
@@ -171,17 +159,20 @@
   padding: 0 1.25rem;
   transition: transform 300ms ease;
   z-index: 5;
+  font-size: 1rem;
+  background-image: url('https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.notification:hover .notibody {
-  transform: translateX(0.25rem)
-}
+
 
 .notiglow,
 .notiborderglow {
   position: absolute;
   width: 20rem;
-  height: 20rem;
+  height: 25rem;
   transform: translate(-50%, -50%);
   background: radial-gradient(circle closest-side at center, white, transparent);
   opacity: 0;
@@ -295,26 +286,36 @@
     </div>
 
     @empty
-    <div class=" flex flex-col items-center">
-        <div class="notification relative min-h-[280px] min-w-[440px] max-w-[490px]  md:h-[300px] md:w-[490px]">
-            <div class=" wrap">
-                <div class=" h-[35px] w-full z-40 bg-gradient-to-r from-[#00ab84] to-[#00e7b1]">
-
-                </div>
-
-                <div class="notiglow"></div>
-                <div class="notiborderglow"></div>
-                <div class="notititle">¡Vaya Parece que no tienes agregado ningun libro!</div>
-                <div class="notibody">Puedes agregar uno aqui</div>
-                <span>⬇</span><br>
-                @if ($permiso)
-                <a href="{{route('añadir.libros')}}">Agregar</a>             
-                @else
-                <span class="no-click ">Agregar</span>                
+    <div class=" flex flex-col items-center  w-full ">
+        <div class="   mx-10 ">
+            <div class=" rounded-lg">
+              <div class=" rounded-t-lg h-[35px] w-full z-40 bg-gradient-to-r from-[#00ab84] to-[#00e7b1]">
+              </div>
+              <div class=" grid grid-cols-2 bg-white rounded-b-lg">
+                  <div class="notibody  rounded-bl-lg h-auto  sm:h-60"></div>
+                <div class=" grid grid-cols-1 gap-0 rounded-br-lg">
+                <div class=" text-slate-700  text-balance text-center text-3xl pt-2  ">¡Vaya Parece que no tienes agregado ningun libro!
+                  </div>
+                  <div class=" text-center text-balance h-fit flex justify-center items-center">
+                    <span class=" ">Puedes agregar uno aqui</span>
+                  </div>
+                  <div class=" h-fit text-center text-balance flex justify-center items-center">
+                    <span class=" text-xl ">⬇</span>
+                  </div>
+                  @if ($permiso)
+                  <dv class=" text-center text-balance flex justify-center items-center h-fit" >
+                    <a class=" rounded bg-teal-500 text-white p-2 font-bold" href="{{route('añadir.libros')}}">Agregar</a>             
+                  </dv>
+                  @else
+                  <div class=" text-center text-balance flex justify-center items-center h-fit  ">
+                    <span class="no-click rounded bg-teal-500 text-white p-2 font-bold">Agregar</span>                
+                  </div>
                 @endif
-                <div class=" absolute">
-                    <img src="https://unsplash.com/es/fotos/candelabro-con-marco-de-madera-marron-en-la-parte-superior-de-los-libros-ip9R11FMbV8" alt="">
-                </div>
+              </div>
+
+            </div>
+              
+              
             </div>
           </div>
         
