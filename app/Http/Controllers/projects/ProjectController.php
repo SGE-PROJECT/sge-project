@@ -98,19 +98,7 @@ class ProjectController extends Controller
         $search = $request->input('search');
         if ($search) {
             $projects = Project::where('name_project', 'like', '%' . $search . '%')
-                ->where('is_project', false);
-
-            if ($projects->count() < 3) {
-                $projects = Project::where('name_project', 'like', '%' . $search . '%')
-                    ->orWhere('name_project', 'not like', '%' . $search . '%')
-                    ->where('is_project', false)
-                    ->paginate(3);
-            } else {
-                $projects = $projects->paginate(3);
-            }
-        } else {
-            $projects = Project::where('is_project', false)
-                ->paginate(3);
+                ->where('is_project', false)->paginate(3);
         }
 
         $projects->load('students');
@@ -128,18 +116,16 @@ class ProjectController extends Controller
             $projects = Project::where('name_project', 'like', '%' . $search . '%')
                 ->where('is_project', true)
                 ->paginate(9);
-        } else {
-            $projects = Project::paginate(9);
-            $projects->load('students');
         }
+
+        $projects->load('students');
+
 
         $noProjects = $projects->isEmpty();
 
         return view('projects.viewsproject.AnteprojectsView', ['Projects' => $projects, 'noProjects' => $noProjects]);
     }
 
-
-    // Vista para contenido de antreproyectos relacionado a las vistas de Listado de Anteproyecto
     public function viewanteproject()
     {
         $Projects = Project::where('is_project', false)->where('is_public', true)->paginate(9);
@@ -179,10 +165,10 @@ class ProjectController extends Controller
     {
         // Obtener todos los asesores empresariales
         $businessAdvisors = BusinessAdvisor::all();
-    
+
         // Obtener todas las compañías
         $companies = Affiliated_companie::all();
-    
+
         // Verificar si el usuario ya tiene un proyecto creado
         $existingProject = Project_students::where('student_id', Auth::user()->id)->first();
 
