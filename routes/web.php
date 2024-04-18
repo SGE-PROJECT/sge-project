@@ -1,5 +1,4 @@
 <?php
-//importaciones de controladores
 use App\Http\Controllers\GroupController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
