@@ -39,7 +39,7 @@ class ProjectController extends Controller
     {
         // Carga los proyectos y los estudiantes principales relacionados con su grupo, programa y división
         $Projects = Project::where('is_project', 1)
-            ->with(['students' => function($query) {
+            ->with(['students' => function ($query) {
                 // Filtra solo los estudiantes principales del proyecto
                 $query->wherePivot('is_main_student', 1)
                     ->with('group.program.division');
@@ -59,12 +59,12 @@ class ProjectController extends Controller
     public function dashAnteprojects()
     {
         $Anteprojects = Project::where('is_project', 0)
-        ->with(['students' => function($query) {
-            // Filtra solo los estudiantes principales del proyecto
-            $query->wherePivot('is_main_student', 1)
-                ->with('group.program.division');
-        }])
-        ->paginate(10);
+            ->with(['students' => function ($query) {
+                // Filtra solo los estudiantes principales del proyecto
+                $query->wherePivot('is_main_student', 1)
+                    ->with('group.program.division');
+            }])
+            ->paginate(10);
 
         $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
         $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
@@ -92,13 +92,58 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        if ($search) {
+            $projects = Project::where('name_project', 'like', '%' . $search . '%')
+                ->where('is_project', false);
+
+            if ($projects->count() < 3) {
+                $projects = Project::where('name_project', 'like', '%' . $search . '%')
+                    ->orWhere('name_project', 'not like', '%' . $search . '%')
+                    ->where('is_project', false)
+                    ->paginate(3);
+            } else {
+                $projects = $projects->paginate(3);
+            }
+        } else {
+            $projects = Project::where('is_project', false)
+                ->paginate(3);
+        }
+
+        $projects->load('students');
+
+        $noProjects = $projects->isEmpty();
+
+        return view('projects.viewsproject.ProjectsView', ['Projects' => $projects, 'noProjects' => $noProjects]);
+    }
+
+    public function searchProject(Request $request)
+    {
+        $search = $request->input('search');
+
+        if ($search) {
+            $projects = Project::where('name_project', 'like', '%' . $search . '%')
+                ->where('is_project', true)
+                ->paginate(9);
+        } else {
+            $projects = Project::paginate(9);
+            $projects->load('students');
+        }
+
+        $noProjects = $projects->isEmpty();
+
+        return view('projects.viewsproject.AnteprojectsView', ['Projects' => $projects, 'noProjects' => $noProjects]);
+    }
+
+
     // Vista para contenido de antreproyectos relacionado a las vistas de Listado de Anteproyecto
     public function viewanteproject()
     {
         $Projects = Project::where('is_project', false)->where('is_public', true)->paginate(9);
         $Projects->load('students');
 
-        
 
         // Pasar una variable indicando si hay anteproyectos
         $noProjects = $Projects->isEmpty();
@@ -122,7 +167,10 @@ class ProjectController extends Controller
 
         $Projects = Project::where('is_project', true)->paginate(5);
         $Projects->load('students');
-        return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
+
+        $noProjects = $Projects->isEmpty();
+
+        return view('projects.viewsproject.AnteprojectsView', compact('Projects', 'noProjects'));
     }
 
     // Formulario de creación de proyecto. Si el estudiante ya tiene un proyecto, entonces es enviado a la vista de editar.
