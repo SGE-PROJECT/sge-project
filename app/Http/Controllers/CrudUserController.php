@@ -231,22 +231,25 @@ class CrudUserController extends Controller
         $user = User::findOrFail($id);
 
         $validationRules = [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'required|string|min:8',
-            'role' => 'required|exists:roles,name',
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8',
+            'role' => 'nullable|exists:roles,name',
             'phone_number' => 'nullable|string|max:20',
-            'division_id' => 'required|exists:divisions,id',
-           // 'curp' => 'nullable|alpha_num|size:18',
-          //  'birthdate' => 'nullable|date_format:Y-m-d',
-           // 'sex' => 'nullable|in:M,F',
+            'division_id' => 'nullable|exists:divisions,id',
+            // 'curp' => 'nullable|alpha_num|size:18',
+            // 'birthdate' => 'nullable|date_format:Y-m-d',
+            // 'sex' => 'nullable|in:M,F',
             'nss' => 'nullable|digits_between:11,11',
         ];
 
         if ($request->role === 'Estudiante') {
-            $validationRules['group_id'] = 'required|exists:groups,id';
-            $validationRules['registration_number'] = 'required|string|unique:students,registration_number';
-            $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
+            $validationRules['group_id'] = 'nullable|exists:groups,id';
+            // Si se proporciona un nuevo valor para el número de registro, valida su unicidad
+            if ($request->filled('registration_number')) {
+                $validationRules['registration_number'] = 'nullable|string|unique:students,registration_number,' . $user->student->id;
+            }
+             $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
             $validationRules['isReEntry'] = 'required|in:Si,No';
         } elseif ($request->role === 'Asistente de Dirección') {
             $validationRules['payrol'] = 'required|string|min:4|max:6';
@@ -257,7 +260,6 @@ class CrudUserController extends Controller
         } elseif ($request->role === 'Administrador de División') {
             $validationRules['payrol'] = 'required|string|min:4|max:6';
         }
-
         $request->validate($validationRules);
 
         $user->update([
@@ -275,6 +277,7 @@ class CrudUserController extends Controller
 
         switch ($request->role) {
             case 'Estudiante':
+                $isReEntry = $request->isReEntry === 'Si' ? 1 : 0;
                 Student::updateOrCreate(
                     ['user_id' => $user->id],
                     [
@@ -282,7 +285,7 @@ class CrudUserController extends Controller
                         'group_id' => $request->group_id,
                         'registration_number' => $request->registration_number,
                         'academic_advisor_id' => $request->academic_advisor_id,
-                        'isReEntry' => $request->isReEntry,
+                        'isReEntry' => $isReEntry,
                     ]
                 );
                 break;
@@ -323,7 +326,7 @@ class CrudUserController extends Controller
                 );
                 break;
         }
-        Log::info();
+
 
         return redirect()->route('users.cruduser.index')->with('success', 'Usuario actualizado correctamente.');
     }

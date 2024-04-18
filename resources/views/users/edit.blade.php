@@ -239,6 +239,25 @@
             <p class="text-red-500 text-xs italic">{{ $message }}</p>
         @enderror
 
+        <label for="academic_advisor_id" class="block text-gray-700 text-sm font-bold mb-2">Asesor Académico:</label>
+        <select name="academic_advisor_id" id="academic_advisor_id" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            @if ($user->student && $user->student->academicAdvisor)
+                <option value="{{ $user->student->academicAdvisor->id }}" selected>
+                    {{ $user->student->academicAdvisor->user->name }}
+                </option>
+                @foreach ($academicAdvisors as $advisor)
+                    @if ($user->student->academicAdvisor->id != $advisor->id)
+                        <option value="{{ $advisor->id }}">{{ $advisor->user->name }}</option>
+                    @endif
+                @endforeach
+            @else
+                <option value="">Seleccione un Asesor Académico</option>
+                @foreach ($academicAdvisors as $advisor)
+                    <option value="{{ $advisor->id }}">{{ $advisor->user->name }}</option>
+                @endforeach
+            @endif
+        </select>
+
             <div class="mb-4">
                 <label for="registration_number" class="block text-gray-700 py-2 pt-2 text-sm font-bold mb-2">Número de Registro:</label>
                 <input type="text" name="registration_number" id="registration_number" value="{{ $user->student->registration_number }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
