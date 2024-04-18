@@ -49,6 +49,8 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/recuperar-contraseña', [ForgotPasswordController::class, 'sendPassword'])->name('password.email');
 });
 
+
+
 //Comprueba que el usuario este loggeado
 Route::middleware(['auth'])->group(function () {
     //Redirije a la ruta segun su rol
@@ -156,6 +158,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/vistaproyectos', [ProjectController::class, 'viewproject'])->name('viewproject');
         Route::get('/carreras/division', [ProgramController::class, 'divisionCarreras'])->name('division.carreras');
         Route::get('/empresas-afiliadas', [CompaniesController::class, 'showTable'])->name('empresas.showTable');
+        Route::get('search', [ProjectController::class, 'search'])->name('search.project');
+        Route::get('searchProject', [ProjectController::class, 'searchProject'])->name('searchProjects');
     });
     //Permisos unicamente para el director de division
     Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->middleware("can:studentsForDivision")->name('student-dash');
