@@ -116,6 +116,5 @@ class ProjectsSeeder extends Seeder
                 'is_public' => 1,
             ]);
         }
-
     }
 }
