@@ -78,29 +78,41 @@
                 </div>
             </div>
             <br>
-            <br>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div class="grid grid-cols-1 gap-4">
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
-                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Empresa:</h2>
-                    <input name="company_name" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg"
-                        placeholder="Ingresa el nombre de la empresa" type="text" value="{{ old('company_name') }}" />
+                    <h2 class="text-xl font-semibold text-teal-800 mb-0">Empresa:</h2>
+                    <select name="company_id" id="company_id" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg">
+                        <option value="" disabled selected>Selecciona una empresa</option>
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}" data-name="{{ $company->company_name }}" data-address="{{ $company->address }}">{{ $company->company_name }}</option>
+                        @endforeach
+                    </select>
+                    <div class="text-red-400 font-bold text-lg">
+                        @error('company_id')
+                            {{ $message }}
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            
+            <div id="companyFields" class="grid grid-cols-1 gap-4" style="display: none;">
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
+                    <h2 class="text-xl font-semibold text-teal-800 mb-0">Nombre de la empresa:</h2>
+                    <input name="company_name" id="company_name" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg" placeholder="Ingresa el nombre de la empresa" type="text" value="{{ old('company_name') }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('company_name')
                             {{ $message }}
                         @enderror
                     </div>
                 </div>
-                <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
-                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Dirreción de la Empresa:</h2>
-                    <input name="company_address" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg"
-                        placeholder="Ingresa la dirección de la empresa" type="text"
-                        value="{{ old('company_address') }}" />
+                <div  class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
+                    <h2 class="text-xl font-semibold text-teal-800 mb-0">Dirección de la Empresa:</h2>
+                    <input name="company_address" id="company_address" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg" placeholder="Ingresa la dirección de la empresa" type="text" value="{{ old('company_address') }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('company_address')
                             {{ $message }}
                         @enderror
                     </div>
-
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-4">
@@ -108,7 +120,7 @@
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Asesor Empresarial:</h2>
                     <select name="project_status_area" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg"
                         onchange="showHideFields(this.value)">
-                        <option value="">Selecciona un asesor</option>
+                        <option value="" disabled selected>Selecciona un asesor</option>
                         @foreach ($businessAdvisors as $advisor)
                             <option value="{{ $advisor->id }}" data-name="{{ $advisor->name }}"
                                 data-position="{{ $advisor->position }}" data-phone="{{ $advisor->phone }}"
@@ -280,13 +292,39 @@
                 var selectedOption = document.querySelector('select[name="project_status_area"] option[value="' + value +
                     '"]');
 
-                // Llenar los campos con la información del asesor seleccionado
-                document.getElementById('nombreAsesor').value = selectedOption.dataset.name;
-                document.getElementById('cargoAsesor').value = selectedOption.dataset.position;
-                document.getElementById('telefonoAsesor').value = selectedOption.dataset.phone;
-                document.getElementById('emailAsesor').value = selectedOption.dataset.email;
+            // Llenar los campos con la información del asesor seleccionado
+            document.getElementById('nombreAsesor').value = selectedOption.dataset.name;
+            document.getElementById('cargoAsesor').value = selectedOption.dataset.position;
+            document.getElementById('telefonoAsesor').value = selectedOption.dataset.phone;
+            document.getElementById('emailAsesor').value = selectedOption.dataset.email;
+        }
+    }
+
+    function updateCompanyFields(select) {
+            var selectedIndex = select.selectedIndex;
+            var selectedOption = select.options[selectedIndex];
+            var companyFieldsDiv = document.getElementById('companyFields');
+
+            if (selectedOption) { // Verificar si se ha seleccionado una opción
+                if (selectedOption.value === 'Otro') {
+                    // Si se selecciona "Otro", mostrar los campos y permitir la edición
+                    companyFieldsDiv.style.display = 'block';
+                } else {
+                    // Si se selecciona una empresa existente, llenar los campos pero no permitir la edición
+                    document.getElementById('company_name').value = selectedOption.getAttribute('data-name');
+                    document.getElementById('company_address').value = selectedOption.getAttribute('data-address');
+                    companyFieldsDiv.style.display = 'block';
+                }
+            } else {
+                // Si no se ha seleccionado ninguna opción, ocultar los campos
+                companyFieldsDiv.style.display = 'none';
             }
         }
+
+        // Event listener para actualizar los campos de empresa cuando cambia la opción seleccionada
+        document.getElementById('company_id').addEventListener('change', function() {
+            updateCompanyFields(this);
+        });
     </script>
 
 

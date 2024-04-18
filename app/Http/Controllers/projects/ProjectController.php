@@ -16,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\Scores;
 use Illuminate\Support\Facades\DB;
 use App\Models\Student;
+use App\Models\management\Affiliated_companie;
 
 
 class ProjectController extends Controller
@@ -178,7 +179,10 @@ class ProjectController extends Controller
     {
         // Obtener todos los asesores empresariales
         $businessAdvisors = BusinessAdvisor::all();
-
+    
+        // Obtener todas las compañías
+        $companies = Affiliated_companie::all();
+    
         // Verificar si el usuario ya tiene un proyecto creado
         $existingProject = Project_students::where('student_id', Auth::user()->id)->first();
 
@@ -186,8 +190,9 @@ class ProjectController extends Controller
             // Si el usuario ya tiene un proyecto creado, redirigir a la vista de edición
             return $this->edit($existingProject->id);
         } else {
-            // Si el usuario no tiene un proyecto creado, pasar los asesores empresariales a la vista
-            return view("projects.Forms.FormStudent", compact('businessAdvisors'));
+            // Si el usuario no tiene un proyecto creado, pasar los asesores empresariales, compañías y datos del estudiante a la vista
+            $student = Auth::user()->student;
+            return view("projects.Forms.FormStudent", compact('businessAdvisors', 'companies', 'student'));
         }
     }
 
