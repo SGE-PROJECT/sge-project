@@ -20,7 +20,7 @@ return new class extends Migration
             $table->bigInteger('sanction_advisor')->default(0);
             $table->bigInteger('sanction_company')->default(0);
             $table->foreignId('book_id')->nullable()->constrained('books')->onDelete('set null');
-            $table->boolean('isReEntry')->default(false);
+            $table->boolean('isReEntry')->default(false)->nullable();
             $table->timestamps();
         });
     }

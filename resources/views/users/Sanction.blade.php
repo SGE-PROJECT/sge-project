@@ -15,7 +15,7 @@
     <div class="tabla-project">
         <div class="tabla-cont-project ">
             <table class="rounded-lg">
-                <thead class="bg-[#293846] text-white font-bold bg-[#293846]">
+                <thead class="bg-[#293846] text-white font-bold">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Grupo
