@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('phone_number', 20)->default('');
+            $table->string('phone_number', 20)->default('')->nullable();
             $table->string('curp')->nullable();;
             $table->string('birthdate')->nullable();;
             $table->string('sex')->nullable();;

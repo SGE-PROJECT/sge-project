@@ -5,10 +5,10 @@
     <!-- SECCIÓN QUE CONTIENE LA TARJETA Y LA GRÁFICA -->
     <div class="flex flex-wrap justify-center gap-5 p-5">
         <div class="p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            @include('administrator.graph-projects')
-            @include('administrator.graph-users')
-            @include('administrator.graph-teams')
-            @include('administrator.graph-books')
+            @include('administrator.graphs.graph-projects')
+            @include('administrator.graphs.graph-users')
+            @include('administrator.graphs.graph-teams')
+            @include('administrator.graphs.graph-books')
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-2 gap-5 mb-6">
             <!-- Gráfica de barras a la izquierda -->

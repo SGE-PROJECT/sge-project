@@ -1,5 +1,5 @@
 .Btn {
-  width: 140px;
+  width: 122px;
   height: 35px;
   display: flex;
   align-items: center;
@@ -8,14 +8,15 @@
   border-radius: 3px;
   overflow: hidden;
   cursor: auto;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.089);
+  border: 1px solid #00ab84;
+  /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.089); */
   background-color: transparent;
 }
 
 .leftContainer {
   width: 60%;
   height: 100%;
-  background-color: #03A696;
+  background-color: #00ab84;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #03A696;
+  color: #00ab84;
   font-weight: 600;
   position: relative;
   background-color: white;
@@ -420,22 +421,22 @@
 
 .rating {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
 }
 
-@media (max-width: 640px) { 
+@media (max-width: 640px) {
   .flex-proyectos {
     display: flex;
     align-items: center;
-    
+
   }
 }
 
 
 @media (max-width: 768px) {
   .small-img {
-    height: 45px;  
-    width:47px; 
+    height: 45px;
+    width:47px;
   }
 }
 
@@ -452,7 +453,24 @@
 .tooltip .tooltip-text {
   visibility: hidden;
   width: 250px;
-  background-color: #03A696;
+  background-color: #1602d1;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  margin-top: 5px;
+  left: 0;
+  top: 95%;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltip-text2 {
+  visibility: hidden;
+  width: 250px;
+  background-color: #b18a0b;
   color: #fff;
   text-align: center;
   padding: 5px;
@@ -471,3 +489,137 @@
   opacity: 1;
 }
 
+.tooltip:hover .tooltip-text2 {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/*Botón de eliminar cédula*/
+.ProjectDeleteButton {
+    bottom: 320px;
+    left: 460px;
+    background-color: #dc2626; /* Color de fondo rojo */
+    color: #fff; /* Color de texto blanco */
+    font-weight: 700; /* Texto en negrita */
+    padding-top: 0.5rem; /* Espaciado superior */
+    padding-bottom: 0.5rem; /* Espaciado inferior */
+    padding-left: 1rem; /* Espaciado izquierdo */
+    padding-right: 1rem; /* Espaciado derecho */
+    border-radius: 0.375rem; /* Borde redondeado */
+}
+
+.ProjectDeleteButton:hover {
+    background-color: #c53030; /* Color de fondo rojo oscuro al pasar el cursor */
+}
+
+.ProjectDeleteButton:hover {
+    background-color: #b91c1c; /* Color de fondo rojo más oscuro al pasar el cursor */
+}
+
+.ProjectDeleteModal{
+    padding-top: 400px;
+}
+
+/* Estilos para el modal de invitación de estudiante */
+.modalInvitar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal-content-invite {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Sombra */
+}
+
+.modal-content-invite h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-content-invite label {
+    display: block;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.modal-content-invite input[type="text"],
+.modal-content-invite input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content-invite input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content-invite input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+/*Botones de reprobar y finalizar.
+Los botones solo aparecen si el "is_project" es igual a 1*/
+.Btn-aprobar-reprobar{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.btns {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btns-reprobar {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btns-finalizar {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.btns-finalizar:hover {
+    background-color: rgb(6, 6, 158);
+}
+
+.btns-reprobar:hover {
+    background-color: #b91c1c;
+
+}

@@ -14,6 +14,18 @@
     @if ($slug !== auth()->user()->slug)
         {{ abort(404) }}
     @endif
+    @if (session('success'))
+        <div class="bg-[#14B8A6c0] block md:inline text-white text-center p-2 fixed bottom-10 rounded right-0 md:right-10 z-50 shadow-lg noti"
+            id="noti">
+            <i class="nf nf-fa-check_circle mr-2"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+    <script>
+        setTimeout(() => {
+            document.getElementById("noti").classList.add("ocultarNoti");
+        }, 4000);
+    </script>
     <main class="vista_asesorias">
         @if (!$advisor)
         <div
@@ -104,7 +116,7 @@
         @if ($advisor)
             <header class="asesorias-opciones block md:flex">
                 <span class="fechas-asesorias">
-                    <select id="student-month" class="select-books-sd bg-teal-500 select-asesorias">
+                    <select id="student-month" class="select-books-sd bg-[#00ab84]  select-asesorias">
                         <option value="0">Enero</option>
                         <option value="1">Febrero</option>
                         <option value="2">Marzo</option>
@@ -118,20 +130,20 @@
                         <option value="10">Noviembre</option>
                         <option value="11">Diciembre</option>
                     </select>
-                    <select id="student-year" class="select-books-sd bg-teal-500 select-asesorias">
+                    <select id="student-year" class="select-books-sd bg-[#00ab84]  select-asesorias">
                         <!-- Los años se generarán dinámicamente -->
                     </select>
                 </span>
                 <span class="hora-asesorias ocultar">
                     <button
-                        class="top-0 md:top-[0px] bg-teal-500 rounded px-2 text-[#fff] font-bold text-[20px] md:text-[25px] hover:bg-teal-600 transition-colors flex items-center"
+                        class="top-0 md:top-[0px] bg-[#00ab84] rounded px-2 text-[#fff] font-bold text-[20px] md:text-[25px]  transition-colors flex items-center"
                         id="student-volverButton"><i class="nf nf-cod-arrow_left text-[20px]"></i></button>
                     <h3 class="w-full select-mes text-center text-[30px]" id="student-hora"></h3>
                 </span>
 
                 <div class="BtnCrearDivisions botonVereventos " id="student-contbtnCitas">
                     <button
-                        class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
+                        class="Btn_divisions bg-[#00ab84]  text-white px-2 py-1 rounded transition-colors"
                         id="student-cambiarCita">
                         <span class="Btntext_divisions">Cambiar<b>-</b>cita</span>
                         <span class="svgIcon_divisions">
@@ -154,7 +166,7 @@
                     </div>
 
                     <p id="error2">Error</p>
-                    <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
+                    <button class="bg-[#00ab84]  text-white px-2 py-1 rounded transition-colors"
                         type="button" onclick="eliminarEvento2()">Solicitar cambio</button>
                 </form>
             </div>

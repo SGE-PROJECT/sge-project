@@ -263,7 +263,7 @@
                 <h3 class="text-xl font-semibold mb-4">Comentarios</h3>
                 <div class="grid grid-cols-1 gap-4">
                     <!-- Iterar sobre los comentarios -->
-                    @foreach ($project->comments as $comment)
+                    @foreach ($proyecto->comments as $comment)
                         <div class="bg-gray-100 p-4 rounded-lg">
                             <!-- Información del autor del comentario -->
                             <p class="text-sm font-semibold">{{ $comment->academic_advisor->user->name }}</p>

@@ -12,8 +12,34 @@
 
 @section('contenido')
     @if ($slug !== auth()->user()->slug)
-        {{abort(404);}}
+        {{ abort(404) }}
     @endif
+    @if (session('success'))
+        <div class="bg-[#84cc16c0] block md:inline text-white text-center p-2 fixed bottom-10 rounded right-0 md:right-10 z-50 shadow-lg noti"
+            id="noti">
+            <i class="nf nf-fa-check_circle mr-2"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('edit'))
+        <div class="bg-[#14B8A6c0] block md:inline text-white text-center p-2 fixed bottom-10 rounded right-0 md:right-10 z-50 shadow-lg noti"
+            id="noti">
+            <i class="nf nf-md-clock_edit mr-2"></i>
+            {{ session('edit') }}
+        </div>
+    @endif
+    @if (session('delete'))
+        <div class="bg-[#EF4444f0] block md:inline text-white text-center p-2 fixed bottom-10 rounded right-0 md:right-10 z-50 shadow-lg noti"
+            id="noti">
+            <i class="nf nf-md-delete_circle mr-2"></i>
+            {{ session('delete') }}
+        </div>
+    @endif
+    <script>
+        setTimeout(() => {
+            document.getElementById("noti").classList.add("ocultarNoti");
+        }, 4000);
+    </script>
     <main class="vista_asesorias">
         @php
             $projectsData = $Projects->mapWithKeys(function ($project) {
@@ -21,7 +47,7 @@
                     $project->id => [
                         'id' => $project->id,
                         'nombre' => $project->name,
-                        'descripcion' =>$project->description,
+                        'descripcion' => $project->description,
                         'alumnos' => $project->students,
                         'imagen' => $project->image,
                     ],
@@ -74,24 +100,30 @@
                 };
             });
         </script>
-        <header class="asesorias-opciones block md:flex">
+        <header class="asesorias-opciones block xl:flex">
             <div class="BtnCrearDivisions botonVereventos todas  w-full " id="contbtnCitas2">
                 <h3>Todas las citas</h3>
-                <span class="gap-5 flex">
-                <button class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
-                    id="botonCitas3">
-                    <span class="Btntext_divisions">Agregar cita</span>
-                    <span class="svgIcon_divisions">
-                        <i class="nf nf-oct-diff_added"></i>
-                    </span>
-                </button>
-                <a href="{{ route('asesorias', ['id' => auth()->user()->slug ]) }}" class="Btn_divisions bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors"
-                    id="botonCitas2">
-                    <span class="Btntext_divisions">Calendario</span>
-                    <span class="svgIcon_divisions">
-                        <i class="nf nf-oct-arrow_switch"></i>
-                    </span>
-                </a>
+                <span class="flex flex-wrap lg:flex-nowrap gap-5">
+                    <input type="text" id="searchInput" placeholder="Buscar..." class="outline-none shadow-sm focus:shadow-md transition-all text-[#555] px-2 py-1 rounded w-full md:w-[200px] buscar">
+                <span class="gap-5 flex w-full">
+
+                    <button
+                        class="Btn_divisions bg-[#00ab84] text-white px-2 py-1 rounded transition-colors"
+                        id="botonCitas3">
+                        <span class="Btntext_divisions">Agregar cita</span>
+                        <span class="svgIcon_divisions">
+                            <i class="nf nf-oct-diff_added"></i>
+                        </span>
+                    </button>
+                    <a href="{{ route('asesorias', ['id' => auth()->user()->slug]) }}"
+                        class="Btn_divisions bg-[#00ab84] text-white px-2 py-1 rounded transition-colors"
+                        id="botonCitas2">
+                        <span class="Btntext_divisions">Calendario</span>
+                        <span class="svgIcon_divisions">
+                            <i class="nf nf-oct-arrow_switch"></i>
+                        </span>
+                    </a>
+                </span>
             </span>
             </div>
         </header>
@@ -121,7 +153,7 @@
                 </span>
                 <p id="error">Error</p>
                 <button type="button" id="agregarEventoButton"
-                    class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors">Crear cita</button>
+                    class="bg-[#00ab84] text-white px-2 py-1 rounded transition-colors">Crear cita</button>
             </form>
         </div>
 
@@ -146,7 +178,7 @@
                     <span id="editContador">0/250</span>
                 </div>
                 <p id="error2">Error</p>
-                <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="button"
+                <button class="bg-[#00ab84] text-white px-2 py-1 rounded transition-colors" type="button"
                     id="guardarEventoButton">Guardar Cambios</button>
             </form>
         </div>
@@ -160,7 +192,7 @@
                 @csrf
                 @method('DELETE')
                 <h2 class="pb-[20px]">¿Esta seguro?</h2>
-                <button class="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600 transition-colors" type="button"
+                <button class="bg-[#00ab84] text-white px-2 py-1 rounded transition-colors" type="button"
                     id="borrarEventoBoton">Borrar cita</button>
             </form>
         </div>
@@ -233,5 +265,6 @@
         <script>
             var sessions = @json($sessionsData, JSON_PRETTY_PRINT);
         </script>
+
     </main>
 @endsection

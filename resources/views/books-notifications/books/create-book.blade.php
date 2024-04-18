@@ -1,12 +1,21 @@
-@extends('layouts.panel')
+@extends('layouts.panelUsers')
 
 @section('titulo')
-    Crear Libro
+Crear Libro
 @endsection
 
 @section('contenido')
 <div>
     <style>
+
+:root {
+    --background: #ECF0F4;
+    --white: white;
+    --gray-light: #FAFBFC;
+    --gray-borders: #ECF1F4;
+    --gray-dark: #AEB7C2;
+    --primary: #4dc9ae;
+}
         /* Define las clases para la animación */
         .fade-in {
           animation: fadeIn 0.5s;
@@ -30,6 +39,21 @@
         /* Clase para mantener el elemento oculto después de la animación de salida */
         .hidden {
           display: none !important;
+        }
+
+        #description{
+            border: 1px solid var(--gray-borders);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    height: 3rem;
+    transition: height 0.3s ease-in-out;
+    resize: none;
+    width: 100%;
+        }
+        #description:focus{
+            outline: none;
+    height: 5rem;
+    border: 2px solid var(--primary);
         }
         </style>
         
@@ -127,11 +151,11 @@
                 @enderror
             </div>
 
-            <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md button-books">Crear Libro</button>
+            <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md button-books-update">Crear Libro</button>
 
         </form>
         <a href="{{ route('libros.index') }}" class="block">
-            <button class="button-books create-book-position bg-teal-500">Volver a la lista de libros</button>
+            <button class="button-books-exit create-book-position bg-teal-500">Volver a la lista de libros</button>
         </a>
     </div>
 </div>

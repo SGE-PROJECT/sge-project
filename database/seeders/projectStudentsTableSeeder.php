@@ -16,62 +16,56 @@ class projectStudentsTableSeeder extends Seeder
     {
         ProjectStudent::create([
             'project_id' => 1,
-            'student_id' => 1,
+            'student_id' => 2,
             'is_main_student' => 1,
         ]);
 
         ProjectStudent::create([
             'project_id' => 2,
-            'student_id' => 2,
-            'is_main_student' => 0,
-        ]);
-
-        ProjectStudent::create([
-            'project_id' => 3,
             'student_id' => 3,
             'is_main_student' => 1,
         ]);
 
         ProjectStudent::create([
-            'project_id' => 4,
+            'project_id' => 3,
             'student_id' => 4,
-            'is_main_student' => 0,
+            'is_main_student' => 1,
         ]);
 
         ProjectStudent::create([
-            'project_id' => 5,
+            'project_id' => 4,
             'student_id' => 5,
             'is_main_student' => 1,
         ]);
 
         ProjectStudent::create([
-            'project_id' => 1,
+            'project_id' => 5,
             'student_id' => 6,
-            'is_main_student' => 0,
+            'is_main_student' => 1,
         ]);
 
         ProjectStudent::create([
-            'project_id' => 2,
+            'project_id' => 6,
             'student_id' => 7,
             'is_main_student' => 1,
         ]);
 
         ProjectStudent::create([
-            'project_id' => 3,
+            'project_id' => 7,
             'student_id' => 8,
-            'is_main_student' => 0,
+            'is_main_student' => 1,
         ]);
 
         ProjectStudent::create([
-            'project_id' => 4,
+            'project_id' => 8,
             'student_id' => 9,
             'is_main_student' => 1,
         ]);
 
         ProjectStudent::create([
-            'project_id' => 5,
+            'project_id' => 9,
             'student_id' => 10,
-            'is_main_student' => 0,
+            'is_main_student' => 1,
         ]);
     }
 }

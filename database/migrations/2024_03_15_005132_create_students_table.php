@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('academic_advisor_id')->nullable()->constrained('academic_advisors')->onUpdate('cascade')->onDelete('restrict');
             $table->bigInteger('sanction_advisor')->default(0);
             $table->bigInteger('sanction_company')->default(0);
-            $table->foreignId('book_id')->nullable()->constrained('books')->inDelete('cascade');
-            $table->boolean('isReEntry')->default(false);
+            $table->foreignId('book_id')->nullable()->constrained('books')->onDelete('set null');
+            $table->boolean('isReEntry')->default(false)->nullable();
             $table->timestamps();
         });
     }

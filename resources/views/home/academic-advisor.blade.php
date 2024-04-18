@@ -16,7 +16,7 @@
     @php
         use Carbon\Carbon;
     @endphp
-    <main class="vista_asesorias">
+    <main class="vista_asesorias overflow-hidden">
         <div class="container mx-auto px-4 mt-10">
             <div class="relative w-full ">
                 <p class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-600 font-bold text-3xl uppercase">
@@ -108,10 +108,12 @@
                                 role="alert">
                                 <div
                                     class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-teal-500 bg-green-50 rounded-lg">
-                                    <i class='bx bxs-briefcase'></i>
+                                    <i class='nf nf-oct-project_roadmap'></i>
                                     <span class="sr-only">Fire icon</span>
                                 </div>
-                                <div class="ms-3 text-sm font-normal">{{ $project->name_project }}</div>
+                                <div class="ms-3 text-sm font-normal">
+                                    {{ Str::limit($project->name_project, 18, '...') }}
+                                </div>
 
                                 <div class="ml-auto"></div>
                                 <div class="mx-3">
@@ -263,7 +265,7 @@
                                 $colorFondo = 'bg-lime-200';
                                 $colorIcono = 'text-lime-500 nf-fa-check_circle';
                                 $color2 = 'bg-lime-100 ';
-                                $colorLetra2 = 'text-[#444]';
+                                $colorLetra2 = 'text-[#pb444]';
                                 $colorFondo2 = 'bg-lime-200';
                                 $colorIcono2 = 'text-lime-500 nf-fa-check_circle';
                                 $academic = $student->sanction_advisor;

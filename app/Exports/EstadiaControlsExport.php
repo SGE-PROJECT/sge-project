@@ -36,7 +36,7 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
     {
         $actividadesData = json_decode($control->actividad_realizada, true);
         $actividades = array_map(function($actividad) {
-            return $actividad['realizada'] ? 'Sí' : 'No';
+            return $actividad['realizada'] ? 'X' : '';
         }, $actividadesData);
 
         return [
@@ -49,9 +49,9 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
             $this->formatBoolean($control->experiencia_profesional),
             $this->formatBoolean($control->certificacion_profesional),
             $this->formatBoolean($control->movilidad_internacional),
-            $control->contacto_inicial,
-            $control->contacto_seguimiento,
-            $control->contacto_cierre,
+            $this->formatBoolean($control->contacto_inicial),
+            $this->formatBoolean($control->contacto_seguimiento),
+            $this->formatBoolean($control->contacto_cierre),
             $control->evaluacion_asesor_empresarial,
             $control->evaluacion_asesor_academico,
             ...$actividades,
@@ -75,7 +75,7 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
         $actividadesData = json_decode($this->reports->first()->actividad_realizada, true);
         $totalActividades = count($actividadesData);
         for ($i = 0; $i < $totalActividades; $i++) {
-            $motivo = $actividadesData[$i]['motivo'];
+            $motivo = $actividadesData[$i]['motivo'] . " - " .  $actividadesData[$i]['fecha2'];
             $actividadesHeadings[] = $motivo;
         }
         return [
@@ -220,11 +220,11 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
                 $event->sheet->getDelegate()->getColumnDimension('I')->setWidth(4);
                 $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
 
-                $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('J')->setWidth(8);
                 $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
-                $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('K')->setWidth(8);
                 $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
-                $event->sheet->getDelegate()->getColumnDimension('L')->setWidth(20);
+                $event->sheet->getDelegate()->getColumnDimension('L')->setWidth(8);
 
 
                 $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(170);
@@ -448,6 +448,6 @@ class EstadiaControlsExport implements FromCollection, WithHeadings, WithStyles,
 
     private function formatBoolean($value)
     {
-        return $value ? 'Sí' : 'No';
+        return $value ? 'X' : '';
     }
 }

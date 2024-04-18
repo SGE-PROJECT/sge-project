@@ -13,4 +13,9 @@ class ProjectStudent extends Model
         'student_id',
         'is_main_student',
     ];
+
+    public function mainStudent()
+    {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
 }

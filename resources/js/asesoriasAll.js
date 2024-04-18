@@ -2,6 +2,8 @@ var idEvento = 1;
 var idFecha = "";
 var eliminarId = 1;
 var diaSemana = "", diaMes = "", Mes = "", año = "", numeroMes = "";
+var currentPage = 1;
+var eventsPerPage = 10;
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("contador").textContent = 0 + "/250";
@@ -44,6 +46,33 @@ document.addEventListener('DOMContentLoaded', function () {
         agregarEvento();
     });
 });
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    const monthNamesToNumbers = {
+        enero: '01', febrero: '02', marzo: '03', abril: '04', mayo: '05',
+        junio: '06', julio: '07', agosto: '08', septiembre: '09',
+        octubre: '10', noviembre: '11', diciembre: '12'
+    };
+    const searchTerm = this.value.toLowerCase();
+    let normalizedSearchTerm = searchTerm in monthNamesToNumbers ? monthNamesToNumbers[searchTerm] : searchTerm;
+
+    let eventosFiltrados = Object.values(eventos).filter(evento => {
+        let alumnos = proyectos[evento.proyectoId].alumnos.map(alumnoId => estudiantes[alumnoId].nombre).join(' ').toLowerCase();
+        let proyecto = proyectos[evento.proyectoId].nombre.toLowerCase();
+        let asunto = evento.motivo.toLowerCase();
+        let fecha = evento.fecha;
+        let hora = evento.hora;
+
+        // Comprobar si la fecha contiene el término de búsqueda normalizado
+        return alumnos.includes(searchTerm) ||
+               proyecto.includes(searchTerm) ||
+               asunto.includes(searchTerm) ||
+               fecha.includes(normalizedSearchTerm) ||
+               hora.includes(searchTerm);
+    });
+
+    mostrarTodosLosEventos(eventosFiltrados);
+});
+
 function matricula() {
     let selectedProyectoId = document.getElementById('nombre').value;
     if (selectedProyectoId == "0") {
@@ -197,19 +226,19 @@ function closeModal5() {
     error.style.display = "none";
 }
 
-function mostrarTodosLosEventos() {
+function mostrarTodosLosEventos(eventosFiltrados = null) {
     let tablaEventos = document.getElementById('tablaEventos2').getElementsByTagName('tbody')[0];
     tablaEventos.innerHTML = '';
-    let eventosOrdenados = Object.values(eventos).sort((a, b) => a.proyectoId - b.proyectoId);
-    if (eventosOrdenados.length === 0) {
+    let eventosAMostrar = eventosFiltrados || Object.values(eventos).sort((a, b) => a.proyectoId - b.proyectoId);
+
+    if (eventosAMostrar.length === 0) {
         let fila = tablaEventos.insertRow();
         let celdaMensaje = fila.insertCell();
-        celdaMensaje.textContent = 'No hay eventos registrados.';
+        celdaMensaje.textContent = 'Ningun evento encontrado.';
         celdaMensaje.colSpan = 6;
         celdaMensaje.classList.add('text-center');
     } else {
-        for (let i = 0; i < eventosOrdenados.length; i++) {
-            let evento = eventosOrdenados[i];
+        eventosAMostrar.forEach(evento => {
             let fila = tablaEventos.insertRow();
 
             let celdaProyecto = fila.insertCell();
@@ -220,7 +249,7 @@ function mostrarTodosLosEventos() {
             let celdaAlumnos = fila.insertCell();
             let alumnosProyecto = proyectos[evento.proyectoId].alumnos.map(matricula => estudiantes[matricula].nombre).join(', ');
             let divAlumnos = document.createElement('div');
-            divAlumnos.classList.add("limitar2")
+            divAlumnos.classList.add("limitar2");
             divAlumnos.textContent = alumnosProyecto;
             celdaAlumnos.appendChild(divAlumnos);
 
@@ -246,20 +275,30 @@ function mostrarTodosLosEventos() {
 
             let celdaAccion = fila.insertCell();
             let divAcciones = document.createElement('div');
+            divAcciones.classList.add("flex")
             let botonEditar = document.createElement('button');
-            botonEditar.innerHTML = `<i class="nf nf-md-pencil evento"></i>`;
+            botonEditar.innerHTML = `<button href="" type="button"
+            class="bg-blue-500 mr-2 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
+            <i class='bx bx-edit-alt'></i>
+            Editar
+        </button>`;
             botonEditar.addEventListener('click', function () { editarEvento(evento.id, evento.fecha, evento.hora, evento.motivo); });
             divAcciones.appendChild(botonEditar);
 
             let botonEliminar = document.createElement('button');
-            botonEliminar.innerHTML = `<i class="nf nf-fa-trash evento"></i>`;
+            botonEliminar.innerHTML = `<button type="button"
+            class=" bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
+            <i class='bx bx-trash'></i>
+            Eliminar
+        </button>`;
             botonEliminar.addEventListener('click', function () { eliminarEvento(evento.id); });
             divAcciones.appendChild(botonEliminar);
 
             celdaAccion.appendChild(divAcciones);
-        }
+        });
     }
 }
+
 function editarGuardar() {
     let id = idEvento;
     let idFech = idFecha;
@@ -336,4 +375,5 @@ function editarEvento(id, fecha, hora, motivo) {
     document.getElementById("editContador").textContent = cantidad + "/250";
     document.getElementById("myModal2").style.display = "flex";
 }
+
 mostrarTodosLosEventos();

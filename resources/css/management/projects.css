@@ -1,18 +1,18 @@
 /* Tabla */
-@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Signika:wght@300..700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300..700&family=Signika:wght@300..700&display=swap');
 
 .tabla-project {
     border-radius: 40px;
-    padding: 2rem;
+    padding: 50px;
+    margin-left: -40px;
     grid-column: auto;
+    overflow: hidden; /* Asegura que todo dentro del contenedor se ajuste al tamaño */
 }
 
 .tabla-titulo-project {
     font-size: 20px;
-    margin-bottom: 10px; 
-    font-family: 'Signika', sans-serif;
     margin-bottom: 20px;
+    font-family: 'Signika', sans-serif;
 }
 
 .tabla-cont-project {
@@ -25,17 +25,21 @@
 }
 
 .tabla-project th {
-    padding: 15px;
+    padding: 10px; /* Reducido de 15px */
     text-align: center;
     background-color: #293846;
+    font-size: 14px; /* Tamaño de fuente más pequeño para los encabezados */
 }
 
 .tabla-project td {
-    padding: 15px;
-    font-size: 16px;
+    padding: 10px; /* Reducido de 15px */
+    font-size: 14px; /* Tamaño de fuente más pequeño para el contenido */
     color: #0f0e0e;
     text-align: center;
     font-weight: 500;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    overflow: hidden; /* Oculta el contenido que excede el tamaño de la celda */
+    text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es demasiado largo */
 }
 
 .tdcat {

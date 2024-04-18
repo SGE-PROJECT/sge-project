@@ -16,9 +16,16 @@ use Illuminate\Support\Facades\Log; // Importación correcta para Laravel
 
 class MasiveAddController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(){
+        $this->middleware("can:masive.index")->only('index');
+        $this->middleware("can:masive.create")->only('create');
+        $this->middleware("can:masive.store")->only('store');
+        $this->middleware("can:masive.determineImportClass")->only('determineImportClass');
+        $this->middleware("can:masive.exportCsv")->only('exportCsv');
+        $this->middleware("can:masive.exportTemplate")->only('exportTemplate');
+        $this->middleware("can:masive.exportTemplateUsers")->only('exportTemplateUsers');
+    }
+
     public function index()
     {
 
@@ -56,59 +63,47 @@ class MasiveAddController extends Controller
         return view('users.masiveadd', ['users' => $users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'file' => 'required|file|mimes:xlsx,xls,csv|max:2048', // Limita a archivos Excel y de hasta 2MB
         ]);
-    
+
         if (!$request->hasFile('file')) {
             return back()->with('error', 'No se recibió ningún archivo.');
         }
-    
+
         $file = $request->file('file');
         $importClass = $this->determineImportClass($file);
-    
+
         if (is_null($importClass)) {
             return back()->with('error', 'No se pudo determinar el tipo de archivo de importación.');
         }
-    
+
         try {
             Excel::import(new $importClass, $file);
         } catch (\Exception $e) {
             Log::error('Error al importar: ' . $e->getMessage());
             return back()->with('error', 'Hubo un problema al importar: ' . $e->getMessage());
         }
-    
+
         return back()->with('success', 'Importación realizada correctamente.');
     }
-    
-    /**
-     * Determina la clase de importación adecuada en función del contenido del archivo.
-     *
-     * @param UploadedFile $file
-     * @return string|null
-     */
+
     private function determineImportClass($file)
     {
         // Leer las primeras filas del archivo para determinar su estructura
         $reader = Excel::toCollection(new UsersImport, $file)->first();
-    
+
         if (is_null($reader) || $reader->isEmpty()) {
             return null;
         }
-    
+
         $firstRow = $reader->first();
         if ($firstRow->has('payrol')) {
             return RolesImport::class; // La clase que se usa para importar roles
@@ -116,8 +111,21 @@ class MasiveAddController extends Controller
             return UsersImport::class; // La clase que se usa para importar usuarios
         }
     }
-    
-    
+    public function exportCsv()
+    {
+        return Excel::download(new UserExport, 'users.xlsx');
+    }
+
+    public function exportTemplate()
+    {
+        return Excel::download(new UserExportTemplate, 'UserImportTemplate.xlsx');
+    }
+
+    public function exportTemplateUsers()
+    {
+        return Excel::download(new RolesExport, 'RolesImportTemplate.xlsx');
+    }
+
 
 
 
@@ -153,18 +161,5 @@ class MasiveAddController extends Controller
         //
     }
 
-    public function exportCsv()
-    {
-        return Excel::download(new UserExport, 'users.xlsx');
-    }
 
-    public function exportTemplate()
-    {
-        return Excel::download(new UserExportTemplate, 'UserImportTemplate.xlsx');
-    }
-
-        public function exportTemplateUsers()
-    {
-        return Excel::download(new RolesExport, 'RolesImportTemplate.xlsx');
-    }
 }

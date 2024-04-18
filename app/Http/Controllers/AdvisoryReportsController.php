@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Activities;
 use App\Mail\PetitionDateMail;
+use App\Mail\SanctionAdvisor;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\PetitionDateNotification;
 use Illuminate\Support\Facades\Notification;
@@ -13,6 +15,8 @@ use App\Models\Report;
 use App\Models\AdvisorySession;
 use App\Exports\EstadiaControlsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpWord\TemplateProcessor;
+use Carbon\Carbon;
 
 class AdvisoryReportsController extends Controller
 {
@@ -45,9 +49,6 @@ class AdvisoryReportsController extends Controller
         $validatedData = $request->validate([
             'matricula' => 'required|string|max:50',
             'nombre' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\-]+$/'],
-            'contacto_inicial' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
-            'contacto_seguimiento' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
-            'contacto_cierre' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
             'evaluacion_asesor_empresarial' => 'nullable|numeric|min:0|max:100',
             'evaluacion_asesor_academico' => 'nullable|numeric|min:0|max:100',
             'nombre_asesor' => ['nullable', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s\-]+$/'],
@@ -78,10 +79,12 @@ class AdvisoryReportsController extends Controller
             $realizada = $request->input('actividadRealizada' . $index);
             $motivo = $request->input('motivo' . $index);
             $fecha = $request->input('fecha' . $index);
+            $fecha2 = $request->input('fecha2' . $index);
             $actividades_realizadas[] = [
                 'motivo' => $motivo,
                 'realizada' => $realizada == 'on' ? true : false,
-                'fecha' => $fecha
+                'fecha' => $fecha,
+                'fecha2' => $fecha2
             ];
 
             $index++;
@@ -95,9 +98,9 @@ class AdvisoryReportsController extends Controller
             'experiencia_profesional' => $request->tipoMemoria =='experienciaProfesional' ? 1 : 0,
             'certificacion_profesional' => $request->tipoMemoria =='certificacionProfesional' ? 1 : 0,
             'movilidad_internacional' => $request->tipoMemoria =='movilidadInternacional' ? 1 : 0,
-            'contacto_inicial' => $validatedData['contacto_inicial'],
-            'contacto_seguimiento' => $validatedData['contacto_seguimiento'],
-            'contacto_cierre' => $validatedData['contacto_cierre'],
+            'contacto_inicial' => $request->contacto_inicial ? 1 : 0,
+            'contacto_seguimiento' => $request->contacto_seguimiento ? 1 : 0,
+            'contacto_cierre' => $request->contacto_cierre ? 1 : 0,
             'actividad_realizada' => json_encode($actividades_realizadas),
             'evaluacion_asesor_empresarial' => $validatedData['evaluacion_asesor_empresarial'],
             'evaluacion_asesor_academico' => $validatedData['evaluacion_asesor_academico'],
@@ -140,9 +143,7 @@ class AdvisoryReportsController extends Controller
         $projectIds = $activeStudents->flatMap(function ($student) {
             return $student->projects->pluck('id');
         })->unique();
-        $sessions = AdvisorySession::with(['proyect'])
-            ->whereIn('id_project_id', $projectIds)
-            ->get();
+        $sessions = auth()->user()->academicAdvisor->activities;;
 
             $actividades_realizadas = [];
 
@@ -157,10 +158,13 @@ class AdvisoryReportsController extends Controller
             }
 
             foreach ($sessions as $session) {
+                $Date = Carbon::parse($session->date);
+                $fecha0 = $Date->format('d-m-Y');
                 $actividad = [
-                    'motivo' => $session->description,
+                    'motivo' => $session->name,
                     'realizada' => false,
-                    'fecha' => $session->id
+                    'fecha' => $session->id,
+                    'fecha2' => $fecha0
                 ];
 
                 $existe = false;
@@ -229,11 +233,6 @@ class AdvisoryReportsController extends Controller
         return view('consultancy.advisor.AdvisoryReport', compact('alumno','id', 'reporte'));
     }
 
-    public function edit(string $id)
-    {
-        //
-    }
-
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -243,6 +242,35 @@ class AdvisoryReportsController extends Controller
         if (!$user->user->hasRole('Estudiante')) {
             abort(404);
         }
+        $fechaActual = Carbon::now();
+        $diaNumero = $fechaActual->day;
+        $mes = $fechaActual->monthName;
+        $año = $fechaActual->year;
+        $template = public_path('word/sanciones.docx');
+        $templateProcessor = new TemplateProcessor($template);
+        $variables = [
+            'dia' => $diaNumero,
+            'mes' => $mes,
+            'año' => $año,
+            'nombre' => $user->user->name,
+            'matricula' => $user->registration_number,
+            'programa' => $user->group->program->name,
+            'aca1' => $request->tipo =='asesor' ? $user->sanction_advisor == 0 ? 'X' : ' ' : ' ',
+            'aca2' => $request->tipo =='asesor' ? $user->sanction_advisor == 1 ? 'X' : ' ' : ' ',
+            'aca3' => $request->tipo =='asesor' ? $user->sanction_advisor == 2 ? 'X' : ' ' : ' ',
+            'emp1' => $request->tipo =='empresarial' ? $user->sanction_company == 0 ? 'X' : ' ' : ' ',
+            'emp2' => $request->tipo =='empresarial' ? $user->sanction_company == 1 ? 'X' : ' ' : ' ',
+            'emp3' => $request->tipo =='empresarial' ? $user->sanction_company == 2 ? 'X' : ' ' : ' ',
+            'acah' => $request->tipo =='asesor' ? $request->horas : '___',
+            'emph' => $request->tipo =='empresarial' ? $request->horas : '___',
+            'sancion' => $user->sanction_advisor + $user->sanction_company,
+        ];
+        foreach ($variables as $key => $value) {
+            $templateProcessor->setValue($key, $value);
+        }
+        $outputFile = 'Sancion_por_incumplimiento.docx';
+        $templateProcessor->saveAs($outputFile);
+
         if ($request->tipo =='asesor') {
             $cantidad = $user->sanction_advisor + 1;
             $user->update(['sanction_advisor' => $cantidad]);
@@ -252,20 +280,24 @@ class AdvisoryReportsController extends Controller
         }
 
         Notification::send($user->user,new PetitionDateNotification($user->user, $request));
-        Mail::to($user->user->email)->send(new PetitionDateMail($user->user, $request));
-        return back()->with('success', 'Se ha sancionado al alumno exitosamente.');
+        try {
+            Mail::to($user->user->email)->send(new PetitionDateMail($user->user, $request, $outputFile));
+            Mail::to($user->academicAdvisor->user->email)->send(new SanctionAdvisor($user->academicAdvisor->user, $request, $outputFile));
+        } catch (\Throwable $th) {
+
+        }
+
+        unlink($outputFile);
+        return back()->with('delete', 'Se ha sancionado al alumno exitosamente.');
     }
 
-    public function exportToExcel($correo, $matricula)
+    public function exportToExcel($correo)
     {
         $user = User::where('email', $correo)->first();
-        $estudiante = Student::where('registration_number', $matricula)->first();
         if (!$user) {
             return response()->json(['message' => 'Correo electrónico no encontrado'], 404);
         }
-        $report = Report::where('correo_asesor', $correo)
-                    ->where('matricula', $matricula)
-                    ->get();
+        $report = Report::where('correo_asesor', $correo)->get();
         if ($report->isEmpty()) {
             return response()->json(['message' => 'No hay reportes para el correo electrónico proporcionado'], 404);
         }
@@ -275,5 +307,44 @@ class AdvisoryReportsController extends Controller
     public function destroy(string $id)
     {
 
+    }
+
+    public function activities()
+    {
+        $activities = auth()->user()->academicAdvisor->activities;
+        return view('consultancy.advisor.Activities', compact('activities'));
+    }
+    public function addActivitie(Request $request)
+    {
+        $validatedData = $request->validate([
+            'date' => 'required',
+            'name' => 'required|max:255',
+            'id_advisor_id' => 'required'
+        ]);
+        $session = Activities::create($validatedData);
+        return back()->with('succes', 'Se ha creado la actividad correctamente.');
+    }
+    public function editActivitie(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'date' => 'required',
+            'name' => 'required|max:255',
+            'id_advisor_id' => 'required'
+        ]);
+        $actividad = Activities::find($id);
+        if (!$actividad) {
+            return response()->json(['message' => 'Session not found'], 404);
+        }
+        $actividad->update($validatedData);
+        return back()->with('edit', 'Se ha modificado la actividad correctamente.');
+    }
+    public function deleteActivitie($id)
+    {
+        $actividad = Activities::find($id);
+        if (!$actividad) {
+            return response()->json(['message' => 'Session not found'], 404);
+        }
+        $actividad->delete();
+        return back()->with('delete', 'Se ha eliminado la actividad correctamente.');
     }
 }

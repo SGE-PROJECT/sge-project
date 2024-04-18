@@ -26,7 +26,7 @@
     </div>
 
     <div class="flex items-baseline align-middle">
-        <button class="bg-[#03A696] hover:bg-[#025b52] text-white font-bold py-2 px-4 rounded ml-8 mt-10 mr-5 w-32" onclick="window.location.href = '{{ route('dashboardProjects') }}'">
+        <button class="relative bg-teal-500 text-white px-4 py-2 ml-5 mr-6 rounded hover:bg-teal-600 transition-colors h-full" onclick="window.location.href = '{{ route('dashboardProjects') }}'">
             Ir a Agregar
         </button>
         {{-- @include('administrator.filter') --}}
@@ -49,7 +49,7 @@
         </div>
 
         <!-- BOTÓN QUE NOS SIRVE PARA EXPORTAR LOS ARCHIVOS -->
-        <div x-data="{ isActive: false }" class="relative ml-auto mr-8">
+        <div x-data="{ isActive: false }" class="relative ml-auto mr-6">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
                 <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                     Exportar
@@ -74,9 +74,9 @@
                         <div class="flex items-center">
                             &#8203;
                         </div>
-                        <div>
+                        <a href="{{ route('export.users.pdf') }}">
                             <strong class="font-medium text-gray-900"> PDF </strong>
-                        </div>
+                        </a>
                     </label>
 
                     <label for="Option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
@@ -84,19 +84,9 @@
                             &#8203;
                         </div>
 
-                        <div>
+                        <a href="{{ route('export.users.excel') }}">
                             <strong class="font-medium text-gray-900"> Excel </strong>
-                        </div>
-                    </label>
-
-                    <label for="Option3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                        </div>
-
-                        <div>
-                            <strong class="font-medium text-gray-900"> Imprimir </strong>
-                        </div>
+                        </a>
                     </label>
 
                 </div>
@@ -104,105 +94,49 @@
         </div>
     </div>
 
-    <div class="tabla-project">
-        <div class="tabla-cont-project ">
-            <table id="tabla-usuarios" class="rounded-lg">
-                <thead class="bg-[#003E61] text-white font-bold bg-blue-003E61">
+    <div class="">
+        <div class="mt-5 mr-3 mb-5 overflow-x-auto  ">
+            <table id="tabla-usuarios" class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table">
+                <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Correo electrónico</th>
-                        <th>No. Teléfono</th>
-                        <th>Rol</th>
-                        <th>División</th>
-                        <th>Estado</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Nombre</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Correo electrónico</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">No. Teléfono</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Rol</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">División</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Estado</th>
 
                     </tr>
                 </thead>
                 @foreach ($users as $user)
                 <tr>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->phone_number}}</td>
-                    <td>
+                    <td class="py-4 text-sm text-black">{{$user->name}}</td>
+                    <td class="py-4 text-sm text-black">{{$user->email}}</td>
+                    <td class="py-4 text-sm text-black">{{$user->phone_number}}</td>
+                    <td class="py-4 text-sm text-black">
                     @foreach ($user->roles as $role)
                         <span>{{ $role->name }}</span>
                     @endforeach</td>
-                    <td>{{$user->division_name}}</td>
-                    <td>{{$user->isActive == 1 ? 'Activo' : 'Inactivo'}}</td>
+                    <td class="py-4 text-sm text-black">{{$user->division_name}}</td>
+                    <td class="py-4 text-sm text-black">{{$user->isActive == 1 ? 'Activo' : 'Inactivo'}}</td>
                 </tr>
                 @endforeach
                 </tbody>
             </table>
-        </div>
-        <div class="mt-1">
-            {{ $users->links() }}
+            <div id="no-results" class="alert alert-warning" style="display: none; text-align: center;">
+                No se encontraron resultados.
+            </div>
+            <div class="mt-1">
+                {{ $users->links() }}
+            </div>
         </div>
 
     </div>
 
     <!-- SCRIPTS DE JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- SCRIPTS DE DATA TABLES Y DATA TABLE BUTTONS -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
-    <!-- SCRIPTS PARA HACER FUNCIONAR LOS BOTONES -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-        <!-- SCRIPT DE LA DATA TABLE -->
-        <script>
-            $(document).ready(function() {
-        var table = $('#tabla-usuarios').DataTable({
-            responsive: true,
-            dom: 't', // Quitamos la 'B' para que no se muestren los botones
-            buttons: [ // Inicializamos los botones manualmente
-                'pdf',
-                'excel',
-                'print'
-            ]
-        });
-
-        // Creamos una nueva instancia de botones para poder usarla después
-        new $.fn.dataTable.Buttons(table, {
-            buttons: [
-                'pdf',
-                'excel',
-                'print'
-            ]
-        });
-
-        // Agregamos la nueva instancia de botones al datatables
-        table.buttons(0, null).containers().appendTo('#buttonContainer');
-
-        $('#option1').on('click', function() {
-            table.button('.buttons-pdf').trigger();
-        });
-
-        $('#option2').on('click', function() {
-            table.button('.buttons-excel').trigger();
-        });
-
-        $('#option3').on('click', function() {
-            table.button('.buttons-print').trigger();
-        });
-
-        //Buscador
-        $('#Search').on('input', function() {
-            table.search(this.value).draw();
-        });
-
-        table.on('draw', function() {
-            if (table.page.info().recordsDisplay === 0) {
-                $('.dataTables_empty').text('No se encontraron resultados');
-            }
-        });
-    });
-        </script>
+    @vite('resources/js/administrator/users-filter.js')
 
     <!--SCRIPT DE LA GRAFICA-->
     <script>

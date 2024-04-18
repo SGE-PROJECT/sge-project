@@ -44,7 +44,7 @@
                         <div class="mt-2 space-y-2">
                             <div>
                                 <label for="tradicional" class="inline-flex items-center">
-                                    <input type="radio" id="tradicional" name="tipoMemoria" value="tradicional" {{ $reporte->tradicional ? 'checked' : '' }}
+                                    <input type="radio" id="tradicional" name="tipoMemoria" value="tradicional" {{ $reporte->tradicional ? 'checked' : '' }} checked
                                         class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
                                     <span class="ml-2 text-sm text-gray-700">Tradicional</span>
                                 </label>
@@ -96,29 +96,32 @@
                         </div>
                     </fieldset>
 
-
-                    <div class="mt-6">
+                    <legend class=" mt-6 text-sm font-medium text-gray-700">Segumiento con asesor empresarial:</legend>
+                    <div class="mt-3 flex w-full items-center">
+                        <input type="checkbox" id="contactoInicial" name="contacto_inicial"
+                            placeholder="Ingrese el contacto inicial" {{$reporte->contacto_inicial ? 'checked' : ''}}
+                            class="rounded border-gray-300 text-indigo-600 shadow-sm mr-2 focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
                         <label for="contactoInicial" class="block text-sm font-medium text-gray-700">Contacto
-                            Inicial:</label>
-                        <input type="text" id="contactoInicial" name="contacto_inicial"
-                            placeholder="Ingrese el contacto inicial" value="{{$reporte->contacto_inicial}}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
+                            Inicial</label>
+
                     </div>
 
-                    <div class="mt-6">
+                    <div class="mt-3 flex w-full items-center">
+                        <input type="checkbox" id="contactoSeguimiento" name="contacto_seguimiento"
+                            placeholder="Ingrese el contacto de seguimiento" {{$reporte->contacto_seguimiento ? 'checked' : ''}}
+                            class="rounded border-gray-300 text-indigo-600 shadow-sm mr-2 focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
                         <label for="contactoSeguimiento" class="block text-sm font-medium text-gray-700">Contacto de
-                            Seguimiento:</label>
-                        <input type="text" id="contactoSeguimiento" name="contacto_seguimiento"
-                            placeholder="Ingrese el contacto de seguimiento" value="{{$reporte->contacto_seguimiento}}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
+                            Seguimiento</label>
+
                     </div>
 
-                    <div class="mt-6">
+                    <div class="mt-3 flex w-full items-center">
+                        <input type="checkbox" id="contactoCierre" name="contacto_cierre"
+                            placeholder="Ingrese el contacto de cierre" {{$reporte->contacto_cierre ? 'checked' : ''}}
+                            class="rounded border-gray-300 text-indigo-600 shadow-sm mr-2 focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
                         <label for="contactoCierre" class="block text-sm font-medium text-gray-700">Contacto de
-                            Cierre:</label>
-                        <input type="text" id="contactoCierre" name="contacto_cierre"
-                            placeholder="Ingrese el contacto de cierre" value="{{$reporte->contacto_cierre}}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
+                            Cierre</label>
+
                     </div>
 
                     <div class="mt-6">
@@ -126,7 +129,7 @@
                             class="block text-sm font-medium text-gray-700">Evaluación
                             Asesor Empresarial:</label>
                         <input type="number" id="evaluacionAsesorEmpresarial" name="evaluacion_asesor_empresarial"
-                            placeholder="Ingrese la calificación" value="{{$reporte->evaluacion_asesor_empresarial}}"
+                            placeholder="Ingrese la calificación" value="{{$reporte->evaluacion_asesor_empresarial}}" min="1" max="100"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
                     </div>
 
@@ -134,7 +137,7 @@
                         <label for="evaluacionAsesorAcademico" class="block text-sm font-medium text-gray-700">Evaluación
                             Asesor Académico:</label>
                         <input type="number" id="evaluacionAsesorAcademico" name="evaluacion_asesor_academico"
-                            placeholder="Ingrese la calificación" value="{{$reporte->evaluacion_asesor_academico}}"
+                            placeholder="Ingrese la calificación" value="{{$reporte->evaluacion_asesor_academico}}" min="1" max="100"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border-2 px-1 py-1">
                     </div>
 
@@ -160,6 +163,8 @@
                                         name="motivo{{ $index }}">
                                     <input type="text" readonly class="hidden" value="{{ $actividad['fecha'] }}"
                                         name="fecha{{ $index }}">
+                                        <input type="text" readonly class="hidden" value="{{ $actividad['fecha2'] }}"
+                                        name="fecha2{{ $index }}">
                                 </div>
                             @endforeach
                             @else

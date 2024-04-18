@@ -11,11 +11,19 @@ use App\Models\User;
 
 class ProgramController extends Controller
 {
+
+    public function getProgramsByDivision($divisionId)
+    {
+        $programs = Program::where('division_id', $divisionId)->get(['id', 'name']);
+        return response()->json($programs);
+    }
+
     public function __construct(){
         $this->middleware("can:carreras.index")->only('index');
         $this->middleware("can:carreras.edit")->only('edit', 'update');
         $this->middleware("can:carreras.create")->only('create', 'store');
         $this->middleware("can:carreras.destroy")->only('destroy');
+        $this->middleware("can:carreras.activate")->only('activate');
     }
     public function index()
     {
@@ -43,23 +51,23 @@ class ProgramController extends Controller
                 'name' => 'required|string|max:255',
                 'description' => 'nullable|string',
                 'division_id' => 'required|exists:divisions,id',
-                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
             ]);
-    
+
             $program = Program::create($request->all());
-    
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 $image->move(public_path('images/program'), $imageName);
-    
+
                 $programImage = new ProgramImage([
                     'program_id' => $program->id,
                     'image_path' => 'images/program/' . $imageName,
                 ]);
                 $programImage->save();
             }
-    
+
             return redirect()->route('carreras.index')->with('success', 'Carrera creada exitosamente.');
     }
 
@@ -82,7 +90,7 @@ class ProgramController extends Controller
         return view('management.careers.edit-career', compact('program', 'divisions')); // Asegúrate de que la vista se llama edit-program.blade.php
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      */
@@ -116,26 +124,28 @@ class ProgramController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        $program = Program::findOrFail($id);
+{
+    $program = Program::findOrFail($id);
+    $program->isActive = false;
+    $program->save();
 
-        // Elimina la imagen asociada si existe
-        if ($program->programImage) {
-            $path = public_path($program->programImage->image_path);
-            if (file_exists($path)) {
-                @unlink($path);
-            }
-            $program->programImage()->delete();
-        }
+    return redirect()->route('carreras.index')->with('success', 'Carrera desactivada con éxito.');
+}
 
-        $program->delete();
-        return redirect()->route('carreras.index')->with('success', 'Carrera eliminada con éxito.');
-    }
+public function activate(string $id)
+{
+    $program = Program::findOrFail($id);
+    $program->isActive = true;
+    $program->save();
+
+    return redirect()->route('carreras.index')->with('success', 'Carrera activada con éxito.');
+}
+
 
     public function divisionCarreras()
     {
         $user = auth()->user();
-    
+
     if ($user->hasRole('Administrador de División')) {
         $divisionId = $user->managmentAdmin->division_id;
     } elseif ($user->hasRole('Asesor Académico')) {
