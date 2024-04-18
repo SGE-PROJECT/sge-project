@@ -1,4 +1,6 @@
-@extends('layouts.panelUsers')
+@extends((Auth::check() && (Auth::user()->hasRole('Super Administrador') || Auth::user()->hasRole('Administrador de División'))) ? 'layouts.panel' : 'layouts.panelUsers')
+
+
 
 @section('titulo', 'Profile')
 
@@ -63,7 +65,7 @@
                         <div class="vertical-line"></div>
                         <label for="photoInput"
                             style="color: rgb(168, 255, 217); font-weight: bold; font-size:1.4rem; cursor: pointer; text-align: center;">
-                            <br>Editar foto</br> 
+                            <br>Editar foto</br>
                         </label>
                     </div>
                 </div>
@@ -101,7 +103,7 @@
                             <i class="fas fa-envelope mr-2 text-teal-600"></i>
                             <span> Correo: {{ auth()->user()->email }}</span>
                         </div>
-                        
+
                         <div class="flex items-center text-sm text-blueGray-600">
                             <i class="fas fa-university mr-2 text-teal-600"></i>
                             <span>Universidad Tecnológica de Cancún</span>
@@ -148,7 +150,7 @@
 
             {{-- PROYECTOS Y EQUIPOS --}}
             <div class="border-blueGray-200 m-8 pt-8">
-               
+
 
 
             </div>

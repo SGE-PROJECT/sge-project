@@ -11,6 +11,12 @@
                 <span class="block sm:inline">{{ session('success') }}</span>
             </div>
         @endif
+        @if (session('change'))
+            <div class="bg-green-100 border mb-2 border-green-400 text-green-700 px-4 py-3 rounded relative alert-dismissible"
+                role="alert">
+                <span class="block sm:inline">{{ session('change') }}</span>
+            </div>
+        @endif
         <div class="">
             <div class="flex justify-between items-center">
                 <li
@@ -339,16 +345,22 @@
                 <form id="formEliminar" action="{{ route('projects.destroy', $proyecto->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button id="btnEliminarProyecto" type="button" class="ProjectDeleteButton">Eliminar</button>
+                    <button id="btnEliminarProyecto" type="button" class="ProjectDeleteButton">
+                        <i class='bx bx-trash'></i> Eliminar
+                    </button>
                 </form>
-                <a href="editanteproyecto"
-                    class="font-bold bg-teal-500 text-white ml-16 px-6 py-2 rounded hover:bg-teal-700 transition-colors">Editar</a>
-                @if ($proyecto->is_public != 1 && $proyecto->status == "En revisión")
+                <a href="{{ route('projects.edit', $proyecto->id) }}"
+                    class="font-bold bg-blue-500 hover:bg-blue-600 text-white ml-16 px-6 py-2 rounded transition-colors">
+                    <i class='bx bx-edit-alt'></i>Editar
+                </a>
+                @if ($proyecto->is_public != 1 && $proyecto->status == 'En revisión')
                     <form action="{{ route('projects.updateIsPublic', $proyecto->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <button type="submit"
-                            class="font-bold bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors">Publicar</button>
+                            class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">
+                            <i class='bx bx-archive-out'></i> Publicar
+                        </button>
                     </form>
                 @endif
             </div>
@@ -395,7 +407,7 @@
         <!-- Modal de confirmación de eliminación -->
         <div id="modalEliminar"
             class="ProjectDeleteModal fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity hidden">
-            <div class="bg-white rounded p-8 max-w-md mx-auto z-50">
+            <div class="bg-white rounded p-8 max-w-md mx-auto z-50 ">
                 <div class="mb-6">
                     <h2 class="text-lg font-semibold text-gray-800">¿Seguro que quieres eliminar?</h2>
                 </div>
@@ -411,7 +423,8 @@
         <form id="formEliminar" action="{{ route('projects.destroy', $proyecto->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button id="btnEliminarProyecto" type="button" style="display: none;" class="ProjectDeleteButton">Eliminar</button>
+            <button id="btnEliminarProyecto" type="button" style="display: none;"
+                class="ProjectDeleteButton">Eliminar</button>
         </form>
 
 

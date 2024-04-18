@@ -38,17 +38,35 @@ class ProjectController extends Controller
 
     public function dashgeneral()
     {
-        $Projects = Project::where('is_project', 1)->paginate(10);
+        // Carga los proyectos y los estudiantes principales relacionados con su grupo, programa y división
+        $Projects = Project::where('is_project', 1)
+            ->with(['students' => function ($query) {
+                // Filtra solo los estudiantes principales del proyecto
+                $query->wherePivot('is_main_student', 1)
+                    ->with('group.program.division');
+            }])
+            ->paginate(10);
+
+        // Conteos de estado del proyecto
         $enCursoCount = $Projects->where('status', 'En curso')->count();
         $reprobadosCount = $Projects->where('status', 'Reprobado')->count();
         $finalizadosCount = $Projects->where('status', 'Finalizado')->count();
+
         return view("administrator.project")
             ->with(compact('Projects', 'enCursoCount', 'reprobadosCount', 'finalizadosCount'));
     }
 
+
     public function dashAnteprojects()
     {
-        $Anteprojects = Project::where('is_project', 0)->paginate(10);
+        $Anteprojects = Project::where('is_project', 0)
+            ->with(['students' => function ($query) {
+                // Filtra solo los estudiantes principales del proyecto
+                $query->wherePivot('is_main_student', 1)
+                    ->with('group.program.division');
+            }])
+            ->paginate(10);
+
         $registradosCount = $Anteprojects->where('status', 'Registrado')->count();
         $enRevisionCount = $Anteprojects->where('status', 'En revision')->count();
         $rechazadosCount = $Anteprojects->where('status', 'Rechazado')->count();
@@ -75,11 +93,58 @@ class ProjectController extends Controller
         return view("projects.ProjectsDash.projectDashboard", compact('Projects'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        if ($search) {
+            $projects = Project::where('name_project', 'like', '%' . $search . '%')
+                ->where('is_project', false);
+
+            if ($projects->count() < 3) {
+                $projects = Project::where('name_project', 'like', '%' . $search . '%')
+                    ->orWhere('name_project', 'not like', '%' . $search . '%')
+                    ->where('is_project', false)
+                    ->paginate(3);
+            } else {
+                $projects = $projects->paginate(3);
+            }
+        } else {
+            $projects = Project::where('is_project', false)
+                ->paginate(3);
+        }
+
+        $projects->load('students');
+
+        $noProjects = $projects->isEmpty();
+
+        return view('projects.viewsproject.ProjectsView', ['Projects' => $projects, 'noProjects' => $noProjects]);
+    }
+
+    public function searchProject(Request $request)
+    {
+        $search = $request->input('search');
+
+        if ($search) {
+            $projects = Project::where('name_project', 'like', '%' . $search . '%')
+                ->where('is_project', true)
+                ->paginate(9);
+        } else {
+            $projects = Project::paginate(9);
+            $projects->load('students');
+        }
+
+        $noProjects = $projects->isEmpty();
+
+        return view('projects.viewsproject.AnteprojectsView', ['Projects' => $projects, 'noProjects' => $noProjects]);
+    }
+
+
     // Vista para contenido de antreproyectos relacionado a las vistas de Listado de Anteproyecto
     public function viewanteproject()
     {
-        $Projects = Project::where('is_project', false)->where('is_public', true)->paginate(3);
+        $Projects = Project::where('is_project', false)->where('is_public', true)->paginate(9);
         $Projects->load('students');
+
 
         // Pasar una variable indicando si hay anteproyectos
         $noProjects = $Projects->isEmpty();
@@ -103,7 +168,10 @@ class ProjectController extends Controller
 
         $Projects = Project::where('is_project', true)->paginate(5);
         $Projects->load('students');
-        return view('projects.viewsproject.AnteprojectsView', compact('Projects'));
+
+        $noProjects = $Projects->isEmpty();
+
+        return view('projects.viewsproject.AnteprojectsView', compact('Projects', 'noProjects'));
     }
 
     // Formulario de creación de proyecto. Si el estudiante ya tiene un proyecto, entonces es enviado a la vista de editar.
@@ -117,7 +185,7 @@ class ProjectController extends Controller
     
         // Verificar si el usuario ya tiene un proyecto creado
         $existingProject = Project_students::where('student_id', Auth::user()->id)->first();
-    
+
         if ($existingProject) {
             // Si el usuario ya tiene un proyecto creado, redirigir a la vista de edición
             return $this->edit($existingProject->id);
@@ -127,7 +195,7 @@ class ProjectController extends Controller
             return view("projects.Forms.FormStudent", compact('businessAdvisors', 'companies', 'student'));
         }
     }
-    
+
 
     public function updateIsPublic($id)
     {
@@ -279,7 +347,7 @@ class ProjectController extends Controller
                 return view('projects.Forms.edit-formstudent-isproject', compact('proyecto'));
             } else {
                 // Redirigir a la vista para no proyectos
-                return view('projects.Forms.edit-formstudent', compact('proyecto'));
+                return view('projects.Forms.newshow-anteproject', compact('proyecto'));
             }
         } else {
             // Manejar el caso en que el proyecto no existe
@@ -294,23 +362,23 @@ class ProjectController extends Controller
 
         $getBusinessAdvisor = BusinessAdvisor::find($proyecto->business_advisor_id);
 
-if ($getBusinessAdvisor) {
-    $updateData = [
-        'email' => $request->advisor_business_email,
-        'phone' => $request->advisor_business_phone,
-        'position' => $request->advisor_business_position,
-    ];
+        if ($getBusinessAdvisor) {
+            $updateData = [
+                'email' => $request->advisor_business_email,
+                'phone' => $request->advisor_business_phone,
+                'position' => $request->advisor_business_position,
+            ];
 
-    // Verificar si el nombre del asesor de negocios está presente en la solicitud antes de agregarlo a los datos de actualización
-    if ($request->has('advisor_business_name')) {
-        $updateData['name'] = $request->advisor_business_name;
-    }
+            // Verificar si el nombre del asesor de negocios está presente en la solicitud antes de agregarlo a los datos de actualización
+            if ($request->has('advisor_business_name')) {
+                $updateData['name'] = $request->advisor_business_name;
+            }
 
-    // Verificar si al menos uno de los campos está presente en los datos de actualización antes de intentar actualizar
-    if (!empty(array_filter($updateData))) {
-        $getBusinessAdvisor->update($updateData);
-    }
-}
+            // Verificar si al menos uno de los campos está presente en los datos de actualización antes de intentar actualizar
+            if (!empty(array_filter($updateData))) {
+                $getBusinessAdvisor->update($updateData);
+            }
+        }
 
 
 
@@ -323,7 +391,7 @@ if ($getBusinessAdvisor) {
 
         // Redireccionar según el tipo de usuario
         if (Auth::user()->roles->contains('name', 'Estudiante')) {
-            return redirect()->route('home')->withInput()->with('success', 'Proyecto actualizado correctamente.');
+            return redirect()->route('viewMyProject')->withInput()->with('success', 'Proyecto actualizado correctamente.');
         } else if (Auth::user()->roles->contains('name', 'Asesor Académico')) {
             return redirect()->route('home')->withInput()->with('success', 'Proyecto actualizado correctamente.');
         }

@@ -199,7 +199,7 @@ function mostrarEventos(cell, date) {
             let eventoDiv = document.createElement('div');
             eventoDiv.classList.add("etiqueta2");
             eventoDiv.innerHTML = `
-                <img src="/images/${proyecto.imagen}" alt="${proyecto.nombre}" class="img_estudiante img_proyecto">
+                <img src="/${proyecto.imagen}" alt="${proyecto.nombre}" class="img_estudiante img_proyecto">
                 <p class="nombre">${proyecto.nombre}</p>`;
             eventoDiv2.appendChild(eventoDiv);
         }
@@ -247,8 +247,8 @@ function llenarHorasConEventos(año, numeroMes, diaMes) {
                             <img src="/${estudiante.imagen}" alt="${estudiante.nombre}" class="img_estudiante">
                             <p class="info">${estudiante.nombre} - ${proyecto.nombre}</p>
                             <p class="hora"> ${evento.hora}</p>
-                            <i class="nf nf-md-pencil evento"></i>
-                            <i class="nf nf-fa-trash evento"></i>`;
+                            <i class="nf nf-md-pencil hover:text-blue-500 evento"></i>
+                            <i class="nf nf-fa-trash hover:text-red-500 evento"></i>`;
                         eventoDiv2.appendChild(eventoDiv);
                         eventoDiv.classList.add(estudiante.color);
                         let iconos = eventoDiv.querySelectorAll('i');

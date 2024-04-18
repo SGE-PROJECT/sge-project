@@ -25,6 +25,8 @@ class ProgramsSeeder extends Seeder
                         'start_date' => '2024-01-01',
                         'image_path' => 'images/program/pexels-lukas-574071.jpg',
                         'end_date' => '2024-12-31',
+                        'academy_id' => 1,
+
                     ],
                     [
                         'name' => 'TSU en TI Área Infraestructura de Redes Digitales',
@@ -32,6 +34,7 @@ class ProgramsSeeder extends Seeder
                         'start_date' => '2024-01-01',
                         'image_path' => 'images/program/redes.jpeg',
                         'end_date' => '2024-12-31',
+
                     ],
                     [
                         'name' => 'TSU en Mantenimiento Área Instalaciones',
@@ -39,6 +42,7 @@ class ProgramsSeeder extends Seeder
                         'start_date' => '2024-01-01',
                         'image_path' => 'images/program/pexels-kateryna-babaieva-2760241.jpg',
                         'end_date' => '2024-12-31',
+
                     ],
                     [
                         'name' => 'TSU en Mantenimiento Área Naval',
@@ -46,6 +50,7 @@ class ProgramsSeeder extends Seeder
                         'start_date' => '2024-01-01',
                         'image_path' => 'images/program/pexels-david-mcelwee-16240659.jpg',
                         'end_date' => '2024-12-31',
+
                     ],
                 ],
             ],
@@ -93,6 +98,7 @@ class ProgramsSeeder extends Seeder
                         'start_date' => '2024-01-01',
                         'image_path' => 'images/program/hoteleria.jpg',
                         'end_date' => '2024-12-31',
+
                     ],
                     [
                         'name' => 'TSU en Terapia Física',
@@ -127,6 +133,7 @@ class ProgramsSeeder extends Seeder
                     'division_id' => $division['division_id'],
                     'start_date' => $programData['start_date'],
                     'end_date' => $programData['end_date'],
+                    'academy_id' => $programData['academy_id'] ?? null,
                 ]);
 
                 // Añadir imagen por defecto

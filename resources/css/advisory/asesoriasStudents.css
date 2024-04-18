@@ -79,6 +79,9 @@
 #student-calendar table{
     border-radius: 5px;
 }
+#student-dia2 thead {
+    background: linear-gradient(90deg, #00ab84, #00e7b1);
+}
 #student-calendar table thead tr:first-child th:first-child,
 #student-calendar table thead tr:first-child td:first-child,
 #student-dia2 table thead tr:first-child th:first-child,#student-dia2 table thead tr:first-child th:first-child
@@ -350,11 +353,16 @@ tbody th{
 }
 
 #student-calendar thead td, #student-dia2 thead th, #student-dia2 thead th{
-    background-color: #14B8A6;
+    background-color: #0000;
     color: #fff;
     font-weight: bold;
 }
-
+.noti{
+    transition: all 1s;
+}
+.ocultarNoti{
+    right: -1000px;
+}
 #student-calendar table, #student-dia2 table, #student-dia2 table {
     border-radius: 5px;
 }
@@ -494,7 +502,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 #student-eventosContainer h2{
-    background-color: #14B8A6;
+    background: linear-gradient(90deg, #00ab84, #00e7b1);
     border-radius:5px 5px 0 0;
     width: 100%;
     color: #fff;
@@ -713,11 +721,13 @@ input[type=number]::-webkit-outer-spin-button {
     display: flex;
     gap: 20px;
 }
-a #student-calendar thead{
+#student-calendar thead{
     background: linear-gradient(90deg, #00ab84, #00e7b1);
 }
-a #student-calendar thead td{
+#student-calendar thead td{
     background-color: #00000000;
+}
+a #student-calendar thead td{
     padding-top: .5rem;
     padding-bottom: .5rem;
 }

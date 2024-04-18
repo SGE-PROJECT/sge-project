@@ -14,121 +14,66 @@
             @csrf
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Nombre completo:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="fullname_student"
-                                class="w-full rounded-lg border-2 bg-gray-100 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa tu nombre completo" type="text" value="{{ Auth::user()->name }}"
-                                readonly />
-                        </div>
-                    </div>
+                <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Nombre completo:</h2>
+                    <input name="fullname_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
+                        placeholder="Ingresa tu nombre completo" type="text" value="{{ Auth::user()->name }}" readonly onfocus="this.blur()"/>
                 </div>
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Matricula:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="id_student" 
-                                class="w-full rounded-lg border-2 bg-gray-100 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa tu nombre completo" type="text"
-                                value="{{ Auth::user()->student->registration_number }}"readonly />
-                        </div>
-                    </div>
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Matricula:</h2>
+                    <input name="id_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
+                        placeholder="Ingresa tu nombre completo" type="text"
+                        value="{{ Auth::user()->student->registration_number }}"readonly onfocus="this.blur()"/>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Grupo:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="group_student"
-                                class="w-full rounded-lg border-2 bg-gray-100 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa tu nombre completo" type="text"
-                                value="{{ Auth::user()->student->group->name }}" readonly />
-                        </div>
-                    </div>
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Grupo:</h2>
+                    <input name="group_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
+                        placeholder="Ingresa tu nombre completo" type="text"
+                        value="{{ Auth::user()->student->group->name }}" readonly onfocus="this.blur()"/>
                 </div>
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Correo Electrónico:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="email_student"
-                                class="w-full rounded-lg border-2 bg-gray-100 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa tu nombre completo" type="text" value="{{ Auth::user()->email }}"
-                                readonly />
-                        </div>
-                    </div>
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Correo Electrónico:</h2>
+                    <input name="email_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
+                        placeholder="Ingresa tu nombre completo" type="text" value="{{ Auth::user()->email }}"
+                        readonly onfocus="this.blur()"/>
                 </div>
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Número Teléfonico:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="phone_student" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa tu numero teléfonico" type="text"
-                                value="{{ old('phone_student') }}" />
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('phone_student')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Número Teléfonico:</h2>
+                    <input name="phone_student" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
+                        placeholder="Ingresa tu numero teléfonico" type="text" value="{{ old('phone_student') }}" />
+                    <div class="text-red-400 font-bold text-lg">
+                        @error('phone_student')
+                            {{ $message }}
+                        @enderror
                     </div>
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Fecha de inicio del Proyecto:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="startproject_date" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa la fecha de inicio del proyecto" type="date"
-                                value="{{ old('startproject_date') }}" />
-                        </div>
-                    </div>
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Fecha de inicio del Proyecto:</h2>
+                    <input name="startproject_date" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
+                        placeholder="Ingresa la fecha de inicio del proyecto" type="date"
+                        value="{{ old('startproject_date') }}" />
                 </div>
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Fecha de término del Proyecto:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="endproject_date" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa la fecha de finalización del proyecto" type="date"
-                                value="{{ old('endproject_date') }}" />
-                        </div>
-                    </div>
+                <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Fecha de término del Proyecto:</h2>
+                    <input name="endproject_date" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
+                        placeholder="Ingresa la fecha de finalización del proyecto" type="date"
+                        value="{{ old('endproject_date') }}" />
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-4">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Nombre del Proyecto:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="name_project" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Ingresa el nombre del proyecto" type="text"
-                                value="{{ old('name_project') }}" />
-                            <div class="text-red-400 font-bold text-lg">
-                                @error('name_project')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Nombre del Proyecto:</h2>
+                    <input name="name_project" class="w-full  border-2 border-gray-300 p-3 text-sm"
+                        placeholder="Ingresa el nombre del proyecto" type="text" value="{{ old('name_project') }}" />
+                    <div class="text-red-400 font-bold text-lg">
+                        @error('name_project')
+                            {{ $message }}
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -145,7 +90,6 @@
                                 @foreach($companies as $company)
                                     <option value="{{ $company->id }}" data-name="{{ $company->company_name }}" data-address="{{ $company->address }}">{{ $company->company_name }}</option>
                                 @endforeach
-                                <option value="Otro">Otro</option>
                             </select>
                             @error('company_id')
                                 <div class="text-red-400 font-bold text-lg">{{ $message }}</div>
@@ -198,15 +142,13 @@
                         @endforeach
                         <option value="Otro">Otro</option>
                     </select>
-                <div class="text-red-400 font-bold text-lg">
-                    @error('project_area')
-                    {{ $message }}
-                    @enderror
+                    <div class="text-red-400 font-bold text-lg">
+                        @error('project_area')
+                            {{ $message }}
+                        @enderror
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
 <div id="otrosCampos" style="display: none;">
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -283,135 +225,106 @@
     </div>
 </div>
             <div class="grid grid-cols-1 gap-4">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Área donde se realizara el proyecto:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <input name="project_area" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Área donde se realizara el proyecto:</h2>
+                            <input name="project_area" class="w-full border-2 border-gray-300 p-3 text-sm"
                                 placeholder="Ingresa tu área actual" type="text" value="{{ old('project_area') }}" />
                             <div class="text-red-400 font-bold text-lg">
                                 @error('project_area')
                                     {{ $message }}
                                 @enderror
                             </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-4">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Objetivo General (Utiliza un verbo en infinitivo
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Objetivo General (Utiliza un verbo en infinitivo
                             para
                             indicar claramente qué acción deseas lograr. Evita términos confusos y sé específico, mantén el
                             objetivo
                             breve y enfocado en la acción necesaria del proyecto.) :</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <textarea name="general_objective" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                            <textarea name="general_objective" class="w-full  border-2 border-gray-300 p-3 text-sm h-auto"
                                 placeholder="Redacta aqui..." rows="8">{{ old('general_objective') ?: '' }}</textarea>
-                            <div class="absolute bottom-[-1px] text-red-400 font-bold text-lg">
+                            <div class="absolute bottom-[-3px] text-red-400 font-bold text-lg">
                                 @error('general_objective')
                                     {{ $message }}
                                 @enderror
                             </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-4">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Planteamiento del problema: Exponer los aspectos,
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Planteamiento del problema: Exponer los aspectos,
                             elementos y relaciones del problema:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <textarea name="problem_statement" class="w-full rounded-lg  border-2 border-gray-300 p-3 text-sm"
+                            <textarea name="problem_statement" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
                                 placeholder="Redacta aqui..." rows="8">{{ old('problem_statement') ? old('problem_statement') : '' }}</textarea>
-                            <div class="absolute bottom-[-1px] text-red-400 font-bold text-lg">
+                            <div class="absolute bottom-[-3px] text-red-400 font-bold text-lg">
                                 @error('problem_statement')
                                     {{ $message }}
                                 @enderror
                             </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-4">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Justificacion: Debe manifestarse de
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Justificacion: Debe manifestarse de
                             manera
                             clara y
                             precisa del por qué y para qué se va a llevar a cabo el estudio. Causas y propositos que motivan
                             la
                             investigación:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <textarea name="justification" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
-                                placeholder="Redacta aqui..." rows="8">{{ old('justification') }}</textarea>
-                            <div class="absolute bottom-[-1px] text-red-400 font-bold text-lg">
+                            <textarea name="justification" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
+                                placeholder="Redacta aqui..." rows="13">{{ old('justification') }}</textarea>
+                            <div class="absolute bottom-[-3px] text-red-400 font-bold text-lg">
                                 @error('justification')
                                     {{ $message }}
                                 @enderror
                             </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="grid grid-cols-1 gap-4">
-                <div class="relative group overflow-hidden rounded-lg bg-white border border-gray-200 mt-0">
-                    <div class="bg-gradient-to-r from-[#00ab84] to-[#2e9980] py-1 px-4">
-                        <h2 class="text-xl font-semibold text-white mb-0">Actividades para realizar: Listar las actividades
+                <div class="relative group overflow-hidden rounded-lg bg-white  mt-0">
+                        <h2 class="text-xl font-semibold text-teal-800 mb-0">Actividades para realizar: Listar las actividades
                             a
                             llevar a cabo en orden:</h2>
-                    </div>
-                    <div class="relative">
-                        <div class="mt-6 pb-6 p-3">
-                            <textarea name="activities" class="w-full rounded-lg border-2 border-gray-300 p-3 text-sm"
+                            <textarea name="activities" class="w-full  border-2 border-gray-300 p-3 text-sm h-auto"
                                 placeholder="Redacta aqui..." rows="8">{{ old('activities') }}</textarea>
-                            <div class="absolute bottom-[-1px] text-red-400 font-bold text-lg">
+                            <div class="absolute bottom-[-3px] text-red-400 font-bold text-lg">
                                 @error('activities')
                                     {{ $message }}
                                 @enderror
                             </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="mt-8 flex justify-center text-center space-x-6">
                 <button type="submit" action value="guardar"
-                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">Guardar</button>
+                    class="font-bold bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors">    <i class='bx bx-archive-out'></i> Guardar</button>
             </div>
             <input type="hidden" name="is_project" value="0">
         </form>
     </div>
     <script>
-    function showHideFields(value) {
-        if (value === 'Otro') {
-            document.getElementById('otrosCampos').style.display = 'block';
-            document.getElementById('nombreAsesor').value = ''; // Vaciar el campo
-            document.getElementById('cargoAsesor').value = ''; // Vaciar el campo
-            document.getElementById('telefonoAsesor').value = ''; // Vaciar el campo
-            document.getElementById('emailAsesor').value = ''; // Vaciar el campo
-            document.getElementById('nombreAsesor').removeAttribute('readonly');
-            document.getElementById('cargoAsesor').removeAttribute('readonly');
-            document.getElementById('telefonoAsesor').removeAttribute('readonly');
-            document.getElementById('emailAsesor').removeAttribute('readonly');
-        } else {
-            document.getElementById('otrosCampos').style.display = 'block';
-            document.getElementById('nombreAsesor').setAttribute('readonly', 'true');
-            document.getElementById('cargoAsesor').setAttribute('readonly', 'true');
-            document.getElementById('telefonoAsesor').setAttribute('readonly', 'true');
-            document.getElementById('emailAsesor').setAttribute('readonly', 'true');
+        function showHideFields(value) {
+            if (value === 'Otro') {
+                document.getElementById('otrosCampos').style.display = 'block';
+                document.getElementById('nombreAsesor').value = ''; // Vaciar el campo
+                document.getElementById('cargoAsesor').value = ''; // Vaciar el campo
+                document.getElementById('telefonoAsesor').value = ''; // Vaciar el campo
+                document.getElementById('emailAsesor').value = ''; // Vaciar el campo
+                document.getElementById('nombreAsesor').removeAttribute('readonly');
+                document.getElementById('cargoAsesor').removeAttribute('readonly');
+                document.getElementById('telefonoAsesor').removeAttribute('readonly');
+                document.getElementById('emailAsesor').removeAttribute('readonly');
+            } else {
+                document.getElementById('otrosCampos').style.display = 'block';
+                document.getElementById('nombreAsesor').setAttribute('readonly', 'true');
+                document.getElementById('cargoAsesor').setAttribute('readonly', 'true');
+                document.getElementById('telefonoAsesor').setAttribute('readonly', 'true');
+                document.getElementById('emailAsesor').setAttribute('readonly', 'true');
 
-            // Obtener la opción seleccionada
-            var selectedOption = document.querySelector('select[name="project_status_area"] option[value="' + value + '"]');
+                // Obtener la opción seleccionada
+                var selectedOption = document.querySelector('select[name="project_status_area"] option[value="' + value +
+                    '"]');
 
             // Llenar los campos con la información del asesor seleccionado
             document.getElementById('nombreAsesor').value = selectedOption.dataset.name;

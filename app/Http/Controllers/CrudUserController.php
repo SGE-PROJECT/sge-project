@@ -84,13 +84,18 @@ class CrudUserController extends Controller
             'password' => 'required|string|min:8',
             'role' => 'required|exists:roles,name',
             'phone_number' => 'nullable|string|max:20',
-            'division_id' => 'required|exists:divisions,id',
+            'division_id' => 'required  |exists:divisions,id',
+            'curp' => 'nullable|alpha_num|size:18',
+            'birthdate' => 'nullable|date_format:Y-m-d',
+            'sex' => 'nullable|in:M,F',
+            'nss' => 'nullable|digits_between:11,11',
         ];
 
         if ($request->role === 'Estudiante') {
             $validationRules['group_id'] = 'required|exists:groups,id';
             $validationRules['registration_number'] = 'required|string|unique:students,registration_number';
             $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
+            $validationRules['isReEntry'] = 'required|in:Si,No';
         } elseif ($request->role === 'Asistente de Dirección') {
             $validationRules['payrol'] = 'required|string|min:4|max:6';
         } elseif ($request->role === 'Presidente Académico') {
@@ -120,6 +125,10 @@ class CrudUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone_number' => $request->phone_number ?? '',
+            'curp' => $request->curp,
+            'birthdate' => $request->birthdate,
+            'sex' => $request->sex,
+            'nss' => $request->nss,
             'isActive' => true, // asumiendo que siempre es true al crear
         ]);
 
@@ -134,6 +143,7 @@ class CrudUserController extends Controller
                     'group_id' => $request->group_id,
                     'registration_number' => $request->registration_number,
                     'academic_advisor_id' => $request->academic_advisor_id,
+                    'isReEntry' => $request->isReEntry,
                 ]);
                 break;
             case 'Asistente de Dirección':
@@ -217,12 +227,17 @@ class CrudUserController extends Controller
             'role' => 'required|exists:roles,name',
             'phone_number' => 'nullable|string|max:20',
             'division_id' => 'required|exists:divisions,id',
+            'curp' => 'nullable|alpha_num|size:18',
+            'birthdate' => 'nullable|date_format:Y-m-d',
+            'sex' => 'nullable|in:M,F',
+            'nss' => 'nullable|digits_between:11,11',
         ];
 
         if ($request->role === 'Estudiante') {
             $validationRules['group_id'] = 'required|exists:groups,id';
             $validationRules['registration_number'] = 'required|string|unique:students,registration_number';
             $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
+            $validationRules['isReEntry'] = 'required|in:Si,No';
         } elseif ($request->role === 'Asistente de Dirección') {
             $validationRules['payrol'] = 'required|string|min:4|max:6';
         } elseif ($request->role === 'Presidente Académico') {
@@ -240,6 +255,10 @@ class CrudUserController extends Controller
             'email' => $request->email,
             'phone_number' => $request->phone_number ?? '',
             'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+            'curp' => $request->curp,
+            'birthdate' => $request->birthdate,
+            'sex' => $request->sex,
+            'nss' => $request->nss,
         ]);
 
         $user->syncRoles($request->role);
@@ -253,6 +272,7 @@ class CrudUserController extends Controller
                         'group_id' => $request->group_id,
                         'registration_number' => $request->registration_number,
                         'academic_advisor_id' => $request->academic_advisor_id,
+                        'isReEntry' => $request->isReEntry,
                     ]
                 );
                 break;
@@ -306,46 +326,5 @@ class CrudUserController extends Controller
 
         return redirect()->route('users.cruduser.index');
     }
-
-    public function dashboardUsers()
-    {
-        $users = User::with([
-            'student.group.program.division',
-            'secretary.division',
-            'academicDirector.division',
-            'academicAdvisor.division',
-            'managmentAdmin.division',
-            'roles' // Asegúrate de incluir la relación de roles también
-        ])->paginate(10);
-
-        $users->each(function ($user) {
-            $division = null;
-
-            if ($user->student) {
-                $division = $user->student->group->program->division ?? null;
-            } elseif ($user->secretary) {
-                $division = $user->secretary->division ?? null;
-            } elseif ($user->academicDirector) {
-                $division = $user->academicDirector->division ?? null;
-            } elseif ($user->academicAdvisor) {
-                $division = $user->academicAdvisor->division ?? null;
-            } elseif ($user->managmentAdmin) {
-                $division = $user->managmentAdmin->division ?? null;
-            }
-
-            $user->division_name = $division ? $division->name : 'Sin División';
-        });
-
-        // Contar el total de usuarios por cada rol
-        $superAdminCount = Role::findByName('Super Administrador')->users()->count();
-        $managmentAdminCount = Role::findByName('Administrador de División')->users()->count();
-        $adviserCount = Role::findByName('Asesor Académico')->users()->count();
-        $studentCount = Role::findByName('Estudiante')->users()->count();
-        $presidentCount = Role::findByName('Presidente Académico')->users()->count();
-        $secretaryCount = Role::findByName('Asistente de Dirección')->users()->count();
-
-        return view('administrator.dashboard.DashboardUsers', compact('users', 'superAdminCount', 'managmentAdminCount', 'adviserCount', 'studentCount', 'presidentCount', 'secretaryCount'));
-    }
-
 
 }

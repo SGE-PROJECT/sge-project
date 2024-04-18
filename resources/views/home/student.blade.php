@@ -54,7 +54,7 @@
                                 <div class="w-full max-w-sm bg-white">
 
                                     <div class="flex flex-col items-center pb-10">
-                                        <i class='bx bxs-briefcase mb-3 text-[30px] text-[#00ab84]'></i>
+                                        <i class='nf nf-md-book_education mb-3 text-[30px] text-[#00ab84]'></i>
 
                                         <h5 class="mb-1 text-xl font-semibold text-[#00ab84]">
 
@@ -70,7 +70,7 @@
                                                     $bgColor = 'bg-blue';
                                                     $textColor = 'text-blue';
                                                     break;
-                                                case 'En Revisión':
+                                                case 'En revisión':
                                                     $bgColor = 'bg-yellow';
                                                     $textColor = 'text-yellow';
                                                     break;
@@ -113,7 +113,7 @@
                                             <div class="w-full md:w-1/2 lg:w-auto">
                                                 <span
                                                     class="mr-2 inline-flex items-center bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                                                    <span class="me-1 text-orange-900"> <i class='bx bxs-comment'></i>
+                                                    <span class="me-1 text-orange-900"> <i class='nf nf-fa-comment'></i>
                                                         Comentarios: {{ $Project->comments()->count() }}
                                                     </span>
                                                 </span>
@@ -121,7 +121,7 @@
                                             <div class="w-full md:w-1/2 lg:w-auto">
                                                 <span
                                                     class="inline-flex items-center bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                                                    <span class="me-1 text-yellow-900"> <i class='bx bxs-like'></i>
+                                                    <span class="me-1 text-yellow-900"> <i class='nf nf-md-thumb_up'></i>
                                                         Me gusta: {{ $Project->likes->count() }}
                                                     </span>
                                                 </span>
@@ -131,14 +131,10 @@
 
 
                                         <div class="flex mt-4 md:mt-6">
-
-
-                                            <a href={{ route('viewMyProject') }}
-                                                class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver
-                                                más información</a>
-                                                <a href={{ route('student.export') }}
-                                                class="py-2 px-3 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Generar reportes</a>
+                                            <a href="{{ route('viewMyProject') }}" class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver más información</a>
+                                                <a href="{{ route('student.export') }}" class="py-2 px-3 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Generar reportes</a>
                                         </div>
+
                                     </div>
 
                                 </div>
@@ -151,7 +147,7 @@
                             @else
                                 <div class="flex flex-col items-center mt-16">
 
-                                    <i class="text-[100px] bx bx-sad text-[#00ab84]"></i>
+                                    <i class="text-[100px] nf nf-md-emoticon_sad_outline text-[#00ab84]"></i>
 
                                     <div class="flex mt-4 md:mt-6">
 
@@ -205,9 +201,9 @@
                         <div class="bg-gradient-to-r from-[#00ab84] to-[#00e7b1] py-2 px-4">
                             <h2 class="text-xl font-semibold text-white mb-2">Avisos importantes</h2>
                         </div>
-                        <div class="p-4 sanciones">
+                        <div class="p-4 sanciones"> 
 
-
+                            @forelse ($importantNotifications as $notification )
                             <div id="toast-default"
                                 class="flex bg-blue-50 items-center w-full  p-4 text-gray-500  rounded-lg shadow mb-2"
                                 role="alert">
@@ -216,11 +212,12 @@
                                     <i class='bx bxs-megaphone'></i>
                                     <span class="sr-only">Fire icon</span>
                                 </div>
-                                <div class="ms-3 text-sm font-normal">Fecha de finalización de las estadías será el 10 de
-                                    septiembre. Favor de enviar la documentación correcta.</div>
+                                <div class="ms-3 text-sm font-normal">{{$notification->data['data']}}</div>
 
                             </div>
-
+                                
+                            @empty
+                                
                             <div id="toast-default"
                                 class="flex items-center w-full  p-4 text-gray-500 bg-white rounded-lg shadow mb-2"
                                 role="alert">
@@ -229,24 +226,10 @@
                                     <i class='bx bxs-megaphone'></i>
                                     <span class="sr-only">Fire icon</span>
                                 </div>
-                                <div class="ms-3 text-sm font-normal">Fecha de finalización de las estadías será el 10 de
-                                    septiembre. Favor de enviar la documentación correcta.</div>
+                                <div class="ms-3 text-sm font-normal">¡Por el momento no tienes notificaciones importantes! <strong>Bandeja Vacía</strong></div>
 
                             </div>
-
-                            <div id="toast-default"
-                                class="flex items-center w-full mb-2 p-4 text-gray-500 bg-white rounded-lg shadow "
-                                role="alert">
-                                <div
-                                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-200 rounded-lg ">
-                                    <i class='bx bxs-megaphone'></i>
-                                    <span class="sr-only">Icon</span>
-                                </div>
-                                <div class="ms-3 text-sm font-normal">Fecha de finalización de las estadías será el 10 de
-                                    septiembre. Favor de enviar la documentación correcta.</div>
-                            </div>
-
-
+                            @endforelse
                         </div>
                     </div>
 

@@ -12,18 +12,17 @@
         }
 
         table {
-            margin: 10px;
-            width: 97%;
+            width: 93%;
             border-collapse: collapse;
-            margin-top: 50px;
-            margin-bottom: 480px;
-        }
+            text-align: center;
+            margin-top: 15px; 
+            }
 
         th,
         td {
             border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            text-align: center;
         }
 
         th {
@@ -31,23 +30,41 @@
         }
 
         h1 {
+            margin-top: 30px;
             text-align: center;
             font-size: 22px;
         }
 
+        .fecha {
+            margin-top: 40px;
+            margin-right: 46px;
+            text-align: right;
+            font-size: 20px;
+        }
+
         .student-name {
+            text-transform: uppercase;
             font-size: 1.2rem;
             font-weight: bold;
             text-align: left;
-            margin-top: 40px;
-            margin-left: 40px;
+            margin-top: 35px;
+            margin-left: 45px;
         }
 
         .director-name {
+            width: 280px;
             font-size: 1.2rem;
             font-weight: bold;
             text-align: left;
-            margin-left: 40px;
+            margin-left: 45px;
+        }
+
+        .director-name2 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: left;
+            margin-left: 45px;
+            margin-top: 20px;
         }
 
         .contenedor_proyectos {
@@ -56,27 +73,19 @@
         }
 
         .texto-principal {
+            font-size: 18px;
             margin-top: 35px;
-            margin-left: 40px;
-            margin-right: 40px;
+            margin-left: 45px;
+            margin-right: 45px;
             text-align: justify;
         }
 
         .text-principal {
+            font-size: 18px;
             margin-top: 20px;
-            margin-left: 40px;
-            margin-right: 40px;
+            margin-left: 45px;
+            margin-right: 45px;
             text-align: justify;
-        }
-
-        footer {
-            background-color: #00937D;
-            color: white;
-            text-align: center;
-            align-content: center;
-            justify-content: center;
-            padding-top: 5px;
-            height: 20px;
         }
 
         .firmas {
@@ -86,21 +95,29 @@
 
         .firma {
             display: inline-block;
-            width: 45%;
+            width: 40%;
             text-align: center;
             margin: 0 10px;
         }
 
         .linea {
             border-top: 1px solid black;
-            margin-top: 120px;
+            margin-top: 100px;
         }
+
+        
+        .footer {
+            font-size: small;
+            text-align: center;
+            margin-top: 70px;
+            margin-left: 50px;
+        }
+
     </style>
 </head>
 
 <body>
-    <div class="contenedor_proyectos">
-        <img src="{{ public_path('images/logoUt.jpg')}}" alt="Logo">
+        <img src="{{ public_path('images/logoUt.jpg') }}" alt="Logo">
         <h1>{{ $title }}</h1>
         <?php
         use Carbon\Carbon;
@@ -110,14 +127,16 @@
         $mes = $fechaActual->monthName;
         $año = $fechaActual->year;
         ?>
-        <h1>Cancún Quintana Roo a {{ $dia }} de {{ $mes }} del {{ $año }}</h1>
-    </div>
+        <div class="fecha">Cancún Quintana Roo; a {{ $dia }} de {{ $mes }} del {{ $año }}
+        </div>
     <div class="student-name">{{ $student->user->name }}</div>
     <div class="director-name">DIRECTOR DE LA CARRERA DE DIVISIÓN</div>
-    <div class="director-name">PRESENTE:</div>
+    <div class="director-name2">PRESENTE</div>
 
-    <div class="texto-principal">Sirva la presente para informarle que el (la) estudiante {{ $student->user->name }}
-        ha concluido satisfactoriamente la elaboración de su memoria titulada {{ $project->name_project }} que como requisito para la conclusión de su estadía y
+    <div class="texto-principal">Sirva la presente para informarle que el estudiante
+        <u><b>{{ $student->user->name }}</b></u>
+        ha concluido satisfactoriamente la elaboración de su memoria titulada
+        <u><b>{{ strtoupper($project->name_project) }}</b></u> que como requisito para la conclusión de su estadía y
         proceso de titulación establece la normatividad de la Universidad Tecnológica de Cancún.</div>
     <div class="text-principal">Así mismo, hago de su conocimiento que la memoria en mención cuenta con la
         correspondiente revisión y por consiguiente aprobación por quienes fungimos como asesores en el ámbito
@@ -128,14 +147,23 @@
         <div class="firma">
             <div>ASESOR EMPRESARIAL</div>
             <div class="linea"></div>
-            <div>Nombre y firma</div>
+            <div>{{ $project->businessAdvisor->name }}</div>
         </div>
         <div class="firma">
             <div>ASESOR ACADÉMICO</div>
             <div class="linea"></div>
-            <div>Nombre y firma</div>
+            <div>Mtro. {{ $student->academicAdvisor->user->name }}</div>
         </div>
     </div>
+    <div class="footer">
+        <table class="footer-table">
+            <tr>
+                <td style="border: 1px solid black;">Fecha de Revisión: 31 de julio de 2024</td>
+                <td style="border: 1px solid black;">Revisión No. 6</td>
+                <td style="border: 1px solid black;">AEP-P03-F05</td>
+            </tr>
+        </table>
+    </div> 
 
 </body>
 

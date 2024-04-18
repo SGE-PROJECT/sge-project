@@ -8,7 +8,7 @@
     src: url('../fonts/Roboto.ttf') format('ttf');
 }
 @font-face {
-    font-family: 'lato';
+    font-family: 'lato'; 
     src: url('../fonts/Lato.ttf') format('ttf');
 }
 
@@ -62,7 +62,7 @@
     text-align: center;
 }
 #calendar thead td, #dia2 thead td, #student-dia2 thead td{
-    background-color: #14B8A6;
+    background-color: #0000;
     color: #fff;
     font-weight: bold;
 }
@@ -340,11 +340,16 @@ tbody th{
 }
 
 #calendar thead td, #dia2 thead th, #student-dia2 thead th{
-    background-color: #14B8A6;
+    background-color: #0000;
     color: #fff;
     font-weight: bold;
 }
-
+.noti{
+    transition: all 1s;
+}
+.ocultarNoti{
+    right: -1000px;
+}
 #calendar table, #dia2 table, #student-dia2 table {
     border-radius: 5px;
 }
@@ -484,7 +489,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 #eventosContainer h2{
-    background-color: #14B8A6;
+    background: linear-gradient(90deg, #00ab84, #00e7b1);
     border-radius:5px 5px 0 0;
     width: 100%;
     color: #fff;
@@ -542,23 +547,28 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #f2f2f2;
     width: 100%;
 }
+#dia2 thead{
+    background: linear-gradient(90deg, #00ab84, #00e7b1);
+}
 #eventosContainer2 th{
     padding: 5px 10px;
-    color: #293846;
+    color: #0000;
 }
 #eventosContainer2 tbody tr:nth-child(even) {
     background: #dcdbdb;
 }
 #eventosContainer2 th div{
     padding: 5px 0;
-    color: #293846;
-    border-bottom: solid 1px #293846;
+    color: #0000;
 }
 #eventosContainer2 td{
     padding: 7px 10px;
     min-width: 100px;
     color: #000;
     text-align: center;
+}
+#eventosContainer2 thead{
+    background: linear-gradient(90deg, #00ab84, #00e7b1);
 }
 #dia{
     flex-grow: 1;
@@ -627,11 +637,8 @@ input[type=number]::-webkit-outer-spin-button {
     max-width: 300px;
     position: relative;
 }
-#eventosContainer2 thead{
-    background-color: #293846;
-}
 #eventosContainer2 thead div{
-    background-color: #293846;
+    background-color: #0000;
     color: #fff !important;
 }
 .modal-asesorias .close2, .close3, .close4, .close5{
@@ -649,7 +656,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .evento{
     font-size: 20px;
-    color: #293846;
+    color: #00ab84;
+    transition: all .3s;
     margin-inline: 10px;
 }
 .etiqueta .evento{margin-inline: 5px;}
@@ -693,12 +701,21 @@ input[type=number]::-webkit-outer-spin-button {
     max-width: 350px;
     position: relative;
 }
+#calendar thead{
+    background: linear-gradient(90deg, #00ab84, #00e7b1);
+}
+#calendar thead td{
+    background-color: #00000000;
+}
 @media (min-width: 768px){
     .tamaño-dia{
         width: 20px !important;
     }
   }
-  @media (max-width: 768px){
+  @media (max-width: 1024px){
+    .buscar{
+        width: 100%;
+    }
     .botonVereventos{
         display: block;
         margin-bottom: 10px;
@@ -731,7 +748,7 @@ input[type=number]::-webkit-outer-spin-button {
         margin-bottom: 10px;
     }
     #eventosContainer2{
-        margin-top: 40px;
+        margin-top: 100px;
     }
   }
   @media (max-width: 1024px){

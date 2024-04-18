@@ -30,67 +30,9 @@
     <div class="flex items-end align-middle">
         <!-- BOTÓN QUE DIRIGE AL CRUD -->
         <button type="submit"
-            class="relative bg-teal-500 text-white px-4 py-2 ml-8 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
+            class="relative bg-teal-500 text-white px-4 py-2 ml-5 mr-3 rounded hover:bg-teal-600 transition-colors h-full"
             onclick="window.location.href = '{{ route('dashboardProjects') }}'">Ir a Agregar</button>
 
-        <!-- SE AGREGA EL FILTRO -->
-        {{-- <div x-data="{ isActive: false }" class="relative">
-            <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
-                <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
-                    Filtrar
-                </a>
-                <button x-on:click="isActive = !isActive"
-                    class="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700">
-                    <span class="sr-only">Menu</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg" role="menu"
-                x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
-                x-on:keydown.escape.window="isActive = false">
-                <div class="p-2" id="">
-                    <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Estado </strong>
-                    <label for="Option1" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="enDesarrollo"
-                                value="En desarrollo" />
-                        </div>
-                        <div>
-                            <strong class="font-medium text-gray-900">En desarrollo</strong>
-                        </div>
-                    </label>
-                    <label for="Option2" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="completado"
-                                value="Completado" />
-                        </div>
-
-                        <div>
-                            <strong class="font-medium text-gray-900">Completado</strong>
-                        </div>
-                    </label>
-                    <label for="Option3" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                            <input type="checkbox" class="size-4 rounded border-gray-300" id="reprobado"
-                                value="Reprobado" />
-                        </div>
-
-                        <div>
-                            <strong class="font-medium text-gray-900">Reprobado</strong>
-                        </div>
-                    </label>
-                    <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Carrera </strong>
-                </div>
-            </div>
-        </div> --}}
 
         <!-- SE AÑADE EL BÚSCADOR -->
         <div class="relative ml-5 w-55 z-10 flex items-center">
@@ -109,7 +51,7 @@
             </span>
         </div>
         <!-- BOTÓN QUE NOS SIRVE PARA EXPORTAR LOS ARCHIVOS -->
-        <div x-data="{ isActive: false }" class="relative ml-auto mr-8">
+        <div x-data="{ isActive: false }" class="relative ml-auto mr-6">
             <div class="inline-flex items-center overflow-hidden rounded-md border bg-white">
                 <a class="w-full border-e px-4 py-3 text-sm/none text-gray-600 hover:bg-gray-50 hover:text-gray-700">
                     Exportar
@@ -134,9 +76,9 @@
                         <div class="flex items-center">
                             &#8203;
                         </div>
-                        <div>
+                        <a href="{{ route('export.projects.pdf') }}">
                             <strong class="font-medium text-gray-900"> PDF </strong>
-                        </div>
+                        </a>
                     </label>
 
                     <label for="option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
@@ -144,19 +86,9 @@
                             &#8203;
                         </div>
 
-                        <div>
+                        <a href="{{ route('export.projects.excel') }}">
                             <strong class="font-medium text-gray-900"> Excel </strong>
-                        </div>
-                    </label>
-
-                    <label for="0ption3" id="option3" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                        </div>
-
-                        <div>
-                            <strong class="font-medium text-gray-900"> Imprimir </strong>
-                        </div>
+                        </a>
                     </label>
 
                 </div>
@@ -164,34 +96,75 @@
         </div>
     </div>
     <!-- CONTENEDOR DE LA TABLA -->
-    <div id="tabla-container" class="tabla-project rounded-t-lg">
-        <div class="tabla-cont-project rounded-t-lg">
-            <table id="tabla-proyectos" style="width:100%">
+    <div id="tabla-container" class="">
+        <div class="mt-5 mr-3 mb-5 overflow-x-auto ">
+            <table id=""  class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table">
                 <thead>
                     <tr>
-                        <th>Proyecto</th>
-                        <th>Estudiante</th>
-                        <th>Grupo</th>
-                        <th>Carrera</th>
-                        <th>Empresa</th>
-                        <th>Estado</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Proyecto</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Estudiante</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">División</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Grupo</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Carrera</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Asesor Académico</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Empresa</th>
+                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">Estado</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($Projects as $project)
-                        @if ($project->is_project == 1)
-                            <tr>
-                                <td>{{ $project->name_project }}</td>
-                                <td>{{ $project->fullname_student }}</td>
-                                <td>{{ $project->group_student}}</td>
-                                <td>Example</td>
-                                <td>{{ $project->company_name }}</td>
-                                <td><span class="project-status">{{ $project->status }}</span></td>
-                            </tr>
-                        @endif
-                    @endforeach
+                    <tr>
+                        <td class="py-4 text-sm text-black">{{ $project->name_project }}</td>
+                        <td class="py-4 text-sm text-black">
+                            @foreach ($project->students as $student)
+                                {{ $student->user->name }} ({{ $student->registration_number }})
+                                @if (!$loop->last)
+                                    ,<br>
+                                @endif
+                            @endforeach
+                        </td>
+                        <td class="py-4 text-sm text-black">
+                            @foreach ($project->students as $student)
+                                {{ $student->group->program->division->name ?? 'Sin División' }}
+                                @if (!$loop->last)
+                                    ,<br>
+                                @endif
+                            @endforeach
+                        </td>
+                        <td class="py-4 text-sm text-black">
+                            @foreach ($project->students as $student)
+                                {{ $student->group->name }}
+                                @if (!$loop->last)
+                                    ,<br>
+                                @endif
+                            @endforeach
+                        </td>
+                        <td class="py-4 text-sm text-black">
+                            @foreach ($project->students as $student)
+                                {{ $student->group->program->name }}
+                                @if (!$loop->last)
+                                    ,<br>
+                                @endif
+                            @endforeach
+                        </td>
+                        <td class="py-4 text-sm text-black">
+                            @foreach ($project->students as $student)
+                                {{ $student->academicAdvisor->user->name ?? 'No asignado' }} ({{ $student->academicAdvisor->payrol ?? 'N/A' }})
+                                @if (!$loop->last)
+                                    ,<br>
+                                @endif
+                            @endforeach
+                        </td>
+                        <td class="py-4 text-sm text-black">{{ $project->company_name }}</td>
+                        <td class="py-4 text-sm text-black"><span class="project-status">{{ $project->status }}</span></td>
+                    </tr>
+                @endforeach
+
                 </tbody>
             </table>
+            <div id="no-results" class="alert alert-warning" style="display: none; text-align: center;">
+                No se encontraron resultados.
+            </div>
             <div class="mt-1">
                 {{$Projects->links()}}
             </div>
@@ -199,18 +172,9 @@
     </div>
     <!-- SCRIPTS DE JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- SCRIPTS DE DATA TABLES Y DATA TABLE BUTTONS -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
-    <!-- SCRIPTS PARA HACER FUNCIONAR LOS BOTONES -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
     <!-- SCRIPTS PARA LA GRÁFICA -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="{{ asset('js/tableproject.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -249,54 +213,5 @@
             });
         });
     </script>
-    <!-- SCRIPT DE LA DATA TABLE -->
-    <script>
-        $(document).ready(function() {
-    var table = $('#tabla-proyectos').DataTable({
-        pageLength: 25,
-        responsive: true,
-        dom: 't', // Quitamos la 'B' para que no se muestren los botones
-        buttons: [ // Inicializamos los botones manualmente
-            'pdf',
-            'excel',
-            'print'
-        ]
-    });
 
-    // Creamos una nueva instancia de botones para poder usarla después
-    new $.fn.dataTable.Buttons(table, {
-        buttons: [
-            'pdf',
-            'excel',
-            'print'
-        ]
-    });
-
-    // Agregamos la nueva instancia de botones al datatables
-    table.buttons(0, null).containers().appendTo('#buttonContainer');
-
-    $('#option1').on('click', function() {
-        table.button('.buttons-pdf').trigger();
-    });
-
-    $('#option2').on('click', function() {
-        table.button('.buttons-excel').trigger();
-    });
-
-    $('#option3').on('click', function() {
-        table.button('.buttons-print').trigger();
-    });
-
-    //Buscador
-    $('#Search').on('input', function() {
-        table.search(this.value).draw();
-    });
-
-    table.on('draw', function() {
-        if (table.page.info().recordsDisplay === 0) {
-            $('.dataTables_empty').text('No se encontraron resultados');
-        }
-    });
-});
-    </script>
 @endsection

@@ -1,5 +1,5 @@
 .Btn {
-  width: 140px;
+  width: 122px;
   height: 35px;
   display: flex;
   align-items: center;
@@ -8,14 +8,15 @@
   border-radius: 3px;
   overflow: hidden;
   cursor: auto;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.089);
+  border: 1px solid #00ab84;
+  /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.089); */
   background-color: transparent;
 }
 
 .leftContainer {
   width: 60%;
   height: 100%;
-  background-color: #03A696;
+  background-color: #00ab84;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #03A696;
+  color: #00ab84;
   font-weight: 600;
   position: relative;
   background-color: white;
@@ -575,4 +576,50 @@
 
 .modal-content-invite input[type="submit"]:hover {
     background-color: #45a049;
+}
+
+
+/*Botones de reprobar y finalizar.
+Los botones solo aparecen si el "is_project" es igual a 1*/
+.Btn-aprobar-reprobar{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-left: 40%;
+    margin-top: 3%;
+}
+
+.btns {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btns-reprobar {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btns-finalizar {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 40px;
+}
+
+.btns-finalizar:hover {
+    background-color: rgb(6, 6, 158);
+}
+
+.btns-reprobar:hover {
+    background-color: #b91c1c;
+
 }

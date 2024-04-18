@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://cdn.discordapp.com/attachments/701571845526126602/1210766300868247604/logo_sge.png?ex=65ebc0fd&is=65d94bfd&hm=cbd8b419ad64b395cdb729fb3e14f290b58889aafc6b1febb897125d556495d9&" target="_blank" style="margin-top: -20px;">
-    <img src="https://cdn.discordapp.com/attachments/701571845526126602/1210779355551375480/1708742682327.png?ex=66077ca5&is=65f507a5&hm=962035f6225d917c00f32a28fef81a8dd8029a21f55e132de39979a420a65ef5&" width="400" style="margin-top: -10px;" alt="SGE Logo">
+  <a href="https://cdn.discordapp.com/attachments/701571845526126602/1210778823650443284/1708742506655.png?ex=662c6626&is=6619f126&hm=06ca466c6b9b0cf9e0ceb0c44a53b0ea7cdf2d5f6b8d5c3d1e661c1175133c2f&" target="_blank" style="margin-top: -20px;">
+    <img src="https://cdn.discordapp.com/attachments/701571845526126602/1210778823650443284/1708742506655.png?ex=662c6626&is=6619f126&hm=06ca466c6b9b0cf9e0ceb0c44a53b0ea7cdf2d5f6b8d5c3d1e661c1175133c2f&" width="400" style="margin-top: -10px;" alt="SGE Logo">
   </a>
 <p align="center">
   <a href="#acerca-del-proyecto">Inicio</a> |
