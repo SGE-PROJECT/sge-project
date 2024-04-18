@@ -1,0 +1,107 @@
+.container-ProyectDashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        "project-administrator-card project-section-projects project-section-projects"
+        "proyect-table-title proyect-table-title project-add-Proyect"
+        "project-table project-table project-table";
+}
+
+/* Tarjeta de administración */
+.project-administrator-card {
+    grid-area: project-administrator-card;
+    margin-top: 5%;
+    margin-left: 14px;
+}
+
+/* Tarjeta de sección de proyectos */
+.project-section-projects {
+    grid-area: project-section-projects;
+    width: 90%;
+    margin-left: 65px;
+    margin-top: 20px;
+}
+
+/* Titulo de la tabla */
+.proyect-table-title {
+    grid-area: proyect-table-title;
+    font-size: 31px;
+    font-weight: bold;
+    margin: 30px;
+}
+
+/* Botón de agregar */
+.project-add-Proyect {
+    margin: 40px;
+    margin-left: 190px;
+    grid-area: project-add-Proyect;
+    background: #03A696;
+    width: 200px;
+    padding: 7px;
+    border-radius: 5px;
+    color: white;
+    align-self: center; /* Alinea el botón verticalmente al centro */
+}
+
+.project-add-Proyect:hover {
+    background: #098d8d;
+}
+
+.project-table {
+    grid-area: project-table;
+    background: white;
+    margin-left: 20px;
+    width: 97%;
+    border-collapse: collapse;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.project-table th,
+.project-table td {
+    
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.project-table th {
+    background-color: #293846;
+    color: #fff;
+}
+
+.project-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.project-table tbody tr:hover {
+    background-color: #ddd;
+}
+
+.project-table img {
+    vertical-align: middle;
+}
+
+.project-table .status {
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.project-status {
+    color: #225f24;
+    font-weight: 700;
+}
+
+
+/* Agregamos estilos para los íconos */
+.project-table .project-iconImage {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+.flex-dash-project{
+    display: flex;
+    justify-content: center;
+}

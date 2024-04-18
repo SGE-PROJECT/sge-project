@@ -41,4 +41,3 @@ jobs:
           pr_title: "${{ env.commit_author }}: ${{ env.commit_message }}"
           pr_body: "This is an automated pull request to merge changes from the new branch to the develop branch."
           github_token: ${{ secrets.GITHUB_TOKEN }}
-

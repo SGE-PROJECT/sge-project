@@ -3,14 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use App\Models\management\Division;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use App\Models\AdvisorySession;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +23,19 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'slug',
         'email',
+        'phone_number',
+        'avatar',
+        'photo',
+        'isActive',
         'password',
+        'curp',
+        'birthdate',
+        'sex',
+        'nss'
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,4 +56,47 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    // Agrega una relación con el modelo Division, si existe
+
+    //public function division()
+    //{
+    //    return $this->belongsTo(Division::class, 'division_id');
+    //}
+
+    // Agrega una relación con el modelo Secretary, si existe
+    public function secretary()
+    {
+        return $this->hasOne(Secretary::class);
+    }
+
+    // Agrega una relación con el modelo AcademicDirector, si existe
+    public function academicDirector()
+    {
+        return $this->hasOne(AcademicDirector::class);
+    }
+
+    // Agrega una relación con el modelo AcademicAdvisor, si existe
+
+    public function academicAdvisor()
+    {
+        return $this->hasOne(AcademicAdvisor::class);
+    }
+
+    // Agrega una relación con el modelo ManagmentAdmin, si existe
+    public function managmentAdmin()
+    {
+        return $this->hasOne(ManagmentAdmin::class);
+    }
+
+    public function advisorySessionsUser()
+    {
+        return $this->hasMany(AdvisorySession::class);
+    }
 }

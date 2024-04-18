@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://cdn.discordapp.com/attachments/701571845526126602/1210766300868247604/logo_sge.png?ex=65ebc0fd&is=65d94bfd&hm=cbd8b419ad64b395cdb729fb3e14f290b58889aafc6b1febb897125d556495d9&" target="_blank" style="margin-top: -20px;">
-    <img src="https://cdn.discordapp.com/attachments/701571845526126602/1210779355551375480/1708742682327.png?ex=66077ca5&is=65f507a5&hm=962035f6225d917c00f32a28fef81a8dd8029a21f55e132de39979a420a65ef5&" width="400" style="margin-top: -10px;" alt="SGE Logo">
+  <a href="https://cdn.discordapp.com/attachments/701571845526126602/1210778823650443284/1708742506655.png?ex=662c6626&is=6619f126&hm=06ca466c6b9b0cf9e0ceb0c44a53b0ea7cdf2d5f6b8d5c3d1e661c1175133c2f&" target="_blank" style="margin-top: -20px;">
+    <img src="https://cdn.discordapp.com/attachments/701571845526126602/1210778823650443284/1708742506655.png?ex=662c6626&is=6619f126&hm=06ca466c6b9b0cf9e0ceb0c44a53b0ea7cdf2d5f6b8d5c3d1e661c1175133c2f&" width="400" style="margin-top: -10px;" alt="SGE Logo">
   </a>
 <p align="center">
   <a href="#acerca-del-proyecto">Inicio</a> |
@@ -9,7 +9,7 @@
   <a href="#principios-para-escribir-código-limpio-que-seguirá-el-proyecto">Código Limpio</a> |
   <a href="#flujo-de-trabajo-para-git">GIT Workflow</a>
 </p>
-</p>
+</p> 
 
 <p align="center">
 <a><img src="https://img.shields.io/badge/MySQL-8.0.36-blue?logo=mysql" alt="Build Status"></a>
@@ -22,7 +22,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/badge/PHP-8.0-purple?logo=php" alt="License"></a>
 </p>
 
-# Acerca del proyecto
+# Acerca del proyecto 
 
 Este proyecto se centra en el desarrollo del Sistema de Gestión de Estadías para la Universidad Tecnológica de Cancún, diseñado para abordar y optimizar la gestión de prácticas profesionales de los estudiantes. Con el avance tecnológico, se ha identificado la necesidad de una solución más eficiente que mejore la coordinación, supervisión y evaluación de las estadías, frente a un sistema preexistente que se ha vuelto obsoleto.
 
@@ -170,7 +170,7 @@ También, si crearán vistas que extienden de algún layout, usar carpetas para 
 
 [Si quieres saber más acerca de los layouts, clic aquí](https://laravel.com/docs/10.x/blade#layouts-using-components)
 
-## Uso de controladores, modelos, requests, etc
+## Uso de controladores, modelos, requests, etc.
 
 Absolutamente todo debe estar estructurado en subcarpetas, dependiendo de la sección en la que estés trabajando, ejemplo:
 
@@ -287,7 +287,7 @@ $ git pull origin develop
 
 Y entonces ya tendrás los últimos cambios. Puedes volver a crearte otra rama para trabajar otra característica o actualizar la que ya tenías con los últimos cambios de develop.
 
-**Nota:** Los mensajes de los commits deben ser descriptivos, explicando el "por qué" y no el "cómo"
+**Nota:** Los mensajes de los commits deben ser descriptivos, explicando el "por qué" y no el "cómo."
 
 ## Preguntas sobre el flujo de trabajo en GIT
 
