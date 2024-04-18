@@ -27,7 +27,7 @@ class CrudUserController extends Controller
             'academicDirector.division',
             'academicAdvisor.division',
             'managmentAdmin.division'
-        ])->get();
+        ])->paginate(10);
 
         // Iteramos sobre cada usuario para asignarle explícitamente division_id y division_name
         $users->each(function ($user) {

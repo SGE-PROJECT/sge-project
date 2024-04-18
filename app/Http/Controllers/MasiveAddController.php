@@ -21,14 +21,17 @@ class MasiveAddController extends Controller
      */
     public function index()
     {
+
+        //Apartado de paginación
+       
+
         $users = User::with([
             'student.group.program.division',
             'secretary.division',
             'academicDirector.division',
             'academicAdvisor.division',
             'managmentAdmin.division'
-        ])->get();
-
+        ])->paginate(10);
         // Iteramos sobre cada usuario para asignarle explícitamente division_id y division_name
         $users->each(function ($user) {
             if ($user->relationLoaded('student') && $user->student) {

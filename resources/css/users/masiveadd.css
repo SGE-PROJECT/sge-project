@@ -1,14 +1,8 @@
 /* Estilos CSS */
 .modal-button {
-    padding: 1.0em 1.0em;
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: bold;
     color: #ffffff;
-    border-radius: 5px;
     cursor: pointer;
     display: inline-block;
-    margin-bottom: 10px;
 }
 .fondo{
     text-align: center;
@@ -21,18 +15,11 @@
 .file-container {
     margin: 20px;
 }
-.rounded-lg {
-    border: 3px solid #CCD1D1;
-    overflow: visible;
-    width: 190px;
-    height: 254px;
-}
 .btn-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
-
 /*Ajustes para hacer la  pantalla responsiva*/
 @media (max-width: 992px) {
     .card {
@@ -49,9 +36,4 @@
         width: calc(100% - 20px);
     }
 }
-
-
-
-
-
 
