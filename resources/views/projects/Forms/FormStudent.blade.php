@@ -224,6 +224,7 @@
         </div>
     </div>
 </div>
+<br>
             <div class="grid grid-cols-1 gap-4">
                 <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Área donde se realizara el proyecto:</h2>
