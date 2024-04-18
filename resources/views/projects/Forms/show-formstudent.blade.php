@@ -68,7 +68,7 @@
             <div class="px-8 py-6">
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="mb-4">
-                        <label class=" font-semibold">Nombre Completo:</label>
+                        <label class="text-lg font-bold text-teal-800">Nombre Completo:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span class="mt-6">{{ $project->fullname_student }}</span>
                         </div>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label class=" font-semibold">Matrícula:</label>
+                        <label class=" text-lg font-bold text-teal-800">Matrícula:</label>
                         <div class="w-full rounded-lg  bg-white">
                             <span>{{ $project->id_student }}</span>
                         </div>
@@ -94,7 +94,7 @@
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="mb-4">
-                        <label class=" font-semibold">Grupo:</label>
+                        <label class="text-lg font-bold text-teal-800">Grupo:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span>{{ $project->group_student }}</span>
                         </div>
@@ -106,7 +106,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class=" font-semibold" for="phone">Número Teléfonico:</label>
+                        <label class="text-lg font-bold text-teal-800" for="phone">Número Teléfonico:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span>{{ $project->phone_student }}</span>
                         </div>
@@ -120,7 +120,7 @@
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="mb-4">
-                        <label class=" font-semibold" for="email">Correo Electrónico:</label>
+                        <label class="text-lg font-bold text-teal-800" for="email">Correo Electrónico:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span>{{ $project->email_student }}</span>
                         </div>
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label class="font-semibold">Nombre del Proyecto:</label>
+                        <label class="text-lg font-bold text-teal-800">Nombre del Proyecto:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span>{{ $project->name_project }}</span>
                         </div>
@@ -145,7 +145,7 @@
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="mb-4">
-                        <label class=" font-semibold">Empresa:</label>
+                        <label class="text-lg font-bold text-teal-800">Empresa:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span>{{ $project->company_name }}</span>
                         </div>
@@ -156,7 +156,7 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label class=" font-semibold">Dirección de la Empresa:</label>
+                        <label class="text-lg font-bold text-teal-800">Dirección de la Empresa:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span>{{ $project->company_address }}</span>
                         </div>
@@ -171,7 +171,7 @@
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="mb-4">
-                        <label class=" font-semibold">Nombre del Asesor Empresarial:</label>
+                        <label class="text-lg font-bold text-teal-800">Nombre del Asesor Empresarial:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span>{{ $project->BusinessAdvisor->name }}</span>
                         </div>
@@ -182,7 +182,7 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label class=" font-semibold">Cargo del Asesor:</label>
+                        <label class="text-lg font-bold text-teal-800">Cargo del Asesor:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span>{{ $project->BusinessAdvisor->position }}</span>
                         </div>
@@ -196,7 +196,7 @@
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="mb-4">
-                        <label class=" font-semibold">Número Teléfonico del Asesor:</label>
+                        <label class="text-lg font-bold text-teal-800">Número Teléfonico del Asesor Empresarial:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span>{{ $project->BusinessAdvisor->phone }}</span>
                         </div>
@@ -207,7 +207,7 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label class=" font-semibold">Correo Electrónico:</label>
+                        <label class="text-lg font-bold text-teal-800">Correo Electrónico del Asesor Empresarial:</label>
                         <div class="w-full rounded-lg bg-white">
                             <span>{{ $project->BusinessAdvisor->email }}</span>
                         </div>
@@ -232,7 +232,7 @@
             </div>
             <div class="px-8 py-6">
                 <div class="mb-4">
-                    <label class=" font-semibold">Área donde se realizara el proyecto:</label>
+                    <label class="text-lg font-bold text-teal-800">Área donde se realizara el proyecto:</label>
                     <div class="w-full rounded-lg bg-white">
                         <span>{{ $project->project_area }}</span>
                     </div>
@@ -243,7 +243,7 @@
                     </div>
                 </div>
                 <div class="mb-4">
-                    <label class=" font-semibold" for="message">Objetivo General (Utiliza un verbo en infinitivo para
+                    <label class="text-lg font-bold text-teal-800 text-justify" for="message">Objetivo General (Utiliza un verbo en infinitivo para
                         indicar claramente qué acción deseas lograr. Evita términos confusos y sé específico, mantén el
                         objetivo
                         breve y enfocado en la acción necesaria del proyecto) :</label>
@@ -259,7 +259,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class=" font-semibold" for="message">Planteamiento del problema: Exponer los aspectos,
+                    <label class="text-lg font-bold text-teal-800" for="message">Planteamiento del problema: Exponer los aspectos,
                         elementos y relaciones del problema:</label>
 
                     <div class="w-full rounded-lg bg-white">
@@ -273,7 +273,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class=" font-semibold text-justify" for="message">Justificacion: Debe manifestarse de
+                    <label class="text-lg font-bold text-teal-800 text-justify"  for="message">Justificacion: Debe manifestarse de
                         manera
                         clara y
                         precisa del por qué y para qué se va a llevar a cabo el estudio. Causas y propositos que motivan
@@ -291,7 +291,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class=" font-semibold" for="message">Actividades para realizar: Listar las actividades a
+                    <label class="text-lg font-bold text-teal-800"" for="message">Actividades para realizar: Listar las actividades a
                         llevar a cabo en orden:</label>
 
                     <div class="w-full rounded-lg bg-white">
@@ -307,7 +307,6 @@
         </div>
         <label class="block text-2xl text-center font-bold mb-8 mt-5 text-teal-800">Estado del Proyecto</label>
         <div class="rating mr-5 mt-4 ">
-            @if ($project->academic_advisor_id == Auth::user()->id)
                 <!-- Mostrar el formulario solo si el usuario actual es un asesor relacionado con el proyecto -->
 
                 <!-- Formulario para cambiar de estado una cédula -->
@@ -328,7 +327,6 @@
                             Estado</button>
                     </div>
                 </form>
-            @endif
         </div>
         <div class="tooltip">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -467,24 +465,29 @@
             <div class="Btn-aprobar-reprobar">
                 @if ($project->is_project || $project->academic_advisor_id == Auth::user()->id)
                     <!-- Mostrar los botones si el proyecto es identificado como proyecto o si el usuario actual es un asesor relacionado -->
-
+            
                     <!-- Botón para reprobar -->
-                    <form method="POST" action="{{ route('project.updateStatus', $project->id) }}">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="status" value="Reprobado">
-                        <button type="submit" class="btns-reprobar">Reprobar</button>
-                    </form>
-
+                    @if ($project->status != "Reprobado" && $project->status != "Finalizado")
+                        <form method="POST" action="{{ route('project.updateStatus', $project->id) }}">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="Reprobado">
+                            <button type="submit" class="btns-reprobar">Reprobar</button>
+                        </form>
+                    @endif
+            
                     <!-- Botón para finalizar -->
-                    <form method="POST" action="{{ route('project.updateStatus', $project->id) }}">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="status" value="Finalizado">
-                        <button type="submit" class="btns-finalizar">Finalizar</button>
-                    </form>
+                    @if ($project->status != "Reprobado" && $project->status != "Finalizado")
+                        <form method="POST" action="{{ route('project.updateStatus', $project->id) }}">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="Finalizado">
+                            <button type="submit" class="btns-finalizar">Finalizar</button>
+                        </form>
+                    @endif
                 @endif
             </div>
+            
 
 
         </div>
