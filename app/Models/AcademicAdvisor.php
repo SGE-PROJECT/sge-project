@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\management\Division;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Activities;
 
 class AcademicAdvisor extends Model
 {
@@ -44,6 +45,11 @@ class AcademicAdvisor extends Model
     public function projectLikes()
     {
         return $this->hasMany(Project_likes::class, 'academic_advisor_id');
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(Activities::class, 'id_advisor_id');
     }
 }
 
