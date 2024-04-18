@@ -200,12 +200,12 @@
         </div>
             <div class=" flex justify-end items-end">
 
-                <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md button-books">Actualizar Libro</button>
+                <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md button-books-update">Actualizar Libro</button>
             </div>
             
 
             <a href="{{ route('libros.index') }}" class="absolute bottom-0 left-0">
-                <button type="button" class=" bg-teal-500 text-white px-4 py-2 rounded-md font-bold">Volver a la lista de libros</button>
+                <button type="button" class=" bg-teal-500 text-white px-4 py-2 rounded-md font-bold button-books-exit">Volver a la lista de libros</button>
             </a>
         </form>
     </div>
@@ -229,7 +229,7 @@
                        // Al agregar un estudiante a la lista de seleccionados
 const liAdd = document.createElement('li');
 liAdd.classList.add('mb-2','bg-white','w-fit','p-1','rounded');
-liAdd.innerHTML = `${element.textContent} <span class="remove-student" style="cursor:pointer;color:red;">X</span>`;
+liAdd.innerHTML = `${element.textContent} <span class="remove-student" style="cursor:pointer;color:red; font-weight: bold;">X</span>`;
 liAdd.setAttribute('data-student-id', element.id); // Asegúrate de asignar un identificador al elemento LI
 console.log(liAdd);
 selectedStudentsList.appendChild(liAdd);

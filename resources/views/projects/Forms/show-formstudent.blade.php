@@ -307,23 +307,28 @@
         </div>
         <label class="block text-2xl text-center font-bold mb-8 mt-5 text-teal-800">Estado del Proyecto</label>
         <div class="rating mr-5 mt-4 ">
-            <form method="POST" action="{{ route('project.updateStatus', ['project' => $project->id]) }}">
-                @csrf
-                @method('PUT')
-                <div class="flex items-center">
-                    <select name="status" class="border rounded-md py-1 px-2">
-                        <option value="Registrado" {{ $project->status === 'Registrado' ? 'selected' : '' }}>
-                            Registrado</option>
-                        <option value="En revisión" {{ $project->status === 'En revisión' ? 'selected' : '' }}>En
-                            revisión</option>
-                        <option value="Rechazado" {{ $project->status === 'Rechazado' ? 'selected' : '' }}>Rechazado
-                        </option>
-                    </select>
-                    <button type="submit"
-                        class="relative bg-teal-500 text-white ml-2 px-4 py-2 rounded hover:bg-teal-600 transition-colors">Guardar
-                        Estado</button>
-                </div>
-            </form>
+            @if ($project->academic_advisor_id == Auth::user()->id)
+                <!-- Mostrar el formulario solo si el usuario actual es un asesor relacionado con el proyecto -->
+
+                <!-- Formulario para cambiar de estado una cédula -->
+                <form method="POST" action="{{ route('project.updateStatus', ['project' => $project->id]) }}">
+                    @csrf
+                    @method('PUT')
+                    <div class="flex items-center">
+                        <select name="status" class="border rounded-md py-1 px-2">
+                            <option value="Registrado" {{ $project->status === 'Registrado' ? 'selected' : '' }}>
+                                Registrado</option>
+                            <option value="En revisión" {{ $project->status === 'En revisión' ? 'selected' : '' }}>En
+                                revisión</option>
+                            <option value="Rechazado" {{ $project->status === 'Rechazado' ? 'selected' : '' }}>Rechazado
+                            </option>
+                        </select>
+                        <button type="submit"
+                            class="relative bg-teal-500 text-white ml-2 px-4 py-2 rounded hover:bg-teal-600 transition-colors">Guardar
+                            Estado</button>
+                    </div>
+                </form>
+            @endif
         </div>
         <div class="tooltip">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -398,7 +403,7 @@
                 @enderror
                 <div class="flex justify-end">
                     <input type="submit" value="Enviar comentario"
-                        class="w-30 bg-teal-500 text-white cursor-pointer font-semibold px-4 py-2 rounded-lg hover:bg-teal-700 focus:outline-none">
+                        class="w-30 mt-2 bg-teal-500 text-white cursor-pointer font-semibold px-4 py-2 rounded-lg hover:bg-teal-700 focus:outline-none">
                 </div>
             </form>
             <div class="bg-white shadow mb-5 max-h-96 overflow-y-scroll mt-10">
@@ -458,6 +463,29 @@
                     </div>
                 </form>
             </div>
+
+            <div class="Btn-aprobar-reprobar">
+                @if ($project->is_project || $project->academic_advisor_id == Auth::user()->id)
+                    <!-- Mostrar los botones si el proyecto es identificado como proyecto o si el usuario actual es un asesor relacionado -->
+
+                    <!-- Botón para reprobar -->
+                    <form method="POST" action="{{ route('project.updateStatus', $project->id) }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="status" value="Reprobado">
+                        <button type="submit" class="btns-reprobar">Reprobar</button>
+                    </form>
+
+                    <!-- Botón para finalizar -->
+                    <form method="POST" action="{{ route('project.updateStatus', $project->id) }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="status" value="Finalizado">
+                        <button type="submit" class="btns-finalizar">Finalizar</button>
+                    </form>
+                @endif
+            </div>
+
 
         </div>
 
