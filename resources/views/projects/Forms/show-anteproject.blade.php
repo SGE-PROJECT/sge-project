@@ -102,9 +102,9 @@
 
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
-                                <label class=" font-semibold">Nombre Completo:</label>
+                                <label class="text-lg font-bold text-teal-800">Nombre Completo:</label>
                                 <div class="w-full rounded-lg bg-white">
-                                    <span>{{ $student->user->name }}</span>
+                                    <span>{{ $proyecto->fullname_student }}</span>
                                 </div>
                                 <div class="text-red-400 font-bold text-lg">
                                     @error('fullname_student')
@@ -113,9 +113,9 @@
                                 </div>
                             </div>
                             <div>
-                                <label class=" font-semibold">Matrícula:</label>
+                                <label class=" text-lg font-bold text-teal-800">Matrícula:</label>
                                 <div class="w-full rounded-lg  bg-white">
-                                    <span>{{ $student->registration_number }}</span>
+                                    <span>{{ $proyecto->id_student }}</span>
                                 </div>
                                 <div class="text-red-400 font-bold text-lg">
                                     @error('id_student')
@@ -123,14 +123,13 @@
                                     @enderror
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
-                                <label class=" font-semibold">Grupo:</label>
+                                <label class="text-lg font-bold text-teal-800">Grupo:</label>
                                 <div class="w-full rounded-lg bg-white">
-                                    <span>{{ $student->group->name }}</span>
+                                    <span>{{ $proyecto->group_student }}</span>
                                 </div>
                                 <div class="text-red-400 font-bold text-lg">
                                     @error('group_student')
@@ -140,7 +139,7 @@
                             </div>
 
                             <div>
-                                <label class=" font-semibold" for="phone">Número Teléfonico:</label>
+                                <label class="text-lg font-bold text-teal-800" for="phone">Número Teléfonico:</label>
                                 <div class="w-full rounded-lg bg-white">
                                     <span>{{ $proyecto->phone_student }}</span>
                                 </div>
@@ -154,9 +153,9 @@
 
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
-                                <label class=" font-semibold" for="email">Correo Electrónico:</label>
+                                <label class="text-lg font-bold text-teal-800" for="email">Correo Electrónico:</label>
                                 <div class="w-full rounded-lg bg-white">
-                                    <span>{{ $student->user->email }}</span>
+                                    <span>{{ $proyecto->email_student }}</span>
                                 </div>
                                 <div class="text-red-400 font-bold text-lg">
                                     @error('email_student')
@@ -165,7 +164,7 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="font-semibold">Nombre del Proyecto:</label>
+                                <label class="text-lg font-bold text-teal-800">Nombre del Proyecto:</label>
                                 <div class="w-full rounded-lg bg-white">
                                     <span>{{ $proyecto->name_project }}</span>
                                 </div>
@@ -179,7 +178,7 @@
 
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
-                                <label class=" font-semibold">Empresa:</label>
+                                <label class="text-lg font-bold text-teal-800">Empresa:</label>
                                 <div class="w-full rounded-lg bg-white">
                                     <span>{{ $proyecto->company_name }}</span>
                                 </div>
@@ -190,7 +189,7 @@
                                 </div>
                             </div>
                             <div>
-                                <label class=" font-semibold">Dirección de la Empresa:</label>
+                                <label class="text-lg font-bold text-teal-800">Dirección de la Empresa:</label>
                                 <div class="w-full rounded-lg bg-white">
                                     <span>{{ $proyecto->company_address }}</span>
                                 </div>
@@ -200,12 +199,11 @@
                                     @enderror
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
-                                <label class=" font-semibold">Nombre del Asesor Empresarial:</label>
+                                <label class="text-lg font-bold text-teal-800">Nombre del Asesor Empresarial:</label>
                                 <div class="w-full rounded-lg bg-white">
                                     <span>{{ $proyecto->BusinessAdvisor->name }}</span>
                                 </div>
@@ -216,7 +214,7 @@
                                 </div>
                             </div>
                             <div>
-                                <label class=" font-semibold">Cargo del Asesor:</label>
+                                <label class="text-lg font-bold text-teal-800">Cargo del Asesor:</label>
                                 <div class="w-full rounded-lg bg-white">
                                     <span>{{ $proyecto->BusinessAdvisor->position }}</span>
                                 </div>
@@ -230,7 +228,7 @@
 
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
-                                <label class=" font-semibold">Número Teléfonico del Asesor:</label>
+                                <label class="text-lg font-bold text-teal-800">Número Teléfonico del Asesor Empresarial:</label>
                                 <div class="w-full rounded-lg bg-white">
                                     <span>{{ $proyecto->BusinessAdvisor->phone }}</span>
                                 </div>
@@ -241,7 +239,7 @@
                                 </div>
                             </div>
                             <div>
-                                <label class=" font-semibold">Correo Electrónico:</label>
+                                <label class="text-lg font-bold text-teal-800">Correo Electrónico del Asesor Empresarial:</label>
                                 <div class="w-full rounded-lg bg-white">
                                     <span>{{ $proyecto->BusinessAdvisor->email }}</span>
                                 </div>
@@ -267,8 +265,8 @@
                 </div>
                 <div class="px-8 py-6">
                     <div class="mb-4">
-                        <label class=" font-semibold">Área donde se realizara el proyecto:</label>
-                        <div class="w-full rounded-lg bg-white">
+                        <label class="text-lg font-bold text-teal-800">Área donde se realizara el proyecto:</label>
+                        <div class="w-full rounded-lg bg-white text-justify">
                             <span>{{ $proyecto->project_area }}</span>
                         </div>
                         <div class="text-red-400 font-bold text-lg">
@@ -278,12 +276,12 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label class=" font-semibold" for="message">Objetivo General (Utiliza un verbo en infinitivo para
+                        <label class="text-lg font-bold text-teal-800" for="message">Objetivo General (Utiliza un verbo en infinitivo para
                             indicar claramente qué acción deseas lograr. Evita términos confusos y sé específico, mantén el
                             objetivo
                             breve y enfocado en la acción necesaria del proyecto) :</label>
 
-                        <div class="w-full rounded-lg bg-white">
+                        <div class="w-full rounded-lg bg-white text-justify">
                             <span>{{ $proyecto->general_objective }}</span>
                         </div>
                         <div class="text-red-400 font-bold text-lg">
@@ -294,10 +292,10 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class=" font-semibold" for="message">Planteamiento del problema: Exponer los aspectos,
+                        <label class="text-lg font-bold text-teal-800" for="message">Planteamiento del problema: Exponer los aspectos,
                             elementos y relaciones del problema:</label>
 
-                        <div class="w-full rounded-lg bg-white">
+                        <div class="w-full rounded-lg bg-white text-justify">
                             <span>{{ $proyecto->problem_statement }}</span>
                         </div>
                         <div class="text-red-400 font-bold text-lg">
@@ -308,14 +306,14 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class=" font-semibold text-justify" for="message">Justificacion: Debe manifestarse de
+                        <label class="text-lg font-bold text-justify text-teal-800" for="message">Justificacion: Debe manifestarse de
                             manera
                             clara y
                             precisa del por qué y para qué se va a llevar a cabo el estudio. Causas y propositos que motivan
                             la
                             investigación:</label>
 
-                        <div class="w-full rounded-lg bg-white">
+                        <div class="w-full rounded-lg bg-white text-justify">
                             <span>{{ $proyecto->justification }}</span>
                         </div>
                         <div class="text-red-400 font-bold text-lg">
@@ -326,10 +324,10 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class=" font-semibold" for="message">Actividades para realizar: Listar las actividades a
+                        <label class="text-lg font-bold text-teal-800" for="message">Actividades para realizar: Listar las actividades a
                             llevar a cabo en orden:</label>
 
-                        <div class="w-full rounded-lg bg-white">
+                        <div class="w-full rounded-lg bg-white text-justify">
                             <span>{{ $proyecto->activities }}</span>
                         </div>
                         <div class="text-red-400 font-bold text-lg">

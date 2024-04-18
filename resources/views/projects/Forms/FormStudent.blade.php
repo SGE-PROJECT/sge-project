@@ -16,12 +16,12 @@
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Nombre completo:</h2>
-                    <input name="fullname_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
+                    <input name="fullname_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 rounded-lg text-sm h-auto"
                         placeholder="Ingresa tu nombre completo" type="text" value="{{ Auth::user()->name }}" readonly onfocus="this.blur()"/>
                 </div>
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Matricula:</h2>
-                    <input name="id_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
+                    <input name="id_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm rounded-lg h-auto"
                         placeholder="Ingresa tu nombre completo" type="text"
                         value="{{ Auth::user()->student->registration_number }}"readonly onfocus="this.blur()"/>
                 </div>
@@ -30,19 +30,19 @@
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Grupo:</h2>
-                    <input name="group_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
+                    <input name="group_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm rounded-lg h-auto"
                         placeholder="Ingresa tu nombre completo" type="text"
                         value="{{ Auth::user()->student->group->name }}" readonly onfocus="this.blur()"/>
                 </div>
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Correo Electrónico:</h2>
-                    <input name="email_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm h-auto"
+                    <input name="email_student" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm rounded-lg h-auto"
                         placeholder="Ingresa tu nombre completo" type="text" value="{{ Auth::user()->email }}"
                         readonly onfocus="this.blur()"/>
                 </div>
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Número Teléfonico:</h2>
-                    <input name="phone_student" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
+                    <input name="phone_student" class="w-full border-2 border-gray-300 p-3 text-sm h-auto rounded-lg"
                         placeholder="Ingresa tu numero teléfonico" type="text" value="{{ old('phone_student') }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('phone_student')
@@ -54,13 +54,13 @@
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Fecha de inicio del Proyecto:</h2>
-                    <input name="startproject_date" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
+                    <input name="startproject_date" class="w-full border-2 border-gray-300 p-3 text-sm h-auto rounded-lg"
                         placeholder="Ingresa la fecha de inicio del proyecto" type="date"
                         value="{{ old('startproject_date') }}" />
                 </div>
                 <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Fecha de término del Proyecto:</h2>
-                    <input name="endproject_date" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
+                    <input name="endproject_date" class="w-full border-2 border-gray-300 p-3 text-sm h-auto rounded-lg" 
                         placeholder="Ingresa la fecha de finalización del proyecto" type="date"
                         value="{{ old('endproject_date') }}" />
                 </div>
@@ -68,7 +68,7 @@
             <div class="grid grid-cols-1 gap-4">
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Nombre del Proyecto:</h2>
-                    <input name="name_project" class="w-full  border-2 border-gray-300 p-3 text-sm"
+                    <input name="name_project" class="w-full  border-2 border-gray-300 p-3 text-sm rounded-lg"
                         placeholder="Ingresa el nombre del proyecto" type="text" value="{{ old('name_project') }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('name_project')
@@ -82,7 +82,7 @@
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Empresa:</h2>
-                    <input name="company_name" class="w-full border-2 border-gray-300 p-3 text-sm"
+                    <input name="company_name" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg"
                         placeholder="Ingresa el nombre de la empresa" type="text" value="{{ old('company_name') }}" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('company_name')
@@ -92,7 +92,7 @@
                 </div>
                 <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Dirreción de la Empresa:</h2>
-                    <input name="company_address" class="w-full border-2 border-gray-300 p-3 text-sm"
+                    <input name="company_address" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg"
                         placeholder="Ingresa la dirección de la empresa" type="text"
                         value="{{ old('company_address') }}" />
                     <div class="text-red-400 font-bold text-lg">
@@ -106,7 +106,7 @@
             <div class="grid grid-cols-1 gap-4">
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Asesor Empresarial:</h2>
-                    <select name="project_status_area" class="w-full border-2 border-gray-300 p-3 text-sm"
+                    <select name="project_status_area" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg"
                         onchange="showHideFields(this.value)">
                         <option value="">Selecciona un asesor</option>
                         @foreach ($businessAdvisors as $advisor)
@@ -128,7 +128,7 @@
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
                             <h2 class="text-xl font-semibold text-teal-800 mb-0">Nombre del Asesor Empresarial:</h2>
-                        <input id="nombreAsesor" name="name" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm"
+                        <input id="nombreAsesor" name="name" class="w-full rounded-lg border-2 bg-gray-100 border-gray-300 p-3 text-sm"
                             placeholder="Ingresa el nombre del asesor" type="text" value="{{ old('name') }}"
                             />
                         <div class="text-red-400 font-bold text-lg">
@@ -140,7 +140,7 @@
                     </div>
                     <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
                             <h2 class="text-xl font-semibold text-teal-800 mb-0">Cargo del Asesor Empresarial:</h2>
-                        <input id="cargoAsesor" name="position" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm"
+                        <input id="cargoAsesor" name="position" class=" rounded-lg w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm"
                             placeholder="Ingresa el cargo del asesor" type="text" value="{{ old('position') }}"
                             />
                         <div class="text-red-400 font-bold text-lg">
@@ -154,7 +154,7 @@
                     <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
                             <h2 class="text-xl font-semibold text-teal-800 mb-0">Número Teléfonico del Asesor Empresarial:
                             </h2>
-                        <input id="telefonoAsesor" name="phone" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm"
+                        <input id="telefonoAsesor" name="phone" class="rounded-lg w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm"
                             placeholder="Ingresa el número teléfonico del asesor" type="tel"
                             value="{{ old('phone') }}" />
                         <div class="text-red-400 font-bold text-lg">
@@ -167,7 +167,7 @@
                             <h2 class="text-xl font-semibold text-teal-800 mb-0">Correo Electrónico del Asesor Empresarial:
                             </h2>
                                 <input id="emailAsesor" name="email"
-                                    class="w-full  border-2 bg-gray-100 border-gray-300 p-3 text-sm"
+                                    class="w-full  border-2 bg-gray-100 border-gray-300 p-3 text-sm rounded-lg"
                                     placeholder="Ingresa el correo electrónico del asesor" type="email"
                                     value="{{ old('email') }}" />
                                 <div class="text-red-400 font-bold text-lg">
@@ -181,7 +181,7 @@
             <div class="grid grid-cols-1 gap-4">
                 <div class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Área donde se realizara el proyecto:</h2>
-                            <input name="project_area" class="w-full border-2 border-gray-300 p-3 text-sm"
+                            <input name="project_area" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg"
                                 placeholder="Ingresa tu área actual" type="text" value="{{ old('project_area') }}" />
                             <div class="text-red-400 font-bold text-lg">
                                 @error('project_area')
@@ -197,7 +197,7 @@
                             indicar claramente qué acción deseas lograr. Evita términos confusos y sé específico, mantén el
                             objetivo
                             breve y enfocado en la acción necesaria del proyecto.) :</h2>
-                            <textarea name="general_objective" class="w-full  border-2 border-gray-300 p-3 text-sm h-auto"
+                            <textarea name="general_objective" class="w-full  border-2 border-gray-300 p-3 text-sm h-auto rounded-lg"
                                 placeholder="Redacta aqui..." rows="8">{{ old('general_objective') ?: '' }}</textarea>
                             <div class="absolute bottom-[-3px] text-red-400 font-bold text-lg">
                                 @error('general_objective')
@@ -210,7 +210,7 @@
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0">
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Planteamiento del problema: Exponer los aspectos,
                             elementos y relaciones del problema:</h2>
-                            <textarea name="problem_statement" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
+                            <textarea name="problem_statement" class="w-full border-2 border-gray-300 p-3 text-sm h-auto rounded-lg"
                                 placeholder="Redacta aqui..." rows="8">{{ old('problem_statement') ? old('problem_statement') : '' }}</textarea>
                             <div class="absolute bottom-[-3px] text-red-400 font-bold text-lg">
                                 @error('problem_statement')
@@ -227,7 +227,7 @@
                             precisa del por qué y para qué se va a llevar a cabo el estudio. Causas y propositos que motivan
                             la
                             investigación:</h2>
-                            <textarea name="justification" class="w-full border-2 border-gray-300 p-3 text-sm h-auto"
+                            <textarea name="justification" class="w-full border-2 border-gray-300 p-3 text-sm h-auto rounded-lg"
                                 placeholder="Redacta aqui..." rows="13">{{ old('justification') }}</textarea>
                             <div class="absolute bottom-[-3px] text-red-400 font-bold text-lg">
                                 @error('justification')
@@ -241,7 +241,7 @@
                         <h2 class="text-xl font-semibold text-teal-800 mb-0">Actividades para realizar: Listar las actividades
                             a
                             llevar a cabo en orden:</h2>
-                            <textarea name="activities" class="w-full  border-2 border-gray-300 p-3 text-sm h-auto"
+                            <textarea name="activities" class="w-full  border-2 border-gray-300 p-3 text-sm h-auto rounded-lg"
                                 placeholder="Redacta aqui..." rows="8">{{ old('activities') }}</textarea>
                             <div class="absolute bottom-[-3px] text-red-400 font-bold text-lg">
                                 @error('activities')

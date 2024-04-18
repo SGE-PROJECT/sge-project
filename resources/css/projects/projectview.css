@@ -585,7 +585,7 @@ Los botones solo aparecen si el "is_project" es igual a 1*/
     display: flex;
     align-items: center;
     text-align: center;
-    margin-left: 40%;
+    justify-content: center;
     margin-top: 3%;
 }
 
@@ -612,7 +612,7 @@ Los botones solo aparecen si el "is_project" es igual a 1*/
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 40px;
+    margin-left: 10px;
 }
 
 .btns-finalizar:hover {

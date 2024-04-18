@@ -25,7 +25,8 @@
 
             <div class="container mx-auto px-4 mt-10">
                 <div class="relative w-full ">
-                    <p class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-600 font-bold text-3xl uppercase">
+                    <p
+                        class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-600 font-bold text-3xl uppercase">
                         Bienvenido {{ Auth()->user()->name }}
                     </p>
                 </div>
@@ -131,8 +132,14 @@
 
 
                                         <div class="flex mt-4 md:mt-6">
-                                            <a href="{{ route('viewMyProject') }}" class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver más información</a>
-                                                <a href="{{ route('student.export') }}" class="py-2 px-3 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Generar reportes</a>
+                                            <a href="{{ route('viewMyProject') }}"
+                                                class="py-2 px-4 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Ver
+                                                más información</a>
+                                            @if ($Project->is_project && $status === 'Finalizado')
+                                                <a href="{{ route('student.export') }}"
+                                                    class="py-2 px-3 ms-2 text-sm font-bold focus:outline-none bg-[#00ab84] rounded-lg border border-gray-200 h hover: focus:z-10 focus:ring-4 focus:ring-gray-100 text-white">Generar
+                                                    reportes</a>
+                                            @endif
                                         </div>
 
                                     </div>
@@ -201,34 +208,35 @@
                         <div class="bg-gradient-to-r from-[#00ab84] to-[#00e7b1] py-2 px-4">
                             <h2 class="text-xl font-semibold text-white mb-2">Avisos importantes</h2>
                         </div>
-                        <div class="p-4 sanciones"> 
+                        <div class="p-4 sanciones">
 
-                            @forelse ($importantNotifications as $notification )
-                            <div id="toast-default"
-                                class="flex bg-blue-50 items-center w-full  p-4 text-gray-500  rounded-lg shadow mb-2"
-                                role="alert">
-                                <div
-                                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-200 rounded-lg ">
-                                    <i class='bx bxs-megaphone'></i>
-                                    <span class="sr-only">Fire icon</span>
+                            @forelse ($importantNotifications as $notification)
+                                <div id="toast-default"
+                                    class="flex bg-blue-50 items-center w-full  p-4 text-gray-500  rounded-lg shadow mb-2"
+                                    role="alert">
+                                    <div
+                                        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-200 rounded-lg ">
+                                        <i class='bx bxs-megaphone'></i>
+                                        <span class="sr-only">Fire icon</span>
+                                    </div>
+                                    <div class="ms-3 text-sm font-normal">{{ $notification->data['data'] }}</div>
+
                                 </div>
-                                <div class="ms-3 text-sm font-normal">{{$notification->data['data']}}</div>
 
-                            </div>
-                                
                             @empty
-                                
-                            <div id="toast-default"
-                                class="flex items-center w-full  p-4 text-gray-500 bg-white rounded-lg shadow mb-2"
-                                role="alert">
-                                <div
-                                    class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-200 rounded-lg ">
-                                    <i class='bx bxs-megaphone'></i>
-                                    <span class="sr-only">Fire icon</span>
-                                </div>
-                                <div class="ms-3 text-sm font-normal">¡Por el momento no tienes notificaciones importantes! <strong>Bandeja Vacía</strong></div>
 
-                            </div>
+                                <div id="toast-default"
+                                    class="flex items-center w-full  p-4 text-gray-500 bg-white rounded-lg shadow mb-2"
+                                    role="alert">
+                                    <div
+                                        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-200 rounded-lg ">
+                                        <i class='bx bxs-megaphone'></i>
+                                        <span class="sr-only">Fire icon</span>
+                                    </div>
+                                    <div class="ms-3 text-sm font-normal">¡Por el momento no tienes notificaciones
+                                        importantes! <strong>Bandeja Vacía</strong></div>
+
+                                </div>
                             @endforelse
                         </div>
                     </div>
@@ -372,19 +380,21 @@
                             <h2 class="text-xl font-semibold text-white mb-2">Sanciones</h2>
                         </div>
                         <div class="p-4">
-                            <input class="hidden" type="number" id="academico" value="{{Auth()->user()->student->sanction_advisor}}" min="0" max="3">
-                            <input class="hidden" type="number" id="empresarial" value="{{Auth()->user()->student->sanction_company}}" min="0" max="3">
+                            <input class="hidden" type="number" id="academico"
+                                value="{{ Auth()->user()->student->sanction_advisor }}" min="0" max="3">
+                            <input class="hidden" type="number" id="empresarial"
+                                value="{{ Auth()->user()->student->sanction_company }}" min="0" max="3">
                             <span class="flex justify-center mb-5">
                                 <div class="pie-chart flex justify-center items-center shadow">
                                     <div
                                         class="w-[70%] h-[70%] bg-[#fff] rounded-full flex flex-wrap justify-center content-center">
                                         <div>
                                             <p class="w-full text-center h-5 flex items-center"><span
-                                            class="w-3 h-3 mr-2 flex rounded bg-lime-400"></span>Sin sancion</p>
+                                                    class="w-3 h-3 mr-2 flex rounded bg-lime-400"></span>Sin sancion</p>
                                             <p class="w-full text-center h-5 flex items-center"><span
                                                     class="w-3 h-3 mr-2 flex rounded bg-yellow-400"></span>Empresarial</p>
-                                                    <p class="w-full text-center h-5 flex items-center"><span
-                                                            class="w-3 h-3 mr-2 flex rounded bg-red-500"></span>Academica</p>
+                                            <p class="w-full text-center h-5 flex items-center"><span
+                                                    class="w-3 h-3 mr-2 flex rounded bg-red-500"></span>Academica</p>
 
                                         </div>
                                     </div>
