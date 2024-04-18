@@ -17,7 +17,7 @@
         "phpoffice/phpspreadsheet": "^1.18",
         "phpoffice/phpword": "^1.2",
         "spatie/laravel-permission": "^6.4",
-        "symfony/css-selector": "^5.0",
+        "symfony/css-selector": "^6.4",
         "yajra/laravel-datatables": "^10.1"
     },
     "require-dev": {
