@@ -11,6 +11,8 @@ use App\Models\ManagmentAdmin;
 use App\Models\AcademicAdvisor;
 use App\Models\AcademicDirector;
 use Spatie\Permission\Models\Role;
+use App\Models\management\Division;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -189,6 +191,13 @@ class CrudUserController extends Controller
         $user = User::with('roles')->find($id);
         $roles = Role::all();
         $divisions = \App\Models\management\Division::all();
+        $user->load('student.group.program.division');
+        $user->load([
+            'secretary.division', // Para el rol de Asistente de Dirección
+            'academicAdvisor.division', // Para el rol de Asesor Académico
+            'academicDirector.division', // Para el rol de Presidente Académico
+            'managmentAdmin.division', // Para el rol de Administrador de División
+        ]);
         $groups = \App\Models\Group::all();
         $academicAdvisors = \App\Models\AcademicAdvisor::with('user')->get();
         $userRole = $user->roles->pluck('name')->first();
@@ -218,6 +227,7 @@ class CrudUserController extends Controller
 
     public function update(Request $request, string $id)
     {
+       // dd($request->all());
         $user = User::findOrFail($id);
 
         $validationRules = [
@@ -227,9 +237,9 @@ class CrudUserController extends Controller
             'role' => 'required|exists:roles,name',
             'phone_number' => 'nullable|string|max:20',
             'division_id' => 'required|exists:divisions,id',
-            'curp' => 'nullable|alpha_num|size:18',
-            'birthdate' => 'nullable|date_format:Y-m-d',
-            'sex' => 'nullable|in:M,F',
+           // 'curp' => 'nullable|alpha_num|size:18',
+          //  'birthdate' => 'nullable|date_format:Y-m-d',
+           // 'sex' => 'nullable|in:M,F',
             'nss' => 'nullable|digits_between:11,11',
         ];
 
@@ -255,9 +265,9 @@ class CrudUserController extends Controller
             'email' => $request->email,
             'phone_number' => $request->phone_number ?? '',
             'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
-            'curp' => $request->curp,
-            'birthdate' => $request->birthdate,
-            'sex' => $request->sex,
+           // 'curp' => $request->curp,
+           // 'birthdate' => $request->birthdate,
+          //  'sex' => $request->sex,
             'nss' => $request->nss,
         ]);
 
@@ -313,6 +323,7 @@ class CrudUserController extends Controller
                 );
                 break;
         }
+        Log::info();
 
         return redirect()->route('users.cruduser.index')->with('success', 'Usuario actualizado correctamente.');
     }
@@ -328,3 +339,4 @@ class CrudUserController extends Controller
     }
 
 }
+
