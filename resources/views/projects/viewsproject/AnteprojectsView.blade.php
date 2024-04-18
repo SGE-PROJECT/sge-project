@@ -6,19 +6,19 @@
 @section('contenido')
 
 @if ($noProjects)
-    <form class="max-w-md mx-auto mt-10" action="{{ route('searchProjects') }}" method="GET">
-        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
-        <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <!-- Icono de búsqueda -->
-            </div>
-            <input type="search" id="default-search" name="search"
-                class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-[#00ab84] focus:border-[#00ab84]"
-                placeholder="Buscar proyectos..." required />
-            <button type="submit"
-                class="font-semibold text-white absolute end-2.5 bottom-2.5 bg-[#00ab84] hover:bg-[#00ab84] focus:ring-4 focus:outline-none focus:ring-[#00ab84]  rounded-lg text-sm px-4 py-2 ">Buscar</button>
+<form class="max-w-md mx-auto mt-10" action="{{ route('searchProjects') }}" method="GET">
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
+    <div class="relative">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+            <!-- Icono de búsqueda -->
         </div>
-    </form>
+        <input type="search" id="default-search" name="search"
+            class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-[#00ab84] focus:border-[#00ab84]"
+            placeholder="Buscar proyectos..." required />
+        <button type="submit"
+            class="font-semibold text-white absolute end-2.5 bottom-2.5 bg-[#00ab84] hover:bg-[#00ab84] focus:ring-4 focus:outline-none focus:ring-[#00ab84]  rounded-lg text-sm px-4 py-2 ">Buscar</button>
+    </div>
+</form>
         <div class="flex justify-center items-center">
             <h3 class="text-3xl font-bold mt-16 text-center text-gray-700">¡No se han encontrado proyectos</h3>
         </div>

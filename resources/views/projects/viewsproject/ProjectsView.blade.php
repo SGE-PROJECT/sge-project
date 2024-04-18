@@ -142,7 +142,6 @@
         </div>
         @endif
         <div class="flex items-center justify-center">
-
             {{ $Projects->appends(['search' => request()->query('search')])->links() }}
         </div>
 @endsection
