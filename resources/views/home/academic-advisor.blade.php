@@ -111,7 +111,9 @@
                                     <i class='nf nf-oct-project_roadmap'></i>
                                     <span class="sr-only">Fire icon</span>
                                 </div>
-                                <div class="ms-3 text-sm font-normal">{{ $project->name_project }}</div>
+                                <div class="ms-3 text-sm font-normal">
+                                    {{ Str::limit($project->name_project, 18, '...') }}
+                                </div>
 
                                 <div class="ml-auto"></div>
                                 <div class="mx-3">
