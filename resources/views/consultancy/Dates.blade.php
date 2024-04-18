@@ -35,7 +35,7 @@
             {{ session('delete') }}
         </div>
     @endif
-    <main class=" ">
+    <main class="vista_asesorias">
 
         <script>
             setTimeout(() => {

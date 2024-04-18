@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\GroupController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
@@ -155,6 +156,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('carreras/{id}/activate', [ProgramController::class, 'activate'])->name('carreras.activate');
         Route::resource('/grupos', GroupController::class);
         Route::get('/grupos/programs/{divisionId}', [GroupController::class, 'getProgramsByDivision'])->name('grupos.programs');
+        Route::get('/grupos/division/{divisionId}', [GroupController::class, 'getGroupsByDivision']);
+        Route::get('/advisors/division/{divisionId}', [AcademicAdvisorController::class, 'getAdvisorsByDivision'])->name('advisors.byDivision');
         Route::put('/empresas/{id}/activate', [CompaniesController::class, 'activate'])->name('empresas.activate');
         Route::get('/proyectoequipos', [ProjectController::class, 'projectteams'])->name('projectteams');
         Route::get('/vistanteproyectos', [ProjectController::class, 'viewanteproject'])->name('viewanteproject');

@@ -14,6 +14,18 @@ use Illuminate\Support\Facades\Auth;
 
 class AcademicAdvisorController extends Controller
 {
+
+public function getAdvisorsByDivision($divisionId)
+{
+    $advisors = AcademicAdvisor::with('user') 
+                        ->where('division_id', $divisionId)
+                        ->get();
+
+    return response()->json($advisors);
+}
+
+    
+
     public function index()
     {
 
