@@ -85,19 +85,19 @@ class CrudUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required|exists:roles,name',
-            'phone_number' => 'nullable|string|max:20',
-            'division_id' => 'required  |exists:divisions,id',
-            'curp' => 'nullable|alpha_num|size:18',
+            'phone_number' => 'nullable|string|max:20|unique:users',
+            'division_id' => 'required|exists:divisions,id',
+            'curp' => 'nullable|alpha_num|size:18|unique:users',
             'birthdate' => 'nullable|date_format:Y-m-d',
             'sex' => 'nullable|in:M,F',
-            'nss' => 'nullable|digits_between:11,11',
+            'nss' => 'nullable|size:11|unique:users',
         ];
 
         if ($request->role === 'Estudiante') {
             $validationRules['group_id'] = 'required|exists:groups,id';
             $validationRules['registration_number'] = 'required|string|unique:students,registration_number';
-            $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
-            $validationRules['isReEntry'] = 'required|in:Si,No';
+            $validationRules['academic_advisor_id'] = 'nullable|exists:academic_advisors,id';
+            $validationRules['isReEntry'] = 'required|in:1,0';
         } elseif ($request->role === 'Asistente de Dirección') {
             $validationRules['payrol'] = 'required|string|min:4|max:6';
         } elseif ($request->role === 'Presidente Académico') {
@@ -231,26 +231,23 @@ class CrudUserController extends Controller
         $user = User::findOrFail($id);
 
         $validationRules = [
-            'name' => 'nullable|string|max:255',
-            'email' => 'nullable|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8',
-            'role' => 'nullable|exists:roles,name',
-            'phone_number' => 'nullable|string|max:20',
-            'division_id' => 'nullable|exists:divisions,id',
-            // 'curp' => 'nullable|alpha_num|size:18',
-            // 'birthdate' => 'nullable|date_format:Y-m-d',
-            // 'sex' => 'nullable|in:M,F',
-            'nss' => 'nullable|digits_between:11,11',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'role' => 'required|exists:roles,name',
+            'phone_number' => 'nullable|string|max:20|unique:users',
+            'division_id' => 'required|exists:divisions,id',
+            'curp' => 'nullable|alpha_num|size:18|unique:users',
+            'birthdate' => 'nullable|date_format:Y-m-d',
+            'sex' => 'nullable|in:M,F',
+            'nss' => 'nullable|size:11|unique:users',
         ];
 
         if ($request->role === 'Estudiante') {
-            $validationRules['group_id'] = 'nullable|exists:groups,id';
-            // Si se proporciona un nuevo valor para el número de registro, valida su unicidad
-            if ($request->filled('registration_number')) {
-                $validationRules['registration_number'] = 'nullable|string|unique:students,registration_number,' . $user->student->id;
-            }
-             $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
-            $validationRules['isReEntry'] = 'required|in:Si,No';
+            $validationRules['group_id'] = 'required|exists:groups,id';
+            $validationRules['registration_number'] = 'required|string|unique:students,registration_number';
+            $validationRules['academic_advisor_id'] = 'required|exists:academic_advisors,id';
+            $validationRules['isReEntry'] = 'required|in:1,0';
         } elseif ($request->role === 'Asistente de Dirección') {
             $validationRules['payrol'] = 'required|string|min:4|max:6';
         } elseif ($request->role === 'Presidente Académico') {

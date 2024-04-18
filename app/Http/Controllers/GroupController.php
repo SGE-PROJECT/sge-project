@@ -16,8 +16,18 @@ class GroupController extends Controller
         $programs = Program::where('division_id', $divisionId)->get();
         return response()->json($programs);
     }
-    
-        
+
+    // En GroupController
+public function getGroupsByDivision($divisionId)
+{
+    $groups = Group::whereHas('program', function($query) use ($divisionId) {
+        $query->where('division_id', $divisionId);
+    })->get();
+
+    return response()->json($groups);
+}
+
+
     /**
      * Display a listing of the resource.
      */
@@ -77,10 +87,10 @@ class GroupController extends Controller
         $group = Group::with('program.division')->findOrFail($id);
         $divisions = Division::all();
         $programs = Program::where('division_id', $group->program->division_id)->get();
-    
+
         return view('management.group.edit-group', compact('group', 'divisions', 'programs'));
     }
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -93,11 +103,11 @@ class GroupController extends Controller
             'name' => 'required|max:255',
             'description' => 'nullable',
             'program_id' => 'required|exists:programs,id',
-            'four-month-period' => 'nullable|integer|min:1|max:18', 
+            'four-month-period' => 'nullable|integer|min:1|max:18',
         ]);
-    
+
         $group->update($validatedData);
-    
+
         return redirect()->route('grupos.index')->with('success', 'Grupo actualizado correctamente.');
     }
 
@@ -116,5 +126,5 @@ class GroupController extends Controller
             return redirect()->route('grupos.index')->with('error', 'Error al eliminar el grupo: ' . $e->getMessage());
         }
     }
-    
+
 }
