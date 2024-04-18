@@ -66,9 +66,33 @@ class ProjectsSeeder extends Seeder
             ]);
         } */
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 9; $i++) {
             $is_project = (bool)rand(0, 1);
             $status = (!$is_project) ? 'Registrado' : collect(['En curso', 'Finalizado', 'Reprobado', 'Aprobado'])->random();
+
+            $projectNames = [
+                'Niux - Comercio electrónico',
+                'Melox Mix',
+                'UTuri | Agencia de viajes',
+                'Marings',
+                'Astronet',
+                'Salud Digna Bot',
+                'Artesanos Web',
+                'Mundo Óptico Web',
+                'Chatbot para despegar!'
+            ];
+
+            $corporation = [
+                'DotNet',
+                'Firenow Solutions',
+                'Dapper Tech',
+                'Upnify',
+                'Go1',
+                'Monkey Software',
+                'Ancona Autopartes',
+                'Hilad Hotel',
+                'Despegar'
+            ];
 
             Project::create([
                 'fullname_student' => 'Nombre completo estudiante ' . ($i + 1),
@@ -78,8 +102,8 @@ class ProjectsSeeder extends Seeder
                 'email_student' => 'estudiante' . ($i + 1) . '@example.com',
                 'startproject_date' => now(),
                 'endproject_date' => now()->addMonths(6),
-                'name_project' => 'Proyecto ' . ($i + 1),
-                'company_name' => 'Empresa ' . ($i + 1),
+                'name_project' => $projectNames[$i % count($projectNames)],
+                'company_name' => $corporation[$i % count($corporation)],
                 'company_address' => 'Dirección de la empresa ' . ($i + 1),
                 'business_advisor_id' => $i + 1,
                 'project_area' => 'Área del proyecto ' . ($i + 1),
@@ -88,9 +112,9 @@ class ProjectsSeeder extends Seeder
                 'justification' => 'Justificación del proyecto ' . ($i + 1),
                 'activities' => 'Actividades del proyecto ' . ($i + 1),
                 'status' => $status,
-                'is_project' => $is_project,
+                'is_project' => 0,
+                'is_public' => 1,
             ]);
         }
-
     }
 }

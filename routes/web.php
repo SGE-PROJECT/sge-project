@@ -1,44 +1,45 @@
 <?php
 //importaciones de controladores
-    use App\Http\Controllers\GroupController;
-    use Spatie\Permission\Middlewares;
-    use Illuminate\Support\Facades\Route;
-    use App\Http\Controllers\ApprovementLetter;
-    use App\Http\Controllers\StudentController;
-    use App\Http\Controllers\CrudUserController;
-    use App\Http\Controllers\auth\PostController;
-    use App\Http\Controllers\MasiveAddController;
-    use App\Http\Controllers\ComentarioController;
-    use App\Http\Controllers\admin\RolesController;
-    use App\Http\Controllers\auth\LoginControlller;
-    use App\Http\Controllers\auth\LogoutController;
-    use App\Http\Controllers\books\BooksController;
-    use App\Http\Controllers\ProjectLikeController;
-    use App\Http\Controllers\auth\RegisterController;
-    use App\Http\Controllers\Career\ProgramController;
-    use App\Http\Controllers\AcademicAdvisorController;
+use App\Http\Controllers\GroupController;
+use Spatie\Permission\Middlewares;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApprovementLetter;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CrudUserController;
+use App\Http\Controllers\auth\PostController;
+use App\Http\Controllers\MasiveAddController;
+use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\auth\LoginControlller;
+use App\Http\Controllers\auth\LogoutController;
+use App\Http\Controllers\books\BooksController;
+use App\Http\Controllers\ProjectLikeController;
+use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\Career\ProgramController;
+use App\Http\Controllers\AcademicAdvisorController;
 use App\Http\Controllers\AcademyController;
+use App\Http\Controllers\studentDash\AdminDivisionExportController;
 use App\Http\Controllers\AdvisoryReportsController;
-    use App\Http\Controllers\AdvisorySessionController;
-    use App\Http\Controllers\profile\ProfileController;
-    use App\Http\Controllers\projects\ProjectController;
-    use App\Http\Controllers\divisions\DivisionController;
-    use App\Http\Controllers\users\RegisterUserController;
-    use App\Http\Controllers\auth\ForgotPasswordController;
-    use App\Http\Controllers\Companies\CompaniesController;
-    use App\Http\Controllers\users\ManagementConfiguration;
-    use App\Http\Controllers\projects\ProjectFormController;
-    use App\Http\Controllers\projects\ViewProjectController;
-    use App\Http\Controllers\users\ManagementUserController;
-    use App\Http\Controllers\advisorDash\AdvisorDashController;
+use App\Http\Controllers\AdvisorySessionController;
+use App\Http\Controllers\profile\ProfileController;
+use App\Http\Controllers\projects\ProjectController;
+use App\Http\Controllers\divisions\DivisionController;
+use App\Http\Controllers\users\RegisterUserController;
+use App\Http\Controllers\auth\ForgotPasswordController;
+use App\Http\Controllers\Companies\CompaniesController;
+use App\Http\Controllers\users\ManagementConfiguration;
+use App\Http\Controllers\projects\ProjectFormController;
+use App\Http\Controllers\projects\ViewProjectController;
+use App\Http\Controllers\users\ManagementUserController;
+use App\Http\Controllers\advisorDash\AdvisorDashController;
 use App\Http\Controllers\AprobacionController;
 use App\Http\Controllers\CartaDigitalizacionController;
-    use App\Http\Controllers\CedulaController;
-    use App\Http\Controllers\studentDash\StudentDashController;
-    use App\Http\Controllers\studentDash\projectsDivisionController;
-    use App\Http\Controllers\studentDash\anteprojectsDivisionController;
-    use App\Http\Controllers\InvitacionEstudianteController;
-    use App\Http\Controllers\studentDash\AdminExportController;
+use App\Http\Controllers\CedulaController;
+use App\Http\Controllers\studentDash\StudentDashController;
+use App\Http\Controllers\studentDash\projectsDivisionController;
+use App\Http\Controllers\studentDash\anteprojectsDivisionController;
+use App\Http\Controllers\InvitacionEstudianteController;
+use App\Http\Controllers\studentDash\AdminExportController;
 
 //Cosas necesarias para el login
 Route::middleware(['guest'])->group(function () {
@@ -47,6 +48,8 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/recuperar-contraseña', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/recuperar-contraseña', [ForgotPasswordController::class, 'sendPassword'])->name('password.email');
 });
+
+
 
 //Comprueba que el usuario este loggeado
 Route::middleware(['auth'])->group(function () {
@@ -124,9 +127,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/exportar', [StudentController::class, 'export'])->name('student.export');
         Route::get('generar-carta-digitalizacion', [CartaDigitalizacionController::class, 'digitalizacion'])->name('carta-digitalizacion');
         //libros
-        Route::get('/libro',[BooksController::class,'studentBook'])->name('libro-student');
-        Route::get('/añadir.libros',[BooksController::class, 'formCreateStudent'])->name('añadir.libros');
-        Route::post('/crear/libros/estudiante',[BooksController::class, 'studentAddBook'])->name('crear.libro.estudiante');
+        Route::get('/libro', [BooksController::class, 'studentBook'])->name('libro-student');
+        Route::get('/añadir.libros', [BooksController::class, 'formCreateStudent'])->name('añadir.libros');
+        Route::post('/crear/libros/estudiante', [BooksController::class, 'studentAddBook'])->name('crear.libro.estudiante');
 
         //proyectos
         Route::get('/proyectoinvitacion', [ProjectController::class, 'invitation'])->name('projectinvitation');
@@ -138,8 +141,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('carta-aprobacion', [AprobacionController::class, 'aprobar'])->name('aprobacion');
         Route::put('/projects/{id}/updateIsPublic', [ProjectController::class, 'updateIsPublic'])->name('projects.updateIsPublic');
         Route::get('/projects/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
-
-
     });
     //Vusualizacion de elementos para quienes no sean estudiantes o secretarias
     Route::middleware(['auth', 'role:Administrador de División|Asesor Académico|Super Administrador'])->group(function () {
@@ -157,6 +158,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/vistaproyectos', [ProjectController::class, 'viewproject'])->name('viewproject');
         Route::get('/carreras/division', [ProgramController::class, 'divisionCarreras'])->name('division.carreras');
         Route::get('/empresas-afiliadas', [CompaniesController::class, 'showTable'])->name('empresas.showTable');
+        Route::get('search', [ProjectController::class, 'search'])->name('search.project');
+        Route::get('searchProject', [ProjectController::class, 'searchProject'])->name('searchProjects');
     });
     //Permisos unicamente para el director de division
     Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->middleware("can:studentsForDivision")->name('student-dash');
@@ -165,49 +168,56 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/division-anteprojects', [anteprojectsDivisionController::class, 'anteprojectsForDivision'])->middleware("can:anteprojectsForDivision")->name('Division-Anteproyectos');
     Route::post('/studentsForDivision', [BooksController::class, 'studentsForDivision'])->name('studentsForDivision')->middleware(['auth', 'role:Administrador de División']);
     //Permisos unicamente para el administrador
-        // Gestion de roles y permisos
-            Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
-        //Gestion de usuarios
-            Route::resource('gestion-usuarios', CrudUserController::class)->names([
-                'index' => 'users.cruduser.index',
-                'create' => 'users.cruduser.create',
-                'store' => 'users.cruduser.store',
-                'show' => 'users.cruduser.show',
-                'edit' => 'users.cruduser.edit',
-                'update' => 'users.cruduser.update',
-                'destroy' => 'users.cruduser.destroy',
-            ]);
-            Route::get('/usuarios', [AdminExportController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
-            // Actualización de usuarios
-                Route::put('gestion-usuarios/{user}', [CrudUserController::class, 'update'])->name('users.cruduser.update');
-            // Gestion de usuarios masiva
-                Route::resource('gestion-usuarios-masiva', MasiveAddController::class)->names([
-                    'index' => 'users.masiveadd.index',
-                    'create' => 'users.masiveadd.create',
-                    'store' => 'users.masiveadd.store',
-                    'show' => 'users.masiveadd.show',
-                    'edit' => 'users.masiveadd.edit',
-                    'update' => 'users.masiveadd.update',
-                    'destroy' => 'users.masiveadd.destroy',
-                ]);
-            // Ruta adicional para la importación de usuarios
-                Route::post('gestion-usuarios-masiva/import', [MasiveAddController::class, 'import'])->name('users.masiveadd.import');
-            // Ruta adicional para la exportación de la plantilla de usuarios
-                Route::get('/exportar-usuarios', [MasiveAddController::class, 'exportCsv'])->name('users.exportCsv');
-                Route::get('/exportar-estudiantes-plantilla', [MasiveAddController::class, 'exportTemplate'])->name('users.exportTemplate');
-                Route::get('/exportar-usuarios-plantilla', [MasiveAddController::class, 'exportTemplateUsers'])->name('users.exportTemplateUsers');
-                Route::post('/importar-usuarios', [MasiveAddController::class, 'store'])->name('users.store');
-        // Proyectos
-            Route::resource('/projects', ProjectController::class);
-            Route::get('/projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
-            Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
-            Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
-            Route::get('vistanteproyectosadmin', [ProjectController::class, 'viewanteprojectAdmin'])->name('viewanteprojectAdmin');
-            Route::get('/projectsdash', function () {
-                return view('management.project');
-            });
+    // Gestion de roles y permisos
+    Route::resource('roles-permisos', RolesController::class)->names('roles.permissions');
+    //Gestion de usuarios
+    Route::resource('gestion-usuarios', CrudUserController::class)->names([
+        'index' => 'users.cruduser.index',
+        'create' => 'users.cruduser.create',
+        'store' => 'users.cruduser.store',
+        'show' => 'users.cruduser.show',
+        'edit' => 'users.cruduser.edit',
+        'update' => 'users.cruduser.update',
+        'destroy' => 'users.cruduser.destroy',
+    ]);
+    Route::get('/usuarios', [AdminExportController::class, 'dashboardUsers'])->name('Dashboard-Usuarios');
+    // Actualización de usuarios
+    Route::put('gestion-usuarios/{user}', [CrudUserController::class, 'update'])->name('users.cruduser.update');
+    // Gestion de usuarios masiva
+    Route::resource('gestion-usuarios-masiva', MasiveAddController::class)->names([
+        'index' => 'users.masiveadd.index',
+        'create' => 'users.masiveadd.create',
+        'store' => 'users.masiveadd.store',
+        'show' => 'users.masiveadd.show',
+        'edit' => 'users.masiveadd.edit',
+        'update' => 'users.masiveadd.update',
+        'destroy' => 'users.masiveadd.destroy',
+    ]);
+    // Ruta adicional para la importación de usuarios
+    Route::post('gestion-usuarios-masiva/import', [MasiveAddController::class, 'import'])->name('users.masiveadd.import');
+    // Ruta adicional para la exportación de la plantilla de usuarios
+    Route::get('/exportar-usuarios', [MasiveAddController::class, 'exportCsv'])->name('users.exportCsv');
+    Route::get('/exportar-estudiantes-plantilla', [MasiveAddController::class, 'exportTemplate'])->name('users.exportTemplate');
+    Route::get('/exportar-usuarios-plantilla', [MasiveAddController::class, 'exportTemplateUsers'])->name('users.exportTemplateUsers');
+    Route::post('/importar-usuarios', [MasiveAddController::class, 'store'])->name('users.store');
+    // Proyectos
+    Route::resource('/projects', ProjectController::class);
+    Route::get('/projectdashboard', [ProjectController::class, 'index'])->name('dashboardProjects');
+    Route::get('/anteproyectos', [ProjectController::class, 'dashAnteprojects'])->name('Dashboard-Anteproyectos');
+    Route::get('/dashproyectos', [ProjectController::class, 'dashgeneral'])->name('Dashboard-Proyectos');
+    Route::get('vistanteproyectosadmin', [ProjectController::class, 'viewanteprojectAdmin'])->name('viewanteprojectAdmin');
+    Route::get('/projectsdash', function () {
+        return view('management.project');
+    });
 
-            //Proteccion de rutas para el super admin
+    //Protección de rutas para el Administrador por división
+    Route::middleware(['auth', 'role:Administrador de División'])->group(function () {
+        //Ruta para exportar usuarios por division a Excel
+        Route::get('/export-usersDivision/excel', [AdminDivisionExportController::class, 'exportExcelD'])->name('export.usersDivision.excel');
+        Route::get('/export-usersDivision/pdf', [AdminDivisionExportController::class, 'exportPdfD'])->name('export.usersDivision.pdf');
+    });
+
+    //Proteccion de rutas para el super admin
     Route::middleware(['auth', 'role:Super Administrador'])->group(function () {
         // Ruta para exportar usuarios a PDF
         Route::get('/export-users/pdf', [AdminExportController::class, 'exportPdf'])->name('export.users.pdf');
@@ -223,6 +233,5 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/export-anteprojects/pdf', [AdminExportController::class, 'exportAnteprojectsPdf'])->name('export.anteprojects.pdf');
         // Ruta para exportar proyectos en Excel (si es necesario)
         Route::get('/export-anteprojects/excel', [AdminExportController::class, 'exportAnteprojectsExcel'])->name('export.anteprojects.excel');
-        });
+    });
 });
-

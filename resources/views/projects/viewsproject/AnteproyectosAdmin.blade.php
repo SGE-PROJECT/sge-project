@@ -102,9 +102,6 @@
 
                     </div>
                 </div>
-                <a href="{{ route('projects.show', $project->id) }}"><button type="submit"
-                        class="relative bg-teal-500 text-white px-4 py-2  mr-5 rounded hover:bg-teal-600 transition-colors h-10">Ver
-                        Anteproyecto</button></a>
             </div>
 
         </div>

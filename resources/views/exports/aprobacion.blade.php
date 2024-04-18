@@ -15,7 +15,7 @@
             width: 93%;
             border-collapse: collapse;
             text-align: center;
-            margin-top: 30px; 
+            margin-top: 15px; 
             }
 
         th,
