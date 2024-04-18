@@ -20,7 +20,7 @@
     </div>
 </form>
         <div class="flex justify-center items-center">
-            <h3 class="text-3xl font-bold mt-16 text-center text-gray-700">¡No se han encontrado proyectos</h3>
+            <h3 class="text-3xl font-bold mt-16 text-center text-gray-700">¡No se han encontrado proyectos!</h3>
         </div>
         <div class="flex justify-center items-center mt-4">
             <img class="w-48" src="Icons/graduacion.png" />
