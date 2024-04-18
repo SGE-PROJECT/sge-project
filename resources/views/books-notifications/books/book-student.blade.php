@@ -205,6 +205,24 @@
   font-size: 0.9rem;
   width: 75%;
 }
+.grid-book{
+  display: grid;
+  grid-template-columns:  1fr;
+
+}
+
+@media (min-width: 895px) {
+    .grid-book {
+        grid-template-columns: 340px 1fr;
+    }
+}
+
+@media (min-width: 1224px) {
+    .title-book-student {
+        margin-top: -3rem/* -48px */;
+    }
+}
+
 
 /* .notification .wrap .no-click {
    z-index: 10;
@@ -217,68 +235,94 @@
 <main class="flex justify-evenly pt-10 rounded font-poppins">
     @forelse ($book as $bk )
     
-    <div class=" w-[700px] h-auto img-book-student flex-wrap  rounded flex flex-col items-center pb-4">
+    <div class=" mx-10 h-auto img-book-student flex-wrap   rounded grid grid-cols-1 items-center">
 
-        <h1 class="  rounded-t w-full bg-gradient-to-r from-[#00ab84] to-[#00e7b1] h1-book-student  font-semibold flex items-center justify-center  mb-2 gap-2 text-white py-2 px-4 "><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" ><path fill="currentColor" d="M6.75 22q-1.125 0-1.937-.763T4 19.35V5.4q0-.95.588-1.7t1.537-.95L16 .8v16l-9.475 1.9q-.225.05-.375.238T6 19.35q0 .275.225.463T6.75 20H18V4h2v18zM7 16.575l2-.4V4.225l-2 .4z"/></svg> Libro<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M6.75 22q-1.125 0-1.937-.763T4 19.35V5.4q0-.95.588-1.7t1.537-.95L16 .8v16l-9.475 1.9q-.225.05-.375.238T6 19.35q0 .275.225.463T6.75 20H18V4h2v18zM7 16.575l2-.4V4.225l-2 .4z"/></svg></h1>
-        <div class=" bg-gray-200 p-2   flex flex-col items-center justify-center py-5  w-full  rounded">   
-            <h1 id="title-book-student" class="title-book-student text-clip mb-4 font-bold  text-balance text-center bg-gradient-to-r from-slate-600  to-slate-500 inline-block text-transparent bg-clip-text">{{$bk->title}}</h1>
-            <div class="   px-3 grid grid-cols-1 md:grid md:grid-cols-2  w-full   justify-center items-center content-center  ">
-                <div class=" book xl:min-h-[300px]  xl:min-w-[260px] max-w-[260px] hover:scale-[1.02] duration-300">
-                    <div class=" inf-book mt-3 flex flex-col pl-12 max-h-[260px] min-h-[260px] overflow-auto items-center">
+        <h1 class="  rounded-t w-full  bg-gradient-to-r from-[#00ab84] to-[#00e7b1] h1-book-student  font-semibold flex items-center justify-center  gap-2 text-white py-2 px-4 "><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" ><path fill="currentColor" d="M6.75 22q-1.125 0-1.937-.763T4 19.35V5.4q0-.95.588-1.7t1.537-.95L16 .8v16l-9.475 1.9q-.225.05-.375.238T6 19.35q0 .275.225.463T6.75 20H18V4h2v18zM7 16.575l2-.4V4.225l-2 .4z"/></svg> Libro<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M6.75 22q-1.125 0-1.937-.763T4 19.35V5.4q0-.95.588-1.7t1.537-.95L16 .8v16l-9.475 1.9q-.225.05-.375.238T6 19.35q0 .275.225.463T6.75 20H18V4h2v18zM7 16.575l2-.4V4.225l-2 .4z"/></svg></h1>
+        <div class=" bg-white p-2  h-full   grid grid-cols-1 items-start justify-center py-5  w-full  ">   
+            <div class=" grid-book   px-3    w-full   justify-center items-center content-start  ">
+              <div class="   h-full flex justify-center items-center">
 
-                        <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500   to-teal-500 inline-block text-transparent bg-clip-text">Descripción:</h1>
-                        <p class=" font-normal text-slate-700  ">{{$bk->description}}</p>
-                    </div>
-                    <div class="cover">
-                        <img  class="img-book-student  h-full w-full rounded"  src="{{$bk->image_book}}" alt="Imagen del libro">
-                    </div>
+                
+                <div class=" book xl:min-h-[480px]   xl:min-w-[260px] max-w-[260px]  duration-300">
+                  <div class=" inf-book mt-3 flex flex-col pl-12 max-h-[320px] min-h-[300px] overflow-auto items-center">
+                    
+                    <h1 class="subtitle-book font-semibold bg-gradient-to-r from-teal-500   to-teal-500 inline-block text-transparent bg-clip-text">Descripción:</h1>
+                    <p class=" font-normal text-slate-700  ">{{$bk->description}}</p>
+                  </div>
+                  <div class="cover">
+                    <img  class="img-book-student  h-full w-full rounded"  src="{{$bk->image_book}}" alt="Imagen del libro">
+                  </div>
                 </div>
-                <div class=" gap-1">
-                    <div class=" mb-2">
+                
+              </div>
+                  
+
+                <div class=" mt-0 ">
+            <h1 id="title-book-student" class="   title-book-student  text-clip mb-4 font-bold  text-balance text-center bg-gradient-to-r from-slate-600  to-slate-500 inline-block text-transparent bg-clip-text">{{$bk->title}}</h1>
+<div class=" grid grid-cols-2 gap-2 justify-items-center items-center  text-center">
+
+
+                    <div class=" ">
                         @if ($bookCollaborative->count()>1)     
-                        <h1 class="bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text subtitle-book mb-1">Colaboradores:</h1>
+                        <h1 class="bg-gradient-to-r from-teal-500 font-semibold  to-teal-500 inline-block text-transparent bg-clip-text subtitle-book mb-1">Colaboradores:</h1>
                         @foreach ($bookCollaborative as $bkcol )
                         <span class=" flex items-center mb-2 gap-1"><svg class=" text-slate-400" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m14.475 12l-7.35-7.35q-.375-.375-.363-.888t.388-.887q.375-.375.888-.375t.887.375l7.675 7.7q.3.3.45.675t.15.75q0 .375-.15.75t-.45.675l-7.7 7.7q-.375.375-.875.363T7.15 21.1q-.375-.375-.375-.888t.375-.887z"/></svg>
     
-                            <p class=" font-medium border-blue-500 bg-blue-400 text-white rounded-full p-[3px] px-2 border-[2px] ">{{$bkcol->name}}</p>   
+                            <p class=" font-medium  bg-blue-400 text-white rounded-full p-[3px] px-2  ">{{$bkcol->name}}</p>   
                         </span>
                         @endforeach
                         @else
-                        <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Colaborador:</h1>
+                        <h1 class="subtitle-book font-semibold bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Colaborador:</h1>
                         @foreach ($bookCollaborative as $bkcol )
                         <p class=" font-medium text-slate-700  ">{{$bkcol->name}}</p>   
                         @endforeach
                         @endif
                     </div>
                  
-                    <div class=" mt-3 flex flex-col">
+                    <div class="">
 
-                        <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Autor:</h1>
+                        <h1 class="subtitle-book font-semibold bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Autor:</h1>
                         <p class=" font-medium text-slate-700 ">{{$bk->author}}</p>
                     </div>
                     <div class=" mt-3 flex flex-col">
 
-                        <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Precio:</h1>
-                        <p class=" font-medium text-slate-700 ">{{$bk->price}}</p>
+                        <h1 class="subtitle-book font-semibold bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Precio:</h1>
+                        <p class=" font-medium text-slate-700 ">${{$bk->price}}</p>
                     </div>
                     <div class=" mt-3 flex flex-col">
 
-                        <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Editorial:</h1>
+                        <h1 class="subtitle-book  bg-gradient-to-r font-semibold from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Editorial:</h1>
                         <p class=" font-medium text-slate-700 ">{{$bk->editorial}}</p>
                     </div>
-                    @if ($bookComplete)
-                    <div class=" mt-3 flex flex-col">
+                    @if ($bk->state===1)
+                      
+                    <div class="  flex flex-col">
 
-                        <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Estado:</h1>
-                        <p class=" font-medium text-slate-700 ">Completado</p>
-                    </div> 
+                      <h1 class="subtitle-book font-semibold bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Estado:</h1>
+                      <p class=" font-medium text-slate-700 ">Finalizado</p>
+                  </div>
                     @else
-                    <div class=" mt-3 flex flex-col">
+                        
+                    <div class="  flex flex-col">
 
-                        <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Estado:</h1>
-                        <p class=" font-medium text-slate-700 ">Pendiente</p>
+                      <h1 class="subtitle-book font-semibold bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Estado:</h1>
+                      <p class=" font-medium text-slate-700 ">En proceso</p>
+                  </div>
+                      
+                    @endif
+                    @if ($bookComplete)
+           {{--          <div class=" mt-3 flex flex-col">
+
+                        <h1 class="subtitle-book font-medium bg-gradient-to-r from-teal-500  to-teal-500 inline-block text-transparent bg-clip-text">Situación:</h1>
+                        <p class=" font-medium text-slate-700 "></p>
+                    </div>  --}}
+                    @else
+                    <div class="  flex flex-col">
+                        <p class=" font-semibold text-orange-600 ">Proyecto no Confirmado</p>
                     </div>         
                     @endif
+                 
+                  </div>
 
                 </div>
             </div>
