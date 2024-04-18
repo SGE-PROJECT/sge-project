@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Projects extends Model
 {
     use HasFactory;
-    // Mencionar la tabla que esta administrando
+    
     protected $fillable = [
         'name',
         'status',
