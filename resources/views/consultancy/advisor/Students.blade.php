@@ -71,7 +71,21 @@
         </script>
         <header class="asesorias-opciones block md:flex">
             <h3 class="titulo">Tus asesorados:</h3>
-
+            <span class="w-full md:w-fit flex flex-wrap gap-3">
+                <a href="{{route('activities')}}" class="bg-[#00ab84] w-full md:w-fit text-white px-2 py-1 rounded transition-colors flex items-center justify-center">Actividades</a>
+                <a href="{{ route('exportarReporte', ['correo' => auth()->user()->email]) }}"
+                    onclick='() => {
+                        var formularios = document.querySelectorAll("form");
+                        formularios.forEach(function(formulario) {
+                            var botones = formulario.querySelectorAll("button");
+                            botones.forEach(function(boton) {
+                                boton.disabled = true;
+                            });
+                        });
+                    }'
+                    class="font-bold inline-block w-full md:w-fit h-[37px] text-center bg-[#4ea24e] text-white px-6 py-2 rounded hover:bg-[#389738] transition-colors">Generar
+                    reporte</a>
+            </span>
         </header>
         <aside class="proyectos" id="proyecto">
             @php
@@ -187,29 +201,7 @@
                                     <a tabindex="1"
                                         href={{ route('reporte', ['id' => auth()->user()->slug, 'alumno' => $student->user->slug]) }}>Calificar</a>
                                 </span>
-                                @php
-                                    $report = Report::where('correo_asesor', auth()->user()->email)
-                                        ->where('matricula', $student->registration_number)
-                                        ->get();
-                                @endphp
-                                @if (!$report->isEmpty())
-                                    <a href="{{ route('exportarReporte', ['correo' => auth()->user()->email, 'matricula' => $student->registration_number]) }}"
-                                        onclick='() => {
-                                            var formularios = document.querySelectorAll("form");
-                                            formularios.forEach(function(formulario) {
-                                                var botones = formulario.querySelectorAll("button");
-                                                botones.forEach(function(boton) {
-                                                    boton.disabled = true;
-                                                });
-                                            });
-                                        }'
-                                        class="font-bold inline-block w-full h-[37px] text-center bg-[#4ea24e] text-white px-6 py-2 rounded hover:bg-[#389738] transition-colors">Generar
-                                        reporte</a>
-                                @else
-                                <button
-                                    class="font-bold inline-block w-full h-[37px] text-center bg-gray-300 text-gray-500 px-6 py-2 rounded transition-colors">Generar
-                                    reporte</button>
-                                @endif
+
                             </div>
                         </div>
 

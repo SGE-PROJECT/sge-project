@@ -237,13 +237,13 @@
                             </li>
                 @endif
 
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección', 'Asesor Académico']))
-                    <li class="">
+                @if (Auth::check() && Auth::user()->hasAnyRole(['Presidente Académico', 'Asistente de Dirección']))
+                    {{-- <li class="">
 
                         <a href="/carreras/division"
                             class="transition duration-300 ease-in-out text-white text-sm flex items-center hover:bg-[#2F4050] p-1 rounded-md "><i
                                 class=' nf nf-fa-book_open_reader mr-3 text-lg'></i><span class="text-sm">Carreras</span></a>
-                    </li>
+                    </li> --}}
                 @else
                 @endif
             </ul>
@@ -617,10 +617,10 @@
 
             console.log('The connection status has changed:', navigator.onLine ? 'Online' : 'Offline');
           }
-      
+
           window.addEventListener('online', updateConnectionStatus);
           window.addEventListener('offline', updateConnectionStatus);
-      
+
           // Ejecutar inmediatamente al cargar
           updateConnectionStatus();
         });

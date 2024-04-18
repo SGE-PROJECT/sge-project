@@ -1,5 +1,4 @@
 <?php
-//importaciones de controladores
 use App\Http\Controllers\GroupController;
 use Spatie\Permission\Middlewares;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +48,8 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/recuperar-contraseña', [ForgotPasswordController::class, 'sendPassword'])->name('password.email');
 });
 
+
+
 //Comprueba que el usuario este loggeado
 Route::middleware(['auth'])->group(function () {
     //Redirije a la ruta segun su rol
@@ -97,11 +98,15 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/asesorias/{id}', [AdvisorySessionController::class, 'destroy'])->name('asesorias.destroy');
         // asesorados
         Route::get('/estudiante/{userId}', [StudentController::class, 'showProfile'])->name('profile.student');
+        Route::get('/actividades', [AdvisoryReportsController::class, 'activities'])->name('activities');
+        Route::post('/actividades', [AdvisoryReportsController::class, 'addActivitie'])->name('activitiesCreate');
+        Route::post('/actividadesEditar/{id}', [AdvisoryReportsController::class, 'editActivitie'])->name('activitiesEdit');
+        Route::post('/actividadesBorrar/{id}', [AdvisoryReportsController::class, 'deleteActivitie'])->name('activitiesDelete');
         Route::get('/asesorados/{id}', [AdvisoryReportsController::class, 'index'])->name('asesorados');
         Route::get('/asesorados/{id}/reporte/{alumno}', [AdvisoryReportsController::class, 'show'])->name('reporte');
         Route::post('/asesorados/{id}/reporte/{alumno}/generar', [AdvisoryReportsController::class, 'store'])->name('generarReporte');
         Route::put('/asesorados/sancionar/{id}', [AdvisoryReportsController::class, 'update'])->name('sancionar');
-        Route::get('/reporte/{correo}/exportar/{matricula}', [AdvisoryReportsController::class, 'exportToExcel'])->name('exportarReporte');
+        Route::get('/reporte/{correo}/exportar', [AdvisoryReportsController::class, 'exportToExcel'])->name('exportarReporte');
         //Proyectos
         Route::delete('/comentarios/{comment}', [ComentarioController::class, 'destroy'])->name('comentario.destroy');
         Route::post('/proyecto/{project}/comentario', [ComentarioController::class, 'store'])->name('comentario.store');
@@ -156,6 +161,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/vistaproyectos', [ProjectController::class, 'viewproject'])->name('viewproject');
         Route::get('/carreras/division', [ProgramController::class, 'divisionCarreras'])->name('division.carreras');
         Route::get('/empresas-afiliadas', [CompaniesController::class, 'showTable'])->name('empresas.showTable');
+        Route::get('search', [ProjectController::class, 'search'])->name('search.project');
+        Route::get('searchProject', [ProjectController::class, 'searchProject'])->name('searchProjects');
     });
     //Permisos unicamente para el director de division
     Route::get('/estudiantes-dash', [StudentDashController::class, 'studentsForDivision'])->middleware("can:studentsForDivision")->name('student-dash');

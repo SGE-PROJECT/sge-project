@@ -275,13 +275,22 @@ function mostrarTodosLosEventos(eventosFiltrados = null) {
 
             let celdaAccion = fila.insertCell();
             let divAcciones = document.createElement('div');
+            divAcciones.classList.add("flex")
             let botonEditar = document.createElement('button');
-            botonEditar.innerHTML = `<i class="nf nf-md-pencil hover:text-blue-500 evento"></i>`;
+            botonEditar.innerHTML = `<button href="" type="button"
+            class="bg-blue-500 mr-2 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
+            <i class='bx bx-edit-alt'></i>
+            Editar
+        </button>`;
             botonEditar.addEventListener('click', function () { editarEvento(evento.id, evento.fecha, evento.hora, evento.motivo); });
             divAcciones.appendChild(botonEditar);
 
             let botonEliminar = document.createElement('button');
-            botonEliminar.innerHTML = `<i class="nf nf-fa-trash hover:text-red-500 evento"></i>`;
+            botonEliminar.innerHTML = `<button type="button"
+            class=" bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
+            <i class='bx bx-trash'></i>
+            Eliminar
+        </button>`;
             botonEliminar.addEventListener('click', function () { eliminarEvento(evento.id); });
             divAcciones.appendChild(botonEliminar);
 
