@@ -122,6 +122,8 @@
                             <i class='nf nf-md-view_dashboard mr-3 text-lg'></i>
                             <span class="nav-text text-sm">Inicio</span>
                         </a>
+                        @elseif (Auth::check() && Auth::user()->hasAnyRole(['Asistente de Dirección']))
+
                     @else
                         <a href="/"
                             class="left-0 relative flex font-semibold items-center py-1 px-4 text-white hover:text-[#d0d3d4] rounded-md">
@@ -174,7 +176,7 @@
                 @endif
 
 
-                @if (Auth::check() && Auth::user()->hasAnyRole(['Estudiante']))
+                @if (Auth::check() && Auth::user()->hasAnyRole(['Estudiante','Asistente de Dirección']))
                 @else
                     <li class="mb-1 group relative z-2">
                         <a href=""
@@ -250,7 +252,7 @@
             </li>
             @endif
 
-            @if (Auth::check() && Auth::user()->hasAnyRole(['Administrador de División', 'Asesor Académico']))
+            @if (Auth::check() && Auth::user()->hasAnyRole(['Asesor Académico']))
                 <span class="text-[#fff] nav-text font-bold">EMPRESAS</span>
 
                 <li class="mb-1 group">
@@ -262,7 +264,7 @@
                 </li>
             @endif
 
-            <!-- EMPRESAS Section -->
+         {{--    <!-- EMPRESAS Section -->
             @if (Auth::check() && Auth::user()->hasAnyRole(['Asistente de Dirección']))
                 <span class="text-[#fff] nav-text font-bold">EMPRESAS</span>
                 <li class="mb-1 group">
@@ -272,7 +274,7 @@
                         <span class="nav-text text-sm">Empresas Afiliadas</span>
                     </a>
                 </li>
-            @endif
+            @endif --}}
 
             @if (Auth::check() && Auth::user()->hasAnyRole(['Estudiante']))
                 <!-- RECURSOS Section -->
