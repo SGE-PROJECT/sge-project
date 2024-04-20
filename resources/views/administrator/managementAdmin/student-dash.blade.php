@@ -36,7 +36,7 @@
         <!-- BOTÓN QUE DIRIGE AL CRUD -->
         <button type="submit"
             class="relative bg-teal-500 text-white px-4 py-2 ml-5 mr-5 rounded hover:bg-teal-600 transition-colors h-full"
-            onclick="window.location.href = '{{ route('student-dash') }}'">Ir a Agregar</button>
+            onclick="window.location.href = '{{ route('users.cruduser.create') }}'">Ir a Agregar</button>
 
 
         <!-- SE AÑADE EL BÚSCADOR -->

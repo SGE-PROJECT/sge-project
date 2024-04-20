@@ -5,10 +5,10 @@
 @endsection
 
 @section('contenido')
-    <div class="flex flex-col mt-10 justify-center items-center">
+    <div class="flex flex-col  justify-center items-center">
         <h1 class="text-2xl font-bold mb-4 uppercase">Gestión masiva de usuarios</h1>
-        <div class="-m-1.5 overflow-x-auto items-center">
-            <div class="px-1.5 flex justify-start w-full">
+        <div class="  items-center">
+            <div class=" flex justify-start w-full">
                 <a href="{{ route('users.exportCsv') }}"
                     class="mb-4 bg-[#03A696] text-white font-medium w-60 h-10 rounded-md flex justify-center items-center">Descargar
                     todos los usuarios</a>
@@ -47,8 +47,8 @@
 
             </div>
 
-            <div class="p-1.5 min-w-full inline-block align-middle">
-                <div class="border rounded-lg overflow-hidden border-gray-300 bg-white">
+            <div class=" mx-5 inline-block align-middle">
+                <div class="rounded-lg overflow-hidden border-gray-300 bg-white">
                     <table class="divide-y divide-gray-700">
                         <thead class="bg-gray-700">
                             <tr>
@@ -75,22 +75,22 @@
 
                             @foreach ($users as $index => $user)
                                 <tr class="{{ $index % 2 === 0 ? 'bg-white' : 'bg-gray-100' }}">
-                                    <td class="text-center px-6 py-4 whitespace-nowrap text-sm font-medium text-black">
+                                    <td class="text-center px-6 py-4 text-sm font-medium text-black">
                                         {{ $user->name }}
 
                                     </td>
-                                    <td class="text-center px-6 py-4 whitespace-nowrap text-sm text-black">
+                                    <td class="text-center px-6 py-4  text-sm text-black">
                                         {{ $user->email }}
 
                                     </td>
-                                    <td class="text-center px-6 py-4 whitespace-nowrap text-sm text-black">
+                                    <td class="text-center px-6 py-4 text-sm text-black">
                                         {{ $user->division_name ?? 'Sin división' }}
 
                                     </td>
-                                    <td class="text-center px-6 py-4 whitespace-nowrap text-sm text-black">
+                                    <td class="text-center px-6 py-4  text-sm text-black">
                                         {{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-bold">
+                                    <td class="px-6 py-4  text-end text-sm font-bold flex">
                                         <a href="{{ route('users.cruduser.edit', $user->id) }}" type="button"
                                             class="bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white px-4 py-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:pointer-events-none">
                                             <i class='bx bx-edit-alt'></i>
