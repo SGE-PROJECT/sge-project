@@ -222,8 +222,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/export-usersDivision/excel', [AdminDivisionExportController::class, 'exportExcelD'])->name('export.usersDivision.excel');
         Route::get('/export-usersDivision/pdf', [AdminDivisionExportController::class, 'exportPdfD'])->name('export.usersDivision.pdf');
 
-        // Ruta para exportar anteproyectos en PDF
+        // Ruta para exportar Estudiantes  en PDF
         Route::get('/export-students-pdf', [StudentDashController::class, 'exportStudentsPdf'])->name('students.export.pdf');
+
+        //Ruta para exportar Estudiantes en Excel
+        Route::get('/export-students-excel', [StudentDashController::class, 'exportStudentsExcel'])->name('students.export.excel');
+
     });
 
     //Proteccion de rutas para el super admin

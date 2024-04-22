@@ -78,24 +78,19 @@
                 <div class="p-2">
                     <strong class="block p-2 text-xs font-medium uppercase text-gray-400"> Opciones </strong>
                     <label for="Option1" id="option1" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                        </div>
                         <div>
-                            <strong class="font-medium text-gray-900"> 
-                                <a href="{{ route('students.export.pdf') }}">
+                            <a href="{{ route('students.export.pdf') }}">
+                            <strong class="ml-4 font-medium text-gray-900"> 
                                     PDF </strong>
+                                </a>
                         </div>
                     </label>
 
-                    <label for="Option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1">
-                        <div class="flex items-center">
-                            &#8203;
-                        </div>
-
+                    <label for="Option2" id="option2" class="flex cursor-pointer items-start gap-4 mb-1 ">
                         <div>
-                            <a href="{{ route('export.usersDivision.excel') }}">
-                                <strong class="font-medium text-gray-900"> Excel </strong>
+                            <a href="{{ route('students.export.excel') }}">
+                                <strong class="ml-4 font-medium text-gray-900"> Excel </strong>
+                            </a>
                         </div>
                     </label>
                 </div>

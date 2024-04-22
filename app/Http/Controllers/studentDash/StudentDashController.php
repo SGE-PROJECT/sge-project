@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\studentDash;
 
+use App\Exports\StudentsExport;
 use App\Http\Controllers\Controller;
 use App\Models\ManagmentAdmin;
 use App\Models\Student;
@@ -11,6 +12,7 @@ use App\Models\AcademicAdvisor; // Asumiendo que tienes un modelo para los aseso
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentDashController extends Controller
 {
@@ -102,5 +104,11 @@ class StudentDashController extends Controller
             return redirect()->back()->with('error', 'Acceso no autorizado. Solo para Administradores de División');
         }
     }
+
+    public function exportStudentsExcel()
+{
+    return (new StudentsExport)->download('lista_estudiantes.xlsx');
+}
+
 
 }
