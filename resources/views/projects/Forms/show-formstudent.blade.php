@@ -305,6 +305,8 @@
                 </div>
             </div>
         </div>
+        @if (!$project->is_project )
+
         <label class="block text-2xl text-center font-bold mb-8 mt-5 text-teal-800">Estado del Proyecto</label>
         <div class="rating mr-5 mt-4 ">
                 <!-- Mostrar el formulario solo si el usuario actual es un asesor relacionado con el proyecto -->
@@ -328,6 +330,7 @@
                     </div>
                 </form>
         </div>
+        @endif
         <div class="tooltip">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Personas que han dado like

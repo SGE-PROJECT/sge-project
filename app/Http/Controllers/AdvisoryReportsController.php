@@ -198,6 +198,7 @@ class AdvisoryReportsController extends Controller
             $actividades_final = array_values($actividades_final);
 
         if (!$reporte) {
+            $nombre_proyecto = isset($estudiante->student->projects[0]->name_project) ? $estudiante->student->projects[0]->name_project : 'Sin proyecto';
             $reporte = Report::create([
                 'matricula' => $matricula,
                 'nombre' => $estudiante->name,
@@ -221,7 +222,7 @@ class AdvisoryReportsController extends Controller
                 'gestion_empresarial3' => $estudiante->student->sanction_company > 2 ? true : false,
                 'nombre_asesor' => $asesor->name,
                 'correo_asesor' => $asesor->email,
-                'titulo_memoria' => $estudiante->student->projects[0]->name_project,
+                'titulo_memoria' => $nombre_proyecto,
                 'observaciones' => ''
             ]);
         }else {
