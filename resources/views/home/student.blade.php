@@ -83,6 +83,18 @@
                                                     $bgColor = 'bg-green';
                                                     $textColor = 'text-green';
                                                     break;
+                                                case 'En curso':
+                                                    $bgColor = 'bg-green';
+                                                    $textColor = 'text-green';
+                                                    break;
+                                                case 'Reprobado':
+                                                    $bgColor = 'bg-red';
+                                                    $textColor = 'text-red';
+                                                    break;
+                                                case 'Finalizado':
+                                                    $bgColor = 'bg-green';
+                                                    $textColor = 'text-green';
+                                                    break;
                                                 default:
                                                     $bgColor = 'bg-gray';
                                                     $textColor = 'text-gray';
@@ -184,12 +196,9 @@
                                 <div class="flex flex-col items-center pb-10">
                                     <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
                                         src={{ $AcademicAdvisor->User->photo }} alt="Bonnie image" />
-                                    <a href="{{ route('profile.adviser', ['id' => $AcademicAdvisor->user->id]) }}">
-                                        <h5 class="mb-1 text-xl font-semibold text-[#00ab84]">
-                                            {{ $AcademicAdvisor->user->name }}
-                                        </h5>
-                                    </a>
-
+                                    <h5 class="mb-1 text-xl font-semibold text-[#00ab84]">
+                                        {{ $AcademicAdvisor->user->name }}
+                                    </h5>
                                     <span class="text-lg text-gray-500">{{ $AcademicAdvisor->User->email }}</span>
                                     <div class="flex mt-4 md:mt-6">
 

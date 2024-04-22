@@ -8,6 +8,12 @@
 <div class="flex justify-center m-10">
 
     <div class="w-11/12">
+        <div class="relative w-full ">
+            <p
+                class="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-600 font-bold text-3xl uppercase">
+                GENERAR REPORTES
+            </p>
+        </div>
         <div class="bg-white rounded-lg overflow-hidden md:flex border-solid border-l-8 border-[#00ab84]">
             <div class="w-full">
                 <div class="p-4 md:p-5 bg-white">
@@ -54,21 +60,6 @@
             </div>
         </div>
 
-        <div class="mt-3 bg-white rounded-lg overflow-hidden md:flex border-solid border-l-8 border-gray-400">
-            <div class="w-full">
-                <div class="p-4 md:p-5 bg-white">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="font-bold text-xl">Ejemplo de cuando no esté disponible un formato</p>
-                            <div class="flex items-start">
-                                <span class="text-gray-700">No disponible</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
 
