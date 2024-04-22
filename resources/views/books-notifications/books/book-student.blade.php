@@ -244,7 +244,7 @@
 
                 
                 <div class=" book xl:min-h-[480px]   xl:min-w-[260px] max-w-[260px]  duration-300">
-                  <div class=" inf-book mt-3 flex flex-col pl-12 max-h-[320px] min-h-[300px] overflow-auto items-center">
+                  <div class=" inf-book mt-3 flex flex-col pl-12 max-h-[320px] min-h-[300px] min-w-[225px] overflow-auto items-center">
                     
                     <h1 class="subtitle-book font-semibold bg-gradient-to-r from-teal-500   to-teal-500 inline-block text-transparent bg-clip-text">Descripción:</h1>
                     <p class=" font-normal text-slate-700  ">{{$bk->description}}</p>

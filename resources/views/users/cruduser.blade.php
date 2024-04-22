@@ -5,18 +5,18 @@
 @endsection
 
 @section('contenido')
-    <div class="flex mt-10 ">
+    <div class="flex mt-4 ">
         <!-- Contenido Principal -->
         <div class="flex-1 mx-6">
-            <h1 class="text-2xl font-bold mb-2 uppercase">Usuarios</h1>
+            <h1 class="text-2xl font-bold mb-2 uppercase ml-4 mb-4">Usuarios</h1>
 
-            <div class="px-1.5 flex justify-start">
+            <div class="px-1.5 flex justify-start ml-3">
                 <a href="{{ route('users.cruduser.create') }}" class="mb-4 bg-[#03A696] text-white font-medium w-32 h-10 rounded-md flex justify-center items-center">Crear usuario</a>
                 <a href="{{ route('users.masiveadd.index') }}" class="ml-2 mb-4 bg-[#03A696] text-white font-medium w-72 h-10 rounded-md flex justify-center items-center">Crear usuarios masivamente</a>
             </div>
 
             <div class="max-w-full  flex ">
-                <table class="  ">
+                <table class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
                     <thead class="bg-gray-700">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">
