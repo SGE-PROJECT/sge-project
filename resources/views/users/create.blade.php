@@ -128,20 +128,6 @@
                         <option value="0" {{ old('isReEntry') == '0' ? 'selected' : '' }}>No</option>
                     </select>
                 </div>
-
-                <label for="academic_advisor_id" class="block text-gray-700 text-sm font-bold mb-2">Asesor
-                    Académico:</label>
-                <select name="academic_advisor_id" id="academic_advisor_id"
-                    class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="">Seleccione un Asesor Académico</option>
-                    @foreach ($academicAdvisors as $advisor)
-                        <option value="{{ $advisor->id }}"
-                            {{ old('academic_advisor_id') == $advisor->id ? 'selected' : '' }}>
-                            {{ $advisor->user->name }}
-                        </option>
-                    @endforeach
-                </select>
-
             </div>
 
             <!-- En caso de ser cualquier otro rol -->

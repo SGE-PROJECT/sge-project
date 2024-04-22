@@ -98,7 +98,7 @@
             <div id="companyFields" class="grid grid-cols-1 gap-4" style="display: none;">
                 <div class="relative group overflow-hidden rounded-lg bg-white  mt-0 mb-4">
                     <h2 class="text-xl font-semibold text-teal-800 mb-0">Nombre de la empresa:</h2>
-                    <input name="company_name" id="company_name" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg" placeholder="Ingresa el nombre de la empresa" type="text" value="{{ old('company_name') }}" />
+                    <input name="company_name" id="company_name" class="w-full border-2 bg-gray-100  border-gray-300 p-3 text-sm rounded-lg" placeholder="Ingresa el nombre de la empresa" type="text" value="{{ old('company_name') }}"  readonly onfocus="this.blur()"/>
                     <div class="text-red-400 font-bold text-lg">
                         @error('company_name')
                             {{ $message }}
@@ -107,7 +107,7 @@
                 </div>
                 <div  class="relative group overflow-hidden rounded-lg bg-white mt-0 mb-4">
                     <h2 class="text-xl font-semibold text-teal-800 mb-0">Dirección de la Empresa:</h2>
-                    <input name="company_address" id="company_address" class="w-full border-2 border-gray-300 p-3 text-sm rounded-lg" placeholder="Ingresa la dirección de la empresa" type="text" value="{{ old('company_address') }}" />
+                    <input name="company_address" id="company_address" class="w-full border-2 bg-gray-100 border-gray-300 p-3 text-sm rounded-lg" placeholder="Ingresa la dirección de la empresa" type="text" value="{{ old('company_address') }}" readonly onfocus="this.blur()" />
                     <div class="text-red-400 font-bold text-lg">
                         @error('company_address')
                             {{ $message }}
