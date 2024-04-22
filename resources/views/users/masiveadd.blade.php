@@ -8,29 +8,69 @@
     <div class="flex flex-col mt-10 justify-center items-center">
         <h1 class="text-2xl font-bold mb-4 uppercase">Gestión masiva de usuarios</h1>
         <div class="-m-1.5 overflow-x-auto items-center">
-            <div class="px-1.5 flex justify-start w-full">
-                <a href="{{ route('users.exportCsv') }}"
-                    class="mb-4 bg-[#03A696] text-white font-medium w-60 h-10 rounded-md flex justify-center items-center">Descargar
-                    todos los usuarios</a>
-                <a href="{{ route('users.exportTemplate') }}"
-                    class="ml-2 mb-4 bg-[#03A696] text-white font-medium w-60 h-10 rounded-md flex justify-center items-center">Descargar
-                    plantilla estudiantes</a>
-                <a href="{{ route('users.exportTemplateUsers') }}"
-                    class="ml-2 mb-4 bg-[#03A696] text-white font-medium w-60 h-10 rounded-md flex justify-center items-center">Descargar
-                    plantilla usuarios</a>
+        <div class="px-1.5 flex justify-start w-full">
 
-
-                <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data" class="flex">
+            <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data" class="flex">
                     @csrf
                     <label for="user_file"
-                        class="ml-2 mb-4 bg-[#03A696] text-white font-medium w-60 h-10 rounded-md flex justify-center items-center"
+                        class="ml-2 mb-4 bg-[#03A696] text-white font-medium w-60 h-10 rounded-md flex justify-center items-center cursor-pointer"
                         id="subir">Subir excel de usuarios</label>
                     <input type="file" class="hidden" id="user_file" name="file" required>
                     <button type="submit"
                         class="ml-2 mb-4 bg-[#03A696] text-white font-medium px-2 h-10 rounded-md hidden justify-center items-center"
                         id="importar">Importar
                         Usuarios: </button>
-                </form>
+            </form>
+
+            <!-- Formulario de Selección -->
+            <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data" class="flex">
+                    @csrf
+                    <div class="relative flex ml-4 mr-40">
+                        <div class="absolute">
+                            <details class="overflow-hidden rounded border border-gray-200 [&_summary::-webkit-details-marker]:hidden w-full max-w-md">
+                                <summary class="flex cursor-pointer items-center justify-between gap-2 bg-white py-2.5 px-6 text-gray-900 transition">
+                                    <span class="text-sm font-medium ml-auto mr-2">Seleccionar</span>
+                                    <span class="transition group-open:-rotate-180">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        </svg>
+                                    </span>
+                                </summary>
+
+                                <div class="border-t border-gray-100 bg-white">
+                                    <header class="flex items-center justify-between p-2">
+                                        <span class="text-sm text-gray-700">Descargar</span>
+                                    </header>
+
+                                    <ul class="divide-y divide-gray-200">
+                                        <li>
+                                            <a href="{{ route('users.exportCsv')}}" class="block py-3 px-4 text-sm text-gray-900 hover:bg-gray-100 transition duration-200">Todos Los Usuarios</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('users.exportTemplate')}}" class="block py-3 px-4 text-sm text-gray-900 hover:bg-gray-100 transition duration-200">Solo los Estudiantes</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('users.exportTemplateUsers')}}" class="block py-3 px-4 text-sm text-gray-900 hover:bg-gray-100 transition duration-200">Solo los Usuarios</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+            </form>
+
+             <!-- Formulario de búsqueda -->
+             <div class="flex items-center ml-auto">
+                    <span class="flex">
+                        <input id="searchInput" class="search_divisions px-3 outline-none border-l-5" type="text" placeholder="Buscar...">
+                        <button id="searchButton" class="search-btn" onclick="searchTable()">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                        </button>
+                    </span>
+                 </div>
+                  
                 <script>
                     document.getElementById('user_file').addEventListener('change', function() {
                         if (this.files.length > 0) {
@@ -43,13 +83,35 @@
                     });
                 </script>
 
+        <script>
+            function searchTable() {
+                // Obtener el valor del input de búsqueda
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("searchInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("dataTable");
+                tr = table.getElementsByTagName("tr");
 
+                // Iterar sobre todas las filas y ocultar las que no coincidan con la búsqueda
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
 
             </div>
 
             <div class="p-1.5 min-w-full inline-block align-middle">
                 <div class="border rounded-lg overflow-hidden border-gray-300 bg-white">
-                    <table class="divide-y divide-gray-700">
+                    <table class="divide-y divide-gray-700" id="dataTable">
                         <thead class="bg-gray-700">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">
@@ -258,4 +320,4 @@
     </div>
 </div>
 
-@endsection
+@endsection --}}

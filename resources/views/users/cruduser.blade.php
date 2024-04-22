@@ -6,23 +6,35 @@
 
 
 @section('contenido')
+<div class="container max-w-screen-lg mx-auto px-4 lg:px-0">
     <div class="flex flex-col mt-10 justify-center items-center">
         <h1 class="text-2xl font-bold mb-2 uppercase">Usuarios</h1>
 
-        <div class="-m-1.5 overflow-x-auto items-center">
+        <div class="-m-1.5 overflow-auto items-center">
             <div class="px-1.5 flex justify-start w-full">
                 <a href="{{ route('users.cruduser.create') }}"
                     class="mb-4 bg-[#03A696] text-white font-medium w-32 h-10 rounded-md flex justify-center items-center">Crear
                     usuario</a>
                 <a href="{{ route('users.masiveadd.index') }}"
-                    class="ml-2 mb-4 bg-[#03A696] text-white font-medium w-72 h-10 rounded-md flex justify-center items-center">Crear
+                    class="ml-2 mb-4 bg-[#03A696] text-white font-medium w-60 h-10 rounded-md flex justify-center items-center">Crear
                     usuarios masivamente</a>
+            
+                <!-- Formulario de búsqueda -->
+                <div class="flex items-center ml-auto">
+                    <span class="flex">
+                        <input id="searchInput" class="search_divisions px-3 outline-none border-l-5" type="text" placeholder="Buscar...">
+                        <button id="searchButton" class="search-btn" onclick="searchTable()">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                        </button>
+                    </span>
+                 </div>
+        </div>
 
-            </div>
-
-            <div class="p-1.5 min-w-full inline-block align-middle">
-                <div class="border rounded-lg overflow-hidden border-gray-300 bg-white">
-                    <table class="divide-y divide-gray-700">
+            <div class="p-1.5 min-w-full inline-block align-middle overflow-x-auto">
+                <div class="border rounded-lg overflow-auto border-gray-300 bg-white">
+                    <table class="divide-y divide-gray-700" id="dataTable">
                         <thead class="bg-gray-700">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">
@@ -44,7 +56,6 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-300">
-
 
                             @foreach ($users as $index => $user)
                                 <tr class="{{ $index % 2 === 0 ? 'bg-white' : 'bg-gray-100' }}">
@@ -80,23 +91,44 @@
                                                 <i class='bx bx-trash'></i>
                                                 Eliminar
                                             </button>
-
                                         </form>
-
-
-
-
-
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    
                 </div>
-            </div>
+            </div>   
         </div>
     </div>
-@vite('resources/css/users/cruduser.css')
+</div>
+    <script>
+    function searchTable() {
+        // Obtener el valor del input de búsqueda
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Iterar sobre todas las filas y ocultar las que no coincidan con la búsqueda
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+    
+
+{{-- @vite('resources/css/users/cruduser.css')
 
 <h1 class="fondo text-center font-bold pt-10 pb-12">Lista de Usuarios</h1>
 
@@ -198,4 +230,5 @@
     }
 </script>
 
+@endsection --}}
 @endsection
