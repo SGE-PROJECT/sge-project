@@ -4,7 +4,7 @@
 @section('titulo', 'Proyectos por división')
 
 @section('contenido')
-    <h2 class="text-3xl font-bold sm:text-4xl mt-4 text-center ">LISTA DE ANTEPROYECTOS</h2>
+    <h2 class="text-3xl font-bold sm:text-4xl mt-4 text-center ">LISTA DE PROYECTOS</h2>
     @foreach ($Projects as $project)
         @php
             $commentCount = $project->comments()->count();
