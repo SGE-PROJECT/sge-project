@@ -82,7 +82,8 @@
                             &#8203;
                         </div>
                         <div>
-                            <strong class="font-medium text-gray-900"> <a href="{{ route('export.usersDivision.pdf') }}">
+                            <strong class="font-medium text-gray-900"> 
+                                <a href="{{ route('students.export.pdf') }}">
                                     PDF </strong>
                         </div>
                     </label>
