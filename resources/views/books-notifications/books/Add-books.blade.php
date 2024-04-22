@@ -56,79 +56,79 @@
                     }
                     </style>
 
-        <div class="container-add-books">
-            <div class="container-title-books">
+        <div class="  mx-5 mt-5 rounded-t">
+            <div class=" ">
                 <!-- <h1 class="title-books">Agrega tu libro</h1> -->
-                <h1 class="text-3xl font-bold text-teal-600">Agrega tu libro</h1>
-
-                <a class="a-container-return" href="{{ route('libro-student') }}">
-                    <button id="button-return-books" type="submit"
-                        class=" bg-teal-500 text-white px-6 py-2  hover:bg-teal-600 transition-colors">
-                        <svg id="svg-add-books" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                        </svg>
-                    </button>
-                </a>
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-[#00ab84] to-[#00e7b1] text-white p-[12px] rounded-t">Agrega tu libro</h1>
 
             </div>
 
-            <div class="container-form-books">
-                <h2 class="font-bold text-2xl subtitle-books">Por favor rellena los campos solicitados</h2>
-                <form id="formichido"   action="{{ route('crear.libro.estudiante') }}" method="POST" enctype="multipart/form-data">
+            <div class=" bg-white rounded-b">
+                <h2 class="font-medium mb-2 pt-[6px] text-slate-700 text-1xl pl-[12px] ">Por favor rellena los campos solicitados</h2>
+                <form id="formichido"  class=" pl-[12px] "  action="{{ route('crear.libro.estudiante') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="container-inputs">
-                        <div class="inputs-group-1">
-                            <div class="container-label-input">
-                                <!-- <label class="labels-add-books" for="name-client">Nombre completo:</label> -->
-                                <label class="block text-sm font-medium text-gray-700" for="title">Título</label>
-                                <input class="inputs-add-books bg-gray-100" type="text"  name="title" id="title" required
-                                    placeholder="Ingresa el titulo">
-                            </div>
+                    <div class="">
+                        <div class="">
+                            <div class=" grid-cols-2 grid gap-2 ">
 
-                            <div class="container-label-input">
-                                <label class="block text-sm font-medium text-gray-700" for="descripción">Descripción</label>
-                                <textarea  name="description" id="description" cols="30" rows="10" class="inputs-add-books bg-gray-100" required></textarea>
+                                <div class=" w-full">
+                                    <!-- <label class="labels-add-books" for="name-client">Nombre completo:</label> -->
+                                    <label class="block text-sm font-medium text-gray-700 pb-1" for="title">Título</label>
+                                <input class=" p-2 rounded w-full  bg-gray-100" type="text"  name="title" id="title" required
+                                    placeholder="Ingresa el titulo">
+                                </div>
+                                <div class=" w-full pr-[12px]">
+                                    <label class="block text-sm font-medium text-gray-700 pb-1" for="author">Autor</label>
+                                    <input class=" p-2 w-full rounded bg-gray-100"   type="text" name="author" id="author" required
+                                        placeholder="Ingresa el nombre del autor del libro">
+                                </div>
+                                
+                            </div>
+                                <div class="  pr-[12px]">
+                                <label class="block text-sm font-medium text-gray-700 pb-1 pt-1" for="descripción">Descripción</label>
+                                <textarea  name="description" id="description" cols="30" rows="10" class=" min-h-[130px]  bg-gray-100 p-2 w-full rounded" required></textarea>
                             </div>
                             @error('description')
                             <p class="text-red-500">{{ $message }}</p>
                         @enderror
 
-                            <div class="container-label-input">
-                                <label class="block text-sm font-medium text-gray-700" for="author">Autor</label>
-                                <input class="inputs-add-books bg-gray-100"   type="text" name="author" id="author" required
-                                    placeholder="Ingresa el nombre del autor del libro">
+                          
+                        </div>
+
+                        <div class="">
+                            <div class="grid-cols-2 grid gap-2 ">
+                                
+                                <div class="">
+                                    <label class="block text-sm font-medium text-gray-700 pb-1" for="editorial">Editorial</label>
+                                    <input class="p-2 w-full rounded bg-gray-100"  type="text" name="editorial" id="editorial" required
+                                    placeholder="Ingresa la editorial">
+                                </div>
+                                
+                                <div class="pr-[12px]">
+                                    <label class="block text-sm font-medium text-gray-700 pb-1" for="year_published">Año de publicación</label>
+                                    <input class="p-2 w-full rounded bg-gray-100" min=0 type="number" name="year_published" id="year_published" required
+                                    placeholder="Ingresa el año de publicación">
+                                </div>
+                                
+                            </div>
+                            <div class="grid-cols-2 grid gap-2 mt-1 ">
+
+                       
+                            <div class="">
+                                <label class="block text-sm font-medium text-gray-700 pb-1" for="price">Precio</label>
+                                <input class="p-2 w-full rounded bg-gray-100" min=0 type="number" name="price" id="price-books-add" required>
+                            </div>
+                            <div class="pr-[12px]">
+                                <div class="">
+                                    <label class="block text-sm font-medium text-gray-700 pb-1" for="search">Buscar Estudiante</label>
+                                    <input class="p-2 w-full rounded bg-gray-100" type="text" id="search" placeholder="Escribe para buscar...">
+                                </div>
                             </div>
                         </div>
 
-                        <div class="inputs-group-2">
-                            <div class="container-label-input">
-                                <label class="block text-sm font-medium text-gray-700" for="editorial">Editorial</label>
-                                <input class="inputs-add-books bg-gray-100"  type="text" name="editorial" id="editorial" required
-                                    placeholder="Ingresa tu matrícula">
-                            </div>
-
-                            <div class="container-label-input">
-                                <label class="block text-sm font-medium text-gray-700" for="year_published">Año de publicación</label>
-                                <input class="inputs-add-books bg-gray-100" min=0 type="number" name="year_published" id="year_published" required
-                                    placeholder="Ingresa la edición del libro">
-                            </div>
-
-                            <div class="container-label-input">
-                                <label class="block text-sm font-medium text-gray-700" for="price">Precio</label>
-                                <input class="inputs-add-books bg-gray-100" min=0 type="number" name="price" id="price-books-add" required>
-                            </div>
-                            <div class="container-ticket-add-books">
-                                <div class="ticket-add-books">
-                                    <label class="block text-sm font-medium text-gray-700" for="search">Buscar Estudiante</label>
-                                    <input class="inputs-add-books bg-gray-100" type="text" id="search" placeholder="Escribe para buscar...">
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="student" class="block text-sm font-medium text-gray-700">Estudiantes</label>
-                                <ul  name="student" id="student" class="mt-1 p-2 border border-gray-300 rounded-md w-full text-black bg-white overflow-y-auto max-h-[150px] overscroll-none" required>
+                            <div class="mb-4 mt-2 pr-[12px]">
+                                <label for="student" class="block text-sm font-medium text-gray-700 pb-1">Estudiantes</label>
+                                <ul  name="student" id="student" class=" mt-1 p-2 border border-gray-300 rounded-md w-full text-black bg-white overflow-y-auto max-h-[150px] overscroll-none" required>
                                     <span>Seleccionar Estudiante</span>
                                     @foreach($studentsWithoutBook as $studentNoBook)
                                         <li id="{{ $studentNoBook->id }}" class="p-1 cursor-pointer mb-2 hover:text-white hover:bg-slate-400 studentssel" >{{ $studentNoBook->user_name." - ".$studentNoBook->registration_number }}</li>
@@ -139,7 +139,7 @@
                                 @enderror
                             </div>
                             <div class="mb-4">
-                                <label for="selected_students" class="block text-sm font-medium text-gray-700">Estudiantes Seleccionados</label>
+                                <label for="selected_students" class="block text-sm font-medium text-gray-700 pb-1 ">Estudiantes Seleccionados</label>
                                 <ul class=" bg-white" id="selectedStudentsList"></ul>
                             </div>
 
@@ -156,14 +156,22 @@
                     </div>
 
 
-                    <div class="button-add-books">
-                        <!--<button
-                                                                                            class="bg-black hover:bg-teal-800 text-white font-bold py-3 px-6 rounded-md shadow-lg hover:text-white hover:shadow-green-900 transform transition-all duration-500 ease-in-out hover:scale-110 hover:brightness-110 active:animate-bounce">
-                                                                                            Enviar
-                                                                                        </button>-->
-                                                                                        <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-md button-books">Crear Libro</button>
-                    </div>
+                    <div class="     flex justify-evenly">
 
+                        <div class="button-add-books">
+                            <a class="" href="{{ route('libro-student') }}">
+                                <button id="" type="submit"
+                                    class=" bg-teal-500 text-white px-4 py-2  rounded-md hover:bg-teal-600 transition-colors">
+                                   Regresar
+                                </button>
+                            </a>
+
+                        </div>
+                        <div class="button-add-books">
+                            <button type="submit" class="   bg-teal-500 text-white px-4 py-2 rounded-md button-books  hover:bg-teal-600">Crear Libro</button>
+                        </div>
+                        
+                    </div>
 
                 </form>
             </div>
