@@ -5,10 +5,10 @@
 @endsection
 
 @section('contenido')
-    <div class="flex flex-col  justify-center items-center">
-        <h1 class="text-2xl font-bold mb-4 uppercase">Gestión masiva de usuarios</h1>
-        <div class="  items-center">
-            <div class=" flex justify-start w-full">
+    <div class="flex flex-col  justify-center">
+        <h1 class="text-2xl font-bold mb-4 uppercase ml-10 mt-3">Gestión masiva de usuarios</h1>
+        <div class="">
+            <div class=" flex justify-start w-full ml-10">
                 <a href="{{ route('users.exportCsv') }}"
                     class="mb-4 bg-[#03A696] text-white font-medium w-60 h-10 rounded-md flex justify-center items-center">Descargar
                     todos los usuarios</a>
@@ -44,12 +44,14 @@
                 </script>
 
 
-
+</div>
+</div>
+</div>
             </div>
 
-            <div class=" mx-5 inline-block align-middle">
-                <div class="rounded-lg overflow-hidden border-gray-300 bg-white">
-                    <table class="divide-y divide-gray-700">
+            <div class="">
+                <div class="ml-5 ">
+                    <table class="border rounded-lg overflow-hidden border-gray-300 divide-gray-700 project-table ">
                         <thead class="bg-gray-700">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-white uppercase">
